@@ -78,6 +78,8 @@ export function decodeDeal(s: string): Card[][] {
 export interface ReviewItem {
   id: string; // `${board id}:${b|c}:${index}`
   kind: 'bid' | 'card';
+  /** Where the mistake was made: a board at the table (default) or a drill in the Learn room. */
+  source?: 'drill';
   skill: SkillId;
   board: number;
   dealer: Seat;

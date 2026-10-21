@@ -328,7 +328,7 @@ function reviewTab(act: TrainingActions): HTMLElement {
   return h('div', null,
     h('div', { class: 'small muted', style: 'display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px' },
       h('span', null, skillName(item.skill)),
-      h('span', null, T.practice.itemFrom(fmtDate(item.created), item.board)),
+      h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
       h('span', null, T.practice.itemBox(box, LAST_BOX)),
       h('span', null, T.practice.dueLeft(dueItems(all).length)),
       state.session.done ? h('span', null, T.practice.sessionScore(state.session.right, state.session.done)) : null),

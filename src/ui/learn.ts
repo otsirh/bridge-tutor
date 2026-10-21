@@ -9,7 +9,8 @@ import { openingLeadChoices, type LeadChoice } from '../engine/leads';
 import { ddCardValues } from '../engine/playEngine';
 import { makePlan, type Plan } from '../tutor/planner';
 import { getLessons, getGlossary, type Lesson } from '../learn/lessons';
-import { loadLessonProgress, updateLessonProgress } from '../game/journal';
+import { loadLessonProgress, updateLessonProgress, addItems, encodeDeal } from '../game/journal';
+import { bidSkill } from '../game/skills';
 import { LESSON_THEMES } from '../game/themes';
 import { T } from '../i18n';
 import { h, suitText, colorSuitsIn } from './dom';
@@ -147,6 +148,7 @@ function lessonView(l: Lesson, act: LearnActions): HTMLElement {
 // drills
 
 interface BidDrill {
+  board: number;
   deal: Card[][];
   auction: Auction;
   vul: ReturnType<typeof boardVulnerability>;
@@ -196,11 +198,11 @@ function newBidDrill(): BidDrill {
       const interesting = adv.call !== PASS || (au.calls.some(c => c >= 3) && want < 0.25);
       return interesting && (southTurns > 1 || want < 0.7);
     });
-    if (!a.isComplete() && a.nextSeat === S) return { deal, auction: a, vul, answer: null, advice: advise(deal[S], readAuction(a, vul).ctx) };
+    if (!a.isComplete() && a.nextSeat === S) return { board, deal, auction: a, vul, answer: null, advice: advise(deal[S], readAuction(a, vul).ctx) };
   }
   const deal = dealCards(rnd);
   const a = new Auction(S);
-  return { deal, auction: a, vul: 'None', answer: null, advice: advise(deal[S], readAuction(a, 'None').ctx) };
+  return { board: 1, deal, auction: a, vul: 'None', answer: null, advice: advise(deal[S], readAuction(a, 'None').ctx) };
 }
 
 function newLeadDrill(): LeadDrill {
@@ -277,6 +279,15 @@ function bidDrillView(act: LearnActions): HTMLElement {
     const sc = drills.score.bid;
     sc[1]++;
     if (c === d.advice.call) sc[0]++;
+    else if (!d.advice.rule?.generic) {
+      // a miss comes back in the Training room's review queue
+      const now = Date.now();
+      addItems([{
+        id: `drill:${now}`, kind: 'bid', source: 'drill', skill: bidSkill(d.auction.dealer, d.auction.calls, d.advice.call, d.advice.rule?.tag),
+        board: d.board, dealer: d.auction.dealer, vul: d.vul, deal: encodeDeal(d.deal), calls: [...d.auction.calls], seat: S,
+        answer: [d.advice.call], yours: c, created: now, box: 0, due: now, tries: 0, right: 0,
+      }]);
+    }
     act.rerender();
   }
   let fb: HTMLElement | null = null;
