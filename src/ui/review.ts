@@ -188,7 +188,6 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
   const p = new PlayState(rv.contract, g.deal);
   const rows: HTMLElement[] = [];
   const handsAt: Card[][][] = [];
-  let idx = 0;
   const byTrick = new Map<number, { e: (typeof g.cards)[number]; i: number }[]>();
   g.cards.forEach((e, i) => {
     if (!byTrick.has(e.trick)) byTrick.set(e.trick, []);
@@ -208,7 +207,6 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
         return h('span', { class: `tc ${e.human ? 'you' : ''} ${trick.winner === e.seat ? 'won' : ''}`, title: e.signal ? describeSignal(e.signal) : undefined }, h('span', { class: 'who' }, SEAT_LETTERS[e.seat]), cardText(e.card), e.signal ? h('span', { class: 'sig', 'aria-label': describeSignal(e.signal) }, '•') : null, c > 0 ? h('span', { class: 'cost', title: t.costTitle }, `−${c}`) : null);
       }),
       h('span', { class: 'costcol small muted' }, cost > 0 ? t.youCost(cost) : '')));
-    idx++;
   }
   let detail: HTMLElement | null = null;
   if (ui.reviewTrick !== null && handsAt[ui.reviewTrick]) {

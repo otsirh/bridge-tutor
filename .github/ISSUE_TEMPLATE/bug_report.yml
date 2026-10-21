@@ -1,0 +1,31 @@
+name: Bug report
+description: Something doesn't work, or the tutor or a bot is wrong
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: input
+    id: deal
+    attributes:
+      label: The deal
+      description: In the hand review, use "Copy code" (or "Copy PBN") and paste it here, so the deal can be replayed exactly.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [Bidding (bots or tutor advice), Card play (bots or tutor advice), Review or Training room, Lessons or drills, Language or translation, Layout or other]
+  - type: input
+    id: env
+    attributes:
+      label: Browser and device
+      placeholder: e.g. Chrome 130 on Android, Safari on iPhone, Firefox on Windows
+  - type: dropdown
+    id: lang
+    attributes:
+      label: Language
+      options: [English, Български]

@@ -11,10 +11,12 @@ import {
   openerRebidOneSuit, openerAfterNT, responderAfterNTConvention, openerAfterNTContinuation,
   openerAfter2C, openerAfterFeatureAsk, responderAfterInvite,
 } from './rebids';
-import { overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise } from './competitive';
+import {
+  overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise, openerReopening, afterReopeningDouble, openerAfterRedouble, doublerAfterRedouble,
+} from './competitive';
 import { conventionReplies, blackwoodTrump } from './slam';
 import { getSystem } from './config';
-import { genericRules } from './generic';
+import { genericRules, slamRules, afterMinorSlamTry } from './generic';
 import {
   slamTryRules, afterDruryReply, newMinorForcing, nmfReplies, afterNmfReply, fourthSuitForcing, fsfReplies, naturalSuitBid,
 } from './conventions';
@@ -50,6 +52,8 @@ function specificRules(x: Ctx): Rule[] {
     const myCallsSinceOpening = x.callsBy(x.seat).filter(r => r.index > op.index).length;
     const followUp = slamTryRules(x) ?? afterNmfReply(x);
     if (followUp) return followUp;
+    if (pc && rhoQuiet && pc.meaning.tag === 'reopenX' && op.seat === x.partner) return afterReopeningDouble(x, pc);
+    if (pc && rhoQuiet && pc.meaning.tag === 'minorTry') return afterMinorSlamTry(x, pc.meaning.data!.suit);
     if (op.seat === x.partner && myActs.length === 0 && myCallsSinceOpening === 0) {
       if (!interfered) {
         if (op.meaning.tag === 'strong2c') return responsesTo2C(x);
@@ -81,8 +85,9 @@ function specificRules(x: Ctx): Rule[] {
     }
     if (op.seat === x.seat && myActs.length === 1) {
       const resp = pActs[0];
-      if (!resp) return [];
+      if (!resp) return openerReopening(x);
       if (resp.meaning.tag === 'negX') return openerAfterNegDouble(x, resp, op);
+      if (resp.meaning.tag === 'redouble' && rhoQuiet) return openerAfterRedouble(x, op);
       if (!rhoQuiet && !interfered) return [];
       if (op.meaning.tag === 'strong2c') return openerAfter2C(x, resp);
       if (op.meaning.tag === 'weak2' && resp.meaning.tag === 'featureAsk') return openerAfterFeatureAsk(x, os);
@@ -119,7 +124,32 @@ function specificRules(x: Ctx): Rule[] {
   if (myActs.length === 1 && myActs[0].meaning.tag === 'takeoutX' && pActs.length === 1 && pActs[0].index > myActs[0].index && x.partnerCall()?.index === pActs[0].index) {
     return doublerRebid(x, pActs[0]);
   }
+  // our takeout double was redoubled and partner passed: the doubler must pick a suit
+  if (myActs.length === 1 && myActs[0].meaning.tag === 'takeoutX' && pActs.length === 0 && x.auction.doubleStatus() === 2 && rhoQuiet) {
+    return doublerAfterRedouble(x);
+  }
   return [];
+}
+
+/** A natural game contract (not a slam). */
+const naturalGame = (r: Rule) => {
+  if (r.artificial || !isBid(r.call)) return false;
+  const l = levelOf(r.call), s = strainOf(r.call);
+  return l < 6 && ((s === NT && l >= 3) || (s >= HEARTS && s < NT && l >= 4) || l >= 5);
+};
+
+/**
+ * Should the slam decisions of general judgment come before the specific
+ * rules? When the system's own answer here is to sign off in game, with no
+ * slam call of its own, and partner's last call was natural (or a raise),
+ * a hand with slam values asks for key cards or tries for slam instead.
+ */
+function slamBeforeSignOff(x: Ctx, specific: Rule[]): boolean {
+  if (!x.actionsBy(x.seat).length) return false; // a first response has its own slam bids
+  if (!specific.some(naturalGame) || specific.some(r => isBid(r.call) && (levelOf(r.call) >= 6 || r.call === bid(4, NT)))) return false;
+  const pc = x.partnerCall(), rc = x.rhoCall();
+  if (!pc || !isBid(pc.call) || (rc && rc.call !== PASS)) return false;
+  return !pc.meaning.artificial || pc.meaning.tag === 'drury' || pc.meaning.tag === 'cueRaise';
 }
 
 /** All rules for the seat to call, specific system rules first, then general judgment. */
@@ -128,7 +158,9 @@ export function rulesFor(x: Ctx): Rule[] {
   if (conv) return conv;
   if (!x.opening()) return openingRules(x);
   const legal = (r: Rule) => x.isLegal(r.call);
-  return [...specificRules(x).filter(legal), ...genericRules(x).filter(legal)];
+  const specific = specificRules(x).filter(legal);
+  if (slamBeforeSignOff(x, specific)) return [...slamRules(x).filter(legal), ...specific, ...genericRules(x, true).filter(legal)];
+  return [...specific, ...genericRules(x).filter(legal)];
 }
 
 // ---------------------------------------------------------------------------

@@ -1,53 +1,59 @@
 # Bridge Tutor
 
-Contract bridge against three bots, with a tutor you can switch on at any moment, and a training
-loop built around your own mistakes. Available in **English** and **Bulgarian** (Български) —
-switch at any time, even in the middle of a hand.
+[![CI](https://github.com/otsirh/bridge-tutor/actions/workflows/ci.yml/badge.svg)](https://github.com/otsirh/bridge-tutor/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+**Play contract bridge against three bots, with a tutor that explains every bid and card — and a
+training loop built around your own mistakes.** In English and Bulgarian (Български); switch at any
+time, even in the middle of a hand.
+
+**▶ Play: https://bridge-tutor.pages.dev** — works offline and installs as an app.
+
+![The table: the tutor's card advice with the simulation behind it](docs/images/table.png)
 
 You sit South; North is your partner. When your side declares, you play both hands.
 
-## Run it
-
-```sh
-npm install
-npm run dev        # http://localhost:5173
-```
-
-`npm run build` writes a single self-contained `dist/index.html` (open it directly or host it anywhere).
-The site is hosted on Cloudflare: build command `npm run build`, output directory `dist`, Node from `.node-version`.
-`npm test` runs the test suite (solver vs brute force, scoring, bidding, both languages, lessons, journal).
-
 ## How it helps you improve
 
-**At the table** — the tutor explains every decision:
+**At the table, the tutor explains every decision** (switch it on or off at any moment):
 
 - **Bidding**: the recommended call, the rule behind it and a checklist of its requirements against
   your hand ("13+ HCP — you have 14"), plus every other call it considered and why it doesn't fit.
-  Hover any bid to see what it would tell partner; click any call in the auction to see what it showed.
+  Hover a bid to see what it would tell partner; click any call in the auction to see what it showed.
 - **Card play**: the card that does best across many simulated layouts of the hidden hands that fit
-  the auction and the play so far (each solved double-dummy), with tricks / success rate / score per
-  card and the principle behind it (second hand low, cover an honour, lead toward honours, …).
-- **Declarer plan** when dummy comes down, **counting** of the hidden hands, **reading** leads and signals.
-- **Signals**: the bot defenders give standard attitude, count and suit-preference signals (only with cards that cost nothing), use their partner's signals, and the tutor reads them for you and tells you which card to signal with.
-- **Think first**: the recommendation stays hidden until you ask. **Coach**: asks you to confirm a clear mistake.
+  the bidding and the play so far (each solved double-dummy), with tricks, success rate and score per
+  card, and the principle behind it (second hand low, cover an honour, draw trumps, …).
+- **Declarer plan** when dummy comes down, **counting** of the hidden hands, and **reading the play**:
+  leads and partner's signals.
+- **Signals**: the bot defenders give standard attitude, count and suit-preference signals (only with
+  cards that cost nothing) and use their partner's; the tutor reads them for you and tells you which
+  card to signal with.
+- **Think first**: the recommendation stays hidden until you ask. **Coach**: asks you to confirm a
+  clear mistake.
 
-**After the hand** — the review: score vs double-dummy par in IMPs, the double-dummy table, every call
-compared with the system, every card checked both double-dummy (hindsight) and single-dummy (with the
-information you had), and the points to take away. Replay the same deal to try again.
+**After the hand, the review**: your score against double-dummy par in IMPs, every call compared with
+the system, every card checked both double-dummy (hindsight) and with the information you had, the
+key moments where the card mattered most, and what to take away. Replay the deal, or share it as a
+link, a code, PBN or a BBO hand.
 
-**The training loop** (Training room):
+![The hand review](docs/images/review.png)
 
-- **Review queue**: calls that differed from the system and cards that were clearly worse *with the
-  information you had* come back as drills, spaced out over days until you get them right (Leitner boxes).
-- **Skills**: accuracy per area (opening, responding, rebids, notrump, competitive, slam, leads,
-  declarer play, defence), with the weakest area and its lessons suggested next.
-- **Topics**: deals chosen so a topic really comes up — Stayman, negative doubles, balancing, 3NT
-  hold-ups, opening leads… (the deal is tested against the system's own auction).
-- **History**: every board kept in full — reopen its review or play it again. Back up and restore your
-  progress as a file.
+**The Training room** turns your play into practice:
 
-**Learn**: 36 lessons with quizzes, each linked to practice deals on its topic, a glossary, and drills
-(bidding, opening leads, declarer counting).
+- **Review**: calls that differed from the system and cards that were clearly worse *with what you
+  knew* come back as drills, spaced over days until you get them right.
+- **Skills**: accuracy in nine areas — opening, responding, rebids, notrump, competitive, slam,
+  opening leads, declarer play, defence — with the weakest one suggested next.
+- **Topics**: boards dealt so a topic really comes up (Stayman, splinters, negative doubles, balancing,
+  3NT hold-ups, opening leads, …): each deal is tested against the system's own auction.
+- **History**: every board kept in full, to review or play again. Back up and restore your progress.
+
+![The Training room](docs/images/training.png)
+
+**Learn**: 40 lessons from the basics to squeezes and endplays, each with a quiz and practice deals at
+the table, a glossary, and drills for bidding, opening leads and declarer counting.
+
+![A lesson, in Bulgarian](docs/images/lesson-bg.png)
 
 ## System
 
@@ -60,7 +66,40 @@ Modern conventions, each switchable in Settings (all on by default except Drury)
 Blackwood 1430 with the queen and king asks, splinter raises, control (cue) bidding for slam, new
 minor forcing, fourth suit forcing, Texas transfers and reverse Drury. Every convention has a lesson.
 
-## Languages
+## Development
+
+```sh
+npm install
+npm run dev          # http://localhost:5173
+```
+
+| Command | What it does |
+|---|---|
+| `npx tsc --noEmit` | type-check |
+| `npm run lint` | ESLint |
+| `npm test` | unit tests: solver against brute force, scoring, bidding and conventions, both languages, lessons, journal, deal formats |
+| `npm run build` | a single self-contained `dist/index.html`, plus the icons, manifest and service worker |
+| `npm run test:e2e` | plays the built app in a real browser (Playwright); `PW_CHROMIUM=/path/to/chrome` uses an installed browser |
+
+CI runs all of them on every push and pull request. Every push to `main` is deployed to
+https://bridge-tutor.pages.dev by Cloudflare (build command `npm run build`, output `dist`, Node
+from `.node-version`). See [CONTRIBUTING.md](CONTRIBUTING.md) for the ground rules.
+
+### Layout
+
+| Path | What |
+|---|---|
+| `src/core` | cards, auction, play, scoring (IMPs and par), hand evaluation, PBN / LIN / share codes |
+| `src/bidding` | the rule-based SAYC engine and the optional conventions: each rule's conditions drive the bots, the explanations and the inferences |
+| `src/engine` | double-dummy solver (partition search with a transposition table), deal sampler, Monte Carlo card play, defensive signalling, opening leads, worker pool |
+| `src/tutor` | declarer planner, play principles, reading the play |
+| `src/game` | game controller, settings, the practice journal (archive, review queue, skills) and practice themes |
+| `src/ui` | the interface |
+| `src/learn` | lessons and glossary, per language |
+| `src/i18n` | languages and text catalogues |
+| `test`, `e2e` | unit tests and browser tests |
+
+### Languages
 
 All text lives in per-language catalogues; the code never contains user-facing strings.
 
@@ -71,8 +110,8 @@ All text lives in per-language catalogues; the code never contains user-facing s
 | `src/learn/content/<lang>/` | lessons and glossary |
 
 English defines the shape of the catalogue; the compiler rejects a language that misses a key or
-changes a function's parameters. The bots' behaviour never depends on the language (tests check that
-whole auctions and every inference are identical in every language).
+changes a function's parameters. The bots' behaviour never depends on the language: tests check that
+whole auctions, inferences and tutor decisions are identical in every language.
 
 **Adding a language** (e.g. German, `de`):
 
@@ -83,19 +122,6 @@ whole auctions and every inference are identical in every language).
    `test/lessons.test.ts` checks this) and register them in `src/learn/lessons.ts`. Until then the
    English lessons are shown.
 4. `npx tsc --noEmit && npm test`.
-
-## Layout
-
-| Path | What |
-|---|---|
-| `src/core` | cards, auction, play, scoring (incl. IMPs and par), hand evaluation |
-| `src/bidding` | the rule-based SAYC engine: each rule's conditions drive the bots, the explanations and the inferences |
-| `src/engine` | double-dummy solver (partition-search transposition table), deal sampler, Monte Carlo play, defensive signalling (shared by the bots, the sampler and the tutor), opening leads, worker pool |
-| `src/tutor` | declarer planner, play principles, reading the play |
-| `src/game` | game controller, settings, the practice journal (archive, review queue, skills) and practice themes |
-| `src/ui` | the interface |
-| `src/learn` | lesson content per language |
-| `src/i18n` | languages and text catalogues |
 
 ## License
 
