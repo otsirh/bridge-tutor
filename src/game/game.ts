@@ -21,6 +21,7 @@ import { type Settings, loadSettings, saveSettings, loadBoardNumber, saveBoardNu
 import { type ArchivedBoard, saveBoard, addItems, loadBoards, decodeDeal, updateLessonProgress } from './journal';
 import { archiveBoard, reviewItems, simVerdict, type FinishedBoard } from './record';
 import { dealForTheme, themeById, LESSON_THEMES } from './themes';
+import { setSystem } from '../bidding/config';
 import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
 
 export type Phase = 'bidding' | 'play' | 'review';
@@ -186,6 +187,8 @@ export class Game {
    */
   newDeal(replay = false) {
     if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
+    // convention switches take effect from the next deal, so a hand is always bid in one system
+    setSystem(this.settings.conventions);
     if (replay) return this.begin(true);
     // nothing about the current board changes until the new deal is ready
     const board = this.seed ? this.board + 1 : this.board;
@@ -212,6 +215,7 @@ export class Game {
   /** Play a given deal (an archived or imported board). */
   playDeal(spec: DealSpec) {
     if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
+    setSystem(this.settings.conventions);
     if (spec.board) this.board = spec.board;
     this.seed ||= 1;
     this.dealer = spec.dealer;

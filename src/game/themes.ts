@@ -249,6 +249,10 @@ export const LESSON_THEMES: Record<string, string> = {
   'penalty-doubles-and-sacrifices': 'competitive',
   'slam-controls-and-cue-bids': 'slam',
   'squeezes-and-endplays': 'declarer',
+  'roman-key-card-blackwood': 'slam',
+  'splinters-and-drury': 'major-raises',
+  'new-minor-and-fourth-suit-forcing': 'rebids',
+  'texas-transfers': 'stayman-transfers',
 };
 
 export function themeById(id: string): Theme | undefined {

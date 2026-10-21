@@ -54,7 +54,11 @@ information you had), and the points to take away. Replay the same deal to try a
 Standard American Yellow Card: 15–17 1NT, 20–21 2NT, five-card majors, better minor, strong 2♣,
 weak twos, Stayman, Jacoby transfers (and a minor-suit transfer), Jacoby 2NT, limit raises,
 negative doubles, takeout doubles, Michaels, Unusual 2NT, weak jump overcalls, Blackwood, Gerber,
-quantitative 4NT. Standard leads and signals. Duplicate scoring.
+quantitative 4NT. Standard leads and signals (attitude, count, suit preference). Duplicate scoring.
+
+Modern conventions, each switchable in Settings (all on by default except Drury): Roman Key Card
+Blackwood 1430 with the queen and king asks, splinter raises, control (cue) bidding for slam, new
+minor forcing, fourth suit forcing, Texas transfers and reverse Drury. Every convention has a lesson.
 
 ## Languages
 
