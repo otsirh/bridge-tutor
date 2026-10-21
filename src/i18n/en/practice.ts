@@ -48,6 +48,7 @@ export const practice = {
     'defense-suit': { name: 'Defending suit contracts', desc: 'Defend a trump contract: cash, ruff, or stay passive.' },
   },
 
+  dealing: (topic: string) => (topic ? `Dealing a board for: ${topic}…` : 'Dealing…'),
   notEnough: 'not enough decisions yet',
   you: 'You',
   vul: (v: Vulnerability, seat: Seat) => {

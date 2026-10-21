@@ -94,6 +94,7 @@ export function clearCardMistake(sim: { n: number; bt: number; bs: number; mt: n
 export function decisions(boards: readonly ArchivedBoard[]): { skill: SkillId; ok: boolean; board: number }[] {
   const out: { skill: SkillId; ok: boolean; board: number }[] = [];
   for (const b of boards) {
+    if (b.peek) continue;
     const calls: Call[] = [];
     for (const c of b.calls) {
       if (c.h && c.a !== undefined) out.push({ skill: bidSkill(b.dealer, calls, c.a), ok: c.a === c.c, board: b.id });

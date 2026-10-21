@@ -3,7 +3,7 @@
 
 import {
   type Card, type Seat, type Vulnerability, N, S, dealCards, mulberry32, boardDealer, boardVulnerability,
-  partnerOf, hcp, isVulnerable, SEAT_NAMES, SEAT_LETTERS, cardName, suitOf,
+  partnerOf, hcp, isVulnerable, SEAT_NAMES, cardName, suitOf,
 } from '../core/cards';
 import { Auction, type Call, type Contract, PASS, callName, contractName } from '../core/auction';
 import { PlayState, type Trick } from '../core/play';
@@ -16,7 +16,10 @@ import { explainPlay, type Principle, type PlaySituation } from '../tutor/princi
 import { makePlan, type Plan } from '../tutor/planner';
 import { masksOf } from '../engine/dds';
 import { ddPool } from '../engine/pool';
-import { type Settings, loadSettings, saveSettings, addHistory, loadHistory, loadBoardNumber, saveBoardNumber, type DealMode } from './storage';
+import { type Settings, loadSettings, saveSettings, loadBoardNumber, saveBoardNumber, type DealMode } from './storage';
+import { type ArchivedBoard, saveBoard, addItems, loadBoards, decodeDeal, updateLessonProgress } from './journal';
+import { archiveBoard, reviewItems, simVerdict, type FinishedBoard } from './record';
+import { dealForTheme, themeById, LESSON_THEMES } from './themes';
 import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
 
 export type Phase = 'bidding' | 'play' | 'review';
@@ -29,6 +32,7 @@ export interface CallEntry {
   human: boolean;
   advice?: BidAdvice; // system's recommendation at that moment (your calls)
   agrees?: boolean;
+  auto?: boolean; // chosen for you ("Bid for me"): not counted as your decision
 }
 
 export interface CardEntry {
@@ -36,7 +40,8 @@ export interface CardEntry {
   card: Card;
   trick: number;
   human: boolean;
-  advice?: Decision | null; // simulation advice available when you played
+  /** Simulation with the information available at that moment: the hint you had, or the check run after the hand. */
+  advice?: Decision | null;
   principle?: Principle;
 }
 
@@ -65,6 +70,16 @@ export interface ReviewData {
   cards: (CardReview | null)[];
   progress: number; // 0..1 of the card analysis
   ddResult: number | null; // DD tricks for declarer from the start
+  /** Single-dummy check of your cards after the hand (those without a simulation at the time). */
+  sim: { done: number; total: number };
+}
+
+/** A deal to play from outside the normal flow: an archived board, an imported one. */
+export interface DealSpec {
+  deal: Card[][];
+  dealer: Seat;
+  vul: Vulnerability;
+  board?: number;
 }
 
 export type Hint =
@@ -102,21 +117,29 @@ export class Game {
   calls: CallEntry[] = [];
   cards: CardEntry[] = [];
   review: ReviewData | null = null;
-  private busy: Seat | 'playout' | null = null; // a bot to move, or the computer playing out the hand
+  private busy: Seat | 'playout' | 'dealing' | null = null; // a bot to move, the computer playing out the hand, or dealing for a theme
   hint: Hint | null = null;
   hintRevealed = false;
   warning: Warning | null = null;
   feedback: Feedback[] = [];
   displayTrick: Trick | null = null; // last completed trick, shown until the next card
   plan: Plan | null = null;
+  /** Practice theme this board was dealt for (src/game/themes.ts). */
+  theme: string | null = null;
+  /** Journal id of this board once finished (0 = not yet). */
+  boardId = 0;
+  /** A board shown from the archive: nothing is recorded again. */
+  archived = false;
+  /** All four hands were shown at some point: the board is kept but not counted towards skills. */
+  peeked = false;
   private gen = 0;
   private hintGen = 0;
   private reviewGroup = 0;
   private snapshots: Snapshot[] = [];
   private listeners = new Set<() => void>();
 
-  constructor() {
-    this.newDeal();
+  constructor(opts: { idle?: boolean } = {}) {
+    if (!opts.idle) this.newDeal();
   }
 
   // ---------------------------------------------------------------------------
@@ -134,12 +157,14 @@ export class Game {
   /** What the computer is doing, in the active language (null when it's idle). */
   get thinking(): string | null {
     if (this.busy === null) return null;
+    if (this.busy === 'dealing') return T.practice.dealing(this.theme ? T.practice.themes[this.theme as keyof typeof T.practice.themes]?.name ?? this.theme : '');
     return this.busy === 'playout' ? T.ui.game.playingOut : T.ui.game.thinking(SEAT_NAMES[this.busy]);
   }
 
   updateSettings(patch: Partial<Settings>) {
     this.settings = { ...this.settings, ...patch };
     saveSettings(this.settings);
+    if (patch.peek) this.peeked = true;
     if ('tutor' in patch && patch.tutor) this.refreshHint();
     this.emit();
   }
@@ -147,18 +172,50 @@ export class Game {
   // ---------------------------------------------------------------------------
   // dealing
 
+  /**
+   * Start the next board, or play the same deal again (`replay`). With a
+   * practice theme set, deal until the theme comes up in the system's auction.
+   */
   newDeal(replay = false) {
     if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
-    if (!replay) {
-      if (this.seed) {
-        this.board++;
-        saveBoardNumber(this.board);
-      }
-      this.seed = (Math.random() * 2 ** 31) | 0;
+    if (replay) return this.begin(true);
+    if (this.seed) {
+      this.board++;
+      saveBoardNumber(this.board);
     }
+    this.seed = (Math.random() * 2 ** 31) | 0;
     this.dealer = boardDealer(this.board);
     this.vul = boardVulnerability(this.board);
-    this.deal = generateDeal(this.seed, this.settings.dealMode);
+    const theme = this.settings.theme && themeById(this.settings.theme) ? this.settings.theme : null;
+    this.theme = theme;
+    if (!theme) {
+      this.deal = generateDeal(this.seed, this.settings.dealMode);
+      return this.begin(false);
+    }
+    const myGen = ++this.gen;
+    this.busy = 'dealing';
+    this.emit();
+    void dealForTheme(theme, this.dealer, this.vul, this.seed).then(r => {
+      if (myGen !== this.gen) return;
+      this.deal = r.deal;
+      this.begin(false);
+    });
+  }
+
+  /** Play a given deal (an archived or imported board). */
+  playDeal(spec: DealSpec) {
+    if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
+    if (spec.board) this.board = spec.board;
+    this.seed ||= 1;
+    this.dealer = spec.dealer;
+    this.vul = spec.vul;
+    this.deal = spec.deal.map(h => [...h]);
+    this.theme = null;
+    this.begin(true);
+  }
+
+  /** Reset everything for the current deal and let the bots start. */
+  private begin(replay: boolean) {
     this.auction = new Auction(this.dealer);
     this.view = readAuction(this.auction, this.vul);
     this.play = null;
@@ -167,14 +224,15 @@ export class Game {
     this.cards = [];
     this.review = null;
     this.warning = null;
-    this.feedback = loadHistory().length === 0 && !replay
+    this.feedback = !replay && loadBoards().length === 0
       ? [note('info', () => ({ title: T.ui.notes.welcomeTitle, text: T.ui.notes.welcomeText }))]
       : [];
     this.displayTrick = null;
     this.plan = null;
     this.snapshots = [];
     this.hintRevealed = false;
-    this.historyKey = 0;
+    this.boardId = 0;
+    this.peeked = this.settings.peek;
     this.gen++;
     this.busy = null;
     this.emit();
@@ -253,18 +311,7 @@ export class Game {
   }
 
   private knowledge(seat: Seat): PlayKnowledge {
-    const p = this.play!;
-    const controller = seat === p.dummy ? p.contract.declarer : seat;
-    return {
-      viewer: controller,
-      toPlay: seat,
-      contract: p.contract,
-      vul: this.vul,
-      hands: p.hands.map(h => [...h]),
-      tricks: p.tricks.map(t => ({ ...t, cards: [...t.cards] })),
-      dummyVisible: p.openingLeadMade,
-      shown: this.view.shown,
-    };
+    return knowledgeAt(this.play!, seat, this.vul, this.view.shown);
   }
 
   private async botCard(seat: Seat): Promise<Card> {
@@ -356,7 +403,7 @@ export class Game {
   // ---------------------------------------------------------------------------
   // human actions
 
-  submitCall(call: Call, force = false) {
+  submitCall(call: Call, force = false, auto = false) {
     if (!this.isHumanTurn() || this.phase !== 'bidding' || !this.auction.isLegal(call)) return;
     const advice = advise(this.deal[S], this.view.ctx);
     if (this.settings.tutor && this.settings.coach && !force && advice.call !== call) {
@@ -371,6 +418,7 @@ export class Game {
     const index = this.auction.calls.length;
     this.feedback.unshift(note(advice.call === call ? 'good' : 'warn', () => callWording(this.calls[index])));
     this.applyCall(call, true, advice);
+    if (auto) this.calls[this.calls.length - 1].auto = true;
     this.hint = null;
     this.hintRevealed = false;
     this.gen++;
@@ -380,7 +428,7 @@ export class Game {
 
   autoCall() {
     if (!this.isHumanTurn() || this.phase !== 'bidding') return;
-    this.submitCall(advise(this.deal[S], this.view.ctx).call, true);
+    this.submitCall(advise(this.deal[S], this.view.ctx).call, true, true);
   }
 
   async submitCard(card: Card, force = false) {
@@ -583,7 +631,7 @@ export class Game {
     const c = this.auction.contract();
     const declTricks = this.play ? this.play.declarerTricks : 0;
     const sc = scoreNS(c, declTricks, this.vul);
-    this.review = { contract: c, declTricks, scoreNS: sc, table: null, par: null, impsVsPar: null, cards: this.cards.map(() => null), progress: 0, ddResult: null };
+    this.review = { contract: c, declTricks, scoreNS: sc, table: null, par: null, impsVsPar: null, cards: this.cards.map(() => null), progress: 0, ddResult: null, sim: { done: 0, total: 0 } };
     if (c) {
       const made = declTricks - (c.level + 6);
       const ours = (c.declarer & 1) === 0;
@@ -595,7 +643,7 @@ export class Game {
         };
       }));
     }
-    this.recordHistory();
+    this.record();
     this.emit();
     void this.analyzeReview();
   }
@@ -604,15 +652,17 @@ export class Game {
     const myGen = this.gen;
     const rv = this.review!;
     const group = (this.reviewGroup = newGroup());
-    const table = await ddTableAsync(this.deal, 1, group);
-    if (myGen !== this.gen || !table) return;
-    rv.table = table;
-    rv.par = parScore(table, this.vul);
-    rv.impsVsPar = imps(rv.scoreNS - rv.par.scoreNS);
-    if (rv.contract) rv.ddResult = table[rv.contract.strain][rv.contract.declarer];
-    this.recordHistory();
-    this.emit();
+    if (!rv.table) {
+      const table = await ddTableAsync(this.deal, 1, group);
+      if (myGen !== this.gen || !table) return;
+      rv.table = table;
+      rv.par = parScore(table, this.vul);
+      rv.impsVsPar = imps(rv.scoreNS - rv.par.scoreNS);
+      this.record();
+      this.emit();
+    }
     if (!rv.contract) return;
+    rv.ddResult = rv.table[rv.contract.strain][rv.contract.declarer];
     // replay the play, analysing each position
     const p = new PlayState(rv.contract, this.deal);
     const jobs: Promise<void>[] = [];
@@ -642,45 +692,121 @@ export class Game {
     await Promise.all(jobs);
     if (myGen !== this.gen) return;
     rv.progress = 1;
-    this.recordHistory();
+    this.record();
+    this.emit();
+    if (!this.archived) await this.checkYourCards(myGen);
+  }
+
+  /**
+   * Judge your cards fairly: simulate each one you played without a
+   * simulation at the time, from what you could see then (your hands, dummy,
+   * the bidding and the play so far). Hindsight double-dummy is not enough —
+   * a card can lose a trick double-dummy and still be the right play.
+   */
+  private async checkYourCards(myGen: number) {
+    const rv = this.review!;
+    const p = new PlayState(rv.contract!, this.deal);
+    const todo: { i: number; k: PlayKnowledge }[] = [];
+    this.cards.forEach((e, i) => {
+      if (e.human && !(e.advice && e.advice.samples >= 8) && legalFor(p.hands[e.seat], p.current.cards).length > 1) todo.push({ i, k: knowledgeAt(p, e.seat, this.vul, this.view.shown) });
+      p.play(e.card);
+    });
+    rv.sim = { done: 0, total: todo.length };
+    this.emit();
+    for (let b = 0; b < todo.length; b += 4) {
+      if (myGen !== this.gen) return;
+      await Promise.all(todo.slice(b, b + 4).map(async t => {
+        const d = await decideCard(t.k, { samples: 24, timeMs: 2500, minSamples: 10, priority: 0 });
+        if (myGen !== this.gen) return;
+        this.cards[t.i].advice = d;
+        rv.sim.done++;
+        this.emit();
+      }));
+    }
+    if (myGen !== this.gen) return;
+    this.record();
     this.emit();
   }
 
-  private recordHistory() {
+  /** Save the board to the journal and queue the decisions worth reviewing (again as the analysis completes). */
+  private record() {
     const rv = this.review;
-    if (!rv) return;
-    const c = rv.contract;
-    const role = !c ? 'none' : (c.declarer & 1) === 0 ? 'declarer' : 'defender';
-    const humanCards = this.cards.map((e, i) => ({ e, i })).filter(x => x.e.human);
-    const costs = humanCards.map(x => rv.cards[x.i]).filter((r): r is CardReview => !!r);
-    const ddCost = rv.progress >= 1 ? costs.reduce((t, r) => t + Math.max(0, r.bestSide - r.gotSide), 0) : null;
-    const yourCalls = this.calls.filter(x => x.human);
-    addHistory({
-      date: this.historyId(),
+    if (!rv || this.archived) return;
+    const first = !this.boardId;
+    if (first) this.boardId = Date.now();
+    const f: FinishedBoard = {
+      id: this.boardId,
       board: this.board,
-      contract: contractName(c),
-      declarer: c ? SEAT_LETTERS[c.declarer] : '-',
-      role,
-      result: c ? rv.declTricks - (c.level + 6) : 0,
+      dealer: this.dealer,
+      vul: this.vul,
+      deal: this.deal,
+      calls: this.calls.map(e => ({
+        call: e.call,
+        human: e.human,
+        advice: e.human && e.advice && !e.auto ? { call: e.advice.call, generic: !!e.advice.rule?.generic, tag: e.advice.rule?.tag ?? e.advice.meaning.tag } : undefined,
+      })),
+      cards: this.cards.map((e, i) => {
+        const r = rv.cards[i];
+        return { card: e.card, human: e.human, sim: e.human ? simVerdict(e.advice, e.card) : null, dd: e.human && r ? [r.bestSide, r.gotSide] as [number, number] : null };
+      }),
+      declTricks: rv.declTricks,
       scoreNS: rv.scoreNS,
       parNS: rv.par ? rv.par.scoreNS : null,
-      impsVsPar: rv.impsVsPar,
-      bidsTotal: yourCalls.length,
-      bidsAgreed: yourCalls.filter(x => x.agrees).length,
-      cardsPlayed: humanCards.length,
-      ddCost,
+      table: rv.table,
+      theme: this.theme,
+      peek: this.peeked,
+    };
+    saveBoard(archiveBoard(f));
+    if (!this.peeked) addItems(reviewItems(f, this.boardId));
+    if (first && this.theme) {
+      for (const [lesson, theme] of Object.entries(LESSON_THEMES)) if (theme === this.theme) updateLessonProgress(lesson, lp => (lp.practiced = (lp.practiced ?? 0) + 1));
+    }
+  }
+
+  /** A finished board from the journal, ready to show in the review (nothing is recorded again). */
+  static fromArchive(rec: ArchivedBoard): Game {
+    const g = new Game({ idle: true });
+    g.archived = true;
+    g.boardId = rec.id;
+    g.board = rec.board;
+    g.seed = 1;
+    g.dealer = rec.dealer;
+    g.vul = rec.vul;
+    g.deal = decodeDeal(rec.deal);
+    g.theme = rec.theme ?? null;
+    const calls = rec.calls.map(c => c.c);
+    g.auction = new Auction(rec.dealer, calls);
+    g.view = readAuction(g.auction, rec.vul);
+    g.calls = rec.calls.map((c, i) => {
+      const entry: CallEntry = { index: i, seat: g.auction.seatAt(i), call: c.c, meaning: g.view.records[i].meaning, human: !!c.h };
+      if (c.h && c.a !== undefined) {
+        entry.advice = advise(g.deal[S], readAuction(new Auction(rec.dealer, calls.slice(0, i)), rec.vul).ctx);
+        entry.agrees = entry.advice.call === c.c;
+      }
+      return entry;
     });
-  }
-
-  private historyKey = 0;
-  private historyId() {
-    if (!this.historyKey) this.historyKey = Date.now();
-    return this.historyKey;
-  }
-
-  /** Reset per-board history id when a new board starts. */
-  resetHistoryKey() {
-    this.historyKey = 0;
+    const contract = g.auction.isComplete() ? g.auction.contract() : null;
+    if (contract) {
+      const p = new PlayState(contract, g.deal);
+      g.cards = rec.cards.map(c => {
+        const seat = p.toPlay;
+        const trick = p.tricks.length - 1;
+        const principle = explainPlay(situationAt(p, seat), c.c);
+        const advice: Decision | null = c.sim ? { card: c.sim.best[0], stats: [], samples: c.sim.n, equal: [...c.sim.best] } : null;
+        p.play(c.c);
+        return { seat, card: c.c, trick, human: !!c.h, advice, principle };
+      });
+      g.play = p;
+    }
+    const par = rec.table ? parScore(rec.table, rec.vul) : null;
+    g.review = {
+      contract, declTricks: rec.declTricks, scoreNS: rec.scoreNS, table: rec.table, par,
+      impsVsPar: par ? imps(rec.scoreNS - par.scoreNS) : null, cards: g.cards.map(() => null), progress: 0, ddResult: null,
+      sim: { done: 0, total: 0 },
+    };
+    g.phase = 'review';
+    void g.analyzeReview();
+    return g;
   }
 
   // ---------------------------------------------------------------------------
@@ -762,6 +888,20 @@ export class Game {
   passCall() {
     return PASS;
   }
+}
+
+/** What the player choosing a card from `seat` knows at this point (declarer also sees dummy). */
+function knowledgeAt(p: PlayState, seat: Seat, vul: Vulnerability, shown: AuctionView['shown']): PlayKnowledge {
+  return {
+    viewer: seat === p.dummy ? p.contract.declarer : seat,
+    toPlay: seat,
+    contract: p.contract,
+    vul,
+    hands: p.hands.map(h => [...h]),
+    tricks: p.tricks.map(t => ({ ...t, cards: [...t.cards] })),
+    dummyVisible: p.openingLeadMade,
+    shown,
+  };
 }
 
 /** What the tutor knows when a card is chosen from this seat. */
