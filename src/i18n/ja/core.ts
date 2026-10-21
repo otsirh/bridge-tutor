@@ -1,29 +1,25 @@
-// PLACEHOLDER (Japanese): an English copy until the Japanese translation lands.
 // Card, seat and call vocabulary.
 
 import type { Text } from '../en';
-
 import { rankLabel } from '../../core/cards';
 
-const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-const RANK_WORDS: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+const SUITS = ['クラブ', 'ダイヤ', 'ハート', 'スペード'];
+const RANK_WORDS: Record<number, string> = { 14: 'エース', 13: 'キング', 12: 'クイーン', 11: 'ジャック' };
 
 export const core: Text['core'] = {
-  seats: ['North', 'East', 'South', 'West'],
-  seatLetters: ['N', 'E', 'S', 'W'],
-  /** Plural, as in "five hearts". */
+  seats: ['北', '東', '南', '西'],
+  // One kanji per seat is already as short as a letter; Japanese diagrams and auctions use them.
+  seatLetters: ['北', '東', '南', '西'],
   suits: SUITS,
-  suitSingular: ['club', 'diamond', 'heart', 'spade'],
-  strains: ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'],
-  /** Notrump in bids and contracts ("3NT"). */
+  suitSingular: SUITS,
+  strains: ['クラブ', 'ダイヤ', 'ハート', 'スペード', 'ノートランプ'],
   nt: 'NT',
-  pass: 'Pass',
-  double: 'Double',
-  redouble: 'Redouble',
-  passedOut: 'Passed out',
-  /** "queen of hearts" */
-  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} of ${SUITS[suit]}`,
-  /** Abbreviation after a number of high-card points ("12 HCP"). */
+  pass: 'パス',
+  double: 'ダブル',
+  redouble: 'リダブル',
+  passedOut: 'オールパス',
+  /** "ハートのクイーン" */
+  cardLong: (rank: number, suit: number) => `${SUITS[suit]}の${RANK_WORDS[rank] ?? rankLabel(rank)}`,
   hcp: 'HCP',
-  tricks: (n: number) => (n === 1 ? 'trick' : 'tricks'),
+  tricks: (_n: number) => 'トリック',
 };
