@@ -18,9 +18,19 @@ import { SEAT_NAMES, SEAT_LETTERS, SUIT_NAMES, SUIT_NAME_SINGULAR, STRAIN_SYMBOL
 import { CALL_WORDS } from '../core/auction';
 import { en, type Text } from './en';
 import { bg } from './bg';
+import { de } from './de';
+import { es } from './es';
+import { fr } from './fr';
+import { it } from './it';
+import { nl } from './nl';
+import { pl } from './pl';
+import { pt } from './pt';
+import { ru } from './ru';
+import { ja } from './ja';
+import { zh } from './zh';
 
 export type { Text };
-export type Lang = 'en' | 'bg';
+export type Lang = 'en' | 'bg' | 'de' | 'es' | 'fr' | 'it' | 'nl' | 'pl' | 'pt' | 'ru' | 'ja' | 'zh';
 
 export interface LanguageInfo {
   id: Lang;
@@ -30,10 +40,20 @@ export interface LanguageInfo {
 
 export const LANGUAGES: LanguageInfo[] = [
   { id: 'en', name: 'English', locale: 'en-GB' },
+  { id: 'de', name: 'Deutsch', locale: 'de-DE' },
+  { id: 'es', name: 'Español', locale: 'es-ES' },
+  { id: 'fr', name: 'Français', locale: 'fr-FR' },
+  { id: 'it', name: 'Italiano', locale: 'it-IT' },
+  { id: 'nl', name: 'Nederlands', locale: 'nl-NL' },
+  { id: 'pl', name: 'Polski', locale: 'pl-PL' },
+  { id: 'pt', name: 'Português', locale: 'pt-BR' },
   { id: 'bg', name: 'Български', locale: 'bg-BG' },
+  { id: 'ru', name: 'Русский', locale: 'ru-RU' },
+  { id: 'ja', name: '日本語', locale: 'ja-JP' },
+  { id: 'zh', name: '中文', locale: 'zh-CN' },
 ];
 
-const CATALOGUES: Record<Lang, Text> = { en, bg };
+const CATALOGUES: Record<Lang, Text> = { en, bg, de, es, fr, it, nl, pl, pt, ru, ja, zh };
 const KEY = 'bridge-tutor.lang.v1';
 
 /** The active catalogue. */
