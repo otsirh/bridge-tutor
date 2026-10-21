@@ -1,7 +1,7 @@
 // The Learn room: lessons with quizzes, a glossary, and drills that use the
 // same engines as the table (bidding, opening leads, declarer counting).
 
-import { type Card, type Seat, S, E, N, W, SEAT_NAMES, SUIT_SYMBOLS, DIAGRAM_SUIT_ORDER, dealCards, mulberry32, boardDealer, boardVulnerability, isRed, cardName, suitOf, rankLabel } from '../core/cards';
+import { type Card, type Seat, type Vulnerability, S, E, N, W, SEAT_NAMES, SEAT_LETTERS, SUIT_SYMBOLS, STRAIN_SYMBOLS, DIAGRAM_SUIT_ORDER, dealCards, mulberry32, boardDealer, boardVulnerability, isRed, cardName, suitOf, rankLabel } from '../core/cards';
 import { Auction, type Call, PASS, DOUBLE, REDOUBLE, bid, callName, contractName, parseCall, type Contract } from '../core/auction';
 import { readAuction, advise, judgeCall, type BidAdvice } from '../bidding/engine';
 import { describeShown } from '../bidding/types';
@@ -9,6 +9,7 @@ import { openingLeadChoices, type LeadChoice } from '../engine/leads';
 import { ddCardValues } from '../engine/playEngine';
 import { makePlan, type Plan } from '../tutor/planner';
 import { getLessons, getGlossary, type Lesson } from '../learn/lessons';
+import { T } from '../i18n';
 import { h, suitText, colorSuitsIn } from './dom';
 import { vulLabel } from './review';
 import { handEl, diagramHand, cardText } from './cards';
@@ -48,9 +49,9 @@ function enhanceLesson(root: HTMLElement) {
   });
   root.querySelectorAll<HTMLElement>('div.deal').forEach(el => {
     const d = h('div', { class: 'ldeal' });
-    for (const [key, cls, name] of [['n', 'n', 'Север'], ['w', 'w', 'Запад'], ['e', 'e', 'Изток'], ['s', 's', 'Юг']]) {
+    for (const [key, seat] of [['n', N], ['w', W], ['e', E], ['s', S]] as [string, Seat][]) {
       const spec = el.dataset[key];
-      if (spec) d.appendChild(h('div', { class: cls }, lessonHand(spec, name)));
+      if (spec) d.appendChild(h('div', { class: key }, lessonHand(spec, SEAT_NAMES[seat])));
     }
     d.appendChild(h('div', { class: 'c' }));
     const wrap = h('div', { class: 'deal-wrap' }, d, el.dataset.caption ? h('div', { class: 'small muted' }, el.dataset.caption) : null);
@@ -58,43 +59,31 @@ function enhanceLesson(root: HTMLElement) {
   });
   root.querySelectorAll<HTMLElement>('div.auction').forEach(el => {
     const calls = (el.dataset.calls ?? '').trim().split(/\s+/).filter(Boolean);
-    const dealerIdx = 'NESW'.indexOf((el.dataset.dealer ?? 'N').toUpperCase());
-    const order = ['W', 'N', 'E', 'S'];
-    const orderBg: Record<string, string> = { W: 'З', N: 'С', E: 'И', S: 'Ю' };
-    const start = order.indexOf('NESW'[Math.max(0, dealerIdx)]);
+    const dealer = Math.max(0, 'NESW'.indexOf((el.dataset.dealer ?? 'N').toUpperCase())) as Seat;
+    const order: Seat[] = [W, N, E, S];
+    const start = order.indexOf(dealer);
     const cells: string[] = [...Array(start).fill(''), ...calls.map(c => {
       try {
-        const call = parseCall(c);
-        return call === PASS ? 'Пас' : callName(call);
+        return callName(parseCall(c));
       } catch {
         return c;
       }
     })];
     const rows: HTMLElement[] = [];
     for (let i = 0; i < cells.length; i += 4) rows.push(h('tr', null, cells.slice(i, i + 4).map(c => h('td', null, c))));
-    el.replaceWith(h('table', { class: 'lauction auction-d' }, h('thead', null, h('tr', null, order.map(o => h('th', null, orderBg[o])))), h('tbody', null, rows)));
+    el.replaceWith(h('table', { class: 'lauction auction-d' }, h('thead', null, h('tr', null, order.map(s => h('th', null, SEAT_LETTERS[s])))), h('tbody', null, rows)));
   });
   colorSuitsIn(root);
 }
 
 const quizAnswers = new Map<string, number>();
 
-const TOPIC_BG: Record<string, string> = {
-  Basics: 'Основи',
-  Bidding: 'Лицитация',
-  'Competitive bidding': 'Състезателна лицитация',
-  'Slam bidding': 'Слемове',
-  'Declarer play': 'Разиграване',
-  Defense: 'Защита',
-  'Scoring & tactics': 'Отчитане и тактика',
-};
-const LEVEL_BG: Record<string, string> = { Beginner: 'Начинаещи', Intermediate: 'Напреднали', Advanced: 'Експерти' };
-
 function lessonView(l: Lesson, act: LearnActions): HTMLElement {
+  const t = T.ui.learn;
   const body = h('div', { class: 'lesson-body', html: l.body });
   enhanceLesson(body);
   const quiz = l.quiz.length
-    ? h('div', { class: 'quiz' }, h('h3', null, 'Проверете се'), l.quiz.map((q, qi) => {
+    ? h('div', { class: 'quiz' }, h('h3', null, t.checkYourself), l.quiz.map((q, qi) => {
       const key = `${l.id}:${qi}`;
       const chosen = quizAnswers.get(key);
       return h('div', { class: 'q' }, h('div', null, suitText(q.q)), h('div', { class: 'opts' }, q.options.map((o, oi) => h('button', {
@@ -104,14 +93,14 @@ function lessonView(l: Lesson, act: LearnActions): HTMLElement {
           quizAnswers.set(key, oi);
           act.rerender();
         },
-      }, suitText(o)))), chosen !== undefined ? h('div', { class: 'explain' }, h('b', null, chosen === q.answer ? 'Вярно. ' : 'Не съвсем. '), suitText(q.explain)) : null);
+      }, suitText(o)))), chosen !== undefined ? h('div', { class: 'explain' }, h('b', null, chosen === q.answer ? t.right : t.notQuite), suitText(q.explain)) : null);
     }))
     : null;
   return h('article', null,
-    h('div', { class: 'small muted' }, `${TOPIC_BG[l.topic] ?? l.topic} · ${LEVEL_BG[l.level] ?? l.level}`),
+    h('div', { class: 'small muted' }, `${t.topics[l.topic]} · ${t.levels[l.level]}`),
     h('h2', { style: 'font-family:var(--f-display);font-weight:400;font-size:30px;margin:4px 0 6px' }, suitText(l.title)),
     h('p', { style: 'margin:0 0 10px;color:var(--ink-2)' }, suitText(l.summary)),
-    l.keyPoints.length ? h('div', { class: 'box' }, h('b', null, 'Основното'), h('ul', { style: 'margin:6px 0 0;padding-left:18px' }, l.keyPoints.map(k => h('li', null, suitText(k))))) : null,
+    l.keyPoints.length ? h('div', { class: 'box' }, h('b', null, t.keyPoints), h('ul', { style: 'margin:6px 0 0;padding-left:18px' }, l.keyPoints.map(k => h('li', null, suitText(k))))) : null,
     body, quiz);
 }
 
@@ -206,28 +195,42 @@ function newCountDrill(): CountDrill {
   throw new Error('no count drill found');
 }
 
-function auctionMini(a: Auction, vul: string): HTMLElement {
-  const view = readAuction(a, vul as never);
+/** Re-word the drills in progress after a language switch; their hands, answers and scores stay. */
+export function relocalizeDrills() {
+  const b = drills.bid;
+  if (b) b.advice = advise(b.deal[S], readAuction(b.auction, b.vul).ctx);
+  const l = drills.lead;
+  if (l) l.book = openingLeadChoices(l.deal[S], l.contract, readAuction(l.auction, l.vul).records, S);
+  const c = drills.count;
+  if (c) c.plan = makePlan(c.deal[S], c.deal[N], c.contract, [c.lead]);
+}
+
+function auctionMini(a: Auction, vul: Vulnerability): HTMLElement {
+  const view = readAuction(a, vul);
   const order: Seat[] = [W, N, E, S];
   const cells: (HTMLElement | string)[] = [];
   for (let i = 0; i < order.indexOf(a.dealer); i++) cells.push('');
-  view.records.forEach(r => cells.push(h('span', { title: `${r.meaning.name}: ${r.meaning.desc}` }, r.call === PASS ? 'Пас' : suitText(callName(r.call)), r.meaning.artificial ? '*' : '')));
+  view.records.forEach(r => cells.push(h('span', { title: `${r.meaning.name}: ${r.meaning.desc}` }, r.call === PASS ? callName(PASS) : suitText(callName(r.call)), r.meaning.artificial ? '*' : '')));
   if (!a.isComplete()) cells.push(h('span', { class: 'q' }, '?'));
   const rows: HTMLElement[] = [];
   for (let i = 0; i < cells.length; i += 4) rows.push(h('tr', null, cells.slice(i, i + 4).map(c => h('td', null, c))));
   const notes = view.records.filter(r => r.call !== PASS).map(r => h('li', null, h('b', null, suitText(`${SEAT_NAMES[r.seat]} ${callName(r.call)}`)), ' — ', suitText(r.meaning.name), describeShown(r.meaning.shown) ? h('span', { class: 'muted' }, suitText(` (${describeShown(r.meaning.shown)})`)) : null));
-  return h('div', null, h('table', { class: 'lauction' }, h('thead', null, h('tr', null, order.map(s => h('th', null, s === S ? 'Вие' : SEAT_NAMES[s])))), h('tbody', null, rows)),
+  return h('div', null, h('table', { class: 'lauction' }, h('thead', null, h('tr', null, order.map(s => h('th', null, s === S ? T.ui.common.you : SEAT_NAMES[s])))), h('tbody', null, rows)),
     notes.length ? h('ul', { class: 'small', style: 'margin:8px 0 0;padding-left:18px' }, notes) : null);
 }
 
+/** A rule's name, or "Pass" when no rule beats passing. */
+const ruleName = (a: BidAdvice) => a.rule?.name ?? callName(PASS);
+
 function bidDrillView(act: LearnActions): HTMLElement {
+  const t = T.ui.learn;
   const d = (drills.bid ??= newBidDrill());
   const view = readAuction(d.auction, d.vul);
   const legal = new Set(d.auction.legalCalls());
   const box = h('div', { class: 'biddingbox' });
   for (let level = 1; level <= 7; level++) for (let st = 0; st < 5; st++) {
     const c = bid(level, st);
-    box.appendChild(h('button', { class: `bid ${d.answer !== null && c === d.advice.call ? 'rec' : ''}`, type: 'button', disabled: !legal.has(c) || d.answer !== null, onclick: () => answer(c) }, `${level}`, st === 4 ? 'БК' : suitText(SUIT_SYMBOLS[st])));
+    box.appendChild(h('button', { class: `bid ${d.answer !== null && c === d.advice.call ? 'rec' : ''}`, type: 'button', disabled: !legal.has(c) || d.answer !== null, onclick: () => answer(c) }, `${level}`, st === 4 ? STRAIN_SYMBOLS[4] : suitText(SUIT_SYMBOLS[st])));
   }
   const sp = (c: Call, cls: string, label: string) => h('button', { class: `special ${cls} ${d.answer !== null && c === d.advice.call ? 'rec' : ''}`, type: 'button', disabled: !legal.has(c) || d.answer !== null, onclick: () => answer(c) }, label);
   function answer(c: Call) {
@@ -241,22 +244,23 @@ function bidDrillView(act: LearnActions): HTMLElement {
   if (d.answer !== null) {
     const j = judgeCall(d.deal[S], view.ctx, d.answer);
     fb = h('div', { class: `box ${j.agrees ? '' : 'warnbox'}` },
-      h('b', null, j.agrees ? suitText(`Вярно: ${callName(d.answer)} — ${d.advice.rule?.name ?? 'Пас'}`) : suitText(`Системата обявява ${callName(d.advice.call)} — ${d.advice.rule?.name ?? 'Пас'}`)),
+      h('b', null, j.agrees ? suitText(t.rightCall(callName(d.answer), ruleName(d.advice))) : suitText(t.systemBids(callName(d.advice.call), ruleName(d.advice)))),
       h('p', { style: 'margin:6px 0' }, suitText(d.advice.rule?.desc ?? '')),
       h('ul', { class: 'checks' }, d.advice.checks.map(c => h('li', null, h('span', { class: c.ok ? 'ok' : 'no' }, c.ok ? '✓' : '✗'), h('span', null, suitText(c.text), c.value ? h('span', { class: 'val' }, ` — ${c.value}`) : null)))),
-      !j.agrees ? h('p', { class: 'small', style: 'margin:8px 0 0' }, suitText(`Вашето ${callName(d.answer)} ще се разбере като ${j.yourMeaning.name}: ${j.yourMeaning.desc}`)) : null,
-      !j.agrees && j.failed.length ? h('p', { class: 'small', style: 'margin:4px 0 0' }, 'Не пасва, защото: ', suitText(j.failed.map(f => `${f.text}${f.value ? ` (${f.value})` : ''}`).join('; '))) : null);
+      !j.agrees ? h('p', { class: 'small', style: 'margin:8px 0 0' }, suitText(t.yourCallReads(callName(d.answer), j.yourMeaning.name, j.yourMeaning.desc))) : null,
+      !j.agrees && j.failed.length ? h('p', { class: 'small', style: 'margin:4px 0 0' }, t.doesntFit, suitText(j.failed.map(f => `${f.text}${f.value ? ` (${f.value})` : ''}`).join('; '))) : null);
   }
   const [ok, tot] = drills.score.bid;
   return h('div', { class: 'drill' },
-    h('div', { class: 'prompt' }, h('b', null, 'Упражнение по лицитация. '), `Вие сте Юг, ${vulLabel(d.vul)}. Каква е вашата обява?`, h('span', { class: 'muted' }, `  Резултат ${ok}/${tot}`)),
+    h('div', { class: 'prompt' }, h('b', null, t.bidDrill), t.bidPrompt(vulLabel(d.vul)), h('span', { class: 'muted' }, t.score(ok, tot))),
     h('div', { style: 'display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start' }, h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, handEl(d.deal[S], () => ({}))), auctionMini(d.auction, d.vul)),
-    h('div', { class: 'bidwrap' }, box, h('div', { class: 'specials' }, sp(PASS, 'pass', 'Пас'), sp(DOUBLE, 'dbl', 'Контра'), sp(REDOUBLE, 'rdbl', 'Реконтра'))),
+    h('div', { class: 'bidwrap' }, box, h('div', { class: 'specials' }, sp(PASS, 'pass', callName(PASS)), sp(DOUBLE, 'dbl', callName(DOUBLE)), sp(REDOUBLE, 'rdbl', callName(REDOUBLE)))),
     fb,
-    h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.bid = newBidDrill(); act.rerender(); } }, 'Следваща ръка')));
+    h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.bid = newBidDrill(); act.rerender(); } }, T.ui.common.nextHand)));
 }
 
 function leadDrillView(act: LearnActions): HTMLElement {
+  const t = T.ui.learn;
   const d = (drills.lead ??= newLeadDrill());
   const pick = (c: Card) => {
     if (d.answer !== null) return;
@@ -275,29 +279,30 @@ function leadDrillView(act: LearnActions): HTMLElement {
     const sameSuit = suitOf(d.answer) === suitOf(book.card);
     const need = 13 - (d.contract.level + 6) + 1; // tricks the defence needs
     fb = h('div', { class: `box ${sameSuit ? '' : 'warnbox'}` },
-      h('b', null, sameSuit ? (d.answer === book.card ? 'Изводът по учебник.' : suitText(`Правилен цвят; стандартната карта е ${cardName(book.card)}.`)) : suitText(`Изводът по учебник е ${cardName(book.card)}.`)),
+      h('b', null, sameSuit ? (d.answer === book.card ? t.bookLead : suitText(t.rightSuit(cardName(book.card)))) : suitText(t.bookLeadIs(cardName(book.card)))),
       h('p', { style: 'margin:6px 0' }, suitText(book.suitReason), ' ', suitText(book.cardReason)),
-      d.dd && new Set(d.dd.map(x => x.def)).size === 1 ? h('p', { class: 'small', style: 'margin:6px 0 0' }, `В това раздаване при открити карти всеки извод дава на защитата ${d.dd[0].def} взятки (нужни са ${need}) — тук изводът няма значение.`) : null,
-      d.dd && new Set(d.dd.map(x => x.def)).size > 1 ? h('div', null, h('div', { class: 'small', style: 'margin-top:6px' }, `В това раздаване (при открити карти) защитата се нуждае от ${need} взятки:`),
-        h('table', { class: 'stats-table' }, h('tbody', null, [...d.dd].sort((a, b) => b.def - a.def).map(x => h('tr', { class: x.card === d.answer ? 'best' : '' }, h('td', null, cardText(x.card)), h('td', null, `${x.def} взятки за защитата`), h('td', null, x.def >= need ? 'сваля договора' : '')))))) : !d.dd ? h('p', { class: 'small muted' }, 'Анализирам раздаването при открити карти…') : null,
-      h('div', { style: 'margin-top:10px' }, h('b', { class: 'small' }, 'Цялото раздаване'), h('div', { class: 'diagram', style: 'margin-top:6px' },
-        h('div', { class: 'n' }, diagramHand(d.deal[N], 'Север')), h('div', { class: 'w' }, diagramHand(d.deal[W], 'Запад (мъртвак)')), h('div', { class: 'c' }, suitText(contractName(d.contract))),
-        h('div', { class: 'e' }, diagramHand(d.deal[E], 'Изток (разиграващ)')), h('div', { class: 's' }, diagramHand(d.deal[S], 'Вие')))));
+      d.dd && new Set(d.dd.map(x => x.def)).size === 1 ? h('p', { class: 'small', style: 'margin:6px 0 0' }, t.leadNoMatter(d.dd[0].def, need)) : null,
+      d.dd && new Set(d.dd.map(x => x.def)).size > 1 ? h('div', null, h('div', { class: 'small', style: 'margin-top:6px' }, t.defenceNeeds(need)),
+        h('table', { class: 'stats-table' }, h('tbody', null, [...d.dd].sort((a, b) => b.def - a.def).map(x => h('tr', { class: x.card === d.answer ? 'best' : '' }, h('td', null, cardText(x.card)), h('td', null, t.defTricks(x.def)), h('td', null, x.def >= need ? t.beatsIt : '')))))) : !d.dd ? h('p', { class: 'small muted' }, t.solvingDeal) : null,
+      h('div', { style: 'margin-top:10px' }, h('b', { class: 'small' }, t.wholeDeal), h('div', { class: 'diagram', style: 'margin-top:6px' },
+        h('div', { class: 'n' }, diagramHand(d.deal[N], SEAT_NAMES[N])), h('div', { class: 'w' }, diagramHand(d.deal[W], `${SEAT_NAMES[W]} (${t.dummyTag})`)), h('div', { class: 'c' }, suitText(contractName(d.contract))),
+        h('div', { class: 'e' }, diagramHand(d.deal[E], `${SEAT_NAMES[E]} (${t.declarerTag})`)), h('div', { class: 's' }, diagramHand(d.deal[S], T.ui.common.you)))));
   }
   const [ok, tot] = drills.score.lead;
   return h('div', { class: 'drill' },
-    h('div', { class: 'prompt' }, h('b', null, 'Упражнение по първи извод. '), suitText(`Изток разиграва ${contractName(d.contract)}. Изберете първия си извод.`), h('span', { class: 'muted' }, `  Правилен цвят ${ok}/${tot}`)),
+    h('div', { class: 'prompt' }, h('b', null, t.leadDrill), suitText(t.leadPrompt(contractName(d.contract))), h('span', { class: 'muted' }, t.rightSuitScore(ok, tot))),
     h('div', { style: 'display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start' },
       h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, handEl(d.deal[S], c => ({ playable: d.answer === null, rec: d.answer !== null && c === d.book[0].card, onClick: () => pick(c) }))),
       auctionMini(d.auction, d.vul)),
     fb,
-    h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.lead = newLeadDrill(); act.rerender(); } }, 'Следваща ръка')));
+    h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.lead = newLeadDrill(); act.rerender(); } }, T.ui.common.nextHand)));
 }
 
 function countDrillView(act: LearnActions): HTMLElement {
+  const t = T.ui.learn;
   const d = (drills.count ??= newCountDrill());
   const nt = d.contract.strain === 4;
-  const q = nt ? 'Колко сигурни взятки имате?' : 'Колко губещи имате? Бройте ги в ръката с повече козове, като високите карти на другата ръка покриват част от тях.';
+  const q = nt ? t.countTopTricks : t.countLosers;
   const answerBtns = h('div', { style: 'display:flex;gap:6px;flex-wrap:wrap' }, Array.from({ length: 14 }, (_, n) => h('button', {
     class: `btn small ${d.answer !== null && n === d.plan.total ? 'primary' : ''}`, type: 'button', disabled: d.answer !== null,
     onclick: () => {
@@ -310,44 +315,47 @@ function countDrillView(act: LearnActions): HTMLElement {
   let fb: HTMLElement | null = null;
   if (d.answer !== null) {
     fb = h('div', { class: `box plan ${d.answer === d.plan.total ? '' : 'warnbox'}` },
-      h('b', null, d.answer === d.plan.total ? 'Вярно.' : `Правилният брой е ${d.plan.total}.`), h('p', { style: 'margin:6px 0' }, suitText(d.plan.summary)),
-      h('div', { class: 'suits' }, h('span', { class: 'hd' }, ''), h('span', { class: 'hd' }, 'Вие'), h('span', { class: 'hd' }, 'Мъртвак'), h('span', { class: 'hd' }, nt ? 'Сигурни взятки' : 'Губещи'),
+      h('b', null, d.answer === d.plan.total ? t.correct : t.theCountIs(d.plan.total)), h('p', { style: 'margin:6px 0' }, suitText(d.plan.summary)),
+      h('div', { class: 'suits' }, h('span', { class: 'hd' }, ''), h('span', { class: 'hd' }, T.ui.common.you), h('span', { class: 'hd' }, T.ui.common.dummy), h('span', { class: 'hd' }, nt ? T.ui.common.topTricks : T.ui.common.losers),
         d.plan.suits.map(sp => [suitText(SUIT_SYMBOLS[sp.suit]), h('span', { class: 'mono' }, sp.decl.map(rankLabel).join(' ') || '—'), h('span', { class: 'mono' }, sp.dummy.map(rankLabel).join(' ') || '—'), h('span', { class: 'mono' }, String(nt ? sp.winners : sp.losers))])),
       d.plan.ideas.length ? h('ul', null, d.plan.ideas.map(i => h('li', null, suitText(i)))) : null);
   }
   const [ok, tot] = drills.score.count;
   return h('div', { class: 'drill' },
-    h('div', { class: 'prompt' }, h('b', null, 'Упражнение по броене. '), suitText(`Вие разигравате ${contractName(d.contract)}; Запад извежда ${cardName(d.lead)}. ${q}`), h('span', { class: 'muted' }, `  Резултат ${ok}/${tot}`)),
+    h('div', { class: 'prompt' }, h('b', null, t.countDrill), suitText(t.countPrompt(contractName(d.contract), cardName(d.lead), q)), h('span', { class: 'muted' }, t.score(ok, tot))),
     h('div', { style: 'display:flex;gap:16px;flex-wrap:wrap' },
-      h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, h('div', { class: 'small', style: 'color:var(--felt-muted)' }, 'Мъртвак (Север)'), handEl(d.deal[N], () => ({})), h('div', { class: 'small', style: 'color:var(--felt-muted)' }, 'Вие (Юг)'), handEl(d.deal[S], () => ({})))),
+      h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, h('div', { class: 'small', style: 'color:var(--felt-muted)' }, `${T.ui.common.dummy} (${SEAT_NAMES[N]})`), handEl(d.deal[N], () => ({})), h('div', { class: 'small', style: 'color:var(--felt-muted)' }, `${T.ui.common.you} (${SEAT_NAMES[S]})`), handEl(d.deal[S], () => ({})))),
     answerBtns, fb,
-    h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.count = newCountDrill(); act.rerender(); } }, 'Следваща ръка')));
+    h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.count = newCountDrill(); act.rerender(); } }, T.ui.common.nextHand)));
 }
 
 // ---------------------------------------------------------------------------
 
+const LEARN_TABS = ['lessons', 'bid', 'lead', 'count', 'glossary'] as const;
+
 export function renderLearn(ui: UIState, act: LearnActions): HTMLElement {
+  const t = T.ui.learn;
   const tab = ui.learnTab;
-  const tabs = h('div', { class: 'tabs', role: 'tablist' }, ([['lessons', 'Уроци'], ['bid', 'Лицитация'], ['lead', 'Първи извод'], ['count', 'Броене'], ['glossary', 'Речник']] as const).map(([k, label]) =>
-    h('button', { class: `tab ${tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { ui.learnTab = k; act.rerender(); } }, label)));
+  const tabs = h('div', { class: 'tabs', role: 'tablist' }, LEARN_TABS.map(k =>
+    h('button', { class: `tab ${tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { ui.learnTab = k; act.rerender(); } }, t.tabs[k])));
   let body: HTMLElement;
   if (tab === 'lessons') {
     const lessons = getLessons();
     const current = lessons.find(l => l.id === ui.lessonId) ?? lessons[0];
     const topics = [...new Set(lessons.map(l => l.topic))];
     body = h('div', { class: 'learn-grid' },
-      h('nav', { class: 'lessons-list', 'aria-label': 'Уроци' }, topics.map(t => [
-        h('div', { class: 'small muted', style: 'margin:10px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px' }, TOPIC_BG[t] ?? t),
-        lessons.filter(l => l.topic === t).map(l => h('button', { class: l.id === current?.id ? 'on' : '', type: 'button', onclick: () => { ui.lessonId = l.id; act.rerender(); } }, h('div', null, suitText(l.title)), h('div', { class: 'lvl' }, LEVEL_BG[l.level] ?? l.level))),
+      h('nav', { class: 'lessons-list', 'aria-label': t.lessonsNav }, topics.map(topic => [
+        h('div', { class: 'small muted', style: 'margin:10px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px' }, t.topics[topic]),
+        lessons.filter(l => l.topic === topic).map(l => h('button', { class: l.id === current?.id ? 'on' : '', type: 'button', onclick: () => { ui.lessonId = l.id; act.rerender(); } }, h('div', null, suitText(l.title)), h('div', { class: 'lvl' }, t.levels[l.level]))),
       ])),
-      current ? lessonView(current, act) : h('p', null, 'Няма уроци.'));
+      current ? lessonView(current, act) : h('p', null, t.noLessons));
   } else if (tab === 'glossary') {
     body = h('dl', { class: 'lesson-body' }, getGlossary().map(g => [h('dt', { style: 'font-weight:700;margin-top:10px' }, suitText(g.term)), h('dd', { style: 'margin:2px 0 0' }, suitText(g.def))]));
   } else if (tab === 'bid') body = bidDrillView(act);
   else if (tab === 'lead') body = leadDrillView(act);
   else body = countDrillView(act);
-  return h('div', { class: 'modal', role: 'dialog', 'aria-label': 'Уроци' },
-    h('div', { class: 'head' }, h('h2', null, 'Уроци и упражнения'), tabs, h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': 'Затвори', onclick: () => act.close() }, '✕')),
+  return h('div', { class: 'modal', role: 'dialog', 'aria-label': t.title },
+    h('div', { class: 'head' }, h('h2', null, t.title), tabs, h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => act.close() }, '✕')),
     h('div', { class: 'body' }, body));
 }
 

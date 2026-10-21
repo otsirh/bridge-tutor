@@ -1,6 +1,9 @@
 // Progress: headline numbers and the hand history.
 
+import { SEAT_LETTERS, STRAIN_SYMBOLS } from '../core/cards';
+import { contractName } from '../core/auction';
 import { loadHistory, saveHistory, type HandRecord } from '../game/storage';
+import { T, fmtNum, fmtPct, fmtDate, fmtSigned } from '../i18n';
 import { h, suitText } from './dom';
 
 export interface StatsActions {
@@ -8,13 +11,23 @@ export interface StatsActions {
   close(): void;
 }
 
-const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)}%` : '—');
+const pct = (a: number, b: number) => (b ? fmtPct(a / b) : '—');
+
+// Records keep the contract and declarer as they were shown when the hand was
+// played ("3БК", "Ю", "Passed out"…); show them in the active language.
+const passedOut = (x: HandRecord) => x.contract === 'Passed out' || x.contract === 'Всички пас';
+const contractText = (x: HandRecord) => (passedOut(x) ? contractName(null) : x.contract.replace(/NT|БК/, STRAIN_SYMBOLS[4]));
+const declarerText = (x: HandRecord) => {
+  const i = Math.max('NESW'.indexOf(x.declarer), 'СИЮЗ'.indexOf(x.declarer));
+  return i >= 0 ? SEAT_LETTERS[i] : x.declarer;
+};
 
 function tile(k: string, v: string, n: string) {
   return h('div', { class: 'tile' }, h('div', { class: 'k' }, k), h('div', { class: 'v mono' }, v), h('div', { class: 'n' }, n));
 }
 
 export function renderStats(act: StatsActions): HTMLElement {
+  const t = T.ui.stats;
   const hist = loadHistory();
   const recent = hist.slice(-30);
   const decl = hist.filter(x => x.role === 'declarer');
@@ -29,30 +42,30 @@ export function renderStats(act: StatsActions): HTMLElement {
   const avgImps = imped.length ? imped.reduce((t, x) => t + (x.impsVsPar ?? 0), 0) / imped.length : null;
 
   const tiles = h('div', { class: 'tiles' },
-    tile('Изиграни ръце', String(hist.length), hist.length ? `последно на ${new Date(hist[hist.length - 1].date).toLocaleDateString('bg-BG')}` : 'изиграйте първото раздаване'),
-    tile('Изпълнени договори', pct(made, decl.length), `${made} от ${decl.length} като разиграващ`),
-    tile('Свалени договори', pct(set, def.length), `${set} от ${def.length} в защита`),
-    tile('Точност в лицитацията', pct(agreed, bids), `${agreed} от ${bids} обяви според системата`),
-    tile('Загубени взятки на ръка', avgCost === null ? '—' : avgCost.toFixed(2), 'вашите карти, при открити карти, последните 30 ръце'),
-    tile('IMP спрямо пар', avgImps === null ? '—' : (avgImps > 0 ? '+' : '') + avgImps.toFixed(1), 'средно на ръка, последните 30 (за С/Ю)'),
+    tile(t.handsPlayed, String(hist.length), hist.length ? t.lastOn(fmtDate(hist[hist.length - 1].date)) : t.playFirst),
+    tile(t.contractsMade, pct(made, decl.length), t.asDeclarer(made, decl.length)),
+    tile(t.contractsBeaten, pct(set, def.length), t.onDefence(set, def.length)),
+    tile(t.biddingAccuracy, pct(agreed, bids), t.callsMatched(agreed, bids)),
+    tile(t.tricksLost, avgCost === null ? '—' : fmtNum(avgCost, 2), t.tricksLostNote),
+    tile(t.impsVsPar, avgImps === null ? '—' : (avgImps > 0 ? '+' : '') + fmtNum(avgImps, 1), t.impsNote),
   );
   const rows = [...hist].reverse().slice(0, 60).map((x: HandRecord) => h('tr', null,
-    h('td', null, new Date(x.date).toLocaleDateString('bg-BG')),
+    h('td', null, fmtDate(x.date)),
     h('td', null, String(x.board)),
-    h('td', null, suitText(x.contract), x.declarer !== '-' ? ` ${x.declarer}` : ''),
-    h('td', null, x.role === 'none' ? '—' : x.role === 'declarer' ? 'разиграващ' : 'защитник'),
-    h('td', null, x.contract === 'Passed out' || x.contract === 'Всички пас' ? '—' : x.result === 0 ? '=' : x.result > 0 ? `+${x.result}` : String(x.result)),
-    h('td', null, String(x.scoreNS)),
-    h('td', null, x.impsVsPar === null ? '—' : (x.impsVsPar > 0 ? '+' : '') + x.impsVsPar),
+    h('td', null, suitText(contractText(x)), x.declarer !== '-' ? ` ${declarerText(x)}` : ''),
+    h('td', null, x.role === 'none' ? '—' : t.role[x.role]),
+    h('td', null, passedOut(x) ? '—' : x.result === 0 ? '=' : fmtSigned(x.result)),
+    h('td', null, fmtSigned(x.scoreNS)),
+    h('td', null, x.impsVsPar === null ? '—' : fmtSigned(x.impsVsPar)),
     h('td', null, x.bidsTotal ? `${x.bidsAgreed}/${x.bidsTotal}` : '—'),
     h('td', null, x.ddCost === null ? '—' : String(x.ddCost))));
-  return h('div', { class: 'modal', role: 'dialog', 'aria-label': 'Напредък' },
-    h('div', { class: 'head' }, h('h2', null, 'Напредък'), h('span', { style: 'flex:1' }),
-      hist.length ? h('button', { class: 'btn small', type: 'button', onclick: () => { saveHistory([]); act.rerender(); } }, 'Изчисти историята') : null,
-      h('button', { class: 'btn ghost', type: 'button', 'aria-label': 'Затвори', onclick: () => act.close() }, '✕')),
+  return h('div', { class: 'modal', role: 'dialog', 'aria-label': t.title },
+    h('div', { class: 'head' }, h('h2', null, t.title), h('span', { style: 'flex:1' }),
+      hist.length ? h('button', { class: 'btn small', type: 'button', onclick: () => { saveHistory([]); act.rerender(); } }, t.clear) : null,
+      h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => act.close() }, '✕')),
     h('div', { class: 'body' }, tiles,
-      h('h3', { style: 'margin-top:20px' }, 'Раздавания'),
-      hist.length ? h('div', { class: 'scroll-x' }, h('table', { class: 'hist' }, h('thead', null, h('tr', null, ['Дата', 'Раздаване', 'Договор', 'Вие бяхте', 'Резултат', 'Точки С/Ю', 'IMP спрямо пар', 'Верни обяви', 'Загубени взятки'].map(t => h('th', null, t)))), h('tbody', null, rows)))
-        : h('p', { class: 'muted' }, 'Още няма раздавания. Всяко завършено раздаване се записва тук заедно с анализа при открити карти.'),
-      h('p', { class: 'small muted', style: 'margin-top:14px' }, '„Загубени взятки“ брои взятките, които вашите карти са подарили спрямо перфектната игра на всички. Анализът при открити карти е поглед назад — понякога загубата е била правилната игра с информацията, която сте имали — но намаляващата тенденция показва, че играта ви се подобрява.')));
+      h('h3', { style: 'margin-top:20px' }, t.hands),
+      hist.length ? h('div', { class: 'scroll-x' }, h('table', { class: 'hist' }, h('thead', null, h('tr', null, t.columns.map(c => h('th', null, c)))), h('tbody', null, rows)))
+        : h('p', { class: 'muted' }, t.empty),
+      h('p', { class: 'small muted', style: 'margin-top:14px' }, t.footnote)));
 }
