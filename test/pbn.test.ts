@@ -321,7 +321,7 @@ pass 3h $1 ap
   it('accepts a left-out fourth hand and a short last trick line', () => {
     const text = '[Deal "N:AKQ2.K73.J52.Q84 T98.AQJ.KQ7.KJ76 J76.T9854.A3.A92"]\n[Auction "N"]\n' +
       '1NT Pass 2D Pass 2H Pass 4H Pass Pass X AP\n[Play "E"]\nDK DA D4 D2\nHA H4 H2 HK\nDQ D3\n';
-    expect(parsePBN(text)).toEqual([{ ...FIXED, board: undefined }].map(({ board, ...b }) => b));
+    expect(parsePBN(text)).toEqual([{ ...FIXED, board: undefined }].map(({ board: _board, ...b }) => b));
   });
 
   const errorOf = (text: string) => {
