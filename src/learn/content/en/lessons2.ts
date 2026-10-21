@@ -669,8 +669,8 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Signal</th><th>When</th><th>Meaning</th></tr></thead>
 <tbody>
 <tr><td>Attitude</td><td>Partner leads a suit; your first discard</td><td>High encourages, low discourages</td></tr>
-<tr><td>Count</td><td>Declarer leads a suit</td><td>High-low = even number, low-high = odd</td></tr>
-<tr><td>Suit preference</td><td>When attitude and count are clearly irrelevant, e.g. giving or returning a ruff</td><td>High card asks for the higher-ranking of the other suits, low for the lower</td></tr>
+<tr><td>Count</td><td>Declarer leads a side suit (no count in trumps)</td><td>High-low = even number, low-high = odd</td></tr>
+<tr><td>Suit preference</td><td>When you lead a suit for partner to ruff</td><td>High card asks for the higher-ranking of the other suits, low for the lower; a middle card — no preference</td></tr>
 </tbody>
 </table>
 
@@ -681,7 +681,7 @@ export const LESSONS_2: Lesson[] = [
 <li>With ♠7 5 2, play the 2: you have nothing in spades, so partner should consider a switch.</li>
 <li>With a doubleton ♠9 3, play the 9 and then the 3: the high-low asks partner to continue, and you will ruff the third round.</li>
 </ul>
-<p>Discards work the same way: the first discard shows attitude. Throwing the ♣9 says "I like clubs"; throwing the ♦2 says "I don't want diamonds". Only discard from a suit you can spare.</p>
+<p>Discards work the same way: the first discard shows attitude. Throwing the ♣9 says "I like clubs"; throwing the ♦2 says "I don't want diamonds". Only discard from a suit you can spare. If you have no spot card of 6 or higher to spare in the suit you want, discard your lowest card from a suit you don't want instead.</p>
 
 <h3>Count</h3>
 <p>When declarer plays a suit, show how many cards you hold in it: high-low with an even number (two or four), lowest first with an odd number (three). Count lets partner work out declarer's distribution, and above all it tells partner when to take an ace.</p>
@@ -697,22 +697,22 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Suit preference</h3>
 <p>Sometimes attitude and count mean nothing, and then the size of the card points to another suit. The classic case is a ruff. Spades are trumps and you lead a heart for partner to ruff. The other suits are diamonds and clubs. Lead a <strong>high</strong> heart to ask for a diamond return (the higher-ranking of the two) and a <strong>low</strong> heart to ask for a club. If you hold the ♦A, lead your highest heart; partner ruffs, returns a diamond to your ace, and you give partner a second ruff.</p>
-<p>Suit preference is also used when partner returns your suit: a high card in the suit returned can show where partner's entry lies.</p>
+<p>With no preference, lead a middle card. Some partnerships also use suit preference when returning partner's suit; the bots here use it only when giving a ruff.</p>
 
 <h3>Good habits</h3>
 <ul>
 <li>Signal on partner's lead first by attitude; on declarer's lead by count; use suit preference only when the situation is clear.</li>
 <li>Don't signal with a card that could win a trick later. From Q J 10 9 7, the 7 may be enough to encourage.</li>
 <li>Signal in an even tempo: do your thinking when dummy comes down, not in the middle of a trick.</li>
-<li>Don't give count when it can only help declarer, for example when declarer is guessing how to play a suit and the count would be of no use to partner.</li>
+<li>Don't give count when it can only help declarer, for example when declarer is guessing how to play a suit and the count would be of no use to partner. The bots here always give count when declarer plays a side suit, so you can practise reading it.</li>
 </ul>
 <div class="warn">A signal is information, not a command. Partner combines it with what they can see in dummy and their own hand, and may have good reasons to do something else.</div>
 `,
     keyPoints: [
       'Attitude on partner\'s lead and on your first discard: high encourages, low discourages.',
-      'Count on declarer\'s lead: high-low shows an even number, low-high an odd number.',
+      'Count when declarer leads a side suit: high-low shows an even number, low-high an odd number.',
       'Use count to know when to take your ace against a long suit in dummy with no entries.',
-      'Suit preference: a high card asks for the higher-ranking other suit, a low card for the lower.',
+      'Suit preference: a high card asks for the higher-ranking other suit, a low card for the lower; a middle card shows no preference.',
       'Never waste a potential trick-taker just to signal.',
     ],
     quiz: [

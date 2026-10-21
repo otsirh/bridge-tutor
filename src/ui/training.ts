@@ -177,6 +177,7 @@ function situation(p: PlayState): PlaySituation {
     dummyHand: p.openingLeadMade ? [...p.hands[p.dummy]] : null,
     played: p.tricks.slice(0, -1).flatMap(t => t.cards),
     openingLead: !p.openingLeadMade,
+    history: p.tricks.slice(0, -1),
   };
 }
 

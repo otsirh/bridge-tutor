@@ -8,6 +8,7 @@ import { describeShown } from '../bidding/types';
 import type { BidAdvice } from '../bidding/engine';
 import type { Game, CardReview } from '../game/game';
 import { simVerdict } from '../game/record';
+import { describeSignal } from '../tutor/signals';
 import { clearCardMistake } from '../game/skills';
 import { toPBN } from '../core/pbn';
 import { bboHandviewerUrl } from '../core/lin';
@@ -204,7 +205,7 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
       plays.map(({ e, i }) => {
         const r = rv.cards[i];
         const c = r ? r.bestSide - r.gotSide : 0;
-        return h('span', { class: `tc ${e.human ? 'you' : ''} ${trick.winner === e.seat ? 'won' : ''}` }, h('span', { class: 'who' }, SEAT_LETTERS[e.seat]), cardText(e.card), c > 0 ? h('span', { class: 'cost', title: t.costTitle }, `−${c}`) : null);
+        return h('span', { class: `tc ${e.human ? 'you' : ''} ${trick.winner === e.seat ? 'won' : ''}`, title: e.signal ? describeSignal(e.signal) : undefined }, h('span', { class: 'who' }, SEAT_LETTERS[e.seat]), cardText(e.card), e.signal ? h('span', { class: 'sig', 'aria-label': describeSignal(e.signal) }, '•') : null, c > 0 ? h('span', { class: 'cost', title: t.costTitle }, `−${c}`) : null);
       }),
       h('span', { class: 'costcol small muted' }, cost > 0 ? t.youCost(cost) : '')));
     idx++;
@@ -219,6 +220,7 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
       const vals = [...r.values].sort((a, b) => b.side - a.side);
       return h('div', { class: 'small' }, h('b', null, `${SEAT_NAMES[e.seat]}: `), cardText(e.card), t.verdict(r.gotSide, e.seat & 1 ? T.ui.common.sideEW : T.ui.common.sideNS, r.bestSide),
         h('span', { class: 'muted' }, t.options, vals.map((v, k) => h('span', null, k ? ', ' : '', cardText(v.card), ` ${v.side}`))),
+        e.signal ? h('div', null, h('span', { class: 'chip sigchip' }, describeSignal(e.signal))) : null,
         e.principle ? h('div', { class: 'muted' }, `${e.principle.title}: ${e.principle.text}`) : null);
     });
     detail = h('div', { class: 'box', style: 'margin-top:10px' }, h('b', null, t.beforeTrick(n + 1)), dealDiagram(g, handsAt[n], t.trick(n + 1)), h('div', { style: 'display:grid;gap:6px;margin-top:10px' }, verdicts));

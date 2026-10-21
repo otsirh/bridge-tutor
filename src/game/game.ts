@@ -11,6 +11,7 @@ import { scoreNS, parScore, imps, type ParResult } from '../core/scoring';
 import { readAuction, advise, judgeCall, type AuctionView, type BidAdvice } from '../bidding/engine';
 import type { Meaning } from '../bidding/context';
 import { decideCard, ddCardValues, ddTableAsync, legalFor, newGroup, type CardStat, type Decision, type PlayKnowledge } from '../engine/playEngine';
+import type { Signal } from '../engine/signalling';
 import { openingLeadChoices, type LeadChoice } from '../engine/leads';
 import { explainPlay, type Principle, type PlaySituation } from '../tutor/principles';
 import { makePlan, type Plan } from '../tutor/planner';
@@ -43,6 +44,8 @@ export interface CardEntry {
   /** Simulation with the information available at that moment: the hint you had, or the check run after the hand. */
   advice?: Decision | null;
   principle?: Principle;
+  /** The signal a bot defender gave with this card (src/engine/signalling.ts). */
+  signal?: Signal | null;
 }
 
 /** A note in the tutor's feed. Worded when shown, so old notes follow a language switch. */
@@ -299,11 +302,11 @@ export class Game {
         const call = advise(this.deal[a], this.view.ctx).call;
         this.applyCall(call, false);
       } else {
-        const card = await this.botCard(a);
+        const { card, signal } = await this.botCard(a);
         if (myGen !== this.gen) return;
         await wait(DELAYS[this.settings.speed].card);
         if (myGen !== this.gen) return;
-        await this.applyCard(card, false, myGen);
+        await this.applyCard(card, false, myGen, undefined, signal);
       }
       this.busy = null;
       this.emit();
@@ -318,17 +321,18 @@ export class Game {
     return knowledgeAt(this.play!, seat, this.vul, this.view.shown);
   }
 
-  private async botCard(seat: Seat): Promise<Card> {
+  /** A bot's card, and the signal it gives when the bot chose it as one. */
+  private async botCard(seat: Seat): Promise<{ card: Card; signal?: Signal | null }> {
     const p = this.play!;
     if (!p.openingLeadMade) {
       const choices = openingLeadChoices(p.hands[seat], p.contract, this.view.records, seat);
-      return choices[0].card;
+      return { card: choices[0].card };
     }
     const legal = p.legal();
-    if (legal.length === 1) return legal[0];
+    if (legal.length === 1) return { card: legal[0] };
     const e = EFFORT[this.settings.strength];
     const d = await decideCard(this.knowledge(seat), { samples: e.samples, timeMs: e.time, minSamples: 6, priority: 3 });
-    return d.card;
+    return { card: d.card, signal: d.signal };
   }
 
   // ---------------------------------------------------------------------------
@@ -373,14 +377,14 @@ export class Game {
     })));
   }
 
-  private async applyCard(card: Card, human: boolean, myGen = this.gen, advice?: Decision | null) {
+  private async applyCard(card: Card, human: boolean, myGen = this.gen, advice?: Decision | null, signal?: Signal | null) {
     const p = this.play!;
     const seat = p.toPlay;
     const principle = explainPlay(situationAt(p, seat), card);
     this.displayTrick = null;
     const trickNo = p.tricks.length - 1;
     const done = p.play(card);
-    this.cards.push({ seat, card, trick: trickNo, human, advice, principle });
+    this.cards.push({ seat, card, trick: trickNo, human, advice, principle, signal });
     if (trickNo === 0 && p.current.cards.length === 1 && p.tricks.length === 1) {
       // dummy just came down: make the declarer plan
       this.plan = makePlan(p.hands[p.contract.declarer], p.hands[p.dummy], p.contract, [card]);
@@ -924,6 +928,7 @@ function situationAt(p: PlayState, seat: Seat): PlaySituation {
     dummyHand: p.openingLeadMade ? [...p.hands[p.dummy]] : null,
     played,
     openingLead: !p.openingLeadMade,
+    history: p.tricks.slice(0, -1),
   };
 }
 
