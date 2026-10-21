@@ -1,386 +1,333 @@
-// PLACEHOLDER (Chinese (Simplified)): an English copy until the Chinese (Simplified) translation lands.
 // Tutor: play principles, declarer planning, leads, signals, hand evaluation, scoring.
 //
-// Grouped by the file that shows the text. Suits and seats arrive as indexes
-// (suit 0..3 = clubs, diamonds, hearts, spades; seat 0..3 = N, E, S, W), cards
-// as card ids and ranks as numbers (14 = ace), so each language picks its own
-// word forms. Holdings ("KJ104") and split odds ("3-2 68%, …") arrive ready-made.
+// Suits and seats arrive as indexes (suit 0..3 = clubs, diamonds, hearts,
+// spades; seat 0..3 = N, E, S, W), cards as card ids and ranks as numbers
+// (14 = ace). Chinese needs no plural forms: one word per suit and seat.
 
 import type { Text } from '../en';
-
-import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf, suitOf } from '../../core/cards';
+import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf } from '../../core/cards';
 import type { Height, Look } from '../../engine/signalling';
 import { core } from './core';
 
-/** "1 trick", "2 tricks". */
-const plural = (n: number, word: string) => (n === 1 ? word : `${word}s`);
-/** "A 3-card", "An 8-card". */
-const aCard = (n: number) => `${n === 8 || n === 11 ? 'An' : 'A'} ${n}-card`;
+const suit = (s: number) => core.suits[s];
 /** Leading toward the honours in the other hand. */
-const TOWARD = { aq: 'A-Q', king: 'king', queen: 'queen', honours: 'honours' };
-const HONOUR: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen' };
-/** "2 or 4", "1, 3 or 5" (the three shortest). */
+const TOWARD = { aq: 'AQ', king: 'K', queen: 'Q', honours: '大牌' };
+const HONOUR: Record<number, string> = { 14: 'A', 13: 'K', 12: 'Q' };
+/** "2或4", "1、3或5" (the three shortest). */
 const orList = (ns: number[]) => {
   const xs = ns.slice(0, 3);
-  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}` : String(xs[0]);
+  return xs.length > 1 ? `${xs.slice(0, -1).join('、')}或${xs[xs.length - 1]}` : String(xs[0]);
 };
-/** How a signal card looks from across the table: "High-low (♣8, then ♣3)", "♣7 looks high (…)". */
+const HEIGHT = { high: '大', low: '小' };
+/** How a signal card looks from across the table: "先大后小（♣8，然后♣3）", "♣7看起来是大牌（…）". */
 const looks = (card: Card, l: Look) =>
   l.echo !== null
-    ? `${l.height === 'high' ? 'High-low' : 'Low-high'} (${cardName(card)}, then ${cardName(l.echo)})`
+    ? `${l.height === 'high' ? '先大后小' : '先小后大'}（${cardName(card)}，然后${cardName(l.echo)}）`
     : l.sure && rankOf(card) === 2
-      ? `${cardName(card)} is always low`
+      ? `${cardName(card)}永远是小牌`
       : l.sure
-        ? `${cardName(card)} is ${l.height} (every ${l.height === 'high' ? 'higher' : 'lower'} spot card is accounted for)`
-        : `${cardName(card)} looks ${l.height} (some ${l.height === 'high' ? 'lower' : 'higher'} spot cards are still out)`;
+        ? `${cardName(card)}是${HEIGHT[l.height!]}牌（比它${l.height === 'high' ? '大' : '小'}的点牌都已知道下落）`
+        : `${cardName(card)}看起来是${HEIGHT[l.height!]}牌（还有一些比它${l.height === 'high' ? '小' : '大'}的点牌没有出现）`;
 
 export const tutor: Text['tutor'] = {
-  // -------------------------------------------------------------------------
-  // src/tutor/principles.ts — the principle behind a card: a short title (the
-  // review also shows it alone) and one or two sentences of explanation.
   principles: {
     openingLead: {
-      title: 'Opening lead',
-      /** The card led is not the book card from this holding; `why` explains the book card. */
-      notStandard: (holding: string, rank: number, why: string) => `From ${holding} the standard card is ${rankLabel(rank)}: ${why}`,
+      title: '首攻',
+      notStandard: (holding: string, rank: number, why: string) => `从${holding}中，标准的出牌是${rankLabel(rank)}。${why}`,
     },
 
-    // declarer's side on lead
     drawTrumps: {
-      title: 'Drawing trumps',
-      text: 'Leading trumps removes the defenders’ trumps so they cannot ruff your winners. Draw them early unless dummy’s trumps are needed for ruffs.',
+      title: '清将',
+      text: '出将牌可以清除防守方的将牌，使他们无法将吃你的赢张。除非需要明手的将牌来将吃，否则应尽早清将。',
     },
     unblock: {
-      title: 'Unblocking',
-      text: 'Cash the high card from the short hand first, so the long hand keeps the lead and can run the rest of the suit.',
+      title: '解封',
+      text: '先兑现短套一手中的大牌，这样长套一手能保持出牌权，接着兑现这门花色剩下的牌。',
     },
     cash: {
-      title: 'Cashing a winner',
-      declarer: (card: Card) => `${cardName(card)} is the highest ${core.suitSingular[suitOf(card)]} left: it wins the trick unless someone ruffs.`,
-      defender: 'Take your sure trick before declarer can discard losers on dummy’s long suit.',
+      title: '兑现赢张',
+      declarer: (card: Card) => `${cardName(card)}是这门花色中剩下最大的牌：除非有人将吃，它就能赢得这一墩。`,
+      defender: '在庄家把输张垫在明手的长套上之前，先拿到你稳赢的墩。',
     },
     crossToOtherHand: {
-      title: 'Crossing to the other hand',
-      text: 'Leading low to a winner in the other hand uses it as an entry, so you can lead from there next.',
+      title: '过桥到另一手',
+      text: '出小牌到另一手的赢张，把它当作进手，下一墩就能从那一手出牌。',
     },
     leadTowardHonours: {
-      title: 'Leading toward honours',
-      /** What the other hand holds: A-Q, the king, the queen, or several honours. */
+      title: '向大牌出牌',
       text: (toward: 'aq' | 'king' | 'queen' | 'honours') =>
-        `Lead low toward the ${TOWARD[toward]} so the defender on your left must play before you choose your card from the other hand — the basis of the finesse.`,
+        `出小牌向另一手的${TOWARD[toward]}，让你下家的防守者先于你出牌，然后你再决定另一手出哪张——这是飞牌的基础。`,
     },
     develop: {
-      title: 'Developing a suit',
-      text: 'Losing a trick in this suit now sets up the remaining cards as winners while you still control the other suits.',
+      title: '树立花色',
+      text: '趁你还控制着其他花色，现在在这门花色中输掉一墩，就能把剩下的牌树立成赢张。',
     },
 
-    // defenders on lead
     trumpLead: {
-      title: 'Trump lead',
-      text: 'A trump lead reduces declarer’s ruffs in dummy — strong when dummy is short in a side suit.',
+      title: '攻将牌',
+      text: '攻将牌能减少庄家在明手的将吃——当明手某个旁套很短时尤其有力。',
     },
     lookForRuff: {
-      title: 'Looking for a ruff',
-      text: 'A short suit lead hopes partner gets in and gives you a ruff.',
+      title: '寻求将吃',
+      text: '攻短套，希望同伴上手后让你将吃。',
     },
     switchSuits: {
-      title: 'Switching suits',
-      text: 'Lead through declarer’s strength, or toward dummy’s weakness: the defender in front of the strong hand should lead that suit.',
+      title: '换攻',
+      text: '穿过庄家的强处出牌，或者朝明手的弱处出牌：坐在强手前面的防守者应该出这门花色。',
     },
 
-    // not following suit
     overruff: {
-      title: 'Overruff',
-      text: 'Ruffing higher than the trump already played wins the trick.',
+      title: '超将吃',
+      text: '用比已出的将牌更大的将牌将吃，就能赢得这一墩。',
     },
     ruffPartnersWinner: {
-      title: 'Ruffing partner’s winner',
-      text: 'Usually wasteful: partner was already winning this trick.',
+      title: '将吃同伴的赢张',
+      text: '通常是浪费：同伴本来已经赢得这一墩。',
     },
     ruff: {
-      title: 'Ruffing',
-      declarer: 'Ruffing in the hand with fewer trumps gains a trick; ruffing in the long trump hand just uses a trump you would make anyway.',
-      defender: 'You are out of the suit led, so a ruff takes the trick.',
+      title: '将吃',
+      declarer: '在将牌较短的一手将吃能多赢一墩；在将牌较长的一手将吃，只是用掉一张本来就能赢墩的将牌。',
+      defender: '你已经没有被领出的花色，将吃就能赢得这一墩。',
     },
     discard: {
-      title: 'Discard',
-      defender: 'Discard from a suit you don’t need, and keep length in suits where you must guard against declarer’s or dummy’s long cards.',
-      declarer: 'Throw a loser from a suit that can’t win tricks, keeping the cards that may still be needed.',
+      title: '垫牌',
+      defender: '垫你不需要的花色，在需要防住庄家或明手长套的花色中保留长度。',
+      declarer: '从不可能赢墩的花色中垫掉一个输张，保留以后可能还用得着的牌。',
     },
 
-    // defenders' signals: `right` = the card says what this hand should say; `best` = the card that would
     countSignal: {
-      title: 'Count signal',
-      /** `n` cards in the suit before playing. */
-      text: (n: number, suit: number, card: Card, best: Card, right: boolean) =>
+      title: '张数信号',
+      text: (n: number, s: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Declarer is playing this suit and partner expects count: with ${n} ${core.suits[suit]} (an ${n % 2 ? 'odd' : 'even'} number) the standard card is ${cardName(best)}${n % 2 ? '' : ', then a lower one (high-low)'}. ${cardName(card)} would show an ${n % 2 ? 'even' : 'odd'} number.`
+          ? `庄家正在打这门花色，同伴期待你给张数信号：你有${n}张${suit(s)}（${n % 2 ? '奇数' : '偶数'}张），标准的出牌是${cardName(best)}${n % 2 ? '' : '，下一轮再出一张更小的（先大后小）'}。${cardName(card)}会表示${n % 2 ? '偶数' : '奇数'}张。`
           : n % 2
-            ? `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an odd number) play your lowest card, ${cardName(card)}. Partner can then tell how many declarer holds and when to take the ace.`
-            : `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an even number) play high-low — ${cardName(card)} now, a lower card next time. Partner can then tell how many declarer holds and when to take the ace.`,
+            ? `庄家正在打这门花色，所以要表示你的张数：有${n}张${suit(s)}（奇数张），出你最小的牌${cardName(card)}。同伴就能推算出庄家有几张，以及什么时候该出A。`
+            : `庄家正在打这门花色，所以要表示你的张数：有${n}张${suit(s)}（偶数张），先大后小——这一轮出${cardName(card)}，下一轮出一张更小的。同伴就能推算出庄家有几张，以及什么时候该出A。`,
     },
     attitudeSignal: {
-      title: 'Attitude signal',
-      /** Why you like partner's suit (an honour — the highest you hold is `honour` — or a doubleton to ruff), or null. */
+      title: '态度信号',
       text: (reason: 'honour' | 'ruff' | null, honour: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Partner led this suit and expects your attitude: you ${reason ? 'like' : 'don’t like'} it, so the standard card is ${cardName(best)}. ${cardName(card)} says the opposite.`
+          ? `同伴攻了这门花色，期待你表明态度：你${reason ? '喜欢' : '不喜欢'}这门花色，所以标准的出牌是${cardName(best)}。${cardName(card)}表示的意思正好相反。`
           : reason === 'honour'
-            ? `Partner led this suit: give attitude. You hold the ${HONOUR[honour]}, so encourage with the highest spot card you can spare, ${cardName(card)}, and partner will continue.`
+            ? `同伴攻了这门花色：表明态度。你有${HONOUR[honour]}，所以用你能腾出的最大点牌${cardName(card)}鼓励，同伴就会继续攻这门花色。`
             : reason === 'ruff'
-              ? `Partner led this suit: give attitude. With a doubleton, start with the higher card (${cardName(card)}): high-low asks partner to continue, and you ruff the third round.`
-              : `Partner led this suit: give attitude. Nothing here is worth continuing, so discourage with your lowest card, ${cardName(card)}; partner will look for a switch.`,
+              ? `同伴攻了这门花色：表明态度。你是双张，先出较大的一张（${cardName(card)}）：先大后小请同伴继续出，第三轮你就能将吃。`
+              : `同伴攻了这门花色：表明态度。这里没有值得续攻的东西，所以出你最小的牌${cardName(card)}表示不鼓励；同伴会考虑换攻。`,
     },
     discardSignal: {
-      title: 'Discard (attitude)',
-      /** `want`: you would like this suit led; `clear`: you have a spot card high enough to say so. */
-      text: (want: boolean, clear: boolean, suit: number, card: Card, best: Card, right: boolean) =>
+      title: '垫牌（态度）',
+      text: (want: boolean, clear: boolean, s: number, card: Card, best: Card, right: boolean) =>
         want && !clear
-          ? `You would like ${core.suits[suit]} led, but no ${core.suitSingular[suit]} you can spare is high enough to read as encouraging; discard low from a suit you don’t want instead.`
+          ? `你希望同伴出${suit(s)}，但你能腾出的${suit(s)}都不够大，看不出鼓励的意思；不如从你不想要的花色中垫一张小牌。`
           : want
             ? right
-              ? `A high discard encourages: ${cardName(card)} asks partner to lead ${core.suits[suit]}, where you hold strength.`
-              : `You would like ${core.suits[suit]} led, but ${cardName(card)} is your lowest and discourages; a high one (${cardName(best)}) would encourage — or discard low from a suit you don’t want.`
+              ? `垫大牌表示鼓励：${cardName(card)}请同伴出${suit(s)}，你在这门花色中有实力。`
+              : `你希望同伴出${suit(s)}，但${cardName(card)}是你最小的一张，表示不鼓励；垫一张大的（${cardName(best)}）才是鼓励——或者从你不想要的花色中垫小牌。`
             : right
-              ? `A low discard discourages: ${cardName(card)} tells partner not to lead ${core.suits[suit]}.`
-              : `A high discard asks partner to lead ${core.suits[suit]}, which you don’t want; discard your lowest (${cardName(best)}) instead.`,
+              ? `垫小牌表示不鼓励：${cardName(card)}告诉同伴不要出${suit(s)}。`
+              : `垫大牌是请同伴出${suit(s)}，而你并不希望这样；应该垫你最小的${cardName(best)}。`,
     },
     preferenceSignal: {
-      title: 'Suit-preference signal',
-      /** Leading for partner to ruff; `sides` = the other two side suits, lower first; `want` high = the higher one. */
+      title: '花色选择信号',
       text: (want: Height, sides: number[], card: Card, best: Card, right: boolean) =>
         !right
           ? want === 'middle'
-            ? `Partner will ruff this and read your card as suit preference; with no preference, lead a middle card such as ${cardName(best)}.`
-            : `Partner will ruff this and read your card as suit preference: you want ${core.suits[want === 'high' ? sides[1] : sides[0]]} back, so lead ${cardName(best)}.`
+            ? `同伴会将吃这张牌，并把你出的牌理解为花色选择信号；你没有偏好，应该出一张中间的牌，比如${cardName(best)}。`
+            : `同伴会将吃这张牌，并把你出的牌理解为花色选择信号：你希望同伴回${suit(want === 'high' ? sides[1] : sides[0])}，所以应该出${cardName(best)}。`
           : want === 'middle'
-            ? 'Partner will ruff this, and your card also says which suit to return: with no preference, lead a middle card — neither high nor low.'
-            : `Partner will ruff this, and your card also says which suit to return: a ${want} card asks for ${core.suits[want === 'high' ? sides[1] : sides[0]]} (the ${want === 'high' ? 'higher' : 'lower'} of the other two side suits), where you hold the ace.`,
+            ? '同伴会将吃这张牌，你出的牌同时也告诉他该回哪门花色：你没有偏好，就出一张中间的牌——不大也不小。'
+            : `同伴会将吃这张牌，你出的牌同时也告诉他该回哪门花色：出${HEIGHT[want]}牌要求回${suit(want === 'high' ? sides[1] : sides[0])}（另外两门旁套中${want === 'high' ? '较高' : '较低'}的一门），你在那里有A。`,
     },
 
-    // second hand
     coverHonour: {
-      title: 'Cover an honour with an honour',
-      text: 'Covering forces declarer to spend two high cards to win one trick, which may promote a lower card in your or partner’s hand.',
+      title: '大牌盖大牌',
+      text: '盖打迫使庄家用两张大牌才能赢一墩，这可能使你或同伴手中较小的牌升级成赢张。',
     },
     secondHandLow: {
-      title: 'Second hand low',
-      text: 'Partner plays after you and the leader’s partner, so playing low keeps your high card to capture something bigger later.',
+      title: '第二家出小',
+      text: '同伴和领出者的同伴都在你之后出牌，所以出小牌，保留你的大牌，以后去捉更大的牌。',
     },
     sureTrick: {
-      title: 'Winning a sure trick',
-      text: (card: Card) => `${cardName(card)} is the highest card left in the suit.`,
+      title: '拿下稳赢的一墩',
+      text: (card: Card) => `${cardName(card)}是这门花色中剩下最大的牌。`,
     },
     splitHonours: {
-      title: 'Splitting honours',
-      text: 'Playing one of touching honours stops declarer winning cheaply with a lower card.',
+      title: '拆出相连大牌',
+      text: '出相连大牌中的一张，可以阻止庄家用较小的牌便宜地赢墩。',
     },
 
-    // third and fourth hand
     partnerWinning: {
-      title: 'Partner is winning',
-      third: 'Partner’s card is already winning, so play low (or signal).',
-      fourth: 'Don’t overtake: play your lowest card.',
+      title: '同伴正在赢这一墩',
+      third: '同伴的牌已经在赢这一墩，所以出小牌（或者给信号）。',
+      fourth: '不要超过同伴：出你最小的牌。',
     },
     thirdHandHighEquals: {
-      title: 'Third hand high — lowest of equals',
-      text: 'Play the cheaper of touching cards: partner can then work out where the higher one is.',
+      title: '第三家出大——等值牌中出最小的',
+      text: '相连的牌中出较小的一张：同伴就能推断出较大的牌在哪里。',
     },
     thirdHandHigh: {
-      title: 'Third hand high',
-      text: 'With partner’s lead not winning, play high to win the trick or force out a big card.',
+      title: '第三家出大',
+      text: '同伴领出的牌赢不了这一墩时，出大牌去赢墩，或者逼出对方的大牌。',
     },
     cantWin: {
-      title: 'Can’t win the trick',
-      third: 'Play your lowest card (or signal attitude if partner led the suit).',
-      fourth: 'Play your lowest card in the suit.',
+      title: '赢不了这一墩',
+      third: '出你最小的牌（如果同伴领出这门花色，则表明态度）。',
+      fourth: '出你这门花色中最小的牌。',
     },
     winCheaply: {
-      title: 'Win cheaply',
-      text: 'Last to play: win with the smallest card that does the job.',
+      title: '用最小的牌赢',
+      text: '你最后出牌：用能赢下这一墩的最小的牌去赢。',
     },
   },
 
-  // -------------------------------------------------------------------------
-  // src/tutor/planner.ts — declarer's plan once dummy is down: count winners
-  // (notrump) or losers (suit contracts) and where extra tricks can come from.
   plan: {
-    // sure tricks in one suit
-    allWinners: 'all winners',
-    topTricks: (n: number) => `${n} top ${plural(n, 'trick')}`,
-    noTopTricks: 'no top tricks',
-    /** Opponents' cards in a suit when there are too many for the split table. */
-    cardsOut: (n: number) => `${n} cards`,
+    allWinners: '全是赢张',
+    topTricks: (n: number) => `${n}个稳赢墩`,
+    noTopTricks: '没有稳赢墩',
+    cardsOut: (n: number) => `${n}张`,
 
-    // summary, notrump
     ntEnough: (total: number, need: number) =>
-      `You have ${total} top tricks and need ${need}: take your tricks — and don't block a suit (cash the high cards from the short hand first).`,
+      `你有${total}个稳赢墩，需要${need}墩：拿下你的赢墩——注意不要堵塞某门花色（先兑现短套一手的大牌）。`,
     ntShort: (total: number, need: number) =>
-      `You have ${total} top ${plural(total, 'trick')} and need ${need}: find ${need - total} more before the defenders establish their suit.`,
-    // summary, suit contracts
+      `你有${total}个稳赢墩，需要${need}墩：要在防守方树立他们的长套之前，再找到${need - total}墩。`,
     losersOk: (losers: number, allowed: number) =>
-      `About ${losers} ${plural(losers, 'loser')} and you can afford ${allowed}: draw trumps and take your tricks, unless an early ruff or discard is needed.`,
+      `大约有${losers}个输张，你最多能输${allowed}个：清将，然后拿下你的赢墩，除非需要先将吃或先垫牌。`,
     tooManyLosers: (losers: number, allowed: number) =>
-      `About ${losers} losers but you can afford only ${allowed}: you need to get rid of ${losers - allowed} (ruff them, discard them on extra winners, or finesse).`,
+      `大约有${losers}个输张，但你最多只能输${allowed}个：需要消除${losers - allowed}个（将吃掉、垫在多余的赢张上，或者飞牌）。`,
 
-    // ideas
-    establish: (suit: number, total: number, missing: number, odds: string, extra: number) =>
-      `Establish ${core.suits[suit]}: with ${total} cards between you (${missing} out, ${odds}), the long ${SUIT_SYMBOLS[suit]} can produce about ${extra} extra ${plural(extra, 'trick')}.`,
-    finesseAQ: (suit: number, holding: string) =>
-      `Finesse in ${core.suits[suit]}: lead toward A-Q (${holding}) and play the queen if the king doesn't appear — about 50%.`,
-    leadTowardKing: (suit: number, holding: string) =>
-      `In ${core.suits[suit]}, lead toward the king (${holding}): it scores if the ace is on your left — about 50%.`,
-    doubleFinesse: (suit: number) =>
-      `Double finesse in ${core.suits[suit]} (A-J-10): finesse twice; you make two tricks 76% of the time.`,
-    knockOutAce: (suit: number, withJack: boolean) =>
-      `Knock out the ace of ${core.suits[suit]}: K-Q${withJack ? '-J' : ''} will then give you ${withJack ? '2+ tricks' : '1+ trick'}.`,
-    ntDevelopEarly: 'In notrump, set up extra tricks early, while you still control the suits — and count how many times you can afford to lose the lead.',
-    /** Suits to ruff in the short trump hand, with that hand's length in each (0 = void). */
+    establish: (s: number, total: number, missing: number, odds: string, extra: number) =>
+      `树立${suit(s)}：双方共有${total}张（外面有${missing}张，${odds}），${SUIT_SYMBOLS[s]}长套大约能多产生${extra}墩。`,
+    finesseAQ: (s: number, holding: string) =>
+      `${suit(s)}飞牌：向AQ（${holding}）出牌，如果K没有出现就放Q——成功率约50%。`,
+    leadTowardKing: (s: number, holding: string) =>
+      `${suit(s)}：向K出牌（${holding}），如果A在你的下家，K就能赢墩——成功率约50%。`,
+    doubleFinesse: (s: number) =>
+      `${suit(s)}双飞（AJ10）：飞两次；你有76%的机会赢得两墩。`,
+    knockOutAce: (s: number, withJack: boolean) =>
+      `逼出${suit(s)}A：之后KQ${withJack ? 'J' : ''}能为你赢得${withJack ? '2墩以上' : '至少1墩'}。`,
+    ntDevelopEarly: '在无将定约中，要趁着还控制各门花色时尽早树立额外的赢墩——并算清你还能丢几次出牌权。',
     ruffInShortHand: (inDummy: boolean, suits: { suit: number; len: number }[]) =>
-      `Ruff losers in ${inDummy ? 'dummy' : 'your hand'}, the short trump hand: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]} (${x.len || 'void'})`).join(', ')}. A ruff in the short hand is an extra trick; a ruff in the long trump hand is not.`,
-    /** Extra winners in `suit` to throw losers in `loserSuits` on. */
-    discardOnWinners: (inDummy: boolean, extra: number, suit: number, loserSuits: number[]) =>
-      `Discards: ${inDummy ? 'dummy' : 'your hand'} has ${extra} extra ${SUIT_SYMBOLS[suit]} ${plural(extra, 'winner')} — throw ${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')} losers from the other hand on ${extra === 1 ? 'it' : 'them'} (usually after drawing trumps).`,
+      `在${inDummy ? '明手' : '你手中'}（将牌较短的一手）将吃输张：${suits.map(x => `${SUIT_SYMBOLS[x.suit]}（${x.len ? `${x.len}张` : '缺门'}）`).join('，')}。在短将一手将吃能多赢一墩，在长将一手将吃则不能。`,
+    discardOnWinners: (inDummy: boolean, extra: number, s: number, loserSuits: number[]) =>
+      `垫牌：${inDummy ? '明手' : '你手中'}有${extra}个多余的${SUIT_SYMBOLS[s]}赢张——在上面垫掉另一手的${loserSuits.map(x => SUIT_SYMBOLS[x]).join('/')}输张（通常在清将之后）。`,
     trumpsOut: (n: number, odds: string) =>
-      `Trumps: ${n} ${n === 1 ? 'is' : 'are'} out (${odds}). Draw ${n === 1 ? 'it' : 'them'} early unless you need dummy's trumps for ruffs or must set up a side suit first.`,
+      `将牌：外面还有${n}张（${odds}）。尽早清将，除非你需要明手的将牌来将吃，或者必须先树立一个旁套。`,
   },
 
-  // -------------------------------------------------------------------------
-  // src/engine/leads.ts — opening leads by the book
   leads: {
-    /** Why this card from the suit. */
     card: {
-      singleton: 'A singleton: lead it.',
-      ak: 'Ace from ace-king: you keep the lead and see dummy before deciding what next.',
-      doubleton: 'Top of a doubleton: the high card first, then the low one (high-low shows a doubleton and may get you a ruff).',
-      sequence: (holding: string) => `Top of a sequence (${holding}): promises the card below it and denies the one above.`,
-      interior: (holding: string, rank: number) => `Interior sequence (${holding}): lead the top of the touching cards, ${rankLabel(rank)}.`,
-      touching: (holding: string) => `Top of touching honours (${holding}).`,
-      nothing: 'Top of nothing from three small cards: tells partner you have no honour here.',
-      small: 'From four or more small cards, lead the second-highest so partner does not place you with an honour.',
-      partnerLow: 'Low from an honour and two others in partner’s suit (third best).',
-      fourth: (holding: string) => `Fourth best from your longest and strongest suit (${holding}). Partner can use the Rule of 11.`,
-      third: (holding: string) => `Third best from an honour with two small cards (${holding}): keep the honour to capture one of declarer’s.`,
+      singleton: '单张：就出它。',
+      ak: '有AK时出A：你保持出牌权，看到明手后再决定下一步。',
+      doubleton: '双张出大：先出大牌，再出小牌（先大后小表示双张，可能让你得到将吃）。',
+      sequence: (holding: string) => `连张出顶张（${holding}）：保证有下面一张，否认有上面一张。`,
+      interior: (holding: string, rank: number) => `内连张（${holding}）：出相连牌中最大的一张，即${rankLabel(rank)}。`,
+      touching: (holding: string) => `相连大牌出顶张（${holding}）。`,
+      nothing: '三张小牌出最大的（无大牌出大）：告诉同伴你在这门花色中没有大牌。',
+      small: '四张或更多的小牌，出第二大的一张，免得同伴误以为你有大牌。',
+      partnerLow: '在同伴的花色中，一张大牌带两张小牌时出小牌（第三大张）。',
+      fourth: (holding: string) => `从你最长最强的花色中出第四大张（${holding}）。同伴可以使用11法则。`,
+      third: (holding: string) => `一张大牌带两张小牌时出第三大张（${holding}）：保留大牌去捉庄家的牌。`,
     },
-    /** Why this suit. */
     suit: {
-      partnerBid: (suit: number) => `Partner bid ${core.suits[suit]}: leading partner's suit is rarely wrong and usually best.`,
-      theyBid: (suit: number) => `The opponents bid ${core.suits[suit]} — leading their suit usually helps declarer.`,
-      // against notrump
-      ntLong: (suit: number, n: number) =>
-        `Against notrump, lead your longest and strongest suit (${n} ${core.suits[suit]}): you hope to set up long-card winners.`,
-      ntSequence: 'A solid sequence is safe and builds tricks.',
-      ntShort: (n: number) => `${n === 1 ? 'A singleton' : `${aCard(n)} suit`}: not the ideal notrump lead.`,
-      // against a suit contract
-      trump: 'A trump lead: safe and passive, and it cuts down dummy’s ruffs.',
-      singleton: 'A singleton: you hope partner wins an early trick and gives you a ruff.',
-      aceAway: 'Never lead away from an ace against a suit contract — and leading the ace itself rarely helps.',
-      sequence: (suit: number) => `Top of a sequence in ${core.suits[suit]}: safe, and it may set up tricks.`,
-      plain: (suit: number, n: number) =>
-        n === 1 ? `A singleton ${core.suitSingular[suit]}.` : `${aCard(n)} ${core.suitSingular[suit]} holding.`,
+      partnerBid: (s: number) => `同伴叫过${suit(s)}：攻同伴的花色很少会错，通常是最好的。`,
+      theyBid: (s: number) => `对手叫过${suit(s)}——攻他们的花色通常会帮庄家的忙。`,
+      ntLong: (s: number, n: number) =>
+        `防守无将定约时，攻你最长最强的花色（${n}张${suit(s)}）：希望树立长套赢张。`,
+      ntSequence: '坚实的连张既安全，又能树立赢墩。',
+      ntShort: (n: number) => `${n === 1 ? '单张' : `${n}张的花色`}：不是防守无将的理想首攻。`,
+      trump: '攻将牌：安全、消极，还能减少明手的将吃。',
+      singleton: '攻单张：希望同伴早早上手，让你将吃。',
+      aceAway: '防守有将定约时，绝不要从带A的花色中出小牌——而直接出A通常也没什么帮助。',
+      sequence: (s: number) => `${suit(s)}连张出顶张：安全，还可能树立赢墩。`,
+      plain: (s: number, n: number) => (n === 1 ? `单张${suit(s)}。` : `${n}张${suit(s)}。`),
     },
   },
 
-  // -------------------------------------------------------------------------
-  // src/tutor/signals.ts — what the opening lead and partner's signals tell you
   signals: {
-    /** Heading over the meaning of the opening lead. */
     leadBy: {
-      you: (card: Card) => `Your opening lead: ${cardName(card)}`,
-      partner: (card: Card) => `Partner’s opening lead: ${cardName(card)}`,
-      seat: (seat: number, card: Card) => `${core.seats[seat]}’s opening lead: ${cardName(card)}`,
+      you: (card: Card) => `你的首攻：${cardName(card)}`,
+      partner: (card: Card) => `同伴的首攻：${cardName(card)}`,
+      seat: (seat: number, card: Card) => `${core.seats[seat]}的首攻：${cardName(card)}`,
     },
-    /** What the card led usually shows, by rank. */
     lead: {
       ace: (vsNT: boolean) =>
         vsNT
-          ? 'The ace: usually from ace-king (against notrump it can also ask partner to unblock).'
-          : 'The ace: usually from ace-king, or a singleton/doubleton ace.',
+          ? '首攻A：通常来自AK（防守无将时也可能是要求同伴解封）。'
+          : '首攻A：通常来自AK，或者是单张A、双张A。',
       king: (vsNT: boolean) =>
-        vsNT ? 'The king: top of a sequence — K-Q (or A-K). It denies the ace unless from A-K.' : 'The king: top of a sequence — K-Q. It denies the ace.',
-      queen: 'The queen: top of a sequence (Q-J…), denying the king.',
-      jack: 'The jack: top of J-10…, or from an interior sequence such as K-J-10. Denies the queen.',
-      ten: 'The ten: top of 10-9…, or an interior sequence (Q-10-9, K-10-9).',
-      nine: 'The nine: top of a short or worthless holding, or 9-8-x.',
-      low: (suit: number, vsNT: boolean) =>
+        vsNT ? '首攻K：连张的顶张——KQ（或AK）。除非来自AK，否则否认有A。' : '首攻K：连张的顶张——KQ。否认有A。',
+      queen: '首攻Q：连张的顶张（QJ…），否认有K。',
+      jack: '首攻J：J10…的顶张，或者来自KJ10这样的内连张。否认有Q。',
+      ten: '首攻10：109…的顶张，或者内连张（Q109、K109）。',
+      nine: '首攻9：短套或没有价值的持牌中出最大的，或者98x。',
+      low: (s: number, vsNT: boolean) =>
         vsNT
-          ? `A low ${core.suitSingular[suit]}: probably fourth best from length with an honour. Use the Rule of 11.`
-          : `A low ${core.suitSingular[suit]}: usually third/fourth best from an honour — or a singleton.`,
+          ? `首攻小${suit(s)}：很可能是带大牌的长套中的第四大张。用11法则。`
+          : `首攻小${suit(s)}：通常是带大牌的花色中的第三或第四大张——也可能是单张。`,
     },
     ruleOf11: {
-      title: 'Rule of 11',
-      /** 11 − rank led = cards above it in the other three hands; `declarer` of them are declarer's. */
+      title: '11法则',
       text: (rank: number, above: number, seen: number, declarer: number) =>
-        `Rule of 11: 11 − ${rankLabel(rank)} = ${above} cards higher than the ${rankLabel(rank)} in the other three hands. You can see ${seen} (dummy and your hand), so declarer holds ${declarer}.`,
+        `11法则：11 − ${rankLabel(rank)} = ${above}，即其余三家手中比${rankLabel(rank)}大的牌共有${above}张。你能看到${seen}张（明手和你手中），所以庄家有${declarer}张。`,
     },
-    /** Partner's signals (and, for declarer, the defenders' count): `look` says how high the card looks and how sure that is. */
     read: {
       count: {
-        /** `who`: a seat, or null for partner. */
-        title: (who: number | null, card: Card) => `${who === null ? 'Partner’s' : `${core.seats[who]}’s`} ${cardName(card)}: count`,
-        /** `lengths`: the lengths that fit; `declarer`: read from declarer's seat. */
-        text: (card: Card, look: Look, suit: number, lengths: number[], declarer: boolean) =>
+        title: (who: number | null, card: Card) => `${who === null ? '同伴' : core.seats[who]}的${cardName(card)}：张数信号`,
+        text: (card: Card, look: Look, s: number, lengths: number[], declarer: boolean) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: wait for the next card in ${core.suits[suit]} to read the count.`
-            : `${looks(card, look)}: ${look.sure ? '' : 'probably '}an ${look.height === 'high' ? 'even' : 'odd'} number of ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Defenders sometimes falsecard, so treat it as a clue.' : ''}`,
+            ? `${cardName(card)}可能是大牌也可能是小牌：等${suit(s)}的下一张出来再判断张数。`
+            : `${looks(card, look)}：${look.sure ? '' : '很可能'}有${look.height === 'high' ? '偶数' : '奇数'}张${suit(s)}${lengths.length ? `（${orList(lengths)}张）` : ''}。${declarer ? '防守方有时会出假牌，所以只把它当作线索。' : ''}`,
       },
       attitude: {
-        title: (card: Card) => `Partner’s ${cardName(card)} on your lead: attitude`,
+        title: (card: Card) => `同伴对你的首攻跟出${cardName(card)}：态度信号`,
         text: (card: Card, look: Look) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner likes the suit.`
-            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'partner likes the suit — continue it.' : 'partner probably likes the suit.') : `partner ${look.sure ? '' : 'probably '}doesn’t like the suit — think about a switch.`}`,
+            ? `${cardName(card)}可能是大牌也可能是小牌：还看不出同伴是否喜欢这门花色。`
+            : `${looks(card, look)}：${look.height === 'high' ? (look.sure ? '同伴喜欢这门花色——继续出。' : '同伴很可能喜欢这门花色。') : `同伴${look.sure ? '' : '很可能'}不喜欢这门花色——考虑换攻。`}`,
       },
       discard: {
-        title: (card: Card) => `Partner discarded ${cardName(card)}`,
-        text: (card: Card, look: Look, suit: number) =>
+        title: (card: Card) => `同伴垫了${cardName(card)}`,
+        text: (card: Card, look: Look, s: number) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner wants ${core.suits[suit]} led.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}${look.height === 'high' ? 'wants' : 'doesn’t want'} ${core.suits[suit]} led.`,
+            ? `${cardName(card)}可能是大牌也可能是小牌：还看不出同伴是否希望你出${suit(s)}。`
+            : `${looks(card, look)}：同伴${look.sure ? '' : '很可能'}${look.height === 'high' ? '希望' : '不希望'}你出${suit(s)}。`,
       },
       preference: {
-        title: (card: Card) => `Partner leads ${cardName(card)} for you to ruff: suit preference`,
-        /** `sides`: the other two side suits, lower first. */
+        title: (card: Card) => `同伴出${cardName(card)}让你将吃：花色选择信号`,
         text: (card: Card, look: Look, sides: number[]) =>
           look.height === null
-            ? `${cardName(card)} is neither clearly high nor low: partner may have no preference — return whatever suits you best.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}asks for ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} back, the ${look.height === 'high' ? 'higher' : 'lower'} of the other two side suits.`,
+            ? `${cardName(card)}说不上是大还是小：同伴可能没有偏好——回你认为最好的花色。`
+            : `${looks(card, look)}：同伴${look.sure ? '' : '很可能'}要求你回${suit(look.height === 'high' ? sides[1] : sides[0])}，即另外两门旁套中${look.height === 'high' ? '较高' : '较低'}的一门。`,
       },
     },
-    /** Short labels for a signal a bot gave, e.g. a badge on its card. */
     badge: {
-      count: (even: boolean) => `Count: ${even ? 'even' : 'odd'}`,
-      attitude: (encourage: boolean) => `Attitude: ${encourage ? 'encouraging' : 'discouraging'}`,
-      discard: (encourage: boolean, suit: number) => `Discard: ${encourage ? 'encouraging' : 'discouraging'} ${SUIT_SYMBOLS[suit]}`,
-      /** The suit asked for, or null for no preference. */
-      preference: (suit: number | null) => `Suit preference: ${suit === null ? 'none' : SUIT_SYMBOLS[suit]}`,
+      count: (even: boolean) => `张数：${even ? '偶数' : '奇数'}`,
+      attitude: (encourage: boolean) => `态度：${encourage ? '鼓励' : '不鼓励'}`,
+      discard: (encourage: boolean, s: number) => `垫牌：${encourage ? '鼓励' : '不鼓励'}${SUIT_SYMBOLS[s]}`,
+      preference: (s: number | null) => `花色选择：${s === null ? '无' : SUIT_SYMBOLS[s]}`,
     },
   },
 
-  // -------------------------------------------------------------------------
-  // src/core/eval.ts — the hand-evaluation table: label, value, note
   eval: {
-    hcp: 'HCP',
+    hcp: '大牌点',
     hcpNote: 'A=4 K=3 Q=2 J=1',
-    total: 'Total pts',
-    totalNote: (lengthPts: number) => `HCP + ${lengthPts} for length`,
-    shape: 'Shape',
-    balanced: 'balanced',
-    semiBalanced: 'semi-balanced',
-    unbalanced: 'unbalanced',
-    losers: 'Losers',
-    losersNote: 'Losing Trick Count',
-    quickTricks: 'Quick tricks',
+    total: '总点数',
+    totalNote: (lengthPts: number) => `大牌点 + ${lengthPts}长度点`,
+    shape: '牌型',
+    balanced: '平均牌型',
+    semiBalanced: '半平均牌型',
+    unbalanced: '非平均牌型',
+    losers: '输墩',
+    losersNote: '输墩计算法',
+    quickTricks: '快速赢墩',
     quickTricksNote: 'AK=2 AQ=1½ A=1 KQ=1 Kx=½',
-    longest: 'Longest',
-    controls: (n: number) => `${n} ${plural(n, 'control')}`,
+    longest: '最长花色',
+    controls: (n: number) => `${n}个控制`,
   },
 
-  // -------------------------------------------------------------------------
-  // src/core/scoring.ts — the par contract in the review
   par: {
-    /** "4♠X by N/S (N)": the contract, the side, and the seat that declares it. */
     contract: (contract: string, declarer: number) =>
-      `${contract} by ${core.seatLetters[declarer & 1]}/${core.seatLetters[(declarer & 1) + 2]} (${core.seatLetters[declarer]})`,
+      `${contract}，${declarer & 1 ? '东西' : '南北'}方（${core.seatLetters[declarer]}主打）`,
   },
 };
