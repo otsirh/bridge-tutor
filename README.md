@@ -4,8 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **Play contract bridge against three bots, with a tutor that explains every bid and card — and a
-training loop built around your own mistakes.** In English and Bulgarian (Български); switch at any
-time, even in the middle of a hand.
+training loop built around your own mistakes.**
 
 **▶ Play: https://bridge-tutor.pages.dev** — works offline and installs as an app.
 
@@ -53,7 +52,7 @@ link, a code, PBN or a BBO hand.
 **Learn**: 40 lessons from the basics to squeezes and endplays, each with a quiz and practice deals at
 the table, a glossary, and drills for bidding, opening leads and declarer counting.
 
-![A lesson, in Bulgarian](docs/images/lesson-bg.png)
+![A lesson](docs/images/lesson-bg.png)
 
 ## System
 

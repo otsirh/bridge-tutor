@@ -2,7 +2,7 @@
   "name": "bridge-tutor",
   "version": "1.0.0",
   "private": true,
-  "description": "Contract bridge against bots, with a tutor that explains every bid and card and a training loop built on your own mistakes. English and Bulgarian.",
+  "description": "Contract bridge against bots, with a tutor that explains every bid and card and a training loop built on your own mistakes.",
   "keywords": [
     "bridge",
     "contract-bridge",
