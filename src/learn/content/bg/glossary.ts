@@ -1,7 +1,9 @@
 // Glossary of bridge terms (Bulgarian, with the English original in parentheses).
 // Sorted in Bulgarian alphabetical order.
 
-export const GLOSSARY: { term: string; def: string }[] = [
+import type { GlossaryEntry } from '../../types';
+
+export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Балансирана ръка (balanced hand)', def: 'Ръка без шикана, без синглтон и с най-много един дублетон: 4-3-3-3, 4-4-3-2 или 5-3-3-2.' },
   { term: 'Балансиране (balancing)', def: 'Обява в балансираща позиция, където пасът би приключил лицитацията. Там можете да действате с около 3 точки по-малко, отколкото в директна позиция.' },
   { term: 'Бариерно откриване (preempt)', def: 'Откриване (или интервенция) на високо ниво с дълъг цвят и слаба ръка, което отнема пространство за лицитиране на противниците.' },

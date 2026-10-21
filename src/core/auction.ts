@@ -15,10 +15,13 @@ export const isBid = (c: Call) => c >= 3;
 export const levelOf = (c: Call) => (((c - 3) / 5) | 0) + 1;
 export const strainOf = (c: Call): Strain => ((c - 3) % 5) as Strain;
 
+/** Words for the non-bid calls; replaced in place by the active language (src/i18n). */
+export const CALL_WORDS = { pass: 'Pass', double: 'Double', redouble: 'Redouble', passedOut: 'Passed out' };
+
 export function callName(c: Call): string {
-  if (c === PASS) return 'Пас';
-  if (c === DOUBLE) return 'Контра';
-  if (c === REDOUBLE) return 'Реконтра';
+  if (c === PASS) return CALL_WORDS.pass;
+  if (c === DOUBLE) return CALL_WORDS.double;
+  if (c === REDOUBLE) return CALL_WORDS.redouble;
   return levelOf(c) + STRAIN_SYMBOLS[strainOf(c)];
 }
 
@@ -32,10 +35,11 @@ export function callShort(c: Call): string {
 export function parseCall(t: string): Call {
   const s = t.trim().toUpperCase();
   if (s === 'P' || s === 'PASS' || s === 'ПАС') return PASS;
-  if (s === 'X' || s === 'DBL' || s === 'КОНТРА') return DOUBLE;
-  if (s === 'XX' || s === 'RDBL' || s === 'РЕКОНТРА') return REDOUBLE;
+  if (s === 'X' || s === 'DBL' || s === 'DOUBLE' || s === 'КОНТРА') return DOUBLE;
+  if (s === 'XX' || s === 'RDBL' || s === 'REDOUBLE' || s === 'РЕКОНТРА') return REDOUBLE;
   const level = +s[0];
-  const strain = s[1] === 'Б' ? 4 : 'CDHSN'.indexOf(s[1]);
+  const sym = '♣♦♥♠'.indexOf(s[1]);
+  const strain = s[1] === 'Б' ? 4 : sym >= 0 ? sym : 'CDHSN'.indexOf(s[1]);
   if (!(level >= 1 && level <= 7) || strain < 0) throw new Error('Bad call ' + t);
   return bid(level, strain);
 }
@@ -48,7 +52,7 @@ export interface Contract {
 }
 
 export function contractName(c: Contract | null): string {
-  if (!c) return 'Всички пас';
+  if (!c) return CALL_WORDS.passedOut;
   return `${c.level}${STRAIN_SYMBOLS[c.strain]}${c.doubled === 1 ? 'X' : c.doubled === 2 ? 'XX' : ''}`;
 }
 
@@ -133,7 +137,7 @@ export class Auction {
   }
 
   push(c: Call) {
-    if (!this.isLegal(c)) throw new Error('Невалидна обява ' + callName(c));
+    if (!this.isLegal(c)) throw new Error('Illegal call ' + callShort(c));
     this.calls.push(c);
   }
 }

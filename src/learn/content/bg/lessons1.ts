@@ -1,7 +1,7 @@
 // Lessons, part 1.
-// Markup rules: see lessons.ts.
+// Markup rules: see src/learn/lessons.ts.
 
-import type { Lesson } from './types';
+import type { Lesson } from '../../types';
 
 export const LESSONS_1: Lesson[] = [
   {

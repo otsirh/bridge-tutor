@@ -14,14 +14,18 @@ export const N: Seat = 0, E: Seat = 1, S: Seat = 2, W: Seat = 3;
 export const CLUBS: Suit = 0, DIAMONDS: Suit = 1, HEARTS: Suit = 2, SPADES: Suit = 3;
 export const NT: Strain = 4;
 
-export const SEAT_NAMES: readonly string[] = ['Север', 'Изток', 'Юг', 'Запад'];
-export const SEAT_LETTERS: readonly string[] = ['С', 'И', 'Ю', 'З'];
+// Names shown to people. These start in English and are replaced in place by
+// the active language (src/i18n), so read them when rendering — don't copy
+// them at module load.
+export const SEAT_NAMES: string[] = ['North', 'East', 'South', 'West'];
+export const SEAT_LETTERS: string[] = ['N', 'E', 'S', 'W'];
 export const SUIT_SYMBOLS: readonly string[] = ['♣', '♦', '♥', '♠'];
-/** Plural ("пет купи"). */
-export const SUIT_NAMES: readonly string[] = ['спатии', 'кари', 'купи', 'пики'];
-export const SUIT_NAME_SINGULAR: readonly string[] = ['спатия', 'каро', 'купа', 'пика'];
-export const STRAIN_SYMBOLS: readonly string[] = ['♣', '♦', '♥', '♠', 'БК'];
-export const STRAIN_NAMES: readonly string[] = ['спатии', 'кари', 'купи', 'пики', 'без коз'];
+/** Plural ("five hearts"). */
+export const SUIT_NAMES: string[] = ['clubs', 'diamonds', 'hearts', 'spades'];
+export const SUIT_NAME_SINGULAR: string[] = ['club', 'diamond', 'heart', 'spade'];
+/** Strain symbols for display: the four suit symbols and the notrump abbreviation. */
+export const STRAIN_SYMBOLS: string[] = ['♣', '♦', '♥', '♠', 'NT'];
+export const STRAIN_NAMES: string[] = ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'];
 export const RANK_CHARS = '23456789TJQKA';
 
 export const suitOf = (c: Card): Suit => ((c / 13) | 0) as Suit;
@@ -50,10 +54,18 @@ export function cardName(c: Card): string {
   return SUIT_SYMBOLS[suitOf(c)] + rankLabel(rankOf(c));
 }
 
+let longName = (rank: number, suit: number): string => {
+  const names: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+  return `${names[rank] ?? rankLabel(rank)} of ${SUIT_NAMES[suit]}`;
+};
+
+/** Set by the active language. */
+export function setCardLongName(fn: (rank: number, suit: number) => string) {
+  longName = fn;
+}
+
 export function cardLongName(c: Card): string {
-  const r = rankOf(c);
-  const names: Record<number, string> = { 14: 'асо', 13: 'поп', 12: 'дама', 11: 'вале' };
-  return `${names[r] ?? rankLabel(r)} ${SUIT_NAME_SINGULAR[suitOf(c)]}`;
+  return longName(rankOf(c), suitOf(c));
 }
 
 /** Parse "SAK5" / "♠AK5" style card names. */

@@ -28,3 +28,14 @@ export interface Lesson {
   keyPoints: string[]; // 3-6 short takeaways, plain text
   quiz: QuizQuestion[]; // 3-5 questions, answer = index into options
 }
+
+export interface GlossaryEntry {
+  term: string;
+  def: string;
+}
+
+/** Everything one language provides for the Learn room. */
+export interface LessonContent {
+  lessons: Lesson[];
+  glossary: GlossaryEntry[];
+}
