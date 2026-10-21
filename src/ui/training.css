@@ -124,3 +124,5 @@
 }
 @media (min-width: 641px) and (max-width: 1280px) { .topbar { gap: 10px; } }
 @media (max-width: 640px) { .topbar { flex-wrap: wrap; } }
+
+a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items: center; }
