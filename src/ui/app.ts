@@ -1,14 +1,15 @@
 // App shell: header, table, tutor panel and the dialogs.
 
-import type { Call } from '../core/auction';
+import { type Call, contractName } from '../core/auction';
 import { SEAT_NAMES } from '../core/cards';
 import { Game } from '../game/game';
 import type { Settings, DealMode } from '../game/storage';
+import { T, LANGUAGES, type Lang, lang, isLang, setLang, onLangChange } from '../i18n';
 import { h, Region, suitText } from './dom';
 import { renderTable, tableSignature } from './table';
 import { renderPanel, panelSignature } from './panel';
 import { renderReview, reviewSignature } from './review';
-import { renderLearn } from './learn';
+import { renderLearn, relocalizeDrills } from './learn';
 import { renderStats } from './stats';
 
 export interface UIState {
@@ -49,14 +50,27 @@ function applyTheme(t: Theme) {
   }
 }
 
-const DEAL_MODES: [DealMode, string][] = [
-  ['random', 'Случайни раздавания'],
-  ['declare', 'Разиграване (силни С/Ю)'],
-  ['defend', 'Защита (силни И/З)'],
-  ['slam', 'Слемове (31+ т. за С/Ю)'],
-  ['competitive', 'Състезателни лицитации'],
-  ['strong', 'Силна ръка за вас'],
-];
+const DEAL_MODES: DealMode[] = ['random', 'declare', 'defend', 'slam', 'competitive', 'strong'];
+
+/** Options for a settings select, labelled in the active language. */
+function options<K extends string>(keys: readonly K[], labels: Record<K, string>): [K, string][] {
+  return keys.map(k => [k, labels[k]]);
+}
+
+function pickLanguage(v: string) {
+  if (isLang(v)) setLang(v);
+}
+
+const GLOBE =
+  '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><path d="M1.6 8h12.8M8 1.6C6.1 3.4 5.2 5.5 5.2 8s.9 4.6 2.8 6.4M8 1.6c1.9 1.8 2.8 3.9 2.8 6.4s-.9 4.6-2.8 6.4"/></svg>';
+
+/** The header's language switch: each language under its own name (only the globe on phones). */
+function languagePicker(): HTMLElement {
+  return h('label', { class: 'langpick', title: T.ui.header.language },
+    h('span', { class: 'globe', 'aria-hidden': 'true', html: GLOBE }),
+    h('select', { 'aria-label': T.ui.header.language, onchange: (e: Event) => pickLanguage((e.target as HTMLSelectElement).value) },
+      LANGUAGES.map(l => h('option', { value: l.id, lang: l.id, selected: l.id === lang() }, l.name))));
+}
 
 export function mountApp(root: HTMLElement) {
   const game = new Game();
@@ -66,8 +80,8 @@ export function mountApp(root: HTMLElement) {
   const ui: UIState = { selectedCall: null, preview: null, modal: null, reviewTab: 'summary', reviewTrick: null, learnTab: 'lessons', lessonId: null, autoOpenedReview: '' };
 
   const header = h('header', { class: 'topbar' });
-  const tableCol = h('section', { class: 'tablecol', 'aria-label': 'Маса' });
-  const panel = h('aside', { class: 'panel', 'aria-label': 'Треньор' });
+  const tableCol = h('section', { class: 'tablecol' });
+  const panel = h('aside', { class: 'panel' });
   const main = h('main', { class: 'main' }, tableCol, panel);
   const modalRoot = h('div');
   const toastEl = h('div', { class: 'toast', hidden: true, role: 'status' });
@@ -117,42 +131,53 @@ export function mountApp(root: HTMLElement) {
   function renderHeader() {
     const g = game;
     const c = g.contract;
+    const t = T.ui.header;
     return [
-      h('div', { class: 'brand' }, 'Бридж треньор', h('span', { class: 'pips', 'aria-hidden': 'true' }, suitText('♠♥♦♣'))),
+      h('div', { class: 'brand' }, t.title, h('span', { class: 'pips', 'aria-hidden': 'true' }, suitText('♠♥♦♣'))),
       h('div', { class: 'boardinfo' },
-        h('span', null, 'Раздаване ', h('b', null, String(g.board))),
-        h('span', null, 'Раздава ', h('b', null, SEAT_NAMES[g.dealer])),
-        h('span', null, 'Зона ', h('b', null, g.vul === 'None' ? 'никой' : g.vul === 'Both' ? 'всички' : g.vul === 'NS' ? 'С/Ю (ние)' : 'И/З (те)')),
-        c ? h('span', null, 'Договор ', h('b', null, suitText(`${c.level}${['♣', '♦', '♥', '♠', 'БК'][c.strain]}${c.doubled === 1 ? 'X' : c.doubled === 2 ? 'XX' : ''} ${SEAT_NAMES[c.declarer]}`))) : null),
+        h('span', null, `${t.board} `, h('b', null, String(g.board))),
+        h('span', null, `${t.dealer} `, h('b', null, SEAT_NAMES[g.dealer])),
+        h('span', null, `${t.vul} `, h('b', null, t.vulValue[g.vul])),
+        c ? h('span', null, `${t.contract} `, h('b', null, suitText(`${contractName(c)} ${SEAT_NAMES[c.declarer]}`))) : null),
       h('span', { class: 'spacer' }),
-      toggle('Треньор', g.settings.tutor, v => setSetting('tutor', v), 'Подсказки, обяснения и съвети'),
-      h('button', { class: 'btn', type: 'button', onclick: () => { ui.modal = 'learn'; render(true); } }, 'Уроци'),
-      h('button', { class: 'btn', type: 'button', onclick: () => { ui.modal = 'stats'; render(true); } }, 'Напредък'),
-      h('button', { class: 'btn', type: 'button', onclick: () => { ui.modal = 'settings'; render(true); } }, 'Настройки'),
-      h('button', { class: 'btn primary', type: 'button', onclick: () => { ui.selectedCall = null; game.newDeal(); } }, 'Ново раздаване'),
+      languagePicker(),
+      toggle(t.tutor, g.settings.tutor, v => setSetting('tutor', v), t.tutorTitle),
+      h('button', { class: 'btn', type: 'button', onclick: () => { ui.modal = 'learn'; render(true); } }, t.learn),
+      h('button', { class: 'btn', type: 'button', onclick: () => { ui.modal = 'stats'; render(true); } }, t.progress),
+      h('button', { class: 'btn', type: 'button', onclick: () => { ui.modal = 'settings'; render(true); } }, t.settings),
+      h('button', { class: 'btn primary', type: 'button', onclick: () => { ui.selectedCall = null; game.newDeal(); } }, t.newDeal),
     ];
   }
 
   function renderSettings() {
     const s = game.settings;
+    const t = T.ui.settings;
     const row = (title: string, desc: string, control: HTMLElement) => h('div', { class: 'row' }, h('div', null, h('div', { style: 'font-weight:600' }, title), h('div', { class: 'd' }, desc)), control);
     const select = <T extends string>(id: string, value: T, opts: [T, string][], onChange: (v: T) => void) => {
       const el = h('select', { class: 'sel', id, onchange: (e: Event) => onChange((e.target as HTMLSelectElement).value as T) }, opts.map(([v, l]) => h('option', { value: v, selected: v === value }, l)));
       return el;
     };
-    return h('div', { class: 'modal', role: 'dialog', 'aria-label': 'Настройки', style: 'max-width:760px' },
-      h('div', { class: 'head' }, h('h2', null, 'Настройки'), h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': 'Затвори', onclick: () => actions.close() }, '✕')),
+    return h('div', { class: 'modal', role: 'dialog', 'aria-label': t.title, style: 'max-width:760px' },
+      h('div', { class: 'head' }, h('h2', null, t.title), h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => actions.close() }, '✕')),
       h('div', { class: 'body' }, h('div', { class: 'settings-grid' },
-        row('Треньор', 'Подсказки, обяснение на всяка обява, помощ при броенето и план за разиграването. Включвайте и изключвайте по всяко време.', toggle('', s.tutor, v => { setSetting('tutor', v); render(true); })),
-        row('Показвай препоръката веднага', 'Изключено: треньорът първо ви кара да помислите и показва избора си, когато поискате.', toggle('', s.autoHint, v => { setSetting('autoHint', v); render(true); })),
-        row('Предупреждавай ме за грешки', 'Когато обявата или картата ви е явно по-слаба от препоръката, треньорът иска потвърждение.', toggle('', s.coach, v => { setSetting('coach', v); render(true); })),
-        row('Покажи и четирите ръце', 'Режим за упражнения: виждате всички карти (ботовете продължават да играят честно).', toggle('', s.peek, v => { setSetting('peek', v); render(true); })),
-        row('Раздавания', 'Какви ръце да упражнявате. Важи от следващото раздаване.', select('dealmode', s.dealMode, DEAL_MODES, v => setSetting('dealMode', v))),
-        row('Сила на ботовете', 'Колко разпределения симулират ботовете и треньорът преди всяка карта. По-дълбоко е по-силно, но по-бавно.', select('strength', s.strength, [['quick', 'Бързо'], ['standard', 'Стандартно'], ['deep', 'Дълбоко']], v => setSetting('strength', v))),
-        row('Скорост', 'Пауза между картите на ботовете.', select('speed', s.speed, [['slow', 'Бавно'], ['normal', 'Нормално'], ['fast', 'Бързо']], v => setSetting('speed', v))),
-        row('Тема', 'Следва системната, освен ако не изберете.', select('theme', theme, [['system', 'Системна'], ['light', 'Светла'], ['dark', 'Тъмна']], v => { theme = v; applyTheme(v); })),
-        h('div', { class: 'small muted' }, 'Система: Standard American Yellow Card (SAYC) — 1БК 15–17 т., петкартови мажори, Стейман, трансфери на Якоби и Якоби 2БК, слабо две, негативни контри, Майкълс и необичайно 2БК, Блекууд. Дубликатно отчитане.'),
+        row(t.language.title, t.language.desc, select('lang', lang(), LANGUAGES.map((l): [Lang, string] => [l.id, l.name]), setLang)),
+        row(t.tutor.title, t.tutor.desc, toggle('', s.tutor, v => { setSetting('tutor', v); render(true); })),
+        row(t.autoHint.title, t.autoHint.desc, toggle('', s.autoHint, v => { setSetting('autoHint', v); render(true); })),
+        row(t.coach.title, t.coach.desc, toggle('', s.coach, v => { setSetting('coach', v); render(true); })),
+        row(t.peek.title, t.peek.desc, toggle('', s.peek, v => { setSetting('peek', v); render(true); })),
+        row(t.dealMode.title, t.dealMode.desc, select('dealmode', s.dealMode, options(DEAL_MODES, t.dealModes), v => setSetting('dealMode', v))),
+        row(t.strength.title, t.strength.desc, select('strength', s.strength, options(['quick', 'standard', 'deep'], t.strengths), v => setSetting('strength', v))),
+        row(t.speed.title, t.speed.desc, select('speed', s.speed, options(['slow', 'normal', 'fast'], t.speeds), v => setSetting('speed', v))),
+        row(t.theme.title, t.theme.desc, select('theme', theme, options(['system', 'light', 'dark'], t.themes), v => { theme = v; applyTheme(v); })),
+        h('div', { class: 'small muted' }, t.systemNote),
       )));
+  }
+
+  /** Text outside the regions: the tab title and the columns' screen-reader names. */
+  function renderShell() {
+    document.title = T.ui.header.title;
+    tableCol.setAttribute('aria-label', T.ui.header.tableRegion);
+    panel.setAttribute('aria-label', T.ui.header.tutorRegion);
   }
 
   function render(forceModal = false) {
@@ -187,8 +212,20 @@ export function mountApp(root: HTMLElement) {
     if (game.phase !== 'bidding') ui.preview = null;
     render();
   });
+  // A new language can come at any moment: re-word the game and the drills,
+  // then redraw everything, the open dialog included. The hand carries on.
+  onLangChange(() => {
+    game.relocalize();
+    relocalizeDrills();
+    renderShell();
+    rHeader.force();
+    rTable.force();
+    rPanel.force();
+    render(true);
+  });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && ui.modal) actions.close();
   });
+  renderShell();
   render(true);
 }
