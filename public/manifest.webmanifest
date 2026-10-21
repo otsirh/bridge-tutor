@@ -1,7 +1,7 @@
 {
   "name": "Bridge Tutor",
   "short_name": "Bridge Tutor",
-  "description": "Play contract bridge against bots with a tutor that explains every bid and card, and learn from your own mistakes. English and Bulgarian.",
+  "description": "Play contract bridge against bots with a tutor that explains every bid and card, and learn from your own mistakes.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
