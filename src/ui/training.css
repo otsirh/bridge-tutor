@@ -126,3 +126,7 @@
 @media (max-width: 640px) { .topbar { flex-wrap: wrap; } }
 
 a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items: center; }
+
+/* a bot defender's signal in the review */
+.tc .sig { color: var(--brass); font-weight: 700; margin-left: 1px; }
+.sigchip { background: var(--paper-2); color: var(--ink-2); border: 1px solid var(--rule); font-size: 11.5px; }

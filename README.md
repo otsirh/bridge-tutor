@@ -28,6 +28,7 @@ CI publishes it to GitHub Pages from `main`).
   the auction and the play so far (each solved double-dummy), with tricks / success rate / score per
   card and the principle behind it (second hand low, cover an honour, lead toward honours, …).
 - **Declarer plan** when dummy comes down, **counting** of the hidden hands, **reading** leads and signals.
+- **Signals**: the bot defenders give standard attitude, count and suit-preference signals (only with cards that cost nothing), use their partner's signals, and the tutor reads them for you and tells you which card to signal with.
 - **Think first**: the recommendation stays hidden until you ask. **Coach**: asks you to confirm a clear mistake.
 
 **After the hand** — the review: score vs double-dummy par in IMPs, the double-dummy table, every call
@@ -85,7 +86,7 @@ whole auctions and every inference are identical in every language).
 |---|---|
 | `src/core` | cards, auction, play, scoring (incl. IMPs and par), hand evaluation |
 | `src/bidding` | the rule-based SAYC engine: each rule's conditions drive the bots, the explanations and the inferences |
-| `src/engine` | double-dummy solver (partition-search transposition table), deal sampler, Monte Carlo play, opening leads, worker pool |
+| `src/engine` | double-dummy solver (partition-search transposition table), deal sampler, Monte Carlo play, defensive signalling (shared by the bots, the sampler and the tutor), opening leads, worker pool |
 | `src/tutor` | declarer planner, play principles, reading the play |
 | `src/game` | game controller, settings, the practice journal (archive, review queue, skills) and practice themes |
 | `src/ui` | the interface |

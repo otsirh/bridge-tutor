@@ -7,7 +7,7 @@ import { describeShown } from '../bidding/types';
 import type { Game } from '../game/game';
 import type { BidAdvice } from '../bidding/engine';
 import { explainPlay } from '../tutor/principles';
-import { readPlay } from '../tutor/signals';
+import { readPlay, describeSignal } from '../tutor/signals';
 import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
 import { h, suitText } from './dom';
 import { cardText } from './cards';
@@ -80,7 +80,7 @@ function cardAdviceBox(g: Game): HTMLElement | null {
       h('td', null, fmtSigned(Math.round(s.score)))));
     const principle = explain(g, d.card, sit);
     parts.push(h('div', { class: 'box' },
-      h('div', { class: 'advice-call' }, cardText(d.card), h('span', { class: 'tag' }, d.equal.length > 1 ? t.equalCards(d.equal.length) : t.bestInSim)),
+      h('div', { class: 'advice-call' }, cardText(d.card), h('span', { class: 'tag' }, d.signal ? describeSignal(d.signal) : d.equal.length > 1 ? t.equalCards(d.equal.length) : t.bestInSim)),
       h('p', { class: 'small', style: 'margin:8px 0 0' }, t.simSummary(d.samples, cardName(d.card), fmtNum(best.tricks, 2), ours, fmtPct(best.success))),
       principle,
       h('table', { class: 'stats-table' }, h('thead', null, h('tr', null, h('th', null, t.colCard), h('th', null, t.colTricks), h('th', null, ours ? t.colMakes : t.colSets), h('th', null, ''), h('th', null, t.colScore))), h('tbody', null, rows)),
@@ -255,7 +255,7 @@ export function renderPanel(g: Game, ui: UIState, act: PanelActions): HTMLElemen
     const p = g.play!;
     if (p.openingLeadMade) {
       const viewer = g.declarerSide === 0 ? p.contract.declarer : S;
-      const readings = readPlay(p.tricks, p.trump, viewer, p.dummy, [...p.hands[p.dummy]], [...p.hands[S]]);
+      const readings = readPlay(p.tricks, p.trump, viewer, p.dummy, [...p.hands[p.dummy]], [...p.hands[viewer]]);
       if (readings.length) parts.push(h('h3', null, t.readingPlay), h('div', { class: 'feed' }, readings.map(r => h('div', { class: 'item info' }, h('b', null, suitText(r.title)), suitText(r.text)))));
     }
   }
