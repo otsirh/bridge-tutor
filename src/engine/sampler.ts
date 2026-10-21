@@ -1,9 +1,10 @@
 // Generate layouts of the unseen cards that agree with everything a player knows:
-// the auction (HCP and suit-length ranges per seat), cards already played, and
-// the suits a player has shown out of.
+// the auction (HCP and suit-length ranges per seat), cards already played, the
+// suits a player has shown out of, and the signals defenders have given.
 
 import { type Card, suitOf, HCP_VALUE, shuffle } from '../core/cards';
 import type { Shown } from '../bidding/types';
+import { agreement, type SignalFact } from './signalling';
 
 export interface SampleSpec {
   /** Cards each seat still holds that the viewer can see (others empty). */
@@ -20,6 +21,8 @@ export interface SampleSpec {
   shown: (Shown | null)[];
   /** Every card not visible to the viewer and not yet played. */
   unknown: Card[];
+  /** Signals by hidden seats; weak ones (declarer reading the defence) are trusted less and relaxed first. */
+  signals?: { fact: SignalFact; weak: boolean }[];
 }
 
 export interface SampleResult {
@@ -75,9 +78,16 @@ function dealOnce(spec: SampleSpec, rnd: () => number): Card[][] | null {
   return hands;
 }
 
+/** Declarer reading the defenders' count: the chance it was untrue, at least (they may falsecard). */
+const WEAK_TRUST = 0.35;
+
 /**
  * Draw up to `n` layouts. Auction constraints are relaxed step by step if
- * exact matches are rare (bidding judgment is not exact).
+ * exact matches are rare (bidding judgment is not exact). Signals are soft: a
+ * layout that contradicts one is kept only with the chance that the signal
+ * was untrue (a defender cannot always signal freely, and declarer's opponents
+ * may falsecard), so the true layout is never ruled out. They apply in the
+ * first two steps (weak ones only in the first) and are dropped after that.
  */
 export function sampleLayouts(spec: SampleSpec, n: number, rnd: () => number = Math.random, maxTries = 6000): SampleResult[] {
   const out: SampleResult[] = [];
@@ -101,6 +111,11 @@ export function sampleLayouts(spec: SampleSpec, n: number, rnd: () => number = M
             break;
           }
         }
+      }
+      if (ok && spec.signals && slack >= 0 && slack <= 2) {
+        let w = 1;
+        for (const s of spec.signals) if (!s.weak || slack === 0) w *= Math.max(agreement(s.fact, hands[s.fact.seat]), s.weak ? WEAK_TRUST : 0);
+        ok = w === 1 || rnd() < w;
       }
       if (ok) out.push({ hands });
     }

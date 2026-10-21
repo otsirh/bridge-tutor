@@ -9,7 +9,8 @@ import { openingLeadChoices, cardFromHolding, describeLead } from '../src/engine
 import type { CallRecord } from '../src/bidding/context';
 import { explainPlay, type PlaySituation } from '../src/tutor/principles';
 import { makePlan } from '../src/tutor/planner';
-import { readPlay } from '../src/tutor/signals';
+import { readPlay, readSignals, describeSignal } from '../src/tutor/signals';
+import { chooseSignal } from '../src/engine/signalling';
 
 const hand = (s: string): Card[] => s.split(' ').map(parseCard);
 const CYRILLIC = /[\u0400-\u04FF]/;
@@ -38,6 +39,7 @@ function situation(p: PlayState, first: boolean): PlaySituation {
     dummyHand: first ? null : [...p.hands[p.dummy]],
     played: p.tricks.slice(0, -1).flatMap(t => t.cards),
     openingLead: first,
+    history: p.tricks.slice(0, -1),
   };
 }
 
@@ -81,12 +83,18 @@ function run(): Run {
         out.titles.push(pr.title);
         say(pr.title, pr.text);
       }
+      // the signal a defender would give if every legal card were equally good
+      const sg = chooseSignal(legal, p.hands[sit.seat], { seat: sit.seat, declarer: contract.declarer, trump: contract.strain, leader: sit.leader, trick: sit.trick, earlier: sit.history! });
+      if (sg) {
+        out.struct.push([sg.card, sg.kind, sg.height]);
+        say(describeSignal(sg));
+      }
       out.struct.push(card);
       p.play(card);
       if (n === 0 || n % 4 === 3) {
         for (let v = 0; v < 4; v++) {
           const rs = readPlay(p.tricks, contract.strain, v as Seat, p.dummy, [...p.hands[p.dummy]], [...p.hands[v]]);
-          out.struct.push(rs.length);
+          out.struct.push(rs.length, readSignals(p.tricks, contract.strain, v as Seat, p.dummy, [...p.hands[p.dummy]], [...p.hands[v]]).map(r => [r.fact.card, r.look, r.lengths]));
           for (const r of rs) say(r.title, r.text);
         }
       }
