@@ -93,6 +93,12 @@ function languagePicker(): HTMLElement {
       LANGUAGES.map(l => h('option', { value: l.id, lang: l.id, selected: l.id === lang() }, l.name))));
 }
 
+/** The browser's offer to install the app (Chrome, Edge, Android), kept until used. */
+interface InstallPrompt extends Event {
+  prompt(): Promise<void>;
+}
+let installPrompt: InstallPrompt | null = null;
+
 export function mountApp(root: HTMLElement) {
   const game = new Game();
   (window as unknown as { __bridge: Game }).__bridge = game; // handy for debugging in the console
@@ -272,6 +278,7 @@ export function mountApp(root: HTMLElement) {
       h('div', { class: 'head' }, h('h2', null, t.title), h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => actions.close() }, '✕')),
       h('div', { class: 'body' }, h('div', { class: 'settings-grid' },
         row(t.language.title, t.language.desc, select('lang', lang(), LANGUAGES.map((l): [Lang, string] => [l.id, l.name]), setLang)),
+        installPrompt ? row(t.install.title, t.install.desc, h('button', { class: 'btn small primary', type: 'button', onclick: () => { void installPrompt?.prompt(); } }, t.install.button)) : null,
         row(t.tutor.title, t.tutor.desc, toggle('', s.tutor, v => { setSetting('tutor', v); render(true); })),
         row(t.autoHint.title, t.autoHint.desc, toggle('', s.autoHint, v => { setSetting('autoHint', v); render(true); })),
         row(t.coach.title, t.coach.desc, toggle('', s.coach, v => { setSetting('coach', v); render(true); })),
@@ -347,6 +354,15 @@ export function mountApp(root: HTMLElement) {
     rTable.force();
     rPanel.force();
     render(true);
+  });
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    installPrompt = e as InstallPrompt;
+    if (ui.modal === 'settings') render(true);
+  });
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    if (ui.modal === 'settings') render(true);
   });
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape' || !ui.modal) return;

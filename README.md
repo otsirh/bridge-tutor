@@ -15,7 +15,11 @@ npm run dev        # http://localhost:5173
 
 `npm run build` writes a single self-contained `dist/index.html` (open it directly or host it anywhere).
 The site is hosted on Cloudflare: build command `npm run build`, output directory `dist`, Node from `.node-version`.
-`npm test` runs the test suite (solver vs brute force, scoring, bidding, both languages, lessons, journal).
+`npm test` runs the unit tests (solver vs brute force, scoring, bidding, both languages, lessons, journal).
+`npm run test:e2e` plays the built app in a real browser with Playwright (after `npm run build`; set
+`PW_CHROMIUM=/path/to/chrome` to use an installed browser instead of downloading one). CI runs both.
+
+The site works offline and can be installed as an app (manifest and service worker in `public/`).
 
 ## How it helps you improve
 
