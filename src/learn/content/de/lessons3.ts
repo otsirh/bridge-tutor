@@ -298,7 +298,7 @@ export const LESSONS_3: Lesson[] = [
 <li><strong>Nach 1SA – Passe – Passe</strong> beleben Sie nur mit einer guten Farbe oder mit Verteilung wieder. Der Partner des Eröffners kann bis zu 7 Punkte haben, und die Stärke ist gleichmäßiger verteilt.</li>
 </ul>
 <div class="hand" data-cards="S:Q74 H:KJ953 D:A5 C:J82" data-label="1♥ – Passe – Passe – ?: Passe"></div>
-<p>11 FP, aber fünf Coeur hinter dem Eröffner. Der Partner hat wahrscheinlich höchstens ein oder zwei Coeur und hat nicht kontriert, ist also schwach. 1♥ fällt wahrscheinlich; passen Sie.</p>
+<p>11 FP, aber fünf Coeur – die Farbe des Eröffners. Der Partner hat wahrscheinlich höchstens ein oder zwei Coeur und hat nicht kontriert, ist also schwach. 1♥ fällt wahrscheinlich; passen Sie.</p>
 <div class="tip">Belebt der Partner wieder, denken Sie daran, dass er einen Teil Ihrer Werte schon mitgezählt hat. Reizen Sie eine Stufe vorsichtiger als gegenüber einem Gebot aus der direkten Position.</div>
 <div class="warn">Bestrafen Sie den Partner nicht dafür, dass er die Reizung wiederbelebt. Halten Sie eine gute Hand und der Partner belebt mit Kontra wieder, überlegen Sie, ob es ein leichtes Wiederbelebungsgebot ist, bevor Sie ins Vollspiel springen.</div>
 `,
@@ -326,7 +326,7 @@ export const LESSONS_3: Lesson[] = [
         q: '1♥ – Passe – Passe – ? Sie halten ♠Q74 ♥KJ953 ♦A5 ♣J82 (11 FP).',
         options: ['Passe', 'Kontra', '1SA', '2♦'],
         answer: 0,
-        explain: 'Mit fünf Coeur sitzen Sie hinter dem Eröffner, und der Partner, der in Coeur kurz ist, hätte mit Werten kontriert. 1♥ kann gut fallen; passen Sie.',
+        explain: 'Mit fünf Karten in der Farbe des Eröffners ist der Partner in Coeur kurz und hätte mit Werten kontriert. 1♥ kann gut fallen; passen Sie.',
       },
       {
         q: 'Warum dürfen Sie mit weniger Punkten wiederbeleben, als Sie in der direkten Position bräuchten?',
