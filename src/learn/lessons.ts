@@ -21,8 +21,18 @@ import type { Lesson, GlossaryEntry, LessonContent } from './types';
 import { lang, type Lang } from '../i18n';
 import { content as en } from './content/en';
 import { content as bg } from './content/bg';
+import { content as de } from './content/de';
+import { content as es } from './content/es';
+import { content as fr } from './content/fr';
+import { content as it } from './content/it';
+import { content as nl } from './content/nl';
+import { content as pl } from './content/pl';
+import { content as pt } from './content/pt';
+import { content as ru } from './content/ru';
+import { content as ja } from './content/ja';
+import { content as zh } from './content/zh';
 
-const CONTENT: Partial<Record<Lang, LessonContent>> = { en, bg };
+const CONTENT: Partial<Record<Lang, LessonContent>> = { en, bg, de, es, fr, it, nl, pl, pt, ru, ja, zh };
 
 function active(): LessonContent {
   return CONTENT[lang()] ?? en;
