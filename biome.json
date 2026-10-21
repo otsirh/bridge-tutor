@@ -1,0 +1,34 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "includes": ["**", "!dist", "!.claude", "!playwright-report", "!test-results"] },
+  "formatter": { "enabled": false },
+  "assist": { "enabled": false },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        "noNonNullAssertion": "off",
+        "useTemplate": "off",
+        "noDescendingSpecificity": "off"
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "off",
+        "noInvalidGridAreas": "off"
+      },
+      "suspicious": {
+        "useIterableCallbackReturn": "off",
+        "noAssignInExpressions": "off",
+        "noFocusedTests": "off"
+      },
+      "complexity": { "noImportantStyles": "off" }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["test/**", "e2e/**"],
+      "linter": { "rules": { "suspicious": { "noFocusedTests": "error" } } }
+    }
+  ]
+}
