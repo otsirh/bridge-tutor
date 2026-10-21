@@ -183,6 +183,9 @@ export function mountApp(root: HTMLElement) {
     rerender: () => render(true),
     close: actions.close,
     toast: actions.toast,
+    playDeal: spec => playDeal(spec),
+    // problem generation waits while the bots are thinking, so it never slows the table
+    handBusy: () => game.thinking !== null,
     practiseTheme: id => {
       game.updateSettings({ theme: id });
       ui.modal = null;

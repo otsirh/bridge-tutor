@@ -266,7 +266,7 @@ export function streak(now = Date.now()): number {
 // ---------------------------------------------------------------------------
 // Backup: everything the app stores, as one JSON file
 
-const BACKUP_KEYS = [KEY_BOARDS, KEY_REVIEW, KEY_LESSONS, KEY_DAYS, 'bridge-tutor.history.v1', 'bridge-tutor.settings.v1', 'bridge-tutor.board.v1', 'bridge-tutor.lang.v1', 'bridge-tutor.theme'];
+const BACKUP_KEYS = [KEY_BOARDS, KEY_REVIEW, KEY_LESSONS, KEY_DAYS, 'bridge-tutor.history.v1', 'bridge-tutor.settings.v1', 'bridge-tutor.board.v1', 'bridge-tutor.lang.v1', 'bridge-tutor.theme', 'bridge-tutor.problems.v1'];
 
 export function exportAll(): string {
   const data: Record<string, unknown> = {};
