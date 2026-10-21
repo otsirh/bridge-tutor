@@ -92,13 +92,11 @@ const WEAK_TRUST = 0.35;
 export function sampleLayouts(spec: SampleSpec, n: number, rnd: () => number = Math.random, maxTries = 6000): SampleResult[] {
   const out: SampleResult[] = [];
   const slacks = [0, 2, 4, -1];
-  let tries = 0;
   for (const slack of slacks) {
     const budget = slack === -1 ? maxTries : maxTries / 2;
     let localTries = 0;
     while (out.length < n && localTries < budget) {
       localTries++;
-      tries++;
       const hands = dealOnce(spec, rnd);
       if (!hands) continue;
       let ok = true;

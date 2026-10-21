@@ -274,6 +274,11 @@ export function responderAfterNTConvention(x: Ctx, ntLevel: number, myConv: Call
     if (fit >= 0) {
       rules.push(R(bid(4, fit), 'gameInFit', t.gameInFit(game, top), [lenC(fit, 4), hcpC(game, top)]));
       if (inv > 0) rules.push(R(bid(3, fit), 'invitation', t.inviteInFit, [lenC(fit, 4), hcpC(8, 9)], { tag: 'invite' }));
+    } else if (rs === DIAMONDS) {
+      // no four-card major: with five cards in a major and game values, offer it (forcing)
+      for (const M of [SPADES, HEARTS]) {
+        rules.push(R(bid(3, M), 'fiveCardMajor', t.fiveCardMajorAfterStayman(M), [lenC(M, 5, 5), hcpC(game, top)], { forcing: 'one' }));
+      }
     }
     rules.push(R(bid(3, NT), ['nt', 3], t.threeNtNoFit(game, top), [hcpC(game, top), cond(t.noFit, h => fit < 0 || h.len[fit] < 4)]));
     if (inv > 0) rules.push(R(bid(2, NT), 'invitation', t.twoNtNoFit, [hcpC(8, 9), cond(t.noFit, h => fit < 0 || h.len[fit] < 4)], { tag: 'nt-invite' }));
@@ -333,6 +338,13 @@ export function openerAfterNTContinuation(x: Ctx, ntLevel: number, conv: CallRec
     if (strainOf(c) === rs && levelOf(c) === 3) {
       rules.push(R(bid(4, rs), 'accept', t.acceptMaximum, [hcpC(max)]));
       rules.push(R(PASS, 'decline', t.declineMinimum, []));
+      return rules;
+    }
+    if (rs === DIAMONDS && (c === bid(3, HEARTS) || c === bid(3, SPADES))) {
+      // responder's five-card major after our denial: raise with three, otherwise 3NT
+      const M = strainOf(c);
+      rules.push(R(bid(4, M), 'raise', t.raiseFiveCardMajor(M), [lenC(M, 3)]));
+      rules.push(R(bid(3, NT), ['nt', 3], t.noFitFiveCardMajor(M), []));
       return rules;
     }
     return [];
@@ -419,6 +431,14 @@ export function responderAfterInvite(x: Ctx, trump: number): Rule[] {
     const ph = x.partnerHcp();
     if (x.isLegal(bid(6, NT))) rules.push(R(bid(6, NT), 'smallSlam', t.slamAfterInvite(ph.min, ph.max, 33 - ph.min), [hcpC(33 - ph.min)]));
     if (x.isLegal(bid(4, NT))) rules.push(R(bid(4, NT), 'quant4nt', t.quantAfterInvite, [hcpC(33 - ph.max, 32 - ph.min)], { tag: 'quant' }));
+    // a major of mine that partner has not supported: play it with six, offer it with five
+    const P = x.shownBy(x.partner);
+    const responder = x.opening()?.seat !== x.seat;
+    for (const M of [SPADES, HEARTS]) {
+      if (!responder || P.len[M][0] >= 3 || !x.bidsBy(x.seat).some(r => strainOf(r.call) === M && !r.meaning.artificial)) continue;
+      if (x.isLegal(bid(4, M))) rules.push(R(bid(4, M), 'game', t.majorGameAfterNtInvite(M), [lenC(M, 6), hcpC(need)]));
+      if (x.isLegal(bid(3, M))) rules.push(R(bid(3, M), 'rebidSuit', t.fiveCardMajorAfterNtInvite(M), [lenC(M, 5, 5), hcpC(need)], { forcing: 'one' }));
+    }
     rules.push(R(bid(3, NT), 'accept', t.acceptNtInvitation(need), [hcpC(need)]));
     rules.push(R(PASS, 'decline', t.declineBottom, []));
     return rules;

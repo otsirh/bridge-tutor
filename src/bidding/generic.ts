@@ -9,9 +9,13 @@ import type { HandInfo } from '../core/eval';
 import { hasStopper, dummyPoints, declarerPoints, suitHonours } from '../core/eval';
 import { T } from '../i18n';
 import type { Ctx } from './context';
-import { R, cond, type Rule } from './types';
+import { R, cond, always, lenC, type Rule } from './types';
 import { blackwoodTrump, aceAsk, aceAskMade } from './slam';
 import { getSystem } from './config';
+import { controlBidTry, tryMajor } from './conventions';
+
+/** Combined points (with partner's expected strength) at which a fit hand tries for slam. */
+const SLAM_TRY = 30;
 
 export interface Target {
   strain: number; // 0-3, 4 = NT, -1 = none
@@ -42,9 +46,11 @@ export function targetContract(h: HandInfo, x: Ctx): Target {
 
   const level = (c: number, gameLevel: number) => (c >= 37 ? 7 : c >= 33 ? 6 : c >= (gameLevel === 5 ? 28 : 25) ? gameLevel : c >= 23 ? -1 : 0);
 
+  // each trump beyond eight is worth about a point (up to two)
+  const ninth = (s: number) => Math.max(0, Math.min(2, fitLen(s) - 8));
   if (fit >= HEARTS) {
-    const c = pts(fit) + ph.est;
-    return { strain: fit, level: level(c, 4), combined: c, fit: fitLen(fit), why: t.whyFit(fitLen(fit), fit, pts(fit), partnerPart, c) };
+    const c = pts(fit) + ninth(fit) + ph.est;
+    return { strain: fit, level: level(c, 4), combined: c, fit: fitLen(fit), why: t.whyFit(fitLen(fit), fit, pts(fit), partnerPart, c, ninth(fit)) };
   }
   // a self-sufficient six-card major usually plays well opposite two small
   const longMajor = [SPADES, HEARTS].find(s => h.len[s] >= 6 && P.len[s][1] >= 2 && !theirs.includes(s) && (h.len[s] >= 7 || h.suitHcp[s] >= 3));
@@ -58,8 +64,8 @@ export function targetContract(h: HandInfo, x: Ctx): Target {
     return { strain: NT, level: level(c, 3), combined: c, fit: 0, why: t.whyNoMajorFit(theirs.length > 0, h.hcp, partnerPart, c) };
   }
   if (fit >= 0) {
-    const c = pts(fit) + ph.est;
-    return { strain: fit, level: level(c, 5), combined: c, fit: fitLen(fit), why: t.whyFit(fitLen(fit), fit, pts(fit), partnerPart, c) };
+    const c = pts(fit) + ninth(fit) + ph.est;
+    return { strain: fit, level: level(c, 5), combined: c, fit: fitLen(fit), why: t.whyFit(fitLen(fit), fit, pts(fit), partnerPart, c, ninth(fit)) };
   }
   // no fit: a long suit of my own?
   const partnerTwoSuits = [0, 1, 2, 3].filter(s => P.len[s][0] >= 4).length >= 2;
@@ -78,27 +84,30 @@ const isGame = (call: number) => {
   return (s === NT && l >= 3) || (s >= HEARTS && s < NT && l >= 4) || l >= 5;
 };
 
-export function genericRules(x: Ctx): Rule[] {
+/**
+ * The slam decisions of general judgment: ask for key cards, quantitative 4NT,
+ * set trumps, bid a slam directly, or try for one with a control bid. They come
+ * first among the general rules, and before a specific system call that would
+ * sign off in game (see rulesFor).
+ */
+export function slamRules(x: Ctx): Rule[] {
   const t = T.bidding.generic;
   const rules: Rule[] = [];
-  const lb = x.lastBidRecord();
   const weHold = x.weHoldContract();
-  const P = x.shownBy(x.partner);
-  const forced = x.forcedByPartner() || (x.gameForced() && !(lb && x.ourSide(lb.seat) && isGame(lb.call)));
   const theirs = x.theirSuits();
   const asked = aceAskMade(x);
   const target = (h: HandInfo) => targetContract(h, x);
   const value = (h: HandInfo) => target(h).why;
 
-  // --- slam
   const bwTrump = blackwoodTrump(x);
   const rk = getSystem().rkcb;
   if (!asked && bwTrump !== null && x.isLegal(bid(4, NT))) {
-    // Roman Key Card counts the trump king and queen, so it must ask in the suit we will play in
+    // ask in the suit we will play in: the slam that follows is bid in it (and Roman
+    // Key Card counts its king and queen)
     rules.push(aceAsk(bwTrump, [
       cond(t.blackwoodCond, h => {
         const tc = target(h);
-        return tc.level >= 6 && tc.strain < NT && (!rk || tc.strain === bwTrump);
+        return tc.level >= 6 && tc.strain === bwTrump;
       }, undefined, value),
       cond(t.noVoid, h => h.shape[3] > 0),
     ], { shows: s => { s.hcp = [Math.max(s.hcp[0], 13), s.hcp[1]]; } }));
@@ -116,9 +125,11 @@ export function genericRules(x: Ctx): Rule[] {
   // directly, and a long suit partner has not heard about is bid first (forcing) to set trumps
   const ours = x.ourSuits();
   if (rk && !asked && x.gameForced()) {
+    // a four-level bid that would be a control bid agreeing partner's major is not natural
+    const cueSlots = controlBidTry(x, always()).map(r => r.call);
     for (const s of [SPADES, HEARTS, 1, 0]) {
       const c = x.cheapest(s);
-      if (c === null || ours.includes(s) || theirs.includes(s) || c >= bid(4, NT)) continue;
+      if (c === null || ours.includes(s) || theirs.includes(s) || c >= bid(4, NT) || cueSlots.includes(c)) continue;
       rules.push(R(c, 'newSuit', t.setTrumps(s), [
         cond(t.setTrumpsCond(s), h => {
           const tc = target(h);
@@ -144,10 +155,65 @@ export function genericRules(x: Ctx): Rule[] {
     }
   }
 
+  // --- slam try: slam is on if partner has a little more than shown, so show a
+  // control below game (agreeing partner's major) rather than bid the game
+  const op = x.opening();
+  const pLast = x.partnerCall();
+  if (op && x.ourSide(op.seat) && weHold && pLast && isBid(pLast.call)) {
+    const M = tryMajor(x) ?? strainOf(pLast.call);
+    const ph0 = x.partnerHcp();
+    rules.push(...controlBidTry(x, cond(T.bidding.cues.slamTry, h => {
+      const tc = target(h);
+      return tc.strain === M && tc.level < 6 && tc.combined >= SLAM_TRY && tc.combined - ph0.est + ph0.max >= 33;
+    }, s => { s.hcp = [Math.max(s.hcp[0], SLAM_TRY - 2 - ph0.est), s.hcp[1]]; }, value)));
+    // in a minor, raise to the four level: past 3NT, forcing, a slam try
+    const m = strainOf(pLast.call), four = bid(4, m);
+    const P = x.shownBy(x.partner);
+    if (m <= 1 && !pLast.meaning.artificial && levelOf(pLast.call) <= 3 && x.isLegal(four) && x.actionsBy(x.seat).length && !aceAskMade(x)) {
+      const need = Math.max(2, 8 - P.len[m][0]);
+      rules.push(R(four, 'minorSlamTry', t.minorSlamTry(m), [
+        cond(T.bidding.cues.supportCond(need, m), h => h.len[m] >= need, s => { s.len[m] = [Math.max(need, s.len[m][0]), s.len[m][1]]; }, h => T.bidding.conds.lenValue(h.len[m], m)),
+        cond(T.bidding.cues.slamTry, h => {
+          const tc = target(h);
+          return tc.strain === m && tc.level < 6 && tc.combined >= SLAM_TRY && tc.combined - ph0.est + ph0.max >= 33;
+        }, s => { s.hcp = [Math.max(s.hcp[0], SLAM_TRY - 2 - ph0.est), s.hcp[1]]; }, value),
+      ], { forcing: 'one', tag: 'minorTry', data: { suit: m } }));
+    }
+  }
+
+  for (const r of rules) r.generic = true;
+  return rules;
+}
+
+/** Partner raised our minor to the four level as a slam try: ask for key cards with something extra, otherwise sign off in five. */
+export function afterMinorSlamTry(x: Ctx, m: number): Rule[] {
+  const t = T.bidding.generic;
+  const value = (h: HandInfo) => targetContract(h, x).why;
+  const points = (h: HandInfo) => (h.len[m] >= 4 ? declarerPoints(h, m) : dummyPoints(h, m));
+  const strong = (h: HandInfo) => points(h) + x.partnerHcp().est >= SLAM_TRY;
+  return [
+    aceAsk(m, [cond(t.acceptSlamTry, strong, undefined, value), cond(t.noVoid, h => h.shape[3] > 0)]),
+    R(bid(6, m), 'smallSlam', t.acceptSlamTry6, [cond(t.acceptSlamTry, strong, undefined, value)]),
+    R(bid(5, m), 'signOff', t.declineSlamTry(m), []),
+  ];
+}
+
+export function genericRules(x: Ctx, skipSlam = false): Rule[] {
+  const t = T.bidding.generic;
+  const rules: Rule[] = [];
+  const lb = x.lastBidRecord();
+  const weHold = x.weHoldContract();
+  const P = x.shownBy(x.partner);
+  const forced = x.forcedByPartner() || (x.gameForced() && !(lb && x.ourSide(lb.seat) && isGame(lb.call)));
+  const theirs = x.theirSuits();
+  const target = (h: HandInfo) => targetContract(h, x);
+  const value = (h: HandInfo) => target(h).why;
+
+  if (!skipSlam) rules.push(...slamRules(x));
+
   // --- already in game (or higher) and no slam: stop
   if (lb && weHold && isGame(lb.call)) {
     const cur = lb.call;
-    rules.push(R(PASS, 'pass', t.passGame, [cond(t.noSlam, h => target(h).level < 6 || levelOf(cur) >= target(h).level, undefined, value)]));
     // correct 3NT to four of a major with a known fit and an unbalanced hand
     if (strainOf(cur) === NT && levelOf(cur) === 3) {
       for (const M of [HEARTS, SPADES]) {
@@ -158,6 +224,27 @@ export function genericRules(x: Ctx): Rule[] {
           cond(t.correctLongCond(M), h => h.len[M] >= 6 && h.shape[3] <= 1 && (h.ranks[M].filter(r => r >= 12).length >= 2 || h.shape[1] >= 5) && !theirs.includes(M)),
         ]));
       }
+    }
+    rules.push(R(PASS, 'pass', t.passGame, [cond(t.noSlam, h => target(h).level < 6 || levelOf(cur) >= target(h).level, undefined, value)]));
+  }
+
+  // --- delayed support: in a game-forcing auction, show three cards in partner's
+  // major (which may be five long) before settling for notrump
+  const claimed = new Set<number>(); // calls whose meaning is delayed support, not a forced catch-all
+  if (weHold && x.gameForced() && lb && !isGame(lb.call)) {
+    const mine = x.shownBy(x.seat);
+    for (const M of [SPADES, HEARTS]) {
+      const c = x.cheapest(M);
+      if (c === null || levelOf(c) > 3 || theirs.includes(M) || P.len[M][0] < 4 || P.len[M][1] < 5 || mine.len[M][0] >= 3) continue;
+      if (!x.bidsBy(x.partner).some(r => strainOf(r.call) === M && !r.meaning.artificial)) continue;
+      claimed.add(c);
+      rules.push(R(c, 'delayedSupport', t.delayedSupport(M), [
+        lenC(M, 3, 3),
+        cond(t.delayedSupportCond, h => {
+          const tc = target(h);
+          return tc.level < 6 && (tc.strain === NT || tc.strain === M);
+        }, undefined, value),
+      ], { forcing: 'one' }));
     }
   }
 
@@ -176,17 +263,20 @@ export function genericRules(x: Ctx): Rule[] {
 
   // --- invitations (only while the auction is low and partner's range is wide)
   const ph = x.partnerHcp();
-  if (weHold && ph.max - ph.min >= 3 && (!lb || levelOf(lb.call) <= 2)) {
+  if (weHold && !x.gameForced() && ph.max - ph.min >= 3 && (!lb || levelOf(lb.call) <= 2)) {
     for (const s of [NT, SPADES, HEARTS]) {
       const c = s === NT ? bid(2, NT) : bid(3, s);
       if (!x.isLegal(c)) continue;
+      // the inviter counts 23–24 together with partner's expected strength (in a
+      // suit some of that may be distribution), so partner accepts when above it
+      const lo = 23 - ph.est - (s === NT ? 0 : 4), hi = 25 - ph.est;
       rules.push(R(c, 'invitation', s === NT ? t.invite2nt : t.inviteMajor(s), [
         cond(t.inviteCond, h => {
           const tc = target(h);
           if (tc.strain !== s || tc.level !== -1) return false;
           return tc.combined - ph.est + ph.max >= 26;
         }, undefined, value),
-      ], { tag: 'invite' }));
+      ], { tag: 'invite', shows: sh => { sh.hcp = [Math.max(sh.hcp[0], lo), Math.max(Math.min(sh.hcp[1], hi), sh.hcp[0], lo)]; } }));
     }
   }
 
@@ -212,7 +302,7 @@ export function genericRules(x: Ctx): Rule[] {
     const pSuits = [3, 2, 1, 0].filter(s => P.len[s][0] >= 4);
     for (const s of pSuits) {
       const c = x.cheapest(s);
-      if (c === null) continue;
+      if (c === null || claimed.has(c)) continue;
       const need = s >= HEARTS ? 3 : 4;
       rules.push(R(c, 'supportPartner', t.supportPartner(s), [
         cond(T.bidding.conds.lenMin(need, s), h => h.len[s] >= need, sh => { sh.len[s] = [Math.max(need, sh.len[s][0]), sh.len[s][1]]; }),
@@ -220,7 +310,7 @@ export function genericRules(x: Ctx): Rule[] {
     }
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
-      if (c === null || levelOf(c) > 4) continue;
+      if (c === null || claimed.has(c) || levelOf(c) > 4) continue;
       rules.push(R(c, 'rebidSuit', t.rebidSuit(s), [cond(T.bidding.conds.lenMin(6, s), h => h.len[s] >= 6)]));
     }
     const nt = x.cheapest(NT);
@@ -229,7 +319,7 @@ export function genericRules(x: Ctx): Rule[] {
       // above 3NT, keep bidding suits — 4NT would be Blackwood
       for (const s of [3, 2, 1, 0]) {
         const c = x.cheapest(s);
-        if (c === null || levelOf(c) > 5) continue;
+        if (c === null || claimed.has(c) || levelOf(c) > 5) continue;
         rules.push(R(c, 'signOffInGame', t.signOffInGame, [cond(t.fitIn(s), h => h.len[s] + P.len[s][0] >= 8)]));
       }
     }
@@ -240,13 +330,13 @@ export function genericRules(x: Ctx): Rule[] {
     }
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
-      if (c === null) continue;
+      if (c === null || claimed.has(c)) continue;
       rules.push(R(c, 'preference', t.preference(s), [cond(t.preferenceCond(s), h => P.len[s][0] >= 3 && h.len[s] >= 2)]));
     }
     if (nt !== null && levelOf(nt) <= 3) rules.push(R(nt, 'notrump', t.ntFallback, []));
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
-      if (c !== null && levelOf(c) <= 5) rules.push(R(c, 'longestSuit', t.longestSuit, [cond(T.bidding.conds.longestSuit(s), h => h.len[s] === h.shape[0])]));
+      if (c !== null && !claimed.has(c) && levelOf(c) <= 5) rules.push(R(c, 'longestSuit', t.longestSuit, [cond(T.bidding.conds.longestSuit(s), h => h.len[s] === h.shape[0])]));
     }
   }
 
@@ -290,7 +380,7 @@ export function genericRules(x: Ctx): Rule[] {
       for (const s of [3, 2, 1, 0]) {
         if (s === ls) continue;
         const c = x.cheapest(s);
-        if (c === null || levelOf(c) > 3) continue;
+        if (c === null || levelOf(c) > 3 || claimed.has(c)) continue;
         rules.push(R(c, 'preference', t.preferenceMisfit(s), [
           cond(t.betterFit(s, ls), h => P.len[s][0] >= 4 && h.len[s] >= 2 && h.len[s] + P.len[s][0] > h.len[ls] + P.len[ls][0] + 1),
         ]));

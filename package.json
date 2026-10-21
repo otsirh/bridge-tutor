@@ -1,17 +1,46 @@
 {
   "name": "bridge-tutor",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "description": "Contract bridge against bots, with a tutor that explains every bid and card and a training loop built on your own mistakes. English and Bulgarian.",
+  "keywords": [
+    "bridge",
+    "contract-bridge",
+    "card-game",
+    "tutor",
+    "double-dummy",
+    "education"
+  ],
+  "homepage": "https://bridge-tutor.pages.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otsirh/bridge-tutor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/otsirh/bridge-tutor/issues"
+  },
+  "license": "MIT",
+  "author": "Hristo Ivanov",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "8.72.0",
     "vite": "^7.3.7",
     "vite-plugin-singlefile": "^2.3.4",
     "vitest": "^3.2.7"

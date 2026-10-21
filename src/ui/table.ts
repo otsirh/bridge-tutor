@@ -36,7 +36,7 @@ function recommendedCard(g: Game): Card | null {
   return null;
 }
 
-function seatBlock(g: Game, seat: Seat, ui: UIState, act: TableActions): HTMLElement {
+function seatBlock(g: Game, seat: Seat): HTMLElement {
   const area = ['north', 'east', 'south', 'west'][seat];
   const p = g.play;
   const c = g.contract;
@@ -196,11 +196,11 @@ function belt(g: Game, ui: UIState, act: TableActions): HTMLElement {
 
 export function renderTable(g: Game, ui: UIState, act: TableActions): HTMLElement {
   const felt = h('div', { class: 'felt' },
-    seatBlock(g, N, ui, act),
-    seatBlock(g, W, ui, act),
+    seatBlock(g, N),
+    seatBlock(g, W),
     centerBlock(g, ui, act),
-    seatBlock(g, E, ui, act),
-    seatBlock(g, S, ui, act),
+    seatBlock(g, E),
+    seatBlock(g, S),
   );
   return h('div', { class: 'tablewrap', style: 'display:flex;flex-direction:column;gap:12px' }, felt, belt(g, ui, act), biddingBox(g, ui, act));
 }

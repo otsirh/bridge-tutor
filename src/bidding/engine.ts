@@ -53,7 +53,7 @@ export interface BidAdvice {
 
 function checkRule(rule: Rule, h: HandInfo, x: Ctx): RuleCheck {
   const checks = rule.conds.map(c => {
-    let ok = false;
+    let ok: boolean;
     try {
       ok = c.test(h, x);
     } catch {

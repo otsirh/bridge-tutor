@@ -12,7 +12,7 @@ export function detectFormat(text: string): ImportFormat {
   const t = text.trim();
   if (/^\s*[[%]/.test(t) || /\[\s*Deal\s+"/i.test(t)) return 'pbn';
   if (/(^|\|)md\|/i.test(t) || /[?&]lin=/i.test(t)) return 'lin';
-  if (/^[NESW]:\s*[AKQJT2-9.\-]/i.test(t)) return 'deal';
+  if (/^[NESW]:\s*[AKQJT2-9.-]/i.test(t)) return 'deal';
   return 'share';
 }
 
