@@ -10,6 +10,7 @@ export interface Settings {
   speed: 'slow' | 'normal' | 'fast';
   dealMode: DealMode;
   strength: 'quick' | 'standard' | 'deep'; // simulation effort
+  theme: string | null; // practice theme the boards are dealt for (src/game/themes.ts), or null
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -20,6 +21,7 @@ export const DEFAULT_SETTINGS: Settings = {
   speed: 'normal',
   dealMode: 'random',
   strength: 'standard',
+  theme: null,
 };
 
 export interface HandRecord {
@@ -60,7 +62,7 @@ function write(key: string, value: unknown) {
 }
 
 export function loadSettings(): Settings {
-  return read(KEY_SETTINGS, DEFAULT_SETTINGS);
+  return { ...DEFAULT_SETTINGS, ...read(KEY_SETTINGS, DEFAULT_SETTINGS) };
 }
 
 export function saveSettings(s: Settings) {
