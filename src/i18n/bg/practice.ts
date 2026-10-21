@@ -10,7 +10,7 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 export const practice: Text['practice'] = {
   title: 'Тренировка',
   close: 'Затвори',
-  tabs: { today: 'Днес', review: 'Повторение', skills: 'Умения', topics: 'Теми', history: 'История' },
+  tabs: { today: 'Днес', review: 'Повторение', problems: 'Задачи', skills: 'Умения', topics: 'Теми', history: 'История' },
 
   skills: {
     'bid.opening': { name: 'Откриване на лицитацията', desc: 'Дали да откриете и кое откриване описва ръката ви: едно в цвят, 1БК, 2♣, слабо две и бариерни откривания.' },
@@ -104,6 +104,9 @@ export const practice: Text['practice'] = {
   stepCourseTitle: (title: string) => `Продължете курса: ${title}`,
   stepCourseText: (i: number, total: number) => `Урок ${i} от ${total}. Урокът се брои за преминат, когато решите вярно 80% от теста му от първия опит.`,
   openLesson: 'Отворете урока',
+  stepProblemsTitle: 'Намерете правилната игра',
+  stepProblemsText: 'Задачи от истински раздавания, в които една карта е явно най-добрата: разиграване, защита и първи извод.',
+  openProblems: 'Към задачите',
   howItWorks: 'Всяко завършено раздаване се запазва с анализа си. Обявите, които се различават от системата, и картите, които са били явно по-лоши с информацията, която сте имали (а не само при поглед назад), отиват в опашката ви за повторение.',
 
   // Review
@@ -114,6 +117,7 @@ export const practice: Text['practice'] = {
   sessionScore: (right: number, done: number) => `Тази сесия: ${right}/${done} верни`,
   itemFrom: (date: string, board: number) => `от раздаване ${board}, ${date}`,
   itemFromDrill: (date: string) => `от упражнението по лицитация, ${date}`,
+  itemFromProblem: (date: string) => `от задача, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'ново' : `стъпка ${box} от ${last}`),
   dueLeft: (n: number) => `${n} за днес`,
   next: 'Следващо',
@@ -136,7 +140,67 @@ export const practice: Text['practice'] = {
   cardWrong: (cards: string) => `Най-добре: ${cards}`,
   cardSim: (n: number, best: string, bt: string, bs: string, yours: string, mt: string, ms: string, declaring: boolean) =>
     `В ${n} разпределения, съвместими с лицитацията и играта, ${best} носи средно ${bt} взятки за вашата страна (${declaring ? 'изпълнява договора' : 'сваля договора'} в ${bs} от случаите); ${yours}, вашата карта на масата — средно ${mt} (${ms}).`,
+  cardSimProblem: (n: number, best: string, bt: string, bs: string, yours: string, mt: string, ms: string, declaring: boolean) =>
+    `В ${n} разпределения, съвместими с лицитацията и играта, ${best} носи средно ${bt} взятки за вашата страна (${declaring ? 'изпълнява договора' : 'сваля договора'} в ${bs} от случаите); ${yours}, вашият отговор в задачата — средно ${mt} (${ms}).`,
   cardFresh: (card: string, t: string, s: string, n: number) => `${card} носи средно ${t} взятки (${s}) в ${n} нови разпределения.`,
+
+  // Problems
+  problems: {
+    intro: 'Позиции от истински раздавания, в които симулацията показва, че една карта е явно най-добрата — намерете я. Всяко раздаване е лицитирано по системата и изиграно от ботовете до момента на вашето решение.',
+    filterLabel: 'Вид задача',
+    filters: { mixed: 'Смесени', declarer: 'Разиграване', defense: 'Защита', lead: 'Първи изводи' },
+    kinds: { declarer: 'Разиграване', defense: 'Защита', lead: 'Първи извод' },
+    session: (right: number, done: number) => `Тази сесия: ${right}/${done} верни`,
+    kindScore: (kind: string, right: number, done: number) => `${kind}: ${right}/${done}`,
+    allTime: (right: number, done: number) => `Общо: ${right}/${done}`,
+    ready: (declarer: number, defense: number, lead: number) => `Готови: ${declarer} за разиграване · ${defense} за защита · ${lead} за извод`,
+    boardLine: (board: number, vul: string) => `Раздаване ${board}, ${vul}.`,
+
+    // waiting for the first problem
+    preparing: 'Подготвям задача…',
+    stageDealing: (kind: 'declarer' | 'defense' | 'lead') =>
+      kind === 'declarer' ? 'Раздавам ръка за разиграване…' : kind === 'defense' ? 'Раздавам ръка за защита…' : 'Раздавам ръка, в която вие правите първия извод…',
+    stagePlaying: (trick: number) => `Ботовете играят взятка ${trick}…`,
+    stageTesting: (trick: number, done: number, total: number) =>
+      total ? `Проверявам решението ви на взятка ${trick}: ${done} от ${total} разпределения…` : 'Проверявам раздаването…',
+    tried: (n: number) => (n === 1 ? 'Досега е пробвано 1 раздаване.' : `Досега са пробвани ${n} раздавания.`),
+    waitNote: 'Запазват се само позиции с ясен отговор, затова може да отнеме няколко раздавания. Задачите се подготвят във фонов режим, докато този раздел е отворен, и до 6 от всеки вид се пазят за следващия път.',
+    leadNote: 'Ясните задачи за първи извод са рядкост: подготовката на една може да отнеме минута-две.',
+
+    // the question
+    qDeclarer: (contract: string, seat: string) => `Вие (${seat}) разигравате ${contract}.`,
+    qDefence: (contract: string, declarer: string, seat: string) => `${declarer} разиграва ${contract}, а вие (${seat}) защитавате.`,
+    qLead: (contract: string, declarer: string) => `${declarer} разиграва ${contract}, а вие сте на извод.`,
+    led: (who: 'you' | 'partner' | 'opponent', seat: string, card: string) =>
+      who === 'you' ? `Изведохте ${card}.` : who === 'partner' ? `Партньорът (${seat}) изведе ${card}.` : `${seat} изведе ${card}.`,
+    tally: (trick: number, won: number, lost: number) => `Взятка ${trick}: досега вашата страна има ${won} ${won === 1 ? 'взятка' : 'взятки'}, противниците — ${lost}.`,
+    askLead: 'С коя карта извеждате?',
+    askPlan: (fromDummy: boolean) => `Планирайте разиграването: коя карта ${fromDummy ? 'от мъртвака' : 'от ръката си'} играете?`,
+    askDeclarer: (fromDummy: boolean) => `Коя карта ${fromDummy ? 'от мъртвака' : 'от ръката си'} играете сега?`,
+    askDefence: 'Коя карта играете?',
+
+    // the answer
+    right: (cards: string) => `Вярно! Най-добре: ${cards}.`,
+    wrong: (cards: string) => `Този път не. Най-добре: ${cards}.`,
+    simLine: (n: number, best: string, t: string, s: string, declaring: boolean) =>
+      `В ${n} разпределения, съвместими с лицитацията и досегашната игра, ${best} носи средно ${t} взятки за вашата страна и ${declaring ? 'изпълнява договора' : 'сваля договора'} в ${s} от случаите.`,
+    yourLine: (card: string, t: string, s: string) => `Вашата карта ${card}: ${t} взятки, ${s}.`,
+    nextBest: (card: string, t: string, s: string) => `Най-добрата от останалите, ${card}: ${t} взятки, ${s}.`,
+    colCard: 'Карта',
+    colTricks: 'Взятки',
+    colMakes: 'Изпълнява',
+    colSets: 'Сваля',
+    addedToReview: 'Добавено в опашката за повторение: позицията ще се връща, докато не я решите правилно.',
+    whyThisSuit: 'Защо този цвят:',
+    next: 'Следваща задача',
+    skip: 'Пропусни',
+    showDeal: 'Покажи цялото раздаване',
+    hideDeal: 'Скрий раздаването',
+    playFromStart: 'Изиграй раздаването от началото',
+    declarerTag: 'разиграващ',
+    dummyTag: 'мъртвак',
+  },
+
 
   // Skills
   skillsIntro: 'Точност при последните ви решения във всяка област. В лицитацията се броят обявите според системата; в играта — картите, които не са били явно по-лоши от най-добрата с информацията, която сте имали.',

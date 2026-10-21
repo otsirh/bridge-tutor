@@ -127,6 +127,38 @@
 
 a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items: center; }
 
+/* a card position (Review and Problems tabs) */
+.posrow { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+.card.picked { box-shadow: 0 0 0 3px var(--bad), 0 1px 2px rgba(0, 0, 0, 0.25); }
+/* the text wraps to the dialog's width instead of the hands widening the column */
+.drill { grid-template-columns: minmax(0, 1fr); }
+.feltbox { overflow-x: auto; }
+@media (max-width: 560px) {
+  /* thirteen cards fit a phone: smaller cards, the big pip left out */
+  .feltbox { padding: 8px 10px; }
+  .feltbox .hand { --card-w: 34px; --card-h: 52px; }
+  .feltbox .card .rk { font-size: 15px; top: 3px; left: 4px; }
+  .feltbox .card .st { font-size: 13px; top: 20px; left: 5px; }
+  .feltbox .card .big { display: none; }
+}
+
+/* Problems tab */
+.phead { display: flex; gap: 8px 16px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.pfilter { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.pfilter .btn.on { background: var(--brass); border-color: var(--brass); color: #fff; }
+.pscore { display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.pscore b { color: var(--ink-2); }
+.problem .prompt .small { margin-bottom: 4px; }
+.box.rightbox { border-color: var(--good); }
+.pstats { max-width: 460px; }
+.pstats tr.mine td:first-child::after { content: ' ←'; font-family: var(--f-body); font-weight: 400; color: var(--ink-3); }
+.pstats tr.mine:not(.best) td { background: var(--bad-soft); }
+.pbtns { display: flex; gap: 8px; flex-wrap: wrap; }
+.pwait { max-width: 560px; }
+.pwait .progress { max-width: 420px; }
+.pdeal { max-width: 460px; }
+.pdeal .c { font-family: var(--f-card); font-weight: 700; font-size: 15px; color: var(--ink-2); }
+
 /* a bot defender's signal in the review */
 .tc .sig { color: var(--brass); font-weight: 700; margin-left: 1px; }
 .sigchip { background: var(--paper-2); color: var(--ink-2); border: 1px solid var(--rule); font-size: 11.5px; }
