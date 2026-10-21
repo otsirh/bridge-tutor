@@ -1,6 +1,7 @@
 // The bidding engine must behave identically in every language: only the
 // words change. Bots bid the same deals in English and in Bulgarian, and every
-// call (chosen or not) must be read the same way.
+// call (chosen or not) must be read the same way. Every optional convention is
+// switched on, so their rules are covered too.
 
 import { describe, it, expect, afterAll } from 'vitest';
 import { Auction, type Call } from '../src/core/auction';
@@ -9,6 +10,7 @@ import { readAuction, advise, explainCall, summarizeShown } from '../src/bidding
 import type { Meaning } from '../src/bidding/context';
 import { describeShown } from '../src/bidding/types';
 import { lang, setLang, type Lang } from '../src/i18n';
+import { CONVENTIONS, DEFAULT_SYSTEM, setSystem } from '../src/bidding/config';
 
 const DEALS = 300;
 const VULS: Vulnerability[] = ['None', 'NS', 'EW', 'Both'];
@@ -80,7 +82,11 @@ function run(l: Lang): Run {
 
 describe('bidding in every language', () => {
   const initial = lang();
-  afterAll(() => setLang(initial));
+  setSystem(Object.fromEntries(CONVENTIONS.map(c => [c.id, true])));
+  afterAll(() => {
+    setLang(initial);
+    setSystem(DEFAULT_SYSTEM);
+  });
   const en = run('en');
   const bg = run('bg');
 

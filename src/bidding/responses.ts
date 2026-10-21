@@ -7,6 +7,8 @@ import { hasStopper, goodSuit, dummyPoints } from '../core/eval';
 import { T } from '../i18n';
 import type { Ctx } from './context';
 import { R, hcpC, lenC, balancedC, semiBalancedC, cond, dpC, goodSuitC, type Rule } from './types';
+import { getSystem } from './config';
+import { splinterRaises, druryRaise, texasTransfers } from './conventions';
 
 /** Which major to respond at the one level: longer first; 4-4 → hearts (up the line); 5-5 → spades. */
 export function majorToShow(h: HandInfo): number | null {
@@ -49,6 +51,8 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
 
   if (major) {
     const M = open;
+    const drury = passed && getSystem().drury;
+    if (!passed) rules.push(...splinterRaises(M));
     if (!passed) {
       rules.push(
         R(bid(2, NT), 'jacoby2nt', t.jacoby2nt(M), [lenC(M, 4), hcpC(13)], {
@@ -67,6 +71,7 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
     rules.push(
       R(bid(4, M), 'preemptiveGameRaise', t.preemptiveGameRaise, [lenC(M, 5), hcpC(0, 9), singletonOrVoid]),
     );
+    if (drury) rules.push(...druryRaise(M));
     rules.push(
       R(bid(3, M), 'limitRaise', t.limitRaiseMajor, [lenC(M, 4), dpC(M, 10, 12)]),
     );
@@ -78,6 +83,7 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
     }
     const cands = M === SPADES ? [{ suit: HEARTS, min: 5 }, { suit: DIAMONDS, min: 4 }, { suit: CLUBS, min: 4 }] : [{ suit: DIAMONDS, min: 4 }, { suit: CLUBS, min: 4 }];
     for (const c of cands) {
+      if (drury && c.suit === CLUBS) continue; // 2♣ is Drury
       rules.push(
         R(bid(2, c.suit), 'twoOverOne', t.twoOverOne(c.min, c.suit, passed), [
           hcpC(11),
@@ -94,9 +100,11 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
         },
       }),
     );
-    rules.push(
-      R(bid(2, CLUBS), 'twoOverOneClubs', t.twoClubsThreeCards, [hcpC(11), lenC(CLUBS, 3)], { forcing: 'one' }),
-    );
+    if (!drury) {
+      rules.push(
+        R(bid(2, CLUBS), 'twoOverOneClubs', t.twoClubsThreeCards, [hcpC(11), lenC(CLUBS, 3)], { forcing: 'one' }),
+      );
+    }
     rules.push(passResponse(t.passMajor));
     return rules;
   }
@@ -145,7 +153,7 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
 export function responsesTo1NT(x: Ctx): Rule[] {
   const t = T.bidding.responses;
   const majors = (h: HandInfo) => T.bidding.conds.lengths(h.len, [SPADES, HEARTS]);
-  const rules: Rule[] = [];
+  const rules: Rule[] = [...texasTransfers(10)];
   rules.push(
     R(bid(2, HEARTS), ['jacobyTransfer', SPADES], t.transferSpades, [
       lenC(SPADES, 5),
@@ -181,7 +189,7 @@ export function responsesTo1NT(x: Ctx): Rule[] {
 
 export function responsesTo2NT(x: Ctx): Rule[] {
   const t = T.bidding.responses;
-  const rules: Rule[] = [];
+  const rules: Rule[] = [...texasTransfers(4)];
   rules.push(
     R(bid(3, HEARTS), ['transfer', SPADES], t.transferSpades2nt, [lenC(SPADES, 5), cond(t.spadesAtLeastHearts, h => h.len[SPADES] >= h.len[HEARTS])], {
       artificial: true, forcing: 'one', tag: 'transfer', data: { suit: SPADES },

@@ -8,12 +8,14 @@ import { T } from '../i18n';
 import type { Ctx, CallRecord } from './context';
 import { R, hcpC, lenC, balancedC, cond, dpC, goodSuitC, tpC, type Rule, type Cond } from './types';
 
-const stopC = (suits: number[]): Cond => cond(
-  T.bidding.competitive.stopper(suits),
-  h => suits.every(s => hasStopper(h, s)),
-  undefined,
-  h => (suits.every(s => hasStopper(h, s)) ? T.bidding.conds.hasStopper : T.bidding.conds.noStopper(suits.filter(s => !hasStopper(h, s)))),
-);
+const stopC = (suits: number[]): Cond => suits.length
+  ? cond(
+    T.bidding.competitive.stopper(suits),
+    h => suits.every(s => hasStopper(h, s)),
+    undefined,
+    h => (suits.every(s => hasStopper(h, s)) ? T.bidding.conds.hasStopper : T.bidding.conds.noStopper(suits.filter(s => !hasStopper(h, s)))),
+  )
+  : cond(T.bidding.competitive.noSuitShown, () => true);
 
 const decentSuit = (s: number): Cond => cond(
   T.bidding.competitive.decent(s),
@@ -119,7 +121,9 @@ export function overcallRules(x: Ctx): Rule[] {
   }
 
   // takeout double
-  const short = cond(t.shortIn(theirs), h => theirs.every(s => h.len[s] <= 2), sh => { theirs.forEach(s => (sh.len[s] = [0, Math.min(2, sh.len[s][1])])); }, h => T.bidding.conds.lengths(h.len, theirs));
+  const short = theirs.length
+    ? cond(t.shortIn(theirs), h => theirs.every(s => h.len[s] <= 2), sh => { theirs.forEach(s => (sh.len[s] = [0, Math.min(2, sh.len[s][1])])); }, h => T.bidding.conds.lengths(h.len, theirs))
+    : cond(t.noSuitShown, () => true);
   const support = cond(t.supportUnbid(unbid.some(s => s >= HEARTS)), h => {
     const weak = unbid.filter(s => h.len[s] < 3);
     return weak.length === 0 || (weak.length === 1 && weak[0] <= DIAMONDS && unbid.filter(s => s >= HEARTS).every(s => h.len[s] >= 4));

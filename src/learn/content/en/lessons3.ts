@@ -896,12 +896,13 @@ export const LESSONS_3: Lesson[] = [
 <div class="auction" data-calls="1H P 2NT P 3NT P 4C P 4H P P P" data-dealer="N"></div>
 <p>After Jacoby 2NT, North's 3NT shows a medium hand (15-17) with no shortness, the standard Jacoby rebid. South bids 4♣: a club control and slam interest. North has no diamond control, so instead of showing the spade control, North signs off in 4♥, bypassing 4♦: that denies a diamond control. South has no diamond control either, so South passes. Both hands have done their job, and the partnership stops safely in game.</p>
 <p>Had North held the ♦K instead of the ♠K, North would have cue bid 4♦ over 4♣. Then every suit would be controlled, South could go on towards slam, and Blackwood would be safe to check the aces at the end.</p>
+<p>The bots bid this way once a major is agreed in a game-forcing auction, after a Jacoby 2NT raise or a splinter. Their cue bids show first- or second-round controls, cheapest first, below game in the agreed major.</p>
 
 <h3>Combining the tools</h3>
 <ol>
 <li>Agree trumps in a forcing auction.</li>
 <li>Cue bid to make sure every side suit is controlled.</li>
-<li>When all suits are covered, use Blackwood to make sure you are not missing two aces (or the ace and king of trumps).</li>
+<li>When all suits are covered, use Blackwood (the bots play Roman Key Card Blackwood) to make sure you are not missing two aces, or an ace and the king of trumps.</li>
 <li>Bid the slam, or sign off.</li>
 </ol>
 <div class="tip">Before bidding 4NT, ask: "If partner shows the right number of aces, will I know what to bid?" If the answer is no, cue bid instead.</div>

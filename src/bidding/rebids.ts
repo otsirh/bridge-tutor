@@ -7,6 +7,7 @@ import { hasStopper, dummyPoints, declarerPoints } from '../core/eval';
 import { T } from '../i18n';
 import type { Ctx, CallRecord } from './context';
 import { R, hcpC, lenC, balancedC, cond, tpC, type Rule, type Cond } from './types';
+import { openerAfterSplinter, openerAfterDrury, completeTexas } from './conventions';
 
 /** Opener's strength band by total points: min 12–15, medium 16–18, max 19–21. */
 const band = (min: number, max: number, text: string): Cond => ({
@@ -82,6 +83,8 @@ export function openerRebidOneSuit(x: Ctx, open: number, resp: CallRecord): Rule
   const myLenC = (n: number, max = 13) => lenC(open, n, max);
 
   if (rc === PASS) return [];
+  if (tag === 'splinter') return openerAfterSplinter(x, open, resp);
+  if (tag === 'drury') return openerAfterDrury(open);
 
   if (tag === 'cueRaise') {
     // partner's cue bid / Jordan 2NT: a limit raise or better in our suit
@@ -239,6 +242,7 @@ export function openerAfterNT(x: Ctx, ntLevel: number, resp: CallRecord): Rule[]
     rules.push(R(bid(L, M), 'completeTransfer', t.completeTransfer(L, M), [], { tag: 'transferDone' }));
     return rules;
   }
+  if (tag === 'texas') return completeTexas(resp.meaning.data!.suit);
   if (tag === 'minorTransfer') return [R(bid(3, CLUBS), 'completeTransfer', t.completeMinorTransfer, [], { artificial: true, tag: 'transferDone' })];
   if (tag === 'nt-invite') {
     rules.push(R(bid(3, NT), 'accept', t.acceptNtInvite, [hcpC(16)]));
@@ -259,16 +263,19 @@ export function openerAfterNT(x: Ctx, ntLevel: number, resp: CallRecord): Rule[]
 export function responderAfterNTConvention(x: Ctx, ntLevel: number, myConv: CallRecord, reply: CallRecord): Rule[] {
   const t = T.bidding.rebids;
   const rules: Rule[] = [];
-  const game = ntLevel === 1 ? 10 : 4;
+  // game values opposite partner's notrump range; above `top` the hand looks for slam
+  const ph = x.partnerHcp();
+  const game = ntLevel === 1 ? 10 : Math.max(0, 25 - ph.max);
+  const top = ntLevel === 1 ? 15 : Math.max(game, 32 - ph.max);
   const inv = ntLevel === 1 ? 8 : -1;
   if (myConv.meaning.tag === 'stayman') {
     const rs = strainOf(reply.call);
     const fit = rs === HEARTS || rs === SPADES ? rs : -1;
     if (fit >= 0) {
-      rules.push(R(bid(4, fit), 'gameInFit', t.gameInFit(game), [lenC(fit, 4), hcpC(game, 15)]));
+      rules.push(R(bid(4, fit), 'gameInFit', t.gameInFit(game, top), [lenC(fit, 4), hcpC(game, top)]));
       if (inv > 0) rules.push(R(bid(3, fit), 'invitation', t.inviteInFit, [lenC(fit, 4), hcpC(8, 9)], { tag: 'invite' }));
     }
-    rules.push(R(bid(3, NT), ['nt', 3], t.threeNtNoFit(game), [hcpC(game, 15), cond(t.noFit, h => fit < 0 || h.len[fit] < 4)]));
+    rules.push(R(bid(3, NT), ['nt', 3], t.threeNtNoFit(game, top), [hcpC(game, top), cond(t.noFit, h => fit < 0 || h.len[fit] < 4)]));
     if (inv > 0) rules.push(R(bid(2, NT), 'invitation', t.twoNtNoFit, [hcpC(8, 9), cond(t.noFit, h => fit < 0 || h.len[fit] < 4)], { tag: 'nt-invite' }));
     return rules;
   }
@@ -287,9 +294,9 @@ export function responderAfterNTConvention(x: Ctx, ntLevel: number, myConv: Call
       rules.push(R(bid(2, NT), 'invitation', t.inviteFive(M), [lenC(M, 5, 5), hcpC(8, 9)], { tag: 'transferInvite', data: { suit: M } }));
       rules.push(R(PASS, 'pass', t.passTransfer(M), [hcpC(0, 7)]));
     } else {
-      rules.push(R(bid(4, M), 'game', t.gameSixPlus2nt(M), [lenC(M, 6), hcpC(4)]));
-      rules.push(R(bid(3, NT), 'choiceOfGames', t.choiceOfGames2nt(M), [lenC(M, 5, 5), hcpC(4)], { tag: 'choiceOfGames', data: { suit: M } }));
-      rules.push(R(PASS, 'pass', t.passTransfer2nt, [hcpC(0, 3)]));
+      rules.push(R(bid(4, M), 'game', t.gameSixPlus2nt(M), [lenC(M, 6), hcpC(game, top)]));
+      rules.push(R(bid(3, NT), 'choiceOfGames', t.choiceOfGames2nt(M), [lenC(M, 5, 5), hcpC(game, top)], { tag: 'choiceOfGames', data: { suit: M } }));
+      rules.push(R(PASS, 'pass', t.passTransfer2nt, [hcpC(0, Math.max(0, game - 1))]));
     }
     return rules;
   }

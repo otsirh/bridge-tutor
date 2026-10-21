@@ -324,6 +324,7 @@ export const LESSONS_1: Lesson[] = [
 <tr><td>3 of the major (jump)</td><td>Limit raise: 10-12 dummy points, 4+ card support, invitational</td></tr>
 <tr><td>2NT</td><td>Jacoby: 13+ points, 4+ card support, forcing to game</td></tr>
 <tr><td>4 of the major</td><td>Weak and distributional: 5+ card support, under 10 HCP</td></tr>
+<tr><td>Double jump in a new suit</td><td>Splinter: 4+ card support, a singleton or void in that suit, 13-16 points</td></tr>
 <tr><td>1♠ over 1♥</td><td>6+ points, 4+ spades, forcing</td></tr>
 <tr><td>1NT</td><td>6-10, no fit, not forcing (over 1♥ it denies four spades)</td></tr>
 <tr><td>New suit at the 2 level</td><td>10+ (11+ to be safe), 4+ cards, 5+ for 2♥ over 1♠; forcing for one round</td></tr>
@@ -336,6 +337,7 @@ export const LESSONS_1: Lesson[] = [
 <p>7 HCP plus 3 for the singleton with four trumps = 10 dummy points: a limit raise. Partner passes with a minimum and bids game with more.</p>
 <div class="hand" data-cards="S:KQ62 H:A84 D:K1073 C:Q5" data-label="Partner opened 1♠: bid 2NT"></div>
 <p>14 HCP with four trumps: Jacoby 2NT sets spades as trumps and forces to game, leaving room to explore for slam.</p>
+<p>With a singleton and 13-16 points, a splinter describes the hand better: over 1♠, ♠KQ74 ♥A853 ♦K962 ♣5 bids 4♣. See the lesson on splinter raises.</p>
 <p>With 6 HCP, five hearts and a singleton, ♠4 ♥QJ852 ♦K9763 ♣82, jump to 4♥ over 1♥. The opponents surely have a fit and plenty of points, and you want them to guess at the five level.</p>
 
 <h4>Three-card support and 10-12 points</h4>
@@ -524,6 +526,7 @@ export const LESSONS_1: Lesson[] = [
 <tr><td>2NT</td><td>8-9, invitational</td></tr>
 <tr><td>3NT</td><td>10-15, to play</td></tr>
 <tr><td>4♣</td><td>Gerber: asks for aces</td></tr>
+<tr><td>4♦ / 4♥</td><td>Texas transfer: 6+ hearts / spades and game values. Opener bids 4♥ / 4♠.</td></tr>
 <tr><td>4NT</td><td>16-17, quantitative: invites 6NT</td></tr>
 </tbody>
 </table>
@@ -550,7 +553,7 @@ export const LESSONS_1: Lesson[] = [
 <tr><td>2NT</td><td>8-9 with exactly five cards in the major (opener chooses)</td></tr>
 <tr><td>3 of the major</td><td>8-9 with six or more cards, invitational</td></tr>
 <tr><td>3NT</td><td>10-15 with exactly five (opener picks 3NT or 4 of the major)</td></tr>
-<tr><td>4 of the major</td><td>10-15 with six or more, to play</td></tr>
+<tr><td>4 of the major</td><td>10-15 with six or more, to play (with Texas transfers, bid 4♦ or 4♥ at once instead)</td></tr>
 <tr><td>New suit</td><td>Natural and forcing</td></tr>
 </tbody>
 </table>
@@ -563,7 +566,7 @@ export const LESSONS_1: Lesson[] = [
 <p>2NT invites game with 8-9. Opener passes with 15, bids 3NT with 17, and uses judgement with 16 (accept with good tens and nines or a 5-card suit). 4NT is not Blackwood here: it shows 16-17 and asks opener to bid 6NT with a maximum. With ♠KQ5 ♥AJ4 ♦KJ63 ♣Q72 (16 HCP), bid 4NT: 16 + 15-17 = 31-33 combined, so slam is good only if opener is at the top of their range.</p>
 
 <h3>Responding to 2NT</h3>
-<p>The 2NT opening shows 20-21. The same tools apply one level higher: 3♣ is Stayman, 3♦ and 3♥ are transfers, 3NT shows 4-10 points, and 4NT (11-12) is quantitative. Even 4 points are enough to raise to game.</p>
+<p>The 2NT opening shows 20-21. The same tools apply one level higher: 3♣ is Stayman, 3♦ and 3♥ are transfers, 4♦ and 4♥ are Texas transfers, 3NT shows 4-10 points, and 4NT (11-12) is quantitative. Even 4 points are enough to raise to game.</p>
 <div class="tip">With a 5-card major and enough for game, transfer first and then bid 3NT. Opener, who knows both their own hand and the fact that you have five cards, makes the final choice between 3NT and four of the major.</div>
 <div class="warn">Don't use Stayman with a balanced 8+ hand that has no 4-card major. You will end up guessing; just bid 2NT or 3NT.</div>
 `,
@@ -573,7 +576,7 @@ export const LESSONS_1: Lesson[] = [
       '2♦ and 2♥ are transfers to hearts and spades with any strength; 2♠ is a transfer to clubs for a weak hand with a long minor.',
       '2NT = 8-9 invitational, 3NT = 10-15, 4NT = 16-17 quantitative (not Blackwood).',
       'Opener super-accepts a transfer with four-card support and 17 by jumping to three of the major.',
-      'Over 2NT: 3♣ Stayman, 3♦/3♥ transfers, 3NT with 4-10, 4NT quantitative.',
+      'Over 2NT: 3♣ Stayman, 3♦/3♥ transfers, 4♦/4♥ Texas, 3NT with 4-10, 4NT quantitative.',
     ],
     quiz: [
       {
