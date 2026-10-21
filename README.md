@@ -13,8 +13,8 @@ npm install
 npm run dev        # http://localhost:5173
 ```
 
-`npm run build` writes a single self-contained `dist/index.html` (open it directly or host it anywhere;
-CI publishes it to GitHub Pages from `main`).
+`npm run build` writes a single self-contained `dist/index.html` (open it directly or host it anywhere).
+The site is hosted on Cloudflare: build command `npm run build`, output directory `dist`, Node from `.node-version`.
 `npm test` runs the test suite (solver vs brute force, scoring, bidding, both languages, lessons, journal).
 
 ## How it helps you improve
