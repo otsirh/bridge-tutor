@@ -13,7 +13,7 @@ import { toPBN } from '../core/pbn';
 import { bboHandviewerUrl } from '../core/lin';
 import { encodeBoard } from '../core/share';
 import type { BoardData } from '../core/pbn';
-import { T, fmtPct, fmtSigned } from '../i18n';
+import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
 import { h, suitText } from './dom';
 import { diagramHand, cardText } from './cards';
 import type { UIState } from './app';
@@ -113,6 +113,38 @@ function ddTableEl(g: Game): HTMLElement {
   return h('div', { class: 'scroll-x' },
     h('table', { class: 'ddt' }, h('thead', null, h('tr', null, h('th', null, ''), [N, S, E, W].map(x => h('th', null, SEAT_LETTERS[x])))), h('tbody', null, rows)),
     h('p', { class: 'small muted' }, T.ui.review.ddTableNote));
+}
+
+/**
+ * The decisions that mattered most: where, with the information available,
+ * the best card did clearly better than the worst (right or wrong).
+ */
+function keyMoments(g: Game): HTMLElement | null {
+  const t = T.ui.review;
+  const moments = g.cards
+    .filter(e => e.human && e.advice && e.advice.samples >= 8 && e.advice.stats.length > 1)
+    .map(e => {
+      const st = e.advice!.stats;
+      const best = st.reduce((a, b) => (b.success > a.success || (b.success === a.success && b.tricks > a.tricks) ? b : a));
+      const worst = st.reduce((a, b) => (b.success < a.success || (b.success === a.success && b.tricks < a.tricks) ? b : a));
+      const mine = st.find(s => s.card === e.card);
+      return { e, best, worst, mine, gap: best.success - worst.success + (best.tricks - worst.tricks) / 4 };
+    })
+    .filter(m => m.mine && m.gap >= 0.2)
+    .sort((a, b) => b.gap - a.gap)
+    .slice(0, 3)
+    .sort((a, b) => g.cards.indexOf(a.e) - g.cards.indexOf(b.e));
+  if (!moments.length) return null;
+  return h('div', null, h('h3', null, t.keyMoments), h('p', { class: 'small muted' }, t.keyMomentsText),
+    h('ul', null, moments.map(m => {
+      const right = m.e.advice!.equal.includes(m.e.card);
+      return h('li', null,
+        h('b', null, suitText(t.keyMoment(m.e.trick + 1, cardName(m.e.card), right))), ' ',
+        suitText(Math.abs(m.best.success - m.worst.success) >= 0.1
+          ? t.keyMomentNumbers(cardName(m.best.card), fmtPct(m.best.success), cardName(m.worst.card), fmtPct(m.worst.success))
+          : t.keyMomentTricks(cardName(m.best.card), fmtNum(m.best.tricks, 1), cardName(m.worst.card), fmtNum(m.worst.tricks, 1))),
+        right && m.e.principle ? h('span', { class: 'muted' }, ` ${m.e.principle.title}.`) : null);
+    })));
 }
 
 function lessons(g: Game): HTMLElement {
@@ -250,7 +282,7 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
   if (tab === 'summary') {
     body = h('div', null, hero(g),
       h('div', { class: 'grid2' },
-        h('div', null, h('h3', null, t.takeaways), lessons(g), shareBox(g, act)),
+        h('div', null, h('h3', null, t.takeaways), lessons(g), keyMoments(g), shareBox(g, act)),
         h('div', null, h('h3', null, t.theDeal), dealDiagram(g), h('h3', null, t.ddMakes), ddTableEl(g))));
   } else if (tab === 'bidding') body = biddingTab(g);
   else body = playTab(g, ui, act);

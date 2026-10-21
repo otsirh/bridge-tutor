@@ -197,6 +197,11 @@ export const ui: Text['ui'] = {
     sdErrors: (n: number) => (n === 1 ? '1 явна грешка' : `${n} явни грешки`),
     sdNote: (n: number) => `при скрити карти, проверени ${n === 1 ? '1 карта' : `${n} карти`}`,
     sdChecking: (done: number, total: number) => `проверявам картите ви ${done}/${total}`,
+    keyMoments: 'Ключови моменти',
+    keyMomentsText: 'Решенията, при които картата имаше най-голямо значение, с информацията, която имахте.',
+    keyMoment: (trick: number, card: string, right: boolean) => `Взятка ${trick}, изиграхте ${card}${right ? ' — най-добрата карта.' : '.'}`,
+    keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `Най-добре ${best} (успех ${bs}), най-зле ${worst} (${ws}).`,
+    keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `Най-добре ${best} (средно ${bt} взятки), най-зле ${worst} (${wt}).`,
     // sharing
     share: 'Споделете раздаването',
     shareText: 'Връзката или кодът отварят раздаването в Бридж треньор; PBN работи в повечето програми за бридж; BBO показва цялото раздаване.',

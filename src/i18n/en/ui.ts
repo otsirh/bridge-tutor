@@ -227,6 +227,11 @@ export const ui = {
     sdErrors: (n: number) => (n === 1 ? '1 clear error' : `${n} clear errors`),
     sdNote: (n: number) => `single-dummy, ${n} card${s(n)} checked`,
     sdChecking: (done: number, total: number) => `checking your cards ${done}/${total}`,
+    keyMoments: 'Key moments',
+    keyMomentsText: 'The decisions where the card mattered most, with the information you had.',
+    keyMoment: (trick: number, card: string, right: boolean) => `Trick ${trick}, you played ${card}${right ? ' — the best card.' : '.'}`,
+    keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `Best ${best} (succeeds ${bs}), worst ${worst} (${ws}).`,
+    keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `Best ${best} (${bt} tricks on average), worst ${worst} (${wt}).`,
     // sharing
     share: 'Share this deal',
     shareText: 'A link or code opens this deal in Bridge Tutor; PBN works in most bridge programs; BBO shows the whole board.',
