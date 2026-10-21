@@ -125,12 +125,20 @@ describe('switching language mid-game', () => {
     setLang('bg');
     g.relocalize();
     expect(contractNote.wording().title).toMatch(/^Договор: .*, разиграва /);
-    // the same entries, each principle rebuilt for the position it was played in
+    // the same entries, each principle rebuilt for the position it was played in, now in Bulgarian
     expect(g.cards.filter(c => c.principle)).toEqual(played);
+    const cyrillic = /[Ѐ-ӿ]/;
     played.forEach((c, i) => {
       expect(c.principle).not.toBe(before[i]);
-      expect(c.principle).toEqual(before[i]);
+      expect(before[i]!.title).not.toMatch(cyrillic);
+      expect(c.principle!.title).toMatch(cyrillic);
     });
+    // and back again: the English wording is restored exactly
+    setLang('en');
+    g.relocalize();
+    played.forEach((c, i) => expect(c.principle).toEqual(before[i]));
+    setLang('bg');
+    g.relocalize();
     if (g.declarerSide === 0) expect(g.plan).toBeTruthy();
 
     // undo still works after the switch
