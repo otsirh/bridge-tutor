@@ -1,7 +1,8 @@
 // Duplicate bridge scoring, IMPs and par.
 
-import { type Strain, type Vulnerability, isVulnerable, STRAIN_SYMBOLS, SEAT_LETTERS } from './cards';
-import type { Contract } from './auction';
+import { type Seat, type Strain, type Vulnerability, isVulnerable } from './cards';
+import { type Contract, contractName } from './auction';
+import { T } from '../i18n';
 
 const trickValue = (strain: Strain) => (strain <= 1 ? 20 : 30);
 
@@ -57,7 +58,13 @@ export function imps(diff: number): number {
 
 export interface ParResult {
   scoreNS: number;
-  contracts: string[]; // e.g. "4♠ by N/S", "5♦X by E/W"
+  contract: Contract | null; // null when par is to pass the deal out
+  contracts: string[]; // e.g. "4♠ by N/S (N)", in the language active when computed (parContractName re-renders)
+}
+
+/** The par contract for display: "5♦X by E/W (W)", or "Passed out". */
+export function parContractName(c: Contract | null): string {
+  return c ? T.tutor.par.contract(contractName(c), c.declarer) : contractName(null);
 }
 
 /**
@@ -86,7 +93,7 @@ export function parScore(tricks: number[][], vul: Vulnerability): ParResult {
   const rank = (o: Option) => (o.level - 1) * 5 + o.strain;
   // Highest makeable contract for each side gives the bidding ceiling; search for an equilibrium.
   const makeable = options.filter(o => o.score > 0);
-  if (!makeable.length) return { scoreNS: 0, contracts: ['Всички пас'] };
+  if (!makeable.length) return { scoreNS: 0, contract: null, contracts: [parContractName(null)] };
 
   // Start from the side with the best making score.
   const bestMaking = (side: number, above = -1) =>
@@ -119,10 +126,7 @@ export function parScore(tricks: number[][], vul: Vulnerability): ParResult {
     cur = sac;
     break;
   }
-  const sideName = cur.side === 0 ? 'С/Ю' : 'И/З';
-  const decl = tricks[cur.strain][cur.side] >= tricks[cur.strain][cur.side + 2] ? cur.side : cur.side + 2;
-  return {
-    scoreNS: sideScore(cur),
-    contracts: [`${cur.level}${STRAIN_SYMBOLS[cur.strain]}${cur.doubled ? 'X' : ''} от ${sideName} (${SEAT_LETTERS[decl]})`],
-  };
+  const decl = (tricks[cur.strain][cur.side] >= tricks[cur.strain][cur.side + 2] ? cur.side : cur.side + 2) as Seat;
+  const contract: Contract = { level: cur.level, strain: cur.strain, declarer: decl, doubled: cur.doubled ? 1 : 0 };
+  return { scoreNS: sideScore(cur), contract, contracts: [parContractName(contract)] };
 }
