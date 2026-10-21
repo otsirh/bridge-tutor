@@ -1,9 +1,10 @@
 // Name the card-play principle behind a card, so advice reads like a teacher
 // ("second hand low", "lead toward the king") rather than just numbers.
 
-import { type Card, type Seat, suitOf, rankOf, partnerOf, SUIT_NAMES, cardName, NT, rankLabel } from '../core/cards';
+import { type Card, type Seat, suitOf, rankOf, partnerOf, NT, rankLabel } from '../core/cards';
 import type { Contract } from '../core/auction';
 import { cardFromHolding } from '../engine/leads';
+import { T } from '../i18n';
 
 export interface PlaySituation {
   seat: Seat; // the hand the card comes from
@@ -35,6 +36,7 @@ function winnerOf(trick: Card[], trump: number): number {
 }
 
 export function explainPlay(sit: PlaySituation, card: Card): Principle {
+  const X = T.tutor.principles;
   const trump = sit.contract.strain;
   const s = suitOf(card), r = rankOf(card);
   const declSide = (sit.seat & 1) === (sit.contract.declarer & 1);
@@ -50,17 +52,17 @@ export function explainPlay(sit: PlaySituation, card: Card): Principle {
 
   if (sit.openingLead) {
     const pick = cardFromHolding(mySuit, trump === NT, false);
-    return P('Първи извод', pick.rank === r ? pick.why : `От ${mySuit.map(rankLabel).join('')} стандартната карта е ${rankLabel(pick.rank)}: ${pick.why}`);
+    return P(X.openingLead.title, pick.rank === r ? pick.why : X.openingLead.notStandard(mySuit.map(rankLabel).join(''), pick.rank, pick.why));
   }
 
   if (pos === 0) {
     if (declSide) {
       const otherSide = (sit.partnerHand ?? []).filter(c => suitOf(c) === s).map(rankOf);
-      if (trump !== NT && s === trump) return P('Изтегляне на козовете', 'Изводът в коз отнема козовете на защитниците, за да не цакат печелившите ви карти. Изтеглете ги рано, освен ако козовете на мъртвака не ви трябват за цакане.');
+      if (trump !== NT && s === trump) return { ...X.drawTrumps };
       if (isTop && otherSide.some(x => x > r) === false && mySuit.length < otherSide.length && otherSide.length >= 3) {
-        return P('Отблокиране', 'Първо вземете с високата карта от късата ръка, за да остане изводът в дългата ръка и тя да събере останалите карти от цвета.');
+        return { ...X.unblock };
       }
-      if (isTop) return P('Вземане на взятка', `${cardName(card)} е най-високата останала карта в ${SUIT_NAMES[s]}: взема взятката, освен ако някой не цака.`);
+      if (isTop) return P(X.cash.title, X.cash.declarer(card));
       const ahead = otherSide.filter(x => x > r).sort((a, b) => b - a);
       if (ahead.length && r < 11) {
         const top = live(s).filter(x => !mySuit.includes(x));
@@ -70,16 +72,16 @@ export function explainPlay(sit: PlaySituation, card: Card): Principle {
           if (otherSide.includes(x)) run++;
           else break;
         }
-        if (run > 0 && run >= ahead.length) return P('Преминаване в другата ръка', 'Малка карта към печеливша карта в другата ръка я използва като вход, за да изведете оттам следващия път.');
-        const tenace = ahead.includes(14) && ahead.includes(12) && !ahead.includes(13) ? 'A-Q' : ahead.includes(13) && !ahead.includes(14) ? 'попа' : ahead.includes(12) && !ahead.includes(13) ? 'дамата' : 'фигурите';
-        return P('Извод към фигури', `Изведете малка карта към ${tenace}: левият защитник играе преди вас и едва тогава избирате карта от другата ръка — това е основата на импаса.`);
+        if (run > 0 && run >= ahead.length) return { ...X.crossToOtherHand };
+        const tenace = ahead.includes(14) && ahead.includes(12) && !ahead.includes(13) ? 'aq' : ahead.includes(13) && !ahead.includes(14) ? 'king' : ahead.includes(12) && !ahead.includes(13) ? 'queen' : 'honours';
+        return P(X.leadTowardHonours.title, X.leadTowardHonours.text(tenace));
       }
-      return P('Развиване на цвят', 'Като загубите сега взятка в този цвят, развивате останалите карти като печеливши, докато още контролирате другите цветове.');
+      return { ...X.develop };
     }
-    if (trump !== NT && s === trump) return P('Козов извод', 'Изводът в коз намалява цаканията на разиграващия в мъртвака — силен е, когато мъртвакът е къс в страничен цвят.');
-    if (isTop) return P('Вземане на взятка', 'Вземете сигурната си взятка, преди разиграващият да изхвърли губещите си карти на дългия цвят на мъртвака.');
-    if (mySuit.length <= 2 && trump !== NT) return P('Търсене на цакане', 'Извод от къс цвят: надявате се партньорът да вземе и да ви даде цакане.');
-    return P('Смяна на цвета', 'Извеждайте през силата на разиграващия или към слабостта на мъртвака: защитникът пред силната ръка трябва да изведе този цвят.');
+    if (trump !== NT && s === trump) return { ...X.trumpLead };
+    if (isTop) return P(X.cash.title, X.cash.defender);
+    if (mySuit.length <= 2 && trump !== NT) return { ...X.lookForRuff };
+    return { ...X.switchSuits };
   }
 
   const led = suitOf(sit.trick[0]);
@@ -92,37 +94,35 @@ export function explainPlay(sit: PlaySituation, card: Card): Principle {
 
   if (s !== led) {
     if (trump !== NT && s === trump) {
-      if (suitOf(winCard) === trump) return P('Надцакване', 'Цакане с коз, по-висок от вече изиграния, взема взятката.');
-      if (partnerWinning) return P('Цакане на печеливша карта на партньора', 'Обикновено е загуба: партньорът вече печелеше тази взятка.');
-      return P('Цакане', declSide ? 'Цакането в ръката с по-малко козове печели взятка; цакането в дългата козова ръка само харчи коз, който и без това ще вземе.' : 'Нямате от изведения цвят, така че цакането взема взятката.');
+      if (suitOf(winCard) === trump) return { ...X.overruff };
+      if (partnerWinning) return { ...X.ruffPartnersWinner };
+      return P(X.ruff.title, declSide ? X.ruff.declarer : X.ruff.defender);
     }
     if (!declSide) {
-      return r >= 9
-        ? P('Изхвърляне (насърчаващо)', 'Високото изхвърляне казва на партньора, че харесвате този цвят (стандартен сигнал за отношение).')
-        : P('Изхвърляне', 'Изхвърлете от ненужен цвят и пазете дължината там, където трябва да спрете дългите карти на разиграващия или на мъртвака.');
+      return r >= 9 ? { ...X.discardEncouraging } : P(X.discard.title, X.discard.defender);
     }
-    return P('Изхвърляне', 'Изхвърлете губеща карта от цвят, който не може да вземе взятки, и запазете картите, които още може да потрябват.');
+    return P(X.discard.title, X.discard.declarer);
   }
 
   if (pos === 1) {
     const ledR = rankOf(sit.trick[0]);
-    if (ledR >= 10 && r > ledR && r >= 11) return P('Покрийте фигура с фигура', 'Покриването принуждава разиграващия да даде две високи карти за една взятка, така по-ниска карта у вас или у партньора може да стане печеливша.');
-    if (r === mySuit[mySuit.length - 1]) return P('Втора ръка ниско', 'Партньорът играе след вас и след партньора на извеждащия, затова ниската карта сега пази високата ви карта, за да хване по-късно нещо по-голямо.');
-    if (beats && isTop) return P('Сигурна взятка', `${cardName(card)} е най-високата останала карта в цвета.`);
-    return P('Разделяне на фигурите', 'Като играете една от съседните си фигури, не позволявате на разиграващия да вземе евтино с по-ниска карта.');
+    if (ledR >= 10 && r > ledR && r >= 11) return { ...X.coverHonour };
+    if (r === mySuit[mySuit.length - 1]) return { ...X.secondHandLow };
+    if (beats && isTop) return P(X.sureTrick.title, X.sureTrick.text(card));
+    return { ...X.splitHonours };
   }
 
   if (pos === 2) {
-    if (partnerWinning && !beats) return P('Партньорът печели', 'Картата на партньора вече печели, затова играйте ниско (или дайте сигнал).');
+    if (partnerWinning && !beats) return P(X.partnerWinning.title, X.partnerWinning.third);
     if (beats) {
       const touching = mySuit.includes(r - 1);
-      if (touching) return P('Трета ръка високо — по-ниската от равните', 'Играйте по-ниската от съседните карти: така партньорът може да разбере къде е по-високата.');
-      return P('Трета ръка високо', 'Изводът на партньора не печели, затова играйте високо — за да вземете взятката или да избиете висока карта.');
+      if (touching) return { ...X.thirdHandHighEquals };
+      return { ...X.thirdHandHigh };
     }
-    return P('Не можете да вземете взятката', 'Играйте най-ниската си карта (или дайте сигнал за отношение, ако партньорът е извел цвета).');
+    return P(X.cantWin.title, X.cantWin.third);
   }
 
-  if (partnerWinning) return P('Партньорът печели', 'Не надигравайте картата му: играйте най-ниската си карта.');
-  if (beats) return P('Вземете евтино', 'Играете последни: вземете с най-ниската карта, която стига.');
-  return P('Не можете да вземете взятката', 'Играйте най-ниската си карта в цвета.');
+  if (partnerWinning) return P(X.partnerWinning.title, X.partnerWinning.fourth);
+  if (beats) return { ...X.winCheaply };
+  return P(X.cantWin.title, X.cantWin.fourth);
 }

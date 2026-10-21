@@ -1,6 +1,7 @@
 // Hand evaluation: everything a player counts before bidding.
 
 import { type Card, suitOf, rankOf, hcp as countHcp, suitLengths, SUIT_SYMBOLS } from './cards';
+import { T } from '../i18n';
 
 export interface HandInfo {
   cards: Card[];
@@ -120,13 +121,14 @@ export function shapeString(h: HandInfo): string {
 }
 
 export function evaluationSummary(h: HandInfo): { label: string; value: string; note: string }[] {
+  const X = T.tutor.eval;
   const longest = [3, 2, 1, 0].reduce((a, s) => (h.len[s] > h.len[a] ? s : a), 3);
   return [
-    { label: 'Точки', value: String(h.hcp), note: 'A=4 K=3 Q=2 J=1' },
-    { label: 'Общо т.', value: String(h.tp), note: `точки + ${h.lengthPts} за дължина` },
-    { label: 'Разпределение', value: shapeString(h), note: h.balanced ? 'балансирана' : h.semiBalanced ? 'полубалансирана' : 'небалансирана' },
-    { label: 'Губещи', value: String(h.ltc), note: 'броене на губещите (LTC)' },
-    { label: 'Бързи взятки', value: String(h.qt), note: 'AK=2 AQ=1½ A=1 KQ=1 Kx=½' },
-    { label: 'Най-дълъг', value: `${SUIT_SYMBOLS[longest]} ${h.len[longest]}`, note: `контроли: ${h.controls}` },
+    { label: X.hcp, value: String(h.hcp), note: X.hcpNote },
+    { label: X.total, value: String(h.tp), note: X.totalNote(h.lengthPts) },
+    { label: X.shape, value: shapeString(h), note: h.balanced ? X.balanced : h.semiBalanced ? X.semiBalanced : X.unbalanced },
+    { label: X.losers, value: String(h.ltc), note: X.losersNote },
+    { label: X.quickTricks, value: String(h.qt), note: X.quickTricksNote },
+    { label: X.longest, value: `${SUIT_SYMBOLS[longest]} ${h.len[longest]}`, note: X.controls(h.controls) },
   ];
 }
