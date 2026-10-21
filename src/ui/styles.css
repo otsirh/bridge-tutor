@@ -204,6 +204,45 @@ button { font: inherit; color: inherit; }
 }
 .toggle.on .track { background: var(--brass); }
 .toggle.on .track::after { transform: translateX(16px); }
+/* language switch in the top bar: globe + the language's own name (just the globe on phones) */
+.langpick {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-2);
+}
+.langpick .globe,
+.langpick::after {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+}
+.langpick .globe { left: 9px; }
+.langpick::after {
+  content: '';
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.langpick select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 6px 26px 6px 30px;
+  cursor: pointer;
+}
+.langpick select:hover { background: var(--paper-2); }
+.langpick option { color: var(--ink); background: var(--paper); }
 select.sel {
   font: inherit;
   font-size: 14px;
@@ -761,6 +800,8 @@ select.sel {
 /* ------------------------------------------------------------------ responsive */
 @media (max-width: 1180px) {
   .main { grid-template-columns: minmax(0, 1fr) 340px; }
+  .langpick::after { display: none; }
+  .langpick select { width: 34px; padding-right: 0; color: transparent; }
 }
 @media (max-width: 960px) {
   .main { grid-template-columns: minmax(0, 1fr); }

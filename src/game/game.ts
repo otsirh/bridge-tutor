@@ -10,13 +10,14 @@ import { PlayState, type Trick } from '../core/play';
 import { scoreNS, parScore, imps, type ParResult } from '../core/scoring';
 import { readAuction, advise, judgeCall, type AuctionView, type BidAdvice } from '../bidding/engine';
 import type { Meaning } from '../bidding/context';
-import { decideCard, ddCardValues, ddTableAsync, legalFor, newGroup, type Decision, type PlayKnowledge } from '../engine/playEngine';
+import { decideCard, ddCardValues, ddTableAsync, legalFor, newGroup, type CardStat, type Decision, type PlayKnowledge } from '../engine/playEngine';
 import { openingLeadChoices, type LeadChoice } from '../engine/leads';
-import { explainPlay, type Principle } from '../tutor/principles';
+import { explainPlay, type Principle, type PlaySituation } from '../tutor/principles';
 import { makePlan, type Plan } from '../tutor/planner';
 import { masksOf } from '../engine/dds';
 import { ddPool } from '../engine/pool';
 import { type Settings, loadSettings, saveSettings, addHistory, loadHistory, loadBoardNumber, saveBoardNumber, type DealMode } from './storage';
+import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
 
 export type Phase = 'bidding' | 'play' | 'review';
 
@@ -39,11 +40,13 @@ export interface CardEntry {
   principle?: Principle;
 }
 
+/** A note in the tutor's feed. Worded when shown, so old notes follow a language switch. */
 export interface Feedback {
   tone: 'good' | 'info' | 'warn' | 'bad';
-  title: string;
-  text: string;
+  wording(): { title: string; text: string };
 }
+
+const note = (tone: Feedback['tone'], wording: Feedback['wording']): Feedback => ({ tone, wording });
 
 export interface CardReview {
   index: number; // into cards[]
@@ -99,7 +102,7 @@ export class Game {
   calls: CallEntry[] = [];
   cards: CardEntry[] = [];
   review: ReviewData | null = null;
-  thinking: string | null = null;
+  private busy: Seat | 'playout' | null = null; // a bot to move, or the computer playing out the hand
   hint: Hint | null = null;
   hintRevealed = false;
   warning: Warning | null = null;
@@ -126,6 +129,12 @@ export class Game {
 
   private emit() {
     for (const fn of this.listeners) fn();
+  }
+
+  /** What the computer is doing, in the active language (null when it's idle). */
+  get thinking(): string | null {
+    if (this.busy === null) return null;
+    return this.busy === 'playout' ? T.ui.game.playingOut : T.ui.game.thinking(SEAT_NAMES[this.busy]);
   }
 
   updateSettings(patch: Partial<Settings>) {
@@ -159,7 +168,7 @@ export class Game {
     this.review = null;
     this.warning = null;
     this.feedback = loadHistory().length === 0 && !replay
-      ? [{ tone: 'info', title: 'Добре дошли на масата', text: 'Вие сте Юг, Север е вашият партньор, а ботовете играят по системата SAYC. Обявявайте с кутията под масата, после щраквайте върху карти, за да играете. Треньорът обяснява всяка обява (щракнете върху нея в лицитацията), подсказва обява или карта, когато поискате, и разбира раздаването накрая. Винаги можете да върнете ход.' }]
+      ? [note('info', () => ({ title: T.ui.notes.welcomeTitle, text: T.ui.notes.welcomeText }))]
       : [];
     this.displayTrick = null;
     this.plan = null;
@@ -167,7 +176,7 @@ export class Game {
     this.hintRevealed = false;
     this.historyKey = 0;
     this.gen++;
-    this.thinking = null;
+    this.busy = null;
     this.emit();
     void this.run();
   }
@@ -195,7 +204,7 @@ export class Game {
 
   isHumanTurn(): boolean {
     const a = this.actor;
-    return a !== null && this.humanControls(a) && !this.thinking;
+    return a !== null && this.humanControls(a) && this.busy === null;
   }
 
   /** Is this seat's hand face up for you? */
@@ -220,7 +229,7 @@ export class Game {
         this.refreshHint();
         break;
       }
-      this.thinking = `${SEAT_NAMES[a]} мисли…`;
+      this.busy = a;
       this.emit();
       if (this.phase === 'bidding') {
         await wait(DELAYS[this.settings.speed].bid);
@@ -234,11 +243,11 @@ export class Game {
         if (myGen !== this.gen) return;
         await this.applyCard(card, false, myGen);
       }
-      this.thinking = null;
+      this.busy = null;
       this.emit();
     }
     if (myGen === this.gen) {
-      this.thinking = null;
+      this.busy = null;
       this.emit();
     }
   }
@@ -307,14 +316,16 @@ export class Game {
     }
     this.play = new PlayState(c, this.deal);
     this.phase = 'play';
-    this.feedback.unshift({ tone: 'info', title: `Договор: ${contractName(c)}, разиграва ${SEAT_NAMES[c.declarer]}`, text: c.declarer & 1 ? `Вие сте в защита. ${SEAT_NAMES[(c.declarer + 1) & 3]} прави първия извод.` : `Вашата страна разиграва: играете и вашата ръка, и тази на Север.` });
+    this.feedback.unshift(note('info', () => ({
+      title: T.ui.notes.contract(T.ui.common.contractBy(contractName(c), SEAT_NAMES[c.declarer])),
+      text: c.declarer & 1 ? T.ui.notes.youDefend(SEAT_NAMES[(c.declarer + 1) & 3]) : T.ui.notes.youDeclare,
+    })));
   }
 
   private async applyCard(card: Card, human: boolean, myGen = this.gen, advice?: Decision | null) {
     const p = this.play!;
     const seat = p.toPlay;
-    const sit = this.situation(seat);
-    const principle = explainPlay(sit, card);
+    const principle = explainPlay(situationAt(p, seat), card);
     this.displayTrick = null;
     const trickNo = p.tricks.length - 1;
     const done = p.play(card);
@@ -338,25 +349,8 @@ export class Game {
     }
   }
 
-  situation(seat: Seat) {
-    const p = this.play!;
-    const cur = p.current;
-    const played = p.tricks.slice(0, -1).flatMap(t => t.cards);
-    const declarer = p.contract.declarer;
-    const partnerSeat = partnerOf(seat);
-    const declSide = (seat & 1) === (declarer & 1);
-    return {
-      seat,
-      contract: p.contract,
-      leader: cur.leader,
-      trick: [...cur.cards],
-      hand: [...p.hands[seat]],
-      partnerHand: declSide ? [...p.hands[partnerSeat]] : p.openingLeadMade ? [...p.hands[p.dummy]] : null,
-      dummySeat: p.dummy,
-      dummyHand: p.openingLeadMade ? [...p.hands[p.dummy]] : null,
-      played,
-      openingLead: !p.openingLeadMade,
-    };
+  situation(seat: Seat): PlaySituation {
+    return situationAt(this.play!, seat);
   }
 
   // ---------------------------------------------------------------------------
@@ -373,11 +367,9 @@ export class Game {
     }
     this.warning = null;
     this.snapshot();
-    const agrees = advice.call === call;
-    const meaning = readAuction(new Auction(this.dealer, [...this.auction.calls, call]), this.vul).records.at(-1)!.meaning;
-    this.feedback.unshift(agrees
-      ? { tone: 'good', title: `${callName(call)} — според системата`, text: `${advice.rule?.name ?? 'Пас'}: ${advice.rule?.desc ?? ''}` }
-      : { tone: 'warn', title: `${callName(call)} — системата обявява ${callName(advice.call)}`, text: `Вашето ${callName(call)} ще се разбере като: ${meaning.name}${meaning.desc ? ' — ' + meaning.desc : ''}. Системата предпочита ${callName(advice.call)} (${advice.rule?.name ?? 'Пас'}).` });
+    // worded from the call's entry, which relocalize() re-words; the note lives only as long as the call
+    const index = this.auction.calls.length;
+    this.feedback.unshift(note(advice.call === call ? 'good' : 'warn', () => callWording(this.calls[index])));
     this.applyCall(call, true, advice);
     this.hint = null;
     this.hintRevealed = false;
@@ -413,9 +405,7 @@ export class Game {
       if (mine) {
         const same = decision.equal.includes(card);
         const close = best.tricks - mine.tricks < 0.15 && best.success - mine.success < 0.05;
-        if (!same && !close) {
-          this.feedback.unshift({ tone: 'warn', title: `${cardName(card)} — ${cardName(decision.card)} е по-добра`, text: `В ${decision.samples} симулирани разпределения ${cardName(decision.card)} носи средно ${best.tricks.toFixed(1)} взятки (успех ${pct(best.success)}) срещу ${mine.tricks.toFixed(1)} (${pct(mine.success)}) за ${cardName(card)}.` });
-        }
+        if (!same && !close) this.feedback.unshift(note('warn', () => cardWording(card, decision, best, mine)));
       }
     }
     this.hint = null;
@@ -437,7 +427,7 @@ export class Game {
     if (!snap) return;
     this.gen++;
     this.hintGen++;
-    this.thinking = null;
+    this.busy = null;
     this.warning = null;
     this.auction = new Auction(this.dealer, [...snap.calls]);
     this.view = readAuction(this.auction, this.vul);
@@ -472,14 +462,14 @@ export class Game {
 
   /** Claim the rest: accepted when your side can take every remaining trick against any defence. */
   async claim(): Promise<string> {
-    if (!this.play || this.phase !== 'play' || this.declarerSide !== 0) return 'Може да претендирате само като разиграващ.';
+    if (!this.play || this.phase !== 'play' || this.declarerSide !== 0) return T.ui.game.claimOnlyDeclarer;
     const p = this.play;
     const res = await ddPool().run({ kind: 'value', pos: { masks: masksOf(p.hands), trump: p.trump, leader: p.current.leader, trick: [...p.current.cards] } }, 5);
-    if (res.kind !== 'value') return 'Претенцията не може да бъде проверена.';
+    if (res.kind !== 'value') return T.ui.game.claimUnchecked;
     const remaining = 13 - p.completedTricks.length;
-    if (res.value < remaining) return `Още не: при най-добра защита ще загубите ${remaining - res.value} от оставащите ${remaining} взятки.`;
+    if (res.value < remaining) return T.ui.game.claimNotYet(remaining - res.value, remaining);
     await this.finishWithBestPlay();
-    return 'Претенцията е приета.';
+    return T.ui.game.claimAccepted;
   }
 
   /** Let the computer play out the rest of the hand. */
@@ -494,7 +484,7 @@ export class Game {
     const p = this.play!;
     this.gen++;
     const myGen = this.gen;
-    this.thinking = 'Доигравам раздаването…';
+    this.busy = 'playout';
     this.emit();
     while (!p.isOver && myGen === this.gen) {
       const moves = await ddCardValues(p.hands, p.trump, p.current.leader, p.current.cards, 5);
@@ -507,7 +497,7 @@ export class Game {
       this.cards.push({ seat, card, trick: trickNo, human: false });
       if (done) this.displayTrick = done;
     }
-    this.thinking = null;
+    this.busy = null;
     if (p.isOver && myGen === this.gen) {
       this.phase = 'review';
       this.finishBoard();
@@ -597,11 +587,13 @@ export class Game {
     if (c) {
       const made = declTricks - (c.level + 6);
       const ours = (c.declarer & 1) === 0;
-      this.feedback.unshift({
-        tone: (made >= 0) === ours ? 'good' : 'bad',
-        title: `${contractName(c)}, разиграва ${SEAT_NAMES[c.declarer]}: ${made >= 0 ? (made === 0 ? 'изпълнен точно' : `изпълнен +${made}`) : `без ${-made}`}`,
-        text: `Резултат за Север–Юг: ${sc > 0 ? '+' : ''}${sc}.`,
-      });
+      this.feedback.unshift(note((made >= 0) === ours ? 'good' : 'bad', () => {
+        const n = T.ui.notes;
+        return {
+          title: `${T.ui.common.contractBy(contractName(c), SEAT_NAMES[c.declarer])}: ${made >= 0 ? (made === 0 ? n.madeExactly : n.madePlus(made)) : n.down(-made)}`,
+          text: n.resultText(fmtSigned(sc)),
+        };
+      }));
     }
     this.recordHistory();
     this.emit();
@@ -691,6 +683,69 @@ export class Game {
     this.historyKey = 0;
   }
 
+  // ---------------------------------------------------------------------------
+  // language
+
+  /**
+   * Re-word everything that was built in the previous language: what each
+   * call means, the system's advice on your calls, the principle behind each
+   * card, the declarer plan, the open hint and the warning. Each is rebuilt
+   * from the same inputs, and the engines are deterministic, so only the words
+   * change. A card simulation holds just cards and numbers: a finished one is
+   * kept and a running one carries on. Doesn't emit; the caller re-renders.
+   */
+  relocalize() {
+    this.view = readAuction(this.auction, this.vul);
+    // undo snapshots share entries with the live logs: re-word each entry once, in place
+    const seen = new Set<object>();
+    this.relocalizeCalls(this.calls, this.auction.calls, seen);
+    this.relocalizeCards(this.cards, this.contract, seen);
+    for (const snap of this.snapshots) {
+      this.relocalizeCalls(snap.callLog, snap.calls, seen);
+      this.relocalizeCards(snap.cardLog, new Auction(this.dealer, snap.calls).contract(), seen);
+    }
+    const p = this.play;
+    if (this.plan && p && p.openingLeadMade) {
+      this.plan = makePlan(this.deal[p.contract.declarer], this.deal[p.dummy], p.contract, [p.tricks[0].cards[0]]);
+    }
+    // the hint is shown only on your turn, and belongs to the position on the table
+    const hint = this.isHumanTurn() ? this.hint : null;
+    if (hint?.kind === 'bid') hint.advice = advise(this.deal[S], this.view.ctx);
+    else if (hint?.kind === 'card' && p) {
+      if (hint.lead && !p.openingLeadMade) hint.lead = openingLeadChoices(p.hands[p.toPlay], p.contract, this.view.records, p.toPlay);
+      if (hint.plan) hint.plan = this.plan;
+    }
+    const w = this.warning;
+    if (w?.kind === 'bid') {
+      const j = judgeCall(this.deal[S], this.view.ctx, w.call);
+      this.warning = { kind: 'bid', call: w.call, advice: j.advice, failed: j.failed, yourMeaning: j.yourMeaning };
+    }
+    if (this.review?.table) this.review.par = parScore(this.review.table, this.vul);
+  }
+
+  /** Meanings (and, for your calls, the advice you had) from the auction they belong to. */
+  private relocalizeCalls(entries: CallEntry[], calls: Call[], seen: Set<object>) {
+    const todo = entries.filter(e => !seen.has(e));
+    if (!todo.length) return;
+    const view = readAuction(new Auction(this.dealer, calls), this.vul);
+    for (const e of todo) {
+      seen.add(e);
+      e.meaning = view.records[e.index].meaning;
+      if (e.advice) e.advice = advise(this.deal[S], readAuction(new Auction(this.dealer, calls.slice(0, e.index)), this.vul).ctx);
+    }
+  }
+
+  /** Replay the cards, naming each principle again from the position it was played in. */
+  private relocalizeCards(entries: CardEntry[], contract: Contract | null, seen: Set<object>) {
+    if (!contract || entries.every(e => seen.has(e))) return;
+    const p = new PlayState(contract, this.deal);
+    for (const e of entries) {
+      if (e.principle && !seen.has(e)) e.principle = explainPlay(situationAt(p, e.seat), e.card);
+      seen.add(e);
+      p.play(e.card);
+    }
+  }
+
   // helpers for the UI
   hcpOf(seat: Seat) {
     return hcp(this.deal[seat]);
@@ -709,8 +764,43 @@ export class Game {
   }
 }
 
-function pct(x: number) {
-  return `${Math.round(x * 100)}%`;
+/** What the tutor knows when a card is chosen from this seat. */
+function situationAt(p: PlayState, seat: Seat): PlaySituation {
+  const cur = p.current;
+  const played = p.tricks.slice(0, -1).flatMap(t => t.cards);
+  const declSide = (seat & 1) === (p.contract.declarer & 1);
+  return {
+    seat,
+    contract: p.contract,
+    leader: cur.leader,
+    trick: [...cur.cards],
+    hand: [...p.hands[seat]],
+    partnerHand: declSide ? [...p.hands[partnerOf(seat)]] : p.openingLeadMade ? [...p.hands[p.dummy]] : null,
+    dummySeat: p.dummy,
+    dummyHand: p.openingLeadMade ? [...p.hands[p.dummy]] : null,
+    played,
+    openingLead: !p.openingLeadMade,
+  };
+}
+
+/** The note after one of your calls: agreement with the system, or what it prefers. */
+function callWording(e: CallEntry) {
+  const a = e.advice!;
+  const rule = a.rule?.name ?? callName(PASS);
+  if (e.agrees) return { title: T.ui.notes.callOk(callName(e.call)), text: `${rule}: ${a.rule?.desc ?? ''}` };
+  const m = e.meaning;
+  return {
+    title: T.ui.notes.callOff(callName(e.call), callName(a.call)),
+    text: T.ui.notes.callOffText(callName(e.call), `${m.name}${m.desc ? ' — ' + m.desc : ''}`, callName(a.call), rule),
+  };
+}
+
+/** The note after a card the simulation rated clearly lower. */
+function cardWording(card: Card, d: Decision, best: CardStat, mine: CardStat) {
+  return {
+    title: T.ui.notes.cardOff(cardName(card), cardName(d.card)),
+    text: T.ui.notes.cardOffText(d.samples, cardName(d.card), fmtNum(best.tricks, 1), fmtPct(best.success), fmtNum(mine.tricks, 1), fmtPct(mine.success), cardName(card)),
+  };
 }
 
 /** Deal according to the practice mode (rejection sampling on HCP). */
