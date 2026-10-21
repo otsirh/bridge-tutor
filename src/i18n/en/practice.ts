@@ -8,7 +8,7 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 export const practice = {
   title: 'Training',
   close: 'Close',
-  tabs: { today: 'Today', review: 'Review', skills: 'Skills', topics: 'Topics', history: 'History' },
+  tabs: { today: 'Today', review: 'Review', problems: 'Problems', skills: 'Skills', topics: 'Topics', history: 'History' },
 
   skills: {
     'bid.opening': { name: 'Opening the bidding', desc: 'Whether to open, and which opening describes your hand: one of a suit, 1NT, 2♣, weak twos and preempts.' },
@@ -102,6 +102,9 @@ export const practice = {
   stepCourseTitle: (title: string) => `Continue the course: ${title}`,
   stepCourseText: (i: number, total: number) => `Lesson ${i} of ${total}. A lesson counts as done when you get 80% of its quiz right at the first try.`,
   openLesson: 'Open lesson',
+  stepProblemsTitle: 'Find the right play',
+  stepProblemsText: 'Problems from real deals where one card is clearly best: declarer play, defence and opening leads.',
+  openProblems: 'Solve problems',
   howItWorks: 'Every board you finish is saved with its analysis. Calls that differ from the system and cards that were clearly worse with the information you had (not just in hindsight) go into your review queue.',
 
   // Review
@@ -112,6 +115,7 @@ export const practice = {
   sessionScore: (right: number, done: number) => `This session: ${right}/${done} right`,
   itemFrom: (date: string, board: number) => `from board ${board}, ${date}`,
   itemFromDrill: (date: string) => `from the bidding drill, ${date}`,
+  itemFromProblem: (date: string) => `from a problem, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'new' : `step ${box} of ${last}`),
   dueLeft: (n: number) => `${n} due`,
   next: 'Next',
@@ -134,7 +138,66 @@ export const practice = {
   cardWrong: (cards: string) => `Best: ${cards}`,
   cardSim: (n: number, best: string, bt: string, bs: string, yours: string, mt: string, ms: string, declaring: boolean) =>
     `In ${n} layouts that fitted the bidding and play, ${best} averaged ${bt} tricks for your side (${declaring ? 'making' : 'beating the contract'} ${bs} of the time); ${yours}, your card at the table, averaged ${mt} (${ms}).`,
+  cardSimProblem: (n: number, best: string, bt: string, bs: string, yours: string, mt: string, ms: string, declaring: boolean) =>
+    `In ${n} layouts that fitted the bidding and play, ${best} averaged ${bt} tricks for your side (${declaring ? 'making' : 'beating the contract'} ${bs} of the time); ${yours}, your answer to the problem, averaged ${mt} (${ms}).`,
   cardFresh: (card: string, t: string, s: string, n: number) => `${card} averaged ${t} tricks (${s}) over ${n} new layouts.`,
+
+  // Problems
+  problems: {
+    intro: 'Positions from real deals where the simulation shows one card clearly best — find it. Each deal is bid by the system and played by the bots up to your decision.',
+    filterLabel: 'Kind of problem',
+    filters: { mixed: 'Mixed', declarer: 'Declarer play', defense: 'Defence', lead: 'Opening leads' },
+    kinds: { declarer: 'Declarer play', defense: 'Defence', lead: 'Opening lead' },
+    session: (right: number, done: number) => `This session: ${right}/${done} right`,
+    kindScore: (kind: string, right: number, done: number) => `${kind}: ${right}/${done}`,
+    allTime: (right: number, done: number) => `All time: ${right}/${done}`,
+    ready: (declarer: number, defense: number, lead: number) => `Ready: ${declarer} declarer · ${defense} defence · ${lead} lead`,
+    boardLine: (board: number, vul: string) => `Board ${board}, ${vul}.`,
+
+    // waiting for the first problem
+    preparing: 'Preparing a problem…',
+    stageDealing: (kind: 'declarer' | 'defense' | 'lead') =>
+      kind === 'declarer' ? 'Dealing a board for declarer play…' : kind === 'defense' ? 'Dealing a board to defend…' : 'Dealing a board with an opening lead to make…',
+    stagePlaying: (trick: number) => `The bots are playing trick ${trick}…`,
+    stageTesting: (trick: number, done: number, total: number) =>
+      total ? `Testing your decision at trick ${trick}: ${done} of ${total} layouts…` : 'Checking the deal…',
+    tried: (n: number) => (n === 1 ? '1 deal tried so far.' : `${n} deals tried so far.`),
+    waitNote: 'Only positions with a clear answer are kept, so it can take a few deals. Problems are prepared in the background while this tab is open, and up to 6 of each kind are kept for next time.',
+    leadNote: 'Clear opening-lead problems are rare: preparing one can take a minute or two.',
+
+    // the question
+    qDeclarer: (contract: string, seat: string) => `You are declarer in ${contract} (${seat}).`,
+    qDefence: (contract: string, declarer: string, seat: string) => `${declarer} is declarer in ${contract}; you defend as ${seat}.`,
+    qLead: (contract: string, declarer: string) => `${declarer} is declarer in ${contract}, and you are on lead.`,
+    led: (who: 'you' | 'partner' | 'opponent', seat: string, card: string) =>
+      who === 'you' ? `You led the ${card}.` : who === 'partner' ? `Partner (${seat}) led the ${card}.` : `${seat} led the ${card}.`,
+    tally: (trick: number, won: number, lost: number) => `Trick ${trick}: so far your side has ${won} ${won === 1 ? 'trick' : 'tricks'}, the opponents ${lost}.`,
+    askLead: 'Which card do you lead?',
+    askPlan: (fromDummy: boolean) => `Plan the play: which card ${fromDummy ? 'from dummy' : 'from your hand'}?`,
+    askDeclarer: (fromDummy: boolean) => `Which card ${fromDummy ? 'from dummy' : 'from your hand'} now?`,
+    askDefence: 'Which card do you play?',
+
+    // the answer
+    right: (cards: string) => `Right! Best: ${cards}.`,
+    wrong: (cards: string) => `Not this time. Best: ${cards}.`,
+    simLine: (n: number, best: string, t: string, s: string, declaring: boolean) =>
+      `In ${n} layouts that fit the bidding and the play so far, ${best} took ${t} tricks on average for your side and ${declaring ? 'made the contract' : 'beat the contract'} ${s} of the time.`,
+    yourLine: (card: string, t: string, s: string) => `Your ${card}: ${t} tricks, ${s}.`,
+    nextBest: (card: string, t: string, s: string) => `The best of the rest, ${card}: ${t} tricks, ${s}.`,
+    colCard: 'Card',
+    colTricks: 'Tricks',
+    colMakes: 'Makes',
+    colSets: 'Beats it',
+    addedToReview: 'Added to your review queue: this position comes back until you get it right.',
+    whyThisSuit: 'Why this suit:',
+    next: 'Next problem',
+    skip: 'Skip',
+    showDeal: 'Show the whole deal',
+    hideDeal: 'Hide the deal',
+    playFromStart: 'Play this deal from the start',
+    declarerTag: 'declarer',
+    dummyTag: 'dummy',
+  },
 
   // Skills
   skillsIntro: 'Accuracy over your most recent decisions in each area. Bidding counts calls that matched the system; play counts cards that were not clearly worse than the best card with the information you had.',

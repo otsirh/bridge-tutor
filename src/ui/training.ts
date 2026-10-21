@@ -1,9 +1,11 @@
 // The Training room: what to practise next, the review queue of your own
-// mistakes (spaced repetition), accuracy per skill, practice topics and the
-// archive of every board you played.
+// mistakes (spaced repetition), problems from real deals, accuracy per skill,
+// practice topics and the archive of every board you played.
 
-import { type Card, type Seat, N, E, S, W, SEAT_NAMES, SEAT_LETTERS, SUIT_SYMBOLS, partnerOf, cardName } from '../core/cards';
-import { Auction, type Call, PASS, DOUBLE, REDOUBLE, bid, callName, contractName } from '../core/auction';
+import {
+  type Card, type Seat, type Vulnerability, N, E, S, W, SEAT_NAMES, SEAT_LETTERS, SUIT_SYMBOLS, DISPLAY_SUIT_ORDER, partnerOf, cardName, sortHand, suitOf,
+} from '../core/cards';
+import { Auction, type Call, type Contract, PASS, DOUBLE, REDOUBLE, bid, callName, contractName } from '../core/auction';
 import { PlayState } from '../core/play';
 import { imps } from '../core/scoring';
 import { readAuction, advise, judgeCall } from '../bidding/engine';
@@ -12,16 +14,20 @@ import { explainPlay, type PlaySituation } from '../tutor/principles';
 import { T, fmtDate, fmtNum, fmtPct } from '../i18n';
 import { getLessons, getLesson } from '../learn/lessons';
 import {
-  type ArchivedBoard, type ReviewItem, loadBoards, loadItems, dueItems, answerItem, updateItem, decodeDeal,
+  type ArchivedBoard, type ReviewItem, loadBoards, loadItems, dueItems, answerItem, updateItem, decodeDeal, addItems,
   loadLessonProgress, streak, exportAll, importAll, INTERVALS, LAST_BOX,
 } from '../game/journal';
+import {
+  type Problem, type ProblemKind, type KindScore, PROBLEM_KINDS, problemFactory, problemPosition, pickProblem, removeFromBank,
+  recordScore, loadScore, bankCounts, problemReviewItem, bookLead,
+} from '../game/problems';
 import { SKILLS, type SkillId, skillStats, weakestSkill, skillInfo, clearCardMistake } from '../game/skills';
 import { THEMES } from '../game/themes';
 import { h, suitText } from './dom';
-import { handEl, cardText } from './cards';
+import { handEl, cardText, diagramHand } from './cards';
 import './training.css';
 
-export type TrainingTab = 'today' | 'review' | 'skills' | 'topics' | 'history';
+export type TrainingTab = 'today' | 'review' | 'problems' | 'skills' | 'topics' | 'history';
 
 export interface TrainingActions {
   rerender(): void;
@@ -37,6 +43,10 @@ export interface TrainingActions {
   toast(msg: string): void;
   /** Play a pasted deal (PBN, LIN, BBO link, share code). Returns an error message, or null. */
   importDeal(text: string): string | null;
+  /** Play a deal from the start at the table (a problem's deal). Optional: the button shows only when provided. */
+  playDeal?(spec: { deal: Card[][]; dealer: Seat; vul: Vulnerability; board?: number }): void;
+  /** A hand is being played at the table right now (bots thinking): problem generation waits. */
+  handBusy?(): boolean;
 }
 
 interface DrillState {
@@ -47,10 +57,27 @@ interface DrillState {
   pending: boolean;
 }
 
+type ProblemFilter = ProblemKind | 'mixed';
+
+interface ProblemsState {
+  filter: ProblemFilter;
+  current: Problem | null;
+  chosen: Card | null;
+  correct: boolean | null;
+  showDeal: boolean;
+  last: ProblemKind | null; // kind of the last problem shown (mixed: the next one is of another kind)
+  session: Record<ProblemKind, KindScore>;
+  tick: number; // bumped as the background generation progresses
+}
+
 const state = {
   tab: 'today' as TrainingTab,
   drill: { item: null, chosen: null, correct: null, fresh: null, pending: false } as DrillState,
   session: { done: 0, right: 0 },
+  problems: {
+    filter: 'mixed', current: null, chosen: null, correct: null, showDeal: false, last: null, tick: 0,
+    session: { declarer: { done: 0, right: 0 }, defense: { done: 0, right: 0 }, lead: { done: 0, right: 0 } },
+  } as ProblemsState,
 };
 
 export function setTrainingTab(tab: TrainingTab) {
@@ -125,6 +152,9 @@ function todayTab(act: TrainingActions): HTMLElement {
     h('div', { class: 'stepbtns' },
       h('button', { class: 'btn primary', type: 'button', onclick: () => act.practiseTheme(skillInfo(weak).theme) }, T.practice.practiseAtTable),
       weakLesson && getLesson(weakLesson) ? h('button', { class: 'btn', type: 'button', onclick: () => act.openLesson(weakLesson) }, suitText(T.practice.readLesson(getLesson(weakLesson)!.title))) : null)));
+  steps.push(h('div', { class: 'step' },
+    h('div', null, h('b', null, T.practice.stepProblemsTitle), h('div', { class: 'small muted' }, T.practice.stepProblemsText)),
+    h('button', { class: 'btn', type: 'button', onclick: () => { state.tab = 'problems'; act.rerender(); } }, T.practice.openProblems)));
   if (nextLesson) {
     steps.push(h('div', { class: 'step' },
       h('div', null, h('b', null, suitText(T.practice.stepCourseTitle(nextLesson.title))), h('div', { class: 'small muted' }, T.practice.stepCourseText(lessons.indexOf(nextLesson) + 1, lessons.length))),
@@ -272,6 +302,49 @@ function trickRow(p: PlayState): HTMLElement | null {
   return h('div', { class: 'small muted', style: 'display:flex;flex-wrap:wrap;gap:4px 12px' }, done.map((t, i) => h('span', null, `${i + 1}. `, t.cards.map((c, k) => h('span', null, k ? ' ' : '', h('b', null, SEAT_LETTERS[(t.leader + k) & 3]), cardText(c))))));
 }
 
+interface PositionOpts {
+  /** Answered: the cards can no longer be played, the answer is marked. */
+  done: boolean;
+  answer: readonly Card[];
+  chosen: Card | null;
+  onPick: (card: Card) => void;
+}
+
+/** Mark one card of a rendered hand (handEl lays the cards out in display order). */
+function markCard(handNode: HTMLElement, cards: readonly Card[], card: Card, cls: string) {
+  const i = sortHand(cards, DISPLAY_SUIT_ORDER).indexOf(card);
+  if (i >= 0) handNode.children[i]?.classList.add(cls);
+}
+
+/**
+ * A card-play position: the hand to play from (cards playable until
+ * answered), partner's hand or dummy, the trick so far, the auction and the
+ * earlier tricks. Shared by the Review and the Problems tabs.
+ */
+function positionView(p: PlayState, at: { dealer: Seat; calls: readonly Call[]; vul: Vulnerability }, o: PositionOpts): HTMLElement[] {
+  const seat = p.toPlay;
+  const declaring = (seat & 1) === (p.contract.declarer & 1);
+  const legal = new Set(p.legal());
+  const mainHand = handEl(p.hands[seat], card => ({ playable: !o.done && legal.has(card), dim: !legal.has(card), rec: o.done && o.answer.includes(card), onClick: () => o.onPick(card) }));
+  if (o.done && o.chosen !== null && !o.answer.includes(o.chosen)) markCard(mainHand, p.hands[seat], o.chosen, 'picked');
+  const other = declaring ? partnerOf(seat) : p.openingLeadMade ? p.dummy : null;
+  const cur = p.current;
+  const row = trickRow(p);
+  // declarer plays both hands: name them dummy and "your hand" whichever is to play
+  const label = (s: Seat) => (s === p.dummy ? T.practice.dummyLabel(SEAT_NAMES[s]) : s === seat || declaring ? T.practice.yourHand(SEAT_NAMES[s]) : SEAT_NAMES[s]);
+  return [
+    h('div', { class: 'posrow' },
+      h('div', { class: 'feltbox' },
+        other !== null ? h('div', { class: 'small', style: 'color:var(--felt-muted)' }, label(other)) : null,
+        other !== null ? handEl(p.hands[other], () => ({})) : null,
+        cur.cards.length ? h('div', { class: 'small', style: 'color:var(--felt-muted);margin-top:6px' }, T.practice.trickSoFar, ' ', cur.cards.map((x, k) => h('span', { style: 'margin-right:8px' }, SEAT_LETTERS[(cur.leader + k) & 3], ' ', cardText(x)))) : null,
+        h('div', { class: 'small', style: 'color:var(--felt-muted);margin-top:6px' }, label(seat)),
+        mainHand),
+      auctionTable(at.dealer, at.calls, at.vul, false)),
+    ...(row ? [row] : []),
+  ];
+}
+
 function cardItemView(item: ReviewItem, act: TrainingActions): HTMLElement {
   const d = state.drill;
   const { play } = itemPosition(item);
@@ -279,11 +352,7 @@ function cardItemView(item: ReviewItem, act: TrainingActions): HTMLElement {
   const seat = p.toPlay;
   const c = p.contract;
   const declaring = (seat & 1) === (c.declarer & 1);
-  const legal = new Set(p.legal());
   const done = d.chosen !== null;
-  const mainHand = handEl(p.hands[seat], card => ({ playable: !done && legal.has(card), dim: !legal.has(card), rec: done && item.answer.includes(card), onClick: () => answerCard(act, card) }));
-  const other = declaring ? partnerOf(seat) : p.openingLeadMade ? p.dummy : null;
-  const cur = p.current;
   let fb: HTMLElement | null = null;
   if (d.pending) fb = h('div', { class: 'box small' }, T.practice.simulating);
   else if (done && d.correct !== null) {
@@ -294,21 +363,13 @@ function cardItemView(item: ReviewItem, act: TrainingActions): HTMLElement {
     const freshMine = fresh?.stats.find(s => s.card === d.chosen);
     fb = h('div', { class: `box ${d.correct ? '' : 'warnbox'}` },
       h('b', null, suitText(d.correct ? T.practice.cardRight : T.practice.cardWrong(item.answer.map(cardName).join(', ')))),
-      sim ? h('p', { style: 'margin:6px 0' }, suitText(T.practice.cardSim(sim.n, cardName(best), fmtNum(sim.bt, 2), fmtPct(sim.bs), cardName(item.yours), fmtNum(sim.mt, 2), fmtPct(sim.ms), declaring))) : null,
+      sim ? h('p', { style: 'margin:6px 0' }, suitText((item.source === 'problem' ? T.practice.cardSimProblem : T.practice.cardSim)(sim.n, cardName(best), fmtNum(sim.bt, 2), fmtPct(sim.bs), cardName(item.yours), fmtNum(sim.mt, 2), fmtPct(sim.ms), declaring))) : null,
       fresh && freshMine ? h('p', { class: 'small', style: 'margin:6px 0' }, suitText(T.practice.cardFresh(cardName(d.chosen!), fmtNum(freshMine.tricks, 2), fmtPct(freshMine.success), fresh.samples))) : null,
       h('div', { class: 'principle' }, h('b', null, pr.title), suitText(pr.text)));
   }
   return h('div', { class: 'drill' },
     h('div', { class: 'prompt' }, h('b', null, T.practice.cardPrompt), ' ', suitText(T.practice.cardSituation(contractName(c), SEAT_NAMES[c.declarer], SEAT_NAMES[seat], p.tricks.length))),
-    h('div', { style: 'display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start' },
-      h('div', { class: 'feltbox' },
-        other !== null ? h('div', { class: 'small', style: 'color:var(--felt-muted)' }, other === p.dummy ? T.practice.dummyLabel(SEAT_NAMES[other]) : SEAT_NAMES[other]) : null,
-        other !== null ? handEl(p.hands[other], () => ({})) : null,
-        cur.cards.length ? h('div', { class: 'small', style: 'color:var(--felt-muted);margin-top:6px' }, T.practice.trickSoFar, ' ', cur.cards.map((x, k) => h('span', { style: 'margin-right:8px' }, SEAT_LETTERS[(cur.leader + k) & 3], ' ', cardText(x)))) : null,
-        h('div', { class: 'small', style: 'color:var(--felt-muted);margin-top:6px' }, T.practice.yourHand(SEAT_NAMES[seat])),
-        mainHand),
-      auctionTable(item.dealer, item.calls, item.vul, false)),
-    trickRow(p),
+    positionView(p, item, { done, answer: item.answer, chosen: d.chosen, onPick: card => answerCard(act, card) }),
     fb);
 }
 
@@ -329,7 +390,7 @@ function reviewTab(act: TrainingActions): HTMLElement {
   return h('div', null,
     h('div', { class: 'small muted', style: 'display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px' },
       h('span', null, skillName(item.skill)),
-      h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
+      h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created)) : item.source === 'problem' ? T.practice.itemFromProblem(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
       h('span', null, T.practice.itemBox(box, LAST_BOX)),
       h('span', null, T.practice.dueLeft(dueItems(all).length)),
       state.session.done ? h('span', null, T.practice.sessionScore(state.session.right, state.session.done)) : null),
@@ -338,6 +399,220 @@ function reviewTab(act: TrainingActions): HTMLElement {
       h('button', { class: 'btn primary', type: 'button', onclick: () => { resetDrill(nextItem()); act.rerender(); } }, T.practice.next),
       h('span', { class: 'small muted', style: 'align-self:center' }, state.drill.correct ? T.practice.nextIn(INTERVALS[Math.min(item.box, LAST_BOX)]) : T.practice.again),
       loadBoards().some(b => item.id.startsWith(`${b.id}:`)) ? h('button', { class: 'btn', type: 'button', onclick: () => act.openArchived(+item.id.split(':')[0]) }, T.practice.showBoard) : null) : null);
+}
+
+// ---------------------------------------------------------------------------
+// Problems: find the right play in positions from real deals
+
+/** The Problems view on screen (generation runs only while it is attached). */
+let problemsEl: HTMLElement | null = null;
+let problemsAct: TrainingActions | null = null;
+let factoryHooked = false;
+let lastTick = 0;
+
+/** Redraw while waiting for a problem; never under a problem being solved. */
+function hookFactory() {
+  if (factoryHooked) return;
+  factoryHooked = true;
+  problemFactory().onChange(event => {
+    const ps = state.problems;
+    if (state.tab !== 'problems' || !problemsEl?.isConnected || !problemsAct || ps.current) return;
+    const now = Date.now();
+    if (event === 'progress' && now - lastTick < 250) return;
+    lastTick = now;
+    ps.tick++;
+    problemsAct.rerender();
+  });
+}
+
+function startFactory() {
+  hookFactory();
+  problemFactory().start({
+    active: () => state.tab === 'problems' && !!problemsEl?.isConnected,
+    busy: () => !!problemsAct?.handBusy?.(),
+    prefer: () => state.problems.filter,
+  });
+}
+
+function resetProblem(current: Problem | null) {
+  Object.assign(state.problems, { current, chosen: null, correct: null, showDeal: false });
+}
+
+function answerProblem(act: TrainingActions, card: Card) {
+  const ps = state.problems;
+  const pr = ps.current;
+  if (!pr || ps.chosen !== null) return;
+  const correct = pr.answer.includes(card);
+  ps.chosen = card;
+  ps.correct = correct;
+  ps.last = pr.kind;
+  ps.session[pr.kind].done++;
+  if (correct) ps.session[pr.kind].right++;
+  recordScore(pr.kind, correct);
+  removeFromBank(pr.id);
+  // a missed problem comes back in the Review tab
+  if (!correct) addItems([problemReviewItem(pr, card)]);
+  act.rerender();
+}
+
+function nextProblem(act: TrainingActions, skip = false) {
+  const pr = state.problems.current;
+  if (skip && pr) {
+    removeFromBank(pr.id);
+    state.problems.last = pr.kind;
+  }
+  resetProblem(null);
+  act.rerender();
+}
+
+function setFilter(act: TrainingActions, f: ProblemFilter) {
+  const ps = state.problems;
+  ps.filter = f;
+  // an unanswered problem of another kind stays in the bank for later
+  if (ps.chosen !== null || (ps.current && f !== 'mixed' && ps.current.kind !== f)) resetProblem(null);
+  act.rerender();
+}
+
+/** "You are declarer in 4♠ (South). West led the ♦K." and the question. */
+function problemQuestion(pr: Problem, p: PlayState): { context: string; ask: string } {
+  const X = T.practice.problems;
+  const c = p.contract;
+  const contract = contractName(c);
+  const seat = pr.seat;
+  if (pr.kind === 'lead') return { context: X.qLead(contract, SEAT_NAMES[c.declarer]), ask: X.askLead };
+  const parts: string[] = [pr.kind === 'declarer' ? X.qDeclarer(contract, SEAT_NAMES[c.declarer]) : X.qDefence(contract, SEAT_NAMES[c.declarer], SEAT_NAMES[seat])];
+  const first = p.tricks[0];
+  const leader = first.leader;
+  const who = leader === seat ? 'you' : pr.kind === 'defense' && leader === partnerOf(seat) ? 'partner' : 'opponent';
+  parts.push(X.led(who, SEAT_NAMES[leader], cardName(first.cards[0])));
+  const trick = p.tricks.length;
+  if (trick > 1) {
+    const won = p.completedTricks.filter(t => (t.winner! & 1) === (seat & 1)).length;
+    parts.push(X.tally(trick, won, p.completedTricks.length - won));
+  }
+  const fromDummy = seat === p.dummy;
+  const ask = pr.kind === 'defense' ? X.askDefence : trick === 1 ? X.askPlan(fromDummy) : X.askDeclarer(fromDummy);
+  return { context: parts.join(' '), ask };
+}
+
+function dealDiagram(deal: Card[][], contract: Contract): HTMLElement {
+  const decl = contract.declarer;
+  const X = T.practice.problems;
+  const lbl = (s: Seat) => (s === decl ? `${SEAT_NAMES[s]} (${X.declarerTag})` : s === partnerOf(decl) ? `${SEAT_NAMES[s]} (${X.dummyTag})` : SEAT_NAMES[s]);
+  return h('div', { class: 'diagram pdeal' },
+    h('div', { class: 'n' }, diagramHand(deal[N], lbl(N))),
+    h('div', { class: 'w' }, diagramHand(deal[W], lbl(W))),
+    h('div', { class: 'c' }, suitText(`${contractName(contract)} ${SEAT_LETTERS[decl]}`)),
+    h('div', { class: 'e' }, diagramHand(deal[E], lbl(E))),
+    h('div', { class: 's' }, diagramHand(deal[S], lbl(S))));
+}
+
+function problemFeedback(pr: Problem, p: PlayState): HTMLElement {
+  const ps = state.problems;
+  const X = T.practice.problems;
+  const declaring = (pr.seat & 1) === (p.contract.declarer & 1);
+  const top = pr.stats[0];
+  const mine = pr.stats.find(s => s.c === ps.chosen);
+  const runnerUp = pr.stats.find(s => !pr.answer.includes(s.c));
+  const answer = pr.answer.map(cardName).join(', ');
+  // the card explained: an opening lead's book card when it is among the right ones,
+  // else the cheapest right card in the best card's suit (the tutor prefers the lowest of equals)
+  const lead = pr.kind === 'lead' ? bookLead(pr).find(l => suitOf(l.card) === suitOf(top.c)) ?? null : null;
+  const cheapest = pr.answer.filter(c => suitOf(c) === suitOf(top.c)).sort((a, b) => a - b)[0] ?? top.c;
+  const shown = lead && pr.answer.includes(lead.card) ? lead.card : cheapest;
+  const best = pr.stats.find(s => s.c === shown) ?? top;
+  const why = explainPlay(situation(p), shown);
+  const rows = pr.stats.map(s => h('tr', { class: `${pr.answer.includes(s.c) ? 'best' : ''} ${s.c === ps.chosen ? 'mine' : ''}` },
+    h('td', null, cardText(s.c)),
+    h('td', null, fmtNum(s.t, 2)),
+    h('td', null, fmtPct(s.s)),
+    h('td', null, h('div', { class: 'bar' }, h('i', { style: `width:${Math.round(s.s * 100)}%` })))));
+  return h('div', { class: `box ${ps.correct ? 'rightbox' : 'warnbox'}` },
+    h('b', null, suitText(ps.correct ? X.right(answer) : X.wrong(answer))),
+    h('p', { style: 'margin:6px 0' }, suitText(X.simLine(pr.n, cardName(best.c), fmtNum(best.t, 2), fmtPct(best.s), declaring))),
+    !ps.correct && mine ? h('p', { class: 'small', style: 'margin:6px 0' }, suitText(X.yourLine(cardName(mine.c), fmtNum(mine.t, 2), fmtPct(mine.s))))
+      : runnerUp ? h('p', { class: 'small', style: 'margin:6px 0' }, suitText(X.nextBest(cardName(runnerUp.c), fmtNum(runnerUp.t, 2), fmtPct(runnerUp.s)))) : null,
+    h('div', { class: 'scroll-x' }, h('table', { class: 'stats-table pstats' },
+      h('thead', null, h('tr', null, h('th', null, X.colCard), h('th', null, X.colTricks), h('th', null, declaring ? X.colMakes : X.colSets), h('th', null, ''))),
+      h('tbody', null, rows))),
+    h('div', { class: 'principle' }, h('b', null, why.title), suitText(why.text)),
+    lead ? h('p', { class: 'small', style: 'margin:6px 0 0' }, h('b', null, X.whyThisSuit), ' ', suitText(lead.suitReason)) : null,
+    !ps.correct ? h('p', { class: 'small muted', style: 'margin:8px 0 0' }, X.addedToReview) : null);
+}
+
+function problemView(pr: Problem, act: TrainingActions): HTMLElement {
+  const ps = state.problems;
+  const X = T.practice.problems;
+  const { deal, play: p } = problemPosition(pr);
+  const done = ps.chosen !== null;
+  const q = problemQuestion(pr, p);
+  return h('div', { class: 'drill problem' },
+    h('div', { class: 'prompt' },
+      h('div', { class: 'small muted' }, `${X.kinds[pr.kind]} · ${X.boardLine(pr.board, T.practice.vul(pr.vul, pr.seat))}`),
+      suitText(q.context), ' ', h('b', null, suitText(q.ask))),
+    positionView(p, pr, { done, answer: pr.answer, chosen: ps.chosen, onPick: card => answerProblem(act, card) }),
+    done ? problemFeedback(pr, p) : null,
+    h('div', { class: 'pbtns' },
+      done ? h('button', { class: 'btn primary', type: 'button', onclick: () => nextProblem(act) }, X.next)
+        : h('button', { class: 'btn ghost', type: 'button', onclick: () => nextProblem(act, true) }, X.skip),
+      done ? h('button', { class: 'btn', type: 'button', 'aria-expanded': ps.showDeal ? 'true' : 'false', onclick: () => { ps.showDeal = !ps.showDeal; act.rerender(); } }, ps.showDeal ? X.hideDeal : X.showDeal) : null,
+      done && act.playDeal ? h('button', { class: 'btn', type: 'button', onclick: () => act.playDeal!({ deal, dealer: pr.dealer, vul: pr.vul, board: pr.board }) }, X.playFromStart) : null),
+    done && ps.showDeal ? dealDiagram(deal, p.contract) : null);
+}
+
+function waitingView(): HTMLElement {
+  const X = T.practice.problems;
+  const f = problemFactory();
+  const pg = f.progress;
+  const want = state.problems.filter;
+  const kind: ProblemKind = pg?.kind ?? (want === 'mixed' ? 'declarer' : want);
+  const stage = !pg || pg.stage === 'dealing' ? X.stageDealing(kind) : pg.stage === 'playing' ? X.stagePlaying(pg.trick) : X.stageTesting(pg.trick, pg.done, pg.total);
+  const frac = pg?.total ? pg.done / pg.total : 0;
+  return h('div', { class: 'box pwait' },
+    h('b', null, X.preparing),
+    h('div', { class: 'small', style: 'margin-top:4px' }, stage),
+    h('div', { class: 'progress' }, h('i', { style: `width:${Math.round(frac * 100)}%` })),
+    f.tried ? h('p', { class: 'small muted', style: 'margin:8px 0 0' }, X.tried(f.tried)) : null,
+    h('p', { class: 'small muted', style: 'margin:8px 0 0' }, X.waitNote),
+    want === 'lead' || kind === 'lead' ? h('p', { class: 'small muted', style: 'margin:6px 0 0' }, X.leadNote) : null);
+}
+
+function scoreLine(): HTMLElement {
+  const X = T.practice.problems;
+  const ses = state.problems.session;
+  const done = PROBLEM_KINDS.reduce((t, k) => t + ses[k].done, 0);
+  const right = PROBLEM_KINDS.reduce((t, k) => t + ses[k].right, 0);
+  const all = loadScore();
+  const allDone = PROBLEM_KINDS.reduce((t, k) => t + all[k].done, 0);
+  const allRight = PROBLEM_KINDS.reduce((t, k) => t + all[k].right, 0);
+  // ready problems: not counting the one on screen
+  const counts = bankCounts();
+  const cur = state.problems.current;
+  if (cur && state.problems.chosen === null) counts[cur.kind] = Math.max(0, counts[cur.kind] - 1);
+  return h('div', { class: 'pscore small muted' },
+    done ? h('span', null, h('b', null, X.session(right, done))) : null,
+    done ? PROBLEM_KINDS.filter(k => ses[k].done).map(k => h('span', null, X.kindScore(X.kinds[k], ses[k].right, ses[k].done))) : null,
+    allDone > done ? h('span', null, X.allTime(allRight, allDone)) : null,
+    h('span', null, X.ready(counts.declarer, counts.defense, counts.lead)));
+}
+
+function problemsTab(act: TrainingActions): HTMLElement {
+  const ps = state.problems;
+  const X = T.practice.problems;
+  problemsAct = act;
+  if (!ps.current) resetProblem(pickProblem(ps.filter, ps.last));
+  const filters: ProblemFilter[] = ['mixed', ...PROBLEM_KINDS];
+  const el = h('div', null,
+    h('p', { class: 'small muted', style: 'margin-top:0' }, X.intro),
+    h('div', { class: 'phead' },
+      h('div', { class: 'pfilter', role: 'group', 'aria-label': X.filterLabel }, filters.map(f =>
+        h('button', { class: `btn small ${ps.filter === f ? 'on' : ''}`, type: 'button', 'aria-pressed': ps.filter === f ? 'true' : 'false', onclick: () => setFilter(act, f) }, X.filters[f]))),
+      scoreLine()),
+    ps.current ? problemView(ps.current, act) : waitingView());
+  problemsEl = el;
+  // keep the bank topped up while the tab is open
+  startFactory();
+  return el;
 }
 
 // ---------------------------------------------------------------------------
@@ -462,11 +737,11 @@ function historyTab(act: TrainingActions): HTMLElement {
 // ---------------------------------------------------------------------------
 
 export function renderTraining(act: TrainingActions): HTMLElement {
-  const tabs: [TrainingTab, string][] = [['today', T.practice.tabs.today], ['review', T.practice.tabs.review], ['skills', T.practice.tabs.skills], ['topics', T.practice.tabs.topics], ['history', T.practice.tabs.history]];
+  const tabs: [TrainingTab, string][] = [['today', T.practice.tabs.today], ['review', T.practice.tabs.review], ['problems', T.practice.tabs.problems], ['skills', T.practice.tabs.skills], ['topics', T.practice.tabs.topics], ['history', T.practice.tabs.history]];
   const due = dueCount();
   const tabEl = h('div', { class: 'tabs', role: 'tablist' }, tabs.map(([k, label]) =>
     h('button', { class: `tab ${state.tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { state.tab = k; act.rerender(); } }, label, k === 'review' && due ? h('span', { class: 'badge' }, String(due)) : null)));
-  const body = state.tab === 'today' ? todayTab(act) : state.tab === 'review' ? reviewTab(act) : state.tab === 'skills' ? skillsTab(act) : state.tab === 'topics' ? topicsTab(act) : historyTab(act);
+  const body = state.tab === 'today' ? todayTab(act) : state.tab === 'review' ? reviewTab(act) : state.tab === 'problems' ? problemsTab(act) : state.tab === 'skills' ? skillsTab(act) : state.tab === 'topics' ? topicsTab(act) : historyTab(act);
   return h('div', { class: 'modal', role: 'dialog', 'aria-label': T.practice.title },
     h('div', { class: 'head' }, h('h2', null, T.practice.title), tabEl, h('span', { style: 'flex:1' }),
       h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.practice.close, onclick: () => act.close() }, '✕')),
@@ -476,6 +751,7 @@ export function renderTraining(act: TrainingActions): HTMLElement {
 /** Signature for re-rendering: changes when anything shown can change. */
 export function trainingSignature(): string {
   const d = state.drill;
-  return JSON.stringify([state.tab, d.item?.id, d.chosen, d.correct, d.pending, !!d.fresh, state.session]);
+  const ps = state.problems;
+  return JSON.stringify([state.tab, d.item?.id, d.chosen, d.correct, d.pending, !!d.fresh, state.session, ps.filter, ps.current?.id, ps.chosen, ps.showDeal, ps.tick]);
 }
 
