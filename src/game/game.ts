@@ -126,6 +126,8 @@ export class Game {
   plan: Plan | null = null;
   /** Practice theme this board was dealt for (src/game/themes.ts). */
   theme: string | null = null;
+  /** Theme of the board being dealt right now. */
+  private dealingFor: string | null = null;
   /** Journal id of this board once finished (0 = not yet). */
   boardId = 0;
   /** A board shown from the archive: nothing is recorded again. */
@@ -157,7 +159,10 @@ export class Game {
   /** What the computer is doing, in the active language (null when it's idle). */
   get thinking(): string | null {
     if (this.busy === null) return null;
-    if (this.busy === 'dealing') return T.practice.dealing(this.theme ? T.practice.themes[this.theme as keyof typeof T.practice.themes]?.name ?? this.theme : '');
+    if (this.busy === 'dealing') {
+      const id = this.dealingFor as keyof typeof T.practice.themes | null;
+      return T.practice.dealing(id ? T.practice.themes[id]?.name ?? id : '');
+    }
     return this.busy === 'playout' ? T.ui.game.playingOut : T.ui.game.thinking(SEAT_NAMES[this.busy]);
   }
 
@@ -179,26 +184,25 @@ export class Game {
   newDeal(replay = false) {
     if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
     if (replay) return this.begin(true);
-    if (this.seed) {
-      this.board++;
-      saveBoardNumber(this.board);
-    }
-    this.seed = (Math.random() * 2 ** 31) | 0;
-    this.dealer = boardDealer(this.board);
-    this.vul = boardVulnerability(this.board);
+    // nothing about the current board changes until the new deal is ready
+    const board = this.seed ? this.board + 1 : this.board;
+    const seed = (Math.random() * 2 ** 31) | 0;
+    const dealer = boardDealer(board);
+    const vul = boardVulnerability(board);
     const theme = this.settings.theme && themeById(this.settings.theme) ? this.settings.theme : null;
-    this.theme = theme;
-    if (!theme) {
-      this.deal = generateDeal(this.seed, this.settings.dealMode);
-      return this.begin(false);
-    }
+    const start = (deal: Card[][]) => {
+      if (board !== this.board) saveBoardNumber(board);
+      Object.assign(this, { board, seed, dealer, vul, theme, deal });
+      this.dealingFor = null;
+      this.begin(false);
+    };
+    if (!theme) return start(generateDeal(seed, this.settings.dealMode));
     const myGen = ++this.gen;
     this.busy = 'dealing';
+    this.dealingFor = theme;
     this.emit();
-    void dealForTheme(theme, this.dealer, this.vul, this.seed).then(r => {
-      if (myGen !== this.gen) return;
-      this.deal = r.deal;
-      this.begin(false);
+    void dealForTheme(theme, dealer, vul, seed).then(r => {
+      if (myGen === this.gen) start(r.deal);
     });
   }
 

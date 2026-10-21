@@ -7,6 +7,12 @@ import { PlayState } from '../core/play';
 import { describeShown } from '../bidding/types';
 import type { BidAdvice } from '../bidding/engine';
 import type { Game, CardReview } from '../game/game';
+import { simVerdict } from '../game/record';
+import { clearCardMistake } from '../game/skills';
+import { toPBN } from '../core/pbn';
+import { bboHandviewerUrl } from '../core/lin';
+import { encodeBoard } from '../core/share';
+import type { BoardData } from '../core/pbn';
 import { T, fmtPct, fmtSigned } from '../i18n';
 import { h, suitText } from './dom';
 import { diagramHand, cardText } from './cards';
@@ -15,6 +21,11 @@ import type { UIState } from './app';
 export interface ReviewActions {
   rerender(): void;
   close(): void;
+  /** Play the same deal again. */
+  replay(): void;
+  /** Deal the next board (absent when reviewing an archived board). */
+  next?: () => void;
+  toast(msg: string): void;
 }
 
 /** A rule's name, or "Pass" when no rule beats passing. */
@@ -39,6 +50,11 @@ function hero(g: Game): HTMLElement {
   const costs = humanCosts(g);
   if (costs.done) tiles.push(tile(t.yourPlay, costs.total === 0 ? t.noErrors : `−${costs.total} ${T.core.tricks(costs.total)}`, t.ddCards(costs.count)));
   else if (g.cards.some(x => x.human)) tiles.push(tile(t.yourPlay, '…', t.analysing(fmtPct(rv.progress))));
+  const sd = singleDummy(g);
+  if (sd.cards) {
+    const checking = rv.sim.total > 0 && rv.sim.done < rv.sim.total;
+    tiles.push(tile(t.sdTitle, checking ? '…' : sd.errors === 0 ? t.noErrors : t.sdErrors(sd.errors), checking ? t.sdChecking(rv.sim.done, rv.sim.total) : t.sdNote(sd.judged)));
+  }
   return h('div', { class: 'result-hero' }, tiles);
 }
 
@@ -49,6 +65,20 @@ export function vulLabel(v: Vulnerability) {
 
 function tile(k: string, v: string | HTMLElement, n: string | HTMLElement): HTMLElement {
   return h('div', { class: 'tile' }, h('div', { class: 'k' }, k), h('div', { class: 'v' }, v), h('div', { class: 'n' }, n));
+}
+
+/** Your cards judged with the information you had: how many were clearly worse than the best. */
+function singleDummy(g: Game) {
+  let cards = 0, judged = 0, errors = 0;
+  g.cards.forEach(e => {
+    if (!e.human) return;
+    cards++;
+    const v = simVerdict(e.advice, e.card);
+    if (!v) return;
+    judged++;
+    if (clearCardMistake(v, e.card)) errors++;
+  });
+  return { cards, judged, errors };
 }
 
 function humanCosts(g: Game) {
@@ -167,6 +197,47 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
     h('div', { class: 'tricklist' }, rows), detail);
 }
 
+/** The finished board in the interchange formats. */
+function boardData(g: Game): BoardData {
+  return { board: g.board, dealer: g.dealer, vul: g.vul, deal: g.deal.map(x => [...x]), calls: [...g.auction.calls], play: g.cards.map(c => c.card) };
+}
+
+async function copy(text: string, act: ReviewActions): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    act.toast(T.ui.review.copied);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function shareBox(g: Game, act: ReviewActions): HTMLElement {
+  const t = T.ui.review;
+  const out = h('textarea', { class: 'sharetext', readonly: true, rows: 3, hidden: true, 'aria-label': t.copyManual }) as HTMLTextAreaElement;
+  const offer = (text: string) => {
+    void copy(text, act).then(ok => {
+      if (ok) return;
+      // no clipboard access (e.g. inside a frame): show the text to copy by hand
+      out.value = text;
+      out.hidden = false;
+      out.focus();
+      out.select();
+    });
+  };
+  const b = boardData(g);
+  const link = () => `${location.href.split('#')[0]}#b=${encodeBoard(b)}`;
+  return h('div', { class: 'share' },
+    h('h3', null, t.share),
+    h('p', { class: 'small muted' }, t.shareText),
+    h('div', { style: 'display:flex;gap:6px;flex-wrap:wrap' },
+      h('button', { class: 'btn small', type: 'button', onclick: () => offer(link()) }, t.copyLink),
+      h('button', { class: 'btn small', type: 'button', onclick: () => offer(encodeBoard(b)) }, t.copyCode),
+      h('button', { class: 'btn small', type: 'button', onclick: () => offer(toPBN(b)) }, t.copyPBN),
+      h('a', { class: 'btn small', href: bboHandviewerUrl(b), target: '_blank', rel: 'noopener' }, t.openBBO)),
+    out);
+}
+
 export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
   const rv = g.review;
   if (!rv) return h('div');
@@ -179,21 +250,21 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
   if (tab === 'summary') {
     body = h('div', null, hero(g),
       h('div', { class: 'grid2' },
-        h('div', null, h('h3', null, t.takeaways), lessons(g)),
+        h('div', null, h('h3', null, t.takeaways), lessons(g), shareBox(g, act)),
         h('div', null, h('h3', null, t.theDeal), dealDiagram(g), h('h3', null, t.ddMakes), ddTableEl(g))));
   } else if (tab === 'bidding') body = biddingTab(g);
   else body = playTab(g, ui, act);
   return h('div', { class: 'modal', role: 'dialog', 'aria-label': t.label },
     h('div', { class: 'head' }, h('h2', null, suitText(`${T.ui.common.board(g.board)}: ${title}`)), tabs, h('span', { style: 'flex:1' }),
-      h('button', { class: 'btn', type: 'button', onclick: () => { act.close(); g.newDeal(true); } }, t.replay),
-      h('button', { class: 'btn primary', type: 'button', onclick: () => { act.close(); g.newDeal(); } }, t.nextDeal),
+      h('button', { class: 'btn', type: 'button', onclick: () => act.replay() }, t.replay),
+      act.next ? h('button', { class: 'btn primary', type: 'button', onclick: () => act.next!() }, t.nextDeal) : null,
       h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => act.close() }, '✕')),
     h('div', { class: 'body' }, body));
 }
 
 export function reviewSignature(g: Game, ui: UIState): string {
   const rv = g.review;
-  return JSON.stringify([g.board, g.seed, rv ? [rv.progress, !!rv.table, rv.cards.filter(Boolean).length] : null, ui.reviewTab, ui.reviewTrick]);
+  return JSON.stringify([g.board, g.seed, g.boardId, rv ? [rv.progress, !!rv.table, rv.cards.filter(Boolean).length, rv.sim] : null, ui.reviewTab, ui.reviewTrick]);
 }
 
 export { suitOf };

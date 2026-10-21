@@ -60,6 +60,28 @@ export const practice: Text['practice'] = {
     return v === ours ? 'вие сте в зона, те не са' : 'те са в зона, вие не сте';
   },
 
+  // header and table
+  topicChip: (topic: string) => `Тема: ${topic}`,
+  // importing a deal
+  importTitle: 'Изиграйте раздаване отнякъде другаде',
+  importText: 'Поставете PBN файл, ръка от BBO (LIN или връзка към handviewer), раздаване като „N:AKQ2.K73.J52.Q8 …“ или код или връзка за споделяне от Бридж треньор.',
+  importPlaceholder: '[Deal "N:…"]  ·  https://www.bridgebase.com/tools/handviewer.html?lin=…  ·  код за споделяне',
+  importBtnPlay: 'Изиграй това раздаване',
+  importError: (code: string) => {
+    if (code === 'empty') return 'Първо поставете раздаване.';
+    if (code === 'share') return 'Това не прилича на раздаване: проверете дали целият текст или връзка е копиран.';
+    if (code === 'cards' || code === 'duplicate' || code === 'missing-hand') return 'Раздаването е непълно или има карта два пъти.';
+    return 'Раздаването не може да бъде прочетено.';
+  },
+  historyTitle: 'Вашите раздавания',
+  // lessons
+  practiseLesson: 'Упражнявайте това на масата',
+  practiseLessonText: 'Раздавания, в които тази тема се появява, изиграни с треньора.',
+  lessonDone: 'Преминат',
+  quizScore: (right: number, total: number) => `От първи опит: ${right} от ${total} верни`,
+  quizRetry: 'Решете теста отново',
+  practicedCount: (n: number) => (n === 1 ? '1 упражнено раздаване' : `${n} упражнени раздавания`),
+
   // Today
   tileStreak: 'Поредни дни',
   tileStreakNote: (n: number) => (n ? 'продължавайте така' : 'изиграйте раздаване днес, за да започнете'),

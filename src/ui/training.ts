@@ -35,6 +35,8 @@ export interface TrainingActions {
   replayArchived(id: number): void;
   openLesson(id: string): void;
   toast(msg: string): void;
+  /** Play a pasted deal (PBN, LIN, BBO link, share code). Returns an error message, or null. */
+  importDeal(text: string): string | null;
 }
 
 interface DrillState {
@@ -430,7 +432,18 @@ function historyTab(act: TrainingActions): HTMLElement {
         h('button', { class: 'btn small', type: 'button', onclick: () => act.openArchived(b.id) }, T.practice.review),
         h('button', { class: 'btn small ghost', type: 'button', onclick: () => act.replayArchived(b.id) }, T.practice.replay)));
   });
+  let pasted: HTMLTextAreaElement;
+  let err: HTMLElement;
+  const importBox = h('div', { class: 'importbox' },
+    h('h3', null, T.practice.importTitle),
+    h('p', { class: 'small muted' }, T.practice.importText),
+    (pasted = h('textarea', { rows: 3, placeholder: T.practice.importPlaceholder, 'aria-label': T.practice.importTitle }) as HTMLTextAreaElement),
+    h('div', { style: 'display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px' },
+      h('button', { class: 'btn small primary', type: 'button', onclick: () => { const e = act.importDeal(pasted.value); err.textContent = e ?? ''; } }, T.practice.importBtnPlay),
+      (err = h('span', { class: 'small', style: 'color:var(--bad)', role: 'alert' }))));
   return h('div', null,
+    importBox,
+    h('h3', null, T.practice.historyTitle),
     boards.length
       ? h('div', { class: 'scroll-x' }, h('table', { class: 'hist' },
         h('thead', null, h('tr', null, T.practice.historyCols.map(t => h('th', null, t)), h('th', null, ''))),

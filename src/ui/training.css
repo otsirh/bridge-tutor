@@ -53,3 +53,74 @@
 .feltbox { background: var(--felt); border-radius: 14px; padding: 10px 14px; min-width: 0; max-width: 100%; }
 .empty { padding: 20px 0; }
 .hist td.acts { white-space: nowrap; }
+
+/* header topic chip, lesson practice box, import box */
+.topicchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 4px 1px 9px;
+  border-radius: 999px;
+  background: var(--brass);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.topicchip .suit.red, .topicchip .suit.black { color: #fff; }
+.topicchip button { border: 0; background: rgba(255, 255, 255, 0.22); color: #fff; border-radius: 999px; width: 18px; height: 18px; line-height: 16px; padding: 0; cursor: pointer; font-size: 13px; }
+.box.practise { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; margin: 12px 0; }
+@media (max-width: 560px) { .box.practise { grid-template-columns: minmax(0, 1fr); } }
+.quizscore { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+.lessons-list .done { color: var(--good); font-weight: 700; }
+.importbox textarea, .share textarea {
+  width: 100%;
+  font: 12.5px/1.4 var(--f-mono);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+}
+.share { margin-top: 16px; }
+.share textarea { margin-top: 8px; }
+
+/* long lesson titles wrap inside the skill cards instead of widening them */
+.skill, .topic, .step > div { min-width: 0; }
+.skill .skilllinks .btn { white-space: normal; text-align: left; line-height: 1.25; }
+.skill .skillhead span { white-space: nowrap; }
+
+/* keep the header on one row: the topic chip gives way first */
+.topicchip { max-width: 260px; min-width: 0; }
+.topicchip > span { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1480px) { .topicchip { max-width: 180px; } }
+@media (max-width: 640px) { .topicchip { max-width: 150px; } }
+
+/* header buttons with icons; narrow screens show just the icons */
+.hbtn { display: inline-flex; align-items: center; gap: 6px; }
+.hbtn .ico { display: inline-flex; }
+@media (max-width: 1600px) {
+  .langpick::after { display: none; }
+  .langpick select { width: 34px; padding-right: 0; color: transparent; }
+}
+@media (max-width: 1100px) {
+  .topbar .hbtn .lbl { display: none; }
+  .topbar .hbtn { padding-inline: 9px; }
+}
+@media (max-width: 640px) {
+  .topbar { gap: 8px 8px; }
+  .topbar .brand { order: 0; }
+  .topbar .newdeal { order: 1; margin-left: auto; }
+  .topbar .boardinfo { order: 2; flex-basis: 100%; gap: 4px 10px; }
+  .topbar .spacer { display: none; }
+  .topbar > :not(.brand):not(.newdeal):not(.boardinfo) { order: 3; }
+}
+@media (min-width: 641px) {
+  .topbar { flex-wrap: nowrap; }
+  .topbar > * { flex: none; }
+  .topbar .boardinfo { flex: 0 1 auto; min-width: 0; }
+  .topbar .spacer { flex: 1 1 0; min-width: 0; }
+}
+@media (min-width: 641px) and (max-width: 1280px) { .topbar { gap: 10px; } }
+@media (max-width: 640px) { .topbar { flex-wrap: wrap; } }

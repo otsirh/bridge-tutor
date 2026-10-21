@@ -24,24 +24,7 @@ export const DEFAULT_SETTINGS: Settings = {
   theme: null,
 };
 
-export interface HandRecord {
-  date: number;
-  board: number;
-  contract: string;
-  declarer: string; // 'N' 'E' 'S' 'W' or '-'
-  role: 'declarer' | 'defender' | 'none';
-  result: number; // tricks relative to contract (+1 = one overtrick, -2 = down two)
-  scoreNS: number;
-  parNS: number | null;
-  impsVsPar: number | null;
-  bidsTotal: number; // your calls
-  bidsAgreed: number; // calls that matched the system
-  cardsPlayed: number; // cards you chose
-  ddCost: number | null; // tricks lost double-dummy by your cards
-}
-
 const KEY_SETTINGS = 'bridge-tutor.settings.v1';
-const KEY_HISTORY = 'bridge-tutor.history.v1';
 const KEY_BOARD = 'bridge-tutor.board.v1';
 
 function read<T>(key: string, fallback: T): T {
@@ -67,28 +50,6 @@ export function loadSettings(): Settings {
 
 export function saveSettings(s: Settings) {
   write(KEY_SETTINGS, s);
-}
-
-export function loadHistory(): HandRecord[] {
-  try {
-    const raw = localStorage.getItem(KEY_HISTORY);
-    const arr = raw ? JSON.parse(raw) : [];
-    return Array.isArray(arr) ? arr : [];
-  } catch {
-    return [];
-  }
-}
-
-export function saveHistory(h: HandRecord[]) {
-  write(KEY_HISTORY, h.slice(-500));
-}
-
-export function addHistory(rec: HandRecord) {
-  const h = loadHistory();
-  const i = h.findIndex(x => x.date === rec.date);
-  if (i >= 0) h[i] = rec;
-  else h.push(rec);
-  saveHistory(h);
 }
 
 export function loadBoardNumber(): number {
