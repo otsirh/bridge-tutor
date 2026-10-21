@@ -2,7 +2,7 @@
 // consistent with the auction and the play so far, solve each layout
 // double-dummy, and pick the card that does best on average.
 
-import { type Card, type Seat, type Vulnerability, suitOf, rankOf, partnerOf, isVulnerable, mulberry32 } from '../core/cards';
+import { type Card, type Seat, type Vulnerability, suitOf, rankOf, partnerOf, lhoOf, rhoOf, isVulnerable, mulberry32 } from '../core/cards';
 import type { Contract } from '../core/auction';
 import type { Trick } from '../core/play';
 import { scoreContract } from '../core/scoring';
@@ -10,6 +10,7 @@ import type { Shown } from '../bidding/types';
 import { sampleLayouts, type SampleSpec } from './sampler';
 import { masksOf, type DDPosition } from './dds';
 import { ddPool } from './pool';
+import { defenderChoice, signalFacts, type Moment, type Signal } from './signalling';
 
 export interface PlayKnowledge {
   viewer: Seat; // whose information is used (declarer also plays dummy's cards)
@@ -35,6 +36,7 @@ export interface Decision {
   stats: CardStat[]; // best first
   samples: number;
   equal: Card[]; // cards as good as the chosen one
+  signal?: Signal | null; // the signal the chosen card gives, when a defender picked it as one
 }
 
 export interface DecideOptions {
@@ -68,6 +70,11 @@ export function knowledgeSpec(k: PlayKnowledge): SampleSpec {
   const unknown: Card[] = [];
   for (let c = 0; c < 52; c++) if (!seen.has(c)) unknown.push(c);
   const hidden = [0, 1, 2, 3].filter(s => !knownSeats.has(s));
+  // a defender reads partner's signals; declarer reads the defenders' count, trusting it less
+  const declarer = k.contract.declarer;
+  const defending = (k.viewer & 1) !== (declarer & 1);
+  const signallers = defending ? [partnerOf(k.viewer)] : [lhoOf(declarer), rhoOf(declarer)];
+  const signals = signalFacts(k.tricks, declarer, k.contract.strain, signallers, defending ? undefined : ['count']).map(fact => ({ fact, weak: !defending }));
   return {
     known,
     hidden,
@@ -76,6 +83,7 @@ export function knowledgeSpec(k: PlayKnowledge): SampleSpec {
     voids,
     shown: [0, 1, 2, 3].map(s => (knownSeats.has(s) ? null : k.shown[s])),
     unknown,
+    signals,
   };
 }
 
@@ -86,25 +94,27 @@ export function legalFor(hand: readonly Card[], trick: readonly Card[]): Card[] 
   return f.length ? f : [...hand];
 }
 
-/** Choose among equally good cards the way a careful player would (lowest; signal-aware for defenders). */
-export function tieBreak(cards: Card[], k: PlayKnowledge): Card {
-  if (cards.length === 1) return cards[0];
+/** The moment the player to move is at. */
+function momentOf(k: PlayKnowledge): Moment {
   const cur = k.tricks[k.tricks.length - 1];
-  const sorted = [...cards].sort((a, b) => rankOf(a) - rankOf(b));
-  const defender = (k.toPlay & 1) !== (k.contract.declarer & 1);
-  if (cur.cards.length && defender) {
-    const led = suitOf(cur.cards[0]);
-    const leader = cur.leader;
-    const partnerLed = leader === partnerOf(k.toPlay);
-    const sameSuit = sorted.filter(c => suitOf(c) === led);
-    if (sameSuit.length === sorted.length && partnerLed) {
-      // attitude: encourage with an honour sequence in the suit, otherwise low
-      const hand = k.hands[k.toPlay].filter(c => suitOf(c) === led).map(rankOf);
-      const likes = hand.some(r => r >= 12) && hand.length >= 2;
-      return likes ? sorted[sorted.length - 1] : sorted[0];
-    }
-  }
-  return sorted[0];
+  return { seat: k.toPlay, declarer: k.contract.declarer, trump: k.contract.strain, leader: cur.leader, trick: cur.cards, earlier: k.tricks.slice(0, -1) };
+}
+
+/**
+ * Choose among equally good cards the way a careful player would: a defender
+ * gives a standard signal when one is open and never discards a false one
+ * (signalling.ts); otherwise the lowest card. Only cards the simulation rates equal are considered, so a
+ * signal never costs a trick.
+ */
+export function pickCard(cards: Card[], k: PlayKnowledge): { card: Card; signal: Signal | null } {
+  if (cards.length === 1) return { card: cards[0], signal: null };
+  const choice = defenderChoice(cards, k.hands[k.toPlay], momentOf(k));
+  if (choice) return choice;
+  return { card: [...cards].sort((a, b) => rankOf(a) - rankOf(b))[0], signal: null };
+}
+
+export function tieBreak(cards: Card[], k: PlayKnowledge): Card {
+  return pickCard(cards, k).card;
 }
 
 /** Simulate and pick a card. */
@@ -181,15 +191,15 @@ export async function decideCard(k: PlayKnowledge, opts: DecideOptions = {}): Pr
     .filter(([, a]) => a.n > 0)
     .map(([card, a]) => ({ card, tricks: a.tricks / a.n, success: a.success / a.n, score: a.score / a.n, n: a.n }));
   if (!stats.length) {
-    const c = tieBreak(legal, k);
-    return { card: c, stats: legal.map(card => ({ card, tricks: 0, success: 0, score: 0, n: 0 })), samples: 0, equal: legal };
+    const pick = pickCard(legal, k);
+    return { card: pick.card, stats: legal.map(card => ({ card, tricks: 0, success: 0, score: 0, n: 0 })), samples: 0, equal: legal, signal: pick.signal };
   }
   stats.sort((a, b) => b.score - a.score || b.tricks - a.tricks);
   const best = stats[0];
   const equal = stats.filter(s => best.score - s.score < 1e-6 && best.tricks - s.tricks < 1e-6).map(s => s.card);
-  const card = tieBreak(equal, k);
+  const { card, signal } = pickCard(equal, k);
   stats.sort((a, b) => (a.card === card ? -1 : b.card === card ? 1 : b.score - a.score || b.tricks - a.tricks));
-  return { card, stats, samples: done, equal };
+  return { card, stats, samples: done, equal, signal };
 }
 
 /** Double-dummy values of every legal card in the actual deal (hindsight; used in the review). */
