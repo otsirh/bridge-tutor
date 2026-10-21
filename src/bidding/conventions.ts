@@ -77,10 +77,60 @@ function cueBids(x: Ctx, M: number, above: Call, suits: number[], interest: Cond
     });
 }
 
-/** The major our side agreed in a game-forcing auction (Jacoby 2NT or a splinter), if any. */
+/** The major our side agreed in a game-forcing auction (Jacoby 2NT, a splinter or a control bid), if any. */
 function agreedMajor(x: Ctx): number | null {
-  const r = x.records.find(r => x.ourSide(r.seat) && (r.meaning.tag === 'jacoby2nt' || r.meaning.tag === 'splinter'));
+  const r = x.records.find(r => x.ourSide(r.seat) && (r.meaning.tag === 'jacoby2nt' || r.meaning.tag === 'splinter' || r.meaning.tag === 'cue'));
   return r ? r.meaning.data!.suit : null;
+}
+
+/**
+ * The major a control-bid slam try would agree: partner's last bid, natural in
+ * a major below game, or a raise convention (Drury, a cue-bid raise) in one.
+ */
+export function tryMajor(x: Ctx): number | null {
+  const pc = x.partnerCall(), rc = x.rhoCall();
+  if (!pc || !isBid(pc.call) || (rc && rc.call !== PASS)) return null;
+  const raise = pc.meaning.tag === 'drury' || pc.meaning.tag === 'cueRaise';
+  if (pc.meaning.artificial && !raise) return null;
+  let M = raise ? pc.meaning.data!.suit : strainOf(pc.call);
+  // partner's new minor after opening a major: the control bid agrees the major
+  if (!raise && M < HEARTS && x.opening()?.seat === x.partner) {
+    const os = strainOf(x.opening()!.call);
+    if (os >= HEARTS && os < NT && levelOf(x.opening()!.call) === 1) M = os;
+  }
+  return M >= HEARTS && M < NT && pc.call < bid(4, M) ? M : null;
+}
+
+/**
+ * A slam try in a natural auction. Partner's last bid is a major I can raise
+ * to game, and slam is on if partner has a little more than shown (`slamTry`):
+ * instead of bidding game, show the cheapest control at the four level. The
+ * control bid agrees partner's major; the dialogue then goes on as after
+ * Jacoby 2NT (slamTryRules).
+ */
+export function controlBidTry(x: Ctx, slamTry: Cond): Rule[] {
+  // not as a first response: there a four-level bid is a splinter or natural
+  if (!getSystem().controlBids || agreedMajor(x) !== null || aceAskMade(x) || !x.actionsBy(x.seat).length) return [];
+  const M = tryMajor(x), lb = x.lastBid();
+  if (M === null || lb === null) return [];
+  const t = T.bidding.cues;
+  const P = x.shownBy(x.partner);
+  const need = Math.max(2, 8 - P.len[M][0]);
+  if (x.shownBy(x.seat).len[M][1] < need) return []; // I have denied the support
+  const fit = cond(t.supportCond(need, M), h => h.len[M] >= need, s => { s.len[M] = [Math.max(need, s.len[M][0]), s.len[M][1]]; },
+    h => T.bidding.conds.lenValue(h.len[M], M));
+  // a suit our side has bid naturally stays natural
+  const ours = x.ourSuits();
+  return SIDE(M)
+    .filter(s => !ours.includes(s))
+    .map(s => bid(4, s))
+    .filter(c => c > lb && c < bid(4, M))
+    .map(c => {
+      const s = strainOf(c);
+      return R(c, 'cue', t.cueAgree(s, M), [fit, cond(t.controlCond(s), h => control(h, s)), slamTry], {
+        artificial: true, forcing: 'one', tag: 'cue', data: { suit: M, control: s },
+      });
+    });
 }
 
 /**
