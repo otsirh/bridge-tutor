@@ -113,6 +113,7 @@ export const practice: Text['practice'] = {
   reviewDoneText: (total: number, next: string) => `${plural(total, 'решение е насрочено', 'решения са насрочени')} за по-късно (следващото на ${next}).`,
   sessionScore: (right: number, done: number) => `Тази сесия: ${right}/${done} верни`,
   itemFrom: (date: string, board: number) => `от раздаване ${board}, ${date}`,
+  itemFromDrill: (date: string) => `от упражнението по лицитация, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'ново' : `стъпка ${box} от ${last}`),
   dueLeft: (n: number) => `${n} за днес`,
   next: 'Следващо',
