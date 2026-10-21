@@ -1,5 +1,5 @@
 // The bidding engine must behave identically in every language: only the
-// words change. Bots bid the same deals in English and in Bulgarian, and every
+// words change. Bots bid the same deals in every language, and every
 // call (chosen or not) must be read the same way. Every optional convention is
 // switched on, so their rules are covered too.
 
@@ -9,7 +9,7 @@ import { dealCards, mulberry32, type Seat, type Vulnerability } from '../src/cor
 import { readAuction, advise, explainCall, summarizeShown } from '../src/bidding/engine';
 import type { Meaning } from '../src/bidding/context';
 import { describeShown } from '../src/bidding/types';
-import { lang, setLang, type Lang } from '../src/i18n';
+import { LANGUAGES, lang, setLang, type Lang } from '../src/i18n';
 import { CONVENTIONS, DEFAULT_SYSTEM, setSystem } from '../src/bidding/config';
 
 const DEALS = 300;
@@ -115,6 +115,20 @@ describe('bidding in every language', () => {
     }
     for (const s of distinct(bg.names, bg.conds, bg.summaries)) expect(s.trim(), 'empty text').not.toBe('');
   });
+
+  for (const { id, name } of LANGUAGES.filter(l => l.id !== 'en' && l.id !== 'bg')) {
+    it(`${name}: the same calls and readings, every text filled in`, () => {
+      const r = run(id);
+      expect(r.auctions).toEqual(en.auctions);
+      expect(r.rules).toEqual(en.rules);
+      expect(r.records).toEqual(en.records);
+      expect(r.readings).toEqual(en.readings);
+      for (const s of distinct(r.ruleNames, r.names, r.descs, r.conds, r.summaries)) {
+        expect(s.trim(), 'empty text').not.toBe('');
+        expect(s, s).not.toMatch(/undefined|NaN|\[object/);
+      }
+    });
+  }
 
   it('switching back gives the same English (nothing cached at load)', () => {
     const again = run('en');
