@@ -3,7 +3,9 @@
 
 import { type Card, type Seat, suitOf, rankOf, partnerOf, NT, rankLabel } from '../core/cards';
 import type { Contract } from '../core/auction';
+import type { Trick } from '../core/play';
 import { cardFromHolding } from '../engine/leads';
+import { signalOf, signalCards, intent, conventionalCard, heightIn, says, attitudeReason, CLEAR_ENCOURAGE, type Moment } from '../engine/signalling';
 import { T } from '../i18n';
 
 export interface PlaySituation {
@@ -17,6 +19,7 @@ export interface PlaySituation {
   dummyHand: Card[] | null; // dummy if visible
   played: Card[]; // every card played before this trick
   openingLead: boolean;
+  history?: readonly Trick[]; // the complete tricks before this one: needed to recognise count, attitude and suit-preference signals
 }
 
 export interface Principle {
@@ -53,6 +56,11 @@ export function explainPlay(sit: PlaySituation, card: Card): Principle {
   if (sit.openingLead) {
     const pick = cardFromHolding(mySuit, trump === NT, false);
     return P(X.openingLead.title, pick.rank === r ? pick.why : X.openingLead.notStandard(mySuit.map(rankLabel).join(''), pick.rank, pick.why));
+  }
+
+  if (!declSide) {
+    const signal = signalPrinciple(sit, card);
+    if (signal) return signal;
   }
 
   if (pos === 0) {
@@ -98,10 +106,7 @@ export function explainPlay(sit: PlaySituation, card: Card): Principle {
       if (partnerWinning) return { ...X.ruffPartnersWinner };
       return P(X.ruff.title, declSide ? X.ruff.declarer : X.ruff.defender);
     }
-    if (!declSide) {
-      return r >= 9 ? { ...X.discardEncouraging } : P(X.discard.title, X.discard.defender);
-    }
-    return P(X.discard.title, X.discard.declarer);
+    return P(X.discard.title, declSide ? X.discard.declarer : X.discard.defender);
   }
 
   if (pos === 1) {
@@ -125,4 +130,35 @@ export function explainPlay(sit: PlaySituation, card: Card): Principle {
   if (partnerWinning) return P(X.partnerWinning.title, X.partnerWinning.fourth);
   if (beats) return { ...X.winCheaply };
   return P(X.cantWin.title, X.cantWin.fourth);
+}
+
+/**
+ * A defender's spot card that carries a signal (src/engine/signalling.ts):
+ * what the signal should say with this hand, and whether this card says it.
+ * Null when the card is no signal or the hand has no choice of signal cards.
+ */
+function signalPrinciple(sit: PlaySituation, card: Card): Principle | null {
+  const X = T.tutor.principles;
+  const trump = sit.contract.strain;
+  const m: Moment = { seat: sit.seat, declarer: sit.contract.declarer, trump, leader: sit.leader, trick: sit.trick, earlier: sit.history ?? [] };
+  const op = signalOf(m, card);
+  // count, attitude and suit preference depend on the history (first card in the suit? partner shown out?); discards don't
+  if (!op || (!sit.history && op.kind !== 'discard')) return null;
+  const cards = signalCards(sit.hand, op, trump);
+  const want = intent(op, sit.hand, m);
+  const best = conventionalCard(cards, want);
+  const shown = heightIn(card, cards);
+  if (best === null || shown === null) return null;
+  const right = want === 'middle' ? shown === 'middle' : says(op, shown, want);
+  const holding = sit.hand.filter(c => suitOf(c) === op.suit);
+  switch (op.kind) {
+    case 'count':
+      return P(X.countSignal.title, X.countSignal.text(holding.length, op.suit, card, best, right));
+    case 'attitude':
+      return P(X.attitudeSignal.title, X.attitudeSignal.text(attitudeReason(sit.hand, m, op.suit), Math.max(...holding.map(rankOf)), card, best, right));
+    case 'discard':
+      return P(X.discardSignal.title, X.discardSignal.text(want === 'high', rankOf(cards[cards.length - 1]) >= CLEAR_ENCOURAGE, op.suit, card, best, right));
+    case 'preference':
+      return P(X.preferenceSignal.title, X.preferenceSignal.text(want, op.sides, card, best, right));
+  }
 }

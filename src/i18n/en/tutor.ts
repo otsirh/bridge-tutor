@@ -5,7 +5,8 @@
 // as card ids and ranks as numbers (14 = ace), so each language picks its own
 // word forms. Holdings ("KJ104") and split odds ("3-2 68%, …") arrive ready-made.
 
-import { type Card, SUIT_SYMBOLS, cardName, rankLabel, suitOf } from '../../core/cards';
+import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf, suitOf } from '../../core/cards';
+import type { Height, Look } from '../../engine/signalling';
 import { core } from './core';
 
 /** "1 trick", "2 tricks". */
@@ -14,6 +15,21 @@ const plural = (n: number, word: string) => (n === 1 ? word : `${word}s`);
 const aCard = (n: number) => `${n === 8 || n === 11 ? 'An' : 'A'} ${n}-card`;
 /** Leading toward the honours in the other hand. */
 const TOWARD = { aq: 'A-Q', king: 'king', queen: 'queen', honours: 'honours' };
+const HONOUR: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen' };
+/** "2 or 4", "1, 3 or 5" (the three shortest). */
+const orList = (ns: number[]) => {
+  const xs = ns.slice(0, 3);
+  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}` : String(xs[0]);
+};
+/** How a signal card looks from across the table: "High-low (♣8, then ♣3)", "♣7 looks high (…)". */
+const looks = (card: Card, l: Look) =>
+  l.echo !== null
+    ? `${l.height === 'high' ? 'High-low' : 'Low-high'} (${cardName(card)}, then ${cardName(l.echo)})`
+    : l.sure && rankOf(card) === 2
+      ? `${cardName(card)} is always low`
+      : l.sure
+        ? `${cardName(card)} is ${l.height} (every ${l.height === 'high' ? 'higher' : 'lower'} spot card is accounted for)`
+        : `${cardName(card)} looks ${l.height} (some ${l.height === 'high' ? 'lower' : 'higher'} spot cards are still out)`;
 
 export const tutor = {
   // -------------------------------------------------------------------------
@@ -83,14 +99,60 @@ export const tutor = {
       declarer: 'Ruffing in the hand with fewer trumps gains a trick; ruffing in the long trump hand just uses a trump you would make anyway.',
       defender: 'You are out of the suit led, so a ruff takes the trick.',
     },
-    discardEncouraging: {
-      title: 'Discard (encouraging)',
-      text: 'A high discard tells partner you like this suit (standard attitude signals).',
-    },
     discard: {
       title: 'Discard',
       defender: 'Discard from a suit you don’t need, and keep length in suits where you must guard against declarer’s or dummy’s long cards.',
       declarer: 'Throw a loser from a suit that can’t win tricks, keeping the cards that may still be needed.',
+    },
+
+    // defenders' signals: `right` = the card says what this hand should say; `best` = the card that would
+    countSignal: {
+      title: 'Count signal',
+      /** `n` cards in the suit before playing. */
+      text: (n: number, suit: number, card: Card, best: Card, right: boolean) =>
+        !right
+          ? `Declarer is playing this suit and partner expects count: with ${n} ${core.suits[suit]} (an ${n % 2 ? 'odd' : 'even'} number) the standard card is ${cardName(best)}${n % 2 ? '' : ', then a lower one (high-low)'}. ${cardName(card)} would show an ${n % 2 ? 'even' : 'odd'} number.`
+          : n % 2
+            ? `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an odd number) play your lowest card, ${cardName(card)}. Partner can then tell how many declarer holds and when to take the ace.`
+            : `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an even number) play high-low — ${cardName(card)} now, a lower card next time. Partner can then tell how many declarer holds and when to take the ace.`,
+    },
+    attitudeSignal: {
+      title: 'Attitude signal',
+      /** Why you like partner's suit (an honour — the highest you hold is `honour` — or a doubleton to ruff), or null. */
+      text: (reason: 'honour' | 'ruff' | null, honour: number, card: Card, best: Card, right: boolean) =>
+        !right
+          ? `Partner led this suit and expects your attitude: you ${reason ? 'like' : 'don’t like'} it, so the standard card is ${cardName(best)}. ${cardName(card)} says the opposite.`
+          : reason === 'honour'
+            ? `Partner led this suit: give attitude. You hold the ${HONOUR[honour]}, so encourage with the highest spot card you can spare, ${cardName(card)}, and partner will continue.`
+            : reason === 'ruff'
+              ? `Partner led this suit: give attitude. With a doubleton, start with the higher card (${cardName(card)}): high-low asks partner to continue, and you ruff the third round.`
+              : `Partner led this suit: give attitude. Nothing here is worth continuing, so discourage with your lowest card, ${cardName(card)}; partner will look for a switch.`,
+    },
+    discardSignal: {
+      title: 'Discard (attitude)',
+      /** `want`: you would like this suit led; `clear`: you have a spot card high enough to say so. */
+      text: (want: boolean, clear: boolean, suit: number, card: Card, best: Card, right: boolean) =>
+        want && !clear
+          ? `You would like ${core.suits[suit]} led, but no ${core.suitSingular[suit]} you can spare is high enough to read as encouraging; discard low from a suit you don’t want instead.`
+          : want
+            ? right
+              ? `A high discard encourages: ${cardName(card)} asks partner to lead ${core.suits[suit]}, where you hold strength.`
+              : `You would like ${core.suits[suit]} led, but ${cardName(card)} is your lowest and discourages; a high one (${cardName(best)}) would encourage — or discard low from a suit you don’t want.`
+            : right
+              ? `A low discard discourages: ${cardName(card)} tells partner not to lead ${core.suits[suit]}.`
+              : `A high discard asks partner to lead ${core.suits[suit]}, which you don’t want; discard your lowest (${cardName(best)}) instead.`,
+    },
+    preferenceSignal: {
+      title: 'Suit-preference signal',
+      /** Leading for partner to ruff; `sides` = the other two side suits, lower first; `want` high = the higher one. */
+      text: (want: Height, sides: number[], card: Card, best: Card, right: boolean) =>
+        !right
+          ? want === 'middle'
+            ? `Partner will ruff this and read your card as suit preference; with no preference, lead a middle card such as ${cardName(best)}.`
+            : `Partner will ruff this and read your card as suit preference: you want ${core.suits[want === 'high' ? sides[1] : sides[0]]} back, so lead ${cardName(best)}.`
+          : want === 'middle'
+            ? 'Partner will ruff this, and your card also says which suit to return: with no preference, lead a middle card — neither high nor low.'
+            : `Partner will ruff this, and your card also says which suit to return: a ${want} card asks for ${core.suits[want === 'high' ? sides[1] : sides[0]]} (the ${want === 'high' ? 'higher' : 'lower'} of the other two side suits), where you hold the ace.`,
     },
 
     // second hand
@@ -248,16 +310,47 @@ export const tutor = {
       text: (rank: number, above: number, seen: number, declarer: number) =>
         `Rule of 11: 11 − ${rankLabel(rank)} = ${above} cards higher than the ${rankLabel(rank)} in the other three hands. You can see ${seen} (dummy and your hand), so declarer holds ${declarer}.`,
     },
-    partnerDiscard: {
-      title: (card: Card) => `Partner discarded ${cardName(card)}`,
-      high: (suit: number) => `A high discard encourages ${core.suits[suit]} (standard attitude).`,
-      low: (suit: number) => `A low discard says partner doesn't want ${core.suits[suit]} led.`,
+    /** Partner's signals (and, for declarer, the defenders' count): `look` says how high the card looks and how sure that is. */
+    read: {
+      count: {
+        /** `who`: a seat, or null for partner. */
+        title: (who: number | null, card: Card) => `${who === null ? 'Partner’s' : `${core.seats[who]}’s`} ${cardName(card)}: count`,
+        /** `lengths`: the lengths that fit; `declarer`: read from declarer's seat. */
+        text: (card: Card, look: Look, suit: number, lengths: number[], declarer: boolean) =>
+          look.height === null
+            ? `${cardName(card)} could be high or low: wait for the next card in ${core.suits[suit]} to read the count.`
+            : `${looks(card, look)}: ${look.sure ? '' : 'probably '}an ${look.height === 'high' ? 'even' : 'odd'} number of ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Defenders sometimes falsecard, so treat it as a clue.' : ''}`,
+      },
+      attitude: {
+        title: (card: Card) => `Partner’s ${cardName(card)} on your lead: attitude`,
+        text: (card: Card, look: Look) =>
+          look.height === null
+            ? `${cardName(card)} could be high or low: not clear yet whether partner likes the suit.`
+            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'partner likes the suit — continue it.' : 'partner probably likes the suit.') : `partner ${look.sure ? '' : 'probably '}doesn’t like the suit — think about a switch.`}`,
+      },
+      discard: {
+        title: (card: Card) => `Partner discarded ${cardName(card)}`,
+        text: (card: Card, look: Look, suit: number) =>
+          look.height === null
+            ? `${cardName(card)} could be high or low: not clear yet whether partner wants ${core.suits[suit]} led.`
+            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}${look.height === 'high' ? 'wants' : 'doesn’t want'} ${core.suits[suit]} led.`,
+      },
+      preference: {
+        title: (card: Card) => `Partner leads ${cardName(card)} for you to ruff: suit preference`,
+        /** `sides`: the other two side suits, lower first. */
+        text: (card: Card, look: Look, sides: number[]) =>
+          look.height === null
+            ? `${cardName(card)} is neither clearly high nor low: partner may have no preference — return whatever suits you best.`
+            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}asks for ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} back, the ${look.height === 'high' ? 'higher' : 'lower'} of the other two side suits.`,
+      },
     },
-    /** Partner's card in third seat on your lead (attitude). */
-    onYourLead: {
-      title: (card: Card) => `Partner played ${cardName(card)} on your lead`,
-      high: 'A high spot card encourages you to continue the suit.',
-      low: 'A low card discourages: think about switching.',
+    /** Short labels for a signal a bot gave, e.g. a badge on its card. */
+    badge: {
+      count: (even: boolean) => `Count: ${even ? 'even' : 'odd'}`,
+      attitude: (encourage: boolean) => `Attitude: ${encourage ? 'encouraging' : 'discouraging'}`,
+      discard: (encourage: boolean, suit: number) => `Discard: ${encourage ? 'encouraging' : 'discouraging'} ${SUIT_SYMBOLS[suit]}`,
+      /** The suit asked for, or null for no preference. */
+      preference: (suit: number | null) => `Suit preference: ${suit === null ? 'none' : SUIT_SYMBOLS[suit]}`,
     },
   },
 
