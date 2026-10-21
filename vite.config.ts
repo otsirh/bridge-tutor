@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [viteSingleFile()],
   worker: { format: 'es' },
   build: { target: 'es2022' },
-  test: { environment: 'node' },
+  test: { environment: 'node', exclude: ['**/node_modules/**', '**/dist/**', '.claude/**'] },
 } as any);
