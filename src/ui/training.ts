@@ -567,7 +567,7 @@ function waitingView(): HTMLElement {
   const want = state.problems.filter;
   const kind: ProblemKind = pg?.kind ?? (want === 'mixed' ? 'declarer' : want);
   const stage = !pg || pg.stage === 'dealing' ? X.stageDealing(kind) : pg.stage === 'playing' ? X.stagePlaying(pg.trick) : X.stageTesting(pg.trick, pg.done, pg.total);
-  const frac = pg && pg.total ? pg.done / pg.total : 0;
+  const frac = pg?.total ? pg.done / pg.total : 0;
   return h('div', { class: 'box pwait' },
     h('b', null, X.preparing),
     h('div', { class: 'small', style: 'margin-top:4px' }, stage),
