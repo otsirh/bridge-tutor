@@ -150,6 +150,10 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
 
 // ---------------------------------------------------------------------------
 
+/** Five cards in one major and four in the other with game values: Stayman first, then the five-card major. */
+const fiveFourGame = (h: HandInfo, game: number) => h.hcp >= game && Math.max(h.len[SPADES], h.len[HEARTS]) === 5 && Math.min(h.len[SPADES], h.len[HEARTS]) === 4;
+const notFiveFour = (game: number) => cond(T.bidding.responses.notFiveFourGame, h => !fiveFourGame(h, game), undefined, h => T.bidding.conds.lengths(h.len, [SPADES, HEARTS]));
+
 export function responsesTo1NT(x: Ctx): Rule[] {
   const t = T.bidding.responses;
   const majors = (h: HandInfo) => T.bidding.conds.lengths(h.len, [SPADES, HEARTS]);
@@ -158,12 +162,14 @@ export function responsesTo1NT(x: Ctx): Rule[] {
     R(bid(2, HEARTS), ['jacobyTransfer', SPADES], t.transferSpades, [
       lenC(SPADES, 5),
       cond(t.spadesAtLeastHearts, h => h.len[SPADES] >= h.len[HEARTS], undefined, majors),
+      notFiveFour(10),
     ], { artificial: true, forcing: 'one', tag: 'transfer', data: { suit: SPADES } }),
   );
   rules.push(
     R(bid(2, DIAMONDS), ['jacobyTransfer', HEARTS], t.transferHearts, [
       lenC(HEARTS, 5),
       cond(t.heartsLonger, h => h.len[HEARTS] > h.len[SPADES], undefined, majors),
+      notFiveFour(10),
     ], { artificial: true, forcing: 'one', tag: 'transfer', data: { suit: HEARTS } }),
   );
   rules.push(
@@ -191,12 +197,12 @@ export function responsesTo2NT(x: Ctx): Rule[] {
   const t = T.bidding.responses;
   const rules: Rule[] = [...texasTransfers(4)];
   rules.push(
-    R(bid(3, HEARTS), ['transfer', SPADES], t.transferSpades2nt, [lenC(SPADES, 5), cond(t.spadesAtLeastHearts, h => h.len[SPADES] >= h.len[HEARTS])], {
+    R(bid(3, HEARTS), ['transfer', SPADES], t.transferSpades2nt, [lenC(SPADES, 5), cond(t.spadesAtLeastHearts, h => h.len[SPADES] >= h.len[HEARTS]), notFiveFour(4)], {
       artificial: true, forcing: 'one', tag: 'transfer', data: { suit: SPADES },
     }),
   );
   rules.push(
-    R(bid(3, DIAMONDS), ['transfer', HEARTS], t.transferHearts2nt, [lenC(HEARTS, 5), cond(t.heartsLonger, h => h.len[HEARTS] > h.len[SPADES])], {
+    R(bid(3, DIAMONDS), ['transfer', HEARTS], t.transferHearts2nt, [lenC(HEARTS, 5), cond(t.heartsLonger, h => h.len[HEARTS] > h.len[SPADES]), notFiveFour(4)], {
       artificial: true, forcing: 'one', tag: 'transfer', data: { suit: HEARTS },
     }),
   );
@@ -206,11 +212,13 @@ export function responsesTo2NT(x: Ctx): Rule[] {
       cond(t.fourCardMajor, h => h.len[HEARTS] >= 4 || h.len[SPADES] >= 4),
     ], { artificial: true, forcing: 'one', tag: 'stayman' }),
   );
-  rules.push(R(bid(7, NT), 'grandSlam', t.grand2nt, [hcpC(17)]));
-  rules.push(R(bid(6, NT), 'smallSlam', t.small2nt, [hcpC(13, 16)]));
-  rules.push(R(bid(4, NT), 'quant4nt', t.quant2nt, [hcpC(11, 12)], { tag: 'quant' }));
-  rules.push(R(bid(3, NT), ['nt', 3], t.game2nt, [hcpC(4, 10)]));
-  rules.push(passResponse(t.pass2nt, 3));
+  // ranges opposite partner's notrump: 20–21 for a 2NT opening, 22–24 after 2♣ – 2♦ – 2NT
+  const { min, max } = x.partnerHcp();
+  rules.push(R(bid(7, NT), 'grandSlam', t.grand2nt(37 - min, min, max), [hcpC(37 - min)]));
+  rules.push(R(bid(6, NT), 'smallSlam', t.small2nt(33 - min, 36 - min), [hcpC(33 - min, 36 - min)]));
+  rules.push(R(bid(4, NT), 'quant4nt', t.quant2nt(32 - max, 32 - min), [hcpC(32 - max, 32 - min)], { tag: 'quant' }));
+  rules.push(R(bid(3, NT), ['nt', 3], t.game2nt(25 - max, 31 - max), [hcpC(25 - max, 31 - max)]));
+  rules.push(passResponse(t.pass2nt(Math.max(0, 24 - max)), Math.max(0, 24 - max)));
   return rules;
 }
 
