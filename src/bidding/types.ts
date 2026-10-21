@@ -3,7 +3,8 @@
 import type { Call } from '../core/auction';
 import type { HandInfo } from '../core/eval';
 import { hasStopper, goodSuit, dummyPoints } from '../core/eval';
-import { SUIT_SYMBOLS, SUIT_NAMES } from '../core/cards';
+import { SUIT_SYMBOLS } from '../core/cards';
+import { T, type Text } from '../i18n';
 import type { Ctx } from './context';
 
 /** What we know about a hand from its calls. */
@@ -46,18 +47,19 @@ export function unionShown(a: Shown, b: Shown): Shown {
 }
 
 export function describeShown(s: Shown): string {
+  const c = T.bidding.conds, t = T.bidding.shown;
   const parts: string[] = [];
   const [lo, hi] = s.hcp;
-  if (lo > 0 || hi < 37) parts.push(hi >= 30 ? `${lo}+ т.` : lo === 0 ? `0–${hi} т.` : lo === hi ? `${lo} т.` : `${lo}–${hi} т.`);
+  if (lo > 0 || hi < 37) parts.push(hi >= 30 ? c.hcpMin(lo) : lo === 0 ? c.hcpRange(0, hi) : lo === hi ? c.hcpExact(lo) : c.hcpRange(lo, hi));
   for (const su of [3, 2, 1, 0]) {
     const [a, b] = s.len[su];
     if (a === 0 && b >= 13) continue;
-    if (a === b) parts.push(`точно ${a}${SUIT_SYMBOLS[su]}`);
+    if (a === b) parts.push(t.exactly(a, su));
     else if (b >= 13 || b >= 9) parts.push(`${a}+${SUIT_SYMBOLS[su]}`);
     else if (a === 0) parts.push(`≤${b}${SUIT_SYMBOLS[su]}`);
     else parts.push(`${a}–${b}${SUIT_SYMBOLS[su]}`);
   }
-  if (s.balanced) parts.push('балансирана');
+  if (s.balanced) parts.push(t.balanced);
   return parts.join(', ');
 }
 
@@ -72,7 +74,8 @@ export interface Cond {
 
 export interface Rule {
   call: Call;
-  name: string; // short label, e.g. "Limit raise"
+  key: string; // language-independent identity, a key of T.bidding.names (e.g. "limitRaise")
+  name: string; // short label in the active language, e.g. "Limit raise"
   desc: string; // teaching explanation of what the call shows and why
   conds: Cond[];
   shows?(s: Shown): void; // extra inference beyond the conditions
@@ -81,39 +84,42 @@ export interface Rule {
   tag?: string; // convention id used to recognise follow-ups
   data?: Record<string, number>; // tag-specific details (e.g. the trump suit for Blackwood)
   generic?: boolean; // produced by general judgment rather than a specific system agreement
-  family?: string; // rules that are variants of one bid (same meaning family); set from the original name
+  family?: string; // rules that are variants of one bid (same meaning family); the key unless set
 }
 
 // ---------------------------------------------------------------------------
-// Condition builders
+// Condition builders (text in the active language, read when the rule is built)
 
 export function hcpC(min: number, max = 37): Cond {
+  const c = T.bidding.conds;
   return {
-    text: max >= 37 ? `${min}+ т.` : min <= 0 ? `най-много ${max} т.` : min === max ? `${min} т.` : `${min}–${max} т.`,
+    text: max >= 37 ? c.hcpMin(min) : min <= 0 ? c.hcpMax(max) : min === max ? c.hcpExact(min) : c.hcpRange(min, max),
     test: h => h.hcp >= min && h.hcp <= max,
     apply: s => {
       s.hcp = [Math.max(s.hcp[0], min), Math.min(s.hcp[1], max)];
     },
-    value: h => `имате ${h.hcp} т.`,
+    value: h => c.hcpValue(h.hcp),
   };
 }
 
 /** Total points (HCP + length points). */
 export function tpC(min: number, max = 37): Cond {
+  const c = T.bidding.conds;
   return {
-    text: max >= 37 ? `${min}+ общо точки` : `${min}–${max} общо точки`,
+    text: max >= 37 ? c.totalMin(min) : c.totalRange(min, max),
     test: h => h.tp >= min && h.tp <= max,
     apply: s => {
       s.hcp = [Math.max(s.hcp[0], min - 2), Math.min(s.hcp[1], max)];
     },
-    value: h => `имате ${h.tp} общо точки`,
+    value: h => c.totalValue(h.tp),
   };
 }
 
 /** Dummy points in support of `trump` (shortness counts). */
 export function dpC(trump: number, min: number, max = 37): Cond {
+  const c = T.bidding.conds;
   return {
-    text: max >= 37 ? `${min}+ точки за подкрепа в ${SUIT_NAMES[trump]}` : `${min}–${max} точки за подкрепа в ${SUIT_NAMES[trump]}`,
+    text: max >= 37 ? c.dummyMin(min, trump) : c.dummyRange(min, max, trump),
     test: h => {
       const d = dummyPoints(h, trump);
       return d >= min && d <= max;
@@ -121,81 +127,87 @@ export function dpC(trump: number, min: number, max = 37): Cond {
     apply: s => {
       s.hcp = [Math.max(s.hcp[0], min - 3), Math.min(s.hcp[1], max)];
     },
-    value: h => `имате ${dummyPoints(h, trump)} точки за подкрепа`,
+    value: h => c.dummyValue(dummyPoints(h, trump)),
   };
 }
 
 export function lenC(suit: number, min: number, max = 13): Cond {
-  const sym = SUIT_SYMBOLS[suit];
+  const c = T.bidding.conds;
   return {
-    text: max >= 13 ? `${min}+ ${sym}` : min === 0 ? `най-много ${max} ${sym}` : min === max ? `точно ${min} ${sym}` : `${min}–${max} ${sym}`,
+    text: max >= 13 ? c.lenMin(min, suit) : min === 0 ? c.lenMax(max, suit) : min === max ? c.lenExact(min, suit) : c.lenRange(min, max, suit),
     test: h => h.len[suit] >= min && h.len[suit] <= max,
     apply: s => {
       s.len[suit] = [Math.max(s.len[suit][0], min), Math.min(s.len[suit][1], max)];
     },
-    value: h => `имате ${h.len[suit]} ${sym}`,
+    value: h => c.lenValue(h.len[suit], suit),
   };
 }
 
 export function balancedC(): Cond {
+  const c = T.bidding.conds;
   return {
-    text: 'балансирана ръка (4-3-3-3, 4-4-3-2 или 5-3-3-2)',
+    text: c.balanced,
     test: h => h.balanced,
     apply: s => {
       s.balanced = true;
       for (let i = 0; i < 4; i++) s.len[i] = [Math.max(2, s.len[i][0]), Math.min(5, s.len[i][1])];
     },
-    value: h => `разпределението ви е ${h.shape.join('-')}`,
+    value: h => c.shape(h.shape),
   };
 }
 
 export function semiBalancedC(): Cond {
+  const c = T.bidding.conds;
   return {
-    text: 'балансирана или полубалансирана ръка',
+    text: c.semiBalanced,
     test: h => h.semiBalanced,
     apply: s => {
       for (let i = 0; i < 4; i++) s.len[i] = [Math.max(2, s.len[i][0]), Math.min(6, s.len[i][1])];
     },
-    value: h => `разпределението ви е ${h.shape.join('-')}`,
+    value: h => c.shape(h.shape),
   };
 }
 
 export function unbalancedC(): Cond {
+  const c = T.bidding.conds;
   return {
-    text: 'небалансирана ръка',
+    text: c.unbalanced,
     test: h => !h.balanced,
     apply: s => {
       s.balanced = false;
     },
-    value: h => `разпределението ви е ${h.shape.join('-')}`,
+    value: h => c.shape(h.shape),
   };
 }
 
 export function stopperC(suit: number): Cond {
+  const c = T.bidding.conds;
   return {
-    text: `стопер в ${SUIT_NAMES[suit]} (A, Kx, Qxx или Jxxx)`,
+    text: c.stopper(suit),
     test: h => hasStopper(h, suit),
-    value: h => (hasStopper(h, suit) ? 'имате стопер' : `картите ви в ${SUIT_SYMBOLS[suit]} не спират цвета`),
+    value: h => (hasStopper(h, suit) ? c.hasStopper : c.notStopped(suit)),
   };
 }
 
 export function stoppersC(suits: number[]): Cond {
   if (suits.length === 1) return stopperC(suits[0]);
+  const c = T.bidding.conds;
   return {
-    text: `стопери в ${suits.map(s => SUIT_SYMBOLS[s]).join(' и ')}`,
+    text: c.stoppers(suits),
     test: h => suits.every(s => hasStopper(h, s)),
     value: h => {
       const miss = suits.filter(s => !hasStopper(h, s));
-      return miss.length ? `нямате стопер в ${miss.map(s => SUIT_SYMBOLS[s]).join(' ')}` : 'имате ги';
+      return miss.length ? c.noStopper(miss) : c.hasStoppers;
     },
   };
 }
 
 export function goodSuitC(suit: number): Cond {
+  const c = T.bidding.conds;
   return {
-    text: `добри ${SUIT_NAMES[suit]} (две от трите най-високи фигури или три от петте)`,
+    text: c.goodSuit(suit),
     test: h => goodSuit(h, suit),
-    value: h => `цветът ви ${SUIT_SYMBOLS[suit]} е ${goodSuit(h, suit) ? 'добър' : 'слаб'}`,
+    value: h => c.suitQuality(suit, goodSuit(h, suit)),
   };
 }
 
@@ -204,10 +216,31 @@ export function cond(text: string, test: (h: HandInfo, x: Ctx) => boolean, apply
 }
 
 /** A rule with no conditions on the hand. */
-export function always(text = 'всяка ръка'): Cond {
+export function always(text = T.bidding.conds.anyHand): Cond {
   return { text, test: () => true };
 }
 
-export function R(call: Call, name: string, desc: string, conds: Cond[], extra: Partial<Rule> = {}): Rule {
-  return { call, name, desc, conds, family: name, ...extra };
+// ---------------------------------------------------------------------------
+// Rules
+
+type Names = Text['bidding']['names'];
+
+/** A rule's name: a key of T.bidding.names, or [key, ...arguments] when its label takes some. */
+export type RuleName = { [K in keyof Names]: Names[K] extends (...args: infer A) => string ? [K, ...A] : K }[keyof Names];
+
+/** The label of a rule name in the active language. */
+export function ruleName(name: RuleName): string {
+  const [key, ...args] = typeof name === 'string' ? [name] : name;
+  const label = T.bidding.names[key] as string | ((...a: unknown[]) => string);
+  return typeof label === 'function' ? label(...args) : label;
+}
+
+/**
+ * A rule. The name's key is the rule's identity: rules with the same key are
+ * variants of one bid and the engine reads them together, whatever the label
+ * says in the active language.
+ */
+export function R(call: Call, name: RuleName, desc: string, conds: Cond[], extra: Partial<Rule> = {}): Rule {
+  const key = typeof name === 'string' ? name : name[0];
+  return { call, key, name: ruleName(name), desc, conds, family: key, ...extra };
 }

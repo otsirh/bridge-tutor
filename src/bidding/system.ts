@@ -1,7 +1,8 @@
 // Situation dispatch: which rules apply at this point of the auction.
 
-import { type Call, PASS, DOUBLE, REDOUBLE, isBid, levelOf, strainOf, bid } from '../core/auction';
-import { NT, CLUBS, SUIT_NAMES, SUIT_SYMBOLS } from '../core/cards';
+import { type Call, PASS, DOUBLE, REDOUBLE, isBid, levelOf, strainOf, bid, callName } from '../core/auction';
+import { NT, CLUBS } from '../core/cards';
+import { T } from '../i18n';
 import type { Ctx, CallRecord, Meaning } from './context';
 import { type Rule, type Shown, unknownShown, unionShown, R, hcpC, cond } from './types';
 import { openingRules } from './openings';
@@ -34,8 +35,8 @@ function specificRules(x: Ctx): Rule[] {
   if (pc && rhoQuiet && pc.meaning.tag === 'quant' && !(op.seat === x.seat && strainOf(op.call) === NT && myActs.length === 1)) {
     const mid = (x.shownBy(x.seat).hcp[0] + Math.min(x.shownBy(x.seat).hcp[1], x.shownBy(x.seat).hcp[0] + 6)) / 2;
     return [
-      R(bid(6, NT), 'Приемане', '4БК на партньора е инвитация за 6БК: приемете, ако сте в горната половина на показаното.', [hcpC(Math.ceil(mid))]),
-      R(PASS, 'Отказ', 'Долната граница на показания диапазон: пасувайте на 4БК.', []),
+      R(bid(6, NT), 'accept', T.bidding.slam.acceptQuant, [hcpC(Math.ceil(mid))]),
+      R(PASS, 'decline', T.bidding.slam.declineQuant, []),
     ];
   }
 
@@ -119,7 +120,7 @@ export function meaningFromRules(rules: Rule[]): Meaning {
     if (sameTag) shown.hcp = [Math.min(shown.hcp[0], o.hcp[0]), Math.max(shown.hcp[1], o.hcp[1])];
     else shown = unionShown(shown, o);
   }
-  const names = [...new Set(rules.map(r => r.name))];
+  const names = [...new Map(rules.map(r => [r.key, r.name])).values()]; // one label per rule key
   return {
     name: names.slice(0, 2).join(' / '),
     desc: first.desc,
@@ -134,12 +135,13 @@ export function meaningFromRules(rules: Rule[]): Meaning {
 
 /** Meaning of a call nobody's system covers: read it naturally. */
 export function naturalMeaning(x: Ctx, call: Call): Meaning {
+  const n = T.bidding.names, t = T.bidding.natural;
   const s = unknownShown();
   const base = { forcing: 'none' as const, artificial: false, natural: true, conds: [] as string[] };
-  if (call === PASS) return { ...base, name: 'Пас', desc: 'Без действие.', shown: s };
+  if (call === PASS) return { ...base, name: n.pass, desc: t.pass, shown: s };
   if (call === REDOUBLE) {
     s.hcp = [10, 37];
-    return { ...base, name: 'Реконтра', desc: 'Показва сила: нашата двойка има превес в силата.', shown: s };
+    return { ...base, name: n.redouble, desc: t.redouble, shown: s };
   }
   const lb = x.lastBidRecord();
   if (call === DOUBLE) {
@@ -148,35 +150,35 @@ export function naturalMeaning(x: Ctx, call: Call): Meaning {
     if (ts < NT && tl <= 3 && x.actionsBy(x.partner).length === 0) {
       s.hcp = [11, 37];
       s.len[ts] = [0, 2];
-      return { ...base, name: 'Информативна контра', desc: `Моли партньора да обяви: късота в ${SUIT_NAMES[ts]}, подкрепа за другите цветове.`, shown: s, tag: 'takeoutX', forcing: 'one' };
+      return { ...base, name: n.takeoutDouble, desc: t.takeout(ts), shown: s, tag: 'takeoutX', forcing: 'one' };
     }
     s.hcp = [8, 37];
-    return { ...base, name: 'Наказателна контра', desc: 'Очаква договорът да падне.', shown: s, tag: 'penaltyX' };
+    return { ...base, name: n.penaltyDouble, desc: t.penalty, shown: s, tag: 'penaltyX' };
   }
   const lvl = levelOf(call), st = strainOf(call);
   const op = x.opening();
   if (lvl === 4 && st === NT) {
     const trump = blackwoodTrump(x);
-    if (trump !== null) return { ...base, name: 'Блекууд', desc: 'Пита партньора колко аса има.', shown: s, artificial: true, tag: 'blackwood', data: { suit: trump }, forcing: 'one' };
-    return { ...base, name: 'Количествено 4БК', desc: 'Инвитация за 6БК.', shown: s, tag: 'quant' };
+    if (trump !== null) return { ...base, name: n.blackwood, desc: t.blackwood, shown: s, artificial: true, tag: 'blackwood', data: { suit: trump }, forcing: 'one' };
+    return { ...base, name: n.quant4nt, desc: t.quant, shown: s, tag: 'quant' };
   }
   if (lvl === 4 && st === CLUBS) {
     const pa = x.lastAction(x.partner);
     if (pa && strainOf(pa.call) === NT && levelOf(pa.call) <= 2 && x.rhoCall()?.call === PASS) {
-      return { ...base, name: 'Гербер', desc: 'Пита партньора колко аса има (4♦ 0/4, 4♥ 1, 4♠ 2, 4БК 3).', shown: s, artificial: true, tag: 'gerber', forcing: 'one' };
+      return { ...base, name: n.gerber, desc: t.gerber, shown: s, artificial: true, tag: 'gerber', forcing: 'one' };
     }
   }
   if (st === NT) {
     s.balanced = null;
     s.hcp = lvl === 1 ? [8, 18] : lvl === 2 ? [11, 21] : [13, 37];
-    return { ...base, name: `${lvl}БК`, desc: 'Естествено: без коз, със стопери.', shown: s };
+    return { ...base, name: callName(call), desc: t.notrump, shown: s };
   }
   const ourOpening = op && x.ourSide(op.seat);
   const minLen = ourOpening ? 4 : 5;
   s.len[st] = [minLen, 13];
   const isJump = x.isJump(call);
   s.hcp = !op ? [12, 21] : ourOpening ? [6 + (isJump ? 4 : 0), 37] : [8 + (lvl - 1) * 2, 37];
-  return { ...base, name: `${lvl}${SUIT_SYMBOLS[st]}`, desc: `Естествено: ${minLen}+ ${SUIT_NAMES[st]}.`, shown: s };
+  return { ...base, name: callName(call), desc: t.suit(minLen, st), shown: s };
 }
 
 export function meaningOf(x: Ctx, call: Call): Meaning {

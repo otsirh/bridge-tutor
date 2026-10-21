@@ -3,6 +3,7 @@
 import { Auction, type Call, PASS, callName } from '../core/auction';
 import { type Card, type Vulnerability, type Seat } from '../core/cards';
 import { handInfo, type HandInfo } from '../core/eval';
+import { T } from '../i18n';
 import { Ctx, type CallRecord, type Meaning } from './context';
 import { rulesFor, meaningOf } from './system';
 import { type Rule, type Shown, unknownShown, mergeShown, describeShown } from './types';
@@ -112,7 +113,7 @@ export function judgeCall(hand: readonly Card[], x: Ctx, call: Call): { agrees: 
 
 export function summarizeShown(s: Shown): string {
   const d = describeShown(s);
-  return d || 'нищо конкретно';
+  return d || T.bidding.shown.nothing;
 }
 
 export function bidLabel(c: Call): string {
