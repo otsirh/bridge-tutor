@@ -27,6 +27,15 @@ const decentSuit = (s: number): Cond => cond(
 /** "♠ is your longest suit" */
 const longestC = (s: number): Cond => cond(T.bidding.conds.longestSuit(s), h => h.len[s] === h.shape[0]);
 
+/** Was this call made in the balancing (pass-out) seat? */
+export function balancingCall(x: Ctx, r: CallRecord): boolean {
+  const before = x.records.slice(0, r.index);
+  const n = before.length;
+  if (n < 3) return false;
+  const lb = [...before].reverse().find(c => isBid(c.call));
+  return !!lb && (r.seat + 1) % 4 === lb.seat && before[n - 1].call === PASS && before[n - 2].call === PASS;
+}
+
 /** Is this the balancing (pass-out) seat? */
 export function isBalancing(x: Ctx): boolean {
   const n = x.records.length;
@@ -130,7 +139,8 @@ export function overcallRules(x: Ctx): Rule[] {
   }, sh => { unbid.filter(s => s >= HEARTS).forEach(s => (sh.len[s] = [Math.max(3, sh.len[s][0]), sh.len[s][1]])); }, h => T.bidding.conds.lengths(h.len, unbid));
   const minX = preempt ? 13 + Math.max(0, lastLevel - 2) : bal ? 9 : 12;
   rules.push(R(DOUBLE, 'takeoutDouble', t.takeoutDouble(minX), [hcpC(minX), short, support], { tag: 'takeoutX', forcing: 'one' }));
-  rules.push(R(DOUBLE, 'strongDouble', t.strongDouble, [hcpC(17)], { tag: 'takeoutX', forcing: 'one' }));
+  // too strong for a (balancing) 1NT or an overcall: double first
+  rules.push(R(DOUBLE, 'strongDouble', bal ? t.strongDoubleBalancing : t.strongDouble, [hcpC(bal ? 15 : 17)], { tag: 'takeoutX', forcing: 'one' }));
 
   // weak jump overcall
   if (!bal && !preempt) {
@@ -174,6 +184,18 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
   const tag = pAct.meaning.tag;
   const opp = theirs[0] ?? CLUBS;
 
+  if (tag === 'takeoutX' && x.rhoCall()?.call === REDOUBLE) {
+    // they redoubled: no longer forced, but a weak hand with a long suit gets out now
+    for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
+      if (!unbid.includes(s)) continue;
+      const c = x.cheapest(s);
+      if (c === null || levelOf(c) > 2) continue;
+      rules.push(R(c, 'escape', t.escapeRedouble(s), [lenC(s, 5), longestC(s)]));
+    }
+    rules.push(R(PASS, 'pass', t.passRedouble, []));
+    return rules;
+  }
+
   if (tag === 'takeoutX') {
     const free = rhoBid;
     const dbl = x.lastBidRecord();
@@ -189,30 +211,30 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
     }
     if (!free) {
       rules.push(R(PASS, 'penaltyPass', t.penaltyPass, [lenC(opp, 5), cond(t.threeHonours, h => suitHonours(h, opp) >= 3), hcpC(8)]));
-      rules.push(R(bid(3, NT), ['nt', 3], t.threeNtBalanced, [hcpC(13), cond(T.bidding.conds.semiBalanced, h => h.semiBalanced), stopC(theirs)]));
+      rules.push(R(bid(3, NT), ['nt', 3], t.threeNtBalanced(13, 16), [hcpC(13, 16), cond(T.bidding.conds.semiBalanced, h => h.semiBalanced), stopC(theirs)]));
       const cue = x.cheapest(opp);
-      if (cue !== null) rules.push(R(cue, 'cueBid', t.cueBid, [hcpC(12)], { artificial: true, forcing: 'game' }));
+      if (cue !== null) rules.push(R(cue, 'cueBid', t.cueBid(12), [hcpC(12)], { artificial: true, forcing: 'game' }));
       for (const M of [SPADES, HEARTS]) {
         if (!unbid.includes(M)) continue;
-        rules.push(R(bid(4, M), 'game', t.gameAfterDouble(M), [lenC(M, 5), hcpC(10)]));
+        rules.push(R(bid(4, M), 'game', t.gameAfterDouble(M, 10), [lenC(M, 5), hcpC(10)]));
       }
-      rules.push(R(bid(3, NT), ['nt', 3], t.threeNtAfterDouble, [hcpC(13), stopC(theirs)]));
+      rules.push(R(bid(3, NT), ['nt', 3], t.threeNtAfterDouble(13, 16), [hcpC(13, 16), stopC(theirs)]));
       for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
         if (!unbid.includes(s)) continue;
         const j = x.jump(s);
         if (j === null || levelOf(j) > 3) continue;
-        rules.push(R(j, 'jumpResponse', t.jumpResponse(s), [hcpC(9, 11), lenC(s, 4), cond(t.bestSuit(s), h => bestUnbid(h, unbid) === s)]));
+        rules.push(R(j, 'jumpResponse', t.jumpResponse(s, 9, 11), [hcpC(9, 11), lenC(s, 4), cond(t.bestSuit(s), h => bestUnbid(h, unbid) === s)]));
       }
       if (x.cheapest(NT) !== null && levelOf(x.cheapest(NT)!) <= 2) {
         const nt = x.cheapest(NT)!;
-        if (levelOf(nt) === 1) rules.push(R(nt, ['nt', 1], t.oneNtAfterDouble, [hcpC(6, 10), stopC(theirs), cond(t.noUnbidMajor, h => unbid.filter(s => s >= HEARTS).every(s => h.len[s] < 4))]));
-        rules.push(R(levelOf(nt) === 1 ? bid(2, NT) : nt, ['nt', 2], t.twoNtAfterDouble, [hcpC(11, 12), stopC(theirs)]));
+        if (levelOf(nt) === 1) rules.push(R(nt, ['nt', 1], t.oneNtAfterDouble(6, 10), [hcpC(6, 10), stopC(theirs), cond(t.noUnbidMajor, h => unbid.filter(s => s >= HEARTS).every(s => h.len[s] < 4))]));
+        rules.push(R(levelOf(nt) === 1 ? bid(2, NT) : nt, ['nt', 2], t.twoNtAfterDouble(11, 12), [hcpC(11, 12), stopC(theirs)]));
       }
       for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
         if (!unbid.includes(s)) continue;
         const c = x.cheapest(s);
         if (c === null) continue;
-        rules.push(R(c, 'forcedResponse', t.forcedResponse(s), [hcpC(0, 8),
+        rules.push(R(c, 'forcedResponse', t.forcedResponse(s, 8), [hcpC(0, 8),
           cond(t.bestUnbidMajorFirst(s), h => bestUnbid(h, unbid) === s)], {
           shows: sh => { sh.len[s] = [Math.max(sh.len[s][0], 3), sh.len[s][1]]; },
         }));
@@ -267,6 +289,11 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
 
   const ps = isBid(pAct.call) ? strainOf(pAct.call) : -1;
   if (ps === NT) {
+    if (levelOf(pAct.call) === 3 && !rhoBid) {
+      // partner's 3NT over a preempt shows 16–21: look for slam with the values for it
+      rules.push(R(bid(6, NT), 'smallSlam', t.slamAfter3ntOvercall, [hcpC(15)]));
+      rules.push(R(bid(4, NT), 'quant4nt', t.quantAfter3ntOvercall, [hcpC(12, 14)], { tag: 'quant' }));
+    }
     for (const M of [SPADES, HEARTS]) {
       if (theirs.includes(M)) continue;
       rules.push(R(bid(4, M), 'game', t.gameAfterNt(M), [lenC(M, 6), hcpC(9)]));
@@ -350,8 +377,11 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
   }
 
   if (rc.call === DOUBLE) {
-    rules.push(R(REDOUBLE, 'redouble', t.redouble, [hcpC(10)], { tag: 'redouble' }));
+    // with four-card support for a major, show the raise at once (Jordan); the redouble usually denies a fit
     if (os >= HEARTS) rules.push(R(bid(2, NT), 'jordan2nt', t.jordan(os), [lenC(os, 4), dpC(os, 10)], { artificial: true, forcing: 'one', tag: 'cueRaise', data: { suit: os } }));
+    rules.push(R(REDOUBLE, 'redouble', t.redouble, [hcpC(10)], {
+      tag: 'redouble', shows: os >= HEARTS ? s => { s.len[os] = [s.len[os][0], Math.min(3, s.len[os][1])]; } : undefined,
+    }));
     rules.push(R(bid(3, os), 'preemptiveRaise', t.preemptiveRaiseAfterDouble, [lenC(os, 4), hcpC(0, 9)]));
     rules.push(R(bid(2, os), 'raise', t.raiseContested(support), [lenC(os, support), dpC(os, 6, 10)]));
     for (const s of [HEARTS, SPADES]) {
@@ -422,6 +452,54 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
   return rules;
 }
 
+/**
+ * Opener after LHO's overcall, partner's pass and RHO's pass: short in their
+ * suit, reopen with a double. Partner may have passed with length and strength
+ * in their suit (a negative double would have been for takeout) and will pass
+ * for penalties; otherwise partner bids.
+ */
+export function openerReopening(x: Ctx): Rule[] {
+  const t = T.bidding.competitive;
+  const lb = x.lastBidRecord();
+  const pc = x.partnerCall(), rc = x.rhoCall();
+  if (!lb || x.ourSide(lb.seat) || lb.meaning.artificial || !pc || pc.call !== PASS || pc.index < lb.index || !rc || rc.call !== PASS) return [];
+  const ts = strainOf(lb.call), tl = levelOf(lb.call);
+  if (ts === NT || tl > 3 || x.auction.doubleStatus() !== 0) return [];
+  // after a one-level suit opening, over an overcall of it
+  const op = x.opening()!;
+  const theirActs = x.records.filter(r => !x.ourSide(r.seat) && r.call !== PASS);
+  if (levelOf(op.call) !== 1 || strainOf(op.call) === NT || theirActs.length !== 1 || theirActs[0] !== lb) return [];
+  return [R(DOUBLE, 'reopeningDouble', t.reopeningDouble(ts), [
+    cond(t.reopeningCond(ts), h => (h.len[ts] <= 1 || (h.len[ts] === 2 && h.hcp >= 15)) && h.shape[0] <= 6,
+      s => { s.len[ts] = [s.len[ts][0], Math.min(2, s.len[ts][1])]; }, h => T.bidding.conds.lenValue(h.len[ts], ts)),
+  ], { tag: 'reopenX', forcing: 'one', data: { suit: ts } })];
+}
+
+/** Responder after opener's reopening double: pass for penalties with length and strength in their suit (otherwise bid, as forced). */
+export function afterReopeningDouble(x: Ctx, dbl: CallRecord): Rule[] {
+  const t = T.bidding.competitive;
+  const ts = dbl.meaning.data!.suit;
+  return [R(PASS, 'penaltyPass', t.penaltyPassReopening, [
+    cond(t.penaltyPassNegativeDoubleCond, h => h.len[ts] >= 4 && suitHonours(h, ts) >= 2, s => { s.len[ts] = [Math.max(4, s.len[ts][0]), s.len[ts][1]]; },
+      h => T.bidding.conds.lenValue(h.len[ts], ts)),
+  ])];
+}
+
+/**
+ * Opener after partner's redouble and a pass: our side has the balance of
+ * strength and the doubler's side must find a contract, so pass and let partner
+ * double them; bid at once only with a weak opening and a long suit.
+ */
+export function openerAfterRedouble(x: Ctx, open: CallRecord): Rule[] {
+  const t = T.bidding.competitive;
+  const os = strainOf(open.call);
+  const c = x.cheapest(os);
+  const rules: Rule[] = [];
+  if (c !== null && levelOf(c) <= 2) rules.push(R(c, 'rebidSuit', t.rebidAfterRedouble, [lenC(os, 6), hcpC(0, 13)]));
+  rules.push(R(PASS, 'pass', t.passAfterRedouble, []));
+  return rules;
+}
+
 /** Opener's rebid after partner's negative double. */
 export function openerAfterNegDouble(x: Ctx, negX: CallRecord, open: CallRecord): Rule[] {
   const t = T.bidding.competitive;
@@ -479,14 +557,30 @@ export function doublerRebid(x: Ctx, resp: CallRecord): Rule[] {
     if (raise !== null && levelOf(raise) <= 3) rules.push(R(raise, 'invitationalRaise', t.invitationalRaise, [lenC(rs, 4), dpC(rs, 16, 18)], { tag: 'invite' }));
   }
   const nt = x.cheapest(NT);
-  if (nt !== null && levelOf(nt) <= 2) rules.push(R(nt, 'notrump', t.ntDoubler, [hcpC(18, 20), balancedC(), stopC(theirs)]));
+  // a balancing double has borrowed a king: notrump next shows 15–18, not 18–20
+  const bal = balancingCall(x, x.lastAction(x.seat)!);
+  if (nt !== null && levelOf(nt) <= 2) rules.push(R(nt, 'notrump', bal ? t.ntDoublerBalancing : t.ntDoubler, [bal ? hcpC(15, 18) : hcpC(18, 20), balancedC(), stopC(theirs)]));
   for (const su of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
     if (theirs.includes(su) || su === rs) continue;
     const c = x.cheapest(su);
     if (c === null || levelOf(c) > 3) continue;
-    rules.push(R(c, 'strongDoubleThenSuit', t.strongDoubleThenSuit(su), [hcpC(17), lenC(su, 5)]));
+    rules.push(R(c, 'strongDoubleThenSuit', t.strongDoubleThenSuit(su, bal ? 15 : 17), [hcpC(bal ? 15 : 17), lenC(su, 5)]));
   }
-  rules.push(R(PASS, 'pass', t.passDoubler, [hcpC(0, 16)]));
+  rules.push(R(PASS, 'pass', t.passDoubler, [hcpC(0, bal ? 14 : 16)]));
+  return rules;
+}
+
+/** The takeout doubler after the opener's side redoubled and partner passed: pick a suit, never sit in the redouble. */
+export function doublerAfterRedouble(x: Ctx): Rule[] {
+  const t = T.bidding.competitive;
+  const theirs = x.theirSuits();
+  const unbid = [CLUBS, DIAMONDS, HEARTS, SPADES].filter(s => !theirs.includes(s));
+  const rules: Rule[] = [];
+  for (const su of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
+    if (!unbid.includes(su)) continue;
+    const c = x.cheapest(su);
+    if (c !== null) rules.push(R(c, 'showSuit', t.rescueRedouble(su), [cond(t.bestUnbid(su), h => bestUnbid(h, unbid) === su)]));
+  }
   return rules;
 }
 
