@@ -349,6 +349,7 @@ export const ui = {
     themes: { system: 'System', light: 'Light', dark: 'Dark' },
     systemNote:
       'System: Standard American Yellow Card (SAYC) — 15–17 1NT, five-card majors, Stayman, Jacoby transfers and Jacoby 2NT, weak twos, negative doubles, Michaels and Unusual 2NT, Blackwood or Roman Key Card Blackwood, standard leads and signals — plus the conventions below. Duplicate scoring.',
+    install: { title: 'Install the app', desc: 'Add Bridge Tutor to your home screen or desktop. It opens in its own window and works offline.', button: 'Install' },
     conventionsTitle: 'Conventions',
     conventionsNote: 'You, your partner and the opponents all play these. Changes apply from the next deal.',
     lessonLink: 'Lesson',
