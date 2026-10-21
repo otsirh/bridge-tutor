@@ -21,6 +21,7 @@ export const LESSONS_2: Lesson[] = [
 <tr><td>13+</td><td>Make sure of game</td><td>Bid game directly, or bid a new suit (forcing) to find the right one</td></tr>
 </tbody>
 </table>
+<p>Two artificial bids help responder ask instead of guess: <strong>new minor forcing</strong> after opener's 1NT rebid, and <strong>fourth suit forcing</strong> when three suits have been bid. They have a lesson of their own.</p>
 
 <h3>Examples</h3>
 <div class="auction" data-calls="1D P 1S P 1NT P" data-dealer="N"></div>
@@ -874,10 +875,24 @@ export const LESSONS_2: Lesson[] = [
 <p>The auction always makes clear whether 5♣ means 0 or 4. If two aces are missing, sign off in five of your trump suit; partner must pass. If one is missing, bid the small slam. If none is missing and you are interested in a grand slam, bid <strong>5NT</strong> to ask for kings: 6♣ = 0 or 4, 6♦ = 1, 6♥ = 2, 6♠ = 3. 5NT promises that the partnership holds all four aces.</p>
 <p>The Blackwood bidder is the captain: the replier just answers and then accepts the decision.</p>
 
+<h3>Roman Key Card Blackwood</h3>
+<p>Most players today use a refinement, <strong>Roman Key Card Blackwood</strong>, and it is what the bots in this app play by default. It counts five <strong>key cards</strong>, the four aces and the king of trumps, and also tells you about the queen of trumps:</p>
+<table>
+<thead><tr><th>Reply</th><th>Key cards</th></tr></thead>
+<tbody>
+<tr><td>5♣</td><td>1 or 4</td></tr>
+<tr><td>5♦</td><td>0 or 3</td></tr>
+<tr><td>5♥</td><td>2, without the trump queen</td></tr>
+<tr><td>5♠</td><td>2, with the trump queen</td></tr>
+</tbody>
+</table>
+<p>The decisions work the same way: with two key cards missing stop at five, with one missing bid the small slam. The lesson “Roman Key Card Blackwood” covers it in full, including how to ask for the trump queen.</p>
+
 <h3>An example</h3>
 <div class="deal" data-n="S:AK1074 H:KQ6 D:A5 C:Q83" data-s="S:QJ63 H:A84 D:KQ62 C:K5"></div>
 <div class="auction" data-calls="1S P 2NT P 3S P 4NT P 5H P 6S P P P" data-dealer="N"></div>
 <p>North opens 1♠ with 18 HCP. South, with 15 HCP and four spades, bids 2NT, the Jacoby raise: game forcing with support. North's 3♠ is the standard way to show extra values with no singleton or void. South can now count about 33 points together and a nine-card fit, so slam is likely. 4NT asks for aces; 5♥ shows two. With the ♥A in hand, South knows only one ace is missing and bids 6♠.</p>
+<p>With Roman Key Card Blackwood, as the bots play, North replies 5♦: three key cards, the ♠A, the ♦A and the ♠K. South, holding only the ♥A, can tell that it is three rather than none, so one key card is missing; South has the ♠Q, and 6♠ is reached just the same.</p>
 <p>In play, the ♣A is the only loser: declarer draws trumps, cashes the hearts, and plays the ♦A, a diamond to the king and dummy's ♦Q, discarding one of North's clubs.</p>
 
 <h3>Blackwood's limits</h3>
@@ -893,13 +908,13 @@ export const LESSONS_2: Lesson[] = [
     keyPoints: [
       'Small slam needs about 33 combined points (grand about 37); fit and shape can reduce that.',
       'Establish trumps and strength first, then check controls.',
-      'Blackwood replies: 5♣ 0/4, 5♦ 1, 5♥ 2, 5♠ 3; 5NT then asks for kings and promises all the aces.',
+      'Plain Blackwood replies: 5♣ 0/4, 5♦ 1, 5♥ 2, 5♠ 3; 5NT then asks for kings. The bots play Roman Key Card Blackwood: 5♣ 1/4, 5♦ 0/3, 5♥ 2, 5♠ 2 and the trump queen.',
       'Two aces missing: stop at five of the agreed suit.',
       'Don\'t use Blackwood with a void or with two quick losers in an unbid suit.',
     ],
     quiz: [
       {
-        q: 'Partner bids 4NT (Blackwood) and you hold one ace. What do you reply?',
+        q: 'Partner bids 4NT (plain Blackwood) and you hold one ace. What do you reply?',
         options: ['5♣', '5♦', '5♥', '5♠'],
         answer: 1,
         explain: '5♣ shows 0 or 4, 5♦ one, 5♥ two, 5♠ three.',
@@ -923,7 +938,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'About 33 combined HCP gives a good play for twelve tricks in notrump. 37 would be needed for a grand.',
       },
       {
-        q: 'Partner replies 5♣ to your Blackwood 4NT. What does it show?',
+        q: 'Partner replies 5♣ to your 4NT (plain Blackwood). What does it show?',
         options: ['Clubs', 'No aces or all four', 'One ace', 'Three aces'],
         answer: 1,
         explain: '5♣ is 0 or 4 aces. The bidding or your own hand will make clear which: if you hold an ace yourself, partner cannot have four.',
@@ -972,6 +987,7 @@ export const LESSONS_2: Lesson[] = [
 <p>After the reply, 5♣ by the asker asks for kings on the same pattern (5♦ = 0 or 4, 5♥ = 1, 5♠ = 2, 5NT = 3). Any other bid places the contract; a 4NT bid by the asker is a sign-off, and if partner's reply was 4NT, the asker can simply pass.</p>
 <div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opened 1NT: bid 4♣"></div>
 <p>16 HCP (31-33 in total) and six strong spades: the hand is rich in tricks, but you hold no aces. The question is aces, so bid 4♣. Over 4♠ (two aces), pass and play in 4♠. Over 4NT (three aces), bid 6♠.</p>
+<p>With Texas transfers there is another way: 4♥, a transfer to spades, and then 4NT, Roman Key Card Blackwood, which also counts the king and queen of spades.</p>
 
 <h3>Which to use?</h3>
 <ul>

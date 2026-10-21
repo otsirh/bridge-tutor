@@ -12,6 +12,7 @@
 // "HCP" is high-card points; "points" also count length or shortness.
 
 import { SUIT_SYMBOLS } from '../../core/cards';
+import type { ConventionId } from '../../bidding/config';
 import { core } from './core';
 
 /** ♣ ♦ ♥ ♠, or NT */
@@ -24,6 +25,8 @@ const single = (s: number) => core.suitSingular[s];
 
 const ACES = ['0 or 4 aces', '1 ace', '2 aces', '3 aces'];
 const KINGS = ['0 or 4 kings', '1 king', '2 kings', '3 kings'];
+const KEY_CARDS = ['1 or 4 key cards', '0 or 3 key cards', '2 key cards, no trump queen', '2 key cards and the trump queen'];
+const SIDE_KINGS = ['No side king', '1 side king', '2 side kings', '3 side kings'];
 
 export const bidding = {
   names: {
@@ -146,6 +149,24 @@ export const bidding = {
     aces: (step: number) => ACES[step],
     kings: (step: number) => KINGS[step],
     fourKings: 'Four kings',
+    rkcb: 'Roman Key Card Blackwood',
+    /** Replies to Roman Key Card Blackwood: step 0 = 5♣. */
+    keyCards: (step: number) => KEY_CARDS[step],
+    queenAsk: 'Queen ask',
+    trumpQueen: 'Trump queen',
+    noTrumpQueen: 'No trump queen',
+    /** Replies to the 5NT king ask after Roman Key Card Blackwood. */
+    sideKings: (n: number) => SIDE_KINGS[n],
+    cue: 'Control bid',
+    // optional conventions
+    splinter: 'Splinter',
+    drury: 'Reverse Drury',
+    texas: 'Texas transfer',
+    nmf: 'New minor forcing',
+    nmfSupport: 'Three-card support',
+    nmfHearts: 'Four hearts',
+    nmfNoFit: 'No fit',
+    fsf: 'Fourth suit forcing',
     // general judgment
     bidGame: 'Bid game',
     correctToMajor: 'Correct to the major',
@@ -156,6 +177,38 @@ export const bidding = {
     competeWithSuit: 'Compete with your suit',
     competitiveDouble: 'Competitive double',
   },
+
+  /** The optional conventions, for the system settings (ids as in src/bidding/config.ts). */
+  conventions: {
+    splinters: {
+      name: 'Splinter raises',
+      desc: 'A double jump in a new suit over 1♥ or 1♠ shows four-card support, game values and a singleton or void in the suit bid.',
+    },
+    drury: {
+      name: 'Reverse Drury',
+      desc: 'A passed hand bids 2♣ over partner’s third- or fourth-seat 1♥ or 1♠ to show three-card support and 10–12 points; opener rebids two of the major with a minimum.',
+    },
+    newMinorForcing: {
+      name: 'New minor forcing',
+      desc: 'After 1♣/1♦ – 1♥/1♠ – 1NT, responder’s bid of the other minor asks opener for three-card support or four hearts, with 11+ points.',
+    },
+    fourthSuitForcing: {
+      name: 'Fourth suit forcing',
+      desc: 'When three suits have been bid, responder’s bid of the fourth suit is artificial and forcing to game: it asks opener to describe the hand further.',
+    },
+    texas: {
+      name: 'Texas transfers',
+      desc: 'Over 1NT or 2NT, 4♦ and 4♥ transfer to 4♥ and 4♠ with a six-card major and game values.',
+    },
+    controlBids: {
+      name: 'Control bids',
+      desc: 'Once a major is agreed in a game-forcing auction, a new suit at the four level shows a control (ace, king, singleton or void) and interest in slam.',
+    },
+    rkcb: {
+      name: 'Roman Key Card Blackwood (1430)',
+      desc: '4NT asks for the five key cards, the four aces and the trump king: 5♣ 1 or 4, 5♦ 0 or 3, 5♥ 2 without the trump queen, 5♠ 2 with it.',
+    },
+  } satisfies Record<ConventionId, { name: string; desc: string }>,
 
   // ---------------------------------------------------------------------------
   // Opening bids
@@ -358,9 +411,9 @@ export const bidding = {
     quantMaximum: (max: number) => `a maximum (${max} HCP, or ${max - 1} with a five-card suit)`,
     declineQuant: 'Not a maximum: pass 4NT.',
     // responder after Stayman or a transfer
-    gameInFit: (min: number) => `Four-card fit found and game values (${min}–15).`,
+    gameInFit: (min: number, max: number) => `Four-card fit found and game values (${min}–${max}).`,
     inviteInFit: 'Four-card fit with 8–9: invites game.',
-    threeNtNoFit: (min: number) => `No fit (or opener may still have the other major): ${min}–15 HCP.`,
+    threeNtNoFit: (min: number, max: number) => `No fit (or opener may still have the other major): ${min}–${max} HCP.`,
     noFit: 'no fit with the major shown',
     twoNtNoFit: '8–9 HCP, no fit: invites 3NT.',
     gameAfterSuperAccept: 'Opener super-accepted: bid game with anything but a bare minimum.',
@@ -418,6 +471,8 @@ export const bidding = {
   competitive: {
     // conditions
     stopper: (suits: number[]) => `a stopper in ${syms(suits, ' and ')}`,
+    /** Instead of "a stopper in …" or "shortness in …" when the opponents have bid no natural suit. */
+    noSuitShown: 'the opponents have not shown a suit of their own',
     decent: (suit: number) => `a decent ${single(suit)} suit (two honours, or six cards)`,
     decentValue: (honours: number, suit: number) => `your ${SUIT_SYMBOLS[suit]} has ${honours} honours`,
     // over their opening
@@ -524,7 +579,7 @@ export const bidding = {
     newSuitTwoLevel: (suit: number) => `A good five-card ${single(suit)} suit and 10+ HCP. Forcing.`,
     passContested: 'No good bid after their interference (you may be hoping partner reopens with a double).',
     // opener after partner's negative double
-    gameAfterNegativeDouble: 'Four-card support for the suit partner showed and a strong hand (19+).',
+    gameAfterNegativeDouble: 'Four-card support for the suit partner showed and a strong hand (18+ HCP).',
     jumpAfterNegativeDouble: (suit: number) => `Four ${plural(suit)} and 16–18: invitational.`,
     showFit: (suit: number) => `Four ${plural(suit)}: the fit partner's double was looking for.`,
     penaltyPassNegativeDouble: 'Long, strong trumps in their suit: convert the negative double to penalties.',
@@ -575,6 +630,115 @@ export const bidding = {
   },
 
   // ---------------------------------------------------------------------------
+  // Roman Key Card Blackwood 1430: key cards are the four aces and the trump king
+  rkcb: {
+    ask: 'Roman Key Card Blackwood: asks for the five key cards, the four aces and the king of trumps. 5♣ = 1 or 4, 5♦ = 0 or 3, 5♥ = 2 without the trump queen, 5♠ = 2 with it. Use it once trumps are agreed and the values for slam are there.',
+    /** `what` is a reply label from names.keyCards / names.sideKings. */
+    reply: (what: string) => `Key-card reply: ${what}.`,
+    keyCardsValue: (n: number, queen: boolean) => `you have ${n} key card${n === 1 ? '' : 's'}${queen ? ' and the trump queen' : ''}`,
+    queenAsk: 'The next step asks for the trump queen. Partner returns to the trump suit without it.',
+    queenAskCond: 'no key card (or only one) missing, and the trump queen unknown',
+    queenYes: 'With the trump queen: bid six of the trump suit (5NT when six of the trump suit would be the “no queen” answer).',
+    queenNo: 'Without the trump queen: return to the trump suit at the cheapest level.',
+    queenCond: 'the queen of trumps',
+    kingAsk: 'All five key cards and the trump queen are ours: 5NT asks how many side kings partner holds, looking for a grand slam.',
+    kingAskCond: 'no key card missing, the trump queen held, and grand-slam values',
+    smallSlam: 'At most one key card is missing: bid the small slam.',
+    smallSlamCond: 'at most one key card missing',
+    stopCond: 'two key cards missing (or one and the trump queen)',
+    signOff: 'Two key cards are missing (or one key card and the trump queen): stop at the five level.',
+    signOffPass: 'Too much is missing, and partner’s reply is in the trump suit: pass.',
+    missingValue: (n: number) => `key cards missing: ${n}`,
+    grandSlam: 'Every key card, the trump queen and the side kings are accounted for: bid the grand slam.',
+    grandSlamCond: 'all the key cards and the trump queen, and grand-slam values',
+    smallSlamQueen: 'Partner has the trump queen, but a grand slam is not certain: bid the small slam.',
+    smallSlamNoQueen: 'Partner lacks the trump queen: settle for the small slam.',
+    allKingsCond: 'all three side kings between the hands, and grand-slam values',
+    captain: 'The key-card asker is the captain and has placed the contract: pass.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // Splinter raises
+  splinters: {
+    raise: (short: number, trump: number) => `Splinter: four or more ${plural(trump)}, game values (13–16 points counting shortness) and a singleton or void in ${plural(short)}. Partner judges slam by how well the hands fit: honours opposite the shortness are wasted.`,
+    workingValue: (points: number) => `you have ${points} working points`,
+    slamInterest: 'slam interest: 16+ working points (honours opposite the shortness count half, the ace in full)',
+    strongSlamInterest: '18+ working points',
+    aceAsk: 'Partner’s splinter fits your hand well and your opening is strong: check with 4NT that two aces (key cards) are not missing.',
+    signOff: (short: number) => `No slam interest opposite the splinter (or your ${single(short)} honours are wasted): bid game.`,
+    passGame: 'Opener has signed off in game after your splinter: pass.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // Control (cue) bids once a major is agreed in a game-forcing auction
+  cues: {
+    cue: (s: number, trump: number) => `Control bid: a first- or second-round control in ${plural(s)} (ace, king, singleton or void) and slam interest, with ${plural(trump)} agreed. Cheapest first: skipping a suit denies a control in it.`,
+    controlCond: (s: number) => `a control in ${SUIT_SYMBOLS[s]} (A, K, singleton or void)`,
+    controlsCond: (suits: number[]) => `controls in ${syms(suits, ' and ')}`,
+    combinedValue: (points: number) => `about ${points} points between the hands`,
+    slamInterest: 'slam interest (about 30+ points between the hands)',
+    cooperate: 'enough to cooperate (about 30+ points between the hands)',
+    slamValues: 'slam values (about 31+ points between the hands)',
+    strongSlamValues: 'slam values without a cue bid (about 33+ points between the hands)',
+    extraValues: 'far more than you have shown (about 34+ between the hands)',
+    allControlled: 'every side suit controlled by one of the hands',
+    aceAsk: 'Every side suit is controlled and the values are there: check with 4NT that two aces (key cards) are not missing.',
+    signOff: 'No slam: sign off in game. The suits you skip deny a control.',
+    respectSignOff: 'Partner has signed off in game: respect it.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // Reverse Drury
+  drury: {
+    raise: (trump: number) => `Reverse Drury: a passed hand with three or more ${plural(trump)} and 10–12 points, a limit raise. Artificial: says nothing about clubs. Opener rebids two of the major with a minimum.`,
+    game: 'Opposite Drury (10–12 with support), a full opening with extras (15+ points counting length and shortness) bids game.',
+    gameCond: '15+ points counting length and shortness',
+    minimum: 'A minimum or light third-seat opening: two of the major says there is no game.',
+    pass: 'Opener has shown a minimum: the partscore is reached, pass.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // Texas transfers
+  texas: {
+    transfer: (trump: number) => `Texas transfer: six or more ${plural(trump)} and game values. Opener bids 4${SUIT_SYMBOLS[trump]}, so the strong hand becomes declarer. Pass with no slam interest; with slam interest, continue with 4NT.`,
+    complete: (trump: number) => `Partner has six or more ${plural(trump)} and game values: complete the transfer to 4${SUIT_SYMBOLS[trump]}.`,
+  },
+
+  // ---------------------------------------------------------------------------
+  // New minor forcing
+  nmf: {
+    ask: (major: number) => `New minor forcing: artificial, 11+ points. Asks opener for three-card ${single(major)} support${major === 3 ? ' or four hearts' : ''}. Says nothing about the minor.`,
+    askCond: (major: number) => `exactly five ${plural(major)} (with six, rebid them)`,
+    askCondSpades: 'exactly five spades, or four or five spades with four hearts',
+    supportMax: (major: number) => `Three-card ${single(major)} support and a maximum (14): jump to show both.`,
+    supportMin: (major: number) => `Three-card ${single(major)} support with a minimum (12–13).`,
+    heartsMax: 'Four hearts and a maximum (14).',
+    heartsMin: 'Four hearts with a minimum (12–13).',
+    noFitMax: (major: number) => `No three-card ${single(major)} support and no four-card major to show, with a maximum: 3NT.`,
+    noFitMin: (major: number) => `No three-card ${single(major)} support and no four-card major to show, with a minimum: 2NT.`,
+    fitCond: (s: number) => `eight ${plural(s)} between the hands`,
+    gameInFit: (s: number) => `The ${single(s)} fit is found and the values for game are there: bid game.`,
+    inviteInFit: (s: number) => `The ${single(s)} fit is found, but opener is minimum and you have 11–12: invite at the three level.`,
+    threeNt: 'No major fit, but enough for game: 3NT.',
+    twoNt: 'No major fit, and only invitational values opposite a minimum: stop in 2NT.',
+    pass: 'Opener’s reply leaves nothing more to say: pass.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // Fourth suit forcing
+  fsf: {
+    ask: (fourth: number) => `Fourth suit forcing: artificial and forcing to game. Says nothing about ${plural(fourth)}; asks opener for a ${single(fourth)} stopper, support for your suit, or more about the shape.`,
+    askCond: (fourth: number) => `no ${SUIT_SYMBOLS[fourth]} stopper for notrump (or a five-card suit of your own), and no six-card suit`,
+    askCondMajor: (second: number, fourth: number) => `no four-card ${single(second)} support, no ${SUIT_SYMBOLS[fourth]} stopper (or a five-card suit of your own), and no six-card suit`,
+    noMajorFit: (first: number) => `no three-card support for opener's ${plural(first)} (with it, raise the major)`,
+    support: (s: number) => `Three-card support for partner’s ${plural(s)}, which opener could not show before.`,
+    notrump: (fourth: number) => `A stopper in ${plural(fourth)}, the fourth suit: notrump.`,
+    secondSuit: (s: number) => `Five ${plural(s)}: the second suit is longer than shown.`,
+    firstSuit: (s: number) => `Extra length in ${plural(s)}: rebid the first suit.`,
+    fallback: 'Nothing else to show: rebid the first suit.',
+  },
+
+  // ---------------------------------------------------------------------------
   // General judgment, when no specific agreement applies
   generic: {
     // the target contract, shown as the reason next to these rules
@@ -596,6 +760,8 @@ export const bidding = {
     smallSlam: 'About 33 combined points (and not two aces missing): twelve tricks.',
     slamFit: (min: number, suit: number) => `${min}+ combined with a ${single(suit)} fit`,
     slamNoFit: (min: number) => `${min}+ combined with no suit fit`,
+    setTrumps: (s: number) => `Slam values with a long ${single(s)} suit partner has not heard about: bid it first (forcing), so that it becomes the trump suit before you ask for key cards.`,
+    setTrumpsCond: (s: number) => `six or more ${SUIT_SYMBOLS[s]} and slam values in that suit`,
     // in game already
     passGame: 'We have reached game and there is no slam: stop bidding.',
     noSlam: 'no slam values',
@@ -660,6 +826,7 @@ export const bidding = {
     takeout: (suit: number) => `Asks partner to bid: short in ${plural(suit)}, support for the other suits.`,
     penalty: 'Expects to defeat the contract.',
     blackwood: 'Asks partner how many aces they hold.',
+    rkcb: 'Roman Key Card Blackwood: asks for the key cards (the four aces and the trump king).',
     quant: 'Invites 6NT.',
     gerber: 'Asks partner how many aces they hold (4♦ 0/4, 4♥ 1, 4♠ 2, 4NT 3).',
     notrump: 'Natural: notrump with stoppers.',
