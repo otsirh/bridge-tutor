@@ -44,7 +44,6 @@ export const ui = {
     tutor: 'Tutor',
     tutorTitle: 'Hints, explanations and coaching',
     learn: 'Learn',
-    progress: 'Progress',
     settings: 'Settings',
     newDeal: 'New deal',
     language: 'Language',
@@ -224,6 +223,19 @@ export const ui = {
     noErrors: 'No errors',
     ddCards: (n: number) => `double-dummy, ${n} card${s(n)}`,
     analysing: (pct: string) => `analysing ${pct}`,
+    sdTitle: 'With what you knew',
+    sdErrors: (n: number) => (n === 1 ? '1 clear error' : `${n} clear errors`),
+    sdNote: (n: number) => `single-dummy, ${n} card${s(n)} checked`,
+    sdChecking: (done: number, total: number) => `checking your cards ${done}/${total}`,
+    // sharing
+    share: 'Share this deal',
+    shareText: 'A link or code opens this deal in Bridge Tutor; PBN works in most bridge programs; BBO shows the whole board.',
+    copyLink: 'Copy link',
+    copyCode: 'Copy code',
+    copyPBN: 'Copy PBN',
+    openBBO: 'Open in BBO viewer',
+    copied: 'Copied.',
+    copyManual: 'Copy this text',
     // summary tab
     takeaways: 'What to take away',
     theDeal: 'The deal',
@@ -308,31 +320,6 @@ export const ui = {
   },
 
   /** Progress: headline numbers and the hand history. */
-  stats: {
-    title: 'Progress',
-    clear: 'Clear history',
-    handsPlayed: 'Hands played',
-    lastOn: (date: string) => `last on ${date}`,
-    playFirst: 'play a hand to start',
-    contractsMade: 'Contracts made',
-    asDeclarer: (made: number, of: number) => `${made} of ${of} as declarer`,
-    contractsBeaten: 'Contracts beaten',
-    onDefence: (beaten: number, of: number) => `${beaten} of ${of} on defence`,
-    biddingAccuracy: 'Bidding accuracy',
-    callsMatched: (agreed: number, of: number) => `${agreed} of ${of} calls matched the system`,
-    tricksLost: 'Tricks lost per hand',
-    tricksLostNote: 'your cards, double-dummy, last 30 hands',
-    impsVsPar: 'IMPs vs par',
-    impsNote: 'average per hand, last 30 (N/S view)',
-    hands: 'Hands',
-    columns: ['Date', 'Board', 'Contract', 'You were', 'Result', 'N/S score', 'IMPs vs par', 'Bids OK', 'Tricks lost'],
-    role: { declarer: 'declarer', defender: 'defender' },
-    empty: 'No hands yet. Each finished hand is recorded here with its double-dummy analysis.',
-    footnote:
-      '“Tricks lost” counts tricks your own cards gave away against perfect play by everyone. Double-dummy is hindsight — some losses were the right play on the information you had — but a falling trend means your card play is improving.',
-  },
-
-  /** Settings dialog. */
   settings: {
     title: 'Settings',
     tutor: { title: 'Tutor', desc: 'Hints, explanations of every call, counting help and the declarer plan. Turn it on or off at any time.' },

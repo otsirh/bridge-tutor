@@ -58,6 +58,28 @@ export const practice = {
     return v === ours ? 'you are vulnerable, they are not' : 'they are vulnerable, you are not';
   },
 
+  // header and table
+  topicChip: (topic: string) => `Topic: ${topic}`,
+  // importing a deal
+  importTitle: 'Play a deal from elsewhere',
+  importText: 'Paste a PBN file, a BBO hand (LIN or a handviewer link), a deal like "N:AKQ2.K73.J52.Q8 …", or a Bridge Tutor share code or link.',
+  importPlaceholder: '[Deal "N:…"]  ·  https://www.bridgebase.com/tools/handviewer.html?lin=…  ·  share code',
+  importBtnPlay: 'Play this deal',
+  importError: (code: string) => {
+    if (code === 'empty') return 'Paste a deal first.';
+    if (code === 'share') return 'This doesn’t look like a deal: check that the whole text or link was copied.';
+    if (code === 'cards' || code === 'duplicate' || code === 'missing-hand') return 'The deal is incomplete or has a card twice.';
+    return 'The deal could not be read.';
+  },
+  historyTitle: 'Your boards',
+  // lessons
+  practiseLesson: 'Practise this at the table',
+  practiseLessonText: 'Deals where this topic comes up, played with the tutor.',
+  lessonDone: 'Passed',
+  quizScore: (right: number, total: number) => `First try: ${right} of ${total} right`,
+  quizRetry: 'Try the quiz again',
+  practicedCount: (n: number) => (n === 1 ? '1 board practised' : `${n} boards practised`),
+
   // Today
   tileStreak: 'Days in a row',
   tileStreakNote: (n: number) => (n ? 'keep it going' : 'play a board today to start'),

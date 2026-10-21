@@ -9,6 +9,8 @@ import { openingLeadChoices, type LeadChoice } from '../engine/leads';
 import { ddCardValues } from '../engine/playEngine';
 import { makePlan, type Plan } from '../tutor/planner';
 import { getLessons, getGlossary, type Lesson } from '../learn/lessons';
+import { loadLessonProgress, updateLessonProgress } from '../game/journal';
+import { LESSON_THEMES } from '../game/themes';
 import { T } from '../i18n';
 import { h, suitText, colorSuitsIn } from './dom';
 import { vulLabel } from './review';
@@ -18,6 +20,8 @@ import type { UIState } from './app';
 export interface LearnActions {
   rerender(): void;
   close(): void;
+  /** Deal boards for a practice theme at the table. */
+  practise?: (theme: string) => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -76,32 +80,67 @@ function enhanceLesson(root: HTMLElement) {
   colorSuitsIn(root);
 }
 
+/** Answers chosen in this session, per "lessonId:question". The first answer to each question is also saved as progress. */
 const quizAnswers = new Map<string, number>();
+
+/** Save the first answer to a quiz question; once all are answered, the lesson's first-try score. */
+function recordAnswer(l: Lesson, qi: number, oi: number) {
+  updateLessonProgress(l.id, p => {
+    const first = (p.quizAnswers ??= {});
+    if (first[qi] === undefined) first[qi] = oi;
+    if (Object.keys(first).length >= l.quiz.length) {
+      const right = l.quiz.filter((q, i) => first[i] === q.answer).length / l.quiz.length;
+      p.quizBest = Math.max(p.quizBest ?? 0, right);
+    }
+  });
+}
+
+function retryQuiz(l: Lesson) {
+  l.quiz.forEach((_, qi) => quizAnswers.delete(`${l.id}:${qi}`));
+  updateLessonProgress(l.id, p => delete p.quizAnswers);
+}
 
 function lessonView(l: Lesson, act: LearnActions): HTMLElement {
   const t = T.ui.learn;
+  const progress = loadLessonProgress()[l.id] ?? {};
+  if (!progress.opened) updateLessonProgress(l.id, p => (p.opened = Date.now()));
   const body = h('div', { class: 'lesson-body', html: l.body });
   enhanceLesson(body);
+  const saved = progress.quizAnswers ?? {};
+  const firstDone = l.quiz.length > 0 && Object.keys(saved).length >= l.quiz.length;
   const quiz = l.quiz.length
     ? h('div', { class: 'quiz' }, h('h3', null, t.checkYourself), l.quiz.map((q, qi) => {
       const key = `${l.id}:${qi}`;
-      const chosen = quizAnswers.get(key);
+      const chosen = quizAnswers.get(key) ?? saved[qi];
       return h('div', { class: 'q' }, h('div', null, suitText(q.q)), h('div', { class: 'opts' }, q.options.map((o, oi) => h('button', {
         class: `opt ${chosen !== undefined && oi === q.answer ? 'right' : ''} ${chosen === oi && oi !== q.answer ? 'wrong' : ''}`,
         type: 'button',
         onclick: () => {
           quizAnswers.set(key, oi);
+          recordAnswer(l, qi, oi);
           act.rerender();
         },
       }, suitText(o)))), chosen !== undefined ? h('div', { class: 'explain' }, h('b', null, chosen === q.answer ? t.right : t.notQuite), suitText(q.explain)) : null);
-    }))
+    }),
+    firstDone ? h('div', { class: 'quizscore' },
+      h('b', null, T.practice.quizScore(l.quiz.filter((q, i) => saved[i] === q.answer).length, l.quiz.length)),
+      h('button', { class: 'btn small', type: 'button', onclick: () => { retryQuiz(l); act.rerender(); } }, T.practice.quizRetry)) : null)
+    : null;
+  const theme = LESSON_THEMES[l.id];
+  // offered after the key points, and again after the quiz
+  const practise = (withText: boolean) => theme && act.practise
+    ? h('div', { class: 'box practise' },
+      h('div', null, h('b', null, T.practice.practiseLesson),
+        withText ? h('div', { class: 'small muted' }, T.practice.practiseLessonText, progress.practiced ? ` ${T.practice.practicedCount(progress.practiced)}.` : '') : null),
+      h('button', { class: 'btn primary small', type: 'button', onclick: () => act.practise!(theme) }, T.practice.practiseAtTable))
     : null;
   return h('article', null,
-    h('div', { class: 'small muted' }, `${t.topics[l.topic]} · ${t.levels[l.level]}`),
+    h('div', { class: 'small muted' }, `${t.topics[l.topic]} · ${t.levels[l.level]}`, (progress.quizBest ?? 0) >= 0.8 ? ` · ✓ ${T.practice.lessonDone}` : ''),
     h('h2', { style: 'font-family:var(--f-display);font-weight:400;font-size:30px;margin:4px 0 6px' }, suitText(l.title)),
     h('p', { style: 'margin:0 0 10px;color:var(--ink-2)' }, suitText(l.summary)),
     l.keyPoints.length ? h('div', { class: 'box' }, h('b', null, t.keyPoints), h('ul', { style: 'margin:6px 0 0;padding-left:18px' }, l.keyPoints.map(k => h('li', null, suitText(k))))) : null,
-    body, quiz);
+    practise(true),
+    body, quiz, practise(false));
 }
 
 // ---------------------------------------------------------------------------
@@ -341,12 +380,15 @@ export function renderLearn(ui: UIState, act: LearnActions): HTMLElement {
   let body: HTMLElement;
   if (tab === 'lessons') {
     const lessons = getLessons();
+    const progress = loadLessonProgress();
     const current = lessons.find(l => l.id === ui.lessonId) ?? lessons[0];
     const topics = [...new Set(lessons.map(l => l.topic))];
     body = h('div', { class: 'learn-grid' },
       h('nav', { class: 'lessons-list', 'aria-label': t.lessonsNav }, topics.map(topic => [
         h('div', { class: 'small muted', style: 'margin:10px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px' }, t.topics[topic]),
-        lessons.filter(l => l.topic === topic).map(l => h('button', { class: l.id === current?.id ? 'on' : '', type: 'button', onclick: () => { ui.lessonId = l.id; act.rerender(); } }, h('div', null, suitText(l.title)), h('div', { class: 'lvl' }, t.levels[l.level]))),
+        lessons.filter(l => l.topic === topic).map(l => h('button', { class: l.id === current?.id ? 'on' : '', type: 'button', onclick: () => { ui.lessonId = l.id; act.rerender(); } },
+          h('div', null, (progress[l.id]?.quizBest ?? 0) >= 0.8 ? h('span', { class: 'done', 'aria-label': T.practice.lessonDone }, '✓ ') : null, suitText(l.title)),
+          h('div', { class: 'lvl' }, t.levels[l.level]))),
       ])),
       current ? lessonView(current, act) : h('p', null, t.noLessons));
   } else if (tab === 'glossary') {
