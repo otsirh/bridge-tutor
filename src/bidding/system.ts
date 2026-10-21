@@ -1,7 +1,7 @@
 // Situation dispatch: which rules apply at this point of the auction.
 
 import { type Call, PASS, DOUBLE, REDOUBLE, isBid, levelOf, strainOf, bid, callName } from '../core/auction';
-import { NT, CLUBS } from '../core/cards';
+import { NT, CLUBS, DIAMONDS, HEARTS } from '../core/cards';
 import { T } from '../i18n';
 import type { Ctx, CallRecord, Meaning } from './context';
 import { type Rule, type Shown, unknownShown, unionShown, R, hcpC, cond } from './types';
@@ -13,7 +13,11 @@ import {
 } from './rebids';
 import { overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise } from './competitive';
 import { conventionReplies, blackwoodTrump } from './slam';
+import { getSystem } from './config';
 import { genericRules } from './generic';
+import {
+  slamTryRules, afterDruryReply, newMinorForcing, nmfReplies, afterNmfReply, fourthSuitForcing, fsfReplies, naturalSuitBid,
+} from './conventions';
 
 const NT_CONVENTIONS = new Set(['stayman', 'transfer', 'minorTransfer']);
 
@@ -44,6 +48,8 @@ function specificRules(x: Ctx): Rule[] {
     const os = strainOf(op.call), ol = levelOf(op.call);
     const interfered = x.records.some(r => r.index > op.index && !x.ourSide(r.seat) && r.call !== PASS);
     const myCallsSinceOpening = x.callsBy(x.seat).filter(r => r.index > op.index).length;
+    const followUp = slamTryRules(x) ?? afterNmfReply(x);
+    if (followUp) return followUp;
     if (op.seat === x.partner && myActs.length === 0 && myCallsSinceOpening === 0) {
       if (!interfered) {
         if (op.meaning.tag === 'strong2c') return responsesTo2C(x);
@@ -64,6 +70,14 @@ function specificRules(x: Ctx): Rule[] {
         return responderAfterNTConvention(x, ol, myFirst, reply);
       }
       if (op.meaning.tag === 'strong2c' && myFirst.meaning.tag === 'waiting' && reply?.meaning.tag === 'nt2c') return responsesTo2NT(x);
+      if (myFirst.meaning.tag === 'drury') return afterDruryReply(x) ?? [];
+      if (reply && reply.index > myFirst.index && !interfered && ol === 1 && os < NT && naturalSuitBid(myFirst)) {
+        const y = strainOf(myFirst.call);
+        // 1♣/1♦ – 1♥/1♠ – 1NT: new minor forcing
+        if (os <= DIAMONDS && levelOf(myFirst.call) === 1 && y >= HEARTS && reply.call === bid(1, NT)) return newMinorForcing(os, y);
+        // three suits bid naturally: fourth suit forcing
+        if (naturalSuitBid(reply) && y !== os && strainOf(reply.call) !== os && strainOf(reply.call) !== y) return fourthSuitForcing(x, os, y, strainOf(reply.call));
+      }
     }
     if (op.seat === x.seat && myActs.length === 1) {
       const resp = pActs[0];
@@ -75,6 +89,22 @@ function specificRules(x: Ctx): Rule[] {
       if (ol === 1 && os < NT) return openerRebidOneSuit(x, os, resp);
       if (os === NT && ol <= 2) return openerAfterNT(x, ol, resp);
       return [];
+    }
+    // 2♣ – 2♦ – 2NT: Stayman and transfers continue as over a 2NT opening
+    const over2c = op.meaning.tag === 'strong2c' && pActs.concat(myActs).some(r => r.meaning.tag === 'nt2c') && rhoQuiet;
+    if (over2c && op.seat === x.partner && myActs.length === 2 && myActs[0].meaning.tag === 'waiting' && NT_CONVENTIONS.has(myActs[1].meaning.tag ?? '')) {
+      const reply = pActs[2];
+      if (reply && reply.index > myActs[1].index) return responderAfterNTConvention(x, 2, myActs[1], reply);
+    }
+    if (over2c && op.seat === x.seat && myActs.length === 3 && myActs[1].meaning.tag === 'nt2c' && NT_CONVENTIONS.has(pActs[1]?.meaning.tag ?? '') && pActs[2]) {
+      return openerAfterNTContinuation(x, 2, pActs[1], pActs[2]);
+    }
+    if (op.seat === x.seat && myActs.length === 2 && rhoQuiet && pc) {
+      if (pc.meaning.tag === 'nmf') return nmfReplies(pc.meaning.data!.suit);
+      if (pc.meaning.tag === 'fsf') return fsfReplies(x, pc);
+      // 2♣ – 2♦ – 2NT: answer Stayman, transfers and Texas as over a 2NT opening
+      const conv = pc.meaning.tag ?? '';
+      if (op.meaning.tag === 'strong2c' && myActs[1].meaning.tag === 'nt2c' && (NT_CONVENTIONS.has(conv) || conv === 'texas')) return openerAfterNT(x, 2, pc);
     }
     if (op.seat === x.seat && myActs.length === 2 && os === NT && ol <= 2 && rhoQuiet) {
       const conv = pActs[0], cont = pActs[1];
@@ -159,6 +189,7 @@ export function naturalMeaning(x: Ctx, call: Call): Meaning {
   const op = x.opening();
   if (lvl === 4 && st === NT) {
     const trump = blackwoodTrump(x);
+    if (trump !== null && getSystem().rkcb) return { ...base, name: n.rkcb, desc: t.rkcb, shown: s, artificial: true, tag: 'rkcb', data: { suit: trump }, forcing: 'one' };
     if (trump !== null) return { ...base, name: n.blackwood, desc: t.blackwood, shown: s, artificial: true, tag: 'blackwood', data: { suit: trump }, forcing: 'one' };
     return { ...base, name: n.quant4nt, desc: t.quant, shown: s, tag: 'quant' };
   }

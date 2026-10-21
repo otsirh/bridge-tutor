@@ -10,7 +10,8 @@ import { hasStopper, dummyPoints, declarerPoints, suitHonours } from '../core/ev
 import { T } from '../i18n';
 import type { Ctx } from './context';
 import { R, cond, type Rule } from './types';
-import { blackwoodTrump } from './slam';
+import { blackwoodTrump, aceAsk, aceAskMade } from './slam';
+import { getSystem } from './config';
 
 export interface Target {
   strain: number; // 0-3, 4 = NT, -1 = none
@@ -85,20 +86,22 @@ export function genericRules(x: Ctx): Rule[] {
   const P = x.shownBy(x.partner);
   const forced = x.forcedByPartner() || (x.gameForced() && !(lb && x.ourSide(lb.seat) && isGame(lb.call)));
   const theirs = x.theirSuits();
-  const asked = x.records.some(r => x.ourSide(r.seat) && r.meaning.tag === 'blackwood');
+  const asked = aceAskMade(x);
   const target = (h: HandInfo) => targetContract(h, x);
   const value = (h: HandInfo) => target(h).why;
 
   // --- slam
   const bwTrump = blackwoodTrump(x);
+  const rk = getSystem().rkcb;
   if (!asked && bwTrump !== null && x.isLegal(bid(4, NT))) {
-    rules.push(R(bid(4, NT), 'blackwood', t.blackwood, [
+    // Roman Key Card counts the trump king and queen, so it must ask in the suit we will play in
+    rules.push(aceAsk(bwTrump, [
       cond(t.blackwoodCond, h => {
         const tc = target(h);
-        return tc.level >= 6 && tc.strain < NT;
+        return tc.level >= 6 && tc.strain < NT && (!rk || tc.strain === bwTrump);
       }, undefined, value),
       cond(t.noVoid, h => h.shape[3] > 0),
-    ], { artificial: true, forcing: 'one', tag: 'blackwood', data: { suit: bwTrump }, shows: s => { s.hcp = [Math.max(s.hcp[0], 13), s.hcp[1]]; } }));
+    ], { shows: s => { s.hcp = [Math.max(s.hcp[0], 13), s.hcp[1]]; } }));
   }
   const pAct = x.lastAction(x.partner);
   if (pAct && strainOf(pAct.call) === NT && isBid(pAct.call) && levelOf(pAct.call) <= 3 && x.isLegal(bid(4, NT)) && !pAct.meaning.artificial) {
@@ -109,6 +112,23 @@ export function genericRules(x: Ctx): Rule[] {
       }, undefined, value),
     ], { tag: 'quant' }));
   }
+  // Roman Key Card asks in the auction's trump suit; slam in another suit of ours is bid
+  // directly, and a long suit partner has not heard about is bid first (forcing) to set trumps
+  const ours = x.ourSuits();
+  if (rk && !asked && x.gameForced()) {
+    for (const s of [SPADES, HEARTS, 1, 0]) {
+      const c = x.cheapest(s);
+      if (c === null || ours.includes(s) || theirs.includes(s) || c >= bid(4, NT)) continue;
+      rules.push(R(c, 'newSuit', t.setTrumps(s), [
+        cond(t.setTrumpsCond(s), h => {
+          const tc = target(h);
+          return tc.strain === s && tc.level >= 6 && h.len[s] >= 6;
+        }, undefined, value),
+      ], { forcing: 'one' }));
+    }
+  }
+  // with Roman Key Card, a suit grand slam is only bid after asking for key cards
+  const grandOk = (s: number) => !rk || s === NT || asked;
   for (const lvl of [7, 6]) {
     for (const s of [NT, SPADES, HEARTS, 1, 0]) {
       const c = bid(lvl, s);
@@ -117,7 +137,8 @@ export function genericRules(x: Ctx): Rule[] {
       rules.push(R(c, lvl === 7 ? 'grandSlam' : 'smallSlam', lvl === 7 ? t.grandSlam : t.smallSlam, [
         cond(s === NT ? t.slamNoFit(min) : t.slamFit(min, s), h => {
           const tc = target(h);
-          return tc.strain === s && tc.level === lvl && (asked || s === NT || h.shape[3] === 0 || bwTrump === null);
+          const level = tc.level === 7 && !grandOk(s) ? 6 : tc.level;
+          return tc.strain === s && level === lvl && (asked || s === NT || h.shape[3] === 0 || bwTrump === null || (rk && bwTrump !== s && ours.includes(s)));
         }, undefined, value),
       ]));
     }
