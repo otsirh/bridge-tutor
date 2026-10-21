@@ -35,6 +35,8 @@ export interface FinishedBoard {
   parNS: number | null;
   table: number[][] | null;
   theme?: string | null;
+  /** All four hands were shown during the board. */
+  peek?: boolean;
 }
 
 /** The single-dummy verdict on `card` from a simulation, if it was meaningful. */
@@ -71,6 +73,7 @@ export function archiveBoard(f: FinishedBoard): ArchivedBoard {
     calls, cards, declTricks: f.declTricks, scoreNS: f.scoreNS, parNS: f.parNS, table: f.table,
   };
   if (f.theme) rec.theme = f.theme;
+  if (f.peek) rec.peek = 1;
   return rec;
 }
 

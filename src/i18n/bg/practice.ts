@@ -50,6 +50,7 @@ export const practice: Text['practice'] = {
     'defense-suit': { name: 'Защита срещу козов договор', desc: 'Защитавайте срещу козов договор: вземете взятките си, цакайте или защитавайте пасивно.' },
   },
 
+  dealing: (topic: string) => (topic ? `Раздавам ръка за: ${topic}…` : 'Раздавам…'),
   notEnough: 'още няма достатъчно решения',
   you: 'Вие',
   vul: (v: Vulnerability, seat: Seat) => {

@@ -56,6 +56,7 @@ export interface ArchivedBoard {
   parNS: number | null;
   table: number[][] | null; // double-dummy tricks [strain][declarer]
   theme?: string; // practice theme the board was dealt for
+  peek?: 1; // all four hands were shown: kept, but not counted towards skills
 }
 
 /** A deal as 52 seat digits, indexed by card id. */

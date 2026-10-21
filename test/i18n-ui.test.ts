@@ -106,7 +106,7 @@ describe('switching language mid-game', () => {
     setLang('en');
     const g = new Game();
     g.updateSettings({ speed: 'fast', strength: 'quick', dealMode: 'declare', coach: false });
-    g.newDeal(true);
+    g.newDeal(); // a fresh deal in the new mode (a replay keeps the same cards)
     // bid with the system, then play the tutor's cards for a few tricks
     for (let i = 0; i < 400 && (g.phase !== 'play' || !g.play || g.play.history().length < 9); i++) {
       if (g.isHumanTurn()) {
