@@ -1,6 +1,6 @@
 // The bidding context: who has said what, and what it means so far.
 
-import { Auction, type Call, PASS, DOUBLE, REDOUBLE, isBid, levelOf, strainOf, bid } from '../core/auction';
+import { type Auction, type Call, PASS, DOUBLE, REDOUBLE, isBid, levelOf, strainOf, bid } from '../core/auction';
 import { type Seat, type Vulnerability, isVulnerable, partnerOf, lhoOf, rhoOf } from '../core/cards';
 import { type Shown, type Forcing, unknownShown } from './types';
 

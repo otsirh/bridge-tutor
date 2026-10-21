@@ -1,7 +1,7 @@
 // Bidding engine: reads an auction, explains calls, chooses bids, advises.
 
 import { Auction, type Call, PASS, callName } from '../core/auction';
-import { type Card, type Vulnerability, type Seat } from '../core/cards';
+import type { Card, Vulnerability, Seat } from '../core/cards';
 import { handInfo, type HandInfo } from '../core/eval';
 import { T } from '../i18n';
 import { Ctx, type CallRecord, type Meaning } from './context';

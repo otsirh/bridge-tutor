@@ -211,7 +211,7 @@ export function openerAfterDrury(M: number): Rule[] {
 /** Drury bidder after opener's minimum 2M: the partscore is reached. */
 export function afterDruryReply(x: Ctx): Rule[] | null {
   const pc = x.partnerCall();
-  if (!pc || pc.meaning.tag !== 'druryReply' || levelOf(pc.call) !== 2) return null;
+  if (pc?.meaning.tag !== 'druryReply' || levelOf(pc.call) !== 2) return null;
   return [R(PASS, 'pass', T.bidding.drury.pass, [])];
 }
 
@@ -272,7 +272,7 @@ export function nmfReplies(M: number): Rule[] {
 /** Responder places the contract after opener's answer to new minor forcing. */
 export function afterNmfReply(x: Ctx): Rule[] | null {
   const pc = x.partnerCall();
-  if (!pc || pc.meaning.tag !== 'nmfReply' || x.myTag() !== 'nmf') return null;
+  if (pc?.meaning.tag !== 'nmfReply' || x.myTag() !== 'nmf') return null;
   const t = T.bidding.nmf;
   const { suit: M, fit, max } = pc.meaning.data!;
   const rules: Rule[] = [];

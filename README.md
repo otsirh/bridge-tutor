@@ -52,7 +52,7 @@ link, a code, PBN or a BBO hand.
 **Learn**: 40 lessons from the basics to squeezes and endplays, each with a quiz and practice deals at
 the table, a glossary, and drills for bidding, opening leads and declarer counting.
 
-![A lesson](docs/images/lesson-bg.png)
+![A lesson](docs/images/lesson.png)
 
 ## System
 
@@ -75,7 +75,7 @@ npm run dev          # http://localhost:5173
 | Command | What it does |
 |---|---|
 | `npx tsc --noEmit` | type-check |
-| `npm run lint` | ESLint |
+| `npm run lint` | Biome |
 | `npm test` | unit tests: solver against brute force, scoring, bidding and conventions, both languages, lessons, journal, deal formats |
 | `npm run build` | a single self-contained `dist/index.html`, plus the icons, manifest and service worker |
 | `npm run test:e2e` | plays the built app in a real browser (Playwright); `PW_CHROMIUM=/path/to/chrome` uses an installed browser |
