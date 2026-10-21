@@ -8,7 +8,7 @@ import { describeShown } from '../bidding/types';
 import { openingLeadChoices, type LeadChoice } from '../engine/leads';
 import { ddCardValues } from '../engine/playEngine';
 import { makePlan, type Plan } from '../tutor/planner';
-import { LESSONS, GLOSSARY, type Lesson } from '../learn/lessons';
+import { getLessons, getGlossary, type Lesson } from '../learn/lessons';
 import { h, suitText, colorSuitsIn } from './dom';
 import { vulLabel } from './review';
 import { handEl, diagramHand, cardText } from './cards';
@@ -332,16 +332,17 @@ export function renderLearn(ui: UIState, act: LearnActions): HTMLElement {
     h('button', { class: `tab ${tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { ui.learnTab = k; act.rerender(); } }, label)));
   let body: HTMLElement;
   if (tab === 'lessons') {
-    const current = LESSONS.find(l => l.id === ui.lessonId) ?? LESSONS[0];
-    const topics = [...new Set(LESSONS.map(l => l.topic))];
+    const lessons = getLessons();
+    const current = lessons.find(l => l.id === ui.lessonId) ?? lessons[0];
+    const topics = [...new Set(lessons.map(l => l.topic))];
     body = h('div', { class: 'learn-grid' },
       h('nav', { class: 'lessons-list', 'aria-label': 'Уроци' }, topics.map(t => [
         h('div', { class: 'small muted', style: 'margin:10px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px' }, TOPIC_BG[t] ?? t),
-        LESSONS.filter(l => l.topic === t).map(l => h('button', { class: l.id === current?.id ? 'on' : '', type: 'button', onclick: () => { ui.lessonId = l.id; act.rerender(); } }, h('div', null, suitText(l.title)), h('div', { class: 'lvl' }, LEVEL_BG[l.level] ?? l.level))),
+        lessons.filter(l => l.topic === t).map(l => h('button', { class: l.id === current?.id ? 'on' : '', type: 'button', onclick: () => { ui.lessonId = l.id; act.rerender(); } }, h('div', null, suitText(l.title)), h('div', { class: 'lvl' }, LEVEL_BG[l.level] ?? l.level))),
       ])),
       current ? lessonView(current, act) : h('p', null, 'Няма уроци.'));
   } else if (tab === 'glossary') {
-    body = h('dl', { class: 'lesson-body' }, GLOSSARY.map(g => [h('dt', { style: 'font-weight:700;margin-top:10px' }, suitText(g.term)), h('dd', { style: 'margin:2px 0 0' }, suitText(g.def))]));
+    body = h('dl', { class: 'lesson-body' }, getGlossary().map(g => [h('dt', { style: 'font-weight:700;margin-top:10px' }, suitText(g.term)), h('dd', { style: 'margin:2px 0 0' }, suitText(g.def))]));
   } else if (tab === 'bid') body = bidDrillView(act);
   else if (tab === 'lead') body = leadDrillView(act);
   else body = countDrillView(act);

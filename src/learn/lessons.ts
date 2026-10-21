@@ -1,8 +1,11 @@
-// Teaching content for the "Learn" section.
+// Teaching content for the Learn room, one set per language
+// (src/learn/content/<lang>/). Languages without their own lessons use English.
 //
 // Every lesson matches the system the bots play (SAYC style: 5-card majors,
 // 15-17 1NT, strong 2♣, weak twos, Jacoby 2NT, Stayman and Jacoby transfers,
 // negative doubles, Michaels / Unusual 2NT, standard leads and signals).
+// The same lesson has the same id, topic, level, diagrams and quiz answers in
+// every language; only the words differ.
 //
 // Body markup: h3, h4, p, ul, ol, li, strong, em, table/thead/tbody/tr/th/td,
 // plus the special empty divs rendered by the UI:
@@ -10,13 +13,30 @@
 //   <div class="deal" data-n="..." data-e="..." data-s="..." data-w="..." data-caption="..."></div>
 //   <div class="auction" data-calls="1H P 2H P 4H P P P" data-dealer="N"></div>
 //   <div class="tip">...</div>  <div class="warn">...</div>
-// Ten is written as "10" everywhere, including inside data-cards.
+// data-cards / data-calls use English letters in every language. Ten is
+// written as "10" everywhere, including inside data-cards.
 
-export type { LessonTopic, LessonLevel, QuizQuestion, Lesson } from './types';
-import type { Lesson } from './types';
-import { LESSONS_1 } from './lessons1';
-import { LESSONS_2 } from './lessons2';
-import { LESSONS_3 } from './lessons3';
-export { GLOSSARY } from './glossary';
+export type { LessonTopic, LessonLevel, QuizQuestion, Lesson, GlossaryEntry, LessonContent } from './types';
+import type { Lesson, GlossaryEntry, LessonContent } from './types';
+import { lang, type Lang } from '../i18n';
+import { content as en } from './content/en';
+import { content as bg } from './content/bg';
 
-export const LESSONS: Lesson[] = [...LESSONS_1, ...LESSONS_2, ...LESSONS_3];
+const CONTENT: Partial<Record<Lang, LessonContent>> = { en, bg };
+
+function active(): LessonContent {
+  return CONTENT[lang()] ?? en;
+}
+
+export function getLessons(): Lesson[] {
+  return active().lessons;
+}
+
+export function getGlossary(): GlossaryEntry[] {
+  return active().glossary;
+}
+
+/** Lesson by id in the active language (falls back to English). */
+export function getLesson(id: string): Lesson | undefined {
+  return active().lessons.find(l => l.id === id) ?? en.lessons.find(l => l.id === id);
+}
