@@ -144,7 +144,7 @@ function keyMoments(g: Game): HTMLElement | null {
         suitText(Math.abs(m.best.success - m.worst.success) >= 0.1
           ? t.keyMomentNumbers(cardName(m.best.card), fmtPct(m.best.success), cardName(m.worst.card), fmtPct(m.worst.success))
           : t.keyMomentTricks(cardName(m.best.card), fmtNum(m.best.tricks, 1), cardName(m.worst.card), fmtNum(m.worst.tricks, 1))),
-        right && m.e.principle ? h('span', { class: 'muted' }, ` ${m.e.principle.title}.`) : null);
+        right && m.e.principle ? h('span', { class: 'muted' }, ` · ${m.e.principle.title}`) : null);
     })));
 }
 
@@ -162,7 +162,7 @@ function lessons(g: Game): HTMLElement {
     if (!r || r.bestSide - r.gotSide <= 0) return;
     const best = r.values.filter(v => v.side === r.bestSide).map(v => cardName(v.card));
     items.push(h('li', null, suitText(t.lessonCard(e.trick + 1, cardName(e.card), r.bestSide - r.gotSide, best.slice(0, 3).join(', '))),
-      e.advice && e.advice.samples > 0 && e.advice.equal.includes(e.card) ? h('span', { class: 'muted' }, t.bestOnInfo) : e.principle ? h('span', { class: 'muted' }, `${e.principle.title}.`) : null));
+      e.advice && e.advice.samples > 0 && e.advice.equal.includes(e.card) ? h('span', { class: 'muted' }, t.bestOnInfo) : e.principle ? h('span', { class: 'muted' }, `· ${e.principle.title}`) : null));
   });
   if (rv.contract && rv.par && rv.table) {
     const c = rv.contract;

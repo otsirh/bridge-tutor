@@ -11,23 +11,13 @@
 // such as `T.ui`) into module-level constants.
 //
 // Adding a language: copy src/i18n/en to src/i18n/<id>, translate it, add the
-// id to `Lang` and `LANGUAGES`, register it in CATALOGUES, and add lesson
-// content in src/learn/content/<id> (English lessons are used until then).
+// id to `Lang` and `LANGUAGES`, register it in LOADERS, and add lesson
+// content in src/learn/content/<id> (registered in src/learn/lessons.ts;
+// English lessons are used until then).
 
 import { SEAT_NAMES, SEAT_LETTERS, SUIT_NAMES, SUIT_NAME_SINGULAR, STRAIN_SYMBOLS, STRAIN_NAMES, setCardLongName } from '../core/cards';
 import { CALL_WORDS } from '../core/auction';
 import { en, type Text } from './en';
-import { bg } from './bg';
-import { de } from './de';
-import { es } from './es';
-import { fr } from './fr';
-import { it } from './it';
-import { nl } from './nl';
-import { pl } from './pl';
-import { pt } from './pt';
-import { ru } from './ru';
-import { ja } from './ja';
-import { zh } from './zh';
 
 export type { Text };
 export type Lang = 'en' | 'bg' | 'de' | 'es' | 'fr' | 'it' | 'nl' | 'pl' | 'pt' | 'ru' | 'ja' | 'zh';
@@ -53,7 +43,46 @@ export const LANGUAGES: LanguageInfo[] = [
   { id: 'zh', name: '中文', locale: 'zh-CN' },
 ];
 
-const CATALOGUES: Record<Lang, Text> = { en, bg, de, es, fr, it, nl, pl, pt, ru, ja, zh };
+/**
+ * Every language but English is loaded on demand (each is its own chunk), so a
+ * visitor downloads only the language they use. English is always present: it
+ * is the fallback and defines the shape.
+ */
+const LOADERS: Record<Exclude<Lang, 'en'>, () => Promise<Text>> = {
+  bg: () => import('./bg').then(m => m.bg),
+  de: () => import('./de').then(m => m.de),
+  es: () => import('./es').then(m => m.es),
+  fr: () => import('./fr').then(m => m.fr),
+  it: () => import('./it').then(m => m.it),
+  nl: () => import('./nl').then(m => m.nl),
+  pl: () => import('./pl').then(m => m.pl),
+  pt: () => import('./pt').then(m => m.pt),
+  ru: () => import('./ru').then(m => m.ru),
+  ja: () => import('./ja').then(m => m.ja),
+  zh: () => import('./zh').then(m => m.zh),
+};
+const CATALOGUES: Partial<Record<Lang, Text>> = { en };
+
+/** Per-language data kept elsewhere (the lessons), loaded together with the catalogue. */
+export interface LanguageData {
+  has(l: Lang): boolean;
+  load(l: Lang): Promise<void>;
+}
+const extras: LanguageData[] = [];
+export function addLanguageData(d: LanguageData) {
+  extras.push(d);
+}
+
+export function isLoaded(l: Lang): boolean {
+  return !!CATALOGUES[l] && extras.every(d => d.has(l));
+}
+
+/** Load a language's catalogue and data (does nothing if they are already there). */
+export async function loadLang(l: Lang): Promise<void> {
+  const jobs: Promise<unknown>[] = extras.filter(d => !d.has(l)).map(d => d.load(l));
+  if (!CATALOGUES[l] && l !== 'en') jobs.push(LOADERS[l]().then(t => (CATALOGUES[l] = t)));
+  await Promise.all(jobs);
+}
 const KEY = 'bridge-tutor.lang.v1';
 
 /** The active catalogue. */
@@ -74,8 +103,20 @@ export function isLang(x: unknown): x is Lang {
   return LANGUAGES.some(l => l.id === x);
 }
 
-export function setLang(l: Lang) {
+let wanted: Lang = 'en';
+
+/**
+ * Switch language. A language that is already loaded switches at once (before
+ * this returns); another is fetched first, and the switch happens when it
+ * arrives unless a newer choice came in meanwhile.
+ */
+export async function setLang(l: Lang): Promise<void> {
+  wanted = l;
   if (l === current) return;
+  if (!isLoaded(l)) {
+    await loadLang(l);
+    if (wanted !== l) return;
+  }
   apply(l);
   try {
     localStorage.setItem(KEY, l);
@@ -96,7 +137,7 @@ function replace(target: string[], values: readonly string[]) {
 
 function apply(l: Lang) {
   current = l;
-  const cat = CATALOGUES[l];
+  const cat = CATALOGUES[l] ?? en;
   for (const k of Object.keys(cat) as (keyof Text)[]) (T as Record<keyof Text, unknown>)[k] = cat[k];
   const c = cat.core;
   replace(SEAT_NAMES, c.seats);
@@ -128,7 +169,20 @@ function detect(): Lang {
   return 'en';
 }
 
-apply(detect());
+apply('en');
+
+/** Start in the saved (or browser) language; call once, before the first render. Falls back to English. */
+export async function initLang(): Promise<void> {
+  const l = detect();
+  if (l === 'en') return;
+  try {
+    await loadLang(l);
+    wanted = l;
+    apply(l);
+  } catch {
+    /* couldn't load it (offline, first visit): stay in English */
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Formatting in the active locale

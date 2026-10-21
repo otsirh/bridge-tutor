@@ -1,9 +1,12 @@
-// Offline support. The whole app is one HTML file: serve it network-first (a
-// new deploy is picked up whenever you're online) and fall back to the cached
-// copy offline. Icons and the Google fonts are cached as they are used.
+// Offline support. The page is served network-first (a new deploy is picked
+// up whenever you're online) with the cached copy as the fallback; the app's
+// own code is cached at install, and other languages, icons and the Google
+// fonts are cached as they are used. The build (vite.config.ts) fills in the
+// file list and a version, so each deploy gets a fresh cache.
 
-const CACHE = 'bridge-tutor-v1';
-const CORE = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
+const CACHE = 'bridge-tutor-dev';
+const PRECACHE = [/* filled in by the build */];
+const CORE = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', ...PRECACHE];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
