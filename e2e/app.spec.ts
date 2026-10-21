@@ -1,6 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import { encodeBoard } from '../src/core/share';
-import { dealCards, mulberry32 } from '../src/core/cards';
+import { dealCards, mulberry32, rankLabel, rankOf, suitOf, SUIT_SYMBOLS } from '../src/core/cards';
+import { bid, PASS } from '../src/core/auction';
+import { encodeDeal } from '../src/game/journal';
 
 /** Quick settings so a whole hand plays in seconds. */
 const FAST = { speed: 'fast', strength: 'quick', autoHint: false, coach: false, tutor: true, dealMode: 'declare' };
@@ -71,7 +73,7 @@ test('switches language in the middle of a hand', async ({ page }) => {
 test('training room tabs and importing a shared deal', async ({ page }) => {
   const errors = await open(page);
   await page.locator('header button', { hasText: 'Training' }).click();
-  for (const tab of ['Review', 'Skills', 'Topics', 'History', 'Today']) {
+  for (const tab of ['Review', 'Problems', 'Skills', 'Topics', 'History', 'Today']) {
     await page.locator('.modal .tab', { hasText: tab }).first().click();
     await expect(page.locator('.modal .body')).toBeVisible();
   }
@@ -86,6 +88,46 @@ test('training room tabs and importing a shared deal', async ({ page }) => {
     return { board: g.board, dealer: g.dealer, vul: g.vul, south: [...g.deal[2]].sort((a, b) => a - b) };
   });
   expect(got).toEqual({ board: 9, dealer: 0, vul: 'EW', south: [...deal[2]].sort((a, b) => a - b) });
+  expect(errors).toEqual([]);
+});
+
+test('problems: solve a ready problem, a miss goes to review, then the next one is prepared', async ({ page }) => {
+  // a ready problem in the bank (generating one takes seconds): 3NT by East, South on lead
+  const deal = dealCards(mulberry32(11));
+  const stats = deal[2].map((c, i) => ({ c, t: 4 - i * 0.1, s: 0.5 - i * 0.03 }));
+  const problem = {
+    v: 1, id: 'e2e', kind: 'lead', theme: 'leads', board: 1, dealer: 0, vul: 'None', deal: encodeDeal(deal),
+    calls: [PASS, bid(1, 4), PASS, bid(3, 4), PASS, PASS, PASS], play: [], seat: 2, skill: 'play.lead', n: 48, stats, answer: [stats[0].c], created: 1,
+  };
+  await page.addInitScript(pr => {
+    if (sessionStorage.getItem('e2e-problems')) return;
+    sessionStorage.setItem('e2e-problems', '1');
+    const none = { done: 0, right: 0 };
+    localStorage.setItem('bridge-tutor.problems.v1', JSON.stringify({ v: 1, bank: [pr], score: { declarer: none, defense: none, lead: none } }));
+  }, problem);
+  const errors = await open(page);
+  await page.locator('header button', { hasText: 'Training' }).click();
+  await page.locator('.modal .step button', { hasText: 'Solve problems' }).click();
+  const prob = page.locator('.problem');
+  await expect(prob.locator('.prompt')).toContainText('East is declarer in 3NT');
+  await expect(prob.locator('.prompt')).toContainText('Which card do you lead?');
+  await expect(prob.locator('.hand .card.playable')).toHaveCount(13);
+  // a wrong card: the reveal, every card's results, the review item
+  const label = (c: number) => `${rankLabel(rankOf(c))}${SUIT_SYMBOLS[suitOf(c)]}`;
+  await prob.locator(`.hand .card.playable[aria-label="${label(stats[1].c)}"]`).click();
+  await expect(prob.locator('.box.warnbox')).toContainText('Not this time');
+  await expect(prob.locator('.pstats tbody tr')).toHaveCount(13);
+  await expect(prob.locator('.pstats tr.mine')).toHaveCount(1);
+  await expect(page.locator('.pscore')).toContainText('This session: 0/1 right');
+  const review = await page.evaluate(() => JSON.parse(localStorage.getItem('bridge-tutor.review.v1') || '[]').filter((i: { source?: string }) => i.source === 'problem').length);
+  expect(review).toBe(1);
+  await page.locator('.pbtns button', { hasText: 'Show the whole deal' }).click();
+  await expect(page.locator('.pdeal')).toBeVisible();
+  // the bank is empty now: the next problem is being prepared
+  await page.locator('.pbtns button', { hasText: 'Next problem' }).click();
+  await expect(page.locator('.pwait')).toContainText('Preparing a problem');
+  await page.locator('.modal .tab', { hasText: 'Review' }).first().click();
+  await expect(page.locator('.modal .body')).toContainText('from a problem');
   expect(errors).toEqual([]);
 });
 
