@@ -1,6 +1,6 @@
 // Web worker running the double-dummy solver.
 
-import { DDSolver, ddTable, type DDPosition } from './dds';
+import { type DDSolver, ddTable, type DDPosition } from './dds';
 import type { Card } from '../core/cards';
 
 export type DDRequest =
