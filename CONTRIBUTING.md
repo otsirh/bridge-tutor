@@ -17,7 +17,8 @@ npm run dev          # http://localhost:5173
 | `npx tsc --noEmit` | type-check |
 | `npm run lint` | Biome (lint rules in `biome.json`) |
 | `npm test` | unit tests (Vitest) |
-| `npm run build` | single-file production build in `dist/` |
+| `npm run build` | production build of the website in `dist/` (each language is its own chunk, loaded when chosen) |
+| `npm run build:single` | one self-contained `dist-single/index.html` |
 | `npm run test:e2e` | plays the built app in a real browser (Playwright; run `npm run build` first) |
 
 For the browser tests, `npx playwright install chromium` downloads a browser once; or point
