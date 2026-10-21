@@ -1024,7 +1024,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Die Regel „mit acht immer, mit neun nie“ betrifft die Dame. Fehlt Ihnen der König, schneiden Sie auch mit neun oder zehn Karten; erst mit elf Karten ist das Spiel auf Fall etwas besser (52%).</div>
 `,
     keyPoints: [
-      'Spielen Sie in Richtung der Karte, die gewinnen soll; ein einfacher Schnitt ist eine 50-%-Chance.',
+      'Spielen Sie in Richtung der Karte, die gewinnen soll; ein einfacher Schnitt ist eine 50%-Chance.',
       'Spielen Sie für einen Schnitt nur dann eine Figur aus, wenn Sie die Karten direkt darunter halten.',
       'Ein Doppelschnitt (A Q 10, A J 10) bringt in 75% der Fälle mindestens einen zusätzlichen Stich.',
       'Fehlt die Dame: mit acht Karten schneiden, mit neun auf Fall spielen („mit acht immer, mit neun nie“).',
