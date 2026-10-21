@@ -46,7 +46,7 @@ export function readPlay(tricks: readonly Trick[], strain: number, viewer: Seat,
   const X = T.tutor.signals;
   const out: Reading[] = [];
   const first = tricks[0];
-  if (first && first.cards.length) {
+  if (first?.cards.length) {
     const lead = first.cards[0];
     const leader = first.leader;
     const title = leader === viewer ? X.leadBy.you(lead) : leader === partnerOf(viewer) ? X.leadBy.partner(lead) : X.leadBy.seat(leader, lead);

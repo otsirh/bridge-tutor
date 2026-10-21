@@ -50,7 +50,7 @@ function bidAdviceBox(a: BidAdvice): HTMLElement {
 
 function cardAdviceBox(g: Game): HTMLElement | null {
   const hint = g.hint;
-  if (!hint || hint.kind !== 'card') return null;
+  if (hint?.kind !== 'card') return null;
   const t = T.ui.panel;
   const parts: (HTMLElement | null)[] = [];
   if (hint.lead) {
@@ -116,7 +116,7 @@ function planBox(g: Game): HTMLElement | null {
 
 function countingBox(g: Game): HTMLElement | null {
   const p = g.play;
-  if (!p || !p.openingLeadMade) return null;
+  if (!p?.openingLeadMade) return null;
   const me: Seat = g.declarerSide === 0 ? p.contract.declarer : S;
   const lines: HTMLElement[] = [];
   const known = new Set<Seat>([S]);

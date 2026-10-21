@@ -505,7 +505,7 @@ export class Game {
       this.play = null;
       this.phase = 'bidding';
     }
-    if (this.play && this.play.openingLeadMade && !this.plan) {
+    if (this.play?.openingLeadMade && !this.plan) {
       const first = this.play.tricks[0].cards[0];
       this.plan = makePlan(this.deal[this.play.contract.declarer], this.deal[this.play.dummy], this.play.contract, [first]);
     }
@@ -843,7 +843,7 @@ export class Game {
       this.relocalizeCards(snap.cardLog, new Auction(this.dealer, snap.calls).contract(), seen);
     }
     const p = this.play;
-    if (this.plan && p && p.openingLeadMade) {
+    if (this.plan && p?.openingLeadMade) {
       this.plan = makePlan(this.deal[p.contract.declarer], this.deal[p.dummy], p.contract, [p.tricks[0].cards[0]]);
     }
     // the hint is shown only on your turn, and belongs to the position on the table

@@ -30,9 +30,9 @@ function seatTitle(g: Game, seat: Seat): string {
 function recommendedCard(g: Game): Card | null {
   if (!g.settings.tutor || !(g.settings.autoHint || g.hintRevealed)) return null;
   const hint = g.hint;
-  if (!hint || hint.kind !== 'card') return null;
+  if (hint?.kind !== 'card') return null;
   if (hint.decision && hint.decision.samples > 0) return hint.decision.card;
-  if (hint.lead && hint.lead.length && !hint.decision) return hint.lead[0].card;
+  if (hint.lead?.length && !hint.decision) return hint.lead[0].card;
   return null;
 }
 

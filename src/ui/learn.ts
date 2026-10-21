@@ -178,7 +178,7 @@ function bidAll(deal: Card[][], dealer: Seat, vul: ReturnType<typeof boardVulner
   const a = new Auction(dealer);
   while (!a.isComplete()) {
     const adv = advise(deal[a.nextSeat], readAuction(a, vul).ctx);
-    if (stopAt && stopAt(a, adv)) return a;
+    if (stopAt?.(a, adv)) return a;
     a.push(adv.call);
   }
   return a;

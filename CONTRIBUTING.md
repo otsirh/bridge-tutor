@@ -5,7 +5,7 @@ pass, and the few rules that keep the app trustworthy as a teacher.
 
 ## Setup
 
-Node 22 or later (see `.node-version`).
+Node 24, the current LTS (see `.node-version`).
 
 ```sh
 npm install
@@ -15,7 +15,7 @@ npm run dev          # http://localhost:5173
 | Command | What it does |
 |---|---|
 | `npx tsc --noEmit` | type-check |
-| `npm run lint` | ESLint |
+| `npm run lint` | Biome (lint rules in `biome.json`) |
 | `npm test` | unit tests (Vitest) |
 | `npm run build` | single-file production build in `dist/` |
 | `npm run test:e2e` | plays the built app in a real browser (Playwright; run `npm run build` first) |

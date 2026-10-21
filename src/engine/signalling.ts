@@ -196,7 +196,7 @@ export function chooseSignal(equal: readonly Card[], hand: readonly Card[], m: M
     let encourage: Signal | null = null, discourage: Signal | null = null;
     for (let s = 0; s < 4; s++) {
       const op = opportunity(m, s);
-      if (!op || op.kind !== 'discard') continue;
+      if (op?.kind !== 'discard') continue;
       const all = signalCards(hand, op, m.trump);
       const eq = all.filter(c => equal.includes(c));
       if (!eq.length) continue;
