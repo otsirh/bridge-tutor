@@ -4,11 +4,27 @@
 // Suits take the plural ("в купи") wherever English uses the singular.
 
 import type { Text } from '../en';
-import { type Card, SUIT_SYMBOLS, cardName, rankLabel, suitOf } from '../../core/cards';
+import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf, suitOf } from '../../core/cards';
+import type { Height, Look } from '../../engine/signalling';
 import { core } from './core';
 
 /** Извод към фигурите в другата ръка. */
 const TOWARD = { aq: 'A-Q', king: 'попа', queen: 'дамата', honours: 'фигурите' };
+const HONOUR: Record<number, string> = { 14: 'асо', 13: 'поп', 12: 'дама' };
+/** "2 или 4", "1, 3 или 5" (трите най-къси). */
+const orList = (ns: number[]) => {
+  const xs = ns.slice(0, 3);
+  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} или ${xs[xs.length - 1]}` : String(xs[0]);
+};
+/** Как изглежда картата на сигнала от другата страна на масата. */
+const looks = (card: Card, l: Look) =>
+  l.echo !== null
+    ? `${l.height === 'high' ? 'Висока-ниска' : 'Ниска-висока'} (${cardName(card)}, после ${cardName(l.echo)})`
+    : l.sure && rankOf(card) === 2
+      ? `${cardName(card)} винаги е ниска`
+      : l.sure
+        ? `${cardName(card)} е ${l.height === 'high' ? 'висока' : 'ниска'} (всички ${l.height === 'high' ? 'по-високи' : 'по-ниски'} малки карти са известни)`
+        : `${cardName(card)} изглежда ${l.height === 'high' ? 'висока' : 'ниска'} (някои ${l.height === 'high' ? 'по-ниски' : 'по-високи'} малки карти още не са се появили)`;
 
 export const tutor: Text['tutor'] = {
   // -------------------------------------------------------------------------
@@ -75,14 +91,56 @@ export const tutor: Text['tutor'] = {
       declarer: 'Цакането в ръката с по-малко козове печели взятка; цакането в дългата козова ръка само харчи коз, който и без това ще вземе.',
       defender: 'Нямате от изведения цвят, така че цакането взема взятката.',
     },
-    discardEncouraging: {
-      title: 'Изхвърляне (насърчаващо)',
-      text: 'Високото изхвърляне казва на партньора, че харесвате този цвят (стандартен сигнал за отношение).',
-    },
     discard: {
       title: 'Изхвърляне',
       defender: 'Изхвърлете от ненужен цвят и пазете дължината там, където трябва да спрете дългите карти на разиграващия или на мъртвака.',
       declarer: 'Изхвърлете губеща карта от цвят, който не може да вземе взятки, и запазете картите, които още може да потрябват.',
+    },
+
+    // defenders' signals
+    countSignal: {
+      title: 'Сигнал за брой',
+      text: (n: number, suit: number, card: Card, best: Card, right: boolean) =>
+        !right
+          ? `Разиграващият играе този цвят и партньорът очаква сигнал за брой: с ${n} ${core.suits[suit]} (${n % 2 ? 'нечетен' : 'четен'} брой) стандартната карта е ${cardName(best)}${n % 2 ? '' : ', после по-ниска (висока-ниска)'}. ${cardName(card)} би показала ${n % 2 ? 'четен' : 'нечетен'} брой.`
+          : n % 2
+            ? `Разиграващият играе този цвят, затова покажете броя си: с ${n} ${core.suits[suit]} (нечетен брой) играйте най-ниската си карта — ${cardName(card)}. Така партньорът ще разбере колко карти има разиграващият и кога да вземе с асото.`
+            : `Разиграващият играе този цвят, затова покажете броя си: с ${n} ${core.suits[suit]} (четен брой) играйте висока-ниска — ${cardName(card)} сега, по-ниска карта следващия път. Така партньорът ще разбере колко карти има разиграващият и кога да вземе с асото.`,
+    },
+    attitudeSignal: {
+      title: 'Сигнал за отношение',
+      text: (reason: 'honour' | 'ruff' | null, honour: number, card: Card, best: Card, right: boolean) =>
+        !right
+          ? `Партньорът изведе този цвят и очаква сигнал за отношение: ${reason ? 'харесвате' : 'не харесвате'} цвета, затова стандартната карта е ${cardName(best)}. ${cardName(card)} казва обратното.`
+          : reason === 'honour'
+            ? `Партньорът изведе този цвят: дайте сигнал за отношение. Имате ${HONOUR[honour]} в цвета, затова насърчете с най-високата малка карта, която можете да си позволите — ${cardName(card)}, и партньорът ще продължи.`
+            : reason === 'ruff'
+              ? `Партньорът изведе този цвят: дайте сигнал за отношение. С дублетон започнете с по-високата карта (${cardName(card)}): висока-ниска моли партньора да продължи, а вие ще цакате третия кръг.`
+              : `Партньорът изведе този цвят: дайте сигнал за отношение. Нямате нищо ценно в цвета, затова обезкуражете с най-ниската си карта — ${cardName(card)}; партньорът ще потърси смяна.`,
+    },
+    discardSignal: {
+      title: 'Изхвърляне (сигнал за отношение)',
+      text: (want: boolean, clear: boolean, suit: number, card: Card, best: Card, right: boolean) =>
+        want && !clear
+          ? `Бихте искали извод в ${core.suits[suit]}, но нямате достатъчно висока карта в цвета, която да можете да си позволите, за да насърчите; изхвърлете ниска карта от цвят, който не искате.`
+          : want
+            ? right
+              ? `Високото изхвърляне насърчава: ${cardName(card)} моли партньора да изведе ${core.suits[suit]}, където имате сила.`
+              : `Бихте искали извод в ${core.suits[suit]}, но ${cardName(card)} е най-ниската ви карта там и обезкуражава; висока карта (${cardName(best)}) би насърчила — или изхвърлете ниска карта от цвят, който не искате.`
+            : right
+              ? `Ниското изхвърляне обезкуражава: ${cardName(card)} казва на партньора да не извежда ${core.suits[suit]}.`
+              : `Високото изхвърляне моли партньора за извод в ${core.suits[suit]}, а вие не го искате; изхвърлете най-ниската си карта там (${cardName(best)}).`,
+    },
+    preferenceSignal: {
+      title: 'Сигнал за предпочитание',
+      text: (want: Height, sides: number[], card: Card, best: Card, right: boolean) =>
+        !right
+          ? want === 'middle'
+            ? `Партньорът ще цака и ще прочете картата ви като сигнал за предпочитание; без предпочитание изведете средна карта, например ${cardName(best)}.`
+            : `Партньорът ще цака и ще прочете картата ви като сигнал за предпочитание: искате връщане в ${core.suits[want === 'high' ? sides[1] : sides[0]]}, затова изведете ${cardName(best)}.`
+          : want === 'middle'
+            ? 'Партньорът ще цака, а картата ви казва и какво да върне: без предпочитание изведете средна карта — нито висока, нито ниска.'
+            : `Партньорът ще цака, а картата ви казва и какво да върне: ${want === 'high' ? 'висока' : 'ниска'} карта иска връщане в ${core.suits[want === 'high' ? sides[1] : sides[0]]} (${want === 'high' ? 'по-старшия' : 'по-младшия'} от другите два странични цвята), където имате асо.`,
     },
 
     // second hand
@@ -230,15 +288,41 @@ export const tutor: Text['tutor'] = {
       text: (rank: number, above: number, seen: number, declarer: number) =>
         `Правило на 11: 11 − ${rankLabel(rank)} = ${above} карти над ${rankLabel(rank)} в другите три ръце. Виждате ${seen} от тях (в мъртвака и във вашата ръка), значи разиграващият има ${declarer}.`,
     },
-    partnerDiscard: {
-      title: (card: Card) => `Партньорът изхвърли ${cardName(card)}`,
-      high: (suit: number) => `Високото изхвърляне насърчава: партньорът харесва ${core.suits[suit]} (стандартен сигнал за отношение).`,
-      low: (suit: number) => `Ниското изхвърляне казва, че партньорът не иска извод в ${core.suits[suit]}.`,
+    read: {
+      count: {
+        title: (who: number | null, card: Card) => `${cardName(card)} на ${who === null ? 'партньора' : core.seats[who]}: сигнал за брой`,
+        text: (card: Card, look: Look, suit: number, lengths: number[], declarer: boolean) =>
+          look.height === null
+            ? `${cardName(card)} може да е и висока, и ниска: изчакайте следващата карта в този цвят, за да разчетете броя.`
+            : `${looks(card, look)}: ${look.sure ? '' : 'вероятно '}${look.height === 'high' ? 'четен' : 'нечетен'} брой ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Защитниците понякога играят фалшиви карти, затова приемете това като подсказка.' : ''}`,
+      },
+      attitude: {
+        title: (card: Card) => `Партньорът изигра ${cardName(card)} на вашия извод: сигнал за отношение`,
+        text: (card: Card, look: Look) =>
+          look.height === null
+            ? `${cardName(card)} може да е и висока, и ниска: още не е ясно дали партньорът харесва цвета.`
+            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'партньорът харесва цвета — продължете го.' : 'партньорът вероятно харесва цвета.') : `партньорът ${look.sure ? '' : 'вероятно '}не харесва цвета — помислете за смяна.`}`,
+      },
+      discard: {
+        title: (card: Card) => `Партньорът изхвърли ${cardName(card)}`,
+        text: (card: Card, look: Look, suit: number) =>
+          look.height === null
+            ? `${cardName(card)} може да е и висока, и ниска: още не е ясно дали партньорът иска извод в ${core.suits[suit]}.`
+            : `${looks(card, look)}: партньорът ${look.sure ? '' : 'вероятно '}${look.height === 'high' ? 'иска' : 'не иска'} извод в ${core.suits[suit]}.`,
+      },
+      preference: {
+        title: (card: Card) => `Партньорът извежда ${cardName(card)} за ваше цакане: сигнал за предпочитание`,
+        text: (card: Card, look: Look, sides: number[]) =>
+          look.height === null
+            ? `${cardName(card)} не е нито ясно висока, нито ясно ниска: партньорът може да няма предпочитание — върнете цвета, който е най-добър за вас.`
+            : `${looks(card, look)}: партньорът ${look.sure ? '' : 'вероятно '}иска връщане в ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} — ${look.height === 'high' ? 'по-старшия' : 'по-младшия'} от другите два странични цвята.`,
+      },
     },
-    onYourLead: {
-      title: (card: Card) => `Партньорът изигра ${cardName(card)} на вашия извод`,
-      high: 'Висока карта насърчава: продължете в цвета.',
-      low: 'Ниска карта обезкуражава: помислете за смяна на цвета.',
+    badge: {
+      count: (even: boolean) => `Брой: ${even ? 'четен' : 'нечетен'}`,
+      attitude: (encourage: boolean) => `Отношение: ${encourage ? 'насърчава' : 'обезкуражава'}`,
+      discard: (encourage: boolean, suit: number) => `Изхвърляне: ${encourage ? 'насърчава' : 'обезкуражава'} ${SUIT_SYMBOLS[suit]}`,
+      preference: (suit: number | null) => `Предпочитание: ${suit === null ? 'няма' : SUIT_SYMBOLS[suit]}`,
     },
   },
 
