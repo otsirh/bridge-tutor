@@ -145,9 +145,15 @@ export async function decideCard(k: PlayKnowledge, opts: DecideOptions = {}): Pr
 
   await new Promise<void>(resolve => {
     let finished = false;
+    // past the time budget, stop once minSamples are in; past the hard deadline, stop regardless
+    // (a stuck position must never hold up a bot's card)
+    // (timers longer than 2^31 − 1 ms fire at once, so a practically unlimited budget gets no deadline)
+    const limit = Math.max(3 * timeMs, timeMs + 5000);
+    const deadline = limit < 2 ** 31 - 1 ? setTimeout(() => finish(), limit) : undefined;
     const finish = () => {
       if (finished) return;
       finished = true;
+      clearTimeout(deadline);
       pool.cancelGroup(group);
       resolve();
     };
