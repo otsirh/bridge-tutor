@@ -122,7 +122,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Opposite a splinter, opener counts only the high cards that work. Honours facing partner's singleton are mostly wasted: a king or queen there will never take a trick, because partner ruffs the suit. Only the ace still counts. With no wasted values and about 16 or more working points, opener looks for slam; otherwise opener signs off in four of the major.</p>
 <div class="deal" data-n="S:Q8763 H:AKJ98 D:43 C:A" data-s="S:AJ92 H:7 D:A1082 C:J1072"></div>
 <div class="auction" data-calls="1S P 4H P 4S P P P" data-dealer="N"></div>
-<p>North has 14 HCP, but the ♥K and ♥J face South's singleton. Without them North has about 11 working points, so North signs off. Eleven tricks are there, twelve are not.</p>
+<p>North has 14 HCP, but the ♥K and ♥J face South's singleton. Without them North has about 10 working points, so North signs off. Eleven tricks are there, twelve are not.</p>
 <div class="deal" data-n="S:AK875 H:KQ1076 D:K10 C:8" data-s="S:Q932 H:AJ9853 D:A96 C:-"></div>
 <div class="auction" data-calls="1S P 4C P 4D P 4H P 4NT P 5S P 6S P P P" data-dealer="N"></div>
 <p>Here North has nothing in clubs, so all 15 HCP are working, and the hearts fit well. North cue bids 4♦, showing a diamond control and slam interest. South cooperates with 4♥ (the ♥A), and North asks for key cards. South's 5♠ shows two key cards and the trump queen, and North bids 6♠.</p>
@@ -163,7 +163,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'You opened 1♠ with ♠AK1063 ♥KQ5 ♦Q84 ♣K7 and partner splintered with 4♥. What do you do?',
         options: ['Bid 4♠: your ♥K and ♥Q are wasted', 'Bid 4NT', 'Cue bid 5♣', 'Bid 6♠'],
         answer: 0,
-        explain: 'Five of your 17 HCP face partner\'s heart shortness and will not take tricks. With about 13 working points, sign off.',
+        explain: 'Five of your 17 HCP face partner\'s heart shortness and will not take tricks. With about 12 working points, sign off.',
       },
       {
         q: 'Who may use Reverse Drury?',
@@ -204,7 +204,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Responder then places the contract: game with 13 or more (or opposite a maximum), an invitation with 11-12 opposite a minimum, and notrump without a fit.</p>
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
-<p>South has 13 HCP and five spades. 2♣ asks; North's 2♠ shows three-card support, and South bids the spade game, where the ruffing value makes eleven tricks.</p>
+<p>South has 14 HCP and five spades. 2♣ asks; North's 2♠ shows three-card support, and South bids the spade game, where the ruffing value makes eleven tricks.</p>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>With 11 HCP and five hearts (♠5 ♥AQJ62 ♦A32 ♣9743), South asks with 2♣ and, opposite a minimum with three hearts, invites with 3♥. North has a minimum and passes.</p>
 
@@ -258,7 +258,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'After 1♦ – 1♠ – 1NT, which hand should use new minor forcing?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Five spades and 12 HCP: ask for three-card support. The first hand is too weak, the third should rebid 2♠, and the last, with four spades and 13 HCP, bids 3NT.',
+        explain: 'Five spades and 12 HCP: ask for three-card support. The first hand is too weak, the third should rebid 2♠, and the last, with four spades and 12 HCP, bids 3NT.',
       },
     ],
   },

@@ -14,6 +14,12 @@ import { renderTraining, trainingSignature, dueCount, type TrainingActions } fro
 import { getBoard, decodeDeal } from '../game/journal';
 import { importBoards } from '../core/importer';
 import { PbnError } from '../core/pbn';
+import { CONVENTIONS, DEFAULT_SYSTEM, type ConventionId } from '../bidding/config';
+
+/** Whether a convention is on in these settings (unset = its default). */
+function getSystemSetting(s: Settings, id: ConventionId): boolean {
+  return s.conventions?.[id] ?? DEFAULT_SYSTEM[id];
+}
 
 export interface UIState {
   selectedCall: number | null;
@@ -275,6 +281,15 @@ export function mountApp(root: HTMLElement) {
         row(t.speed.title, t.speed.desc, select('speed', s.speed, options(['slow', 'normal', 'fast'], t.speeds), v => setSetting('speed', v))),
         row(t.theme.title, t.theme.desc, select('theme', theme, options(['system', 'light', 'dark'], t.themes), v => { theme = v; applyTheme(v); })),
         h('div', { class: 'small muted' }, t.systemNote),
+        h('h3', { style: 'margin:8px 0 0' }, t.conventionsTitle),
+        h('div', { class: 'small muted' }, t.conventionsNote),
+        CONVENTIONS.map(c => {
+          const on = getSystemSetting(s, c.id);
+          const tx = T.bidding.conventions[c.id];
+          return row(tx.name, tx.desc, h('div', { style: 'display:flex;gap:8px;align-items:center' },
+            c.lesson ? h('button', { class: 'btn small ghost', type: 'button', onclick: () => training.openLesson(c.lesson!) }, t.lessonLink) : null,
+            toggle('', on, v => { setSetting('conventions', { ...s.conventions, [c.id]: v }); render(true); })));
+        }),
       )));
   }
 
