@@ -76,6 +76,15 @@ describe('the acceptance rule', () => {
     if (lead.ok) expect(lead.answer.sort()).toEqual([C('HA'), C('HK'), C('H4')].sort());
   });
 
+  it('opening leads: the right suit is the answer, a card of it that is not clearly worse counts as right', () => {
+    const stats = [st('H7', 3.87, 0.43), st('H6', 3.87, 0.43), st('H4', 3.87, 0.43), st('HK', 3.57, 0.35), st('C2', 3.33, 0.28), st('D3', 3.22, 0.26), st('D2', 3.22, 0.26), st('S9', 2.5, 0.2), st('SK', 2.59, 0.22), st('DQ', 2.8, 0.2), st('C9', 3.3, 0.28), st('S5', 2.5, 0.2)];
+    const v = acceptProblem(dec(stats), LEAD_RULES);
+    expect(v.ok).toBe(true);
+    if (v.ok) expect(v.answer.sort()).toEqual([C('H7'), C('H6'), C('H4'), C('HK')].sort());
+    // without the suit rule the king is in no man's land
+    expect(acceptProblem(dec(stats), { ...LEAD_RULES, suitIsAnswer: false }).ok).toBe(false);
+  });
+
   it('defence uses a lower bar than declarer play', () => {
     const d = dec([st('C10', 3.56, 0.62), st('C6', 3.13, 0.46), st('CQ', 2.46, 0.29)]);
     expect(acceptProblem(d, DEFAULT_RULES).ok).toBe(false);

@@ -83,17 +83,19 @@ export interface AcceptRules {
    */
   nearSuccess: number;
   nearTricks: number;
+  /** Opening leads: cards of the best card's suit that are not clearly worse are right too (the question is the suit). */
+  suitIsAnswer: boolean;
   /** The right cards may be at most this share of the legal cards ("anything but the king" is no problem). */
   maxShare: number;
 }
 
-export const DEFAULT_RULES: AcceptRules = { minSamples: 32, successGap: 0.2, trickGap: 0.7, blunderSuccess: 0.7, blunderTricks: 1.6, nearSuccess: 0, nearTricks: 0, maxShare: 0.6 };
+export const DEFAULT_RULES: AcceptRules = { minSamples: 32, successGap: 0.2, trickGap: 0.7, blunderSuccess: 0.7, blunderTricks: 1.6, nearSuccess: 0, nearTricks: 0, suitIsAnswer: false, maxShare: 0.6 };
 /**
  * Opening leads: the differences between suits are smaller (three hands are
  * hidden), so the answer is the good lead — usually one suit — and every
  * card practically as good as the best counts as right.
  */
-export const LEAD_RULES: AcceptRules = { minSamples: 32, successGap: 0.1, trickGap: 0.4, blunderSuccess: 0.7, blunderTricks: 1.6, nearSuccess: 0.05, nearTricks: 0.3, maxShare: 0.4 };
+export const LEAD_RULES: AcceptRules = { minSamples: 32, successGap: 0.1, trickGap: 0.4, blunderSuccess: 0.7, blunderTricks: 1.6, nearSuccess: 0.05, nearTricks: 0.3, suitIsAnswer: true, maxShare: 0.4 };
 
 /** Defence: the defenders' choices change the result less often, by smaller margins. */
 export const DEFENCE_RULES: AcceptRules = { ...DEFAULT_RULES, successGap: 0.15, trickGap: 0.6 };
@@ -124,13 +126,16 @@ export function acceptProblem(d: Pick<Decision, 'stats' | 'samples'>, rules: Acc
   if (d.samples < rules.minSamples) return { ok: false, reason: 'samples' };
   const ranked = rankStats(d.stats);
   const best = ranked[0];
-  const near = (s: CardStat) => same(s, best) || (Math.abs(best.success - s.success) <= rules.nearSuccess + EPS && Math.abs(best.tricks - s.tricks) <= rules.nearTricks + EPS && (rules.nearSuccess > 0 || rules.nearTricks > 0));
-  const answer = ranked.filter(near);
-  const others = ranked.filter(s => !near(s));
+  const clear = (o: CardStat) => best.success - o.success >= rules.successGap - EPS || best.tricks - o.tricks >= rules.trickGap - EPS;
+  const right = (s: CardStat) =>
+    same(s, best)
+    || ((rules.nearSuccess > 0 || rules.nearTricks > 0) && Math.abs(best.success - s.success) <= rules.nearSuccess + EPS && Math.abs(best.tricks - s.tricks) <= rules.nearTricks + EPS)
+    || (rules.suitIsAnswer && suitOf(s.card) === suitOf(best.card) && s.success <= best.success + EPS && !clear(s));
+  const answer = ranked.filter(right);
+  const others = ranked.filter(s => !right(s));
   if (!others.length) return { ok: false, reason: 'forced' };
   if (answer.length > rules.maxShare * ranked.length + EPS) return { ok: false, reason: 'many' };
   if (others.some(o => o.success > best.success + EPS)) return { ok: false, reason: 'mixed' };
-  const clear = (o: CardStat) => best.success - o.success >= rules.successGap - EPS || best.tricks - o.tricks >= rules.trickGap - EPS;
   if (!others.every(clear)) return { ok: false, reason: 'close' };
   const runnerUp = [...others].sort((a, b) => b.success - a.success || b.tricks - a.tricks)[0];
   const blunder = (o: CardStat) => best.success - o.success >= rules.blunderSuccess - EPS || best.tricks - o.tricks >= rules.blunderTricks - EPS;
@@ -474,6 +479,9 @@ export function partnerBidASuit(records: readonly CallRecord[], leader: Seat): b
   return records.some(r => r.seat === partner && isBid(r.call) && strainOf(r.call) !== NT && !r.meaning.artificial);
 }
 
+/** A full-deal solve given up on (it runs on in its worker until done). */
+let slowSolve: Promise<void> | null = null;
+
 /**
  * Cheap checks before simulating an opening lead (clear lead problems are
  * rare and their simulations slow): the leader is yours, partner has bid a
@@ -488,10 +496,22 @@ async function leadMatters(p: PlayState, records: readonly CallRecord[], priorit
   await o.pause?.();
   if (stop()) return false;
   o.onProgress?.({ kind: 'lead', stage: 'testing', trick: 1, done: 0, total: 0, tested: 0 });
+  // a solve abandoned earlier still occupies a worker: don't pile up more of them
+  if (slowSolve) {
+    await Promise.race([slowSolve, new Promise(r => setTimeout(r, 1000))]);
+    return false;
+  }
   const need = c.level + 6;
   // some full deals take the solver very long, and their layouts would too: skip them
-  const values = await Promise.race([ddCardValues(p.hands, c.strain, leader, [], priority), new Promise<null>(r => setTimeout(() => r(null), 2500))]);
-  if (!values) return false;
+  const solve = ddCardValues(p.hands, c.strain, leader, [], priority);
+  const values = await Promise.race([solve, new Promise<null>(r => setTimeout(() => r(null), 2500))]);
+  if (!values) {
+    const pending = solve.then(() => {
+      if (slowSolve === pending) slowSolve = null;
+    });
+    slowSolve = pending;
+    return false;
+  }
   const sets = values.map(v => ((c.declarer & 1) === 0 ? v.nsTricks : 13 - v.nsTricks) < need);
   return sets.some(Boolean) && !sets.every(Boolean);
 }
