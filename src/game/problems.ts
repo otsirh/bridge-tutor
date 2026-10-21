@@ -519,7 +519,7 @@ async function leadMatters(p: PlayState, records: readonly CallRecord[], priorit
 /** Does a stored problem still describe a valid position? */
 export function validProblem(pr: unknown): pr is Problem {
   const x = pr as Problem;
-  if (!x || x.v !== 1 || typeof x.deal !== 'string' || x.deal.length !== 52 || !Array.isArray(x.calls) || !Array.isArray(x.play) || !Array.isArray(x.stats) || !Array.isArray(x.answer) || !x.answer.length) return false;
+  if (x?.v !== 1 || typeof x.deal !== 'string' || x.deal.length !== 52 || !Array.isArray(x.calls) || !Array.isArray(x.play) || !Array.isArray(x.stats) || !Array.isArray(x.answer) || !x.answer.length) return false;
   if (!PROBLEM_KINDS.includes(x.kind)) return false;
   try {
     const { auction, play } = problemPosition(x);
@@ -679,7 +679,7 @@ export class ProblemFactory {
     try {
       for (;;) {
         const ctl = this.ctl;
-        if (!ctl || !ctl.active()) break;
+        if (!ctl?.active()) break;
         const kind = this.nextKind(ctl.prefer());
         if (!kind) break;
         // a deal can be rejected without waiting for anything: let the page breathe between deals
