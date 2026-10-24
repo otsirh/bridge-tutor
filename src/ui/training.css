@@ -173,3 +173,24 @@ a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items
 /* a bot defender's signal in the review */
 .tc .sig { color: var(--brass); font-weight: 700; margin-left: 1px; }
 .sigchip { background: var(--paper-2); color: var(--ink-2); border: 1px solid var(--rule); font-size: 11.5px; }
+
+/* the first visit */
+.welcome-choices { display: grid; gap: 10px; }
+.welcome-choice {
+  display: grid;
+  gap: 3px;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.welcome-choice:hover { border-color: var(--brass); background: var(--brass-soft); }
+.welcome-choice b { font-size: 16px; }
+.welcome-choice span { color: var(--ink-2); font-size: 14px; }
+
+/* the dialog itself takes focus when it opens; only its controls show a ring */
+.modal:focus { outline: none; }

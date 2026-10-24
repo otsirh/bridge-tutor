@@ -140,6 +140,19 @@ export const ui: Text['ui'] = {
     letMeThink: '让我想想',
   },
 
+  /** The first visit: where to start. */
+  welcome: {
+    title: '欢迎使用桥牌导师',
+    intro: '与三个机器人打桥牌，导师在旁解释每一个叫品和每一张牌。你想从哪里开始？',
+    newTitle: '我是桥牌新手',
+    newDesc: '从第一课开始：一副牌如何发牌、叫牌和打牌。',
+    rulesTitle: '我懂规则',
+    rulesDesc: '先让导师的建议直接显示出来，直到你熟悉为止。',
+    playTitle: '直接开打',
+    playDesc: '导师会等你提问再给建议，让你先自己思考。',
+    note: '你可以随时在设置中更改。',
+  },
+
   notes: {
     welcomeTitle: '欢迎入座',
     welcomeText:

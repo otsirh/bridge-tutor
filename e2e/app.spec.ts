@@ -18,6 +18,7 @@ async function open(page: Page, lang = 'en', settings: object = FAST) {
     sessionStorage.setItem('e2e-init', '1');
     localStorage.setItem('bridge-tutor.settings.v1', JSON.stringify(s));
     localStorage.setItem('bridge-tutor.lang.v1', l as string);
+    localStorage.setItem('bridge-tutor.welcome.v1', '1');
   }, [settings, lang] as const);
   await page.goto('/');
   await expect(page.locator('header .brand')).toBeVisible();
@@ -163,4 +164,17 @@ test('ships the files for installing and offline use', async ({ request }) => {
   }
   const manifest = await (await request.get('/manifest.webmanifest')).json();
   expect(manifest.icons.length).toBeGreaterThanOrEqual(2);
+});
+
+test('a first visit is welcomed, and a beginner is taken to the first lesson', async ({ page }) => {
+  await page.goto('/');
+  const dialog = page.getByRole('dialog', { name: 'Welcome to Bridge Tutor' });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: /new to bridge/ }).click();
+  await expect(page.getByRole('dialog', { name: 'Learn' })).toBeVisible();
+  await expect(page.locator('.lessons-list button.on')).toContainText('How bridge works');
+  await page.keyboard.press('Escape');
+  await page.reload();
+  await expect(page.locator('header .brand')).toBeVisible();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
 });

@@ -140,6 +140,19 @@ export const ui: Text['ui'] = {
     letMeThink: '考え直す',
   },
 
+  /** The first visit: where to start. */
+  welcome: {
+    title: 'ブリッジ・チューターへようこそ',
+    intro: '3体のボットを相手にブリッジをプレイ。チューターがすべてのビッドとカードを解説します。どこから始めますか？',
+    newTitle: 'ブリッジは初めて',
+    newDesc: '最初のレッスンから：ハンドの配り方、ビッド、プレイの流れ。',
+    rulesTitle: 'ルールは知っている',
+    rulesDesc: '慣れるまで、チューターの助言を最初から表示してプレイします。',
+    playTitle: 'すぐにプレイ',
+    playDesc: 'チューターは尋ねるまで待つので、まず自分で考えられます。',
+    note: '設定でいつでも変更できます。',
+  },
+
   notes: {
     welcomeTitle: 'テーブルへようこそ',
     welcomeText:

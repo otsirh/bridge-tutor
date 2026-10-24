@@ -11,7 +11,8 @@ import { renderPanel, panelSignature } from './panel';
 import { renderReview, reviewSignature } from './review';
 import { renderLearn, relocalizeDrills } from './learn';
 import { renderTraining, trainingSignature, dueCount, type TrainingActions } from './training';
-import { getBoard, decodeDeal } from '../game/journal';
+import { getBoard, decodeDeal, loadBoards } from '../game/journal';
+import { getLessons } from '../learn/lessons';
 import { importBoards } from '../core/importer';
 import { PbnError } from '../core/pbn';
 import { CONVENTIONS, DEFAULT_SYSTEM, type ConventionId } from '../bidding/config';
@@ -27,7 +28,7 @@ export interface UIState {
   /** The level chosen on the phone's bidding pad, and a counter that redraws the pad when its choice changes. */
   pickLevel: number | null;
   pickRev: number;
-  modal: null | 'review' | 'learn' | 'training' | 'archive' | 'settings' | 'help';
+  modal: null | 'review' | 'learn' | 'training' | 'archive' | 'settings' | 'help' | 'welcome';
   reviewTab: 'summary' | 'bidding' | 'play';
   reviewTrick: number | null;
   learnTab: 'lessons' | 'bid' | 'lead' | 'count' | 'glossary';
@@ -106,6 +107,25 @@ function languagePicker(onOffline: () => void): HTMLElement {
     h('span', { class: 'globe', 'aria-hidden': 'true', html: GLOBE }),
     h('select', { 'aria-label': T.ui.header.language, onchange: (e: Event) => pickLanguage((e.target as HTMLSelectElement).value, onOffline) },
       LANGUAGES.map(l => h('option', { value: l.id, lang: l.id, selected: l.id === lang() }, l.name))));
+}
+
+const WELCOME_KEY = 'bridge-tutor.welcome.v1';
+
+/** A first visit: no boards played and the welcome never answered. */
+function firstVisit(): boolean {
+  try {
+    return !localStorage.getItem(WELCOME_KEY) && loadBoards().length === 0;
+  } catch {
+    return false;
+  }
+}
+
+function welcomeSeen() {
+  try {
+    localStorage.setItem(WELCOME_KEY, '1');
+  } catch {
+    /* ignore */
+  }
 }
 
 /** The browser's offer to install the app (Chrome, Edge, Android), kept until used. */
@@ -212,6 +232,7 @@ export function mountApp(root: HTMLElement) {
       render(true);
     },
     close: () => {
+      if (ui.modal === 'welcome') welcomeSeen();
       ui.modal = null;
       due.at = 0;
       render(true);
@@ -363,6 +384,22 @@ export function mountApp(root: HTMLElement) {
       )));
   }
 
+  /** The first visit: three ways in, for a beginner, a player who knows the rules, and one who just wants to play. */
+  function renderWelcome() {
+    const w = T.ui.welcome;
+    const choice = (title: string, desc: string, onclick: () => void) =>
+      h('button', { class: 'welcome-choice', type: 'button', onclick: () => { welcomeSeen(); onclick(); } }, h('b', null, title), h('span', null, desc));
+    return h('div', { class: 'modal', role: 'dialog', 'aria-label': w.title, style: 'max-width:600px' },
+      h('div', { class: 'head' }, h('h2', null, w.title), h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => actions.close() }, '✕')),
+      h('div', { class: 'body' },
+        h('p', { style: 'margin:0 0 14px' }, w.intro),
+        h('div', { class: 'welcome-choices' },
+          choice(w.newTitle, w.newDesc, () => training.openLesson(getLessons()[0].id)),
+          choice(w.rulesTitle, w.rulesDesc, () => { game.updateSettings({ tutor: true, autoHint: true }); actions.close(); }),
+          choice(w.playTitle, w.playDesc, () => actions.close())),
+        h('p', { class: 'small muted', style: 'margin:14px 0 0' }, w.note)));
+  }
+
   /** Text outside the regions: the tab title and the columns' screen-reader names. */
   function renderShell() {
     document.title = T.ui.header.title;
@@ -397,6 +434,7 @@ export function mountApp(root: HTMLElement) {
       else if (ui.modal === 'learn') content = renderLearn(ui, actions);
       else if (ui.modal === 'training') content = renderTraining(training);
       else if (ui.modal === 'archive' && viewer) content = renderReview(viewer, ui, archiveActions);
+      else if (ui.modal === 'welcome') content = renderWelcome();
       else content = renderSettings();
       return h('div', { class: 'scrim', onclick: (e: Event) => { if (e.target === e.currentTarget) actions.close(); } }, content);
     });
@@ -479,8 +517,9 @@ export function mountApp(root: HTMLElement) {
     else actions.close();
   });
   renderShell();
-  render(true);
-  // a shared link (…#b=CODE) opens its deal
+  // a shared link (…#b=CODE) opens its deal; otherwise a first visit is welcomed
   const shared = location.hash.match(/[#&]b=([A-Za-z0-9_-]+)/);
+  if (!shared && firstVisit()) ui.modal = 'welcome';
+  render(true);
   if (shared) training.importDeal(shared[0]);
 }

@@ -167,6 +167,19 @@ export const ui = {
     letMeThink: 'Let me think',
   },
 
+  /** The first visit: where to start. */
+  welcome: {
+    title: 'Welcome to Bridge Tutor',
+    intro: 'Play bridge against three bots, with a tutor beside you that explains every bid and card. Where would you like to start?',
+    newTitle: "I'm new to bridge",
+    newDesc: 'Start with the first lesson: how a hand is dealt, bid and played.',
+    rulesTitle: 'I know the rules',
+    rulesDesc: "Play with the tutor's advice shown straight away while you find your feet.",
+    playTitle: 'Just play',
+    playDesc: 'The tutor waits until you ask, so you think first.',
+    note: 'You can change this at any time in Settings.',
+  },
+
   /** Notes in the tutor's feed, written as the hand goes. */
   notes: {
     welcomeTitle: 'Welcome to the table',

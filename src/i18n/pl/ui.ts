@@ -147,6 +147,19 @@ export const ui: Text['ui'] = {
     letMeThink: 'Pomyślę jeszcze',
   },
 
+  /** The first visit: where to start. */
+  welcome: {
+    title: 'Witaj w aplikacji Trener brydża',
+    intro: 'Graj w brydża z trzema botami, a trener obok wyjaśni każdą odzywkę i każdą kartę. Od czego chcesz zacząć?',
+    newTitle: 'Dopiero zaczynam',
+    newDesc: 'Zacznij od pierwszej lekcji: jak się rozdaje, licytuje i rozgrywa rozdanie.',
+    rulesTitle: 'Znam zasady',
+    rulesDesc: 'Graj z podpowiedziami trenera widocznymi od razu, dopóki nie poczujesz się pewnie.',
+    playTitle: 'Po prostu graj',
+    playDesc: 'Trener czeka, aż poprosisz – najpierw myślisz sam.',
+    note: 'Możesz to zmienić w każdej chwili w Ustawieniach.',
+  },
+
   notes: {
     welcomeTitle: 'Witaj przy stole',
     welcomeText:

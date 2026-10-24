@@ -143,6 +143,19 @@ export const ui: Text['ui'] = {
     letMeThink: 'Even nadenken',
   },
 
+  /** The first visit: where to start. */
+  welcome: {
+    title: 'Welkom bij Bridge Tutor',
+    intro: 'Speel bridge tegen drie bots, met een tutor naast je die elk bod en elke kaart uitlegt. Waar wil je beginnen?',
+    newTitle: 'Ik ben nieuw met bridge',
+    newDesc: 'Begin met de eerste les: hoe een spel wordt gedeeld, geboden en gespeeld.',
+    rulesTitle: 'Ik ken de regels',
+    rulesDesc: 'Speel met het advies van de tutor meteen in beeld, tot je je thuis voelt.',
+    playTitle: 'Gewoon spelen',
+    playDesc: 'De tutor wacht tot je erom vraagt, zodat je eerst zelf nadenkt.',
+    note: 'Je kunt dit altijd wijzigen in Instellingen.',
+  },
+
   notes: {
     welcomeTitle: 'Welkom aan tafel',
     welcomeText:
