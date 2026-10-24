@@ -1,386 +1,357 @@
-// PLACEHOLDER (Russian): an English copy until the Russian translation lands.
 // Tutor: play principles, declarer planning, leads, signals, hand evaluation, scoring.
 //
-// Grouped by the file that shows the text. Suits and seats arrive as indexes
-// (suit 0..3 = clubs, diamonds, hearts, spades; seat 0..3 = N, E, S, W), cards
-// as card ids and ranks as numbers (14 = ace), so each language picks its own
-// word forms. Holdings ("KJ104") and split odds ("3-2 68%, …") arrive ready-made.
+// Same layout as src/i18n/en/tutor.ts (see the notes there on parameters).
+// Suits take the case each sentence needs (grammar.ts).
 
 import type { Text } from '../en';
-
 import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf, suitOf } from '../../core/cards';
 import type { Height, Look } from '../../engine/signalling';
 import { core } from './core';
+import { num, SEAT_GEN, SUIT_ACC, SUIT_GEN, SUIT_ONE, SUIT_PREP, suitCount, tricksAcc } from './grammar';
 
-/** "1 trick", "2 tricks". */
-const plural = (n: number, word: string) => (n === 1 ? word : `${word}s`);
-/** "A 3-card", "An 8-card". */
-const aCard = (n: number) => `${n === 8 || n === 11 ? 'An' : 'A'} ${n}-card`;
-/** Leading toward the honours in the other hand. */
-const TOWARD = { aq: 'A-Q', king: 'king', queen: 'queen', honours: 'honours' };
-const HONOUR: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen' };
-/** "2 or 4", "1, 3 or 5" (the three shortest). */
+/** Ход к онёрам в другой руке: «к A-Q», «к королю»… */
+const TOWARD = { aq: 'A-Q', king: 'королю', queen: 'даме', honours: 'онёрам' };
+const HONOUR: Record<number, string> = { 14: 'туз', 13: 'король', 12: 'дама' };
+/** «2 или 4», «1, 3 или 5» (три самых коротких). */
 const orList = (ns: number[]) => {
   const xs = ns.slice(0, 3);
-  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}` : String(xs[0]);
+  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} или ${xs[xs.length - 1]}` : String(xs[0]);
 };
-/** How a signal card looks from across the table: "High-low (♣8, then ♣3)", "♣7 looks high (…)". */
+/** Как карта сигнала выглядит с другой стороны стола. */
 const looks = (card: Card, l: Look) =>
   l.echo !== null
-    ? `${l.height === 'high' ? 'High-low' : 'Low-high'} (${cardName(card)}, then ${cardName(l.echo)})`
+    ? `${l.height === 'high' ? 'Сверху вниз' : 'Снизу вверх'} (${cardName(card)}, затем ${cardName(l.echo)})`
     : l.sure && rankOf(card) === 2
-      ? `${cardName(card)} is always low`
+      ? `${cardName(card)} — всегда низкая карта`
       : l.sure
-        ? `${cardName(card)} is ${l.height} (every ${l.height === 'high' ? 'higher' : 'lower'} spot card is accounted for)`
-        : `${cardName(card)} looks ${l.height} (some ${l.height === 'high' ? 'lower' : 'higher'} spot cards are still out)`;
+        ? `${cardName(card)} — ${l.height === 'high' ? 'высокая' : 'низкая'} карта (все ${l.height === 'high' ? 'более старшие' : 'более младшие'} фоски уже известны)`
+        : `${cardName(card)} выглядит ${l.height === 'high' ? 'высокой' : 'низкой'} картой (некоторые ${l.height === 'high' ? 'более младшие' : 'более старшие'} фоски ещё не вышли)`;
+/** «двухкарточная», «трёхкарточная»… */
+const CARD_ADJ: Record<number, string> = {
+  2: 'Двухкартная', 3: 'Трёхкартная', 4: 'Четырёхкартная', 5: 'Пятикартная', 6: 'Шестикартная', 7: 'Семикартная',
+};
+const cards = (n: number) => num(n, 'карта', 'карты', 'карт');
 
 export const tutor: Text['tutor'] = {
   // -------------------------------------------------------------------------
-  // src/tutor/principles.ts — the principle behind a card: a short title (the
-  // review also shows it alone) and one or two sentences of explanation.
+  // src/tutor/principles.ts
   principles: {
     openingLead: {
-      title: 'Opening lead',
-      /** The card led is not the book card from this holding; `why` explains the book card. */
-      notStandard: (holding: string, rank: number, why: string) => `From ${holding} the standard card is ${rankLabel(rank)}: ${why}`,
+      title: 'Первый ход',
+      notStandard: (holding: string, rank: number, why: string) => `Из ${holding} стандартная карта — ${rankLabel(rank)}: ${why}`,
     },
 
     // declarer's side on lead
     drawTrumps: {
-      title: 'Drawing trumps',
-      text: 'Leading trumps removes the defenders’ trumps so they cannot ruff your winners. Draw them early unless dummy’s trumps are needed for ruffs.',
+      title: 'Снятие козырей',
+      text: 'Ходы в козырь отбирают козыри у защитников, чтобы они не могли перебить ваши выигрышные карты. Снимайте козыри рано, если только козыри болвана не нужны для козыряний.',
     },
     unblock: {
-      title: 'Unblocking',
-      text: 'Cash the high card from the short hand first, so the long hand keeps the lead and can run the rest of the suit.',
+      title: 'Разблокировка',
+      text: 'Сначала отберите старшую карту в короткой руке, чтобы ход остался у длинной руки и она могла забрать остальные карты масти.',
     },
     cash: {
-      title: 'Cashing a winner',
-      declarer: (card: Card) => `${cardName(card)} is the highest ${core.suitSingular[suitOf(card)]} left: it wins the trick unless someone ruffs.`,
-      defender: 'Take your sure trick before declarer can discard losers on dummy’s long suit.',
+      title: 'Отбор взятки',
+      declarer: (card: Card) => `${cardName(card)} — старшая из оставшихся карт в ${SUIT_PREP[suitOf(card)]}: она берёт взятку, если никто не перебьёт её козырем.`,
+      defender: 'Заберите свою верную взятку, пока разыгрывающий не снёс проигрышные карты на длинную масть болвана.',
     },
     crossToOtherHand: {
-      title: 'Crossing to the other hand',
-      text: 'Leading low to a winner in the other hand uses it as an entry, so you can lead from there next.',
+      title: 'Переход в другую руку',
+      text: 'Ход малой картой к старшей карте другой руки использует её как вход, чтобы следующий ход сделать уже оттуда.',
     },
     leadTowardHonours: {
-      title: 'Leading toward honours',
-      /** What the other hand holds: A-Q, the king, the queen, or several honours. */
+      title: 'Ход к онёрам',
       text: (toward: 'aq' | 'king' | 'queen' | 'honours') =>
-        `Lead low toward the ${TOWARD[toward]} so the defender on your left must play before you choose your card from the other hand — the basis of the finesse.`,
+        `Ходите малой картой к ${TOWARD[toward]}, чтобы защитник слева сыграл раньше, чем вы выберете карту из другой руки, — на этом основана прорезка.`,
     },
     develop: {
-      title: 'Developing a suit',
-      text: 'Losing a trick in this suit now sets up the remaining cards as winners while you still control the other suits.',
+      title: 'Отработка масти',
+      text: 'Отдав сейчас взятку в этой масти, вы делаете оставшиеся карты выигрышными, пока ещё контролируете другие масти.',
     },
 
     // defenders on lead
     trumpLead: {
-      title: 'Trump lead',
-      text: 'A trump lead reduces declarer’s ruffs in dummy — strong when dummy is short in a side suit.',
+      title: 'Ход в козырь',
+      text: 'Ход в козырь сокращает козыряния разыгрывающего на столе — особенно сильный ход, когда у болвана короткая боковая масть.',
     },
     lookForRuff: {
-      title: 'Looking for a ruff',
-      text: 'A short suit lead hopes partner gets in and gives you a ruff.',
+      title: 'Игра на козыряние',
+      text: 'Ход в короткую масть в расчёте на то, что партнёр получит ход и даст вам козырнуть.',
     },
     switchSuits: {
-      title: 'Switching suits',
-      text: 'Lead through declarer’s strength, or toward dummy’s weakness: the defender in front of the strong hand should lead that suit.',
+      title: 'Смена масти',
+      text: 'Ходите сквозь силу разыгрывающего или под слабость болвана: масть должен играть тот защитник, который сидит перед сильной рукой.',
     },
 
     // not following suit
     overruff: {
-      title: 'Overruff',
-      text: 'Ruffing higher than the trump already played wins the trick.',
+      title: 'Перекозыривание',
+      text: 'Козырь старше уже сыгранного берёт взятку.',
     },
     ruffPartnersWinner: {
-      title: 'Ruffing partner’s winner',
-      text: 'Usually wasteful: partner was already winning this trick.',
+      title: 'Козыряние взятки партнёра',
+      text: 'Обычно это расточительно: взятку и так брал партнёр.',
     },
     ruff: {
-      title: 'Ruffing',
-      declarer: 'Ruffing in the hand with fewer trumps gains a trick; ruffing in the long trump hand just uses a trump you would make anyway.',
-      defender: 'You are out of the suit led, so a ruff takes the trick.',
+      title: 'Козыряние',
+      declarer: 'Козыряние в руке с короткими козырями приносит лишнюю взятку; козыряние в руке с длинными козырями лишь тратит козырь, который и так взял бы взятку.',
+      defender: 'Карт масти хода у вас нет, поэтому козырь берёт взятку.',
     },
     discard: {
-      title: 'Discard',
-      defender: 'Discard from a suit you don’t need, and keep length in suits where you must guard against declarer’s or dummy’s long cards.',
-      declarer: 'Throw a loser from a suit that can’t win tricks, keeping the cards that may still be needed.',
+      title: 'Снос',
+      defender: 'Сносите карты из ненужной масти и сохраняйте длину в мастях, где нужно держать длинные карты разыгрывающего или болвана.',
+      declarer: 'Снесите проигрышную карту из масти, которая не может принести взяток, и сохраните карты, которые ещё могут понадобиться.',
     },
 
-    // defenders' signals: `right` = the card says what this hand should say; `best` = the card that would
+    // defenders' signals
     countSignal: {
-      title: 'Count signal',
-      /** `n` cards in the suit before playing. */
+      title: 'Сигнал о количестве',
       text: (n: number, suit: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Declarer is playing this suit and partner expects count: with ${n} ${core.suits[suit]} (an ${n % 2 ? 'odd' : 'even'} number) the standard card is ${cardName(best)}${n % 2 ? '' : ', then a lower one (high-low)'}. ${cardName(card)} would show an ${n % 2 ? 'even' : 'odd'} number.`
+          ? `Разыгрывающий играет эту масть, и партнёр ждёт сигнала о количестве: у вас ${suitCount(n, suit)} (${n % 2 ? 'нечётное' : 'чётное'} число), стандартная карта — ${cardName(best)}${n % 2 ? '' : ', а потом младшая (сверху вниз)'}. ${cardName(card)} показала бы ${n % 2 ? 'чётное' : 'нечётное'} число.`
           : n % 2
-            ? `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an odd number) play your lowest card, ${cardName(card)}. Partner can then tell how many declarer holds and when to take the ace.`
-            : `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an even number) play high-low — ${cardName(card)} now, a lower card next time. Partner can then tell how many declarer holds and when to take the ace.`,
+            ? `Разыгрывающий играет эту масть — покажите количество: у вас ${suitCount(n, suit)} (нечётное число), поэтому сыграйте младшую карту, ${cardName(card)}. Так партнёр поймёт, сколько карт у разыгрывающего и когда брать тузом.`
+            : `Разыгрывающий играет эту масть — покажите количество: у вас ${suitCount(n, suit)} (чётное число), поэтому играйте сверху вниз — сейчас ${cardName(card)}, в следующий раз младшую. Так партнёр поймёт, сколько карт у разыгрывающего и когда брать тузом.`,
     },
     attitudeSignal: {
-      title: 'Attitude signal',
-      /** Why you like partner's suit (an honour — the highest you hold is `honour` — or a doubleton to ruff), or null. */
+      title: 'Сигнал отношения',
       text: (reason: 'honour' | 'ruff' | null, honour: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Partner led this suit and expects your attitude: you ${reason ? 'like' : 'don’t like'} it, so the standard card is ${cardName(best)}. ${cardName(card)} says the opposite.`
+          ? `Партнёр пошёл в эту масть и ждёт сигнала отношения: масть вам ${reason ? 'нравится' : 'не нравится'}, поэтому стандартная карта — ${cardName(best)}. ${cardName(card)} говорит обратное.`
           : reason === 'honour'
-            ? `Partner led this suit: give attitude. You hold the ${HONOUR[honour]}, so encourage with the highest spot card you can spare, ${cardName(card)}, and partner will continue.`
+            ? `Партнёр пошёл в эту масть — дайте сигнал отношения. У вас ${HONOUR[honour]}, поэтому дайте призывную карту — самую старшую фоску, которую не жалко, ${cardName(card)}, — и партнёр продолжит масть.`
             : reason === 'ruff'
-              ? `Partner led this suit: give attitude. With a doubleton, start with the higher card (${cardName(card)}): high-low asks partner to continue, and you ruff the third round.`
-              : `Partner led this suit: give attitude. Nothing here is worth continuing, so discourage with your lowest card, ${cardName(card)}; partner will look for a switch.`,
+              ? `Партнёр пошёл в эту масть — дайте сигнал отношения. С дублем начните со старшей карты (${cardName(card)}): «сверху вниз» просит партнёра продолжить, и третий круг вы перебьёте козырем.`
+              : `Партнёр пошёл в эту масть — дайте сигнал отношения. Продолжать здесь нечего, поэтому дайте отказную — самую младшую карту, ${cardName(card)}; партнёр поищет другую масть.`,
     },
     discardSignal: {
-      title: 'Discard (attitude)',
-      /** `want`: you would like this suit led; `clear`: you have a spot card high enough to say so. */
+      title: 'Снос (сигнал отношения)',
       text: (want: boolean, clear: boolean, suit: number, card: Card, best: Card, right: boolean) =>
         want && !clear
-          ? `You would like ${core.suits[suit]} led, but no ${core.suitSingular[suit]} you can spare is high enough to read as encouraging; discard low from a suit you don’t want instead.`
+          ? `Вам нужен ход в ${SUIT_ACC[suit]}, но у вас нет такой фоски в ${SUIT_PREP[suit]}, которую можно отдать и которая читалась бы как призывная; лучше снесите младшую карту из масти, которая вам не нужна.`
           : want
             ? right
-              ? `A high discard encourages: ${cardName(card)} asks partner to lead ${core.suits[suit]}, where you hold strength.`
-              : `You would like ${core.suits[suit]} led, but ${cardName(card)} is your lowest and discourages; a high one (${cardName(best)}) would encourage — or discard low from a suit you don’t want.`
+              ? `Высокий снос — призывной: ${cardName(card)} просит партнёра пойти в ${SUIT_ACC[suit]}, где у вас сила.`
+              : `Вам нужен ход в ${SUIT_ACC[suit]}, но ${cardName(card)} — ваша младшая карта, это отказной сигнал; призывным был бы высокий снос (${cardName(best)}) — или снесите младшую из масти, которая вам не нужна.`
             : right
-              ? `A low discard discourages: ${cardName(card)} tells partner not to lead ${core.suits[suit]}.`
-              : `A high discard asks partner to lead ${core.suits[suit]}, which you don’t want; discard your lowest (${cardName(best)}) instead.`,
+              ? `Низкий снос — отказной: ${cardName(card)} говорит партнёру не ходить в ${SUIT_ACC[suit]}.`
+              : `Высокий снос просит партнёра пойти в ${SUIT_ACC[suit]}, а вам это не нужно; лучше снесите младшую карту (${cardName(best)}).`,
     },
     preferenceSignal: {
-      title: 'Suit-preference signal',
-      /** Leading for partner to ruff; `sides` = the other two side suits, lower first; `want` high = the higher one. */
+      title: 'Сигнал предпочтения масти',
       text: (want: Height, sides: number[], card: Card, best: Card, right: boolean) =>
         !right
           ? want === 'middle'
-            ? `Partner will ruff this and read your card as suit preference; with no preference, lead a middle card such as ${cardName(best)}.`
-            : `Partner will ruff this and read your card as suit preference: you want ${core.suits[want === 'high' ? sides[1] : sides[0]]} back, so lead ${cardName(best)}.`
+            ? `Партнёр перебьёт эту карту козырем и прочтёт её как сигнал предпочтения масти; если предпочтения нет, ходите средней картой, например ${cardName(best)}.`
+            : `Партнёр перебьёт эту карту козырем и прочтёт её как сигнал предпочтения масти: вам нужен возврат в ${SUIT_ACC[want === 'high' ? sides[1] : sides[0]]}, поэтому ходите ${cardName(best)}.`
           : want === 'middle'
-            ? 'Partner will ruff this, and your card also says which suit to return: with no preference, lead a middle card — neither high nor low.'
-            : `Partner will ruff this, and your card also says which suit to return: a ${want} card asks for ${core.suits[want === 'high' ? sides[1] : sides[0]]} (the ${want === 'high' ? 'higher' : 'lower'} of the other two side suits), where you hold the ace.`,
+            ? 'Партнёр перебьёт эту карту козырем, а ваша карта заодно подскажет, в какую масть вернуться: без предпочтения ходите средней картой — ни высокой, ни низкой.'
+            : `Партнёр перебьёт эту карту козырем, а ваша карта заодно подскажет, в какую масть вернуться: ${want === 'high' ? 'высокая' : 'низкая'} карта просит вернуться в ${SUIT_ACC[want === 'high' ? sides[1] : sides[0]]} (${want === 'high' ? 'старшую' : 'младшую'} из двух других боковых мастей), где у вас туз.`,
     },
 
     // second hand
     coverHonour: {
-      title: 'Cover an honour with an honour',
-      text: 'Covering forces declarer to spend two high cards to win one trick, which may promote a lower card in your or partner’s hand.',
+      title: 'Покрывайте онёр онёром',
+      text: 'Покрытие заставляет разыгрывающего потратить на одну взятку две старшие карты, и это может «вырастить» младшую карту у вас или у партнёра.',
     },
     secondHandLow: {
-      title: 'Second hand low',
-      text: 'Partner plays after you and the leader’s partner, so playing low keeps your high card to capture something bigger later.',
+      title: 'Второй рукой — младшую',
+      text: 'Партнёр сыграет после вас и после партнёра того, кто ходил, поэтому младшая карта сохраняет вашу старшую, чтобы позже побить что-нибудь покрупнее.',
     },
     sureTrick: {
-      title: 'Winning a sure trick',
-      text: (card: Card) => `${cardName(card)} is the highest card left in the suit.`,
+      title: 'Верная взятка',
+      text: (card: Card) => `${cardName(card)} — старшая из оставшихся карт масти.`,
     },
     splitHonours: {
-      title: 'Splitting honours',
-      text: 'Playing one of touching honours stops declarer winning cheaply with a lower card.',
+      title: 'Один из соседних онёров',
+      text: 'Положив один из соседних онёров, вы не дадите разыгрывающему дёшево взять взятку младшей картой.',
     },
 
     // third and fourth hand
     partnerWinning: {
-      title: 'Partner is winning',
-      third: 'Partner’s card is already winning, so play low (or signal).',
-      fourth: 'Don’t overtake: play your lowest card.',
+      title: 'Взятка у партнёра',
+      third: 'Карта партнёра уже берёт взятку, поэтому сыграйте младшую (или дайте сигнал).',
+      fourth: 'Не перебивайте партнёра: сыграйте младшую карту.',
     },
     thirdHandHighEquals: {
-      title: 'Third hand high — lowest of equals',
-      text: 'Play the cheaper of touching cards: partner can then work out where the higher one is.',
+      title: 'Третьей рукой — старшую, младшую из равных',
+      text: 'Сыграйте младшую из соседних карт: тогда партнёр сможет понять, у кого старшая.',
     },
     thirdHandHigh: {
-      title: 'Third hand high',
-      text: 'With partner’s lead not winning, play high to win the trick or force out a big card.',
+      title: 'Третьей рукой — старшую',
+      text: 'Если карта партнёра не берёт взятку, сыграйте старшую, чтобы взять взятку или выбить крупную карту.',
     },
     cantWin: {
-      title: 'Can’t win the trick',
-      third: 'Play your lowest card (or signal attitude if partner led the suit).',
-      fourth: 'Play your lowest card in the suit.',
+      title: 'Взятку не взять',
+      third: 'Сыграйте младшую карту (или дайте сигнал отношения, если масть начал партнёр).',
+      fourth: 'Сыграйте младшую карту в масти.',
     },
     winCheaply: {
-      title: 'Win cheaply',
-      text: 'Last to play: win with the smallest card that does the job.',
+      title: 'Берите дёшево',
+      text: 'Вы играете последним: берите взятку самой младшей картой, которой это удаётся.',
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/tutor/planner.ts — declarer's plan once dummy is down: count winners
-  // (notrump) or losers (suit contracts) and where extra tricks can come from.
+  // src/tutor/planner.ts
   plan: {
-    // sure tricks in one suit
-    allWinners: 'all winners',
-    topTricks: (n: number) => `${n} top ${plural(n, 'trick')}`,
-    noTopTricks: 'no top tricks',
-    /** Opponents' cards in a suit when there are too many for the split table. */
-    cardsOut: (n: number) => `${n} cards`,
+    allWinners: 'все карты выигрышные',
+    topTricks: (n: number) => num(n, 'верная взятка', 'верные взятки', 'верных взяток'),
+    noTopTricks: 'верных взяток нет',
+    cardsOut: (n: number) => cards(n),
 
-    // summary, notrump
     ntEnough: (total: number, need: number) =>
-      `You have ${total} top tricks and need ${need}: take your tricks — and don't block a suit (cash the high cards from the short hand first).`,
+      `У вас ${num(total, 'верная взятка', 'верные взятки', 'верных взяток')}, а нужно ${need}: забирайте свои взятки — и не заблокируйте масть (сначала отбирайте старшие карты в короткой руке).`,
     ntShort: (total: number, need: number) =>
-      `You have ${total} top ${plural(total, 'trick')} and need ${need}: find ${need - total} more before the defenders establish their suit.`,
-    // summary, suit contracts
+      `У вас ${num(total, 'верная взятка', 'верные взятки', 'верных взяток')}, а нужно ${need}: найдите ещё ${need - total}, пока защитники не отработали свою масть.`,
     losersOk: (losers: number, allowed: number) =>
-      `About ${losers} ${plural(losers, 'loser')} and you can afford ${allowed}: draw trumps and take your tricks, unless an early ruff or discard is needed.`,
+      `Проигрышей около ${losers}, а позволить себе можно ${allowed}: снимайте козыри и забирайте свои взятки, если только не нужно сначала козырнуть или снести проигрыш.`,
     tooManyLosers: (losers: number, allowed: number) =>
-      `About ${losers} losers but you can afford only ${allowed}: you need to get rid of ${losers - allowed} (ruff them, discard them on extra winners, or finesse).`,
+      `Проигрышей около ${losers}, а позволить себе можно только ${allowed}: нужно избавиться ещё от ${losers - allowed} (козырнуть их, снести на лишние выигрышные карты или сыграть на прорезку).`,
 
-    // ideas
     establish: (suit: number, total: number, missing: number, odds: string, extra: number) =>
-      `Establish ${core.suits[suit]}: with ${total} cards between you (${missing} out, ${odds}), the long ${SUIT_SYMBOLS[suit]} can produce about ${extra} extra ${plural(extra, 'trick')}.`,
+      `Отработайте ${SUIT_ACC[suit]}: у вас на двоих ${cards(total)} (у противников ${missing}, ${odds}), и длинные ${SUIT_SYMBOLS[suit]} могут дать ещё примерно ${tricksAcc(extra)}.`,
     finesseAQ: (suit: number, holding: string) =>
-      `Finesse in ${core.suits[suit]}: lead toward A-Q (${holding}) and play the queen if the king doesn't appear — about 50%.`,
+      `Прорезка в ${SUIT_PREP[suit]}: ходите к A-Q (${holding}) и, если король не появился, кладите даму — около 50%.`,
     leadTowardKing: (suit: number, holding: string) =>
-      `In ${core.suits[suit]}, lead toward the king (${holding}): it scores if the ace is on your left — about 50%.`,
+      `В ${SUIT_PREP[suit]} ходите к королю (${holding}): он возьмёт взятку, если туз сидит слева от вас, — около 50%.`,
     doubleFinesse: (suit: number) =>
-      `Double finesse in ${core.suits[suit]} (A-J-10): finesse twice; you make two tricks 76% of the time.`,
+      `Двойная прорезка в ${SUIT_PREP[suit]} (A-J-10): прорезайте дважды; две взятки вы возьмёте в 76% случаев.`,
     knockOutAce: (suit: number, withJack: boolean) =>
-      `Knock out the ace of ${core.suits[suit]}: K-Q${withJack ? '-J' : ''} will then give you ${withJack ? '2+ tricks' : '1+ trick'}.`,
-    ntDevelopEarly: 'In notrump, set up extra tricks early, while you still control the suits — and count how many times you can afford to lose the lead.',
-    /** Suits to ruff in the short trump hand, with that hand's length in each (0 = void). */
+      `Выбейте туза ${SUIT_GEN[suit]}: после этого K-Q${withJack ? '-J' : ''} ${withJack ? 'дадут вам 2+ взятки' : 'дадут вам хотя бы 1 взятку'}.`,
+    ntDevelopEarly: 'В бескозырном контракте отрабатывайте дополнительные взятки рано, пока вы ещё контролируете масти, — и посчитайте, сколько раз можно позволить себе отдать ход.',
     ruffInShortHand: (inDummy: boolean, suits: { suit: number; len: number }[]) =>
-      `Ruff losers in ${inDummy ? 'dummy' : 'your hand'}, the short trump hand: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]} (${x.len || 'void'})`).join(', ')}. A ruff in the short hand is an extra trick; a ruff in the long trump hand is not.`,
-    /** Extra winners in `suit` to throw losers in `loserSuits` on. */
+      `Козыряйте проигрыши ${inDummy ? 'на столе' : 'в своей руке'} — в руке с короткими козырями: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]} (${x.len || 'ренонс'})`).join(', ')}. Козыряние в короткой руке — лишняя взятка, в руке с длинными козырями — нет.`,
     discardOnWinners: (inDummy: boolean, extra: number, suit: number, loserSuits: number[]) =>
-      `Discards: ${inDummy ? 'dummy' : 'your hand'} has ${extra} extra ${SUIT_SYMBOLS[suit]} ${plural(extra, 'winner')} — throw ${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')} losers from the other hand on ${extra === 1 ? 'it' : 'them'} (usually after drawing trumps).`,
+      `Сносы: ${inDummy ? 'у болвана' : 'у вас в руке'} ${num(extra, 'лишняя выигрышная карта', 'лишние выигрышные карты', 'лишних выигрышных карт')} в ${SUIT_SYMBOLS[suit]} — снесите на ${extra === 1 ? 'неё' : 'них'} проигрыши в ${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')} из другой руки (обычно после снятия козырей).`,
     trumpsOut: (n: number, odds: string) =>
-      `Trumps: ${n} ${n === 1 ? 'is' : 'are'} out (${odds}). Draw ${n === 1 ? 'it' : 'them'} early unless you need dummy's trumps for ruffs or must set up a side suit first.`,
+      `Козыри: у противников ${num(n, 'козырь', 'козыря', 'козырей')} (${odds}). Снимите ${n === 1 ? 'его' : 'их'} рано, если только козыри болвана не нужны для козыряний или сначала не нужно отработать боковую масть.`,
   },
 
   // -------------------------------------------------------------------------
-  // src/engine/leads.ts — opening leads by the book
+  // src/engine/leads.ts
   leads: {
-    /** Why this card from the suit. */
     card: {
-      singleton: 'A singleton: lead it.',
-      ak: 'Ace from ace-king: you keep the lead and see dummy before deciding what next.',
-      doubleton: 'Top of a doubleton: the high card first, then the low one (high-low shows a doubleton and may get you a ruff).',
-      sequence: (holding: string) => `Top of a sequence (${holding}): promises the card below it and denies the one above.`,
-      interior: (holding: string, rank: number) => `Interior sequence (${holding}): lead the top of the touching cards, ${rankLabel(rank)}.`,
-      touching: (holding: string) => `Top of touching honours (${holding}).`,
-      nothing: 'Top of nothing from three small cards: tells partner you have no honour here.',
-      small: 'From four or more small cards, lead the second-highest so partner does not place you with an honour.',
-      partnerLow: 'Low from an honour and two others in partner’s suit (third best).',
-      fourth: (holding: string) => `Fourth best from your longest and strongest suit (${holding}). Partner can use the Rule of 11.`,
-      third: (holding: string) => `Third best from an honour with two small cards (${holding}): keep the honour to capture one of declarer’s.`,
+      singleton: 'Синглет: ходите им.',
+      ak: 'Туз от туза с королём: ход остаётся за вами, и вы увидите болвана, прежде чем решать, что дальше.',
+      doubleton: 'Старшая из дубля: сначала старшая карта, потом младшая («сверху вниз» показывает дубль и может принести вам козыряние).',
+      sequence: (holding: string) => `Старшая из секвенции (${holding}): обещает следующую карту ниже и отрицает карту выше.`,
+      interior: (holding: string, rank: number) => `Внутренняя секвенция (${holding}): ходите старшей из соседних карт, ${rankLabel(rank)}.`,
+      touching: (holding: string) => `Старшая из соседних онёров (${holding}).`,
+      nothing: 'Старшая из «ничего» с трёх мелких карт: партнёр поймёт, что онёра у вас здесь нет.',
+      small: 'С четырёх и более мелких карт ходите второй сверху, чтобы партнёр не решил, что у вас онёр.',
+      partnerLow: 'Младшая с онёра и двух других карт в масти партнёра (третья сверху).',
+      fourth: (holding: string) => `Четвёртая сверху из самой длинной и сильной масти (${holding}). Партнёр может применить правило 11.`,
+      third: (holding: string) => `Третья сверху с онёра и двух мелких (${holding}): сохраните онёр, чтобы побить им карту разыгрывающего.`,
     },
-    /** Why this suit. */
     suit: {
-      partnerBid: (suit: number) => `Partner bid ${core.suits[suit]}: leading partner's suit is rarely wrong and usually best.`,
-      theyBid: (suit: number) => `The opponents bid ${core.suits[suit]} — leading their suit usually helps declarer.`,
+      partnerBid: (suit: number) => `Партнёр заявлял ${SUIT_ACC[suit]}: ход в масть партнёра редко бывает ошибкой и обычно лучше всего.`,
+      theyBid: (suit: number) => `Противники заявляли ${SUIT_ACC[suit]}: ход в их масть обычно помогает разыгрывающему.`,
       // against notrump
       ntLong: (suit: number, n: number) =>
-        `Against notrump, lead your longest and strongest suit (${n} ${core.suits[suit]}): you hope to set up long-card winners.`,
-      ntSequence: 'A solid sequence is safe and builds tricks.',
-      ntShort: (n: number) => `${n === 1 ? 'A singleton' : `${aCard(n)} suit`}: not the ideal notrump lead.`,
+        `Против бескозырного контракта ходите в самую длинную и сильную масть (${suitCount(n, suit)}): вы надеетесь отработать длинные карты.`,
+      ntSequence: 'Сплошная секвенция безопасна и создаёт взятки.',
+      ntShort: (n: number) => `${n === 1 ? 'Синглет' : `${CARD_ADJ[n] ?? `${n}-картная`} масть`}: не лучший ход против бескозырного контракта.`,
       // against a suit contract
-      trump: 'A trump lead: safe and passive, and it cuts down dummy’s ruffs.',
-      singleton: 'A singleton: you hope partner wins an early trick and gives you a ruff.',
-      aceAway: 'Never lead away from an ace against a suit contract — and leading the ace itself rarely helps.',
-      sequence: (suit: number) => `Top of a sequence in ${core.suits[suit]}: safe, and it may set up tricks.`,
-      plain: (suit: number, n: number) =>
-        n === 1 ? `A singleton ${core.suitSingular[suit]}.` : `${aCard(n)} ${core.suitSingular[suit]} holding.`,
+      trump: 'Ход в козырь: безопасный и пассивный, к тому же он сокращает козыряния на столе.',
+      singleton: 'Синглет: вы надеетесь, что партнёр рано получит ход и даст вам козырнуть.',
+      aceAway: 'Против козырного контракта никогда не ходите из-под туза — да и ход самим тузом редко помогает.',
+      sequence: (suit: number) => `Старшая из секвенции в ${SUIT_PREP[suit]}: безопасно и может принести взятки.`,
+      plain: (suit: number, n: number) => (n === 1 ? `Синглет в ${SUIT_PREP[suit]}.` : `${cards(n)} в ${SUIT_PREP[suit]}.`),
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/tutor/signals.ts — what the opening lead and partner's signals tell you
+  // src/tutor/signals.ts
   signals: {
-    /** Heading over the meaning of the opening lead. */
     leadBy: {
-      you: (card: Card) => `Your opening lead: ${cardName(card)}`,
-      partner: (card: Card) => `Partner’s opening lead: ${cardName(card)}`,
-      seat: (seat: number, card: Card) => `${core.seats[seat]}’s opening lead: ${cardName(card)}`,
+      you: (card: Card) => `Ваш первый ход: ${cardName(card)}`,
+      partner: (card: Card) => `Первый ход партнёра: ${cardName(card)}`,
+      seat: (seat: number, card: Card) => `Первый ход ${SEAT_GEN[seat]}: ${cardName(card)}`,
     },
-    /** What the card led usually shows, by rank. */
     lead: {
       ace: (vsNT: boolean) =>
         vsNT
-          ? 'The ace: usually from ace-king (against notrump it can also ask partner to unblock).'
-          : 'The ace: usually from ace-king, or a singleton/doubleton ace.',
+          ? 'Туз: обычно от туза с королём (против бескозырного контракта он может также просить партнёра разблокировать масть).'
+          : 'Туз: обычно от туза с королём — или туз-синглет либо туз во втором.',
       king: (vsNT: boolean) =>
-        vsNT ? 'The king: top of a sequence — K-Q (or A-K). It denies the ace unless from A-K.' : 'The king: top of a sequence — K-Q. It denies the ace.',
-      queen: 'The queen: top of a sequence (Q-J…), denying the king.',
-      jack: 'The jack: top of J-10…, or from an interior sequence such as K-J-10. Denies the queen.',
-      ten: 'The ten: top of 10-9…, or an interior sequence (Q-10-9, K-10-9).',
-      nine: 'The nine: top of a short or worthless holding, or 9-8-x.',
+        vsNT ? 'Король: старшая из секвенции — K-Q (или A-K). Отрицает туза, если это не ход от A-K.' : 'Король: старшая из секвенции — K-Q. Отрицает туза.',
+      queen: 'Дама: старшая из секвенции (Q-J…), отрицает короля.',
+      jack: 'Валет: старшая из J-10… или из внутренней секвенции вроде K-J-10. Отрицает даму.',
+      ten: 'Десятка: старшая из 10-9… или из внутренней секвенции (Q-10-9, K-10-9).',
+      nine: 'Девятка: старшая из короткой или пустой масти либо из 9-8-x.',
       low: (suit: number, vsNT: boolean) =>
         vsNT
-          ? `A low ${core.suitSingular[suit]}: probably fourth best from length with an honour. Use the Rule of 11.`
-          : `A low ${core.suitSingular[suit]}: usually third/fourth best from an honour — or a singleton.`,
+          ? `Мелкая ${SUIT_ONE[suit]}: вероятно, четвёртая сверху из длинной масти с онёром. Примените правило 11.`
+          : `Мелкая ${SUIT_ONE[suit]}: обычно третья или четвёртая сверху с онёром — или синглет.`,
     },
     ruleOf11: {
-      title: 'Rule of 11',
-      /** 11 − rank led = cards above it in the other three hands; `declarer` of them are declarer's. */
+      title: 'Правило 11',
       text: (rank: number, above: number, seen: number, declarer: number) =>
-        `Rule of 11: 11 − ${rankLabel(rank)} = ${above} cards higher than the ${rankLabel(rank)} in the other three hands. You can see ${seen} (dummy and your hand), so declarer holds ${declarer}.`,
+        `Правило 11: 11 − ${rankLabel(rank)} = ${above} — столько карт старше ${rankLabel(rank)} в трёх других руках. Вы видите ${seen} (у болвана и у себя), значит, у разыгрывающего ${declarer}.`,
     },
-    /** Partner's signals (and, for declarer, the defenders' count): `look` says how high the card looks and how sure that is. */
     read: {
       count: {
-        /** `who`: a seat, or null for partner. */
-        title: (who: number | null, card: Card) => `${who === null ? 'Partner’s' : `${core.seats[who]}’s`} ${cardName(card)}: count`,
-        /** `lengths`: the lengths that fit; `declarer`: read from declarer's seat. */
+        title: (who: number | null, card: Card) => `${cardName(card)} ${who === null ? 'партнёра' : SEAT_GEN[who]}: сигнал о количестве`,
         text: (card: Card, look: Look, suit: number, lengths: number[], declarer: boolean) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: wait for the next card in ${core.suits[suit]} to read the count.`
-            : `${looks(card, look)}: ${look.sure ? '' : 'probably '}an ${look.height === 'high' ? 'even' : 'odd'} number of ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Defenders sometimes falsecard, so treat it as a clue.' : ''}`,
+            ? `${cardName(card)} может быть и высокой, и низкой картой: дождитесь следующей карты в ${SUIT_PREP[suit]}, чтобы прочитать количество.`
+            : `${looks(card, look)}: ${look.sure ? '' : 'вероятно, '}${look.height === 'high' ? 'чётное' : 'нечётное'} число ${SUIT_GEN[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Защитники иногда дают ложные карты, так что считайте это лишь подсказкой.' : ''}`,
       },
       attitude: {
-        title: (card: Card) => `Partner’s ${cardName(card)} on your lead: attitude`,
+        title: (card: Card) => `${cardName(card)} партнёра на ваш ход: сигнал отношения`,
         text: (card: Card, look: Look) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner likes the suit.`
-            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'partner likes the suit — continue it.' : 'partner probably likes the suit.') : `partner ${look.sure ? '' : 'probably '}doesn’t like the suit — think about a switch.`}`,
+            ? `${cardName(card)} может быть и высокой, и низкой картой: пока неясно, нравится ли партнёру масть.`
+            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'партнёру масть нравится — продолжайте её.' : 'вероятно, партнёру масть нравится.') : `${look.sure ? '' : 'вероятно, '}партнёру масть не нравится — подумайте о смене масти.`}`,
       },
       discard: {
-        title: (card: Card) => `Partner discarded ${cardName(card)}`,
+        title: (card: Card) => `Партнёр снёс ${cardName(card)}`,
         text: (card: Card, look: Look, suit: number) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner wants ${core.suits[suit]} led.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}${look.height === 'high' ? 'wants' : 'doesn’t want'} ${core.suits[suit]} led.`,
+            ? `${cardName(card)} может быть и высокой, и низкой картой: пока неясно, хочет ли партнёр хода в ${SUIT_ACC[suit]}.`
+            : `${looks(card, look)}: ${look.sure ? '' : 'вероятно, '}партнёр ${look.height === 'high' ? 'хочет' : 'не хочет'} хода в ${SUIT_ACC[suit]}.`,
       },
       preference: {
-        title: (card: Card) => `Partner leads ${cardName(card)} for you to ruff: suit preference`,
-        /** `sides`: the other two side suits, lower first. */
+        title: (card: Card) => `Партнёр ходит ${cardName(card)}, чтобы вы козырнули: сигнал предпочтения масти`,
         text: (card: Card, look: Look, sides: number[]) =>
           look.height === null
-            ? `${cardName(card)} is neither clearly high nor low: partner may have no preference — return whatever suits you best.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}asks for ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} back, the ${look.height === 'high' ? 'higher' : 'lower'} of the other two side suits.`,
+            ? `${cardName(card)} ни явно высокая, ни явно низкая карта: возможно, у партнёра нет предпочтения — возвращайтесь в ту масть, которая удобнее вам.`
+            : `${looks(card, look)}: ${look.sure ? '' : 'вероятно, '}партнёр просит вернуться в ${SUIT_ACC[look.height === 'high' ? sides[1] : sides[0]]} — ${look.height === 'high' ? 'старшую' : 'младшую'} из двух других боковых мастей.`,
       },
     },
-    /** Short labels for a signal a bot gave, e.g. a badge on its card. */
     badge: {
-      count: (even: boolean) => `Count: ${even ? 'even' : 'odd'}`,
-      attitude: (encourage: boolean) => `Attitude: ${encourage ? 'encouraging' : 'discouraging'}`,
-      discard: (encourage: boolean, suit: number) => `Discard: ${encourage ? 'encouraging' : 'discouraging'} ${SUIT_SYMBOLS[suit]}`,
-      /** The suit asked for, or null for no preference. */
-      preference: (suit: number | null) => `Suit preference: ${suit === null ? 'none' : SUIT_SYMBOLS[suit]}`,
+      count: (even: boolean) => `Количество: ${even ? 'чётное' : 'нечётное'}`,
+      attitude: (encourage: boolean) => `Отношение: ${encourage ? 'призывная' : 'отказная'}`,
+      discard: (encourage: boolean, suit: number) => `Снос: ${encourage ? 'призывной' : 'отказной'} ${SUIT_SYMBOLS[suit]}`,
+      preference: (suit: number | null) => `Предпочтение масти: ${suit === null ? 'нет' : SUIT_SYMBOLS[suit]}`,
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/core/eval.ts — the hand-evaluation table: label, value, note
+  // src/core/eval.ts
   eval: {
-    hcp: 'HCP',
+    hcp: 'Очки',
     hcpNote: 'A=4 K=3 Q=2 J=1',
-    total: 'Total pts',
-    totalNote: (lengthPts: number) => `HCP + ${lengthPts} for length`,
-    shape: 'Shape',
-    balanced: 'balanced',
-    semiBalanced: 'semi-balanced',
-    unbalanced: 'unbalanced',
-    losers: 'Losers',
-    losersNote: 'Losing Trick Count',
-    quickTricks: 'Quick tricks',
+    total: 'Общие очки',
+    totalNote: (lengthPts: number) => `очки + ${lengthPts} за длину`,
+    shape: 'Расклад',
+    balanced: 'равномерный',
+    semiBalanced: 'полуравномерный',
+    unbalanced: 'неравномерный',
+    losers: 'Проигрыши',
+    losersNote: 'Подсчёт проигрышей (LTC)',
+    quickTricks: 'Быстрые взятки',
     quickTricksNote: 'AK=2 AQ=1½ A=1 KQ=1 Kx=½',
-    longest: 'Longest',
-    controls: (n: number) => `${n} ${plural(n, 'control')}`,
+    longest: 'Самая длинная',
+    controls: (n: number) => num(n, 'контроль', 'контроля', 'контролей'),
   },
 
   // -------------------------------------------------------------------------
-  // src/core/scoring.ts — the par contract in the review
+  // src/core/scoring.ts
   par: {
-    /** "4♠X by N/S (N)": the contract, the side, and the seat that declares it. */
     contract: (contract: string, declarer: number) =>
-      `${contract} by ${core.seatLetters[declarer & 1]}/${core.seatLetters[(declarer & 1) + 2]} (${core.seatLetters[declarer]})`,
+      `${contract} у ${core.seatLetters[declarer & 1]}/${core.seatLetters[(declarer & 1) + 2]} (${core.seatLetters[declarer]})`,
   },
 };
+

@@ -1,29 +1,25 @@
-// PLACEHOLDER (Russian): an English copy until the Russian translation lands.
 // Card, seat and call vocabulary.
 
 import type { Text } from '../en';
-
 import { rankLabel } from '../../core/cards';
+import { pl, SEAT_NOM, SUIT_GEN, SUIT_NOM, SUIT_ONE } from './grammar';
 
-const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-const RANK_WORDS: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+const RANK_WORDS: Record<number, string> = { 14: 'туз', 13: 'король', 12: 'дама', 11: 'валет' };
 
 export const core: Text['core'] = {
-  seats: ['North', 'East', 'South', 'West'],
-  seatLetters: ['N', 'E', 'S', 'W'],
-  /** Plural, as in "five hearts". */
-  suits: SUITS,
-  suitSingular: ['club', 'diamond', 'heart', 'spade'],
-  strains: ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'],
-  /** Notrump in bids and contracts ("3NT"). */
-  nt: 'NT',
-  pass: 'Pass',
-  double: 'Double',
-  redouble: 'Redouble',
-  passedOut: 'Passed out',
-  /** "queen of hearts" */
-  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} of ${SUITS[suit]}`,
-  /** Abbreviation after a number of high-card points ("12 HCP"). */
-  hcp: 'HCP',
-  tricks: (n: number) => (n === 1 ? 'trick' : 'tricks'),
+  seats: SEAT_NOM,
+  seatLetters: ['С', 'В', 'Ю', 'З'],
+  /** Nominative plural ("червы"); other cases live in grammar.ts. */
+  suits: SUIT_NOM,
+  suitSingular: SUIT_ONE,
+  strains: [...SUIT_NOM, 'без козыря'],
+  nt: 'БК',
+  pass: 'Пас',
+  double: 'Контра',
+  redouble: 'Реконтра',
+  passedOut: 'Все пас',
+  /** "дама червей", "10 пик" */
+  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} ${SUIT_GEN[suit]}`,
+  hcp: 'оч.',
+  tricks: (n: number) => pl(n, 'взятка', 'взятки', 'взяток'),
 };
