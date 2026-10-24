@@ -611,5 +611,544 @@ export const LESSONS_1: Lesson[] = [
       },
     ],
   },
-  // PART2
+  {
+    id: 'planning-the-play',
+    title: 'Planejando o carteio',
+    topic: 'Declarer play',
+    level: 'Beginner',
+    summary: 'Antes de jogar para a primeira vaza, conte as suas vencedoras (em sem trunfo) ou as suas perdedoras (num contrato em naipe) e faça um plano.',
+    body: `
+<h3>Pare e planeje antes da primeira vaza</h3>
+<p>Quando o morto desce, a maioria dos iniciantes joga logo uma carta na primeira vaza. Os bons jogadores fazem uma pausa. É muitas vezes na primeira vaza que o contrato se ganha ou se perde, e você não consegue planejá-la sem ver o quadro inteiro. Use sempre a mesma rotina:</p>
+<ol>
+<li><strong>Conte.</strong> Em sem trunfo, conte as suas vencedoras garantidas: as vazas que você pode fazer sem ceder a mão. Num contrato em naipe, conte as perdedoras da mão com os trunfos longos.</li>
+<li><strong>Compare.</strong> Quantas vazas extras você precisa (sem trunfo), ou de quantas perdedoras precisa se livrar (naipe)?</li>
+<li><strong>Encontre as fontes.</strong> As vazas extras vêm de firmar naipes longos, expulsar cartas altas, finesses e cortes na mão curta em trunfos. As perdedoras desaparecem cortadas no morto, descartadas nas vencedoras do morto ou com finesses.</li>
+<li><strong>Procure os perigos.</strong> Quantas vezes você terá de ceder a mão? Qual adversário é perigoso? Você tem as entradas de que precisa?</li>
+<li><strong>Decida a ordem das jogadas</strong>, começando por qual carta jogar do morto e qual mão deve ganhar a primeira vaza.</li>
+</ol>
+
+<h3>Um exemplo em sem trunfo: conte as vencedoras</h3>
+<div class="deal" data-n="S:A5 H:KQJ10 D:742 C:8653" data-s="S:K83 H:654 D:AKQ C:A972" data-caption="3ST por Sul. Oeste sai com a ♠Q."></div>
+<div class="auction" data-calls="1NT P 2C P 2D P 3NT P P P" data-dealer="S"></div>
+<p><strong>Conte:</strong> ♠AK (2), ♦AKQ (3), ♣A (1): seis vencedoras garantidas. Faltam três.</p>
+<p><strong>Fontes:</strong> copas. Depois que o ♥A for expulso, o KQJ10 do morto rende três vazas. Paus não oferecem nada: os defensores têm o K, a Q, o J e o 10.</p>
+<p><strong>Perigo:</strong> os defensores podem segurar o ♥A até a terceira volta. Aí a última copa do morto é vencedora, mas você precisa de uma entrada para chegar a ela. A única entrada lateral do morto é o ♠A.</p>
+<p><strong>Plano:</strong> jogue baixo do morto na primeira vaza e ganhe com o ♠K na mão, guardando o ♠A como entrada. Depois jogue copas imediatamente. Quando quer que os defensores tomem com o ás, você terá nove vazas: duas de espadas, três de copas, três de ouros e uma de paus. Se você ganhar a primeira vaza com o ♠A por descuido, um defensor que segure o ♥A até a terceira volta deixa a quarta copa do morto isolada, e você faz só oito vazas.</p>
+<div class="tip">Expulse cedo as cartas altas dos adversários, enquanto você ainda tem paradas em todos os naipes. Bata as suas vencedoras garantidas por último, não primeiro.</div>
+
+<h3>Um exemplo em naipe: conte as perdedoras</h3>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ por Sul. Oeste sai com a ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
+<p><strong>Conte as perdedoras da mão de Sul:</strong> espadas, nenhuma; copas, uma (a terceira volta); ouros, duas (o 7 e o 3); paus, uma (o ♣A ganha a primeira volta e a segunda se perde). Total: quatro. Você pode se permitir três.</p>
+<p><strong>Fonte:</strong> o morto tem só dois ouros. Depois do ♦A e de mais uma volta, o morto fica em chicana e pode cortar o seu terceiro ouro com um trunfo pequeno. Esse corte é uma vaza extra porque é feito pela mão <em>curta</em> em trunfos: os trunfos de Sul já são vencedores de qualquer jeito.</p>
+<p><strong>Perigo:</strong> se você tirar três voltas de trunfo primeiro, o morto fica sem trunfo para o corte. Você precisa manter pelo menos um trunfo no morto até fazer o corte.</p>
+<p><strong>Plano:</strong> ganhe a saída com o ♥A do morto, jogue ouro para o seu ás e ceda uma vaza de ouros. Se os defensores ganharem e jogarem trunfo (a melhor defesa), ganhe e corte imediatamente o seu último ouro no morto. Agora tire os trunfos e jogue paus. Você perde uma copa, um ouro e um pau.</p>
+<div class="warn">“Tire sempre os trunfos primeiro” é um bom hábito com uma grande exceção: quando você precisa dos trunfos do morto para cortar, faça os cortes antes que os trunfos acabem.</div>
+
+<h3>Contar é um hábito</h3>
+<p>Contar leva poucos segundos, e não contar custa muito caro. Em sem trunfo, se as suas vencedoras garantidas já alcançam o objetivo, faça-as e evite riscos desnecessários. Se faltam vazas, decida de onde virão as extras <em>antes</em> de tocar numa carta, porque a ordem das jogadas e a escolha da mão que ganha a primeira vaza muitas vezes dependem disso.</p>
+`,
+    keyPoints: [
+      'Planeje antes de jogar para a primeira vaza: conte, compare, encontre as fontes, procure os perigos e depois decida a ordem.',
+      'Em sem trunfo conte as vencedoras garantidas; num contrato em naipe conte as perdedoras da mão com os trunfos longos.',
+      'Expulse cedo as cartas altas dos adversários, enquanto você ainda tem paradas.',
+      'Cortes na mão curta em trunfos (em geral o morto) ganham vazas; guarde os trunfos do morto até fazer os cortes.',
+      'Proteja as entradas de que você vai precisar depois.',
+    ],
+    quiz: [
+      {
+        q: 'O que você deve contar primeiro num contrato em sem trunfo?',
+        options: ['As suas perdedoras', 'As suas vencedoras garantidas', 'Os seus trunfos', 'Os PH dos adversários'],
+        answer: 1,
+        explain: 'Em sem trunfo não há cortes, então a medida natural são as vazas que você faz sem perder a mão. O que faltar diz quantas vazas precisam vir de naipes longos ou de finesses.',
+      },
+      {
+        q: 'Qual corte ganha uma vaza?',
+        options: ['Um corte na mão com os trunfos longos', 'Um corte na mão com os trunfos curtos', 'Os dois, igualmente', 'Nenhum'],
+        answer: 1,
+        explain: 'Os seus trunfos longos fariam vazas de qualquer forma, então cortar com eles só gasta uma vencedora. Um corte com os trunfos da mão curta (em geral os do morto) ganha uma vaza que esses trunfos pequenos não fariam de outro jeito.',
+      },
+      {
+        q: 'Na mão de 3ST acima, por que ganhar a primeira vaza com o ♠K da mão em vez do ♠A do morto?',
+        options: ['Para guardar o ♠A do morto como entrada para as copas', 'Porque o rei é a carta mais alta', 'Para segurar a parada de espadas', 'Para desbloquear o naipe de espadas'],
+        answer: 0,
+        explain: 'Se os defensores segurarem o ♥A até a terceira volta, a última copa do morto será vencedora, mas inalcançável, a menos que o morto ainda tenha o ♠A.',
+      },
+      {
+        q: 'Na mão de 4♠ acima, o que dá errado se o declarante tirar três voltas de trunfo de imediato?',
+        options: ['Nada, é a jogada mais segura', 'O morto fica sem trunfo para cortar o terceiro ouro', 'Os defensores podem cortar uma copa', 'O declarante perde o controle de paus'],
+        answer: 1,
+        explain: 'O morto começou com só três trunfos. Três voltas de trunfo gastam todos, e o declarante fica com duas perdedoras de ouros, mais uma de copas e uma de paus: uma a mais do que pode.',
+      },
+    ],
+  },
+
+  {
+    id: 'opening-leads',
+    title: 'A saída',
+    topic: 'Defense',
+    level: 'Beginner',
+    summary: 'Como escolher o naipe de saída e a carta certa dentro dele, contra sem trunfo e contra contratos em naipe.',
+    body: `
+<h3>Duas decisões: o naipe e a carta</h3>
+<p>A saída é a única carta que você joga sem ver o morto, por isso vale a pena seguir bons hábitos. Primeiro escolha o naipe a partir do leilão e da sua mão; depois saia com a carta convencional desse naipe, para que o parceiro consiga deduzir o que você tem.</p>
+
+<h3>Escolhendo o naipe contra sem trunfo</h3>
+<ul>
+<li>Se o parceiro marcou um naipe, saia nele, a menos que tenha uma alternativa muito boa.</li>
+<li>Senão, saia do seu naipe mais longo e mais forte. Sem trunfo é uma corrida: os defensores tentam firmar as suas cartas longas antes que o declarante bata as vazas dele.</li>
+<li>Prefira naipes não marcados. Evite os naipes que os adversários marcaram.</li>
+<li>Com uma mão muito fraca e sem entradas, um naipe longo que você nunca vai conseguir bater pode não servir de nada; sair no provável naipe longo do parceiro (muitas vezes um rico que os adversários não mencionaram) pode ser melhor.</li>
+</ul>
+
+<h3>Escolhendo o naipe contra um contrato em naipe</h3>
+<ul>
+<li><strong>Boas saídas:</strong> a mais alta de uma sequência; o naipe do parceiro; um singleton (sobretudo quando você tem o ás de trunfo ou o parceiro pode ter uma entrada); o ás de AK.</li>
+<li><strong>Saia de trunfo</strong> quando o leilão sugere que o morto vai cortar as perdedoras do declarante: o declarante mostrou dois naipes e o morto preferiu o segundo, ou o morto mostrou um naipe curto.</li>
+<li><strong>Evite:</strong> sair debaixo de um ás (o declarante pode fazer vaza com um rei seco, e você talvez nunca faça o seu ás); sair debaixo de um rei contra o AQ do declarante; sair de uma honra em doubleton, como Qx.</li>
+</ul>
+<div class="warn">Nunca saia debaixo de um ás contra um contrato em naipe. Se tiver de jogar esse naipe, saia com o ás.</div>
+
+<h3>Com que carta sair</h3>
+<table>
+<thead><tr><th>Cartas</th><th>Contra sem trunfo</th><th>Contra naipe</th></tr></thead>
+<tbody>
+<tr><td>K Q J 5</td><td>K</td><td>K</td></tr>
+<tr><td>Q J 10 4</td><td>Q</td><td>Q</td></tr>
+<tr><td>J 10 9 4</td><td>J</td><td>J</td></tr>
+<tr><td>10 9 8 3</td><td>10</td><td>10</td></tr>
+<tr><td>K Q 10 5</td><td>K</td><td>K</td></tr>
+<tr><td>K J 10 5</td><td>J</td><td>J</td></tr>
+<tr><td>Q 10 9 4</td><td>10</td><td>10</td></tr>
+<tr><td>A K 7 4</td><td>A</td><td>A</td></tr>
+<tr><td>K J 8 5 3</td><td>5 (quarta melhor)</td><td>5, embora sair de um rei seja arriscado</td></tr>
+<tr><td>A 10 6 3</td><td>3 (quarta melhor)</td><td>Evite; se precisar, o A</td></tr>
+<tr><td>Q 8 5</td><td>5</td><td>5</td></tr>
+<tr><td>8 5 2</td><td>8 (a mais alta de nada)</td><td>8</td></tr>
+<tr><td>9 4</td><td>9</td><td>9</td></tr>
+<tr><td>7 (singleton)</td><td>raramente</td><td>7, muitas vezes uma boa saída</td></tr>
+</tbody>
+</table>
+<p>As regras por trás da tabela: saia com a mais alta de uma sequência (três cartas seguidas, ou duas seguidas mais a seguinte depois de um buraco, como em KQ10); de uma sequência interna como KJ10 ou Q109, saia com a mais alta das cartas seguidas (o J ou o 10); saia com o ás de AK; saia com a mais alta de um doubleton e com a mais alta de três cartas pequenas; de uma honra com duas ou três cartas pequenas, saia baixo (terceira melhor de três, quarta melhor de quatro); e contra sem trunfo saia com a quarta melhor do seu naipe longo.</p>
+
+<h3>Exemplos</h3>
+<div class="hand" data-cards="S:KJ1074 H:83 D:Q62 C:A95" data-label="Você sai contra 1ST – 3ST"></div>
+<p>Saia com o ♠J, a mais alta da sequência interna KJ10. Espadas são o seu naipe longo, e a saída do J também diz ao parceiro que você tem o 10, mas não a Q.</p>
+<div class="hand" data-cards="S:73 H:AK5 D:QJ104 C:9862" data-label="Você sai contra 1♠ – 2♠ – 4♠"></div>
+<p>Duas escolhas seguras: o ♥A (ás de AK) e a ♦Q (a mais alta de uma sequência). O ♥A ganha a vaza e deixa você ver o morto antes de decidir o que fazer, enquanto o sinal do parceiro diz se deve continuar em copas.</p>
+<div class="auction" data-calls="1S P 1NT P 2D P P P" data-dealer="N"></div>
+<div class="hand" data-cards="S:KQ109 H:A73 D:852 C:J64" data-label="Leste: saída contra 2♦"></div>
+<p>Saia de trunfo. Norte tem cinco ou mais espadas e quatro ou mais ouros, e a preferência de Sul por ouros sugere que ele é curto em espadas. Com as suas espadas fortes, as perdedoras de espadas do declarante só se salvam cortadas no morto; cada volta de trunfo que você joga tira um corte do morto.</p>
+<div class="tip">Depois de cada saída, pergunte-se o que ela diz ao parceiro. As saídas convencionais permitem que o outro defensor conte o naipe desde a primeira vaza.</div>
+`,
+    keyPoints: [
+      'Escolha primeiro o naipe: o do parceiro e depois o seu naipe longo contra sem trunfo; sequências, o naipe do parceiro, singletons ou trunfo contra naipe.',
+      'Saia com a mais alta de uma sequência; de KJ10 saia com o J, de Q109 com o 10; com o A de AK.',
+      'Contra sem trunfo, saia com a quarta melhor do seu naipe mais longo e mais forte.',
+      'Saia com a mais alta de um doubleton e de três cartas pequenas; baixo de uma honra com duas ou três cartas pequenas.',
+      'Nunca saia debaixo de um ás contra naipe; saia de trunfo quando o morto provavelmente vai cortar.',
+    ],
+    quiz: [
+      {
+        q: 'Você sai contra 3ST com ♠KQ1086 como naipe longo. Com que carta sai?',
+        options: ['♠K', '♠8', '♠6', '♠Q'],
+        answer: 0,
+        explain: 'KQ10 é uma sequência quebrada, então saia com o rei. É seguro e começa a firmar o naipe; a quarta melhor (o 8) poderia dar ao declarante uma vaza barata com o J.',
+      },
+      {
+        q: 'Contra 4♥, qual destas saídas é a pior?',
+        options: ['♦Q de ♦QJ10', 'O ♣2 de ♣AJ62', 'Um singleton de espadas', 'O ♣8 de ♣852'],
+        answer: 1,
+        explain: 'Sair debaixo de um ás contra um contrato em naipe é a saída perdedora clássica: o declarante pode ganhar uma vaza barata com o rei ou a dama, e o seu ás pode ser cortado depois.',
+      },
+      {
+        q: 'O parceiro interveio com 1♠ e os adversários chegaram a 3ST. Você tem ♠Q85. Com que carta sai?',
+        options: ['♠Q', '♠8', '♠5', 'Outro naipe'],
+        answer: 2,
+        explain: 'Saia no naipe do parceiro e, de uma honra com duas cartas pequenas, saia baixo. Sair com a Q poderia desperdiçá-la se o parceiro tiver AJ; guardando-a, o seu lado pode depois capturar com ela uma honra do declarante.',
+      },
+      {
+        q: 'Você decide sair de ♦94. Com que carta?',
+        options: ['♦9', '♦4', 'Tanto faz', 'Nenhuma: nunca saia de doubleton'],
+        answer: 0,
+        explain: 'Saia com a mais alta do doubleton. Quando você jogar o 4 depois, o parceiro vê o alto-baixo e sabe que você tinha duas cartas.',
+      },
+      {
+        q: 'Quando a saída de trunfo é mais atraente?',
+        options: ['Quando você tem o ás de trunfo', 'Quando o leilão sugere que o morto é curto no naipe lateral do declarante e vai cortar', 'Quando você tem um singleton num naipe lateral', 'Sempre que os adversários jogam num rico'],
+        answer: 1,
+        explain: 'Saídas de trunfo reduzem os cortes que o morto pode fazer. São melhores quando o declarante mostrou um segundo naipe, o morto deu preferência, ou se sabe que o morto é curto num naipe em que você é forte.',
+      },
+    ],
+  },
+
+  {
+    id: 'duplicate-scoring',
+    title: 'A pontuação no bridge duplicado',
+    topic: 'Scoring & tactics',
+    level: 'Beginner',
+    summary: 'Como uma mão é pontuada no duplicado: valor das vazas, bônus de parcial, game e slam, vazas a mais, vazas abaixo e o efeito dos dobres.',
+    body: `
+<h3>Cada mão vale por si</h3>
+<p>No bridge duplicado cada mão é pontuada isoladamente. Não se carregam parciais de uma mão para outra como no bridge de rubber. Cada mão indica quem está <strong>vulnerável</strong>; estar vulnerável aumenta tanto os bônus de game e slam quanto as multas por cair.</p>
+
+<h3>Passo 1: pontos de vaza</h3>
+<p>Só as vazas contratadas e cumpridas contam para os pontos de vaza:</p>
+<table>
+<thead><tr><th>Denominação</th><th>Por vaza contratada e cumprida</th></tr></thead>
+<tbody>
+<tr><td>♣ ou ♦</td><td>20</td></tr>
+<tr><td>♥ ou ♠</td><td>30</td></tr>
+<tr><td>ST</td><td>40 pela primeira vaza, 30 por cada uma das seguintes</td></tr>
+</tbody>
+</table>
+<p>Contratos dobrados valem o dobro dos pontos de vaza, e redobrados, o quádruplo. Assim, 2♥ vale 60, mas 2♥ dobrado vale 120.</p>
+
+<h3>Passo 2: bônus</h3>
+<table>
+<thead><tr><th>Bônus</th><th>Não vulnerável</th><th>Vulnerável</th></tr></thead>
+<tbody>
+<tr><td>Parcial (pontos de vaza abaixo de 100)</td><td>50</td><td>50</td></tr>
+<tr><td>Game (pontos de vaza 100 ou mais)</td><td>300</td><td>500</td></tr>
+<tr><td>Pequeno slam (nível 6)</td><td>mais 500</td><td>mais 750</td></tr>
+<tr><td>Grand slam (nível 7)</td><td>mais 1000</td><td>mais 1500</td></tr>
+<tr><td>Cumprir um contrato dobrado (“insulto”)</td><td>50</td><td>50</td></tr>
+<tr><td>Cumprir um contrato redobrado</td><td>100</td><td>100</td></tr>
+</tbody>
+</table>
+<p>Os bônus de slam somam-se ao bônus de game. O game exige 100 pontos de vaza: 3ST (40 + 30 + 30), 4♥ ou 4♠ (120), 5♣ ou 5♦ (100).</p>
+
+<h3>Passo 3: vazas a mais</h3>
+<p>Vazas a mais sem dobre valem o valor normal da vaza (20, 30, ou 30 em sem trunfo). Vazas a mais dobradas valem 100 cada não vulnerável e 200 vulnerável; redobradas, 200 e 400.</p>
+
+<h3>Caindo: vazas abaixo</h3>
+<table>
+<thead><tr><th>Abaixo</th><th>Não vul.</th><th>Não vul. dobrado</th><th>Vul.</th><th>Vul. dobrado</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>50</td><td>100</td><td>100</td><td>200</td></tr>
+<tr><td>2</td><td>100</td><td>300</td><td>200</td><td>500</td></tr>
+<tr><td>3</td><td>150</td><td>500</td><td>300</td><td>800</td></tr>
+<tr><td>4</td><td>200</td><td>800</td><td>400</td><td>1100</td></tr>
+<tr><td>5</td><td>250</td><td>1100</td><td>500</td><td>1400</td></tr>
+</tbody>
+</table>
+<p>Dobrado e não vulnerável: 100 pela primeira vaza abaixo, 200 cada pela segunda e pela terceira, 300 cada a partir daí. Dobrado e vulnerável: 200 pela primeira, 300 por cada uma das seguintes. Vazas abaixo redobradas valem o dobro das dobradas.</p>
+
+<h3>Resultados que vale a pena saber de cor</h3>
+<table>
+<thead><tr><th>Contrato cumprido exato</th><th>Não vul.</th><th>Vul.</th></tr></thead>
+<tbody>
+<tr><td>1ST</td><td>90</td><td>90</td></tr>
+<tr><td>2♥ ou 2♠, 3♣ ou 3♦</td><td>110</td><td>110</td></tr>
+<tr><td>2ST</td><td>120</td><td>120</td></tr>
+<tr><td>3♥ ou 3♠</td><td>140</td><td>140</td></tr>
+<tr><td>3ST</td><td>400</td><td>600</td></tr>
+<tr><td>4♥ ou 4♠</td><td>420</td><td>620</td></tr>
+<tr><td>5♣ ou 5♦</td><td>400</td><td>600</td></tr>
+<tr><td>6♥ ou 6♠</td><td>980</td><td>1430</td></tr>
+<tr><td>6ST</td><td>990</td><td>1440</td></tr>
+<tr><td>7♠</td><td>1510</td><td>2210</td></tr>
+<tr><td>7ST</td><td>1520</td><td>2220</td></tr>
+<tr><td>2♥ ou 2♠ dobrado</td><td>470</td><td>670</td></tr>
+<tr><td>1ST dobrado</td><td>180</td><td>180</td></tr>
+</tbody>
+</table>
+<p>Exemplo: 4♠ com onze vazas, não vulnerável. Pontos de vaza 4 × 30 = 120, bônus de game 300, uma vaza a mais 30: total 450. O mesmo resultado vulnerável: 120 + 500 + 30 = 650.</p>
+<p>Exemplo: 3ST dobrado, com dez vazas, vulnerável. Pontos de vaza (40 + 30 + 30) × 2 = 200, bônus de game 500, insulto 50, uma vaza a mais dobrada 200: total 950.</p>
+<div class="warn">Um dobre pode transformar um parcial em game: 2♥ dobrado tem 120 pontos de vaza, então cumpri-lo vale 470 ou 670 em vez de 110. Não dobre um contrato baixo para punir, a menos que espere derrubá-lo.</div>
+<div class="tip">Repare que 5♣ e 3ST valem o mesmo, mas 3ST exige duas vazas a menos. É um dos motivos por que os games em sem trunfo e em naipe rico são preferidos aos games em naipe pobre.</div>
+`,
+    keyPoints: [
+      'Valor das vazas: pobres 20, ricos 30, sem trunfo 40 e depois 30; dobrado ×2, redobrado ×4.',
+      'O game (100+ pontos de vaza) dá 300 não vulnerável ou 500 vulnerável; um parcial dá 50.',
+      'Bônus de slam: pequeno 500/750, grand 1000/1500, além do bônus de game.',
+      'Vazas abaixo: 50/100 sem dobre; dobradas 100-300-500-800 não vulnerável e 200-500-800-1100 vulnerável.',
+      'Cumprir um contrato dobrado acrescenta 50 de insulto, e cada vaza a mais dobrada vale 100 ou 200.',
+    ],
+    quiz: [
+      {
+        q: 'Você cumpre exatamente 4♥, vulnerável. Quanto marca?',
+        options: ['420', '620', '650', '600'],
+        answer: 1,
+        explain: 'Pontos de vaza 4 × 30 = 120, mais o bônus de game vulnerável de 500: 620.',
+      },
+      {
+        q: 'Você faz dez vazas em 3ST, não vulnerável. Quanto marca?',
+        options: ['400', '430', '460', '630'],
+        answer: 1,
+        explain: '40 + 30 + 30 = 100 pelo contrato, 300 pelo game não vulnerável e 30 pela vaza a mais: 430.',
+      },
+      {
+        q: 'Não vulnerável, você cai três dobrado. Quanto marcam os adversários?',
+        options: ['300', '500', '800', '150'],
+        answer: 1,
+        explain: 'Não vulnerável e dobrado: 100 pela primeira vaza abaixo e 200 cada pela segunda e pela terceira: 100 + 200 + 200 = 500.',
+      },
+      {
+        q: 'Os adversários cumprem 2♠ dobrado, não vulneráveis. Quanto marcam?',
+        options: ['110', '220', '470', '670'],
+        answer: 2,
+        explain: 'Dobrado, os pontos de vaza são 2 × 30 × 2 = 120, o que é um game: 120 + 300 de bônus de game + 50 de insulto = 470.',
+      },
+      {
+        q: 'Você cumpre exatamente 6♠, não vulnerável. Quanto marca?',
+        options: ['980', '1430', '920', '1010'],
+        answer: 0,
+        explain: 'Pontos de vaza 6 × 30 = 180, bônus de game 300 e bônus de pequeno slam 500: 980. Vulnerável seriam 180 + 500 + 750 = 1430.',
+      },
+    ],
+  },
+
+  {
+    id: 'establishing-long-suits',
+    title: 'Firmando naipes longos',
+    topic: 'Declarer play',
+    level: 'Beginner',
+    summary: 'Como transformar as cartas pequenas de um naipe longo em vencedoras e como guardar as entradas necessárias para batê-las.',
+    body: `
+<h3>De onde vêm as vazas extras</h3>
+<p>Na maioria dos contratos em sem trunfo, as vazas extras de que você precisa vêm dos naipes longos. Quando os adversários não têm mais cartas de um naipe, cada carta que lhe resta nele é vencedora, até um 2. Transformar cartas pequenas em vencedoras chama-se <strong>firmar</strong> o naipe.</p>
+
+<h3>Contando as voltas</h3>
+<p>Para saber quantas vazas um naipe vai render, pense em como as cartas dos adversários provavelmente se dividem. Com A K 6 4 2 diante de 7 5 3, você tem oito cartas e os adversários cinco. Se elas se dividirem 3-2 (68% das vezes), três voltas as esgotam: você ganha com o A e o K, perde uma volta, e as duas últimas cartas são vencedoras. Quatro vazas. Se a divisão for 4-1, você precisa de quatro voltas e o naipe rende só três vazas.</p>
+<table>
+<thead><tr><th>Cartas que faltam</th><th>Divisão mais provável</th><th>Chance</th></tr></thead>
+<tbody>
+<tr><td>5</td><td>3-2</td><td>68%</td></tr>
+<tr><td>6</td><td>4-2 (3-3 é só 36%)</td><td>48%</td></tr>
+<tr><td>7</td><td>4-3</td><td>62%</td></tr>
+</tbody>
+</table>
+
+<h3>Perca cedo a vaza que tem de perder</h3>
+<div class="deal" data-n="S:765 H:83 D:AK642 C:742" data-s="S:AK4 H:AQ5 D:753 C:AKJ5" data-caption="3ST por Sul. Oeste sai com a ♠Q."></div>
+<div class="auction" data-calls="2NT P 3NT P P P" data-dealer="S"></div>
+<p><strong>Conte:</strong> ♠AK, ♥A, ♦AK, ♣AK: sete vencedoras garantidas. Faltam duas, e os ouros podem fornecê-las se se dividirem 3-2.</p>
+<p><strong>A armadilha:</strong> o morto não tem entrada fora de ouros. Se você jogar o ♦A, o ♦K e um terceiro ouro, os defensores ganham a terceira volta e os dois ouros longos do morto ficam isolados. Você faz sete vazas.</p>
+<p><strong>A solução:</strong> ganhe com o ♠A e jogue imediatamente um ouro pequeno das duas mãos, <em>cedendo</em> a primeira volta. Ganhe o retorno dos defensores, jogue ouro para o ás e bata o rei; se o naipe se dividiu 3-2, acabou, e você ainda está no morto para bater os dois ouros longos. Nove vazas: duas de espadas, uma de copas, quatro de ouros e duas de paus.</p>
+<p>Ceder não custa nada: você ia perder uma vaza de ouros de qualquer jeito. Ceder só a perde enquanto o morto ainda tem o A e o K para voltar até ele.</p>
+<div class="tip">Quando um naipe tem de perder uma vaza e a mão longa tem poucas entradas, perca essa vaza na primeira volta, não na última.</div>
+
+<h3>Desbloqueio: primeiro as cartas altas da mão curta</h3>
+<p>Com ♣KQ3 diante de ♣A8642, jogue primeiro o rei e a dama e depois passe para o ás com o 3. Se você bater o ás primeiro, o K e a Q ficam sozinhos numa mão e o naipe bloqueia: você não consegue voltar às cartas longas sem uma entrada lateral. A mesma ideia vale sempre que uma das mãos for curta: bata primeiro as honras da mão curta.</p>
+
+<h3>Expulsando as cartas altas dos adversários</h3>
+<p>Alguns naipes não têm problema nenhum de cartas pequenas; só precisam que o ás dos adversários seja expulso. KQJ10 diante de cartas pequenas rende três vazas depois que o ás sai. Comece esses naipes cedo, enquanto ainda tem paradas nos outros naipes, para que os defensores não firmem primeiro o naipe longo deles.</p>
+
+<h3>Escolhendo o naipe a firmar</h3>
+<ul>
+<li>Prefira o naipe que exige menos vazas perdidas e a divisão mais provável.</li>
+<li>Prefira ceder a mão ao adversário que não pode prejudicá-lo (veja as lições “Deixar passar e as entradas” e “Jogada de evitação: o adversário perigoso fora da mão”).</li>
+<li>Confira as entradas: um naipe que você firma mas nunca alcança não vale nada.</li>
+<li>Num contrato em naipe, os naipes laterais longos se firmam do mesmo modo, muitas vezes cortando as cartas pequenas na mão longa em trunfos até que as restantes sejam boas.</li>
+</ul>
+<div class="warn">Não bata todas as suas vencedoras garantidas primeiro “para ver o que acontece”. Cada vencedora que você bate também firma vencedoras para os defensores e destrói as suas próprias entradas e paradas.</div>
+`,
+    keyPoints: [
+      'As cartas pequenas viram vencedoras quando os adversários não têm mais o naipe.',
+      'Conte as voltas: com cinco cartas faltando, uma divisão 3-2 (68%) exige três voltas.',
+      'Ceda a volta que tem de perder enquanto a mão longa ainda tem as cartas altas como entradas.',
+      'Desbloqueie batendo primeiro as honras da mão curta.',
+      'Comece o seu naipe longo cedo, antes que os defensores firmem o deles.',
+    ],
+    quiz: [
+      {
+        q: 'Você tem A K 6 4 2 diante de 7 5 3. Se as cinco cartas que faltam se dividirem 3-2, quantas vazas o naipe pode render?',
+        options: ['3', '4', '5', '2'],
+        answer: 1,
+        explain: 'Três voltas esgotam uma divisão 3-2. Você ganha duas dessas voltas e perde uma; as duas cartas restantes da mão longa são vencedoras: 4 vazas.',
+      },
+      {
+        q: 'Na mão de 3ST acima, por que ceder a primeira volta de ouros?',
+        options: ['Para descobrir quem tem a dama', 'Para guardar o ♦A e o ♦K como entradas para os ouros longos', 'Para segurar as espadas', 'Porque ceder sempre ganha uma vaza extra'],
+        answer: 1,
+        explain: 'O morto não tem entrada lateral. Perder primeiro a vaza inevitável de ouros significa que, depois do A e do K, as cartas longas podem ser corridas sem precisar voltar ao morto.',
+      },
+      {
+        q: 'Você tem ♣KQ3 na mão e ♣A8642 no morto, sem outra entrada no morto. Como jogar os paus?',
+        options: ['Primeiro o ás, depois o rei e a dama', 'Primeiro o rei e a dama, depois um pau pequeno para o ás', 'Jogar o 2 do morto', 'Tanto faz'],
+        answer: 1,
+        explain: 'Bata primeiro as honras da mão curta. Depois do K e da Q você ainda passa para o ás com o 3 e, se o naipe se dividiu 3-2, bate as cartas longas. Com o ás primeiro, o K e a Q bloqueiam o naipe.',
+      },
+      {
+        q: 'Os adversários têm seis cartas num naipe. Com que frequência elas se dividem 3-3?',
+        options: ['36%', '48%', '50%', '68%'],
+        answer: 0,
+        explain: 'Com um número par de cartas faltando, a divisão igual é menos provável do que se pensa: 3-3 é cerca de 36%, enquanto 4-2 é cerca de 48%.',
+      },
+    ],
+  },
+
+  {
+    id: 'finesses',
+    title: 'Finesses',
+    topic: 'Declarer play',
+    level: 'Beginner',
+    summary: 'Como ganhar vazas com cartas que não são as mais altas jogando em direção a elas, e quando fazer a finesse em vez de jogar pela queda.',
+    body: `
+<h3>A ideia</h3>
+<p>Uma finesse é uma tentativa de ganhar uma vaza com uma carta que não é a mais alta em jogo, jogando-a <em>depois</em> do adversário que tem a carta mais alta. Para isso, você joga <strong>em direção</strong> à carta que espera que ganhe.</p>
+<p>O caso mais simples: o morto (Norte) tem ♠A Q e você (Sul) tem duas espadas pequenas. Jogue uma espada pequena da mão. Se Oeste jogar baixo, jogue a dama. Se Oeste tiver o rei, a dama ganha; se Leste o tiver, a dama perde. De qualquer forma, o ás continua vencedor. Uma finesse simples funciona metade das vezes, mas tentá-la não custa nada quando você precisa jogar o naipe de qualquer jeito.</p>
+
+<h3>Jogando em direção a uma honra</h3>
+<p>Com K 5 no morto e 6 4 na mão, jogue da mão em direção ao rei. Se Oeste tiver o ás, o rei fará uma vaza: se Oeste jogar o ás, o rei fica firme; se Oeste ceder, o rei ganha. Se, em vez disso, você jogar o rei do morto, ele nunca ganhará enquanto o ás estiver fora.</p>
+<div class="warn">Jogar uma honra só é certo quando você pode deixar que ela seja coberta, ou seja, quando tem as cartas logo abaixo dela. Jogue a dama de Q J 10 diante de A 3 2, mas não de Q 3 2 na mão diante de A 5 4 no morto: se a dama for coberta, você não tem nada para promover. Em vez disso, jogue baixo do morto em direção à dama, que fará uma vaza sempre que Leste tiver o rei.</div>
+
+<h3>Finesses repetidas e finesses duplas</h3>
+<table>
+<thead><tr><th>Combinação</th><th>Como jogar</th><th>Resultado</th></tr></thead>
+<tbody>
+<tr><td>A Q diante de 3 2</td><td>Jogue em direção ao A Q e faça a finesse da Q</td><td>2 vazas 50%</td></tr>
+<tr><td>K 5 diante de 6 4</td><td>Jogue em direção ao K</td><td>1 vaza 50%</td></tr>
+<tr><td>A Q 10 diante de 4 3 2</td><td>Finesse do 10, depois da Q</td><td>3 vazas 25%, pelo menos 2 vazas 75%</td></tr>
+<tr><td>A J 10 diante de 4 3 2</td><td>Finesse do 10 (ou do J); se perder, repita a finesse</td><td>2 vazas 75% (só falha se o K e a Q estiverem ambos mal colocados)</td></tr>
+<tr><td>A K J diante de 4 3 2</td><td>Finesse do J</td><td>3 vazas cerca de 50%</td></tr>
+</tbody>
+</table>
+<p>Uma finesse dupla dá certo quando pelo menos uma das duas honras que faltam está bem colocada; cada honra está com Oeste ou com Leste de forma independente, então a chance de as duas estarem mal colocadas é ½ × ½ = 25%.</p>
+
+<h3>Finesse ou queda? “Com oito, finesse; com nove, queda”</h3>
+<p>Quando falta a dama e você não tem outras pistas:</p>
+<ul>
+<li>Com <strong>oito</strong> cartas (cinco faltando), faça a finesse. A finesse (depois de bater primeiro o ás, caso a dama seja seca) funciona cerca de 40% das vezes com A K J x x (cerca de 51% com A K J 10 x); jogar pela queda da dama funciona só cerca de 33%.</li>
+<li>Com <strong>nove</strong> cartas (quatro faltando), bata o ás e o rei e torça para a dama cair. Isso funciona cerca de 53% das vezes; a finesse, cerca de 51%.</li>
+</ul>
+<p>A regra serve só para desempatar. A informação do leilão (quem abriu ou fez barragem tem a maior parte das cartas altas ou do comprimento) ou do começo do carteio pesa mais do que essas pequenas diferenças.</p>
+
+<h3>Uma finesse na prática</h3>
+<div class="deal" data-n="S:7432 H:Q52 D:QJ7 C:KQ6" data-s="S:AQJ105 H:AK3 D:K84 C:A5" data-caption="6♠ por Sul. Oeste sai com o ♥J."></div>
+<p>Você tem de perder o ♦A, então o slam depende de não perder vaza de trunfo. Falta o ♠K, e com nove trunfos você faz a finesse: só consegue capturá-lo se Leste o tiver, porque Leste joga antes do seu A Q J 10 (ou se Oeste tiver o rei seco).</p>
+<p>Ganhe a saída com a ♥Q do morto, para estar na mão certa, e jogue um trunfo pequeno. Se Leste jogar baixo, ponha o 10 (ou o J). Se ganhar, talvez você precise repetir a finesse, então volte ao morto com o ♣K e jogue outro trunfo. Planejar as entradas para uma finesse repetida faz parte do trabalho: o morto tem duas entradas rápidas (a ♥Q e o ♣K), e você deve usá-las para o naipe de trunfo em vez de desperdiçá-las.</p>
+<div class="tip">A regra “com oito, finesse; com nove, queda” vale para a dama. Quando falta o rei, você ainda faz a finesse com nove ou dez cartas; só com onze cartas jogar pela queda é um pouco melhor (52%).</div>
+`,
+    keyPoints: [
+      'Jogue em direção à carta que você espera que ganhe; uma finesse simples é uma chance de 50%.',
+      'Só jogue uma honra para fazer finesse quando tiver as cartas logo abaixo dela.',
+      'Uma finesse dupla (A Q 10, A J 10) ganha pelo menos uma vaza extra 75% das vezes.',
+      'Faltando a dama: finesse com oito cartas, queda com nove (“com oito, finesse; com nove, queda”).',
+      'Planeje as entradas para finesses repetidas.',
+    ],
+    quiz: [
+      {
+        q: 'O morto tem ♥A Q e você tem ♥7 4. Como jogar as copas para tentar duas vazas?',
+        options: ['Bater o ás e depois jogar a dama', 'Jogar a dama do morto', 'Jogar uma copa pequena da mão e pôr a dama se Oeste jogar baixo', 'Bater o ás e torcer para o rei cair'],
+        answer: 2,
+        explain: 'A dama só pode ganhar se for jogada depois do rei. Jogue da mão para que Oeste tenha de jogar antes do morto; se Oeste tiver o rei, a dama ganha.',
+      },
+      {
+        q: 'Com A Q 10 no morto e 4 3 2 na mão, com que frequência a finesse dupla lhe dá pelo menos duas vazas?',
+        options: ['25%', '50%', '75%', '90%'],
+        answer: 2,
+        explain: 'Você faz pelo menos duas vazas, a menos que o K e o J estejam ambos com Leste. Cada um está com Oeste metade das vezes, então os dois só estão mal colocados ¼ das vezes.',
+      },
+      {
+        q: 'Você tem A K J 5 2 diante de 6 4 3 (oito cartas) e falta a dama. Qual é a melhor jogada, sem pistas do leilão?',
+        options: ['Bater o ás e o rei', 'Bater o ás e depois fazer a finesse do valete', 'Jogar o valete', 'Ceder uma volta'],
+        answer: 1,
+        explain: 'Com oito cartas, a finesse (cerca de 40%, batendo antes o ás caso a dama seja seca) é melhor que a queda (cerca de 33%).',
+      },
+      {
+        q: 'Você tem A K J 5 4 diante de 7 6 3 2 (nove cartas) e falta a dama. Qual é a melhor jogada, sem pistas?',
+        options: ['Bater o ás e o rei', 'Fazer a finesse do valete de imediato', 'Jogar o valete', 'Ceder uma volta'],
+        answer: 0,
+        explain: '“Com nove, queda”: com só quatro cartas faltando, a dama cai sob o ás e o rei cerca de 53% das vezes, um pouco mais do que a finesse funciona (cerca de 51%).',
+      },
+      {
+        q: 'O morto tem ♦K 7 3 e você tem ♦8 4 2. Como se dar a melhor chance de fazer uma vaza?',
+        options: ['Jogar o rei do morto', 'Jogar baixo da mão em direção ao rei', 'Jogar baixo do morto', 'Esperar que os defensores joguem o naipe'],
+        answer: 1,
+        explain: 'Jogar em direção ao rei ganha uma vaza sempre que Oeste tiver o ás. Jogar o rei perde para o ás, esteja onde estiver.',
+      },
+    ],
+  },
+
+  {
+    id: 'second-and-third-hand',
+    title: 'Segunda mão baixa, terceira mão alta',
+    topic: 'Defense',
+    level: 'Beginner',
+    summary: 'As regras básicas para o defensor que joga em segundo e em terceiro numa vaza, quando quebrá-las e quando cobrir honra com honra.',
+    body: `
+<h3>Segunda mão baixa</h3>
+<p>Quando o declarante joga uma carta pequena em direção ao morto (ou do morto em direção à mão do declarante), o defensor que joga em segundo deve em geral jogar <strong>baixo</strong>. O parceiro joga por último na vaza e muitas vezes pode ganhá-la barato, enquanto a sua carta alta fica guardada para capturar depois uma honra do declarante.</p>
+<p>Exemplo: o morto tem ♠K J 5 e o declarante joga da mão uma espada pequena em direção a ele. Você está em segundo com ♠A 7 3. Se jogar o ás, captura só cartas pequenas, e o K e o J do morto ficam ambos para depois. Se jogar baixo, o declarante precisa adivinhar: se ele jogar o valete e o parceiro tiver a dama, o seu lado faz duas vazas; se jogar o rei, o seu ás ainda faz vaza depois.</p>
+
+<h3>Quando a segunda mão deve jogar alto</h3>
+<ul>
+<li><strong>Para bater a vaza que derruba o contrato</strong>, ou uma vaza que você não pode perder, por exemplo quando o declarante está prestes a descartar as perdedoras dele.</li>
+<li><strong>Quando uma honra é jogada</strong>: aí a questão é se deve cobrir (veja abaixo).</li>
+<li><strong>Para dividir honras em sequência.</strong> Suponha que o morto tem K 10 3, o declarante tem A 6 2 e você está antes do morto com Q J 4. Se o declarante jogar baixo e você também, ele faz a finesse do 10, depois bate o A e o K, e a sua Q e o seu J caem: nenhuma vaza para você. Jogue o J na primeira volta (e a Q quando o declarante jogar de novo em direção ao morto) e você terá com certeza uma vaza.</li>
+</ul>
+
+<h3>Terceira mão alta</h3>
+<p>Quando o parceiro sai com uma carta pequena e o morto joga baixo, jogue a sua carta <strong>mais alta</strong> para impedir que o declarante ganhe a vaza barato, ou para expulsar a carta alta do declarante e promover a do parceiro.</p>
+<ul>
+<li>Com cartas altas em sequência, jogue a <strong>menor</strong> delas: de K Q 5 jogue a Q, de Q J 4 jogue o J. Assim o parceiro consegue saber onde está a carta mais alta.</li>
+<li>Jogue só tão alto quanto for necessário. Se o morto jogou o 9 e você tem Q 10 2, o 10 basta.</li>
+<li><strong>Finesse contra o morto.</strong> Se o morto tem K 7 3 e joga baixo, e você tem A J 4, jogue o J. O rei do morto está preso sob o seu ás: se o declarante tiver a dama, ganha esta vaza, mas o seu ás continua sobre o K; se o parceiro tiver a dama, o J ganha.</li>
+</ul>
+
+<h3>Cobrir honra com honra</h3>
+<p>Quando uma honra é jogada e você tem uma mais alta, cobrir obriga o declarante a usar duas cartas altas para capturar uma sua. Isso pode promover uma carta mais baixa, como um 10 ou um 9, na sua mão ou na do parceiro.</p>
+<table>
+<thead><tr><th>Posição</th><th>Ouros</th></tr></thead>
+<tbody>
+<tr><td>Norte (morto)</td><td>J 7 3</td></tr>
+<tr><td>Oeste (parceiro)</td><td>10 2</td></tr>
+<tr><td>Leste (você)</td><td>Q 9 4</td></tr>
+<tr><td>Sul (declarante)</td><td>A K 8 6 5</td></tr>
+</tbody>
+</table>
+<p>O declarante joga o ♦J do morto. Se você jogar baixo, o J ganha, e o A e o K derrubam depois a sua dama: o declarante não perde vaza. Se você cobrir com a Q, o declarante ganha com o A e bate o K, derrubando o 10 do parceiro, mas agora o seu 9 é mais alto que qualquer ouro que reste ao declarante. Cobrir criou uma vaza do nada.</p>
+
+<h4>Quando não cobrir</h4>
+<ul>
+<li>Quando a honra jogada faz parte de honras em sequência (o morto tem Q J 10 4 e joga a Q): espere e cubra a última delas, se for o caso.</li>
+<li>Quando claramente não há nada a promover, por exemplo no naipe de trunfo depois que o declarante mostrou um naipe longo e forte.</li>
+<li>Quando a honra sai da mão do declarante e cobrir só o ajudaria a capturar o naipe: pense no que o declarante tem antes de reagir.</li>
+</ul>
+<div class="tip">Cobrir ou não é uma questão de promoção. Pergunte-se: “Se eu cobrir, qual carta nossa pode virar vencedora?” Se a resposta for nenhuma, não cubra.</div>
+<div class="warn">Não hesite para depois jogar baixo: a pausa diz ao declarante que você tem a honra que falta. Pense nessas situações assim que o morto aparecer, para estar pronto quando elas surgirem.</div>
+`,
+    keyPoints: [
+      'Segunda mão baixa: guarde as cartas altas para capturar as honras do declarante; o parceiro joga por último.',
+      'Quebre a regra para fazer a vaza que derruba o contrato ou para dividir honras em sequência.',
+      'Terceira mão alta, mas a menor de cartas em sequência e só tão alto quanto necessário.',
+      'Faça finesse contra a honra do morto quando estiver depois dela.',
+      'Cubra honra com honra quando isso puder promover uma carta do seu lado; não cubra a primeira de honras em sequência.',
+    ],
+    quiz: [
+      {
+        q: 'O declarante joga uma carta baixa da mão em direção ao K J 5 do morto. Você tem A 7 3 em segundo. O que costuma jogar?',
+        options: ['O ás', 'Uma carta baixa', 'O 7, para sinalizar', 'Nunca faz diferença'],
+        answer: 1,
+        explain: 'Segunda mão baixa. Tomar com o ás captura só cartas pequenas e deixa vivos o K e o J do morto. Jogar baixo obriga o declarante a adivinhar, e o parceiro pode ter a dama.',
+      },
+      {
+        q: 'O parceiro sai com uma carta baixa contra 3ST. O morto tem 7 5 2 e joga baixo. Você tem K Q 8. Que carta joga?',
+        options: ['K', 'Q', '8', 'Qualquer das honras'],
+        answer: 1,
+        explain: 'Terceira mão alta, a menor das cartas em sequência: a Q. Se ela expulsar o ás, o parceiro sabe que você também tem o K.',
+      },
+      {
+        q: 'O parceiro sai baixo. O morto tem K 7 3 e joga baixo. Você tem A J 4. Que carta joga?',
+        options: ['A', 'J', '4', 'O K está no morto, então tanto faz'],
+        answer: 1,
+        explain: 'Finesse contra o morto: o J ganha se o parceiro tiver a Q, e o seu ás fica sobre o rei do morto. Jogar o ás firmaria o rei do morto.',
+      },
+      {
+        q: 'O morto tem ♠Q J 10 4 e joga a Q. Você tem ♠K 6 3 depois do morto. Deve cobrir?',
+        options: ['Sim, sempre cubra uma honra', 'Não, não cubra a primeira de honras em sequência', 'Só se o parceiro tiver sinalizado', 'Sim, com o 6'],
+        answer: 1,
+        explain: 'Cobrir a Q deixa o declarante ganhar com o ás, e aí o J e o 10 ficam bons. Espere: se o declarante continuar jogando honras, cubra a última, que é quando cobrir pode promover alguma coisa.',
+      },
+      {
+        q: 'Por que cobrir honra com honra?',
+        options: ['Para ganhar a vaza', 'Para obrigar o declarante a usar duas honras por uma sua, promovendo uma carta mais baixa do seu lado', 'Para mostrar força ao parceiro', 'Para obrigar o declarante a cortar'],
+        answer: 1,
+        explain: 'Cobrir raramente ganha a própria vaza. O valor está na promoção: depois que duas honras do declarante saem, uma carta mais baixa, como um 10 ou um 9, pode virar vencedora.',
+      },
+    ],
+  },
 ];
