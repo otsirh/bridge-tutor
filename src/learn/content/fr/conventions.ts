@@ -56,7 +56,7 @@ export const LESSONS_4: Lesson[] = [
 <h3>Un exemple complet</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
 <div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Nord saute à 4♥ avec quatre cartes de soutien et 19+ points. Sud a 17 H et une source de levées à carreau : le chelem est probable. 5♣ montre une ou quatre clés. Sud n’a que l’♣A, et le soutien fort de Nord est impossible sans As : c’est donc quatre. Il reste une question, la ♥Q, et 5♦ la pose. Nord l’a et dit 6♥, et Sud passe : rien ne manque, mais il n’y a pas de treizième levée sur laquelle compter.</p>
+<p>Nord saute à 4♥ avec quatre cartes de soutien et 19+ points. Sud a 17 H et une source de levées à carreau : le chelem est probable. 5♣ montre une ou quatre clés. Sud n’a que l’♣A, et le soutien fort de Nord est impossible sans As : c’est donc quatre. Il reste une question, la ♥Q, et 5♦ la pose. Nord l’a et dit 6♥, et Sud passe : rien ne manque, mais il n’y a pas de treizième levée sur laquelle compter.</p>
 <div class="tip">Avant de dire 4SA, vérifiez que la réponse ne peut pas vous faire dépasser le contrat que vous visez. Avec trèfle ou carreau comme atout, une réponse de 5♥ ou 5♠ ne vous permet plus de vous arrêter au palier de 5 : vous devez savoir qu’il ne peut pas manquer deux clés.</div>
 <div class="warn">Le Blackwood à 5 clés exige un atout fixé. Après un sans-atout naturel du partenaire, 4SA est quantitatif. Avec une chicane, le Blackwood ne peut pas vous dire si les clés de votre partenaire sont utiles : faites plutôt des cue-bids.</div>
 `,
@@ -118,16 +118,16 @@ export const LESSONS_4: Lesson[] = [
 </tbody>
 </table>
 <div class="hand" data-cards="S:AJ92 H:7 D:A1082 C:J1072" data-label="Le partenaire a ouvert de 1♠ : dites 4♥"></div>
-<p>10 H, quatre atouts et un singleton cœur : 10 + 3 pour le singleton = 13 points HD. 4♥ dit tout cela à votre partenaire en une seule enchère. Avec une main plus forte, commencez par le 2SA Jacoby ; avec 10-12 points, faites un soutien limite.</p>
+<p>10 H, quatre atouts et un singleton cœur : 10 + 3 pour le singleton = 13 points HD. 4♥ dit tout cela à votre partenaire en une seule enchère. Avec une main plus forte, commencez par le 2SA Jacoby ; avec 10-12 points, faites un soutien limite.</p>
 
 <h3>La décision de l’ouvreur : les valeurs utiles</h3>
 <p>Face à un splinter, l’ouvreur ne compte que les honneurs utiles. Les honneurs face au singleton du partenaire sont en grande partie perdus : un Roi ou une Dame dans cette couleur ne fera jamais de levée, puisque le partenaire coupe la couleur. Seul l’As compte encore. Sans valeurs perdues et avec environ 16 points utiles ou plus, l’ouvreur cherche le chelem ; sinon, il conclut à quatre dans la majeure.</p>
 <div class="deal" data-n="S:Q8763 H:AKJ98 D:43 C:A" data-s="S:AJ92 H:7 D:A1082 C:J1072"></div>
 <div class="auction" data-calls="1S P 4H P 4S P P P" data-dealer="N"></div>
-<p>Nord a 14 H, mais le ♥K et le ♥J sont face au singleton de Sud. Sans eux, Nord a environ 10 points utiles : il conclut. Onze levées sont là, pas douze.</p>
+<p>Nord a 14 H, mais le ♥K et le ♥J sont face au singleton de Sud. Sans eux, Nord a environ 10 points utiles : il conclut. Onze levées sont là, pas douze.</p>
 <div class="deal" data-n="S:AK875 H:KQ1076 D:K10 C:8" data-s="S:Q932 H:AJ9853 D:A96 C:-"></div>
 <div class="auction" data-calls="1S P 4C P 4D P 4H P 4NT P 5S P 6S P P P" data-dealer="N"></div>
-<p>Ici, Nord n’a rien à trèfle : ses 15 H sont tous utiles, et les cœurs s’accordent bien. Nord fait un cue-bid à 4♦, qui montre un contrôle à carreau et un intérêt pour le chelem. Sud coopère par 4♥ (l’♥A), et Nord demande les clés. Le 5♠ de Sud montre deux clés et la Dame d’atout, et Nord dit 6♠.</p>
+<p>Ici, Nord n’a rien à trèfle : ses 15 H sont tous utiles, et les cœurs s’accordent bien. Nord fait un cue-bid à 4♦, qui montre un contrôle à carreau et un intérêt pour le chelem. Sud coopère par 4♥ (l’♥A), et Nord demande les clés. Le 5♠ de Sud montre deux clés et la Dame d’atout, et Nord dit 6♠.</p>
 
 <h3>Le Drury inversé</h3>
 <p>En 3e ou 4e position, votre partenaire peut ouvrir un peu léger. Si vous avez déjà passé et que vous avez un soutien limite (trois atouts ou plus et 10-12 points), un saut à trois dans la majeure peut vous emmener trop haut face à une ouverture légère. Le <strong>Drury inversé</strong> résout ce problème : une main passée dit <strong>2♣</strong> sur l’ouverture de 1♥ ou 1♠ du partenaire pour montrer trois atouts ou plus et 10-12 points. C’est artificiel et ne dit rien sur les trèfles.</p>
@@ -137,7 +137,7 @@ export const LESSONS_4: Lesson[] = [
 </ul>
 <div class="deal" data-n="S:742 H:AQ82 D:Q42 C:Q73" data-s="S:KQJ98 H:9 D:AJ875 C:105" data-caption="Nord a donné et passé ; Sud a ouvert de 1♠ en 3e position."></div>
 <div class="auction" data-calls="P P 1S P 2C P 2S P P P" data-dealer="N"></div>
-<p>Le 1♠ de Sud ne compte que 11 H. Sur le Drury, 2♠ dit « pas de manche », et la paire s’arrête sans risque : neuf levées sont le maximum.</p>
+<p>Le 1♠ de Sud ne compte que 11 H. Sur le Drury, 2♠ dit « pas de manche », et la paire s’arrête sans risque : neuf levées sont le maximum.</p>
 <div class="tip">Le Drury est réservé aux mains passées, et il doit faire l’objet d’un accord. Dans cette application, il est désactivé par défaut ; activez-le dans les réglages du système pour vous y entraîner.</div>
 <div class="warn">Un splinter promet quatre atouts. Avec trois seulement, faites une autre enchère : votre partenaire comptera sur le quatrième atout pour couper la couleur courte.</div>
 `,
@@ -150,7 +150,7 @@ export const LESSONS_4: Lesson[] = [
     ],
     quiz: [
       {
-        q: 'Votre partenaire ouvre de 1♠. Vous avez ♠KQ74 ♥A853 ♦K962 ♣5 (12 H). Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 1♠. Vous avez ♠KQ74 ♥A853 ♦K962 ♣5 (12 H). Que dites-vous ?',
         options: ['2SA', '4♣', '3♠', '4♠'],
         answer: 1,
         explain: 'Quatre atouts, un singleton trèfle et 12 + 3 = 15 points HD : le splinter 4♣ décrit la main en une seule enchère.',
@@ -165,7 +165,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Vous avez ouvert de 1♠ avec ♠AK1063 ♥KQ5 ♦Q84 ♣K7 et votre partenaire a fait un splinter à 4♥. Que faites-vous ?',
         options: ['Je dis 4♠ : mon ♥K et ma ♥Q sont perdus', 'Je dis 4SA', 'Je fais un cue-bid à 5♣', 'Je dis 6♠'],
         answer: 0,
-        explain: 'Cinq de vos 17 H sont face à la courte à cœur de votre partenaire et ne feront pas de levée. Avec environ 12 points utiles, concluez.',
+        explain: 'Cinq de vos 17 H sont face à la courte à cœur de votre partenaire et ne feront pas de levée. Avec environ 12 points utiles, concluez.',
       },
       {
         q: 'Qui peut employer le Drury inversé ?',
@@ -206,9 +206,9 @@ export const LESSONS_4: Lesson[] = [
 <p>Le répondant fixe ensuite le contrat : la manche avec 13 points ou plus (ou face à un maximum), une proposition avec 11-12 face à un minimum, et le sans-atout sans fit.</p>
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
-<p>Sud a 14 H et cinq piques. 2♣ interroge ; le 2♠ de Nord montre trois cartes de soutien, et Sud demande la manche à pique, où les coupes permettent de faire onze levées.</p>
+<p>Sud a 14 H et cinq piques. 2♣ interroge ; le 2♠ de Nord montre trois cartes de soutien, et Sud demande la manche à pique, où les coupes permettent de faire onze levées.</p>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
-<p>Avec 11 H et cinq cœurs (♠5 ♥AQJ62 ♦A32 ♣9743), Sud interroge par 2♣ et, face à un minimum avec trois cœurs, propose la manche par 3♥. Nord a un minimum et passe.</p>
+<p>Avec 11 H et cinq cœurs (♠5 ♥AQJ62 ♦A32 ♣9743), Sud interroge par 2♣ et, face à un minimum avec trois cœurs, propose la manche par 3♥. Nord a un minimum et passe.</p>
 
 <h3>La quatrième couleur forcing</h3>
 <p>Quand trois couleurs ont été nommées naturellement, la <strong>quatrième couleur</strong> dite par le répondant est artificielle et forcing de manche. Le répondant a les valeurs de manche mais pas d’enchère évidente : souvent une couleur cinquième en quête d’un soutien de trois cartes, ou une main qui pourrait jouer 3SA si seulement la quatrième couleur était arrêtée.</p>
@@ -220,7 +220,7 @@ export const LESSONS_4: Lesson[] = [
 </ol>
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Sud a 14 H et cinq beaux cœurs. 2♣, la quatrième couleur, demande à Nord de se décrire. Nord n’a pas trois cartes de soutien à cœur mais a les trèfles arrêtés : il dit 2SA, et Sud soutient à 3SA.</p>
+<p>Sud a 14 H et cinq beaux cœurs. 2♣, la quatrième couleur, demande à Nord de se décrire. Nord n’a pas trois cartes de soutien à cœur mais a les trèfles arrêtés : il dit 2SA, et Sud soutient à 3SA.</p>
 <div class="tip">Avec une main régulière de manche et la quatrième couleur arrêtée, dites simplement 3SA. La quatrième couleur forcing sert aux mains qui ont besoin d’une réponse.</div>
 <div class="warn">Les deux enchères sont artificielles : elles ne disent rien sur la mineure ni sur la quatrième couleur. Alertez-les, et ne passez jamais dessus.</div>
 `,
@@ -233,13 +233,13 @@ export const LESSONS_4: Lesson[] = [
     ],
     quiz: [
       {
-        q: '1♣ – 1♠ – 1SA – ? Vous avez ♠KQ1074 ♥A63 ♦Q85 ♣J2 (12 H). Que dites-vous ?',
+        q: '1♣ – 1♠ – 1SA – ? Vous avez ♠KQ1074 ♥A63 ♦Q85 ♣J2 (12 H). Que dites-vous ?',
         options: ['2♠', '3♠', '2♦', '3SA'],
         answer: 2,
         explain: '2♦, nouvelle mineure forcing, demande si l’ouvreur a trois piques (ou quatre cœurs). Vous pourrez ensuite choisir entre pique et sans-atout.',
       },
       {
-        q: '1♦ – 1♥ – 1SA – 2♣. Vous avez ouvert avec ♠KJ5 ♥Q73 ♦AQ84 ♣Q62 (14 H). Que répondez-vous ?',
+        q: '1♦ – 1♥ – 1SA – 2♣. Vous avez ouvert avec ♠KJ5 ♥Q73 ♦AQ84 ♣Q62 (14 H). Que répondez-vous ?',
         options: ['2♦', '2♥', '3♥', '2SA'],
         answer: 2,
         explain: 'Trois cartes de soutien à cœur avec un maximum pour la redemande de 1SA : sautez à 3♥.',
@@ -260,7 +260,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Après 1♦ – 1♠ – 1SA, quelle main doit employer la nouvelle mineure forcing ?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Cinq piques et 12 H : demandez un soutien de trois cartes. La première main est trop faible, la troisième doit redemander 2♠, et la dernière, avec quatre piques et 12 H, dit 3SA.',
+        explain: 'Cinq piques et 12 H : demandez un soutien de trois cartes. La première main est trop faible, la troisième doit redemander 2♠, et la dernière, avec quatre piques et 12 H, dit 3SA.',
       },
     ],
   },
@@ -284,7 +284,7 @@ export const LESSONS_4: Lesson[] = [
 <p>L’ouvreur doit accepter le Texas. Le répondant passe s’il n’a pas d’intérêt pour le chelem.</p>
 <div class="deal" data-n="S:KJ6 H:742 D:KJ6 C:AK84" data-s="S:A108754 H:3 D:A54 C:Q65"></div>
 <div class="auction" data-calls="1NT P 4H P 4S P P P" data-dealer="N"></div>
-<p>Sud a 10 H et six piques : assez pour la manche, pas pour le chelem. 4♥ est un Texas, Nord dit 4♠ et Sud passe. Nord est déclarant : l’entame vient donc vers les Rois de Nord au lieu de passer à travers.</p>
+<p>Sud a 10 H et six piques : assez pour la manche, pas pour le chelem. 4♥ est un Texas, Nord dit 4♠ et Sud passe. Nord est déclarant : l’entame vient donc vers les Rois de Nord au lieu de passer à travers.</p>
 
 <h3>Texas à 4 ou Texas Jacoby ?</h3>
 <table>
@@ -301,7 +301,7 @@ export const LESSONS_4: Lesson[] = [
 <h3>Poursuivre vers le chelem</h3>
 <div class="deal" data-n="S:K543 H:A63 D:AKQ4 C:85" data-s="S:Q H:KQJ1085 D:765 C:AK10"></div>
 <div class="auction" data-calls="1NT P 4D P 4H P 4NT P 5H P 6H P P P" data-dealer="N"></div>
-<p>Sud a 15 H et un beau cœur sixième face à 15-17 : le chelem est probable. Le Texas fixe l’atout cœur, et 4SA demande les clés. Le 5♥ de Nord en montre deux, l’♥A et l’♦A, sans la Dame. Sud a le ♥K, l’♣A et la ♥Q : il ne manque donc qu’une clé, et Sud dit 6♥.</p>
+<p>Sud a 15 H et un beau cœur sixième face à 15-17 : le chelem est probable. Le Texas fixe l’atout cœur, et 4SA demande les clés. Le 5♥ de Nord en montre deux, l’♥A et l’♦A, sans la Dame. Sud a le ♥K, l’♣A et la ♥Q : il ne manque donc qu’une clé, et Sud dit 6♥.</p>
 
 <h3>Après 2SA</h3>
 <p>Les mêmes enchères fonctionnent sur une ouverture de 2SA (20-21), où même 4 points suffisent pour la manche :</p>
@@ -319,7 +319,7 @@ export const LESSONS_4: Lesson[] = [
     ],
     quiz: [
       {
-        q: 'Votre partenaire ouvre de 1SA. Vous avez ♠KQ10965 ♥A4 ♦K73 ♣85 (12 H). Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 1SA. Vous avez ♠KQ10965 ♥A4 ♦K73 ♣85 (12 H). Que dites-vous ?',
         options: ['2♥', '4♥', '4♠', '3♠'],
         answer: 1,
         explain: 'Six piques et les valeurs de manche : 4♥ est un Texas, et votre partenaire dit 4♠.',
@@ -331,7 +331,7 @@ export const LESSONS_4: Lesson[] = [
         explain: '4♦ montre six cœurs ou plus ; l’ouvreur accepte le Texas par 4♥.',
       },
       {
-        q: 'Votre partenaire ouvre de 1SA. Vous avez ♠J8 ♥KQ1065 ♦A73 ♣Q42 (12 H, cinq cœurs). Quel est votre plan ?',
+        q: 'Votre partenaire ouvre de 1SA. Vous avez ♠J8 ♥KQ1065 ♦A73 ♣Q42 (12 H, cinq cœurs). Quel est votre plan ?',
         options: ['4♦ (Texas à 4)', '2♦, puis 3SA', '2♦, puis 4♥', '3SA'],
         answer: 1,
         explain: 'Avec exactement cinq cœurs, faites le Texas et dites 3SA : l’ouvreur choisit 4♥ avec trois cartes de soutien et passe avec deux.',
@@ -343,7 +343,7 @@ export const LESSONS_4: Lesson[] = [
         explain: 'Le Texas à 4 a fixé l’atout pique : 4SA demande donc les clés.',
       },
       {
-        q: 'Votre partenaire ouvre de 2SA. Vous avez ♠64 ♥Q97543 ♦AJ9 ♣87 (7 H). Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 2SA. Vous avez ♠64 ♥Q97543 ♦AJ9 ♣87 (7 H). Que dites-vous ?',
         options: ['3♦', '4♦', '3♥', 'Passe'],
         answer: 1,
         explain: 'Six cœurs et assez pour la manche face à 20-21 : Texas 4♦, et votre partenaire joue 4♥.',

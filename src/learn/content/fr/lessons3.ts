@@ -30,7 +30,7 @@ export const LESSONS_3: Lesson[] = [
 <div class="hand" data-cards="S:4 H:72 D:KQ1074 C:AQ1063" data-label="1♠ à votre droite : dites 2SA"></div>
 
 <h3>Quelle force ?</h3>
-<p>La zone est large. Le plus souvent, la main est modeste (environ 8-12 H) avec de bonnes couleurs, et le but est de disputer le contrat, de trouver un sacrifice ou d’indiquer l’entame. Avec une main forte (environ 16+), vous commencez aussi par l’enchère bicolore, puis vous reparlez pour montrer votre force supplémentaire. Avec une main intermédiaire, beaucoup de joueurs préfèrent intervenir dans la couleur la plus chère et nommer l’autre plus tard.</p>
+<p>La zone est large. Le plus souvent, la main est modeste (environ 8-12 H) avec de bonnes couleurs, et le but est de disputer le contrat, de trouver un sacrifice ou d’indiquer l’entame. Avec une main forte (environ 16+), vous commencez aussi par l’enchère bicolore, puis vous reparlez pour montrer votre force supplémentaire. Avec une main intermédiaire, beaucoup de joueurs préfèrent intervenir dans la couleur la plus chère et nommer l’autre plus tard.</p>
 <p>La qualité des couleurs compte, surtout vulnérable : les honneurs doivent se trouver dans vos longues, pas dans vos courtes.</p>
 
 <h3>Répondre au bicolore</h3>
@@ -184,43 +184,43 @@ export const LESSONS_3: Lesson[] = [
 <table>
 <thead><tr><th>Manquantes</th><th>Répartition</th><th>Probabilité</th></tr></thead>
 <tbody>
-<tr><td>2</td><td>1-1 / 2-0</td><td>52 % / 48 %</td></tr>
-<tr><td>3</td><td>2-1 / 3-0</td><td>78 % / 22 %</td></tr>
-<tr><td>4</td><td>3-1 / 2-2 / 4-0</td><td>50 % / 41 % / 10 %</td></tr>
-<tr><td>5</td><td>3-2 / 4-1 / 5-0</td><td>68 % / 28 % / 4 %</td></tr>
-<tr><td>6</td><td>4-2 / 3-3 / 5-1 / 6-0</td><td>48 % / 36 % / 15 % / 1,5 %</td></tr>
-<tr><td>7</td><td>4-3 / 5-2 / 6-1 / 7-0</td><td>62 % / 31 % / 7 % / 0,5 %</td></tr>
+<tr><td>2</td><td>1-1 / 2-0</td><td>52 % / 48 %</td></tr>
+<tr><td>3</td><td>2-1 / 3-0</td><td>78 % / 22 %</td></tr>
+<tr><td>4</td><td>3-1 / 2-2 / 4-0</td><td>50 % / 41 % / 10 %</td></tr>
+<tr><td>5</td><td>3-2 / 4-1 / 5-0</td><td>68 % / 28 % / 4 %</td></tr>
+<tr><td>6</td><td>4-2 / 3-3 / 5-1 / 6-0</td><td>48 % / 36 % / 15 % / 1,5 %</td></tr>
+<tr><td>7</td><td>4-3 / 5-2 / 6-1 / 7-0</td><td>62 % / 31 % / 7 % / 0,5 %</td></tr>
 </tbody>
 </table>
 <p>Une règle utile : un nombre <strong>impair</strong> de cartes manquantes tend à se répartir le plus également possible (3-2, 4-3), mais un nombre <strong>pair</strong> non (4-2 est plus probable que 3-3, et 3-1 plus probable que 2-2).</p>
-<p>Deux autres chiffres à connaître : une impasse, c’est 50 % ; avoir besoin d’une impasse sur deux, c’est 75 %, et des deux, 25 %.</p>
+<p>Deux autres chiffres à connaître : une impasse, c’est 50 % ; avoir besoin d’une impasse sur deux, c’est 75 %, et des deux, 25 %.</p>
 
 <h3>Combiner les chances</h3>
 <p>Souvent, un contrat peut se gagner de plusieurs façons. Tout l’art consiste à essayer les chances dans un ordre qui permet d’utiliser la seconde si la première échoue.</p>
 <div class="deal" data-n="S:954 H:743 D:Q52 C:AKQ2" data-s="S:AQ6 H:A852 D:AK7 C:763" data-caption="3SA joué par Sud. Ouest entame du ♥K."></div>
 <div class="auction" data-calls="1NT P 3NT P P P" data-dealer="S"></div>
-<p><strong>Comptez :</strong> ♠A, ♥A, ♦AKQ, ♣AKQ : huit levées. La neuvième peut venir d’une répartition 3-3 des trèfles (36 %), qui rend maître le ♣2 du mort, ou de l’impasse à pique (50 %), qui réussit quand Est a le ♠K.</p>
+<p><strong>Comptez :</strong> ♠A, ♥A, ♦AKQ, ♣AKQ : huit levées. La neuvième peut venir d’une répartition 3-3 des trèfles (36 %), qui rend maître le ♣2 du mort, ou de l’impasse à pique (50 %), qui réussit quand Est a le ♠K.</p>
 <p><strong>Le danger :</strong> une fois votre ♥A parti, les cœurs d’Ouest sont affranchis. Si vous faites l’impasse à pique et qu’elle échoue en Ouest, Ouest encaisse assez de cœurs pour vous faire chuter, et vous n’essayez jamais les trèfles.</p>
-<p><strong>Le bon ordre :</strong> testez d’abord les trèfles. Encaisser l’♣A, le K et la Q ne coûte rien : si les deux défenseurs fournissent trois fois, le ♣2 est votre neuvième levée et vous n’avez pas besoin de l’impasse. Si les trèfles ne sont pas répartis 3-3, vous finissez au mort et pouvez encore jouer pique vers votre A Q. Votre chance est de 36 % + (64 % × 50 %) = 68 %, au lieu de 50 % pour l’impasse seule.</p>
+<p><strong>Le bon ordre :</strong> testez d’abord les trèfles. Encaisser l’♣A, le K et la Q ne coûte rien : si les deux défenseurs fournissent trois fois, le ♣2 est votre neuvième levée et vous n’avez pas besoin de l’impasse. Si les trèfles ne sont pas répartis 3-3, vous finissez au mort et pouvez encore jouer pique vers votre A Q. Votre chance est de 36 % + (64 % × 50 %) = 68 %, au lieu de 50 % pour l’impasse seule.</p>
 <div class="tip">Essayez d’abord la chance qui ne fait pas perdre la main. Gardez pour la fin l’impasse, qui risque de donner la main à l’adversaire dangereux.</div>
 
 <h3>Les places vacantes</h3>
-<p>Une fois le jeu commencé, les chiffres a priori changent. Si l’on sait qu’Ouest a cinq cœurs et Est un seul, alors parmi les cartes encore inconnues, Ouest a 8 places et Est 12. N’importe quelle carte manquante, par exemple le ♠K, se trouve maintenant en Est 12 fois sur 20, soit 60 %, au lieu de 50 %. La main qui a le plus de places vacantes a plus de chances de détenir n’importe quelle carte donnée. C’est pourquoi compter la main est si important.</p>
+<p>Une fois le jeu commencé, les chiffres a priori changent. Si l’on sait qu’Ouest a cinq cœurs et Est un seul, alors parmi les cartes encore inconnues, Ouest a 8 places et Est 12. N’importe quelle carte manquante, par exemple le ♠K, se trouve maintenant en Est 12 fois sur 20, soit 60 %, au lieu de 50 %. La main qui a le plus de places vacantes a plus de chances de détenir n’importe quelle carte donnée. C’est pourquoi compter la main est si important.</p>
 
 <h3>Le choix restreint</h3>
 <p>Vous avez A K 10 7 5 face à 6 4 3 2, et il vous manque Q, J, 9 et 8. Vous encaissez l’As et Est fournit la Dame. Au tour suivant, Ouest fournit petit. Faut-il jouer le Roi (en espérant qu’Est avait Q J) ou faire l’impasse au 10 (en espérant qu’Est avait la Dame sèche) ?</p>
-<p>Faites l’impasse. Avec la Dame sèche, Est n’avait pas le choix ; avec Q J, il aurait pu tout aussi bien fournir le Valet. La Dame sèche est donc environ deux fois plus probable que Q J précisément : l’impasse réussit environ 65 % du temps. Ce principe du <strong>choix restreint</strong> s’applique chaque fois qu’un adversaire fournit l’un de deux honneurs équivalents.</p>
+<p>Faites l’impasse. Avec la Dame sèche, Est n’avait pas le choix ; avec Q J, il aurait pu tout aussi bien fournir le Valet. La Dame sèche est donc environ deux fois plus probable que Q J précisément : l’impasse réussit environ 65 % du temps. Ce principe du <strong>choix restreint</strong> s’applique chaque fois qu’un adversaire fournit l’un de deux honneurs équivalents.</p>
 
 <h3>Repères pour la Dame</h3>
 <ul>
-<li>Huit cartes, il manque la Dame : impasse (environ 40 % avec A K J x x et environ 51 % avec A K J 10 x, contre environ 33 % pour le jeu en tête).</li>
-<li>Neuf cartes, il manque la Dame : jeu en tête (environ 53 % contre environ 51 % pour l’impasse).</li>
+<li>Huit cartes, il manque la Dame : impasse (environ 40 % avec A K J x x et environ 51 % avec A K J 10 x, contre environ 33 % pour le jeu en tête).</li>
+<li>Neuf cartes, il manque la Dame : jeu en tête (environ 53 % contre environ 51 % pour l’impasse).</li>
 <li>Les informations tirées des enchères (qui a ouvert, qui a barré, qui a montré de la longueur) valent plus que ces petits écarts.</li>
 </ul>
 <div class="warn">Ces pourcentages ne sont qu’un point de départ. Un défenseur qui a montré de longues couleurs aux enchères a moins de chances d’avoir de la longueur dans la couleur que vous jouez.</div>
 `,
     keyPoints: [
-      'Cinq manquantes : 3-2 68 %. Six manquantes : 4-2 48 %, 3-3 36 %. Quatre manquantes : 3-1 50 %, 2-2 41 %, 4-0 10 %.',
+      'Cinq manquantes : 3-2 68 %. Six manquantes : 4-2 48 %, 3-3 36 %. Quatre manquantes : 3-1 50 %, 2-2 41 %, 4-0 10 %.',
       'Un nombre impair de cartes manquantes tend à se répartir également ; un nombre pair, non.',
       'Combinez les chances : testez d’abord ce qui ne fait pas perdre la main ; gardez pour la fin l’impasse vers la main dangereuse.',
       'Places vacantes : la main qui a le plus de cartes inconnues a plus de chances de détenir une carte donnée.',
@@ -231,19 +231,19 @@ export const LESSONS_3: Lesson[] = [
         q: 'Les adversaires ont six cartes dans une couleur. Quelle est la répartition la plus probable ?',
         options: ['3-3', '4-2', '5-1', '6-0'],
         answer: 1,
-        explain: '4-2 se produit environ 48 % du temps, contre 36 % pour 3-3. Avec un nombre pair de cartes manquantes, la répartition égale est l’exception, pas la règle.',
+        explain: '4-2 se produit environ 48 % du temps, contre 36 % pour 3-3. Avec un nombre pair de cartes manquantes, la répartition égale est l’exception, pas la règle.',
       },
       {
         q: 'Les adversaires ont cinq cartes dans une couleur. Quelle est la probabilité d’une répartition 3-2 ?',
-        options: ['50 %', '62 %', '68 %', '78 %'],
+        options: ['50 %', '62 %', '68 %', '78 %'],
         answer: 2,
-        explain: 'Environ 68 %. 4-1 vaut environ 28 % et 5-0 environ 4 %.',
+        explain: 'Environ 68 %. 4-1 vaut environ 28 % et 5-0 environ 4 %.',
       },
       {
-        q: 'Vous pouvez tenter une répartition 3-3 (36 %) puis, en cas d’échec, une impasse (50 %). Quelle est la chance combinée ?',
-        options: ['50 %', '68 %', '86 %', '43 %'],
+        q: 'Vous pouvez tenter une répartition 3-3 (36 %) puis, en cas d’échec, une impasse (50 %). Quelle est la chance combinée ?',
+        options: ['50 %', '68 %', '86 %', '43 %'],
         answer: 1,
-        explain: '36 % plus la moitié des 64 % restants : 36 + 32 = 68 %.',
+        explain: '36 % plus la moitié des 64 % restants : 36 + 32 = 68 %.',
       },
       {
         q: 'Dans la donne à 3SA ci-dessus, pourquoi encaisser les trèfles avant de faire l’impasse à pique ?',
@@ -255,7 +255,7 @@ export const LESSONS_3: Lesson[] = [
         q: 'Vous avez A K 10 7 5 face à 6 4 3 2. Sur l’As, Est fournit la Dame. Au tour suivant, Ouest fournit petit. Que faut-il faire ?',
         options: ['Jouer le Roi', 'Faire l’impasse au 10', 'C’est exactement 50-50', 'Jouer de l’autre main'],
         answer: 1,
-        explain: 'Choix restreint : avec Q J, Est pouvait fournir l’un ou l’autre honneur, mais avec la Dame sèche il n’avait pas le choix. Le singleton est la teneur la plus probable : l’impasse réussit environ 65 % du temps.',
+        explain: 'Choix restreint : avec Q J, Est pouvait fournir l’un ou l’autre honneur, mais avec la Dame sèche il n’avait pas le choix. Le singleton est la teneur la plus probable : l’impasse réussit environ 65 % du temps.',
       },
     ],
   },
@@ -271,20 +271,20 @@ export const LESSONS_3: Lesson[] = [
 <p>Vous êtes en position de <strong>réveil</strong> quand votre passe mettrait fin aux enchères. Par exemple, Ouest ouvre de 1♥, votre partenaire passe, Est passe, et c’est à vous. Les adversaires se sont arrêtés à un palier bas, ce qui vous renseigne : Est a moins de 6 points, et Ouest n’est en général pas très fort. La force manquante doit bien se trouver quelque part, et une grande partie est dans la main de votre partenaire. Il a peut-être passé avec une bonne main simplement faute d’enchère adaptée, par exemple avec de la longueur à cœur.</p>
 
 <h3>Empruntez un Roi</h3>
-<p>En position de réveil, vous pouvez donc parler avec environ <strong>3 H de moins</strong> qu’en position directe, comme si vous aviez emprunté un Roi à votre partenaire. Celui-ci doit alors penser à vous rendre ce Roi et ne pas enchérir comme si votre action était de pleine valeur.</p>
+<p>En position de réveil, vous pouvez donc parler avec environ <strong>3 H de moins</strong> qu’en position directe, comme si vous aviez emprunté un Roi à votre partenaire. Celui-ci doit alors penser à vous rendre ce Roi et ne pas enchérir comme si votre action était de pleine valeur.</p>
 <div class="auction" data-calls="1H P P" data-dealer="W"></div>
 <table>
 <thead><tr><th>Réveil après 1♥ – passe – passe</th><th>Signification approximative</th></tr></thead>
 <tbody>
-<tr><td>Intervention à la couleur</td><td>Environ 5-13 H et une couleur convenable</td></tr>
-<tr><td>Contre</td><td>Environ 9+ H, court à cœur, du soutien dans les autres couleurs (ou une main forte)</td></tr>
-<tr><td>1SA</td><td>Environ 11-14 H, main régulière, avec un arrêt à cœur</td></tr>
+<tr><td>Intervention à la couleur</td><td>Environ 5-13 H et une couleur convenable</td></tr>
+<tr><td>Contre</td><td>Environ 9+ H, court à cœur, du soutien dans les autres couleurs (ou une main forte)</td></tr>
+<tr><td>1SA</td><td>Environ 11-14 H, main régulière, avec un arrêt à cœur</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:KJ84 H:73 D:A1063 C:Q85" data-label="1♥ – passe – passe – ? : contrez"></div>
-<p>10 H et une courte à cœur : trop léger pour un contre direct, mais c’est un contre de réveil normal.</p>
+<p>10 H et une courte à cœur : trop léger pour un contre direct, mais c’est un contre de réveil normal.</p>
 <div class="hand" data-cards="S:K94 H:AJ6 D:Q1073 C:K82" data-label="1♦ – passe – passe – ? : 1SA"></div>
-<p>13 H, main régulière, avec les carreaux arrêtés : un 1SA de réveil, qui montre environ 11-14, et non les 15-18 d’une intervention directe à 1SA.</p>
+<p>13 H, main régulière, avec les carreaux arrêtés : un 1SA de réveil, qui montre environ 11-14, et non les 15-18 d’une intervention directe à 1SA.</p>
 
 <h3>Quand ils ont trouvé un fit</h3>
 <div class="auction" data-calls="1S P 2S P P" data-dealer="E"></div>
@@ -298,12 +298,12 @@ export const LESSONS_3: Lesson[] = [
 <li><strong>Après 1SA – passe – passe</strong>, ne réveillez qu’avec une bonne couleur ou de la distribution. Le partenaire de l’ouvreur peut avoir jusqu’à 7 points, et la force est plus également répartie.</li>
 </ul>
 <div class="hand" data-cards="S:Q74 H:KJ953 D:A5 C:J82" data-label="1♥ – passe – passe – ? : passez"></div>
-<p>11 H, mais cinq cœurs, la couleur de l’ouvreur. Votre partenaire a probablement un ou deux cœurs au plus, et il n’a pas contré : il est donc faible. 1♥ a de bonnes chances de chuter ; passez.</p>
+<p>11 H, mais cinq cœurs, la couleur de l’ouvreur. Votre partenaire a probablement un ou deux cœurs au plus, et il n’a pas contré : il est donc faible. 1♥ a de bonnes chances de chuter ; passez.</p>
 <div class="tip">Quand votre partenaire réveille, souvenez-vous qu’il a déjà compté une partie de vos valeurs. Enchérissez un palier plus prudemment que face à une action en position directe.</div>
 <div class="warn">Ne punissez pas votre partenaire d’avoir réveillé les enchères. Si vous avez une bonne main et que votre partenaire réveille par un contre, demandez-vous s’il ne fait pas un réveil léger avant de sauter à la manche.</div>
 `,
     keyPoints: [
-      'En position de réveil, vous pouvez parler avec environ 3 H de moins qu’en position directe (« emprunter un Roi »).',
+      'En position de réveil, vous pouvez parler avec environ 3 H de moins qu’en position directe (« emprunter un Roi »).',
       'Après 1♥ – passe – passe : une couleur avec environ 5-13, un contre avec environ 9+, 1SA avec environ 11-14.',
       'Ne laissez pas les adversaires jouer au palier de 2 quand ils ont trouvé un fit : disputez le contrat.',
       'Méfiez-vous du réveil quand vous êtes long dans leur couleur.',
@@ -311,19 +311,19 @@ export const LESSONS_3: Lesson[] = [
     ],
     quiz: [
       {
-        q: '1♥ – passe – passe – ? Vous avez ♠KJ84 ♥73 ♦A1063 ♣Q85 (10 H).',
+        q: '1♥ – passe – passe – ? Vous avez ♠KJ84 ♥73 ♦A1063 ♣Q85 (10 H).',
         options: ['Passe', 'Contre', '1♠', '1SA'],
         answer: 1,
-        explain: 'Une courte à cœur et du soutien dans les autres couleurs. 10 H, c’est léger pour un contre direct, mais parfait en position de réveil.',
+        explain: 'Une courte à cœur et du soutien dans les autres couleurs. 10 H, c’est léger pour un contre direct, mais parfait en position de réveil.',
       },
       {
-        q: '1♦ – passe – passe – ? Vous avez ♠K94 ♥AJ6 ♦Q1073 ♣K82 (13 H).',
+        q: '1♦ – passe – passe – ? Vous avez ♠K94 ♥AJ6 ♦Q1073 ♣K82 (13 H).',
         options: ['Passe', 'Contre', '1SA', '2SA'],
         answer: 2,
         explain: 'Un 1SA de réveil montre environ 11-14 avec un arrêt. C’est exactement cette main.',
       },
       {
-        q: '1♥ – passe – passe – ? Vous avez ♠Q74 ♥KJ953 ♦A5 ♣J82 (11 H).',
+        q: '1♥ – passe – passe – ? Vous avez ♠Q74 ♥KJ953 ♦A5 ♣J82 (11 H).',
         options: ['Passe', 'Contre', '1SA', '2♦'],
         answer: 0,
         explain: 'Avec cinq cartes dans la couleur de l’ouvreur, votre partenaire est court à cœur et aurait contré avec des valeurs. 1♥ risque fort de chuter ; passez.',
@@ -336,7 +336,7 @@ export const LESSONS_3: Lesson[] = [
       },
       {
         q: 'Les adversaires enchérissent 1♠ – 2♠ et passent. En position de réveil, quel est le principe général ?',
-        options: ['Toujours passer : ils ont un fit', 'Disputer le contrat : quand ils ont un fit au palier de 2, votre camp en a probablement un aussi', 'Ne parler qu’avec 12+ H', 'Contrer pour punir'],
+        options: ['Toujours passer : ils ont un fit', 'Disputer le contrat : quand ils ont un fit au palier de 2, votre camp en a probablement un aussi', 'Ne parler qu’avec 12+ H', 'Contrer pour punir'],
         answer: 1,
         explain: 'S’ils ont huit ou neuf atouts, vous avez probablement un fit vous aussi. Les laisser jouer au palier de 2 est en général pire que de lutter jusqu’au palier de 3.',
       },
@@ -474,8 +474,8 @@ export const LESSONS_3: Lesson[] = [
 </table>
 <p>Un écart de 0-10 vaut 0 ; 3500-3990 vaut 23, et 4000 ou plus vaut 24. L’échelle croît lentement : les gros écarts viennent des manches et des chelems, et les levées de mieux comptent à peine. D’où la stratégie en IMP :</p>
 <ul>
-<li><strong>Demandez les manches agressivement.</strong> Non vulnérable, demander 4♠ rapporte 6 IMP quand il gagne (+420 contre +170) et en coûte 5 quand il chute (−50 contre +140) : il vaut la peine de le demander à partir d’environ 45 %. Vulnérable : gain de 10 (+620 contre +170), perte de 6 (−100 contre +140) : il vaut la peine de le demander à partir d’environ 37 %.</li>
-<li>Les <strong>petits chelems</strong> valent la peine d’être demandés à partir d’environ 50 % ; les <strong>grands chelems</strong> seulement bien au-delà de 50 % (le point d’équilibre est d’environ 56-57 %, et en pratique on veut une quasi-certitude).</li>
+<li><strong>Demandez les manches agressivement.</strong> Non vulnérable, demander 4♠ rapporte 6 IMP quand il gagne (+420 contre +170) et en coûte 5 quand il chute (−50 contre +140) : il vaut la peine de le demander à partir d’environ 45 %. Vulnérable : gain de 10 (+620 contre +170), perte de 6 (−100 contre +140) : il vaut la peine de le demander à partir d’environ 37 %.</li>
+<li>Les <strong>petits chelems</strong> valent la peine d’être demandés à partir d’environ 50 % ; les <strong>grands chelems</strong> seulement bien au-delà de 50 % (le point d’équilibre est d’environ 56-57 %, et en pratique on veut une quasi-certitude).</li>
 <li><strong>La sécurité d’abord au jeu</strong> : renoncez à une levée de mieux pour assurer le contrat.</li>
 </ul>
 
@@ -496,7 +496,7 @@ export const LESSONS_3: Lesson[] = [
 `,
     keyPoints: [
       'La vulnérabilité favorable (vous non vulnérables, eux vulnérables) est le moment de barrer et de sacrifier ; la défavorable, celui d’être prudent.',
-      'En IMP : demandez les manches non vulnérables à environ 45 %, vulnérables à environ 37 %, les petits chelems à 50 %.',
+      'En IMP : demandez les manches non vulnérables à environ 45 %, vulnérables à environ 37 %, les petits chelems à 50 %.',
       'En IMP : les levées de mieux comptent peu ; protégez le contrat.',
       'Par paires : chaque paire battue compte, donc les levées de mieux et les dénominations qui marquent plus comptent.',
       'Le par est le résultat d’enchères parfaites des deux camps, sacrifices compris.',
@@ -510,9 +510,9 @@ export const LESSONS_3: Lesson[] = [
       },
       {
         q: 'En IMP, à partir de quelle probabilité environ une manche vulnérable mérite-t-elle d’être demandée ?',
-        options: ['Environ 37 %', 'Environ 50 %', 'Environ 60 %', 'Environ 75 %'],
+        options: ['Environ 37 %', 'Environ 50 %', 'Environ 60 %', 'Environ 75 %'],
         answer: 0,
-        explain: 'Vous gagnez 10 IMP (+620 contre +170) quand elle gagne et en perdez 6 (−100 contre +140) quand elle chute : le point d’équilibre est d’environ 6/16 = 37,5 %.',
+        explain: 'Vous gagnez 10 IMP (+620 contre +170) quand elle gagne et en perdez 6 (−100 contre +140) quand elle chute : le point d’équilibre est d’environ 6/16 = 37,5 %.',
       },
       {
         q: 'Par paires, pourquoi +430 contre +420 compte-t-il ?',
@@ -554,11 +554,11 @@ export const LESSONS_3: Lesson[] = [
 <p>La règle générale : quand vous avez tous les gros honneurs sauf un, encaissez d’abord l’honneur qui laisse une position d’impasse dans les <em>deux</em> mains.</p>
 
 <h3>Renoncer à une levée de mieux pour assurer le contrat</h3>
-<p>Vous avez A K 10 5 4 au mort face à 8 7 6, et il vous faut quatre levées ; vous pouvez vous permettre d’en perdre une. Le maniement naturel, As, Roi et un troisième tour, ne fait quatre levées qu’environ 73 % du temps : il échoue contre les répartitions 5-0 et la plupart des 4-1.</p>
-<p>Mieux : encaissez l’As, puis jouez vers le mort et, si Ouest fournit petit, mettez le 10. Si Est prend d’un honneur, la couleur était en général répartie 3-2 et le Roi et les longues sont maîtres ; si le 10 fait la levée, vous avez capturé la longueur d’Ouest. Ce maniement fait quatre levées environ 82 % du temps : en plus de toutes les répartitions 3-2, il résiste à toutes les 4-1 où Ouest a la longueur. Le prix est une chance un peu plus faible de faire cinq levées, ce qui ne compte que si vous en avez besoin.</p>
+<p>Vous avez A K 10 5 4 au mort face à 8 7 6, et il vous faut quatre levées ; vous pouvez vous permettre d’en perdre une. Le maniement naturel, As, Roi et un troisième tour, ne fait quatre levées qu’environ 73 % du temps : il échoue contre les répartitions 5-0 et la plupart des 4-1.</p>
+<p>Mieux : encaissez l’As, puis jouez vers le mort et, si Ouest fournit petit, mettez le 10. Si Est prend d’un honneur, la couleur était en général répartie 3-2 et le Roi et les longues sont maîtres ; si le 10 fait la levée, vous avez capturé la longueur d’Ouest. Ce maniement fait quatre levées environ 82 % du temps : en plus de toutes les répartitions 3-2, il résiste à toutes les 4-1 où Ouest a la longueur. Le prix est une chance un peu plus faible de faire cinq levées, ce qui ne compte que si vous en avez besoin.</p>
 
 <h3>Laisser passer par sécurité</h3>
-<p>Le mort a A K 7 6 5 4 et une seule remontée extérieure ; vous avez 3 2 et il vous faut quatre levées. Si vous jouez l’As, le Roi et un troisième tour, une répartition 4-1 vous laisse deux perdantes dans la couleur et aucun moyen de revenir aux longues. Laissez plutôt passer complètement le premier tour. Ensuite, vous pourrez jouer vers l’As et le Roi et, si la couleur était 4-1, concéder un tour de plus et utiliser la remontée extérieure pour encaisser les deux dernières. Quatre levées contre toute répartition 3-2 ou 4-1 : 96 %.</p>
+<p>Le mort a A K 7 6 5 4 et une seule remontée extérieure ; vous avez 3 2 et il vous faut quatre levées. Si vous jouez l’As, le Roi et un troisième tour, une répartition 4-1 vous laisse deux perdantes dans la couleur et aucun moyen de revenir aux longues. Laissez plutôt passer complètement le premier tour. Ensuite, vous pourrez jouer vers l’As et le Roi et, si la couleur était 4-1, concéder un tour de plus et utiliser la remontée extérieure pour encaisser les deux dernières. Quatre levées contre toute répartition 3-2 ou 4-1 : 96 %.</p>
 
 <h3>La sécurité sur l’ensemble de la main</h3>
 <p>La sécurité ne concerne pas seulement une couleur isolée. Supposons qu’à 3SA vous comptiez neuf levées, et qu’une impasse puisse vous en donner une dixième, mais que, si elle échoue, le défenseur qui prend puisse encaisser quatre levées dans sa longue. Ne la faites pas. Par quatre, une levée de mieux vaut 1 IMP au plus, et le contrat vaut bien davantage. De même, avant de prendre un risque dans une couleur, demandez-vous si une autre couleur pourrait fournir les levées sans aucun risque.</p>
@@ -589,13 +589,13 @@ export const LESSONS_3: Lesson[] = [
         q: 'Vous avez A K 10 5 4 face à 8 7 6 et il ne vous faut que quatre levées. Quel est le maniement de sécurité ?',
         options: ['Encaisser l’As et le Roi, puis jouer un troisième tour', 'Encaisser l’As, puis jouer vers le mort et faire l’impasse au 10 si Ouest fournit petit', 'Jouer le 10 du mort', 'Laisser passer les deux premiers tours'],
         answer: 1,
-        explain: 'Ce maniement protège contre Q J 9 x en Ouest, tout en faisant quatre levées sur toutes les répartitions normales : environ 82 %, contre environ 73 % en encaissant les gros honneurs.',
+        explain: 'Ce maniement protège contre Q J 9 x en Ouest, tout en faisant quatre levées sur toutes les répartitions normales : environ 82 %, contre environ 73 % en encaissant les gros honneurs.',
       },
       {
         q: 'Le mort a A K 7 6 5 4 et une remontée extérieure ; vous avez 3 2. Il vous faut quatre levées dans la couleur. Que faites-vous ?',
         options: ['As, Roi, puis un troisième tour', 'Laisser passer le premier tour', 'Jouer le 3 et faire l’impasse au 7', 'Encaisser l’As et espérer'],
         answer: 1,
-        explain: 'Laisser passer le premier tour préserve les gros honneurs du mort comme remontées. Vous faites alors quatre levées contre les répartitions 3-2 et 4-1, environ 96 % du temps.',
+        explain: 'Laisser passer le premier tour préserve les gros honneurs du mort comme remontées. Vous faites alors quatre levées contre les répartitions 3-2 et 4-1, environ 96 % du temps.',
       },
       {
         q: 'Par quatre, vous comptez neuf levées à 3SA. Une impasse pourrait en donner une dixième, mais si elle échoue, la défense peut dérouler une couleur. Que faites-vous ?',
@@ -699,7 +699,7 @@ export const LESSONS_3: Lesson[] = [
 
 <h3>Compter les points</h3>
 <p>Partez des enchères. Une ouverture de 1SA montre 15-17, un deux faible 5-10, un soutien limite 10-12. Quand le mort s’étale, ajoutez ses H aux vôtres et retranchez le tout de 40.</p>
-<p>Exemple : Sud ouvre de 1SA et Nord dit 3SA. Le mort a 10 H et vous 9. Votre partenaire a 40 − 10 − 9 − (15 à 17) = 4 à 6 H. S’il a déjà montré le ♠K en faisant une levée avec, il a au plus 3 H de plus : il ne peut donc pas avoir un autre As. Tout autre As manquant est donc chez le déclarant, et inutile d’espérer que votre partenaire reprenne la main pour encaisser sa longue couleur.</p>
+<p>Exemple : Sud ouvre de 1SA et Nord dit 3SA. Le mort a 10 H et vous 9. Votre partenaire a 40 − 10 − 9 − (15 à 17) = 4 à 6 H. S’il a déjà montré le ♠K en faisant une levée avec, il a au plus 3 H de plus : il ne peut donc pas avoir un autre As. Tout autre As manquant est donc chez le déclarant, et inutile d’espérer que votre partenaire reprenne la main pour encaisser sa longue couleur.</p>
 <p>Le même calcul fonctionne dans l’autre sens. Si le déclarant, qui a montré 15-17, a déjà fourni l’♠AQ, l’♥AK et le ♦K (16), il ne peut pas avoir aussi l’♣A (cela ferait 20). C’est votre partenaire qui l’a, et vous pouvez jouer trèfle sans crainte à travers le K du mort.</p>
 
 <h3>Compter la distribution</h3>
@@ -734,7 +734,7 @@ export const LESSONS_3: Lesson[] = [
     ],
     quiz: [
       {
-        q: 'Sud a ouvert de 1SA (15-17) et Nord a dit 3SA. Le mort a 10 H et vous 9. Combien de H a votre partenaire ?',
+        q: 'Sud a ouvert de 1SA (15-17) et Nord a dit 3SA. Le mort a 10 H et vous 9. Combien de H a votre partenaire ?',
         options: ['0-2', '4-6', '7-9', '10-12'],
         answer: 1,
         explain: '40 − 10 − 9 = 21 pour le déclarant et votre partenaire ensemble. Le déclarant a 15-17 : votre partenaire a donc 4-6.',
@@ -743,7 +743,7 @@ export const LESSONS_3: Lesson[] = [
         q: 'Le déclarant a ouvert de 1SA (15-17) et a déjà montré l’♠AQ, l’♥AK et le ♦K. Qui a l’♣A ?',
         options: ['Le déclarant', 'Votre partenaire', 'Impossible de le savoir', 'Le mort'],
         answer: 1,
-        explain: 'Le déclarant a montré 16 H. L’♣A le porterait à 20, hors de sa zone : c’est donc votre partenaire qui l’a.',
+        explain: 'Le déclarant a montré 16 H. L’♣A le porterait à 20, hors de sa zone : c’est donc votre partenaire qui l’a.',
       },
       {
         q: 'Le déclarant a ouvert de 1♠ et redemandé 2♥. La parité de votre partenaire montre que le déclarant a deux carreaux. Combien de trèfles le déclarant peut-il avoir au plus ?',
@@ -851,7 +851,7 @@ export const LESSONS_3: Lesson[] = [
         explain: 'Si leur contrat allait chuter, votre sacrifice transforme une marque positive en marque négative. Des valeurs défensives sont une raison de ne pas sacrifier.',
       },
       {
-        q: 'Les adversaires enchérissent 1♥ – 3♥ – 4♥ sans intervention. Vous avez 12 H mais seulement de petits cœurs. Faut-il contrer ?',
+        q: 'Les adversaires enchérissent 1♥ – 3♥ – 4♥ sans intervention. Vous avez 12 H mais seulement de petits cœurs. Faut-il contrer ?',
         options: ['Oui : vous avez une main d’ouverture', 'Non : des honneurs hors de l’atout justifient rarement de contrer une manche demandée librement', 'Oui, pour demander une entame', 'Seulement vulnérable'],
         answer: 1,
         explain: 'Ils savent qu’il leur manque des honneurs. Votre contre rapporte peu s’ils chutent d’une levée, coûte cher s’ils gagnent, et aide le déclarant à placer les honneurs manquants.',
@@ -883,7 +883,7 @@ export const LESSONS_3: Lesson[] = [
 
 <h3>Là où le Blackwood échoue</h3>
 <div class="deal" data-n="S:K5 H:AKJ84 D:83 C:AJ104" data-s="S:AQ63 H:Q1052 D:72 C:KQ5" data-caption="Nord ouvre de 1♥ et Sud soutient par 2SA Jacoby."></div>
-<p>Nord a 16 H et Sud 13, avec un fit de neuf cartes à cœur : un essai de chelem est raisonnable. Si Sud utilise le Blackwood, Nord montre deux As, Sud a le troisième, et Sud dit 6♥. La défense encaisse l’♦A et le ♦K. Le Blackwood a dit que trois As étaient présents, mais il ne pouvait pas dire à Sud qu’aucune des deux mains ne contrôlait les carreaux.</p>
+<p>Nord a 16 H et Sud 13, avec un fit de neuf cartes à cœur : un essai de chelem est raisonnable. Si Sud utilise le Blackwood, Nord montre deux As, Sud a le troisième, et Sud dit 6♥. La défense encaisse l’♦A et le ♦K. Le Blackwood a dit que trois As étaient présents, mais il ne pouvait pas dire à Sud qu’aucune des deux mains ne contrôlait les carreaux.</p>
 <p>N’employez pas le Blackwood quand :</p>
 <ul>
 <li>vous avez deux petites cartes (ou plus) dans une couleur que personne n’a nommée, et vous ne savez pas si votre partenaire la contrôle ;</li>
@@ -983,7 +983,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Si vous jouez trèfle et faites l’impasse à la Dame, Est prend du Roi et encaisse l’♥A : vous faites une levée. Jouez plutôt le ♥6. Est prend de l’As et n’a plus que des trèfles : il doit jouer sous son Roi vers l’A Q du mort, et vous faites deux levées.</p>
 <h4>Élimination et mise en main à l’atout</h4>
 <p>Dans un contrat à l’atout, la même idée s’appelle une élimination. Tirez les atouts mais gardez-en au moins un dans chaque main. <strong>Éliminez</strong> les couleurs annexes dans lesquelles le défenseur pourrait sortir sans danger, en les encaissant ou en les coupant. Puis remettez le défenseur en main dans la couleur qui vous reste. Il doit alors soit jouer dans votre fourchette, soit jouer une couleur où vous êtes chicane dans les deux mains, ce qui vous permet de couper d’une main et de défausser une perdante de l’autre.</p>
-<p>Les jeux d’élimination transforment souvent une impasse à 50 % en certitude : avec A J x face à K 10 x et la Dame manquante, vous n’avez jamais à deviner si un défenseur doit attaquer la couleur pour vous.</p>
+<p>Les jeux d’élimination transforment souvent une impasse à 50 % en certitude : avec A J x face à K 10 x et la Dame manquante, vous n’avez jamais à deviner si un défenseur doit attaquer la couleur pour vous.</p>
 <div class="warn">Une mise en main échoue si le défenseur a encore une carte de sortie sûre. Avant de le remettre en main, vérifiez que chaque couleur dans laquelle il pourrait sortir a été éliminée de sa main ou des deux vôtres.</div>
 `,
     keyPoints: [

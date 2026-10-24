@@ -26,7 +26,7 @@ export const LESSONS_2: Lesson[] = [
 <h3>Exemples</h3>
 <div class="auction" data-calls="1D P 1S P 1NT P" data-dealer="N"></div>
 <div class="hand" data-cards="S:KQ85 H:A73 D:J4 C:Q962" data-label="Répondant : dites 2SA"></div>
-<p>L’ouvreur a montré 12-14 régulier. Avec 12 H, le total est de 24-26 : proposez la manche par 2SA. L’ouvreur passe avec 12 et dit 3SA avec 14 (avec 13, il juge). Avec 13+, vous diriez vous-même 3SA ; avec 10 ou moins, vous passeriez.</p>
+<p>L’ouvreur a montré 12-14 régulier. Avec 12 H, le total est de 24-26 : proposez la manche par 2SA. L’ouvreur passe avec 12 et dit 3SA avec 14 (avec 13, il juge). Avec 13+, vous diriez vous-même 3SA ; avec 10 ou moins, vous passeriez.</p>
 <div class="auction" data-calls="1H P 1S P 2H P" data-dealer="N"></div>
 <div class="hand" data-cards="S:AQ974 H:Q3 D:K82 C:J105" data-label="Répondant : dites 3♥"></div>
 <p>L’ouvreur a un minimum avec six cœurs : Q3 suffit donc pour un fit de huit cartes. 12 points face à 12-15 : proposez la manche par 3♥. L’ouvreur dit 4♥ s’il est dans le haut de sa zone.</p>
@@ -51,14 +51,14 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2SA – 3SA. Sud est déclarant."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Nord–Sud ont 27 H et un fit de neuf cartes à carreau, mais pas de fit majeur, et toutes les couleurs sont arrêtées. À 3SA, vous comptez neuf levées presque tout de suite : deux piques, un cœur, cinq carreaux et un trèfle une fois l’♣A (et peut-être la ♣Q) chassé. À 5♦, il vous faut onze levées et vous avez une perdante à pique, au moins une perdante à cœur et au moins une perdante à trèfle. 3SA est de loin la meilleure manche.</p>
+<p>Nord–Sud ont 27 H et un fit de neuf cartes à carreau, mais pas de fit majeur, et toutes les couleurs sont arrêtées. À 3SA, vous comptez neuf levées presque tout de suite : deux piques, un cœur, cinq carreaux et un trèfle une fois l’♣A (et peut-être la ♣Q) chassé. À 5♦, il vous faut onze levées et vous avez une perdante à pique, au moins une perdante à cœur et au moins une perdante à trèfle. 3SA est de loin la meilleure manche.</p>
 
 <h3>Les limites des « 25 points pour la manche »</h3>
 <ul>
 <li><strong>Le fit :</strong> avec un fit de neuf ou dix cartes et une courte, la manche peut gagner avec 22-23 points. Avec un misfit, 26 peuvent ne pas suffire.</li>
 <li><strong>Les doublons :</strong> les honneurs face à une courte sont perdus. ♠KQJ face à un singleton pique apporte peu dans un contrat à la couleur.</li>
 <li><strong>Les distributions plates :</strong> deux mains 4-3-3-3 produisent moins de levées ; retirez un point.</li>
-<li><strong>Les sources de levées :</strong> une longue couleur solide compense des points manquants. Six carreaux maîtres peuvent faire gagner 3SA avec 23 H.</li>
+<li><strong>Les sources de levées :</strong> une longue couleur solide compense des points manquants. Six carreaux maîtres peuvent faire gagner 3SA avec 23 H.</li>
 <li><strong>Les arrêts :</strong> 3SA avec une couleur totalement ouverte chute, quels que soient les points.</li>
 </ul>
 <div class="tip">Avec 13+ points face à une ouverture, ne faites jamais une enchère que votre partenaire peut passer en dessous de la manche. Si vous ne savez pas où jouer, nommez une couleur nouvelle : la couleur nouvelle du répondant est forcing.</div>
@@ -73,32 +73,32 @@ export const LESSONS_2: Lesson[] = [
     ],
     quiz: [
       {
-        q: '1♦ – 1♠ – 1SA – ? Vous avez ♠AJ84 ♥K5 ♦Q73 ♣Q1062 (12 H).',
+        q: '1♦ – 1♠ – 1SA – ? Vous avez ♠AJ84 ♥K5 ♦Q73 ♣Q1062 (12 H).',
         options: ['Passe', '2SA', '3SA', '2♠'],
         answer: 1,
         explain: 'L’ouvreur a 12-14 : vous avez donc 24-26 à deux. Proposez la manche par 2SA ; l’ouvreur dira 3SA avec un maximum.',
       },
       {
-        q: '1♥ – 1♠ – 2♣ – ? Vous avez ♠KJ753 ♥Q43 ♦J86 ♣97 (7 H).',
+        q: '1♥ – 1♠ – 2♣ – ? Vous avez ♠KJ753 ♥Q43 ♦J86 ♣97 (7 H).',
         options: ['Passe', '2♥', '2♠', '2SA'],
         answer: 1,
         explain: 'L’ouvreur a au moins cinq cœurs : vous avez un fit de huit cartes. 2♥ est une simple préférence et ne montre aucune force supplémentaire.',
       },
       {
-        q: 'Vous avez 26 H à deux, un fit 4-4 à pique et deux mains régulières. Quelle manche ?',
+        q: 'Vous avez 26 H à deux, un fit 4-4 à pique et deux mains régulières. Quelle manche ?',
         options: ['3SA', '4♠', '5♣', 'C’est à pile ou face'],
         answer: 1,
         explain: 'Le fit 4-4 rapporte en général une levée de plus : une main peut couper pendant que les atouts de l’autre tirent ceux des adversaires. Jouez 4♠.',
       },
       {
-        q: 'Vous avez 27 H, pas de fit majeur, un fit de neuf cartes à carreau, et toutes les couleurs sont arrêtées. Quelle manche ?',
+        q: 'Vous avez 27 H, pas de fit majeur, un fit de neuf cartes à carreau, et toutes les couleurs sont arrêtées. Quelle manche ?',
         options: ['5♦', '3SA', '4♦', '6♦'],
         answer: 1,
         explain: '3SA demande neuf levées, 5♦ onze, et les deux marquent autant. Avec toutes les couleurs arrêtées, 3SA est la manche la plus probable.',
       },
       {
-        q: 'Pourquoi la manche peut-elle chuter avec 26 H ?',
-        options: ['C’est impossible : 26 H gagnent toujours la manche', 'À cause des misfits, des valeurs en double emploi ou d’une couleur non arrêtée', 'Parce que 26 H, c’est une main de chelem', 'Seulement si les atouts sont répartis 4-1'],
+        q: 'Pourquoi la manche peut-elle chuter avec 26 H ?',
+        options: ['C’est impossible : 26 H gagnent toujours la manche', 'À cause des misfits, des valeurs en double emploi ou d’une couleur non arrêtée', 'Parce que 26 H, c’est une main de chelem', 'Seulement si les atouts sont répartis 4-1'],
         answer: 1,
         explain: 'Les points donnent une estimation du potentiel de levées, mais les levées dépendent aussi du fit, de l’utilité des honneurs et des arrêts à sans-atout.',
       },
@@ -113,18 +113,18 @@ export const LESSONS_2: Lesson[] = [
     summary: 'Quand ouvrir de 2♣ ou de 2SA, comment le répondant réagit, et comment s’articulent les zones des mains régulières fortes.',
     body: `
 <h3>2♣ : la grosse ouverture</h3>
-<p>2♣ est artificiel et ne dit rien sur les trèfles. Il montre soit <strong>22 H ou plus</strong>, soit environ <strong>neuf levées de jeu</strong> (avec une majeure ; avec une mineure, il en faut plutôt dix, puisque la manche en mineure demande onze levées). C’est la seule ouverture forcing : le partenaire doit répondre, même avec rien.</p>
+<p>2♣ est artificiel et ne dit rien sur les trèfles. Il montre soit <strong>22 H ou plus</strong>, soit environ <strong>neuf levées de jeu</strong> (avec une majeure ; avec une mineure, il en faut plutôt dix, puisque la manche en mineure demande onze levées). C’est la seule ouverture forcing : le partenaire doit répondre, même avec rien.</p>
 <div class="hand" data-cards="S:AKQJ975 H:AK4 D:8 C:K2" data-label="Ouvrez de 2♣ : neuf levées de jeu"></div>
-<p>Seulement 20 H, mais comptez les levées : sept piques et deux cœurs, avec des chances pour une dixième. Ouvrir de 1♠, c’est risquer que votre partenaire passe avec une main comme ♠83 ♥J852 ♦Q964 ♣Q83 (5 H), alors que 4♠ est un excellent contrat. Ouvrez de 2♣ et redemandez 2♠.</p>
+<p>Seulement 20 H, mais comptez les levées : sept piques et deux cœurs, avec des chances pour une dixième. Ouvrir de 1♠, c’est risquer que votre partenaire passe avec une main comme ♠83 ♥J852 ♦Q964 ♣Q83 (5 H), alors que 4♠ est un excellent contrat. Ouvrez de 2♣ et redemandez 2♠.</p>
 <div class="hand" data-cards="S:AK5 H:KQ4 D:AQJ2 C:KJ7" data-label="Ouvrez de 2♣, puis redemandez 2SA"></div>
-<p>23 H, main régulière : 2♣ suivi de 2SA montre 22-24.</p>
+<p>23 H, main régulière : 2♣ suivi de 2SA montre 22-24.</p>
 
 <h3>Répondre à 2♣</h3>
 <table>
 <thead><tr><th>Réponse</th><th>Signification</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Attente : la réponse normale avec la plupart des mains, faibles ou fortes</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positive : une belle couleur cinquième (deux des trois gros honneurs) et 8+ H</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positive : une belle couleur cinquième (deux des trois gros honneurs) et 8+ H</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Le partenaire a ouvert de 2♣ : dites 2♦"></div>
@@ -139,7 +139,7 @@ export const LESSONS_2: Lesson[] = [
 </ul>
 
 <h3>L’ouverture de 2SA</h3>
-<p>2SA montre <strong>20-21 H, main régulière</strong>. Elle n’est pas forcing, mais le répondant doit demander la manche avec 4 points seulement.</p>
+<p>2SA montre <strong>20-21 H, main régulière</strong>. Elle n’est pas forcing, mais le répondant doit demander la manche avec 4 points seulement.</p>
 <table>
 <thead><tr><th>Réponse à 2SA</th><th>Signification</th></tr></thead>
 <tbody>
@@ -150,7 +150,7 @@ export const LESSONS_2: Lesson[] = [
 <tr><td>4SA</td><td>11-12, quantitatif : l’ouvreur dit 6SA avec un maximum</td></tr>
 </tbody>
 </table>
-<div class="hand" data-cards="S:AQ4 H:KJ6 D:AK82 C:QJ5" data-label="Ouvrez de 2SA : 20 H, main régulière"></div>
+<div class="hand" data-cards="S:AQ4 H:KJ6 D:AK82 C:QJ5" data-label="Ouvrez de 2SA : 20 H, main régulière"></div>
 <p>En face, un répondant avec ♠J10642 ♥Q85 ♦73 ♣962 fait le Texas par 3♥ et passe sur 3♠ : 23-24 à deux ne suffisent pas pour la manche, mais cinq atouts rendent 3♠ plus sûr que 2SA.</p>
 
 <h3>L’échelle des mains régulières</h3>
@@ -166,11 +166,11 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <div class="tip">Face à 2♣, raisonnez en levées et en contrôles, pas seulement en points. Un As ou un Roi vaut bien plus que des Dames et des Valets dispersés.</div>
-<div class="warn">N’ouvrez pas de 2♣ simplement parce que vous avez 20 H. Avec 20-21 régulier, ouvrez de 2SA ; avec 19-21 et une main irrégulière ordinaire, ouvrez de 1 à la couleur. Votre partenaire répondra avec 6 points seulement, et vous pourrez sauter ou faire un reverse pour montrer votre force.</div>
+<div class="warn">N’ouvrez pas de 2♣ simplement parce que vous avez 20 H. Avec 20-21 régulier, ouvrez de 2SA ; avec 19-21 et une main irrégulière ordinaire, ouvrez de 1 à la couleur. Votre partenaire répondra avec 6 points seulement, et vous pourrez sauter ou faire un reverse pour montrer votre force.</div>
 `,
     keyPoints: [
-      '2♣ = 22+ H ou environ neuf levées de jeu ; artificiel et forcing.',
-      'Répondez 2♦ (attente) avec la plupart des mains ; une réponse positive exige une belle couleur cinquième et 8+ H.',
+      '2♣ = 22+ H ou environ neuf levées de jeu ; artificiel et forcing.',
+      'Répondez 2♦ (attente) avec la plupart des mains ; une réponse positive exige une belle couleur cinquième et 8+ H.',
       '2♣ – 2♦ – 2SA = 22-24 régulier et peut être passé ; toute redemande à la couleur de l’ouvreur est forcing.',
       'Ouverture de 2SA = 20-21 régulier ; 3♣ Stayman, 3♦/3♥ Texas, 3SA avec 4-10, 4SA avec 11-12.',
       'Échelle des mains régulières : 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -183,16 +183,16 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Avec neuf levées de jeu, vous voulez atteindre la manche même si votre partenaire a très peu : ouvrez du 2♣ forcing et nommez les piques ensuite. 1♠ risquerait d’être passé ; 2♠ serait un deux faible.',
       },
       {
-        q: 'Votre partenaire ouvre de 2♣. Vous avez ♠Q74 ♥J863 ♦952 ♣K84 (6 H). Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 2♣. Vous avez ♠Q74 ♥J863 ♦952 ♣K84 (6 H). Que dites-vous ?',
         options: ['Passe', '2♦', '2♥', '2SA'],
         answer: 1,
         explain: '2♣ est forcing : vous ne pouvez pas passer. Sans belle couleur cinquième, dites le 2♦ d’attente et laissez l’ouvreur décrire sa main.',
       },
       {
-        q: 'Votre partenaire ouvre de 2♣. Vous avez ♠52 ♥KQJ84 ♦A73 ♣964 (10 H). Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 2♣. Vous avez ♠52 ♥KQJ84 ♦A73 ♣964 (10 H). Que dites-vous ?',
         options: ['2♦', '2♥', '3♥', '2SA'],
         answer: 1,
-        explain: 'Une belle couleur cinquième (KQJ) avec 8+ H, c’est une réponse positive : 2♥. Elle annonce tout de suite à l’ouvreur que le chelem est probable.',
+        explain: 'Une belle couleur cinquième (KQJ) avec 8+ H, c’est une réponse positive : 2♥. Elle annonce tout de suite à l’ouvreur que le chelem est probable.',
       },
       {
         q: 'Que montre la séquence 2♣ – 2♦ – 2SA ?',
@@ -201,7 +201,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Avec 20-21, vous ouvrez directement de 2SA. Passer d’abord par 2♣ puis dire 2SA montre 22-24 ; 2♣ puis 3SA montre 25-27.',
       },
       {
-        q: 'Votre partenaire ouvre de 2SA. Vous avez une main régulière de 4 H. Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 2SA. Vous avez une main régulière de 4 H. Que dites-vous ?',
         options: ['Passe', '3SA', '3♣', '4SA'],
         answer: 1,
         explain: '20-21 plus 4 donnent 24-25, assez pour jouer la manche. Sur 2SA, 3SA couvre 4-10 points.',
@@ -246,7 +246,7 @@ export const LESSONS_2: Lesson[] = [
 <h3>Quand ne pas barrer</h3>
 <ul>
 <li>En 4e position, un barrage n’a pas de sens : avec une main faible, passez simplement et la donne est annulée. Une ouverture au palier de 2 ou de 3 en 4e position montre une main correcte qui compte réussir le contrat.</li>
-<li>Avec une bonne main (11+ H et une belle couleur), ouvrez plutôt au palier de 1.</li>
+<li>Avec une bonne main (11+ H et une belle couleur), ouvrez plutôt au palier de 1.</li>
 <li>En 1re ou 2e position, méfiez-vous avec une majeure quatrième à côté ou avec deux As en dehors de votre couleur : votre partenaire a peut-être une bonne main et vous risquez de rater un meilleur contrat.</li>
 </ul>
 
@@ -264,7 +264,7 @@ export const LESSONS_2: Lesson[] = [
 <p><strong>Réponses de l’ouvreur à 2SA :</strong> avec un minimum (environ 5-7), redemandez 3 dans votre couleur ; avec un maximum (environ 8-10), nommez une couleur où vous avez un As ou un Roi extérieur ; avec une couleur solide (AKQxxx), dites 3SA.</p>
 <div class="deal" data-n="S:KQ10974 H:K52 D:83 C:72" data-s="S:A6 H:A84 D:AQ1052 C:K93" data-caption="Nord ouvre de 2♠ ; Sud interroge par 2SA."></div>
 <div class="auction" data-calls="2S P 2NT P 3H P 4S P P P" data-dealer="N"></div>
-<p>Nord a 8 H, un maximum, et montre le ♥K. Sud, avec 17 H, sait maintenant que les piques vont se dérouler avec l’♠A et que les cœurs sont bien tenus : il demande la manche. Si Nord avait montré un minimum en redemandant 3♠, Sud aurait passé.</p>
+<p>Nord a 8 H, un maximum, et montre le ♥K. Sud, avec 17 H, sait maintenant que les piques vont se dérouler avec l’♠A et que les cœurs sont bien tenus : il demande la manche. Si Nord avait montré un minimum en redemandant 3♠, Sud aurait passé.</p>
 
 <h3>Répondre à un barrage au palier de 3</h3>
 <p>Comptez les levées, pas les points. La couleur du partenaire fournira environ six levées ; pour la manche, il en faut trois ou quatre de votre part, en général des As et des Rois. Avec du soutien et une main faible, soutenez pour barrer encore plus haut. Souvenez-vous que votre partenaire a peu de défense : ne contrez pas les adversaires pour punir en comptant sur son barrage.</p>
@@ -272,7 +272,7 @@ export const LESSONS_2: Lesson[] = [
 <div class="warn">Le soutien d’un deux faible n’est pas un essai de manche. Si vous avez une bonne main et voulez en savoir plus, dites 2SA.</div>
 `,
     keyPoints: [
-      'Deux faible : six cartes, 5-10 H, l’essentiel de la force dans la couleur ; 2♣ n’est jamais faible.',
+      'Deux faible : six cartes, 5-10 H, l’essentiel de la force dans la couleur ; 2♣ n’est jamais faible.',
       'Barrage au palier de 3 : sept cartes, 5-10 ; quatre en majeure : huit cartes (ou sept avec de la distribution).',
       'Règle des 2-3-4 : deux levées de marge à vulnérabilité défavorable, trois à vulnérabilité égale, quatre à vulnérabilité favorable.',
       'Ne barrez pas en 4e position.',
@@ -283,19 +283,19 @@ export const LESSONS_2: Lesson[] = [
         q: 'En 1re position, à vulnérabilité égale, vous avez ♠84 ♥KQ10973 ♦J52 ♣63. Quelle est votre ouverture ?',
         options: ['Passe', '2♥', '3♥', '1♥'],
         answer: 1,
-        explain: 'Six beaux cœurs et 6 H : c’est le deux faible type. Avec sept cœurs, vous envisageriez 3♥ ; avec 12+ H, vous ouvririez de 1♥.',
+        explain: 'Six beaux cœurs et 6 H : c’est le deux faible type. Avec sept cœurs, vous envisageriez 3♥ ; avec 12+ H, vous ouvririez de 1♥.',
       },
       {
-        q: 'Votre partenaire ouvre de 2♠ et le joueur suivant passe. Vous avez ♠Q73 ♥K842 ♦A65 ♣J94 (10 H). Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 2♠ et le joueur suivant passe. Vous avez ♠Q73 ♥K842 ♦A65 ♣J94 (10 H). Que dites-vous ?',
         options: ['Passe', '3♠', '2SA', '4♠'],
         answer: 1,
         explain: 'La manche est peu probable face à 5-10, mais avec trois cartes de soutien votre camp a neuf atouts, et les adversaires ont un fit quelque part. Soutenez à 3♠ pour leur compliquer l’entrée dans les enchères.',
       },
       {
-        q: 'Vous avez ouvert de 2♥ avec ♠K5 ♥AQ10984 ♦862 ♣73 (9 H). Votre partenaire dit 2SA. Quelle est votre redemande ?',
+        q: 'Vous avez ouvert de 2♥ avec ♠K5 ♥AQ10984 ♦862 ♣73 (9 H). Votre partenaire dit 2SA. Quelle est votre redemande ?',
         options: ['3♥', '3♠', '3SA', '4♥'],
         answer: 1,
-        explain: '9 H, c’est un maximum : montrez votre honneur extérieur, le ♠K, par 3♠. 3♥ montrerait un minimum et 3SA une couleur solide.',
+        explain: '9 H, c’est un maximum : montrez votre honneur extérieur, le ♠K, par 3♠. 3♥ montrerait un minimum et 3SA une couleur solide.',
       },
       {
         q: 'Selon la règle des 2-3-4, à combien de levées de votre contrat pouvez-vous être à vulnérabilité favorable ?',
@@ -326,23 +326,23 @@ export const LESSONS_2: Lesson[] = [
 <table>
 <thead><tr><th>Intervention</th><th>Montre</th></tr></thead>
 <tbody>
-<tr><td>Couleur au palier de 1 (1♦ – 1♠)</td><td>8-16 H, une belle couleur cinquième ou plus</td></tr>
-<tr><td>Couleur au palier de 2 (1♠ – 2♦)</td><td>10-16 H, une belle couleur cinquième (le plus souvent sixième)</td></tr>
-<tr><td>Intervention à saut faible (1♣ – 2♠)</td><td>Une couleur sixième, 6-10 H, comme un deux faible</td></tr>
-<tr><td>1SA</td><td>15-18 H, main régulière, avec un arrêt dans la couleur d’ouverture</td></tr>
+<tr><td>Couleur au palier de 1 (1♦ – 1♠)</td><td>8-16 H, une belle couleur cinquième ou plus</td></tr>
+<tr><td>Couleur au palier de 2 (1♠ – 2♦)</td><td>10-16 H, une belle couleur cinquième (le plus souvent sixième)</td></tr>
+<tr><td>Intervention à saut faible (1♣ – 2♠)</td><td>Une couleur sixième, 6-10 H, comme un deux faible</td></tr>
+<tr><td>1SA</td><td>15-18 H, main régulière, avec un arrêt dans la couleur d’ouverture</td></tr>
 </tbody>
 </table>
 <p>Avec 17+ et une main trop forte pour une simple intervention, commencez par un contre d’appel et nommez votre couleur ensuite.</p>
 
 <h3>Exemples (votre adversaire de droite a ouvert)</h3>
 <div class="hand" data-cards="S:KQJ74 H:83 D:952 C:A63" data-label="1♦ à votre droite : dites 1♠"></div>
-<p>10 H avec une couleur solide que vous aimeriez voir entamer par votre partenaire.</p>
+<p>10 H avec une couleur solide que vous aimeriez voir entamer par votre partenaire.</p>
 <div class="hand" data-cards="S:73 H:A4 D:KQ10862 C:K95" data-label="1♠ à votre droite : dites 2♦"></div>
-<p>12 H et une belle couleur sixième : assez solide pour le palier de 2.</p>
+<p>12 H et une belle couleur sixième : assez solide pour le palier de 2.</p>
 <div class="hand" data-cards="S:K5 H:AQ8 D:KJ63 C:KJ94" data-label="1♣ à votre droite : dites 1SA"></div>
-<p>17 H, main régulière, avec les trèfles bien arrêtés.</p>
+<p>17 H, main régulière, avec les trèfles bien arrêtés.</p>
 <div class="hand" data-cards="S:J7542 H:AJ3 D:K6 C:Q82" data-label="1♥ à votre droite : passez"></div>
-<p>11 H, mais les piques sont pauvres et les valeurs dispersées. Une intervention demanderait l’entame à pique et pourrait être contrée pour une grosse pénalité. Passez.</p>
+<p>11 H, mais les piques sont pauvres et les valeurs dispersées. Une intervention demanderait l’entame à pique et pourrait être contrée pour une grosse pénalité. Passez.</p>
 
 <h3>Vulnérabilité et palier</h3>
 <p>Le risque d’une intervention, c’est le contre punitif. Au palier de 1, ce risque est faible ; au palier de 2, surtout vulnérable, il vous faut une belle couleur qui fera des levées même si le reste de la main du partenaire est pauvre. Une intervention au palier de 2 avec une couleur cinquième doit ressembler à une ouverture avec une couleur solide.</p>
@@ -360,14 +360,14 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="auction" data-calls="1H 1S P" data-dealer="W"></div>
 <div class="hand" data-cards="S:Q84 H:752 D:KJ63 C:Q94" data-label="Vous êtes Sud : dites 2♠"></div>
-<p>8 H et trois cartes de soutien : soutenez à 2♠. Soutenir tout de suite votre partenaire complique la tâche des adversaires pour trouver leur meilleur contrat.</p>
+<p>8 H et trois cartes de soutien : soutenez à 2♠. Soutenir tout de suite votre partenaire complique la tâche des adversaires pour trouver leur meilleur contrat.</p>
 <div class="hand" data-cards="S:K962 H:83 D:AQ74 C:K105" data-label="Vous êtes Sud : dites 2♥"></div>
-<p>12 H et quatre atouts. Le cue-bid à 2♥ montre un soutien limite ou mieux ; votre partenaire dit 2♠ avec une intervention minimum, et vous proposerez par 3♠, ou demanderez la manche s’il montre davantage.</p>
+<p>12 H et quatre atouts. Le cue-bid à 2♥ montre un soutien limite ou mieux ; votre partenaire dit 2♠ avec une intervention minimum, et vous proposerez par 3♠, ou demanderez la manche s’il montre davantage.</p>
 <div class="tip">N’oubliez pas que la zone de l’intervention est large (8-16). Ne sautez pas à la manche face à une intervention simplement parce que vous avez une main d’ouverture : faites d’abord un cue-bid et laissez votre partenaire se décrire.</div>
 <div class="warn">Une intervention n’est pas une ouverture. N’intervenez pas dans une couleur faible simplement parce que vous avez 12 points ; et ne renoncez pas à intervenir avec une couleur solide simplement parce que vous n’avez que 9 points.</div>
 `,
     keyPoints: [
-      'Intervention au palier de 1 : 8-16 H, belle couleur de 5+ cartes. Au palier de 2 : 10-16, belle couleur de 5+ (le plus souvent 6).',
+      'Intervention au palier de 1 : 8-16 H, belle couleur de 5+ cartes. Au palier de 2 : 10-16, belle couleur de 5+ (le plus souvent 6).',
       'Intervention à saut faible : couleur sixième, 6-10 ; intervention à 1SA : 15-18 régulier avec un arrêt.',
       'La qualité de la couleur compte plus que les points, car l’intervention indique aussi l’entame.',
       'Partenaire de l’intervenant : soutien simple 6-9 avec 3+ atouts ; cue-bid = soutien limite ou mieux ; le soutien à saut est un barrage.',
@@ -378,31 +378,31 @@ export const LESSONS_2: Lesson[] = [
         q: 'Votre adversaire de droite ouvre de 1♦. Vous avez ♠KQJ74 ♥83 ♦952 ♣A63. Que dites-vous ?',
         options: ['Passe', '1♠', '2♠', 'Contre'],
         answer: 1,
-        explain: 'Une belle couleur cinquième avec 10 H, c’est une intervention saine au palier de 1. 2♠ serait une intervention à saut faible, et un contre suggérerait du soutien à cœur et à trèfle.',
+        explain: 'Une belle couleur cinquième avec 10 H, c’est une intervention saine au palier de 1. 2♠ serait une intervention à saut faible, et un contre suggérerait du soutien à cœur et à trèfle.',
       },
       {
-        q: 'Votre adversaire de droite ouvre de 1♥. Vous avez ♠J7542 ♥AJ3 ♦K6 ♣Q82 (11 H). Que dites-vous ?',
+        q: 'Votre adversaire de droite ouvre de 1♥. Vous avez ♠J7542 ♥AJ3 ♦K6 ♣Q82 (11 H). Que dites-vous ?',
         options: ['1♠', 'Passe', '1SA', 'Contre'],
         answer: 1,
         explain: 'La couleur de pique est trop faible pour demander l’entame, la main n’est pas un sans-atout de 15-18, et vous n’avez pas la distribution d’un contre. Passez.',
       },
       {
-        q: 'Votre adversaire de droite ouvre de 1♣. Vous avez ♠K5 ♥AQ8 ♦KJ63 ♣KJ94 (17 H). Que dites-vous ?',
+        q: 'Votre adversaire de droite ouvre de 1♣. Vous avez ♠K5 ♥AQ8 ♦KJ63 ♣KJ94 (17 H). Que dites-vous ?',
         options: ['1♦', '1SA', 'Contre', '2SA'],
         answer: 1,
         explain: 'Main régulière, 15-18, avec un arrêt à trèfle : 1SA décrit la main en une seule enchère. Votre partenaire peut employer les mêmes réponses que sur une ouverture de 1SA.',
       },
       {
-        q: 'Votre adversaire de gauche a ouvert de 1♥ et votre partenaire est intervenu à 1♠. Vous avez ♠K962 ♥83 ♦AQ74 ♣K105 (12 H). Que dites-vous ?',
+        q: 'Votre adversaire de gauche a ouvert de 1♥ et votre partenaire est intervenu à 1♠. Vous avez ♠K962 ♥83 ♦AQ74 ♣K105 (12 H). Que dites-vous ?',
         options: ['2♠', '3♠', '2♥', '4♠'],
         answer: 2,
         explain: 'Avec 10+ et du soutien, faites un cue-bid dans la couleur adverse pour montrer un soutien limite ou mieux. 3♠ serait un barrage, et 4♠ pourrait être trop haut face à une intervention minimum.',
       },
       {
-        q: 'Votre adversaire de droite ouvre de 1♣. Vous avez ♠KJ10984 ♥73 ♦Q52 ♣43 (6 H). Que dites-vous ?',
+        q: 'Votre adversaire de droite ouvre de 1♣. Vous avez ♠KJ10984 ♥73 ♦Q52 ♣43 (6 H). Que dites-vous ?',
         options: ['Passe', '1♠', '2♠', '3♠'],
         answer: 2,
-        explain: 'Six beaux piques et 6-10 H : c’est une intervention à saut faible. Elle enlève aux adversaires leurs enchères au palier de 1 et suggère l’entame à pique.',
+        explain: 'Six beaux piques et 6-10 H : c’est une intervention à saut faible. Elle enlève aux adversaires leurs enchères au palier de 1 et suggère l’entame à pique.',
       },
     ],
   },
@@ -415,11 +415,11 @@ export const LESSONS_2: Lesson[] = [
     summary: 'Comment utiliser le contre pour demander au partenaire de choisir une couleur, et comment répondent le partenaire et le camp de l’ouvreur.',
     body: `
 <h3>Ce que dit le contre d’appel</h3>
-<p>Le contre d’une ouverture à la couleur à bas palier n’est pas punitif : il demande au partenaire de parler. Il montre <strong>12+ H, une courte dans la couleur d’ouverture et du soutien (idéalement quatre cartes) dans les couleurs non nommées</strong>, surtout dans la majeure non nommée. L’autre possibilité est une main forte, 17+, de n’importe quelle distribution, qui reparlera pour montrer ce qu’elle a vraiment.</p>
+<p>Le contre d’une ouverture à la couleur à bas palier n’est pas punitif : il demande au partenaire de parler. Il montre <strong>12+ H, une courte dans la couleur d’ouverture et du soutien (idéalement quatre cartes) dans les couleurs non nommées</strong>, surtout dans la majeure non nommée. L’autre possibilité est une main forte, 17+, de n’importe quelle distribution, qui reparlera pour montrer ce qu’elle a vraiment.</p>
 <div class="hand" data-cards="S:KJ85 H:AQ63 D:4 C:K1072" data-label="1♦ à votre droite : contrez"></div>
-<p>13 H, un singleton carreau et quatre cartes dans chacune des autres couleurs : la distribution idéale.</p>
+<p>13 H, un singleton carreau et quatre cartes dans chacune des autres couleurs : la distribution idéale.</p>
 <div class="hand" data-cards="S:K85 H:AQ6 D:K1073 C:Q72" data-label="1♦ à votre droite : passez"></div>
-<p>14 H, mais quatre carreaux et seulement trois cartes dans chaque majeure. Si vous contrez, votre partenaire nommera cœur ou pique avec quatre cartes, et vous jouerez un fit 4-3 avec la mauvaise main. Passez.</p>
+<p>14 H, mais quatre carreaux et seulement trois cartes dans chaque majeure. Si vous contrez, votre partenaire nommera cœur ou pique avec quatre cartes, et vous jouerez un fit 4-3 avec la mauvaise main. Passez.</p>
 
 <h3>Répondre au contre d’appel</h3>
 <div class="auction" data-calls="1H X P" data-dealer="W"></div>
@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – contre – passe : dites 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – contre – passe : dites 2♠"></div>
-<p>Avec 3 H, dites 1♠ sans crainte : votre partenaire sait que vous pouvez n’avoir rien. Avec 10 H, sautez à 2♠ pour proposer la manche. Avec ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 H), dites vous-même 4♠, ou faites un cue-bid à 2♥ si vous ne savez pas quelle manche est la meilleure.</p>
+<p>Avec 3 H, dites 1♠ sans crainte : votre partenaire sait que vous pouvez n’avoir rien. Avec 10 H, sautez à 2♠ pour proposer la manche. Avec ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 H), dites vous-même 4♠, ou faites un cue-bid à 2♥ si vous ne savez pas quelle manche est la meilleure.</p>
 <p>Si le partenaire de l’ouvreur parle (1♥ – contre – 2♥), vous n’êtes plus obligé de parler. Une enchère montre alors quelques valeurs, environ 6+, et un passe montre une main faible.</p>
 
 <h3>La redemande du contreur</h3>
@@ -444,50 +444,50 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Le camp de l’ouvreur : le surcontre</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Quand l’ouverture de votre partenaire est contrée, un <strong>surcontre</strong> montre 10+ H. Il indique à l’ouvreur que votre camp a la majorité des points, et il signifie en général que vous cherchez une occasion de contrer les adversaires pour punir. Avec un fit et une main plus faible, soutenez plutôt votre partenaire ; avec une couleur nouvelle et moins de 10, nommez-la.</p>
+<p>Quand l’ouverture de votre partenaire est contrée, un <strong>surcontre</strong> montre 10+ H. Il indique à l’ouvreur que votre camp a la majorité des points, et il signifie en général que vous cherchez une occasion de contrer les adversaires pour punir. Avec un fit et une main plus faible, soutenez plutôt votre partenaire ; avec une couleur nouvelle et moins de 10, nommez-la.</p>
 
 <h3>Le contre des barrages</h3>
 <p>Le contre d’un deux faible ou d’un barrage au palier de 3 est aussi d’appel : valeurs d’ouverture, courte dans leur couleur, et prêt pour n’importe quelle couleur que nommera le partenaire. Celui-ci devra peut-être parler au palier de 3 avec une main faible : le contreur doit donc être solide, pas léger.</p>
 <div class="tip">Le contre d’appel idéal est court dans la couleur adverse et a quatre cartes dans chaque majeure non nommée. Plus vous êtes court dans leur couleur, plus vous pouvez contrer léger.</div>
-<div class="warn">Ne contrez pas avec une longue couleur personnelle et une main moyenne : intervenez plutôt. Un contre d’appel suivi de votre propre couleur montre 17+ H.</div>
+<div class="warn">Ne contrez pas avec une longue couleur personnelle et une main moyenne : intervenez plutôt. Un contre d’appel suivi de votre propre couleur montre 17+ H.</div>
 `,
     keyPoints: [
-      'Contre d’appel : 12+ H, court dans leur couleur, soutien dans les couleurs non nommées ; ou 17+ de n’importe quelle distribution qui reparlera.',
+      'Contre d’appel : 12+ H, court dans leur couleur, soutien dans les couleurs non nommées ; ou 17+ de n’importe quelle distribution qui reparlera.',
       'Le partenaire doit parler : 0-8 au plus bas, 9-11 à saut, 12+ cue-bid ou manche ; 1SA = 6-10 avec un arrêt.',
       'Ne passez sur le contre qu’avec des atouts longs et solides dans leur couleur.',
       'Le contreur passe sur une réponse minimum avec 12-15 ; soutient avec 16-18 ; saute avec 19+.',
-      'Le surcontre après un contre d’appel montre 10+ H.',
+      'Le surcontre après un contre d’appel montre 10+ H.',
     ],
     quiz: [
       {
-        q: 'Votre adversaire de droite ouvre de 1♣. Vous avez ♠AQ83 ♥KJ62 ♦Q1074 ♣5 (12 H). Que dites-vous ?',
+        q: 'Votre adversaire de droite ouvre de 1♣. Vous avez ♠AQ83 ♥KJ62 ♦Q1074 ♣5 (12 H). Que dites-vous ?',
         options: ['1♦', 'Contre', '1♠', 'Passe'],
         answer: 1,
         explain: 'Une courte à trèfle et quatre cartes dans chacune des autres couleurs : le contre d’appel idéal. Quelle que soit la couleur choisie par votre partenaire, vous avez du soutien.',
       },
       {
-        q: '1♥ – contre – passe – ? Vous avez ♠Q8642 ♥753 ♦J4 ♣982 (3 H).',
+        q: '1♥ – contre – passe – ? Vous avez ♠Q8642 ♥753 ♦J4 ♣982 (3 H).',
         options: ['Passe', '1♠', '1SA', '2♠'],
         answer: 1,
         explain: 'Vous devez parler : passer laisserait jouer 1♥ contré, et les adversaires le gagneraient probablement avec des levées de mieux. Nommez votre meilleure couleur au palier le plus bas.',
       },
       {
-        q: '1♥ – contre – passe – ? Vous avez ♠KJ74 ♥85 ♦A1063 ♣Q72 (10 H).',
+        q: '1♥ – contre – passe – ? Vous avez ♠KJ74 ♥85 ♦A1063 ♣Q72 (10 H).',
         options: ['1♠', '2♠', '4♠', '2♥'],
         answer: 1,
         explain: '9-11 points : sautez dans votre meilleure couleur pour proposer la manche. 1♠ pourrait être dit avec rien et sous-évaluerait cette main.',
       },
       {
-        q: '1♠ – contre – passe – ? Vous avez ♠K104 ♥82 ♦Q963 ♣J752 (6 H).',
+        q: '1♠ – contre – passe – ? Vous avez ♠K104 ♥82 ♦Q963 ♣J752 (6 H).',
         options: ['2♣', '2♦', '1SA', 'Passe'],
         answer: 2,
         explain: '1SA montre 6-10 avec un arrêt à pique, et vous permet de rester au palier de 1. Nommer une mineure au palier de 2 est possible, mais 1SA décrit le mieux cette main régulière.',
       },
       {
         q: 'Votre partenaire ouvre de 1♥ et votre adversaire de droite contre. Que montre votre surcontre ?',
-        options: ['Un contre punitif de 1♥', '10+ H', 'Du soutien à cœur', 'Une main faible'],
+        options: ['Un contre punitif de 1♥', '10+ H', 'Du soutien à cœur', 'Une main faible'],
         answer: 1,
-        explain: 'Le surcontre montre 10+ H et dit que la donne appartient à votre camp. Avec du soutien et moins de points, vous soutiendriez plutôt.',
+        explain: 'Le surcontre montre 10+ H et dit que la donne appartient à votre camp. Avec du soutien et moins de points, vous soutiendriez plutôt.',
       },
     ],
   },
@@ -758,10 +758,10 @@ export const LESSONS_2: Lesson[] = [
     summary: 'Comment le répondant utilise le contre après une intervention pour montrer la majeure non nommée, et comment la transformation et le contre de réveil fonctionnent ensemble.',
     body: `
 <h3>Le problème</h3>
-<p>Votre partenaire ouvre de 1♦ et votre adversaire de droite intervient à 1♠. Vous avez quatre cœurs et 9 H. 2♥ promettrait cinq cœurs et 10+ points : vous ne pouvez donc pas le dire, mais vous ne voulez pas perdre un éventuel fit à cœur. La réponse est le <strong>contre Spoutnik</strong> (ou contre négatif) : après l’ouverture du partenaire et une intervention jusqu’à 2♠ inclus, le contre du répondant est d’appel et montre la ou les majeures non nommées.</p>
+<p>Votre partenaire ouvre de 1♦ et votre adversaire de droite intervient à 1♠. Vous avez quatre cœurs et 9 H. 2♥ promettrait cinq cœurs et 10+ points : vous ne pouvez donc pas le dire, mais vous ne voulez pas perdre un éventuel fit à cœur. La réponse est le <strong>contre Spoutnik</strong> (ou contre négatif) : après l’ouverture du partenaire et une intervention jusqu’à 2♠ inclus, le contre du répondant est d’appel et montre la ou les majeures non nommées.</p>
 
 <h3>Ce que montre le contre</h3>
-<p>Force : 6+ H quand l’intervention est au palier de 1, 8+ quand elle est au palier de 2. Distribution :</p>
+<p>Force : 6+ H quand l’intervention est au palier de 1, 8+ quand elle est au palier de 2. Distribution :</p>
 <table>
 <thead><tr><th>Séquence</th><th>Le contre du répondant montre</th></tr></thead>
 <tbody>
@@ -769,14 +769,14 @@ export const LESSONS_2: Lesson[] = [
 <tr><td>1♣ ou 1♦ – (1♥) – X</td><td>Exactement quatre piques (1♠ en montrerait cinq ou plus)</td></tr>
 <tr><td>1♣ ou 1♦ – (1♠) – X</td><td>Quatre cœurs ou plus (2♥ en montrerait cinq et 10+)</td></tr>
 <tr><td>1♥ – (1♠) – X</td><td>Les mineures, ou des valeurs sans enchère évidente</td></tr>
-<tr><td>1♥ – (2♣ ou 2♦) – X</td><td>Quatre piques, 8+ H</td></tr>
-<tr><td>1♠ – (2♣ ou 2♦) – X</td><td>Quatre cœurs ou plus, 8+ H</td></tr>
+<tr><td>1♥ – (2♣ ou 2♦) – X</td><td>Quatre piques, 8+ H</td></tr>
+<tr><td>1♠ – (2♣ ou 2♦) – X</td><td>Quatre cœurs ou plus, 8+ H</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:852 H:KJ74 D:Q3 C:K1065" data-label="1♦ – (1♠) – ? : contrez"></div>
 <div class="hand" data-cards="S:KJ75 H:842 D:Q63 C:J95" data-label="1♣ – (1♥) – ? : contrez"></div>
 <div class="hand" data-cards="S:AQ74 H:5 D:K863 C:J1072" data-label="1♥ – (2♣) – ? : contrez"></div>
-<p>La première main montre ses quatre cœurs. La deuxième a exactement quatre piques et 7 H : contrez plutôt que de dire 1♠. La troisième montre quatre piques et assez de force pour le palier de 2.</p>
+<p>La première main montre ses quatre cœurs. La deuxième a exactement quatre piques et 7 H : contrez plutôt que de dire 1♠. La troisième montre quatre piques et assez de force pour le palier de 2.</p>
 
 <h3>La redemande de l’ouvreur après un contre Spoutnik</h3>
 <ul>
@@ -796,26 +796,26 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       'Après l’ouverture du partenaire et une intervention de l’adversaire de droite (jusqu’à 2♠), le contre du répondant est d’appel.',
-      'Il montre la ou les majeures non nommées : 6+ H au palier de 1, 8+ au palier de 2.',
+      'Il montre la ou les majeures non nommées : 6+ H au palier de 1, 8+ au palier de 2.',
       '1♣/1♦ – (1♥) – X montre exactement quatre piques ; 1♠ en montrerait cinq.',
       'Avec une longueur solide dans la couleur de l’intervenant, le répondant passe ; l’ouvreur réveille par un contre quand il est court dans cette couleur.',
       'L’ouvreur redemande naturellement, en sautant dans la majeure du partenaire avec des valeurs supplémentaires.',
     ],
     quiz: [
       {
-        q: '1♦ – (1♠) – ? Vous avez ♠852 ♥KJ74 ♦Q3 ♣K1065 (9 H).',
+        q: '1♦ – (1♠) – ? Vous avez ♠852 ♥KJ74 ♦Q3 ♣K1065 (9 H).',
         options: ['2♥', 'Contre', '1SA', 'Passe'],
         answer: 1,
         explain: '2♥ promettrait cinq cœurs et 10+ points. Le contre Spoutnik montre quatre cœurs ou plus avec 6+ et garde le fit à cœur en vue.',
       },
       {
-        q: '1♣ – (1♥) – ? Vous avez ♠KJ752 ♥84 ♦Q63 ♣J95 (7 H).',
+        q: '1♣ – (1♥) – ? Vous avez ♠KJ752 ♥84 ♦Q63 ♣J95 (7 H).',
         options: ['Contre', '1♠', '1SA', '2♠'],
         answer: 1,
         explain: 'Après une intervention à 1♥, le contre montre exactement quatre piques : avec cinq piques, dites 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Vous avez ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 H).',
+        q: '1♥ – (2♣) – ? Vous avez ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 H).',
         options: ['Contre', 'Passe', '3SA', '2SA'],
         answer: 1,
         explain: 'Vous aimeriez contrer pour punir, mais votre contre serait un Spoutnik. Passez et attendez que votre partenaire réveille par un contre s’il est court à trèfle ; vous passerez alors.',
@@ -891,7 +891,7 @@ export const LESSONS_2: Lesson[] = [
 <h3>Un exemple</h3>
 <div class="deal" data-n="S:AK1074 H:KQ6 D:A5 C:Q83" data-s="S:QJ63 H:A84 D:KQ62 C:K5"></div>
 <div class="auction" data-calls="1S P 2NT P 3S P 4NT P 5H P 6S P P P" data-dealer="N"></div>
-<p>Nord ouvre de 1♠ avec 18 H. Sud, avec 15 H et quatre piques, dit 2SA, le soutien Jacoby : forcing de manche avec du soutien. Le 3♠ de Nord est la façon standard de montrer des valeurs supplémentaires sans singleton ni chicane. Sud compte maintenant environ 33 points à deux et un fit de neuf cartes : le chelem est probable. 4SA demande les As ; 5♥ en montre deux. Avec l’♥A en main, Sud sait qu’il ne manque qu’un As et dit 6♠.</p>
+<p>Nord ouvre de 1♠ avec 18 H. Sud, avec 15 H et quatre piques, dit 2SA, le soutien Jacoby : forcing de manche avec du soutien. Le 3♠ de Nord est la façon standard de montrer des valeurs supplémentaires sans singleton ni chicane. Sud compte maintenant environ 33 points à deux et un fit de neuf cartes : le chelem est probable. 4SA demande les As ; 5♥ en montre deux. Avec l’♥A en main, Sud sait qu’il ne manque qu’un As et dit 6♠.</p>
 <p>Avec le Blackwood à 5 clés, comme le jouent les robots, Nord répond 5♦ : trois clés, l’♠A, l’♦A et le ♠K. Sud, qui n’a que l’♥A, sait qu’il s’agit de trois et non de zéro : il manque donc une clé ; Sud a la ♠Q, et l’on atteint 6♠ de la même façon.</p>
 <p>Au jeu, l’♣A est la seule perdante : le déclarant tire les atouts, encaisse les cœurs, puis joue l’♦A, carreau vers le Roi et la ♦Q du mort, en défaussant un des trèfles de Nord.</p>
 
@@ -932,10 +932,10 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Il manque deux As : les adversaires pourraient encaisser deux levées tout de suite. Arrêtez-vous à 5♠ ; votre partenaire doit passer.',
       },
       {
-        q: 'Deux mains régulières totalisent 33 H, sans fit. Quel contrat ?',
+        q: 'Deux mains régulières totalisent 33 H, sans fit. Quel contrat ?',
         options: ['3SA', '4SA', '6SA', '7SA'],
         answer: 2,
-        explain: 'Environ 33 H à deux donnent de bonnes chances de faire douze levées à sans-atout. Il en faudrait 37 pour un grand chelem.',
+        explain: 'Environ 33 H à deux donnent de bonnes chances de faire douze levées à sans-atout. Il en faudrait 37 pour un grand chelem.',
       },
       {
         q: 'Votre partenaire répond 5♣ à votre 4SA (Blackwood simple). Que montre-t-il ?',
@@ -963,7 +963,7 @@ export const LESSONS_2: Lesson[] = [
 <h3>Le 4SA quantitatif</h3>
 <p>Le soutien direct de 1SA à 4SA n’est pas un Blackwood. Il montre 16-17 points : le total est donc de 31-34, à la limite des 33 nécessaires pour le chelem. L’ouvreur passe avec un minimum (15) et dit 6SA avec un maximum (17) ; avec 16, il juge, en acceptant avec une belle couleur cinquième ou de bonnes cartes intermédiaires.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Le partenaire a ouvert de 1SA : dites 4SA"></div>
-<p>16 H, main régulière. Dites 4SA. Avec 18-19, vous diriez directement 6SA, puisque même un ouvreur minimum donne 33.</p>
+<p>16 H, main régulière. Dites 4SA. Avec 18-19, vous diriez directement 6SA, puisque même un ouvreur minimum donne 33.</p>
 <p>Sur 2SA (20-21), 4SA montre 11-12 et demande à l’ouvreur de dire 6SA avec un maximum.</p>
 <table>
 <thead><tr><th>Répondant après</th><th>3SA</th><th>4SA (proposition)</th><th>6SA</th></tr></thead>
@@ -986,13 +986,13 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <p>Après la réponse, 5♣ de la part de celui qui interroge demande les Rois selon le même schéma (5♦ = 0 ou 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Toute autre enchère fixe le contrat ; un 4SA de celui qui interroge est un arrêt, et si la réponse du partenaire était 4SA, il peut simplement passer.</p>
 <div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Le partenaire a ouvert de 1SA : dites 4♣"></div>
-<p>16 H (31-33 au total) et six piques solides : la main est riche en levées, mais vous n’avez aucun As. La question porte sur les As : dites 4♣. Sur 4♠ (deux As), passez et jouez 4♠. Sur 4SA (trois As), dites 6♠.</p>
+<p>16 H (31-33 au total) et six piques solides : la main est riche en levées, mais vous n’avez aucun As. La question porte sur les As : dites 4♣. Sur 4♠ (deux As), passez et jouez 4♠. Sur 4SA (trois As), dites 6♠.</p>
 <p>Avec les Texas au palier de 4, il existe un autre chemin : 4♥, Texas pique, puis 4SA, Blackwood à 5 clés, qui compte aussi le Roi et la Dame de pique.</p>
 
 <h3>Lequel utiliser ?</h3>
 <ul>
 <li>Utilisez le 4SA quantitatif quand la question porte sur la <strong>force</strong> : vous n’êtes pas sûr que les points combinés atteignent 33.</li>
-<li>Utilisez le Gerber quand la question porte sur les <strong>As</strong> : avec une main riche en levées (irrégulière), où la force n’est pas le problème. Avec des mains régulières et 33+ H à deux, il ne peut pas manquer deux As : comptez simplement les points.</li>
+<li>Utilisez le Gerber quand la question porte sur les <strong>As</strong> : avec une main riche en levées (irrégulière), où la force n’est pas le problème. Avec des mains régulières et 33+ H à deux, il ne peut pas manquer deux As : comptez simplement les points.</li>
 <li>Avec une longue couleur face à 1SA, faites d’abord un Texas (ou enchérissez naturellement) pour fixer la couleur, puis utilisez les outils de chelem. Compter les levées importe plus que compter les points quand vous avez une longue couleur solide.</li>
 </ul>
 <div class="tip">Comptez jusqu’à 33 pour un petit chelem à sans-atout et jusqu’à 37 pour un grand. Avec une source de levées, comme une couleur cinquième ou sixième solide, il en faut un peu moins.</div>
@@ -1019,13 +1019,13 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Aucune couleur n’a été fixée et le partenaire a dit sans-atout naturellement : 4SA propose le chelem. L’ouvreur dit 6SA avec un maximum et passe avec un minimum.',
       },
       {
-        q: 'Vous avez ouvert de 1SA avec 17 H. Votre partenaire soutient à 4SA. Que faites-vous ?',
+        q: 'Vous avez ouvert de 1SA avec 17 H. Votre partenaire soutient à 4SA. Que faites-vous ?',
         options: ['Passe', 'Je dis 5♥ pour montrer deux As', 'Je dis 6SA', 'Je dis 5SA'],
         answer: 2,
         explain: '17, c’est le haut de la zone : 17 + 16-17 = 33-34. Acceptez la proposition par 6SA.',
       },
       {
-        q: 'Votre partenaire ouvre de 2SA. Vous avez une main régulière de 12 H. Que dites-vous ?',
+        q: 'Votre partenaire ouvre de 2SA. Vous avez une main régulière de 12 H. Que dites-vous ?',
         options: ['3SA', '4SA', '6SA', '4♣'],
         answer: 1,
         explain: '20-21 + 12 = 32-33. Proposez par 4SA (11-12) ; votre partenaire dira 6SA avec 21.',

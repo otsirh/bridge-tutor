@@ -225,11 +225,11 @@ export const tutor: Text['tutor'] = {
     establish: (suit: number, total: number, missing: number, odds: string, extra: number) =>
       `Affranchir les ${core.suits[suit]} : avec ${total} cartes à vous deux (${missing} dehors, ${odds}), vos longues à ${SUIT_SYMBOLS[suit]} peuvent rapporter environ ${nPl(extra, 'levée supplémentaire', 'levées supplémentaires')}.`,
     finesseAQ: (suit: number, holding: string) =>
-      `Impasse ${a(suit)} : jouez vers A-Q (${holding}) et mettez la Dame si le Roi n’apparaît pas — environ 50 %.`,
+      `Impasse ${a(suit)} : jouez vers A-Q (${holding}) et mettez la Dame si le Roi n’apparaît pas — environ 50 %.`,
     leadTowardKing: (suit: number, holding: string) =>
-      `${A(suit)}, jouez vers le Roi (${holding}) : il fera une levée si l’As est à votre gauche — environ 50 %.`,
+      `${A(suit)}, jouez vers le Roi (${holding}) : il fera une levée si l’As est à votre gauche — environ 50 %.`,
     doubleFinesse: (suit: number) =>
-      `Double impasse ${a(suit)} (A-J-10) : faites deux fois l’impasse ; vous ferez deux levées dans 76 % des cas.`,
+      `Double impasse ${a(suit)} (A-J-10) : faites deux fois l’impasse ; vous ferez deux levées dans 76 % des cas.`,
     knockOutAce: (suit: number, withJack: boolean) =>
       `Chassez l’As de ${core.suitSingular[suit]} : K-Q${withJack ? '-J' : ''} vous ${withJack ? 'donneront ensuite au moins 2 levées' : 'donneront ensuite au moins 1 levée'}.`,
     ntDevelopEarly: 'À sans-atout, affranchissez vos levées supplémentaires tôt, tant que vous contrôlez encore les couleurs — et comptez combien de fois vous pouvez vous permettre de rendre la main.',

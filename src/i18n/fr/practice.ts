@@ -103,7 +103,7 @@ export const practice: Text['practice'] = {
   practiseAtTable: 'S’entraîner à la table',
   readLesson: (title: string) => `Lire : ${title}`,
   stepCourseTitle: (title: string) => `Poursuivre le cours : ${title}`,
-  stepCourseText: (i: number, total: number) => `Leçon ${i} sur ${total}. Une leçon est validée quand vous réussissez 80 % de son quiz du premier coup.`,
+  stepCourseText: (i: number, total: number) => `Leçon ${i} sur ${total}. Une leçon est validée quand vous réussissez 80 % de son quiz du premier coup.`,
   openLesson: 'Ouvrir la leçon',
   stepProblemsTitle: 'Trouvez le bon coup',
   stepProblemsText: 'Des problèmes tirés de vraies donnes où une carte est nettement la meilleure : jeu du déclarant, flanc et entame.',
