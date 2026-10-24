@@ -90,14 +90,26 @@ export function clearCardMistake(sim: { n: number; bt: number; bs: number; mt: n
   return sim.bs - sim.ms >= 0.15 || sim.bt - sim.mt >= 0.45;
 }
 
-/** One entry per decision you made, oldest first. */
-export function decisions(boards: readonly ArchivedBoard[]): { skill: SkillId; ok: boolean; board: number }[] {
-  const out: { skill: SkillId; ok: boolean; board: number }[] = [];
+export interface Decision {
+  skill: SkillId;
+  ok: boolean;
+  board: number;
+  /** How much it counts: a call the system makes on general judgment (no specific rule) counts half. */
+  weight: number;
+}
+
+/**
+ * One entry per decision you made, oldest first. A card counts only when the
+ * choice mattered: picking among cards that all do equally well (the simulation
+ * rated every legal card best) is no decision, and would only flatter the score.
+ */
+export function decisions(boards: readonly ArchivedBoard[]): Decision[] {
+  const out: Decision[] = [];
   for (const b of boards) {
     if (b.peek) continue;
     const calls: Call[] = [];
     for (const c of b.calls) {
-      if (c.h && c.a !== undefined) out.push({ skill: bidSkill(b.dealer, calls, c.a), ok: c.a === c.c, board: b.id });
+      if (c.h && c.a !== undefined) out.push({ skill: bidSkill(b.dealer, calls, c.a), ok: c.a === c.c, board: b.id, weight: c.g ? 0.5 : 1 });
       calls.push(c.c);
     }
     const auction = new Auction(b.dealer, calls);
@@ -106,12 +118,16 @@ export function decisions(boards: readonly ArchivedBoard[]): { skill: SkillId; o
     const play = new PlayState(contract, decodeDeal(b.deal));
     b.cards.forEach((card, i) => {
       const seat = play.toPlay;
-      if (card.h && card.sim) out.push({ skill: cardSkill(contract.declarer, seat, i === 0), ok: !clearCardMistake(card.sim, card.c), board: b.id });
+      if (card.h && card.sim && card.sim.best.length < play.legal().length) {
+        out.push({ skill: cardSkill(contract.declarer, seat, i === 0), ok: !clearCardMistake(card.sim, card.c), board: b.id, weight: 1 });
+      }
       play.play(card.c);
     });
   }
   return out;
 }
+
+const weightOf = (ds: readonly Decision[]) => ds.reduce((t, d) => t + d.weight, 0);
 
 export function skillStats(boards: readonly ArchivedBoard[]): SkillStat[] {
   const all = decisions(boards);
@@ -124,7 +140,7 @@ export function skillStats(boards: readonly ArchivedBoard[]): SkillStat[] {
       decisions: mine.length,
       right,
       recent: recent.length,
-      rate: recent.length >= MIN_FOR_RATE ? recent.filter(d => d.ok).length / recent.length : null,
+      rate: recent.length >= MIN_FOR_RATE ? weightOf(recent.filter(d => d.ok)) / weightOf(recent) : null,
     };
   });
 }

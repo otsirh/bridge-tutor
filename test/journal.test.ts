@@ -98,7 +98,16 @@ describe('journal', () => {
       expect(p.isLegal(it.yours)).toBe(true);
     }
     const ds = decisions([rec]);
-    expect(ds.length).toBe(rec.calls.filter(c => c.h && c.a !== undefined).length + rec.cards.filter(c => c.h && c.sim).length);
+    // cards count only when the choice mattered (not every legal card rated best)
+    const p = new PlayState(new Auction(rec.dealer, rec.calls.map(c => c.c)).contract()!, decodeDeal(rec.deal));
+    let realCards = 0;
+    for (const c of rec.cards) {
+      if (c.h && c.sim && c.sim.best.length < p.legal().length) realCards++;
+      p.play(c.c);
+    }
+    expect(ds.length).toBe(rec.calls.filter(c => c.h && c.a !== undefined).length + realCards);
+    // only calls the system makes on general judgment count half
+    expect(ds.every(d => d.weight === 1 || (d.weight === 0.5 && d.skill.startsWith('bid')))).toBe(true);
     const stats = skillStats([rec]);
     expect(stats.reduce((t, s) => t + s.decisions, 0)).toBe(ds.length);
     expect(typeof weakestSkill(stats)).toBe('string');
