@@ -62,7 +62,9 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [siteUrl(), serviceWorker(), ...(single ? [viteSingleFile()] : [])],
     worker: { format: 'es' },
-    build: { target: 'es2022', outDir: single ? 'dist-single' : 'dist' },
+    // The main chunk holds the engine, the UI and English (text and lessons), all needed at start:
+    // about 620 kB, 190 kB gzipped. Other languages are separate chunks.
+    build: { target: 'es2022', outDir: single ? 'dist-single' : 'dist', chunkSizeWarningLimit: 800 },
     test: { environment: 'node', setupFiles: ['test/setup.ts'], exclude: ['**/node_modules/**', '**/dist/**', '.claude/**', 'e2e/**'] },
   };
 });
