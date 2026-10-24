@@ -1,7 +1,9 @@
-import './i18n';
+import { initLang } from './i18n';
 import './ui/styles.css';
 import { mountApp } from './ui/app';
 
+// the saved or browser language is loaded before the first render
+await initLang();
 mountApp(document.getElementById('app')!);
 
 // Offline support and installing as an app, where the page is the site itself

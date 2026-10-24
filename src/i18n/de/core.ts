@@ -1,29 +1,41 @@
-// PLACEHOLDER (German): an English copy until the German translation lands.
 // Card, seat and call vocabulary.
+//
+// German suit names are neuter and do not change in the plural („fünf Pik“,
+// „vier Coeur“), so `suits` and `suitSingular` are the same words.
 
 import type { Text } from '../en';
-
 import { rankLabel } from '../../core/cards';
 
-const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-const RANK_WORDS: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+const SUITS = ['Treff', 'Karo', 'Coeur', 'Pik'];
+const RANK_WORDS: Record<number, string> = {
+  14: 'Ass',
+  13: 'König',
+  12: 'Dame',
+  11: 'Bube',
+  10: 'Zehn',
+  9: 'Neun',
+  8: 'Acht',
+  7: 'Sieben',
+  6: 'Sechs',
+  5: 'Fünf',
+  4: 'Vier',
+  3: 'Drei',
+  2: 'Zwei',
+};
 
 export const core: Text['core'] = {
-  seats: ['North', 'East', 'South', 'West'],
-  seatLetters: ['N', 'E', 'S', 'W'],
-  /** Plural, as in "five hearts". */
+  seats: ['Nord', 'Ost', 'Süd', 'West'],
+  seatLetters: ['N', 'O', 'S', 'W'],
   suits: SUITS,
-  suitSingular: ['club', 'diamond', 'heart', 'spade'],
-  strains: ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'],
-  /** Notrump in bids and contracts ("3NT"). */
-  nt: 'NT',
-  pass: 'Pass',
-  double: 'Double',
-  redouble: 'Redouble',
-  passedOut: 'Passed out',
-  /** "queen of hearts" */
-  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} of ${SUITS[suit]}`,
-  /** Abbreviation after a number of high-card points ("12 HCP"). */
-  hcp: 'HCP',
-  tricks: (n: number) => (n === 1 ? 'trick' : 'tricks'),
+  suitSingular: SUITS,
+  strains: ['Treff', 'Karo', 'Coeur', 'Pik', 'Sans Atout'],
+  nt: 'SA',
+  pass: 'Passe',
+  double: 'Kontra',
+  redouble: 'Rekontra',
+  passedOut: 'Eingepasst',
+  /** „Coeur-Dame“ */
+  cardLong: (rank: number, suit: number) => `${SUITS[suit]}-${RANK_WORDS[rank] ?? rankLabel(rank)}`,
+  hcp: 'FP',
+  tricks: (n: number) => (n === 1 ? 'Stich' : 'Stiche'),
 };

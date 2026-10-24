@@ -4,7 +4,7 @@ import type { Call } from '../core/auction';
 import type { HandInfo } from '../core/eval';
 import { hasStopper, goodSuit, dummyPoints } from '../core/eval';
 import { SUIT_SYMBOLS } from '../core/cards';
-import { T, type Text } from '../i18n';
+import { T, fmtList, type Text } from '../i18n';
 import type { Ctx } from './context';
 
 /** What we know about a hand from its calls. */
@@ -60,7 +60,7 @@ export function describeShown(s: Shown): string {
     else parts.push(`${a}–${b}${SUIT_SYMBOLS[su]}`);
   }
   if (s.balanced) parts.push(t.balanced);
-  return parts.join(', ');
+  return fmtList(parts);
 }
 
 export type Forcing = 'none' | 'one' | 'game';

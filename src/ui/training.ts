@@ -11,7 +11,7 @@ import { imps } from '../core/scoring';
 import { readAuction, advise, judgeCall } from '../bidding/engine';
 import { decideCard, type Decision } from '../engine/playEngine';
 import { explainPlay, type PlaySituation } from '../tutor/principles';
-import { T, fmtDate, fmtNum, fmtPct } from '../i18n';
+import { T, fmtDate, fmtList, fmtNum, fmtPct } from '../i18n';
 import { getLessons, getLesson } from '../learn/lessons';
 import {
   type ArchivedBoard, type ReviewItem, loadBoards, loadItems, dueItems, answerItem, updateItem, decodeDeal, addItems,
@@ -362,7 +362,7 @@ function cardItemView(item: ReviewItem, act: TrainingActions): HTMLElement {
     const fresh = d.fresh;
     const freshMine = fresh?.stats.find(s => s.card === d.chosen);
     fb = h('div', { class: `box ${d.correct ? '' : 'warnbox'}` },
-      h('b', null, suitText(d.correct ? T.practice.cardRight : T.practice.cardWrong(item.answer.map(cardName).join(', ')))),
+      h('b', null, suitText(d.correct ? T.practice.cardRight : T.practice.cardWrong(fmtList(item.answer.map(cardName))))),
       sim ? h('p', { style: 'margin:6px 0' }, suitText((item.source === 'problem' ? T.practice.cardSimProblem : T.practice.cardSim)(sim.n, cardName(best), fmtNum(sim.bt, 2), fmtPct(sim.bs), cardName(item.yours), fmtNum(sim.mt, 2), fmtPct(sim.ms), declaring))) : null,
       fresh && freshMine ? h('p', { class: 'small', style: 'margin:6px 0' }, suitText(T.practice.cardFresh(cardName(d.chosen!), fmtNum(freshMine.tricks, 2), fmtPct(freshMine.success), fresh.samples))) : null,
       h('div', { class: 'principle' }, h('b', null, pr.title), suitText(pr.text)));
@@ -514,7 +514,7 @@ function problemFeedback(pr: Problem, p: PlayState): HTMLElement {
   const top = pr.stats[0];
   const mine = pr.stats.find(s => s.c === ps.chosen);
   const runnerUp = pr.stats.find(s => !pr.answer.includes(s.c));
-  const answer = pr.answer.map(cardName).join(', ');
+  const answer = fmtList(pr.answer.map(cardName));
   // the card explained: an opening lead's book card when it is among the right ones,
   // else the cheapest right card in the best card's suit (the tutor prefers the lowest of equals)
   const lead = pr.kind === 'lead' ? bookLead(pr).find(l => suitOf(l.card) === suitOf(top.c)) ?? null : null;

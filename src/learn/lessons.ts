@@ -18,21 +18,31 @@
 
 export type { LessonTopic, LessonLevel, QuizQuestion, Lesson, GlossaryEntry, LessonContent } from './types';
 import type { Lesson, GlossaryEntry, LessonContent } from './types';
-import { lang, type Lang } from '../i18n';
+import { lang, addLanguageData, type Lang } from '../i18n';
 import { content as en } from './content/en';
-import { content as bg } from './content/bg';
-import { content as de } from './content/de';
-import { content as es } from './content/es';
-import { content as fr } from './content/fr';
-import { content as it } from './content/it';
-import { content as nl } from './content/nl';
-import { content as pl } from './content/pl';
-import { content as pt } from './content/pt';
-import { content as ru } from './content/ru';
-import { content as ja } from './content/ja';
-import { content as zh } from './content/zh';
 
-const CONTENT: Partial<Record<Lang, LessonContent>> = { en, bg, de, es, fr, it, nl, pl, pt, ru, ja, zh };
+/** Lessons for every language but English load with the language (one chunk each). */
+const LOADERS: Record<Exclude<Lang, 'en'>, () => Promise<LessonContent>> = {
+  bg: () => import('./content/bg').then(m => m.content),
+  de: () => import('./content/de').then(m => m.content),
+  es: () => import('./content/es').then(m => m.content),
+  fr: () => import('./content/fr').then(m => m.content),
+  it: () => import('./content/it').then(m => m.content),
+  nl: () => import('./content/nl').then(m => m.content),
+  pl: () => import('./content/pl').then(m => m.content),
+  pt: () => import('./content/pt').then(m => m.content),
+  ru: () => import('./content/ru').then(m => m.content),
+  ja: () => import('./content/ja').then(m => m.content),
+  zh: () => import('./content/zh').then(m => m.content),
+};
+const CONTENT: Partial<Record<Lang, LessonContent>> = { en };
+
+addLanguageData({
+  has: l => !!CONTENT[l],
+  load: async l => {
+    if (l !== 'en' && !CONTENT[l]) CONTENT[l] = await LOADERS[l]();
+  },
+});
 
 function active(): LessonContent {
   return CONTENT[lang()] ?? en;

@@ -1,5 +1,5 @@
 import { describe, it, expect, afterAll } from 'vitest';
-import { setLang } from '../src/i18n';
+import { LANGUAGES, setLang } from '../src/i18n';
 import { bid, type Contract } from '../src/core/auction';
 import { dealCards, mulberry32, parseCard, partnerOf, suitOf, type Card, type Seat, type Strain, type Vulnerability } from '../src/core/cards';
 import { PlayState } from '../src/core/play';
@@ -155,6 +155,25 @@ describe('tutor text in every language', () => {
       expect(t, t).not.toMatch(/undefined|NaN|\[object/);
     }
   });
+
+  for (const { id, name } of LANGUAGES.filter(l => l.id !== 'en' && l.id !== 'bg')) {
+    it(`${name}: the same choices and principles, every text filled in`, () => {
+      setLang(id);
+      const r = run();
+      expect(r.struct).toEqual(en.struct);
+      expect(r.text.length).toBe(en.text.length);
+      const map = new Map<string, string>();
+      en.titles.forEach((t, i) => {
+        if (!map.has(t)) map.set(t, r.titles[i]);
+        expect(r.titles[i], t).toBe(map.get(t));
+      });
+      expect(new Set(map.values()).size, 'two principles share a title').toBe(map.size);
+      for (const t of r.text) {
+        expect(t.trim(), 'empty text').not.toBe('');
+        expect(t, t).not.toMatch(/undefined|NaN|\[object/);
+      }
+    });
+  }
 
   it('writes Bulgarian', () => {
     for (const t of bg.text) {

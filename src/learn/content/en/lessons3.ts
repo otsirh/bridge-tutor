@@ -298,7 +298,7 @@ export const LESSONS_3: Lesson[] = [
 <li><strong>After 1NT – pass – pass</strong>, balance only with a good suit or shape. Opener's partner may have up to 7 points, and the strength is more evenly split.</li>
 </ul>
 <div class="hand" data-cards="S:Q74 H:KJ953 D:A5 C:J82" data-label="1♥ – P – P – ?: pass"></div>
-<p>11 HCP, but five hearts behind the opener. Partner probably has at most one or two hearts and did not double, so they are weak. 1♥ is likely to go down; pass.</p>
+<p>11 HCP, but five hearts — the opener's suit. Partner probably has at most one or two hearts and did not double, so they are weak. 1♥ is likely to go down; pass.</p>
 <div class="tip">When partner balances, remember they have already counted some of your values. Bid one level more cautiously than you would opposite a direct-seat action.</div>
 <div class="warn">Don't punish partner for reopening the bidding. If you hold a good hand and partner reopens with a double, consider whether they are making a light balancing bid before you jump to game.</div>
 `,
@@ -326,7 +326,7 @@ export const LESSONS_3: Lesson[] = [
         q: '1♥ – P – P – ? You hold ♠Q74 ♥KJ953 ♦A5 ♣J82 (11 HCP).',
         options: ['Pass', 'Double', '1NT', '2♦'],
         answer: 0,
-        explain: 'With five hearts you sit over the opener, and partner, who is short in hearts, would have doubled with values. 1♥ may well fail; pass.',
+        explain: 'With five cards in the opener\'s suit, partner is short in hearts and would have doubled with values. 1♥ may well fail; pass.',
       },
       {
         q: 'Why may you balance with fewer points than you would need in the direct seat?',

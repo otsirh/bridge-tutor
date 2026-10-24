@@ -1,5 +1,8 @@
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { defineConfig } from 'vitest/config';
 import type { Plugin } from 'vite';
+import type { OutputChunk } from 'rollup';
 import pkg from './package.json' with { type: 'json' };
 import { viteSingleFile } from 'vite-plugin-singlefile';
 
@@ -17,11 +20,49 @@ function siteUrl(): Plugin {
   };
 }
 
-// Single-file build: dist/index.html runs by itself (worker is inlined as a blob).
-// Files in public/ (icons, manifest, service worker, preview image) are copied next to it.
-export default defineConfig({
-  plugins: [siteUrl(), viteSingleFile()],
-  worker: { format: 'es' },
-  build: { target: 'es2022' },
-  test: { environment: 'node', exclude: ['**/node_modules/**', '**/dist/**', '.claude/**', 'e2e/**'] },
+/**
+ * The service worker (src/sw.js), with the app's own files to cache at install:
+ * the entry chunk, what it imports statically and its CSS — not the other
+ * languages, which are cached when first used. The cache name changes with the
+ * file list, so each deploy replaces the previous cache.
+ */
+function serviceWorker(): Plugin {
+  return {
+    name: 'service-worker',
+    apply: 'build',
+    generateBundle(_, bundle) {
+      const chunks = Object.values(bundle).filter((f): f is OutputChunk => f.type === 'chunk');
+      const files = new Set<string>();
+      const add = (c: OutputChunk) => {
+        if (files.has(c.fileName)) return;
+        files.add(c.fileName);
+        for (const css of (c as OutputChunk & { viteMetadata?: { importedCss: Set<string> } }).viteMetadata?.importedCss ?? []) files.add(css);
+        for (const i of c.imports) {
+          const dep = bundle[i];
+          if (dep?.type === 'chunk') add(dep);
+        }
+      };
+      for (const c of chunks) if (c.isEntry) add(c);
+      const list = [...files].sort().map(f => `/${f}`);
+      const version = createHash('sha256').update(list.join('\n')).digest('hex').slice(0, 10);
+      const source = readFileSync('src/sw.js', 'utf8')
+        .replace("const CACHE = 'bridge-tutor-dev';", `const CACHE = 'bridge-tutor-${version}';`)
+        .replace('[/* filled in by the build */]', JSON.stringify(list));
+      this.emitFile({ type: 'asset', fileName: 'sw.js', source });
+    },
+  };
+}
+
+// `vite build`: the website (Cloudflare) — code-split, one chunk per language.
+// `vite build --mode single`: one self-contained dist-single/index.html (the
+// worker and every language inlined), for hosts that take a single page.
+// Files in public/ (icons, manifest, preview image) are copied next to it.
+export default defineConfig(({ mode }) => {
+  const single = mode === 'single';
+  return {
+    plugins: [siteUrl(), serviceWorker(), ...(single ? [viteSingleFile()] : [])],
+    worker: { format: 'es' },
+    build: { target: 'es2022', outDir: single ? 'dist-single' : 'dist' },
+    test: { environment: 'node', setupFiles: ['test/setup.ts'], exclude: ['**/node_modules/**', '**/dist/**', '.claude/**', 'e2e/**'] },
+  };
 });

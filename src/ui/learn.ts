@@ -303,7 +303,7 @@ function bidDrillView(act: LearnActions): HTMLElement {
   const [ok, tot] = drills.score.bid;
   return h('div', { class: 'drill' },
     h('div', { class: 'prompt' }, h('b', null, t.bidDrill), t.bidPrompt(vulLabel(d.vul)), h('span', { class: 'muted' }, t.score(ok, tot))),
-    h('div', { style: 'display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start' }, h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, handEl(d.deal[S], () => ({}))), auctionMini(d.auction, d.vul)),
+    h('div', { style: 'display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start' }, h('div', { class: 'drill-felt' }, handEl(d.deal[S], () => ({}))), auctionMini(d.auction, d.vul)),
     h('div', { class: 'bidwrap' }, box, h('div', { class: 'specials' }, sp(PASS, 'pass', callName(PASS)), sp(DOUBLE, 'dbl', callName(DOUBLE)), sp(REDOUBLE, 'rdbl', callName(REDOUBLE)))),
     fb,
     h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.bid = newBidDrill(); act.rerender(); } }, T.ui.common.nextHand)));
@@ -342,7 +342,7 @@ function leadDrillView(act: LearnActions): HTMLElement {
   return h('div', { class: 'drill' },
     h('div', { class: 'prompt' }, h('b', null, t.leadDrill), suitText(t.leadPrompt(contractName(d.contract))), h('span', { class: 'muted' }, t.rightSuitScore(ok, tot))),
     h('div', { style: 'display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start' },
-      h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, handEl(d.deal[S], c => ({ playable: d.answer === null, rec: d.answer !== null && c === d.book[0].card, onClick: () => pick(c) }))),
+      h('div', { class: 'drill-felt' }, handEl(d.deal[S], c => ({ playable: d.answer === null, rec: d.answer !== null && c === d.book[0].card, onClick: () => pick(c) }))),
       auctionMini(d.auction, d.vul)),
     fb,
     h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.lead = newLeadDrill(); act.rerender(); } }, T.ui.common.nextHand)));
@@ -374,7 +374,7 @@ function countDrillView(act: LearnActions): HTMLElement {
   return h('div', { class: 'drill' },
     h('div', { class: 'prompt' }, h('b', null, t.countDrill), suitText(t.countPrompt(contractName(d.contract), cardName(d.lead), q)), h('span', { class: 'muted' }, t.score(ok, tot))),
     h('div', { style: 'display:flex;gap:16px;flex-wrap:wrap' },
-      h('div', { style: 'background:var(--felt);border-radius:14px;padding:10px 14px' }, h('div', { class: 'small', style: 'color:var(--felt-muted)' }, `${T.ui.common.dummy} (${SEAT_NAMES[N]})`), handEl(d.deal[N], () => ({})), h('div', { class: 'small', style: 'color:var(--felt-muted)' }, `${T.ui.common.you} (${SEAT_NAMES[S]})`), handEl(d.deal[S], () => ({})))),
+      h('div', { class: 'drill-felt' }, h('div', { class: 'small', style: 'color:var(--felt-muted)' }, `${T.ui.common.dummy} (${SEAT_NAMES[N]})`), handEl(d.deal[N], () => ({})), h('div', { class: 'small', style: 'color:var(--felt-muted)' }, `${T.ui.common.you} (${SEAT_NAMES[S]})`), handEl(d.deal[S], () => ({})))),
     answerBtns, fb,
     h('div', null, h('button', { class: 'btn primary', type: 'button', onclick: () => { drills.count = newCountDrill(); act.rerender(); } }, T.ui.common.nextHand)));
 }
