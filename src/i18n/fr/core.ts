@@ -1,29 +1,26 @@
-// PLACEHOLDER (French): an English copy until the French translation lands.
 // Card, seat and call vocabulary.
 
 import type { Text } from '../en';
-
 import { rankLabel } from '../../core/cards';
 
-const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-const RANK_WORDS: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+const SINGULAR = ['trèfle', 'carreau', 'cœur', 'pique'];
+const RANK_WORDS: Record<number, string> = { 14: 'As', 13: 'Roi', 12: 'Dame', 11: 'Valet' };
 
 export const core: Text['core'] = {
-  seats: ['North', 'East', 'South', 'West'],
-  seatLetters: ['N', 'E', 'S', 'W'],
-  /** Plural, as in "five hearts". */
-  suits: SUITS,
-  suitSingular: ['club', 'diamond', 'heart', 'spade'],
-  strains: ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'],
-  /** Notrump in bids and contracts ("3NT"). */
-  nt: 'NT',
-  pass: 'Pass',
-  double: 'Double',
-  redouble: 'Redouble',
-  passedOut: 'Passed out',
-  /** "queen of hearts" */
-  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} of ${SUITS[suit]}`,
-  /** Abbreviation after a number of high-card points ("12 HCP"). */
-  hcp: 'HCP',
-  tricks: (n: number) => (n === 1 ? 'trick' : 'tricks'),
+  seats: ['Nord', 'Est', 'Sud', 'Ouest'],
+  seatLetters: ['N', 'E', 'S', 'O'],
+  /** Pluriel, comme dans « cinq cœurs ». */
+  suits: ['trèfles', 'carreaux', 'cœurs', 'piques'],
+  /** Singulier, comme dans « un arrêt à cœur », « l’As de cœur ». */
+  suitSingular: SINGULAR,
+  strains: ['trèfles', 'carreaux', 'cœurs', 'piques', 'sans-atout'],
+  nt: 'SA',
+  pass: 'Passe',
+  double: 'Contre',
+  redouble: 'Surcontre',
+  passedOut: 'Donne passée',
+  /** « Dame de cœur » */
+  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} de ${SINGULAR[suit]}`,
+  hcp: 'H',
+  tricks: (n: number) => (n < 2 ? 'levée' : 'levées'),
 };
