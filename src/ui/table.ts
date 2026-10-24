@@ -19,6 +19,7 @@ export interface TableActions {
   preview(call: Call | null): void;
   toast(msg: string): void;
   openReview(): void;
+  next(): void;
 }
 
 function seatTitle(g: Game, seat: Seat): string {
@@ -52,7 +53,8 @@ function seatBlock(g: Game, seat: Seat): HTMLElement {
   if (actor === seat && g.phase !== 'review') chips.push(h('span', { class: 'chip turn' }, g.humanControls(seat) ? t.yourTurn : t.toPlay));
   const showHcp = g.visible(seat) && (g.settings.tutor || g.phase === 'review');
   const label = h('div', { class: 'seat-label' }, h('span', { class: 'name' }, seatTitle(g, seat)), ...chips, showHcp ? h('span', null, fmtUnit(g.hcpOf(seat), T.core.hcp)) : null);
-  const hand = p ? p.hands[seat] : g.deal[seat];
+  // after the hand, the deal as it was dealt
+  const hand = p && g.phase !== 'review' ? p.hands[seat] : g.deal[seat];
   let body: HTMLElement;
   const big = seat === S || seat === N;
   if (g.visible(seat)) {
@@ -137,6 +139,7 @@ function biddingBox(g: Game, ui: UIState, act: TableActions): HTMLElement | null
       grid.appendChild(h('button', {
         class: `bid ${recCall === c ? 'rec' : ''}`,
         type: 'button',
+        'data-fg': 'bid',
         disabled: !legal.has(c),
         onclick: () => g.submitCall(c),
         onmouseenter: () => act.preview(c),
@@ -148,6 +151,7 @@ function biddingBox(g: Game, ui: UIState, act: TableActions): HTMLElement | null
   const special = (c: Call, cls: string, label: string) => h('button', {
     class: `special ${cls} ${recCall === c ? 'rec' : ''}`,
     type: 'button',
+    'data-fg': 'bid',
     disabled: !legal.has(c),
     onclick: () => g.submitCall(c),
     onmouseenter: () => act.preview(c),
@@ -155,33 +159,37 @@ function biddingBox(g: Game, ui: UIState, act: TableActions): HTMLElement | null
     onmouseleave: () => act.preview(null),
   }, label);
   const specials = h('div', { class: 'specials' }, special(PASS, 'pass', callName(PASS)), special(DOUBLE, 'dbl', callName(DOUBLE)), special(REDOUBLE, 'rdbl', callName(REDOUBLE)));
-  let preview: HTMLElement;
-  if (ui.preview !== null && legal.has(ui.preview)) {
+  return h('div', null, bidPreview(g, ui), h('div', { class: 'bidwrap' }, grid, specials));
+}
+
+/**
+ * What the call under the pointer (or keyboard focus) would tell partner. It is
+ * swapped in place as you move over the bids, without redrawing the table.
+ */
+export function bidPreview(g: Game, ui: UIState): HTMLElement {
+  if (ui.preview !== null && g.legalCalls().includes(ui.preview)) {
     const view = readAuction(new Auction(g.dealer, [...g.auction.calls, ui.preview]), g.vul);
     const m = view.records[view.records.length - 1].meaning;
-    preview = h('div', { class: 'preview' }, h('b', null, suitText(fmtLabel(callName(ui.preview), m.name))), m.natural ? T.ui.bidBox.notSystem : '', ' — ', suitText(m.desc));
-  } else {
-    preview = h('div', { class: 'preview muted' }, T.ui.bidBox.hoverHelp);
+    return h('div', { class: 'preview' }, h('b', null, suitText(fmtLabel(callName(ui.preview), m.name))), m.natural ? T.ui.bidBox.notSystem : '', ' — ', suitText(m.desc));
   }
-  return h('div', null, preview, h('div', { class: 'bidwrap' }, grid, specials));
+  return h('div', { class: 'preview muted' }, T.ui.bidBox.hoverHelp);
+}
+
+/** The line under the table: whose turn it is, or what is happening. */
+export function tableStatus(g: Game): { status: string; turn: boolean } {
+  const t = T.ui.table;
+  if (g.phase === 'review') return { status: t.handOver, turn: false };
+  if (g.thinking) return { status: g.thinking, turn: false };
+  if (!g.isHumanTurn()) return { status: '', turn: false };
+  if (g.phase === 'bidding') return { status: t.yourCall, turn: true };
+  const p = g.play!;
+  const whose = p.toPlay === S ? t.yourHand : t.northHand;
+  return { status: !p.openingLeadMade ? t.yourLead : p.current.cards.length === 0 ? t.leadFrom(whose) : t.playFrom(whose), turn: true };
 }
 
 function belt(g: Game, ui: UIState, act: TableActions): HTMLElement {
   const t = T.ui.table;
-  let status = '';
-  let turn = false;
-  if (g.phase === 'review') status = t.handOver;
-  else if (g.thinking) status = g.thinking;
-  else if (g.isHumanTurn()) {
-    turn = true;
-    if (g.phase === 'bidding') status = t.yourCall;
-    else {
-      const p = g.play!;
-      const seat = p.toPlay;
-      const whose = seat === S ? t.yourHand : t.northHand;
-      status = !p.openingLeadMade ? t.yourLead : p.current.cards.length === 0 ? t.leadFrom(whose) : t.playFrom(whose);
-    }
-  }
+  const { status, turn } = tableStatus(g);
   const items: (HTMLElement | null)[] = [h('span', { class: `status ${turn ? 'turn' : ''}` }, status)];
   items.push(h('span', { class: 'spacer' }));
   if (g.phase === 'bidding' && g.isHumanTurn()) items.push(h('button', { class: 'btn small', type: 'button', onclick: () => g.autoCall(), title: t.bidForMeTitle }, t.bidForMe));
@@ -190,12 +198,16 @@ function belt(g: Game, ui: UIState, act: TableActions): HTMLElement {
   }
   if (g.phase === 'play') items.push(h('button', { class: 'btn small', type: 'button', onclick: () => void g.playOut(), title: t.playOutTitle }, t.playOut));
   items.push(h('button', { class: 'btn small', type: 'button', disabled: !g.canUndo, onclick: () => g.undo(), title: t.undoTitle }, t.undo));
-  if (g.phase === 'review') items.push(h('button', { class: 'btn small primary', type: 'button', onclick: () => act.openReview() }, t.review));
+  if (g.phase === 'review') {
+    items.push(h('button', { class: 'btn small', type: 'button', onclick: () => act.openReview() }, t.review));
+    items.push(h('button', { class: 'btn small primary', type: 'button', onclick: () => act.next() }, T.ui.review.nextDeal));
+  }
   return h('div', { class: 'belt' }, items);
 }
 
 export function renderTable(g: Game, ui: UIState, act: TableActions): HTMLElement {
-  const felt = h('div', { class: 'felt' },
+  // a tap on the table skips the bots' pause
+  const felt = h('div', { class: 'felt', onclick: () => g.hurry() },
     seatBlock(g, N),
     seatBlock(g, W),
     centerBlock(g, ui, act),
@@ -210,7 +222,7 @@ export function tableSignature(g: Game, ui: UIState): string {
   const hint = g.hint;
   return JSON.stringify([
     g.board, g.seed, g.phase, g.auction.calls, p ? p.history().length : -1, g.displayTrick?.cards, g.thinking,
-    g.settings.peek, g.settings.tutor, g.settings.autoHint, g.hintRevealed, ui.selectedCall, ui.preview, g.canUndo,
+    g.settings.peek, g.settings.tutor, g.settings.autoHint, g.hintRevealed, ui.selectedCall, g.canUndo,
     hint && hint.kind === 'card' ? [hint.decision?.card, hint.lead?.[0]?.card] : hint && hint.kind === 'bid' ? hint.advice.call : null,
     g.isHumanTurn(),
   ]);

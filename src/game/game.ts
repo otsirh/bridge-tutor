@@ -105,8 +105,6 @@ interface Snapshot {
 const DELAYS = { slow: { bid: 900, card: 1100, trick: 1600 }, normal: { bid: 450, card: 650, trick: 1100 }, fast: { bid: 120, card: 220, trick: 600 } };
 const EFFORT = { quick: { samples: 16, time: 1200, hint: 24, hintTime: 2500 }, standard: { samples: 28, time: 2200, hint: 48, hintTime: 4500 }, deep: { samples: 48, time: 4000, hint: 96, hintTime: 9000 } };
 
-const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
-
 export class Game {
   settings: Settings = loadSettings();
   board = loadBoardNumber();
@@ -289,6 +287,26 @@ export class Game {
   // ---------------------------------------------------------------------------
   // the bot loop
 
+  private hurried = new Set<() => void>();
+
+  /** Skip the bots' current pause (a tap on the table): the pauses are only there so you can follow. */
+  hurry() {
+    for (const done of [...this.hurried]) done();
+  }
+
+  /** A pause between the bots' moves that `hurry` can cut short. */
+  private pause(ms: number): Promise<void> {
+    return new Promise(resolve => {
+      const done = () => {
+        clearTimeout(timer);
+        this.hurried.delete(done);
+        resolve();
+      };
+      const timer = setTimeout(done, ms);
+      this.hurried.add(done);
+    });
+  }
+
   private async run() {
     const myGen = this.gen;
     while (myGen === this.gen) {
@@ -301,14 +319,16 @@ export class Game {
       this.busy = a;
       this.emit();
       if (this.phase === 'bidding') {
-        await wait(DELAYS[this.settings.speed].bid);
+        await this.pause(DELAYS[this.settings.speed].bid);
         if (myGen !== this.gen) return;
         const call = advise(this.deal[a], this.view.ctx).call;
         this.applyCall(call, false);
       } else {
+        const started = performance.now();
         const { card, signal } = await this.botCard(a);
         if (myGen !== this.gen) return;
-        await wait(DELAYS[this.settings.speed].card);
+        // the time spent thinking counts towards the pause
+        await this.pause(DELAYS[this.settings.speed].card - (performance.now() - started));
         if (myGen !== this.gen) return;
         await this.applyCard(card, false, myGen, undefined, signal);
       }
@@ -398,7 +418,7 @@ export class Game {
       this.emit();
       if (!p.isOver) {
         const next = p.toPlay;
-        if (!this.humanControls(next)) await wait(DELAYS[this.settings.speed].trick);
+        if (!this.humanControls(next)) await this.pause(DELAYS[this.settings.speed].trick);
       }
       if (myGen !== this.gen) return;
     }

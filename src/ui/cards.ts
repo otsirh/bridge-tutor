@@ -17,7 +17,7 @@ export function cardEl(c: Card, o: CardOpts = {}): HTMLElement {
   const s = suitOf(c);
   const cls = ['card', isRed(s) ? 'red' : '', o.playable ? 'playable' : '', o.dim ? 'dim' : '', o.rec ? 'rec' : '', o.win ? 'win' : '', o.gap ? 'gap' : ''].filter(Boolean).join(' ');
   const label = `${rankLabel(rankOf(c))}${SUIT_SYMBOLS[s]}`;
-  const el = h(o.playable ? 'button' : 'div', { class: cls, 'aria-label': o.title ?? label, title: o.title, onclick: o.playable ? o.onClick : undefined, type: o.playable ? 'button' : undefined },
+  const el = h(o.playable ? 'button' : 'div', { class: cls, 'aria-label': o.title ?? label, title: o.title, onclick: o.playable ? o.onClick : undefined, type: o.playable ? 'button' : undefined, 'data-fg': o.playable ? 'card' : undefined },
     h('span', { class: 'rk' }, rankLabel(rankOf(c))),
     h('span', { class: 'st' }, SUIT_SYMBOLS[s]),
     h('span', { class: 'big' }, SUIT_SYMBOLS[s]),

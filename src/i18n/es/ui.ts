@@ -49,7 +49,9 @@ export const ui: Text['ui'] = {
     learn: 'Aprender',
     settings: 'Ajustes',
     newDeal: 'Nueva mano',
+    newDealConfirm: '¿Abandonar esta mano?',
     language: 'Idioma',
+    languageOffline: 'Estás sin conexión: este idioma se cargará cuando vuelvas a tener conexión.',
     /** Screen-reader names of the two columns. */
     tableRegion: 'Mesa',
     tutorRegion: 'Tutor',

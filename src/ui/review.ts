@@ -199,7 +199,11 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
     for (const { e } of plays) p.play(e.card);
     const trick = p.tricks[n];
     const cost = plays.reduce((tot, { i, e }) => tot + (e.human && rv.cards[i] ? Math.max(0, rv.cards[i]!.bestSide - rv.cards[i]!.gotSide) : 0), 0);
-    rows.push(h('div', { class: `trickrow ${ui.reviewTrick === n ? 'sel' : ''}`, role: 'button', tabindex: '0', onclick: () => { ui.reviewTrick = ui.reviewTrick === n ? null : n; act.rerender(); } },
+    const pick = () => { ui.reviewTrick = ui.reviewTrick === n ? null : n; act.rerender(); };
+    rows.push(h('div', {
+      class: `trickrow ${ui.reviewTrick === n ? 'sel' : ''}`, role: 'button', tabindex: '0', 'aria-expanded': ui.reviewTrick === n ? 'true' : 'false', onclick: pick,
+      onkeydown: (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } },
+    },
       h('span', { class: 'muted mono' }, String(n + 1)),
       plays.map(({ e, i }) => {
         const r = rv.cards[i];

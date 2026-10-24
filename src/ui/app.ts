@@ -1,12 +1,12 @@
 // App shell: header, table, tutor panel and the dialogs.
 
-import { type Call, contractName } from '../core/auction';
-import { SEAT_NAMES } from '../core/cards';
+import { type Call, callName, contractName, isBid, levelOf, strainOf } from '../core/auction';
+import { SEAT_NAMES, STRAIN_NAMES, SUIT_NAME_SINGULAR, cardLongName, type Seat } from '../core/cards';
 import { Game } from '../game/game';
 import type { Settings, DealMode } from '../game/storage';
-import { T, LANGUAGES, type Lang, lang, isLang, setLang, onLangChange } from '../i18n';
+import { T, LANGUAGES, type Lang, lang, isLang, setLang, saveLang, onLangChange, fmtLabel } from '../i18n';
 import { h, Region, suitText } from './dom';
-import { renderTable, tableSignature } from './table';
+import { renderTable, tableSignature, bidPreview, tableStatus } from './table';
 import { renderPanel, panelSignature } from './panel';
 import { renderReview, reviewSignature } from './review';
 import { renderLearn, relocalizeDrills } from './learn';
@@ -66,8 +66,19 @@ function options<K extends string>(keys: readonly K[], labels: Record<K, string>
   return keys.map(k => [k, labels[k]]);
 }
 
-function pickLanguage(v: string) {
-  if (isLang(v)) setLang(v);
+/**
+ * Switch language. A language not yet downloaded can fail to load: offline, we
+ * say so and stay; online, the app was updated since this page loaded (its old
+ * files are gone), so we reload into the new version in that language.
+ */
+function pickLanguage(v: string, onOffline: () => void) {
+  if (!isLang(v)) return;
+  setLang(v).catch(() => {
+    if (navigator.onLine) {
+      saveLang(v);
+      location.reload();
+    } else onOffline();
+  });
 }
 
 const GLOBE =
@@ -86,10 +97,10 @@ function headerButton(icon: keyof typeof ICONS, label: string, onclick: () => vo
 }
 
 /** The header's language switch: each language under its own name (only the globe on phones). */
-function languagePicker(): HTMLElement {
+function languagePicker(onOffline: () => void): HTMLElement {
   return h('label', { class: 'langpick', title: T.ui.header.language },
     h('span', { class: 'globe', 'aria-hidden': 'true', html: GLOBE }),
-    h('select', { 'aria-label': T.ui.header.language, onchange: (e: Event) => pickLanguage((e.target as HTMLSelectElement).value) },
+    h('select', { 'aria-label': T.ui.header.language, onchange: (e: Event) => pickLanguage((e.target as HTMLSelectElement).value, onOffline) },
       LANGUAGES.map(l => h('option', { value: l.id, lang: l.id, selected: l.id === lang() }, l.name))));
 }
 
@@ -112,15 +123,45 @@ export function mountApp(root: HTMLElement) {
   const main = h('main', { class: 'main' }, tableCol, panel);
   const modalRoot = h('div');
   const toastEl = h('div', { class: 'toast', hidden: true, role: 'status' });
-  root.appendChild(h('div', { class: 'app' }, header, main));
+  // what happens at the table, read out by screen readers
+  const announcer = h('div', { class: 'sr-only', 'aria-live': 'polite' });
+  const appEl = h('div', { class: 'app' }, header, main);
+  root.appendChild(appEl);
   root.appendChild(modalRoot);
   root.appendChild(toastEl);
+  root.appendChild(announcer);
 
   const rHeader = new Region(header);
   const rTable = new Region(tableCol);
   const rPanel = new Region(panel);
   const rModal = new Region(modalRoot);
   let toastTimer = 0;
+  /** A language could not be loaded offline: say so and show the current one again. */
+  function languageOffline() {
+    actions.toast(T.ui.header.languageOffline);
+    rHeader.force();
+    if (ui.modal === 'settings') rModal.force();
+    render();
+  }
+
+  /** "New deal" in the middle of a hand asks once more before throwing the hand away. */
+  let confirmNew = false;
+  let confirmTimer = 0;
+  function newDealClicked() {
+    const started = game.phase !== 'review' && (game.calls.some(e => e.human) || game.cards.some(e => e.human));
+    if (started && !confirmNew) {
+      confirmNew = true;
+      clearTimeout(confirmTimer);
+      confirmTimer = window.setTimeout(() => { confirmNew = false; render(); }, 4000);
+      render();
+      return;
+    }
+    confirmNew = false;
+    ui.selectedCall = null;
+    game.newDeal();
+  }
+  /** The control that opened the dialog: focus goes back to it on close. */
+  let opener: HTMLElement | null = null;
   /** An archived board open in the review (a separate, idle game). */
   let viewer: Game | null = null;
   // reviews due, for the header badge (reading the queue on every redraw would be wasteful)
@@ -139,7 +180,7 @@ export function mountApp(root: HTMLElement) {
     preview: (c: Call | null) => {
       if (ui.preview === c) return;
       ui.preview = c;
-      render();
+      tableCol.querySelector('.preview')?.replaceWith(bidPreview(game, ui));
     },
     toast: (msg: string) => {
       toastEl.textContent = msg;
@@ -241,8 +282,9 @@ export function mountApp(root: HTMLElement) {
 
   const setSetting = <K extends keyof Settings>(k: K, v: Settings[K]) => game.updateSettings({ [k]: v } as Partial<Settings>);
 
-  function toggle(label: string, on: boolean, onChange: (v: boolean) => void, title?: string) {
-    return h('button', { class: `toggle ${on ? 'on' : ''}`, type: 'button', role: 'switch', 'aria-checked': on ? 'true' : 'false', title, onclick: () => onChange(!on) }, h('span', { class: 'track' }), label);
+  /** A switch; `name` is its screen-reader name when it has no visible label. */
+  function toggle(label: string, on: boolean, onChange: (v: boolean) => void, title?: string, name?: string) {
+    return h('button', { class: `toggle ${on ? 'on' : ''}`, type: 'button', role: 'switch', 'aria-checked': on ? 'true' : 'false', 'aria-label': name, title, onclick: () => onChange(!on) }, h('span', { class: 'track' }), label);
   }
 
   function renderHeader() {
@@ -250,7 +292,7 @@ export function mountApp(root: HTMLElement) {
     const c = g.contract;
     const t = T.ui.header;
     return [
-      h('div', { class: 'brand' }, t.title, h('span', { class: 'pips', 'aria-hidden': 'true' }, suitText('♠♥♦♣'))),
+      h('h1', { class: 'brand' }, t.title, h('span', { class: 'pips', 'aria-hidden': 'true' }, suitText('♠♥♦♣'))),
       h('div', { class: 'boardinfo' },
         h('span', null, `${t.board} `, h('b', null, String(g.board))),
         h('span', null, `${t.dealer} `, h('b', null, SEAT_NAMES[g.dealer])),
@@ -260,12 +302,12 @@ export function mountApp(root: HTMLElement) {
           suitText(T.practice.topicChip(T.practice.themes[g.settings.theme as keyof typeof T.practice.themes]?.name ?? g.settings.theme)),
           h('button', { type: 'button', 'aria-label': T.practice.stopTopic, title: T.practice.stopTopic, onclick: () => game.updateSettings({ theme: null }) }, '×')) : null),
       h('span', { class: 'spacer' }),
-      languagePicker(),
+      languagePicker(languageOffline),
       toggle(t.tutor, g.settings.tutor, v => setSetting('tutor', v), t.tutorTitle),
       headerButton('learn', t.learn, () => { ui.modal = 'learn'; render(true); }),
       headerButton('training', T.practice.title, () => { ui.modal = 'training'; render(true); }, dueNow() ? h('span', { class: 'badge', 'aria-label': T.practice.tileDue }, String(dueNow())) : null),
       headerButton('settings', t.settings, () => { ui.modal = 'settings'; render(true); }),
-      h('button', { class: 'btn primary newdeal', type: 'button', onclick: () => { ui.selectedCall = null; game.newDeal(); } }, t.newDeal),
+      h('button', { class: `btn primary newdeal ${confirmNew ? 'confirm' : ''}`, type: 'button', 'data-key': 'newdeal', onclick: newDealClicked }, confirmNew ? t.newDealConfirm : t.newDeal),
     ];
   }
 
@@ -273,23 +315,21 @@ export function mountApp(root: HTMLElement) {
     const s = game.settings;
     const t = T.ui.settings;
     const row = (title: string, desc: string, control: HTMLElement) => h('div', { class: 'row' }, h('div', null, h('div', { style: 'font-weight:600' }, title), h('div', { class: 'd' }, desc)), control);
-    const select = <T extends string>(id: string, value: T, opts: [T, string][], onChange: (v: T) => void) => {
-      const el = h('select', { class: 'sel', id, onchange: (e: Event) => onChange((e.target as HTMLSelectElement).value as T) }, opts.map(([v, l]) => h('option', { value: v, selected: v === value }, l)));
-      return el;
-    };
+    const select = <T extends string>(id: string, name: string, value: T, opts: [T, string][], onChange: (v: T) => void) =>
+      h('select', { class: 'sel', id, 'aria-label': name, onchange: (e: Event) => onChange((e.target as HTMLSelectElement).value as T) }, opts.map(([v, l]) => h('option', { value: v, selected: v === value }, l)));
     return h('div', { class: 'modal', role: 'dialog', 'aria-label': t.title, style: 'max-width:760px' },
       h('div', { class: 'head' }, h('h2', null, t.title), h('span', { style: 'flex:1' }), h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => actions.close() }, '✕')),
       h('div', { class: 'body' }, h('div', { class: 'settings-grid' },
-        row(t.language.title, t.language.desc, select('lang', lang(), LANGUAGES.map((l): [Lang, string] => [l.id, l.name]), setLang)),
+        row(t.language.title, t.language.desc, select('lang', t.language.title, lang(), LANGUAGES.map((l): [Lang, string] => [l.id, l.name]), l => pickLanguage(l, languageOffline))),
         installPrompt ? row(t.install.title, t.install.desc, h('button', { class: 'btn small primary', type: 'button', onclick: () => { void installPrompt?.prompt(); } }, t.install.button)) : null,
-        row(t.tutor.title, t.tutor.desc, toggle('', s.tutor, v => { setSetting('tutor', v); render(true); })),
-        row(t.autoHint.title, t.autoHint.desc, toggle('', s.autoHint, v => { setSetting('autoHint', v); render(true); })),
-        row(t.coach.title, t.coach.desc, toggle('', s.coach, v => { setSetting('coach', v); render(true); })),
-        row(t.peek.title, t.peek.desc, toggle('', s.peek, v => { setSetting('peek', v); render(true); })),
-        row(t.dealMode.title, t.dealMode.desc, select('dealmode', s.dealMode, options(DEAL_MODES, t.dealModes), v => setSetting('dealMode', v))),
-        row(t.strength.title, t.strength.desc, select('strength', s.strength, options(['quick', 'standard', 'deep'], t.strengths), v => setSetting('strength', v))),
-        row(t.speed.title, t.speed.desc, select('speed', s.speed, options(['slow', 'normal', 'fast'], t.speeds), v => setSetting('speed', v))),
-        row(t.theme.title, t.theme.desc, select('theme', theme, options(['system', 'light', 'dark'], t.themes), v => { theme = v; applyTheme(v); })),
+        row(t.tutor.title, t.tutor.desc, toggle('', s.tutor, v => { setSetting('tutor', v); render(true); }, undefined, t.tutor.title)),
+        row(t.autoHint.title, t.autoHint.desc, toggle('', s.autoHint, v => { setSetting('autoHint', v); render(true); }, undefined, t.autoHint.title)),
+        row(t.coach.title, t.coach.desc, toggle('', s.coach, v => { setSetting('coach', v); render(true); }, undefined, t.coach.title)),
+        row(t.peek.title, t.peek.desc, toggle('', s.peek, v => { setSetting('peek', v); render(true); }, undefined, t.peek.title)),
+        row(t.dealMode.title, t.dealMode.desc, select('dealmode', t.dealMode.title, s.dealMode, options(DEAL_MODES, t.dealModes), v => setSetting('dealMode', v))),
+        row(t.strength.title, t.strength.desc, select('strength', t.strength.title, s.strength, options(['quick', 'standard', 'deep'], t.strengths), v => setSetting('strength', v))),
+        row(t.speed.title, t.speed.desc, select('speed', t.speed.title, s.speed, options(['slow', 'normal', 'fast'], t.speeds), v => setSetting('speed', v))),
+        row(t.theme.title, t.theme.desc, select('theme', t.theme.title, theme, options(['system', 'light', 'dark'], t.themes), v => { theme = v; applyTheme(v); })),
         h('div', { class: 'small muted' }, t.systemNote),
         h('h3', { style: 'margin:8px 0 0' }, t.conventionsTitle),
         h('div', { class: 'small muted' }, t.conventionsNote),
@@ -298,7 +338,7 @@ export function mountApp(root: HTMLElement) {
           const tx = T.bidding.conventions[c.id];
           return row(tx.name, tx.desc, h('div', { style: 'display:flex;gap:8px;align-items:center' },
             c.lesson ? h('button', { class: 'btn small ghost', type: 'button', onclick: () => training.openLesson(c.lesson!) }, t.lessonLink) : null,
-            toggle('', on, v => { setSetting('conventions', { ...s.conventions, [c.id]: v }); render(true); })));
+            toggle('', on, v => { setSetting('conventions', { ...s.conventions, [c.id]: v }); render(true); }, undefined, tx.name)));
         }),
       )));
   }
@@ -311,7 +351,7 @@ export function mountApp(root: HTMLElement) {
   }
 
   function render(forceModal = false) {
-    rHeader.update(JSON.stringify([game.board, game.dealer, game.vul, game.contract, game.settings.tutor, game.settings.theme, dueNow()]), () => renderHeader());
+    rHeader.update(JSON.stringify([game.board, game.dealer, game.vul, game.contract, game.settings.tutor, game.settings.theme, dueNow(), confirmNew]), () => renderHeader());
     rTable.update(tableSignature(game, ui), () => renderTable(game, ui, actions));
     main.className = `main ${game.settings.tutor ? '' : 'solo'}`;
     panel.hidden = !game.settings.tutor;
@@ -340,11 +380,48 @@ export function mountApp(root: HTMLElement) {
       else content = renderSettings();
       return h('div', { class: 'scrim', onclick: (e: Event) => { if (e.target === e.currentTarget) actions.close(); } }, content);
     });
+    manageDialogFocus();
+  }
+
+  /** A dialog is modal: the page behind it is inert, focus moves in, and returns to its opener when it closes. */
+  function manageDialogFocus() {
+    const dlg = modalRoot.querySelector<HTMLElement>('.modal');
+    const wasOpen = appEl.inert;
+    appEl.inert = !!dlg;
+    if (!dlg) {
+      if (wasOpen && opener?.isConnected) opener.focus({ preventScroll: true });
+      if (wasOpen) opener = null;
+      return;
+    }
+    dlg.setAttribute('aria-modal', 'true');
+    dlg.tabIndex = -1;
+    if (!wasOpen) opener = document.activeElement instanceof HTMLElement && appEl.contains(document.activeElement) ? document.activeElement : null;
+    if (!dlg.contains(document.activeElement)) dlg.focus({ preventScroll: true });
+  }
+
+  /** A call in words, for screen readers ("2 hearts"; symbols are read inconsistently). */
+  const spokenCall = (c: Call) => (!isBid(c) ? callName(c) : `${levelOf(c)} ${levelOf(c) === 1 && strainOf(c) < 4 ? SUIT_NAME_SINGULAR[strainOf(c)] : STRAIN_NAMES[strainOf(c)]}`);
+
+  /** Announce the calls and cards made since the last change, then whose turn it is. */
+  let heard = { deal: '', calls: 0, cards: 0, status: '' };
+  function announce() {
+    const deal = `${game.board}:${game.seed}`;
+    const calls = game.auction.calls;
+    const cards = game.play?.history() ?? [];
+    if (deal !== heard.deal || calls.length < heard.calls || cards.length < heard.cards) heard = { deal, calls: calls.length, cards: cards.length, status: '' };
+    const lines: string[] = [];
+    calls.slice(heard.calls).forEach((c, i) => lines.push(fmtLabel(SEAT_NAMES[((game.dealer + heard.calls + i) & 3) as Seat], spokenCall(c))));
+    for (const e of cards.slice(heard.cards)) lines.push(fmtLabel(SEAT_NAMES[e.seat], cardLongName(e.card)));
+    const { status, turn } = tableStatus(game);
+    if (turn && (lines.length || status !== heard.status)) lines.push(status);
+    heard = { deal, calls: calls.length, cards: cards.length, status: turn ? status : '' };
+    if (lines.length) announcer.textContent = lines.join('. ');
   }
 
   game.onChange(() => {
-    if (game.phase !== 'bidding') ui.preview = null;
+    if (game.phase !== 'bidding' || !game.isHumanTurn()) ui.preview = null;
     render();
+    announce();
   });
   // A new language can come at any moment: re-word the game and the drills,
   // then redraw everything, the open dialog included. The hand carries on.
@@ -368,6 +445,12 @@ export function mountApp(root: HTMLElement) {
     if (ui.modal === 'settings') render(true);
   });
   document.addEventListener('keydown', e => {
+    // Space with nothing focused skips the bots' pause
+    if (e.key === ' ' && e.target === document.body && !ui.modal) {
+      e.preventDefault();
+      game.hurry();
+      return;
+    }
     if (e.key !== 'Escape' || !ui.modal) return;
     if (ui.modal === 'archive') archiveActions.close();
     else actions.close();

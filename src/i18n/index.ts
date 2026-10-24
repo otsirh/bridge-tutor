@@ -125,12 +125,17 @@ export async function setLang(l: Lang): Promise<void> {
     if (wanted !== l) return;
   }
   apply(l);
+  saveLang(l);
+  for (const fn of listeners) fn(l);
+}
+
+/** Remember a language for the next visit (also used when it could not be loaded now). */
+export function saveLang(l: Lang) {
   try {
     localStorage.setItem(KEY, l);
   } catch {
     /* storage may be unavailable */
   }
-  for (const fn of listeners) fn(l);
 }
 
 export function onLangChange(fn: (l: Lang) => void): () => void {

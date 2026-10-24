@@ -46,7 +46,9 @@ export const ui = {
     learn: 'Learn',
     settings: 'Settings',
     newDeal: 'New deal',
+    newDealConfirm: 'Leave this hand?',
     language: 'Language',
+    languageOffline: "You're offline: this language will load once you're back online.",
     /** Screen-reader names of the two columns. */
     tableRegion: 'Table',
     tutorRegion: 'Tutor',
