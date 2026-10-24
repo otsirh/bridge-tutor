@@ -862,5 +862,165 @@ export const LESSONS_3: Lesson[] = [
       },
     ],
   },
-// @@CONTINUE@@
+  {
+    id: 'slam-controls-and-cue-bids',
+    title: 'Controlli e cue bid: quando non usare il Blackwood',
+    topic: 'Slam bidding',
+    level: 'Advanced',
+    summary: 'Perché contare gli assi non basta per lo slam, e come le cue bid di controllo scoprono se ogni colore è coperto.',
+    body: `
+<h3>I controlli</h3>
+<p>Per mantenere uno slam ti servono abbastanza prese, e devi anche impedire agli avversari di fare due prese prima che tu parta. Un colore è <strong>controllato</strong> se gli avversari non possono incassarvi due prese rapide:</p>
+<ul>
+<li><strong>Controllo di primo giro:</strong> l’asso o una chicane (in un contratto a colore).</li>
+<li><strong>Controllo di secondo giro:</strong> il re o un singolo.</li>
+</ul>
+<p>Per un piccolo slam ti serve almeno il controllo di secondo giro in ogni colore laterale e non più di una perdente di primo giro in totale. Per un grande slam ti serve il controllo di primo giro ovunque e nessuna perdente.</p>
+<p>Alcuni giocatori contano i controlli con A = 2 e K = 1 (12 nel mazzo). Le mani ricche di assi e re fanno slam che 33 punti fatti di donne e fanti non fanno.</p>
+
+<h3>Dove il Blackwood fallisce</h3>
+<div class="deal" data-n="S:K5 H:AKJ84 D:83 C:AJ104" data-s="S:AQ63 H:Q1052 D:72 C:KQ5" data-caption="Nord apre 1♥ e Sud appoggia con il 2SA Jacoby."></div>
+<p>Nord ha 16 PO e Sud 13, con un fit di nove carte a cuori: un tentativo di slam è ragionevole. Se Sud usa il Blackwood, Nord mostra due assi, Sud ha il terzo, e Sud dichiara 6♥. La difesa incassa ♦A e ♦K. Il Blackwood ha detto che c’erano tre assi, ma non poteva dire a Sud che nessuna delle due mani controlla le quadri.</p>
+<p>Non usare il Blackwood quando:</p>
+<ul>
+<li>hai due cartine (o più) in un colore che nessuno ha dichiarato, e non sai se il compagno lo controlla;</li>
+<li>hai una chicane: l’asso del compagno nel colore della tua chicane è sprecato, ma il Blackwood lo conta;</li>
+<li>la risposta potrebbe portarti troppo in alto, per esempio con atout fiori, dove una risposta di 5♥ non ti lascia modo di fermarti a 5♣.</li>
+</ul>
+
+<h3>Le cue bid (dichiarazioni di controllo)</h3>
+<p>Una volta concordato un colore d’atout in una licita forzante, la dichiarazione di un nuovo colore a livello di quattro non mostra un colore: mostra un <strong>controllo</strong> in quel colore e interesse per lo slam. Il compagno risponde mostrando a sua volta il suo controllo più economico, oppure chiude nel colore d’atout. Nello stile moderno più diffuso una cue bid mostra un controllo di primo o di secondo giro (asso, re, chicane o singolo), e si dichiara prima il più economico, quindi <strong>saltare un colore nega il controllo in quel colore</strong>.</p>
+<div class="auction" data-calls="1H P 2NT P 3NT P 4C P 4H P P P" data-dealer="N"></div>
+<p>Dopo il 2SA Jacoby, il 3SA di Nord mostra una mano media (15-17) senza corte, la ridichiarazione standard sulla Jacoby. Sud dichiara 4♣: controllo a fiori e interesse per lo slam. Nord non ha il controllo a quadri, quindi invece di mostrare quello a picche chiude a 4♥, saltando il 4♦: così nega il controllo a quadri. Anche Sud non ha il controllo a quadri, quindi passa. Entrambe le mani hanno fatto il loro dovere, e la coppia si ferma al sicuro a manche.</p>
+<p>Se Nord avesse avuto il ♦K invece del ♠K, su 4♣ avrebbe fatto la cue bid di 4♦. A quel punto ogni colore sarebbe stato controllato, Sud avrebbe potuto proseguire verso lo slam, e alla fine il Blackwood sarebbe stato sicuro per controllare gli assi.</p>
+<p>I bot dichiarano così una volta concordata una nobile in una licita forzante manche, dopo un appoggio con il 2SA Jacoby o uno splinter. Usano una cue bid anche come tentativo di slam in una licita naturale: quando il compagno ha appena dichiarato una nobile che potrebbero appoggiare a manche, e lo slam è probabile se il compagno ha un po’ più di quanto mostrato, un nuovo colore a livello di quattro (non dichiarato dalla loro linea) appoggia la nobile del compagno e mostra un controllo. Le loro cue bid mostrano controlli di primo o secondo giro, prima il più economico, sotto la manche nella nobile concordata.</p>
+
+<h3>Combinare gli strumenti</h3>
+<ol>
+<li>Concorda l’atout in una licita forzante.</li>
+<li>Fai le cue bid per assicurarti che ogni colore laterale sia controllato.</li>
+<li>Quando tutti i colori sono coperti, usa il Blackwood (i bot giocano la Roman Key Card Blackwood) per assicurarti che non manchino due assi, o un asso e il re d’atout.</li>
+<li>Dichiara lo slam, o chiudi.</li>
+</ol>
+<div class="tip">Prima di dichiarare 4SA chiediti: «Se il compagno mostra il numero giusto di assi, saprò che cosa dichiarare?» Se la risposta è no, fai invece una cue bid.</div>
+<div class="warn">Assicurati che la coppia sia d’accordo sulle cue bid prima di usarle. Una cue bid che il compagno legge come un colore naturale può finire in un contratto molto strano.</div>
+`,
+    keyPoints: [
+      'Uno slam richiede che ogni colore laterale sia controllato: asso o chicane (primo giro), oppure re o singolo (secondo giro).',
+      'Il Blackwood conta gli assi ma non può dirti quali, né se un colore laterale ha due perdenti rapide.',
+      'Non usare il Blackwood con una chicane, con due cartine in un colore non dichiarato o quando la risposta può portarti troppo in alto.',
+      'Le cue bid mostrano i controlli, prima il più economico; saltare un colore nega il controllo in quel colore.',
+      'Prima le cue bid per controllare ogni colore, poi il Blackwood per controllare gli assi.',
+    ],
+    quiz: [
+      {
+        q: 'Quali carte danno il controllo di secondo giro di un colore in un contratto ad atout?',
+        options: ['Asso o chicane', 'Re o singolo', 'Donna o doubleton', 'Due onori qualsiasi'],
+        answer: 1,
+        explain: 'Con il re o un singolo gli avversari possono fare al massimo una presa rapida nel colore. L’asso o una chicane sono il controllo di primo giro.',
+      },
+      {
+        q: 'Nella smazzata qui sopra, perché il Blackwood porta a un cattivo slam?',
+        options: ['Perché mancano due assi', 'Perché nessuna delle due mani controlla le quadri, cosa che il Blackwood non può rivelare', 'Perché i cuori sono divisi male', 'Perché Nord ha troppo pochi punti'],
+        answer: 1,
+        explain: 'Manca un solo asso, ma è il ♦A, e manca anche il ♦K. Gli avversari incassano subito due prese a quadri.',
+      },
+      {
+        q: 'L’accordo è a cuori in una licita forzante. Il compagno fa la cue bid di 4♣ e tu dichiari 4♥, saltando il 4♦. Che cosa hai detto al compagno?',
+        options: ['Ho il controllo a quadri', 'Non ho il controllo a quadri', 'Ho il ♠A', 'Voglio giocare a quadri'],
+        answer: 1,
+        explain: 'Le cue bid si fanno partendo dalla più economica. Saltando il 4♦ neghi il controllo a quadri, quindi il compagno sa che deve fermarsi a meno che non controlli lui le quadri.',
+      },
+      {
+        q: 'Hai una chicane a fiori e vuoi esplorare uno slam a picche. Perché il Blackwood è una cattiva scelta?',
+        options: ['Perché le chicane contano come assi', 'Perché il ♣A del compagno sarebbe sprecato, eppure il Blackwood lo conterebbe', 'Perché 4SA sarebbe quantitativo', 'Perché servono 37 punti'],
+        answer: 1,
+        explain: 'Il Blackwood ti dice quanti assi ha il compagno, non quali. L’asso di fronte alla tua chicane non porta nulla.',
+      },
+      {
+        q: 'Qual è un ordine sensato degli strumenti per uno slam a colore?',
+        options: ['Prima il Blackwood, poi le cue bid', 'Concordare l’atout, fare le cue bid sui controlli, poi il Blackwood', 'Dichiarare direttamente lo slam con 33 punti', 'Gerber, poi Blackwood'],
+        answer: 1,
+        explain: 'Le cue bid rivelano se ogni colore è coperto; poi il Blackwood assicura che alla coppia non manchino due assi.',
+      },
+    ],
+  },
+
+  {
+    id: 'squeezes-and-endplays',
+    title: 'Introduzione a compressioni e messe in presa',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Due tecniche avanzate che creano una presa dal nulla costringendo un difensore a scartare una guardia o a giocare verso la tua forza.',
+    body: `
+<h3>Quando impasse e divisioni non bastano</h3>
+<p>Alcune prese non si vincono con la forza né con un’impasse. Si vincono perché un difensore è <em>costretto</em> a cederle, o perché deve scartare una carta che gli serve (una <strong>compressione</strong>, o squeeze), o perché deve giocare per primo quando ogni uscita costa una presa (una <strong>messa in presa</strong>). Di solito succedono entrambe alla fine della mano, ed entrambe richiedono un conto accurato.</p>
+
+<h3>La compressione semplice</h3>
+<p>Una compressione funziona quando un solo difensore protegge due colori. Quando giochi la tua ultima vincente in un terzo colore, quel difensore deve scartare una delle guardie, e il colore abbandonato ti dà una presa in più.</p>
+<div class="deal" data-n="S:- H:AJ D:- C:3" data-w="S:- H:KQ D:Q C:-" data-e="S:- H:- D:98 C:7" data-s="S:A H:2 D:J C:-" data-caption="Senza atout. Muove Sud; a Sud servono tutte e tre le prese."></div>
+<p>Ovest protegge i cuori (K Q contro A J del morto) e le quadri (la Q contro il tuo J). Sud gioca il ♠A, la <strong>carta di compressione</strong>, e Ovest deve scartare prima del morto:</p>
+<ul>
+<li>Se Ovest scarta la ♦Q, il tuo ♦J è vincente.</li>
+<li>Se Ovest scarta una carta di cuori, il morto scarta il ♣3; giochi il ♥2 per l’asso, facendo cadere l’onore rimasto a Ovest, e il ♥J del morto vince l’ultima presa.</li>
+</ul>
+<p>Senza la compressione avresti fatto solo due prese.</p>
+<h4>Che cosa serve per una compressione</h4>
+<ul>
+<li><strong>Minacce:</strong> carte che diventano vincenti se il difensore abbandona la guardia (qui il ♥J del morto e il tuo ♦J).</li>
+<li><strong>Un solo difensore impegnato in entrambi i colori.</strong> Se il compagno potesse proteggere uno dei colori, non ci sarebbe compressione.</li>
+<li><strong>Rientri</strong> per raggiungere le minacce dopo lo scarto (qui il ♥A, con una carta di cuori in mano per arrivarci).</li>
+<li><strong>Il conto giusto:</strong> quando giochi la carta di compressione devi poter vincere tutte le prese restanti meno una. Cedere <em>presto</em> le prese che devi cedere, perché questo sia vero, si chiama <strong>rettificare il conto</strong>. Un segnale tipico: vedi che una compressione è possibile ma hai due perdenti; liscia presto una presa, così ne resta una sola.</li>
+</ul>
+<div class="tip">Non serve sempre vedere la compressione in anticipo. Incassare fino in fondo un colore lungo, tenendo le carte di minaccia, dà ai difensori molte occasioni di scartare male, e a volte semplicemente non possono evitarlo.</div>
+
+<h3>La messa in presa</h3>
+<p>La messa in presa mette in presa un difensore nel momento in cui qualsiasi carta giochi ti regala una presa: deve muovere verso la tua forchetta, o concederti un taglio e scarto.</p>
+<div class="deal" data-n="S:- H:3 D:- C:AQ" data-w="S:- H:- D:J109 C:-" data-e="S:- H:A D:- C:K8" data-s="S:- H:6 D:- C:42" data-caption="Senza atout. Muove Sud; il ♣K è di Est."></div>
+<p>Se muovi fiori e fai l’impasse alla donna, Est vince con il re e incassa il ♥A: fai una presa. Invece gioca il ♥6. Est vince con l’asso e ora gli restano solo fiori, quindi deve muovere sotto il re verso A Q del morto, e fai due prese.</p>
+<h4>Eliminazione e messa in presa in un contratto a colore</h4>
+<p>In un contratto ad atout la stessa idea si chiama eliminazione. Batti atout ma conservane almeno una in ciascuna mano. <strong>Elimina</strong> i colori laterali in cui il difensore potrebbe uscire senza danni, incassandoli o tagliandoli. Poi metti in presa il difensore con il colore che ti è rimasto. A quel punto il difensore deve muovere verso la tua forchetta oppure giocare un colore in cui sei in chicane in entrambe le mani, che ti permette di tagliare in una mano e scartare una perdente dall’altra.</p>
+<p>Le eliminazioni spesso trasformano un’impasse al 50% in una certezza: con A J x di fronte a K 10 x e la donna mancante, non devi mai indovinare se è un difensore a dover aprire il colore per te.</p>
+<div class="warn">Una messa in presa fallisce se il difensore ha ancora una carta d’uscita sicura. Prima di metterlo in presa, controlla che ogni colore in cui potrebbe uscire sia stato eliminato dalla sua mano o da entrambe le tue.</div>
+`,
+    keyPoints: [
+      'Una compressione costringe un difensore che protegge due colori a scartare una delle guardie.',
+      'Una compressione richiede minacce, un solo difensore impegnato, rientri e il conto rettificato (tutte le prese restanti meno una).',
+      'Una messa in presa dà la mano a un difensore quando ogni sua uscita costa una presa alla sua linea.',
+      'Eliminazione e messa in presa: batti atout (conservandone in entrambe le mani), elimina i colori laterali, poi metti in presa il difensore.',
+      'Incassare un colore lungo tenendo le minacce dà ai difensori l’occasione di sbagliare.',
+    ],
+    quiz: [
+      {
+        q: 'Qual è la condizione essenziale per una compressione semplice?',
+        options: ['Entrambi i difensori sono in chicane in un colore', 'Un solo difensore protegge due colori', 'Hai tutti gli assi', 'Le atout sono divise 3-2'],
+        answer: 1,
+        explain: 'Se un difensore deve tenere le guardie in due colori, non può conservarle entrambe quando è costretto a scartare. Se il compagno può proteggerne uno, non c’è compressione.',
+      },
+      {
+        q: 'Che cosa significa «rettificare il conto»?',
+        options: ['Contare i punti degli avversari', 'Cedere presto le prese che devi cedere, così che quando giochi la carta di compressione puoi vincere tutte le prese restanti meno una', 'Togliere l’ultima atout', 'Contare due volte le proprie vincenti'],
+        answer: 1,
+        explain: 'Una compressione richiede che il difensore resti senza carte di scarto. Se hai ancora due perdenti, il difensore ha una carta libera da scartare; lisciando presto una presa gliela togli.',
+      },
+      {
+        q: 'Nel finale di compressione qui sopra, che cosa succede se Ovest scarta la ♦Q?',
+        options: ['Il ♦J di Sud diventa vincente', 'Il ♥J del morto diventa vincente', 'Est vince una presa a quadri', 'Non cambia nulla'],
+        answer: 0,
+        explain: 'Ovest era l’unica guardia contro il ♦J. Uscita la donna, il tuo fante è la carta di quadri più alta rimasta.',
+      },
+      {
+        q: 'Nel finale di messa in presa qui sopra, perché Est deve regalarti una presa?',
+        options: ['Est deve rispondere a cuori', 'Dopo aver vinto con il ♥A, a Est restano solo fiori e deve muovere dal K verso A Q', 'Est è compresso', 'Est deve tagliare'],
+        answer: 1,
+        explain: 'Messo in presa con il ♥A, Est non ha uscite sicure. Qualsiasi carta di fiori giochi Est, la donna del morto vince, e poi l’asso fa cadere il re.',
+      },
+      {
+        q: 'In un’eliminazione con messa in presa in un contratto a colore, che cosa devi conservare prima di mettere in presa un difensore?',
+        options: ['Un’atout in ciascuna delle tue mani', 'Tutti gli assi', 'Un rientro per il compagno del difensore', 'Un’atout perdente'],
+        answer: 0,
+        explain: 'Con atout in entrambe le mani, un difensore che muove un colore in cui sei in chicane ti concede un taglio e scarto. Così al difensore restano solo uscite verso la tua forchetta.',
+      },
+    ],
+  },
 ];
