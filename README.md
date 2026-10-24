@@ -77,7 +77,8 @@ npm run dev          # http://localhost:5173
 | `npx tsc --noEmit` | type-check |
 | `npm run lint` | Biome |
 | `npm test` | unit tests: solver against brute force, scoring, bidding and conventions, both languages, lessons, journal, deal formats |
-| `npm run build` | a single self-contained `dist/index.html`, plus the icons, manifest and service worker |
+| `npm run build` | the website in `dist/`: code-split, each language loaded only when chosen, plus the icons, manifest and service worker |
+| `npm run build:single` | one self-contained `dist-single/index.html` with everything inlined, for hosts that take a single page |
 | `npm run test:e2e` | plays the built app in a real browser (Playwright); `PW_CHROMIUM=/path/to/chrome` uses an installed browser |
 
 CI runs all of them on every push and pull request. Every push to `main` is deployed to
@@ -104,7 +105,7 @@ All text lives in per-language catalogues; the code never contains user-facing s
 
 | Path | What |
 |---|---|
-| `src/i18n/index.ts` | language list, active language (`setLang`, `onLangChange`), formatting helpers |
+| `src/i18n/index.ts` | language list, loading and switching languages (`setLang`, `onLangChange`), formatting helpers |
 | `src/i18n/<lang>/` | the catalogue: `core` (cards, seats, calls), `ui`, `bidding`, `tutor`, `practice` |
 | `src/learn/content/<lang>/` | lessons and glossary |
 
@@ -116,10 +117,10 @@ whole auctions, inferences and tutor decisions are identical in every language.
 
 1. Copy `src/i18n/en` to `src/i18n/de` and translate it (keep the keys and function signatures; adapt
    grammar inside the functions — plurals, word order).
-2. Add `'de'` to `Lang` and `LANGUAGES` in `src/i18n/index.ts` and register the catalogue there.
+2. Add `'de'` to `Lang` and `LANGUAGES` in `src/i18n/index.ts` and to its `LOADERS`.
 3. Optionally add lessons in `src/learn/content/de/` (same ids, diagrams and quiz answers as English;
-   `test/lessons.test.ts` checks this) and register them in `src/learn/lessons.ts`. Until then the
-   English lessons are shown.
+   `test/lessons.test.ts` checks this) and add it to the `LOADERS` in `src/learn/lessons.ts`. Until
+   then the English lessons are shown.
 4. `npx tsc --noEmit && npm test`.
 
 ## License

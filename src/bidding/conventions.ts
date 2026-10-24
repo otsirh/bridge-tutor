@@ -301,7 +301,7 @@ export function fourthSuitForcing(x: Ctx, a: number, y: number, b: number): Rule
   return [R(c, 'fsf', t.ask(f), [hcpC(13),
     // with six cards in a suit of your own, rebid it instead
     cond(b >= HEARTS ? t.askCondMajor(b, f) : t.askCond(f), h => !(b >= HEARTS && h.len[b] >= 4) && (!hasStopper(h, f) || h.len[y] === 5) && h.shape[0] <= 5),
-    cond(t.noMajorFit(a), h => !(a >= HEARTS && h.len[a] >= 3)),
+    ...(a >= HEARTS ? [cond(t.noMajorFit(a), h => h.len[a] < 3)] : []),
   ], { artificial: true, forcing: 'game', tag: 'fsf', data: { suit: f, a, b, y } })];
 }
 

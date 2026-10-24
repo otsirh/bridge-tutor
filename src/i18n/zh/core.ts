@@ -1,29 +1,25 @@
-// PLACEHOLDER (Chinese (Simplified)): an English copy until the Chinese (Simplified) translation lands.
 // Card, seat and call vocabulary.
 
 import type { Text } from '../en';
-
 import { rankLabel } from '../../core/cards';
 
-const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-const RANK_WORDS: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+const SUITS = ['梅花', '方块', '红心', '黑桃'];
 
 export const core: Text['core'] = {
-  seats: ['North', 'East', 'South', 'West'],
-  seatLetters: ['N', 'E', 'S', 'W'],
-  /** Plural, as in "five hearts". */
+  seats: ['北家', '东家', '南家', '西家'],
+  /** Single characters, as in Chinese auction tables. */
+  seatLetters: ['北', '东', '南', '西'],
+  /** Chinese has no plural: the same word in every position. */
   suits: SUITS,
-  suitSingular: ['club', 'diamond', 'heart', 'spade'],
-  strains: ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'],
-  /** Notrump in bids and contracts ("3NT"). */
+  suitSingular: SUITS,
+  strains: ['梅花', '方块', '红心', '黑桃', '无将'],
   nt: 'NT',
-  pass: 'Pass',
-  double: 'Double',
-  redouble: 'Redouble',
-  passedOut: 'Passed out',
-  /** "queen of hearts" */
-  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} of ${SUITS[suit]}`,
-  /** Abbreviation after a number of high-card points ("12 HCP"). */
-  hcp: 'HCP',
-  tricks: (n: number) => (n === 1 ? 'trick' : 'tricks'),
+  pass: '不叫',
+  double: '加倍',
+  redouble: '再加倍',
+  passedOut: '四家不叫',
+  /** "红心Q": suit word, then the rank letter. */
+  cardLong: (rank: number, suit: number) => `${SUITS[suit]}${rankLabel(rank)}`,
+  hcp: '点',
+  tricks: () => '墩',
 };
