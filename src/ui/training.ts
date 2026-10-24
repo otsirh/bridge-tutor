@@ -137,7 +137,10 @@ function todayTab(act: TrainingActions): HTMLElement {
   const weakStat = stats.find(s => s.id === weak)!;
   const progress = loadLessonProgress();
   const lessons = getLessons();
-  const nextLesson = lessons.find(l => (progress[l.id]?.quizBest ?? 0) < 0.8);
+  // the course in level order (beginner lessons first), each level in the book's order
+  const LEVELS = ['Beginner', 'Intermediate', 'Advanced'];
+  const course = [...lessons].sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level));
+  const nextLesson = course.find(l => (progress[l.id]?.quizBest ?? 0) < 0.8);
   const bidsTotal = boards.reduce((t, b) => t + b.calls.filter(c => c.h && c.a !== undefined).length, 0);
   const bidsRight = boards.reduce((t, b) => t + b.calls.filter(c => c.h && c.a === c.c).length, 0);
   const st = streak();
@@ -160,7 +163,7 @@ function todayTab(act: TrainingActions): HTMLElement {
     h('button', { class: 'btn', type: 'button', onclick: () => { state.tab = 'problems'; act.rerender(); } }, T.practice.openProblems)));
   if (nextLesson) {
     steps.push(h('div', { class: 'step' },
-      h('div', null, h('b', null, suitText(T.practice.stepCourseTitle(nextLesson.title))), h('div', { class: 'small muted' }, T.practice.stepCourseText(lessons.indexOf(nextLesson) + 1, lessons.length))),
+      h('div', null, h('b', null, suitText(T.practice.stepCourseTitle(nextLesson.title))), h('div', { class: 'small muted' }, T.practice.stepCourseText(course.indexOf(nextLesson) + 1, course.length))),
       h('button', { class: 'btn', type: 'button', onclick: () => act.openLesson(nextLesson.id) }, T.practice.openLesson)));
   }
 
