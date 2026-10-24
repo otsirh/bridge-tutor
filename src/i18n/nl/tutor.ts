@@ -1,386 +1,361 @@
-// PLACEHOLDER (Dutch): an English copy until the Dutch translation lands.
 // Tutor: play principles, declarer planning, leads, signals, hand evaluation, scoring.
 //
-// Grouped by the file that shows the text. Suits and seats arrive as indexes
-// (suit 0..3 = clubs, diamonds, hearts, spades; seat 0..3 = N, E, S, W), cards
-// as card ids and ranks as numbers (14 = ace), so each language picks its own
-// word forms. Holdings ("KJ104") and split odds ("3-2 68%, …") arrive ready-made.
+// Same layout as src/i18n/en/tutor.ts (see the notes there on parameters).
+// core.suits is the plural ("vijf harten"), core.suitSingular the form for one
+// card ("een kleine klaver", "de hoogste ruiten").
 
 import type { Text } from '../en';
-
 import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf, suitOf } from '../../core/cards';
 import type { Height, Look } from '../../engine/signalling';
 import { core } from './core';
 
-/** "1 trick", "2 tricks". */
-const plural = (n: number, word: string) => (n === 1 ? word : `${word}s`);
-/** "A 3-card", "An 8-card". */
-const aCard = (n: number) => `${n === 8 || n === 11 ? 'An' : 'A'} ${n}-card`;
-/** Leading toward the honours in the other hand. */
-const TOWARD = { aq: 'A-Q', king: 'king', queen: 'queen', honours: 'honours' };
-const HONOUR: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen' };
-/** "2 or 4", "1, 3 or 5" (the three shortest). */
+/** "1 slag", "2 slagen". */
+const slagen = (n: number) => (n === 1 ? 'slag' : 'slagen');
+/** "een vierkaart" etc.; 1 and 2 cards are a singleton and a doubleton. */
+const LENGTH_WORDS: Record<number, string> = { 3: 'driekaart', 4: 'vierkaart', 5: 'vijfkaart', 6: 'zeskaart', 7: 'zevenkaart', 8: 'achtkaart' };
+const holdingWord = (n: number) => (n === 1 ? 'singleton' : n === 2 ? 'doubleton' : (LENGTH_WORDS[n] ?? `${n}-kaart`));
+/** Leading toward the honours in the other hand: "naar de heer". */
+const TOWARD = { aq: 'A-Q', king: 'heer', queen: 'vrouw', honours: 'honneurs' };
+const HONOUR: Record<number, string> = { 14: 'aas', 13: 'heer', 12: 'vrouw' };
+/** "2 of 4", "1, 3 of 5" (the three shortest). */
 const orList = (ns: number[]) => {
   const xs = ns.slice(0, 3);
-  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}` : String(xs[0]);
+  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} of ${xs[xs.length - 1]}` : String(xs[0]);
 };
-/** How a signal card looks from across the table: "High-low (♣8, then ♣3)", "♣7 looks high (…)". */
+const highLow = (h: 'high' | 'low') => (h === 'high' ? 'hoog' : 'laag');
+/** How a signal card looks from across the table: "Hoog-laag (♣8, daarna ♣3)", "♣7 lijkt hoog (…)". */
 const looks = (card: Card, l: Look) =>
   l.echo !== null
-    ? `${l.height === 'high' ? 'High-low' : 'Low-high'} (${cardName(card)}, then ${cardName(l.echo)})`
+    ? `${l.height === 'high' ? 'Hoog-laag' : 'Laag-hoog'} (${cardName(card)}, daarna ${cardName(l.echo)})`
     : l.sure && rankOf(card) === 2
-      ? `${cardName(card)} is always low`
+      ? `${cardName(card)} is altijd laag`
       : l.sure
-        ? `${cardName(card)} is ${l.height} (every ${l.height === 'high' ? 'higher' : 'lower'} spot card is accounted for)`
-        : `${cardName(card)} looks ${l.height} (some ${l.height === 'high' ? 'lower' : 'higher'} spot cards are still out)`;
+        ? `${cardName(card)} is ${highLow(l.height!)} (alle ${l.height === 'high' ? 'hogere' : 'lagere'} kleine kaarten zijn bekend)`
+        : `${cardName(card)} lijkt ${highLow(l.height!)} (er zitten nog ${l.height === 'high' ? 'lagere' : 'hogere'} kleine kaarten buiten)`;
 
 export const tutor: Text['tutor'] = {
   // -------------------------------------------------------------------------
-  // src/tutor/principles.ts — the principle behind a card: a short title (the
-  // review also shows it alone) and one or two sentences of explanation.
+  // src/tutor/principles.ts
   principles: {
     openingLead: {
-      title: 'Opening lead',
-      /** The card led is not the book card from this holding; `why` explains the book card. */
-      notStandard: (holding: string, rank: number, why: string) => `From ${holding} the standard card is ${rankLabel(rank)}: ${why}`,
+      title: 'Uitkomst',
+      notStandard: (holding: string, rank: number, why: string) => `Uit ${holding} is de standaardkaart de ${rankLabel(rank)}: ${why}`,
     },
 
     // declarer's side on lead
     drawTrumps: {
-      title: 'Drawing trumps',
-      text: 'Leading trumps removes the defenders’ trumps so they cannot ruff your winners. Draw them early unless dummy’s trumps are needed for ruffs.',
+      title: 'Troef trekken',
+      text: 'Door troef te spelen haal je de troeven van de tegenspelers weg, zodat ze je vaste slagen niet kunnen introeven. Trek ze vroeg, tenzij je de troeven van de dummy nodig hebt om in te troeven.',
     },
     unblock: {
-      title: 'Unblocking',
-      text: 'Cash the high card from the short hand first, so the long hand keeps the lead and can run the rest of the suit.',
+      title: 'Deblokkeren',
+      text: 'Speel eerst de hoge kaart uit de korte hand, zodat de lange hand aan slag blijft en de rest van de kleur kan afspelen.',
     },
     cash: {
-      title: 'Cashing a winner',
-      declarer: (card: Card) => `${cardName(card)} is the highest ${core.suitSingular[suitOf(card)]} left: it wins the trick unless someone ruffs.`,
-      defender: 'Take your sure trick before declarer can discard losers on dummy’s long suit.',
+      title: 'Een vaste slag incasseren',
+      declarer: (card: Card) => `${cardName(card)} is de hoogste ${core.suitSingular[suitOf(card)]} die nog in het spel is: die wint de slag, tenzij iemand introeft.`,
+      defender: 'Pak je vaste slag voordat de leider verliezers kan afgooien op de lange kleur van de dummy.',
     },
     crossToOtherHand: {
-      title: 'Crossing to the other hand',
-      text: 'Leading low to a winner in the other hand uses it as an entry, so you can lead from there next.',
+      title: 'Oversteken naar de andere hand',
+      text: 'Door klein te spelen naar een vaste slag in de andere hand gebruik je die als entree, zodat je daarna vanuit die hand kunt voorspelen.',
     },
     leadTowardHonours: {
-      title: 'Leading toward honours',
-      /** What the other hand holds: A-Q, the king, the queen, or several honours. */
+      title: 'Naar honneurs toe spelen',
       text: (toward: 'aq' | 'king' | 'queen' | 'honours') =>
-        `Lead low toward the ${TOWARD[toward]} so the defender on your left must play before you choose your card from the other hand — the basis of the finesse.`,
+        `Speel klein naar de ${TOWARD[toward]}, zodat de tegenspeler links van je moet bijspelen voordat jij je kaart uit de andere hand kiest — de basis van de snit.`,
     },
     develop: {
-      title: 'Developing a suit',
-      text: 'Losing a trick in this suit now sets up the remaining cards as winners while you still control the other suits.',
+      title: 'Een kleur vrijspelen',
+      text: 'Door nu een slag in deze kleur af te geven, speel je de overige kaarten vrij terwijl je de andere kleuren nog in handen hebt.',
     },
 
     // defenders on lead
     trumpLead: {
-      title: 'Trump lead',
-      text: 'A trump lead reduces declarer’s ruffs in dummy — strong when dummy is short in a side suit.',
+      title: 'Troef spelen',
+      text: 'Troef spelen beperkt het aantal keren dat de leider in de dummy kan introeven — sterk als de dummy kort is in een bijkleur.',
     },
     lookForRuff: {
-      title: 'Looking for a ruff',
-      text: 'A short suit lead hopes partner gets in and gives you a ruff.',
+      title: 'Op zoek naar een troefslag',
+      text: 'Met een korte kleur hoop je dat partner aan slag komt en jou laat introeven.',
     },
     switchSuits: {
-      title: 'Switching suits',
-      text: 'Lead through declarer’s strength, or toward dummy’s weakness: the defender in front of the strong hand should lead that suit.',
+      title: 'Van kleur wisselen',
+      text: 'Speel door de kracht van de leider heen of naar de zwakte van de dummy toe: de tegenspeler vóór de sterke hand hoort die kleur te spelen.',
     },
 
     // not following suit
     overruff: {
-      title: 'Overruff',
-      text: 'Ruffing higher than the trump already played wins the trick.',
+      title: 'Overtroeven',
+      text: 'Met een hogere troef dan die al gespeeld is, win je de slag.',
     },
     ruffPartnersWinner: {
-      title: 'Ruffing partner’s winner',
-      text: 'Usually wasteful: partner was already winning this trick.',
+      title: 'De slag van partner introeven',
+      text: 'Meestal verspilling: partner had deze slag al.',
     },
     ruff: {
-      title: 'Ruffing',
-      declarer: 'Ruffing in the hand with fewer trumps gains a trick; ruffing in the long trump hand just uses a trump you would make anyway.',
-      defender: 'You are out of the suit led, so a ruff takes the trick.',
+      title: 'Introeven',
+      declarer: 'Introeven in de hand met de minste troeven levert een extra slag op; introeven in de lange troefhand kost alleen een troef die toch al een slag zou maken.',
+      defender: 'Je hebt niets meer in de gespeelde kleur, dus met introeven win je de slag.',
     },
     discard: {
-      title: 'Discard',
-      defender: 'Discard from a suit you don’t need, and keep length in suits where you must guard against declarer’s or dummy’s long cards.',
-      declarer: 'Throw a loser from a suit that can’t win tricks, keeping the cards that may still be needed.',
+      title: 'Afgooien',
+      defender: 'Gooi af uit een kleur die je niet nodig hebt, en houd lengte in kleuren waarin je de lange kaarten van de leider of de dummy moet bewaken.',
+      declarer: 'Gooi een verliezer af uit een kleur die geen slagen kan maken, en houd de kaarten die je nog nodig kunt hebben.',
     },
 
-    // defenders' signals: `right` = the card says what this hand should say; `best` = the card that would
+    // defenders' signals
     countSignal: {
-      title: 'Count signal',
-      /** `n` cards in the suit before playing. */
+      title: 'Lengtesignaal',
       text: (n: number, suit: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Declarer is playing this suit and partner expects count: with ${n} ${core.suits[suit]} (an ${n % 2 ? 'odd' : 'even'} number) the standard card is ${cardName(best)}${n % 2 ? '' : ', then a lower one (high-low)'}. ${cardName(card)} would show an ${n % 2 ? 'even' : 'odd'} number.`
+          ? `De leider speelt deze kleur en partner verwacht een lengtesignaal: met ${n} ${core.suits[suit]} (een ${n % 2 ? 'oneven' : 'even'} aantal) is de standaardkaart ${cardName(best)}${n % 2 ? '' : ', daarna een lagere (hoog-laag)'}. ${cardName(card)} zou een ${n % 2 ? 'even' : 'oneven'} aantal tonen.`
           : n % 2
-            ? `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an odd number) play your lowest card, ${cardName(card)}. Partner can then tell how many declarer holds and when to take the ace.`
-            : `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an even number) play high-low — ${cardName(card)} now, a lower card next time. Partner can then tell how many declarer holds and when to take the ace.`,
+            ? `De leider speelt deze kleur, dus laat je lengte zien: met ${n} ${core.suits[suit]} (een oneven aantal) speel je je laagste kaart, ${cardName(card)}. Partner kan dan zien hoeveel kaarten de leider heeft en wanneer de aas genomen moet worden.`
+            : `De leider speelt deze kleur, dus laat je lengte zien: met ${n} ${core.suits[suit]} (een even aantal) speel je hoog-laag — nu ${cardName(card)}, de volgende keer een lagere kaart. Partner kan dan zien hoeveel kaarten de leider heeft en wanneer de aas genomen moet worden.`,
     },
     attitudeSignal: {
-      title: 'Attitude signal',
-      /** Why you like partner's suit (an honour — the highest you hold is `honour` — or a doubleton to ruff), or null. */
+      title: 'Attitudesignaal',
       text: (reason: 'honour' | 'ruff' | null, honour: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Partner led this suit and expects your attitude: you ${reason ? 'like' : 'don’t like'} it, so the standard card is ${cardName(best)}. ${cardName(card)} says the opposite.`
+          ? `Partner speelde deze kleur voor en verwacht een attitudesignaal: je wilt ${reason ? 'dat partner doorspeelt' : 'niet dat partner doorspeelt'}, dus de standaardkaart is ${cardName(best)}. ${cardName(card)} zegt het tegenovergestelde.`
           : reason === 'honour'
-            ? `Partner led this suit: give attitude. You hold the ${HONOUR[honour]}, so encourage with the highest spot card you can spare, ${cardName(card)}, and partner will continue.`
+            ? `Partner speelde deze kleur voor: geef attitude. Je hebt de ${HONOUR[honour]}, dus moedig aan met de hoogste kleine kaart die je kunt missen, ${cardName(card)}, en partner speelt door.`
             : reason === 'ruff'
-              ? `Partner led this suit: give attitude. With a doubleton, start with the higher card (${cardName(card)}): high-low asks partner to continue, and you ruff the third round.`
-              : `Partner led this suit: give attitude. Nothing here is worth continuing, so discourage with your lowest card, ${cardName(card)}; partner will look for a switch.`,
+              ? `Partner speelde deze kleur voor: geef attitude. Met een doubleton begin je met de hoogste kaart (${cardName(card)}): hoog-laag vraagt partner door te spelen, en jij troeft de derde ronde in.`
+              : `Partner speelde deze kleur voor: geef attitude. Hier is niets wat doorspelen waard is, dus ontmoedig met je laagste kaart, ${cardName(card)}; partner gaat dan op zoek naar een andere kleur.`,
     },
     discardSignal: {
-      title: 'Discard (attitude)',
-      /** `want`: you would like this suit led; `clear`: you have a spot card high enough to say so. */
+      title: 'Afgooisignaal (attitude)',
       text: (want: boolean, clear: boolean, suit: number, card: Card, best: Card, right: boolean) =>
         want && !clear
-          ? `You would like ${core.suits[suit]} led, but no ${core.suitSingular[suit]} you can spare is high enough to read as encouraging; discard low from a suit you don’t want instead.`
+          ? `Je zou graag ${core.suits[suit]} terugkrijgen, maar geen ${core.suitSingular[suit]} die je kunt missen is hoog genoeg om als aanmoedigend gelezen te worden; gooi in plaats daarvan laag af uit een kleur die je niet wilt.`
           : want
             ? right
-              ? `A high discard encourages: ${cardName(card)} asks partner to lead ${core.suits[suit]}, where you hold strength.`
-              : `You would like ${core.suits[suit]} led, but ${cardName(card)} is your lowest and discourages; a high one (${cardName(best)}) would encourage — or discard low from a suit you don’t want.`
+              ? `Hoog afgooien moedigt aan: ${cardName(card)} vraagt partner om ${core.suits[suit]} te spelen, waar jij kracht hebt.`
+              : `Je zou graag ${core.suits[suit]} terugkrijgen, maar ${cardName(card)} is je laagste en ontmoedigt; een hoge kaart (${cardName(best)}) zou aanmoedigen — of gooi laag af uit een kleur die je niet wilt.`
             : right
-              ? `A low discard discourages: ${cardName(card)} tells partner not to lead ${core.suits[suit]}.`
-              : `A high discard asks partner to lead ${core.suits[suit]}, which you don’t want; discard your lowest (${cardName(best)}) instead.`,
+              ? `Laag afgooien ontmoedigt: ${cardName(card)} vertelt partner geen ${core.suits[suit]} te spelen.`
+              : `Hoog afgooien vraagt partner om ${core.suits[suit]} te spelen, en dat wil je niet; gooi in plaats daarvan je laagste af (${cardName(best)}).`,
     },
     preferenceSignal: {
-      title: 'Suit-preference signal',
-      /** Leading for partner to ruff; `sides` = the other two side suits, lower first; `want` high = the higher one. */
+      title: 'Voorkeurssignaal',
       text: (want: Height, sides: number[], card: Card, best: Card, right: boolean) =>
         !right
           ? want === 'middle'
-            ? `Partner will ruff this and read your card as suit preference; with no preference, lead a middle card such as ${cardName(best)}.`
-            : `Partner will ruff this and read your card as suit preference: you want ${core.suits[want === 'high' ? sides[1] : sides[0]]} back, so lead ${cardName(best)}.`
+            ? `Partner gaat dit introeven en leest je kaart als voorkeurssignaal; zonder voorkeur speel je een middelste kaart, zoals ${cardName(best)}.`
+            : `Partner gaat dit introeven en leest je kaart als voorkeurssignaal: je wilt ${core.suits[want === 'high' ? sides[1] : sides[0]]} terug, dus speel ${cardName(best)}.`
           : want === 'middle'
-            ? 'Partner will ruff this, and your card also says which suit to return: with no preference, lead a middle card — neither high nor low.'
-            : `Partner will ruff this, and your card also says which suit to return: a ${want} card asks for ${core.suits[want === 'high' ? sides[1] : sides[0]]} (the ${want === 'high' ? 'higher' : 'lower'} of the other two side suits), where you hold the ace.`,
+            ? 'Partner gaat dit introeven, en je kaart vertelt ook welke kleur partner moet terugspelen: zonder voorkeur speel je een middelste kaart — niet hoog en niet laag.'
+            : `Partner gaat dit introeven, en je kaart vertelt ook welke kleur partner moet terugspelen: een ${want === 'high' ? 'hoge' : 'lage'} kaart vraagt om ${core.suits[want === 'high' ? sides[1] : sides[0]]} (de ${want === 'high' ? 'hoogste' : 'laagste'} van de twee andere bijkleuren), waar jij de aas hebt.`,
     },
 
     // second hand
     coverHonour: {
-      title: 'Cover an honour with an honour',
-      text: 'Covering forces declarer to spend two high cards to win one trick, which may promote a lower card in your or partner’s hand.',
+      title: 'Honneur op honneur',
+      text: 'Door af te dekken moet de leider twee hoge kaarten gebruiken om één slag te winnen, waardoor een lagere kaart bij jou of je partner hoog kan worden.',
     },
     secondHandLow: {
-      title: 'Second hand low',
-      text: 'Partner plays after you and the leader’s partner, so playing low keeps your high card to capture something bigger later.',
+      title: 'Tweede hand laag',
+      text: 'Partner speelt na jou en na de partner van de voorspeler; door laag te spelen bewaar je je hoge kaart om later iets groters te vangen.',
     },
     sureTrick: {
-      title: 'Winning a sure trick',
-      text: (card: Card) => `${cardName(card)} is the highest card left in the suit.`,
+      title: 'Een vaste slag winnen',
+      text: (card: Card) => `${cardName(card)} is de hoogste kaart die in deze kleur nog over is.`,
     },
     splitHonours: {
-      title: 'Splitting honours',
-      text: 'Playing one of touching honours stops declarer winning cheaply with a lower card.',
+      title: 'Honneurs splitsen',
+      text: 'Door een van je aaneengesloten honneurs te spelen voorkom je dat de leider goedkoop wint met een lagere kaart.',
     },
 
     // third and fourth hand
     partnerWinning: {
-      title: 'Partner is winning',
-      third: 'Partner’s card is already winning, so play low (or signal).',
-      fourth: 'Don’t overtake: play your lowest card.',
+      title: 'Partner wint de slag',
+      third: 'De kaart van partner wint al, dus speel laag (of geef een signaal).',
+      fourth: 'Neem niet over: speel je laagste kaart.',
     },
     thirdHandHighEquals: {
-      title: 'Third hand high — lowest of equals',
-      text: 'Play the cheaper of touching cards: partner can then work out where the higher one is.',
+      title: 'Derde hand hoog — de laagste van gelijke kaarten',
+      text: 'Speel de laagste van je aaneengesloten kaarten: dan kan partner afleiden waar de hogere zit.',
     },
     thirdHandHigh: {
-      title: 'Third hand high',
-      text: 'With partner’s lead not winning, play high to win the trick or force out a big card.',
+      title: 'Derde hand hoog',
+      text: 'De kaart die partner voorspeelde wint niet, dus speel hoog om de slag te winnen of een hoge kaart eruit te drijven.',
     },
     cantWin: {
-      title: 'Can’t win the trick',
-      third: 'Play your lowest card (or signal attitude if partner led the suit).',
-      fourth: 'Play your lowest card in the suit.',
+      title: 'Je kunt de slag niet winnen',
+      third: 'Speel je laagste kaart (of geef attitude als partner de kleur voorspeelde).',
+      fourth: 'Speel je laagste kaart in de kleur.',
     },
     winCheaply: {
-      title: 'Win cheaply',
-      text: 'Last to play: win with the smallest card that does the job.',
+      title: 'Goedkoop winnen',
+      text: 'Jij speelt als laatste: win met de laagste kaart die volstaat.',
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/tutor/planner.ts — declarer's plan once dummy is down: count winners
-  // (notrump) or losers (suit contracts) and where extra tricks can come from.
+  // src/tutor/planner.ts
   plan: {
     // sure tricks in one suit
-    allWinners: 'all winners',
-    topTricks: (n: number) => `${n} top ${plural(n, 'trick')}`,
-    noTopTricks: 'no top tricks',
-    /** Opponents' cards in a suit when there are too many for the split table. */
-    cardsOut: (n: number) => `${n} cards`,
+    allWinners: 'allemaal vaste slagen',
+    topTricks: (n: number) => `${n} vaste ${slagen(n)}`,
+    noTopTricks: 'geen vaste slagen',
+    cardsOut: (n: number) => `${n} kaarten`,
 
     // summary, notrump
     ntEnough: (total: number, need: number) =>
-      `You have ${total} top tricks and need ${need}: take your tricks — and don't block a suit (cash the high cards from the short hand first).`,
+      `Je hebt ${total} vaste slagen en hebt er ${need} nodig: incasseer je slagen — en blokkeer geen kleur (speel eerst de hoge kaarten uit de korte hand).`,
     ntShort: (total: number, need: number) =>
-      `You have ${total} top ${plural(total, 'trick')} and need ${need}: find ${need - total} more before the defenders establish their suit.`,
+      `Je hebt ${total} vaste ${slagen(total)} en hebt er ${need} nodig: vind er nog ${need - total} voordat de tegenspelers hun kleur vrijspelen.`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `About ${losers} ${plural(losers, 'loser')} and you can afford ${allowed}: draw trumps and take your tricks, unless an early ruff or discard is needed.`,
+      `Ongeveer ${losers} ${losers === 1 ? 'verliezer' : 'verliezers'}, en je mag er ${allowed} hebben: trek troef en incasseer je slagen, tenzij je eerst moet introeven of afgooien.`,
     tooManyLosers: (losers: number, allowed: number) =>
-      `About ${losers} losers but you can afford only ${allowed}: you need to get rid of ${losers - allowed} (ruff them, discard them on extra winners, or finesse).`,
+      `Ongeveer ${losers} verliezers, maar je mag er maar ${allowed} hebben: je moet er ${losers - allowed} kwijt (door ze in te troeven, ze af te gooien op extra slagen of met een snit).`,
 
     // ideas
     establish: (suit: number, total: number, missing: number, odds: string, extra: number) =>
-      `Establish ${core.suits[suit]}: with ${total} cards between you (${missing} out, ${odds}), the long ${SUIT_SYMBOLS[suit]} can produce about ${extra} extra ${plural(extra, 'trick')}.`,
+      `Speel de ${core.suits[suit]} vrij: met ${total} kaarten samen (${missing} bij de tegenstanders, ${odds}) kan de ${SUIT_SYMBOLS[suit]}-lengte ongeveer ${extra} extra ${slagen(extra)} opleveren.`,
     finesseAQ: (suit: number, holding: string) =>
-      `Finesse in ${core.suits[suit]}: lead toward A-Q (${holding}) and play the queen if the king doesn't appear — about 50%.`,
+      `Snit in ${core.suits[suit]}: speel naar A-Q (${holding}) en leg de vrouw als de heer niet verschijnt — ongeveer 50%.`,
     leadTowardKing: (suit: number, holding: string) =>
-      `In ${core.suits[suit]}, lead toward the king (${holding}): it scores if the ace is on your left — about 50%.`,
+      `Speel in ${core.suits[suit]} naar de heer (${holding}): die maakt een slag als de aas links van je zit — ongeveer 50%.`,
     doubleFinesse: (suit: number) =>
-      `Double finesse in ${core.suits[suit]} (A-J-10): finesse twice; you make two tricks 76% of the time.`,
+      `Dubbele snit in ${core.suits[suit]} (A-J-10): snijd twee keer; in 76% van de gevallen maak je twee slagen.`,
     knockOutAce: (suit: number, withJack: boolean) =>
-      `Knock out the ace of ${core.suits[suit]}: K-Q${withJack ? '-J' : ''} will then give you ${withJack ? '2+ tricks' : '1+ trick'}.`,
-    ntDevelopEarly: 'In notrump, set up extra tricks early, while you still control the suits — and count how many times you can afford to lose the lead.',
-    /** Suits to ruff in the short trump hand, with that hand's length in each (0 = void). */
+      `Drijf de ${core.suitSingular[suit]}aas eruit: K-Q${withJack ? '-J' : ''} levert je daarna ${withJack ? '2+ slagen' : '1+ slag'} op.`,
+    ntDevelopEarly: 'Speel in sans atout je extra slagen vroeg vrij, zolang je de kleuren nog in handen hebt — en tel hoe vaak je de slag kunt afgeven.',
     ruffInShortHand: (inDummy: boolean, suits: { suit: number; len: number }[]) =>
-      `Ruff losers in ${inDummy ? 'dummy' : 'your hand'}, the short trump hand: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]} (${x.len || 'void'})`).join(', ')}. A ruff in the short hand is an extra trick; a ruff in the long trump hand is not.`,
-    /** Extra winners in `suit` to throw losers in `loserSuits` on. */
+      `Troef verliezers in ${inDummy ? 'de dummy' : 'je eigen hand'}, de korte troefhand: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]} (${x.len || 'renonce'})`).join(', ')}. Introeven in de korte hand levert een extra slag op; introeven in de lange troefhand niet.`,
     discardOnWinners: (inDummy: boolean, extra: number, suit: number, loserSuits: number[]) =>
-      `Discards: ${inDummy ? 'dummy' : 'your hand'} has ${extra} extra ${SUIT_SYMBOLS[suit]} ${plural(extra, 'winner')} — throw ${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')} losers from the other hand on ${extra === 1 ? 'it' : 'them'} (usually after drawing trumps).`,
+      `Afgooien: ${inDummy ? 'de dummy' : 'je eigen hand'} heeft ${extra} extra ${extra === 1 ? 'vrije slag' : 'vrije slagen'} in ${SUIT_SYMBOLS[suit]} — gooi daar ${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')}-verliezers uit de andere hand op af (meestal nadat je troef hebt getrokken).`,
     trumpsOut: (n: number, odds: string) =>
-      `Trumps: ${n} ${n === 1 ? 'is' : 'are'} out (${odds}). Draw ${n === 1 ? 'it' : 'them'} early unless you need dummy's trumps for ruffs or must set up a side suit first.`,
+      `Troef: er ${n === 1 ? 'zit nog 1 troef' : `zitten nog ${n} troeven`} buiten (${odds}). Trek ${n === 1 ? 'hem' : 'ze'} vroeg, tenzij je de troeven van de dummy nodig hebt om in te troeven of eerst een bijkleur moet vrijspelen.`,
   },
 
   // -------------------------------------------------------------------------
-  // src/engine/leads.ts — opening leads by the book
+  // src/engine/leads.ts
   leads: {
-    /** Why this card from the suit. */
     card: {
-      singleton: 'A singleton: lead it.',
-      ak: 'Ace from ace-king: you keep the lead and see dummy before deciding what next.',
-      doubleton: 'Top of a doubleton: the high card first, then the low one (high-low shows a doubleton and may get you a ruff).',
-      sequence: (holding: string) => `Top of a sequence (${holding}): promises the card below it and denies the one above.`,
-      interior: (holding: string, rank: number) => `Interior sequence (${holding}): lead the top of the touching cards, ${rankLabel(rank)}.`,
-      touching: (holding: string) => `Top of touching honours (${holding}).`,
-      nothing: 'Top of nothing from three small cards: tells partner you have no honour here.',
-      small: 'From four or more small cards, lead the second-highest so partner does not place you with an honour.',
-      partnerLow: 'Low from an honour and two others in partner’s suit (third best).',
-      fourth: (holding: string) => `Fourth best from your longest and strongest suit (${holding}). Partner can use the Rule of 11.`,
-      third: (holding: string) => `Third best from an honour with two small cards (${holding}): keep the honour to capture one of declarer’s.`,
+      singleton: 'Een singleton: kom ermee uit.',
+      ak: 'De aas van aas-heer: je blijft aan slag en ziet de dummy voordat je beslist hoe je verdergaat.',
+      doubleton: 'De hoogste van een doubleton: eerst de hoge kaart, dan de lage (hoog-laag toont een doubleton en kan je een troefslag opleveren).',
+      sequence: (holding: string) => `De hoogste van een reeks (${holding}): belooft de kaart eronder en ontkent de kaart erboven.`,
+      interior: (holding: string, rank: number) => `Binnenreeks (${holding}): kom uit met de hoogste van de aaneengesloten kaarten, de ${rankLabel(rank)}.`,
+      touching: (holding: string) => `De hoogste van aaneengesloten honneurs (${holding}).`,
+      nothing: 'De hoogste van niets uit drie kleine kaarten: vertelt partner dat je hier geen honneur hebt.',
+      small: 'Met vier of meer kleine kaarten kom je uit met de tweede van boven, zodat partner je geen honneur toedicht.',
+      partnerLow: 'Laag uit een honneur met nog twee kaarten in de kleur van partner (derde van boven).',
+      fourth: (holding: string) => `Vierde van boven uit je langste en sterkste kleur (${holding}). Partner kan de regel van 11 gebruiken.`,
+      third: (holding: string) => `Derde van boven uit een honneur met twee kleine kaarten (${holding}): bewaar de honneur om er een van de leider mee te vangen.`,
     },
-    /** Why this suit. */
     suit: {
-      partnerBid: (suit: number) => `Partner bid ${core.suits[suit]}: leading partner's suit is rarely wrong and usually best.`,
-      theyBid: (suit: number) => `The opponents bid ${core.suits[suit]} — leading their suit usually helps declarer.`,
+      partnerBid: (suit: number) => `Partner heeft ${core.suits[suit]} geboden: uitkomen in de kleur van partner is zelden fout en meestal het best.`,
+      theyBid: (suit: number) => `De tegenstanders hebben ${core.suits[suit]} geboden — uitkomen in hun kleur helpt meestal de leider.`,
       // against notrump
       ntLong: (suit: number, n: number) =>
-        `Against notrump, lead your longest and strongest suit (${n} ${core.suits[suit]}): you hope to set up long-card winners.`,
-      ntSequence: 'A solid sequence is safe and builds tricks.',
-      ntShort: (n: number) => `${n === 1 ? 'A singleton' : `${aCard(n)} suit`}: not the ideal notrump lead.`,
+        `Kom tegen sans atout uit in je langste en sterkste kleur (${n} ${core.suits[suit]}): je hoopt lengteslagen vrij te spelen.`,
+      ntSequence: 'Een gesloten reeks is veilig en maakt slagen vrij.',
+      ntShort: (n: number) => `Een ${holdingWord(n)}: niet de ideale uitkomst tegen sans atout.`,
       // against a suit contract
-      trump: 'A trump lead: safe and passive, and it cuts down dummy’s ruffs.',
-      singleton: 'A singleton: you hope partner wins an early trick and gives you a ruff.',
-      aceAway: 'Never lead away from an ace against a suit contract — and leading the ace itself rarely helps.',
-      sequence: (suit: number) => `Top of a sequence in ${core.suits[suit]}: safe, and it may set up tricks.`,
-      plain: (suit: number, n: number) =>
-        n === 1 ? `A singleton ${core.suitSingular[suit]}.` : `${aCard(n)} ${core.suitSingular[suit]} holding.`,
+      trump: 'Een troefuitkomst: veilig en passief, en het beperkt het introeven in de dummy.',
+      singleton: 'Een singleton: je hoopt dat partner vroeg een slag wint en jou laat introeven.',
+      aceAway: 'Kom tegen een troefcontract nooit onder een aas uit — en uitkomen met de aas zelf helpt zelden.',
+      sequence: (suit: number) => `De hoogste van een reeks in ${core.suits[suit]}: veilig, en het kan slagen vrijspelen.`,
+      plain: (suit: number, n: number) => `Een ${holdingWord(n)} ${core.suits[suit]}.`,
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/tutor/signals.ts — what the opening lead and partner's signals tell you
+  // src/tutor/signals.ts
   signals: {
-    /** Heading over the meaning of the opening lead. */
     leadBy: {
-      you: (card: Card) => `Your opening lead: ${cardName(card)}`,
-      partner: (card: Card) => `Partner’s opening lead: ${cardName(card)}`,
-      seat: (seat: number, card: Card) => `${core.seats[seat]}’s opening lead: ${cardName(card)}`,
+      you: (card: Card) => `Jouw uitkomst: ${cardName(card)}`,
+      partner: (card: Card) => `Uitkomst van partner: ${cardName(card)}`,
+      seat: (seat: number, card: Card) => `Uitkomst van ${core.seats[seat]}: ${cardName(card)}`,
     },
-    /** What the card led usually shows, by rank. */
     lead: {
       ace: (vsNT: boolean) =>
         vsNT
-          ? 'The ace: usually from ace-king (against notrump it can also ask partner to unblock).'
-          : 'The ace: usually from ace-king, or a singleton/doubleton ace.',
+          ? 'De aas: meestal van aas-heer (tegen sans atout kan hij partner ook vragen te deblokkeren).'
+          : 'De aas: meestal van aas-heer, of een singleton of doubleton aas.',
       king: (vsNT: boolean) =>
-        vsNT ? 'The king: top of a sequence — K-Q (or A-K). It denies the ace unless from A-K.' : 'The king: top of a sequence — K-Q. It denies the ace.',
-      queen: 'The queen: top of a sequence (Q-J…), denying the king.',
-      jack: 'The jack: top of J-10…, or from an interior sequence such as K-J-10. Denies the queen.',
-      ten: 'The ten: top of 10-9…, or an interior sequence (Q-10-9, K-10-9).',
-      nine: 'The nine: top of a short or worthless holding, or 9-8-x.',
+        vsNT ? 'De heer: de hoogste van een reeks — K-Q (of A-K). Ontkent de aas, behalve uit A-K.' : 'De heer: de hoogste van een reeks — K-Q. Ontkent de aas.',
+      queen: 'De vrouw: de hoogste van een reeks (Q-J…), ontkent de heer.',
+      jack: 'De boer: de hoogste van J-10…, of uit een binnenreeks zoals K-J-10. Ontkent de vrouw.',
+      ten: 'De tien: de hoogste van 10-9…, of uit een binnenreeks (Q-10-9, K-10-9).',
+      nine: 'De negen: de hoogste van een korte of waardeloze kleur, of uit 9-8-x.',
       low: (suit: number, vsNT: boolean) =>
         vsNT
-          ? `A low ${core.suitSingular[suit]}: probably fourth best from length with an honour. Use the Rule of 11.`
-          : `A low ${core.suitSingular[suit]}: usually third/fourth best from an honour — or a singleton.`,
+          ? `Een kleine ${core.suitSingular[suit]}: waarschijnlijk vierde van boven uit lengte met een honneur. Gebruik de regel van 11.`
+          : `Een kleine ${core.suitSingular[suit]}: meestal derde of vierde van boven uit een honneur — of een singleton.`,
     },
     ruleOf11: {
-      title: 'Rule of 11',
-      /** 11 − rank led = cards above it in the other three hands; `declarer` of them are declarer's. */
+      title: 'Regel van 11',
       text: (rank: number, above: number, seen: number, declarer: number) =>
-        `Rule of 11: 11 − ${rankLabel(rank)} = ${above} cards higher than the ${rankLabel(rank)} in the other three hands. You can see ${seen} (dummy and your hand), so declarer holds ${declarer}.`,
+        `Regel van 11: 11 − ${rankLabel(rank)} = ${above} kaarten hoger dan de ${rankLabel(rank)} in de andere drie handen. Je ziet er ${seen} (in de dummy en je eigen hand), dus de leider heeft er ${declarer}.`,
     },
-    /** Partner's signals (and, for declarer, the defenders' count): `look` says how high the card looks and how sure that is. */
     read: {
       count: {
-        /** `who`: a seat, or null for partner. */
-        title: (who: number | null, card: Card) => `${who === null ? 'Partner’s' : `${core.seats[who]}’s`} ${cardName(card)}: count`,
-        /** `lengths`: the lengths that fit; `declarer`: read from declarer's seat. */
+        title: (who: number | null, card: Card) => `${cardName(card)} van ${who === null ? 'partner' : core.seats[who]}: lengtesignaal`,
         text: (card: Card, look: Look, suit: number, lengths: number[], declarer: boolean) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: wait for the next card in ${core.suits[suit]} to read the count.`
-            : `${looks(card, look)}: ${look.sure ? '' : 'probably '}an ${look.height === 'high' ? 'even' : 'odd'} number of ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Defenders sometimes falsecard, so treat it as a clue.' : ''}`,
+            ? `${cardName(card)} kan hoog of laag zijn: wacht op de volgende kaart in ${core.suits[suit]} om de lengte af te lezen.`
+            : `${looks(card, look)}: ${look.sure ? '' : 'waarschijnlijk '}een ${look.height === 'high' ? 'even' : 'oneven'} aantal ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Tegenspelers geven soms een valse kaart, dus zie het als een aanwijzing.' : ''}`,
       },
       attitude: {
-        title: (card: Card) => `Partner’s ${cardName(card)} on your lead: attitude`,
+        title: (card: Card) => `Partner speelt ${cardName(card)} bij op jouw kaart: attitude`,
         text: (card: Card, look: Look) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner likes the suit.`
-            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'partner likes the suit — continue it.' : 'partner probably likes the suit.') : `partner ${look.sure ? '' : 'probably '}doesn’t like the suit — think about a switch.`}`,
+            ? `${cardName(card)} kan hoog of laag zijn: nog niet duidelijk of partner de kleur wil.`
+            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'partner wil de kleur — speel door.' : 'partner wil de kleur waarschijnlijk.') : `partner wil de kleur ${look.sure ? '' : 'waarschijnlijk '}niet — denk aan een andere kleur.`}`,
       },
       discard: {
-        title: (card: Card) => `Partner discarded ${cardName(card)}`,
+        title: (card: Card) => `Partner gooide ${cardName(card)} af`,
         text: (card: Card, look: Look, suit: number) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner wants ${core.suits[suit]} led.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}${look.height === 'high' ? 'wants' : 'doesn’t want'} ${core.suits[suit]} led.`,
+            ? `${cardName(card)} kan hoog of laag zijn: nog niet duidelijk of partner wil dat je ${core.suits[suit]} speelt.`
+            : `${looks(card, look)}: partner wil ${look.sure ? '' : 'waarschijnlijk '}${look.height === 'high' ? '' : 'niet '}dat je ${core.suits[suit]} speelt.`,
       },
       preference: {
-        title: (card: Card) => `Partner leads ${cardName(card)} for you to ruff: suit preference`,
-        /** `sides`: the other two side suits, lower first. */
+        title: (card: Card) => `Partner speelt ${cardName(card)} voor zodat jij kunt introeven: voorkeurssignaal`,
         text: (card: Card, look: Look, sides: number[]) =>
           look.height === null
-            ? `${cardName(card)} is neither clearly high nor low: partner may have no preference — return whatever suits you best.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}asks for ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} back, the ${look.height === 'high' ? 'higher' : 'lower'} of the other two side suits.`,
+            ? `${cardName(card)} is niet duidelijk hoog of laag: partner heeft misschien geen voorkeur — speel terug wat jou het best uitkomt.`
+            : `${looks(card, look)}: partner vraagt ${look.sure ? '' : 'waarschijnlijk '}om ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} terug, de ${look.height === 'high' ? 'hoogste' : 'laagste'} van de twee andere bijkleuren.`,
       },
     },
-    /** Short labels for a signal a bot gave, e.g. a badge on its card. */
     badge: {
-      count: (even: boolean) => `Count: ${even ? 'even' : 'odd'}`,
-      attitude: (encourage: boolean) => `Attitude: ${encourage ? 'encouraging' : 'discouraging'}`,
-      discard: (encourage: boolean, suit: number) => `Discard: ${encourage ? 'encouraging' : 'discouraging'} ${SUIT_SYMBOLS[suit]}`,
-      /** The suit asked for, or null for no preference. */
-      preference: (suit: number | null) => `Suit preference: ${suit === null ? 'none' : SUIT_SYMBOLS[suit]}`,
+      count: (even: boolean) => `Lengte: ${even ? 'even' : 'oneven'}`,
+      attitude: (encourage: boolean) => `Attitude: ${encourage ? 'aanmoedigend' : 'ontmoedigend'}`,
+      discard: (encourage: boolean, suit: number) => `Afgooisignaal: ${encourage ? 'aanmoedigend' : 'ontmoedigend'} ${SUIT_SYMBOLS[suit]}`,
+      preference: (suit: number | null) => `Voorkeur: ${suit === null ? 'geen' : SUIT_SYMBOLS[suit]}`,
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/core/eval.ts — the hand-evaluation table: label, value, note
+  // src/core/eval.ts
   eval: {
-    hcp: 'HCP',
+    hcp: 'Punten',
     hcpNote: 'A=4 K=3 Q=2 J=1',
-    total: 'Total pts',
-    totalNote: (lengthPts: number) => `HCP + ${lengthPts} for length`,
-    shape: 'Shape',
-    balanced: 'balanced',
-    semiBalanced: 'semi-balanced',
-    unbalanced: 'unbalanced',
-    losers: 'Losers',
-    losersNote: 'Losing Trick Count',
-    quickTricks: 'Quick tricks',
+    total: 'Totaal',
+    totalNote: (lengthPts: number) => `punten + ${lengthPts} voor lengte`,
+    shape: 'Verdeling',
+    balanced: 'evenwichtig',
+    semiBalanced: 'semi-evenwichtig',
+    unbalanced: 'onevenwichtig',
+    losers: 'Verliezers',
+    losersNote: 'verliezerstelling (LTC)',
+    quickTricks: 'Snelle slagen',
     quickTricksNote: 'AK=2 AQ=1½ A=1 KQ=1 Kx=½',
-    longest: 'Longest',
-    controls: (n: number) => `${n} ${plural(n, 'control')}`,
+    longest: 'Langste',
+    controls: (n: number) => `${n} ${n === 1 ? 'controle' : 'controles'}`,
   },
 
   // -------------------------------------------------------------------------
-  // src/core/scoring.ts — the par contract in the review
+  // src/core/scoring.ts
   par: {
-    /** "4♠X by N/S (N)": the contract, the side, and the seat that declares it. */
     contract: (contract: string, declarer: number) =>
-      `${contract} by ${core.seatLetters[declarer & 1]}/${core.seatLetters[(declarer & 1) + 2]} (${core.seatLetters[declarer]})`,
+      `${contract} door ${core.seatLetters[declarer & 1]}/${core.seatLetters[(declarer & 1) + 2]} (${core.seatLetters[declarer]})`,
   },
 };
