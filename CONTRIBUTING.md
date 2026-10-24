@@ -33,7 +33,9 @@ https://bridge-tutor.pages.dev by Cloudflare.
 `core`, `ui`, `bidding`, `tutor`, `practice`) and lessons in `src/learn/content/<lang>/`. English
 defines the shape; the compiler rejects a language that misses a key. Read `T.<area>.<key>` while
 rendering (never into a module-level constant), pass suits and seats as indexes and let each
-language word them, and add every new string in every language.
+language word them, and add every new string in every language. Join pieces with the helpers in
+`src/i18n/index.ts` (`fmtNum`, `fmtPct`, `fmtList`, `fmtUnit`, `fmtLabel`), not with hard-coded
+`", "`, `": "` or `"%"`: languages differ in punctuation and spacing.
 
 **The bots never depend on the language.** Logic must not compare or search displayed text; rules
 and readings carry language-neutral keys and tags. `test/i18n-*.test.ts` checks that whole auctions,
@@ -59,7 +61,7 @@ numbers; text is rendered from them in the active language.
 
 - **Add a language:** see "Adding a language" in the README.
 - **Add a convention:** a switch in `src/bidding/config.ts` (off reproduces today's auctions), the
-  rules and their follow-ups under `src/bidding/`, texts in both bidding catalogues, a lesson in
+  rules and their follow-ups under `src/bidding/`, texts in every bidding catalogue, a lesson in
   `src/learn/content/<lang>/conventions.ts`, tests in `test/conventions.test.ts`, and a
   measurement against par.
 - **Add a lesson:** add it to every language's content with the same id, diagrams and quiz

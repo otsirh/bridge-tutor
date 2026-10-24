@@ -76,7 +76,7 @@ npm run dev          # http://localhost:5173
 |---|---|
 | `npx tsc --noEmit` | type-check |
 | `npm run lint` | Biome |
-| `npm test` | unit tests: solver against brute force, scoring, bidding and conventions, both languages, lessons, journal, deal formats |
+| `npm test` | unit tests: solver against brute force, scoring, bidding and conventions, every language, lessons, journal, deal formats |
 | `npm run build` | the website in `dist/`: code-split, each language loaded only when chosen, plus the icons, manifest and service worker |
 | `npm run build:single` | one self-contained `dist-single/index.html` with everything inlined, for hosts that take a single page |
 | `npm run test:e2e` | plays the built app in a real browser (Playwright); `PW_CHROMIUM=/path/to/chrome` uses an installed browser |
@@ -113,12 +113,13 @@ English defines the shape of the catalogue; the compiler rejects a language that
 changes a function's parameters. The bots' behaviour never depends on the language: tests check that
 whole auctions, inferences and tutor decisions are identical in every language.
 
-**Adding a language** (e.g. German, `de`):
+**Adding a language** (e.g. Swedish, `sv`):
 
-1. Copy `src/i18n/en` to `src/i18n/de` and translate it (keep the keys and function signatures; adapt
+1. Copy `src/i18n/en` to `src/i18n/sv` and translate it (keep the keys and function signatures; adapt
    grammar inside the functions — plurals, word order).
-2. Add `'de'` to `Lang` and `LANGUAGES` in `src/i18n/index.ts` and to its `LOADERS`.
-3. Optionally add lessons in `src/learn/content/de/` (same ids, diagrams and quiz answers as English;
+2. Add `'sv'` to `Lang` and `LANGUAGES` in `src/i18n/index.ts` (with its locale, and its list, unit and colon
+   separators if they differ from English) and to its `LOADERS`.
+3. Optionally add lessons in `src/learn/content/sv/` (same ids, diagrams and quiz answers as English;
    `test/lessons.test.ts` checks this) and add it to the `LOADERS` in `src/learn/lessons.ts`. Until
    then the English lessons are shown.
 4. `npx tsc --noEmit && npm test`.
