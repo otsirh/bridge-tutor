@@ -305,6 +305,7 @@ export const ui: Text['ui'] = {
     tabs: { lessons: 'Lecciones', bid: 'Práctica de subasta', lead: 'Práctica de salidas', count: 'Práctica de recuento', glossary: 'Glosario' },
     lessonsNav: 'Lecciones',
     noLessons: 'No se han encontrado lecciones.',
+    loadingLessons: 'Cargando las lecciones…',
     /** Lesson topics and levels, keyed by their ids in the lesson files. */
     topics: {
       Basics: 'Fundamentos',

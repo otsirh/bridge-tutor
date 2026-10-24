@@ -302,6 +302,7 @@ export const ui = {
     tabs: { lessons: 'Lessons', bid: 'Bidding drill', lead: 'Lead drill', count: 'Counting drill', glossary: 'Glossary' },
     lessonsNav: 'Lessons',
     noLessons: 'No lessons found.',
+    loadingLessons: 'Loading the lessons…',
     /** Lesson topics and levels, keyed by their ids in the lesson files. */
     topics: {
       Basics: 'Basics',

@@ -266,6 +266,7 @@ export const ui: Text['ui'] = {
     tabs: { lessons: '课程', bid: '叫牌练习', lead: '首攻练习', count: '计算练习', glossary: '术语表' },
     lessonsNav: '课程',
     noLessons: '没有找到课程。',
+    loadingLessons: '正在加载课程…',
     topics: {
       Basics: '基础',
       Bidding: '叫牌',

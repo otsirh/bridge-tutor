@@ -269,6 +269,7 @@ export const ui: Text['ui'] = {
     tabs: { lessons: 'Leçons', bid: 'Enchères', lead: 'Entame', count: 'Comptage', glossary: 'Glossaire' },
     lessonsNav: 'Leçons',
     noLessons: 'Aucune leçon trouvée.',
+    loadingLessons: 'Chargement des cours…',
     topics: {
       Basics: 'Les bases',
       Bidding: 'Enchères',

@@ -18,11 +18,16 @@
 
 export type { LessonTopic, LessonLevel, QuizQuestion, Lesson, GlossaryEntry, LessonContent } from './types';
 import type { Lesson, GlossaryEntry, LessonContent } from './types';
-import { lang, locale, addLanguageData, type Lang } from '../i18n';
-import { content as en } from './content/en';
+import { lang, locale, type Lang } from '../i18n';
 
-/** Lessons for every language but English load with the language (one chunk each). */
-const LOADERS: Record<Exclude<Lang, 'en'>, () => Promise<LessonContent>> = {
+/**
+ * Lessons load when first needed (the Learn and Training rooms), not before
+ * the first screen: they are the biggest part of every language and the table
+ * doesn't use them. The app also asks for them once the browser is idle after
+ * start-up, so they are usually there before anyone opens a lesson.
+ */
+const LOADERS: Record<Lang, () => Promise<LessonContent>> = {
+  en: () => import('./content/en').then(m => m.content),
   bg: () => import('./content/bg').then(m => m.content),
   de: () => import('./content/de').then(m => m.content),
   es: () => import('./content/es').then(m => m.content),
@@ -35,17 +40,39 @@ const LOADERS: Record<Exclude<Lang, 'en'>, () => Promise<LessonContent>> = {
   ja: () => import('./content/ja').then(m => m.content),
   zh: () => import('./content/zh').then(m => m.content),
 };
-const CONTENT: Partial<Record<Lang, LessonContent>> = { en };
+const CONTENT: Partial<Record<Lang, LessonContent>> = {};
+const loading = new Map<Lang, Promise<void>>();
+const EMPTY: LessonContent = { lessons: [], glossary: [] };
 
-addLanguageData({
-  has: l => !!CONTENT[l],
-  load: async l => {
-    if (l !== 'en' && !CONTENT[l]) CONTENT[l] = await LOADERS[l]();
-  },
-});
+/** The first lesson of the course (where a beginner starts). */
+export const FIRST_LESSON = 'how-bridge-works';
+
+/** Whether the active language's lessons are loaded. */
+export function lessonsReady(): boolean {
+  return !!CONTENT[lang()];
+}
+
+/** Load a language's lessons (the active one by default). Resolves at once when they are here. */
+export function ensureLessons(l: Lang = lang()): Promise<void> {
+  if (CONTENT[l]) return Promise.resolve();
+  let p = loading.get(l);
+  if (!p) {
+    p = LOADERS[l]().then(
+      c => {
+        CONTENT[l] = c;
+      },
+      e => {
+        loading.delete(l); // try again next time (offline, or the app was updated)
+        throw e;
+      },
+    );
+    loading.set(l, p);
+  }
+  return p;
+}
 
 function active(): LessonContent {
-  return CONTENT[lang()] ?? en;
+  return CONTENT[lang()] ?? CONTENT.en ?? EMPTY;
 }
 
 export function getLessons(): Lesson[] {
@@ -56,16 +83,17 @@ const sortedGlossary = new Map<Lang, GlossaryEntry[]>();
 
 /** The glossary in the language's alphabetical order, numbers by value ("Rule of 7" before "Rule of 11"). */
 export function getGlossary(): GlossaryEntry[] {
-  let g = sortedGlossary.get(lang());
+  const l = lang();
+  let g = sortedGlossary.get(l);
   if (!g) {
     const order = new Intl.Collator(locale(), { numeric: true });
     g = [...active().glossary].sort((a, b) => order.compare(a.term, b.term));
-    sortedGlossary.set(lang(), g);
+    if (CONTENT[l]) sortedGlossary.set(l, g);
   }
   return g;
 }
 
 /** Lesson by id in the active language (falls back to English). */
 export function getLesson(id: string): Lesson | undefined {
-  return active().lessons.find(l => l.id === id) ?? en.lessons.find(l => l.id === id);
+  return active().lessons.find(l => l.id === id) ?? CONTENT.en?.lessons.find(l => l.id === id);
 }

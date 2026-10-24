@@ -274,6 +274,7 @@ export const ui: Text['ui'] = {
     tabs: { lessons: 'Уроки', bid: 'Торговля', lead: 'Первый ход', count: 'Подсчёт', glossary: 'Словарь' },
     lessonsNav: 'Уроки',
     noLessons: 'Уроки не найдены.',
+    loadingLessons: 'Загрузка уроков…',
     topics: {
       Basics: 'Основы',
       Bidding: 'Торговля',

@@ -66,25 +66,13 @@ const LOADERS: Record<Exclude<Lang, 'en'>, () => Promise<Text>> = {
 };
 const CATALOGUES: Partial<Record<Lang, Text>> = { en };
 
-/** Per-language data kept elsewhere (the lessons), loaded together with the catalogue. */
-export interface LanguageData {
-  has(l: Lang): boolean;
-  load(l: Lang): Promise<void>;
-}
-const extras: LanguageData[] = [];
-export function addLanguageData(d: LanguageData) {
-  extras.push(d);
-}
-
 export function isLoaded(l: Lang): boolean {
-  return !!CATALOGUES[l] && extras.every(d => d.has(l));
+  return !!CATALOGUES[l];
 }
 
-/** Load a language's catalogue and data (does nothing if they are already there). */
+/** Load a language's catalogue (does nothing if it is already there). Lessons load separately (src/learn/lessons.ts). */
 export async function loadLang(l: Lang): Promise<void> {
-  const jobs: Promise<unknown>[] = extras.filter(d => !d.has(l)).map(d => d.load(l));
-  if (!CATALOGUES[l] && l !== 'en') jobs.push(LOADERS[l]().then(t => (CATALOGUES[l] = t)));
-  await Promise.all(jobs);
+  if (!CATALOGUES[l] && l !== 'en') CATALOGUES[l] = await LOADERS[l]();
 }
 const KEY = 'bridge-tutor.lang.v1';
 

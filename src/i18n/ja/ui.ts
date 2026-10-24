@@ -266,6 +266,7 @@ export const ui: Text['ui'] = {
     tabs: { lessons: 'レッスン', bid: 'ビッド練習', lead: 'リード練習', count: 'カウント練習', glossary: '用語集' },
     lessonsNav: 'レッスン',
     noLessons: 'レッスンが見つかりません。',
+    loadingLessons: 'レッスンを読み込んでいます…',
     topics: {
       Basics: '基礎',
       Bidding: 'ビッド',

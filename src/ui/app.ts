@@ -12,7 +12,7 @@ import { renderReview, reviewSignature } from './review';
 import { renderLearn, relocalizeDrills } from './learn';
 import { renderTraining, trainingSignature, dueCount, type TrainingActions } from './training';
 import { getBoard, decodeDeal, loadBoards } from '../game/journal';
-import { getLessons } from '../learn/lessons';
+import { FIRST_LESSON, ensureLessons, lessonsReady } from '../learn/lessons';
 import { importBoards } from '../core/importer';
 import { PbnError } from '../core/pbn';
 import { CONVENTIONS, DEFAULT_SYSTEM, type ConventionId } from '../bidding/config';
@@ -404,7 +404,7 @@ export function mountApp(root: HTMLElement) {
       h('div', { class: 'body' },
         h('p', { style: 'margin:0 0 14px' }, w.intro),
         h('div', { class: 'welcome-choices' },
-          choice(w.newTitle, w.newDesc, () => training.openLesson(getLessons()[0].id)),
+          choice(w.newTitle, w.newDesc, () => training.openLesson(FIRST_LESSON)),
           choice(w.rulesTitle, w.rulesDesc, () => { game.updateSettings({ tutor: true, autoHint: true }); actions.close(); }),
           choice(w.playTitle, w.playDesc, () => actions.close())),
         h('p', { class: 'small muted', style: 'margin:14px 0 0' }, w.note)));
@@ -417,7 +417,15 @@ export function mountApp(root: HTMLElement) {
     panel.setAttribute('aria-label', T.ui.header.tutorRegion);
   }
 
+  /** Lessons load on demand: when a room that shows them is open without them, fetch them and draw it again. */
+  function needLessons() {
+    if ((ui.modal === 'learn' || ui.modal === 'training') && !lessonsReady()) {
+      ensureLessons().then(() => render(true), () => {});
+    }
+  }
+
   function render(forceModal = false) {
+    needLessons();
     rHeader.update(JSON.stringify([game.board, game.dealer, game.vul, game.contract, game.settings.tutor, game.settings.theme, dueNow(), confirmNew]), () => renderHeader());
     rTable.update(tableSignature(game, ui), () => renderTable(game, ui, actions));
     main.className = `main ${game.settings.tutor ? '' : 'solo'}`;
@@ -497,6 +505,7 @@ export function mountApp(root: HTMLElement) {
   // A new language can come at any moment: re-word the game and the drills,
   // then redraw everything, the open dialog included. The hand carries on.
   onLangChange(() => {
+    void ensureLessons().catch(() => {});
     game.relocalize();
     viewer?.relocalize();
     relocalizeDrills();
@@ -532,6 +541,9 @@ export function mountApp(root: HTMLElement) {
     else actions.close();
   });
   renderShell();
+  // fetch the lessons once the browser has a quiet moment, so the Learn room opens at once
+  const whenIdle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 2000));
+  whenIdle(() => void ensureLessons().catch(() => {}));
   // a shared link (…#b=CODE) opens its deal; otherwise a first visit is welcomed
   const shared = location.hash.match(/[#&]b=([A-Za-z0-9_-]+)/);
   if (!shared && firstVisit()) ui.modal = 'welcome';

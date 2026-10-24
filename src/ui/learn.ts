@@ -8,7 +8,7 @@ import { describeShown } from '../bidding/types';
 import { openingLeadChoices, type LeadChoice } from '../engine/leads';
 import { ddCardValues } from '../engine/playEngine';
 import { makePlan, type Plan } from '../tutor/planner';
-import { getLessons, getGlossary, type Lesson } from '../learn/lessons';
+import { getLessons, getGlossary, lessonsReady, type Lesson } from '../learn/lessons';
 import { loadLessonProgress, updateLessonProgress, addItems, encodeDeal } from '../game/journal';
 import { bidSkill } from '../game/skills';
 import { LESSON_THEMES } from '../game/themes';
@@ -401,7 +401,7 @@ export function renderLearn(ui: UIState, act: LearnActions): HTMLElement {
           h('div', null, (progress[l.id]?.quizBest ?? 0) >= 0.8 ? h('span', { class: 'done', 'aria-label': T.practice.lessonDone }, '✓ ') : null, suitText(l.title)),
           h('div', { class: 'lvl' }, t.levels[l.level]))),
       ])),
-      current ? lessonView(current, act) : h('p', null, t.noLessons));
+      current ? lessonView(current, act) : h('p', null, lessonsReady() ? t.noLessons : t.loadingLessons));
   } else if (tab === 'glossary') {
     body = h('dl', { class: 'lesson-body' }, getGlossary().map(g => [h('dt', { style: 'font-weight:700;margin-top:10px' }, suitText(g.term)), h('dd', { style: 'margin:2px 0 0' }, suitText(g.def))]));
   } else if (tab === 'bid') body = bidDrillView(act);

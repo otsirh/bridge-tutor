@@ -42,7 +42,8 @@ function serviceWorker(): Plugin {
           if (dep?.type === 'chunk') add(dep);
         }
       };
-      for (const c of chunks) if (c.isEntry) add(c);
+      // the app, plus the English lessons (loaded on demand, but always there offline)
+      for (const c of chunks) if (c.isEntry || /\/learn\/content\/en\/index\.ts$/.test(c.facadeModuleId ?? '')) add(c);
       const list = [...files].sort().map(f => `/${f}`);
       const version = createHash('sha256').update(list.join('\n')).digest('hex').slice(0, 10);
       const source = readFileSync('src/sw.js', 'utf8')

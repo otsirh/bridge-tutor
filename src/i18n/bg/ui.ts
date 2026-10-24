@@ -268,6 +268,7 @@ export const ui: Text['ui'] = {
     tabs: { lessons: 'Уроци', bid: 'Лицитация', lead: 'Първи извод', count: 'Броене', glossary: 'Речник' },
     lessonsNav: 'Уроци',
     noLessons: 'Няма уроци.',
+    loadingLessons: 'Уроците се зареждат…',
     topics: {
       Basics: 'Основи',
       Bidding: 'Лицитация',
