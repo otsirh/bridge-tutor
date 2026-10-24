@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Z 6 PC, pięcioma kierami i singlem, ♠4 ♥QJ852 ♦K9763 ♣82, skocz po 1♥ na 4♥. Przeciwnicy na pewno mają fit i sporo punktów, a ty chcesz, żeby zgadywali na wysokości pięciu.</p>
 
 <h4>Trzykartowe poparcie i 10-12 punktów</h4>
-<p>Skok na trzy obiecuje cztery atuty. Mając tylko trzy, najpierw zalicytuj nowy kolor, a w następnej odzywce podnieś kolor starszy partnera na poziom trzech (inwitująco): po 1♥ ręka ♠A84 ♥K93 ♦KJ752 ♣64 licytuje 2♦, a potem 3♥. Z trzykartowym poparciem i 13+ najpierw zalicytuj nowy kolor, a potem dograną w kolorze starszym partnera.</p>
+<p>Skok na trzy obiecuje zwykle cztery atuty. Mając tylko trzy, najpierw zalicytuj nowy kolor, a w następnej odzywce popraj kolor starszy partnera: po 1♥ ręka ♠A84 ♥K93 ♦KJ752 ♣64 licytuje 2♦, a potem 4♥ – 11 punktów i fit naprzeciw otwarcia zwykle wystarczą na dograną. (Tylko gdy krótkość podnosi do 11–12 punktów rękę ze zbyt małą liczbą PC na dwa nad jeden, z trzema atutami od razu skacze się na 3♥: 1BA zaprzeczałoby poparciu.) Z trzykartowym poparciem i 13+ najpierw zalicytuj nowy kolor, a potem dograną w kolorze starszym partnera.</p>
 
 <h3>Odpowiedzi na 1♣ lub 1♦</h3>
 <p>Partner może mieć w młodszym tylko trzy karty, a fit w starszym jest więcej wart, więc najpierw szukaj fitu w starszym.</p>

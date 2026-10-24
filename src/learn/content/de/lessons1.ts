@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Mit 6 FP, fünf Coeur und einem Single, ♠4 ♥QJ852 ♦K9763 ♣82, springen Sie über 1♥ auf 4♥. Die Gegner haben sicher einen Fit und reichlich Punkte, und Sie wollen sie zwingen, auf der Fünferstufe zu raten.</p>
 
 <h4>Dreierunterstützung und 10–12 Punkte</h4>
-<p>Der Sprung auf die Dreierstufe verspricht vier Trümpfe. Mit nur drei Trümpfen bieten Sie zuerst eine neue Farbe und heben danach Partners Oberfarbe auf die Dreierstufe (einladend): Mit ♠A84 ♥K93 ♦KJ752 ♣64 bieten Sie über 1♥ zuerst 2♦ und dann 3♥. Mit Dreierunterstützung und 13+ bieten Sie zuerst eine neue Farbe und dann das Vollspiel in der Oberfarbe.</p>
+<p>Der Sprung auf die Dreierstufe verspricht normalerweise vier Trümpfe. Mit nur drei Trümpfen bieten Sie zuerst eine neue Farbe und unterstützen danach Partners Oberfarbe: Mit ♠A84 ♥K93 ♦KJ752 ♣64 bieten Sie über 1♥ zuerst 2♦ und dann 4♥ – 11 Punkte und ein Fit gegenüber einer Eröffnung reichen meist für das Vollspiel. (Nur wenn eine Kürze ein Blatt mit zu wenig Figurenpunkten für ein Zwei-über-eins auf 11–12 Punkte hebt, springen Sie mit drei Trümpfen sofort auf 3♥: 1SA würde die Unterstützung verneinen.) Mit Dreierunterstützung und 13+ bieten Sie zuerst eine neue Farbe und dann das Vollspiel in der Oberfarbe.</p>
 
 <h3>Antworten auf 1♣ oder 1♦</h3>
 <p>Partner hat in der Unterfarbe vielleicht nur drei Karten, und ein Fit in einer Oberfarbe ist mehr wert; suchen Sie also zuerst nach einer Oberfarbe.</p>

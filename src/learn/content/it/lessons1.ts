@@ -340,7 +340,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Con 6 PO, cinque cuori e un singolo, ♠4 ♥QJ852 ♦K9763 ♣82, su 1♥ salta a 4♥. Gli avversari hanno sicuramente un fit e molti punti, e tu vuoi costringerli a indovinare a livello di cinque.</p>
 
 <h4>Appoggio terzo e 10-12 punti</h4>
-<p>Il salto a tre promette quattro atout. Con tre sole carte dichiara prima un nuovo colore e poi appoggia la nobile del compagno a livello di tre (invitante): su 1♥, con ♠A84 ♥K93 ♦KJ752 ♣64 si dichiara 2♦ e poi 3♥. Con appoggio terzo e 13+ dichiara prima un nuovo colore e poi la manche nella nobile.</p>
+<p>Il salto a tre promette di norma quattro atout. Con tre sole carte dichiara prima un nuovo colore e poi appoggia la nobile del compagno: su 1♥, con ♠A84 ♥K93 ♦KJ752 ♣64 si dichiara 2♦ e poi 4♥: 11 punti e un fit di fronte a un’apertura bastano di solito per la manche. (Solo quando una corta porta a 11–12 punti una mano con troppo pochi PO per un due su uno si salta subito a 3♥ con tre atout: 1SA negherebbe l’appoggio.) Con appoggio terzo e 13+ dichiara prima un nuovo colore e poi la manche nella nobile.</p>
 
 <h3>Rispondere a 1♣ o 1♦</h3>
 <p>Il compagno può avere solo tre carte nel minore, e un fit nobile vale di più, quindi cerca prima una nobile.</p>

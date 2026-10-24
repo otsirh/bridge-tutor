@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Avec 6 H, cinq cœurs et un singleton, ♠4 ♥QJ852 ♦K9763 ♣82, sautez à 4♥ sur 1♥. Les adversaires ont sûrement un fit et beaucoup de points, et vous voulez les obliger à deviner au palier de 5.</p>
 
 <h4>Soutien de trois cartes et 10-12 points</h4>
-<p>Le saut à 3 promet quatre atouts. Avec trois seulement, nommez d’abord une couleur nouvelle, puis soutenez la majeure du partenaire au palier de 3 (proposition) : sur 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 dit 2♦, puis 3♥. Avec trois cartes de soutien et 13+, nommez d’abord une couleur nouvelle, puis demandez la manche dans la majeure.</p>
+<p>Le saut à 3 promet normalement quatre atouts. Avec trois seulement, nommez d’abord une couleur nouvelle, puis soutenez la majeure du partenaire : sur 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 dit 2♦, puis 4♥ — 11 points et un fit face à une ouverture suffisent en général pour la manche. (C’est seulement quand une courte porte à 11–12 points une main trop faible en H pour un deux sur un qu’on saute d’emblée à 3♥ avec trois atouts : 1SA nierait le soutien.) Avec trois cartes de soutien et 13+, nommez d’abord une couleur nouvelle, puis demandez la manche dans la majeure.</p>
 
 <h3>Répondre à 1♣ ou 1♦</h3>
 <p>Votre partenaire n’a peut-être que trois cartes dans sa mineure, et un fit majeur vaut davantage : cherchez d’abord une majeure.</p>

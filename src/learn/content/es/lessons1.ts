@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Con 6 PH, cinco corazones y un semifallo, ♠4 ♥QJ852 ♦K9763 ♣82, salta a 4♥ sobre 1♥. Los rivales seguro que tienen fit y muchos puntos, y quieres que tengan que adivinar a nivel de cinco.</p>
 
 <h4>Apoyo de tres cartas y 10-12 puntos</h4>
-<p>El salto a tres promete cuatro triunfos. Con solo tres, declara primero un palo nuevo y luego apoya el mayor de tu compañero a nivel de tres (invitativo): sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 declara 2♦ y luego 3♥. Con apoyo de tres cartas y 13+, declara primero un palo nuevo y luego la manga en el mayor.</p>
+<p>El salto a tres promete normalmente cuatro triunfos. Con solo tres, declara primero un palo nuevo y luego apoya el mayor de tu compañero: sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 declara 2♦ y luego 4♥: 11 puntos y un fit frente a una apertura suelen bastar para la manga. (Solo cuando la cortedad eleva a 11–12 puntos una mano sin PH suficientes para un dos sobre uno saltas a 3♥ enseguida con tres triunfos: 1SA negaría el apoyo.) Con apoyo de tres cartas y 13+, declara primero un palo nuevo y luego la manga en el mayor.</p>
 
 <h3>Responder a 1♣ o 1♦</h3>
 <p>Tu compañero puede tener solo tres cartas en el menor, y un fit en un mayor vale más, así que busca primero un mayor.</p>

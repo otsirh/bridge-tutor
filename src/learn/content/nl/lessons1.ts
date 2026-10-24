@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Met 6 punten, vijf harten en een singleton, ♠4 ♥QJ852 ♦K9763 ♣82, spring je na 1♥ naar 4♥. De tegenstanders hebben vast een fit en een hoop punten, en je wilt ze laten gokken op 5-niveau.</p>
 
 <h4>Driekaartsteun en 10-12 punten</h4>
-<p>De sprong naar drie belooft vier troeven. Met maar drie bied je eerst een nieuwe kleur en verhoog je daarna de hoge kleur van partner naar drie (inviterend): na 1♥ biedt ♠A84 ♥K93 ♦KJ752 ♣64 eerst 2♦ en daarna 3♥. Met driekaartsteun en 13+ bied je eerst een nieuwe kleur en daarna manche in de hoge kleur.</p>
+<p>De sprong naar drie belooft normaal vier troeven. Met maar drie bied je eerst een nieuwe kleur en steun je daarna de hoge kleur van partner: na 1♥ biedt ♠A84 ♥K93 ♦KJ752 ♣64 eerst 2♦ en daarna 4♥ — 11 punten en een fit tegenover een opening zijn meestal genoeg voor de manche. (Alleen als een korte kleur een hand met te weinig punten voor twee-over-een op 11–12 punten brengt, spring je met drie troeven meteen naar 3♥: 1SA zou de steun ontkennen.) Met driekaartsteun en 13+ bied je eerst een nieuwe kleur en daarna manche in de hoge kleur.</p>
 
 <h3>Antwoorden op 1♣ of 1♦</h3>
 <p>Partner kan maar drie kaarten in de lage kleur hebben, en een fit in een hoge kleur is meer waard, dus zoek eerst naar een hoge kleur.</p>

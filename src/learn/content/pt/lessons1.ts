@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Com 6 PH, cinco copas e um singleton, ♠4 ♥QJ852 ♦K9763 ♣82, salte para 4♥ sobre 1♥. Os adversários certamente têm um fit e muitos pontos, e você quer obrigá-los a adivinhar no nível de 5.</p>
 
 <h4>Apoio de três cartas e 10-12 pontos</h4>
-<p>O salto para três promete quatro trunfos. Com apenas três, marque primeiro um naipe novo e depois apoie o rico do parceiro no nível de três (convite): sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 marca 2♦ e depois 3♥. Com apoio de três cartas e 13+, marque primeiro um naipe novo e depois o game no rico.</p>
+<p>O salto para três promete normalmente quatro trunfos. Com apenas três, marque primeiro um naipe novo e depois apoie o rico do parceiro: sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 marca 2♦ e depois 4♥ — 11 pontos e um fit diante de uma abertura costumam bastar para o game. (Só quando uma curta leva a 11–12 pontos uma mão sem PH suficientes para um dois sobre um você salta para 3♥ de imediato com três trunfos: 1ST negaria o apoio.) Com apoio de três cartas e 13+, marque primeiro um naipe novo e depois o game no rico.</p>
 
 <h3>Respondendo a 1♣ ou 1♦</h3>
 <p>O parceiro pode ter só três cartas no pobre, e um fit num naipe rico vale mais, então procure primeiro um rico.</p>

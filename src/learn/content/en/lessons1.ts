@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>With 6 HCP, five hearts and a singleton, ♠4 ♥QJ852 ♦K9763 ♣82, jump to 4♥ over 1♥. The opponents surely have a fit and plenty of points, and you want them to guess at the five level.</p>
 
 <h4>Three-card support and 10-12 points</h4>
-<p>The jump to three promises four trumps. With only three, bid a new suit first and then raise partner's major to the three level (invitational): over 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 bids 2♦ and then 3♥. With three-card support and 13+, bid a new suit first and then bid game in the major.</p>
+<p>The jump to three normally promises four trumps. With only three, bid a new suit first and then support partner's major: over 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 bids 2♦ and then 4♥ — 11 points and a fit opposite an opening bid are usually enough for game. (Only when shortness lifts a hand too weak in HCP for a two-over-one to 11–12 points do you jump to 3♥ at once with three trumps: 1NT would deny the support.) With three-card support and 13+, bid a new suit first and then bid game in the major.</p>
 
 <h3>Responding to 1♣ or 1♦</h3>
 <p>Partner may have only three cards in the minor, and a major-suit fit is worth more, so look for a major first.</p>
