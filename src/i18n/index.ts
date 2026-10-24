@@ -26,6 +26,8 @@ export interface LanguageInfo {
   id: Lang;
   name: string; // in the language itself
   locale: string; // for numbers and dates
+  listSep?: string; // between items of a list (default ", ")
+  unitSep?: string; // between a number and its unit (default " ")
 }
 
 export const LANGUAGES: LanguageInfo[] = [
@@ -39,8 +41,8 @@ export const LANGUAGES: LanguageInfo[] = [
   { id: 'pt', name: 'Português', locale: 'pt-BR' },
   { id: 'bg', name: 'Български', locale: 'bg-BG' },
   { id: 'ru', name: 'Русский', locale: 'ru-RU' },
-  { id: 'ja', name: '日本語', locale: 'ja-JP' },
-  { id: 'zh', name: '中文', locale: 'zh-CN' },
+  { id: 'ja', name: '日本語', locale: 'ja-JP', listSep: '、', unitSep: '' },
+  { id: 'zh', name: '中文', locale: 'zh-CN', listSep: '、', unitSep: '' },
 ];
 
 /**
@@ -95,8 +97,12 @@ export function lang(): Lang {
   return current;
 }
 
+function info(): LanguageInfo {
+  return LANGUAGES.find(l => l.id === current)!;
+}
+
 export function locale(): string {
-  return LANGUAGES.find(l => l.id === current)!.locale;
+  return info().locale;
 }
 
 export function isLang(x: unknown): x is Lang {
@@ -200,6 +206,16 @@ export function fmtPct(frac: number, digits = 0): string {
 /** A signed whole number ("+3", "−2", "0"). */
 export function fmtSigned(x: number): string {
   return x > 0 ? `+${x}` : x < 0 ? `−${-x}` : '0';
+}
+
+/** Items as a list ("A, B, C"; "A、B、C" in Japanese and Chinese). */
+export function fmtList(items: readonly string[]): string {
+  return items.join(info().listSep ?? ', ');
+}
+
+/** A number with its unit ("13 HCP"; "13点" in Chinese). */
+export function fmtUnit(n: number | string, unit: string): string {
+  return `${n}${info().unitSep ?? ' '}${unit}`;
 }
 
 export function fmtDate(ms: number): string {

@@ -14,7 +14,7 @@ import { toPBN } from '../core/pbn';
 import { bboHandviewerUrl } from '../core/lin';
 import { encodeBoard } from '../core/share';
 import type { BoardData } from '../core/pbn';
-import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
+import { T, fmtList, fmtNum, fmtPct, fmtSigned, fmtUnit } from '../i18n';
 import { h, suitText } from './dom';
 import { diagramHand, cardText } from './cards';
 import type { UIState } from './app';
@@ -42,14 +42,14 @@ function hero(g: Game): HTMLElement {
     tiles.push(tile(t.contract, suitText(`${contractName(c)} ${SEAT_LETTERS[c.declarer]}`), diff >= 0 ? (diff ? t.madeOver(diff) : t.madeExactly) : t.down(-diff)));
   } else tiles.push(tile(t.contract, contractName(null), t.noScore));
   tiles.push(tile(t.score, fmtSigned(rv.scoreNS), c ? t.declTricks(rv.declTricks) : ''));
-  if (rv.par) tiles.push(tile(t.par, fmtSigned(rv.par.scoreNS), suitText(rv.par.contracts.join(', '))));
+  if (rv.par) tiles.push(tile(t.par, fmtSigned(rv.par.scoreNS), suitText(fmtList(rv.par.contracts))));
   else tiles.push(tile(t.par, '…', t.solvingPar));
   if (rv.impsVsPar !== null) tiles.push(tile(t.vsPar, `${fmtSigned(rv.impsVsPar)} ${t.imps(rv.impsVsPar)}`, rv.impsVsPar >= 0 ? t.atOrAbovePar : t.belowPar));
-  if (c && rv.ddResult !== null) tiles.push(tile(t.doubleDummy, `${rv.ddResult} ${T.core.tricks(rv.ddResult)}`, t.bestPlayAll(rv.ddResult - (c.level + 6) >= 0)));
+  if (c && rv.ddResult !== null) tiles.push(tile(t.doubleDummy, fmtUnit(rv.ddResult, T.core.tricks(rv.ddResult)), t.bestPlayAll(rv.ddResult - (c.level + 6) >= 0)));
   const mine = g.calls.filter(x => x.human);
   if (mine.length) tiles.push(tile(t.yourBidding, `${mine.filter(x => x.agrees).length}/${mine.length}`, t.callsMatching));
   const costs = humanCosts(g);
-  if (costs.done) tiles.push(tile(t.yourPlay, costs.total === 0 ? t.noErrors : `−${costs.total} ${T.core.tricks(costs.total)}`, t.ddCards(costs.count)));
+  if (costs.done) tiles.push(tile(t.yourPlay, costs.total === 0 ? t.noErrors : fmtUnit(`−${costs.total}`, T.core.tricks(costs.total)), t.ddCards(costs.count)));
   else if (g.cards.some(x => x.human)) tiles.push(tile(t.yourPlay, '…', t.analysing(fmtPct(rv.progress))));
   const sd = singleDummy(g);
   if (sd.cards) {
@@ -95,7 +95,7 @@ function humanCosts(g: Game) {
 }
 
 function dealDiagram(g: Game, hands: Card[][] = g.deal, center?: string): HTMLElement {
-  const lbl = (s: Seat) => `${SEAT_NAMES[s]}${s === S ? T.ui.review.youTag : ''} · ${hands[s].reduce((t, c) => t + Math.max(0, (c % 13) - 8), 0)} ${T.core.hcp}`;
+  const lbl = (s: Seat) => `${SEAT_NAMES[s]}${s === S ? T.ui.review.youTag : ''} · ${fmtUnit(hands[s].reduce((t, c) => t + Math.max(0, (c % 13) - 8), 0), T.core.hcp)}`;
   return h('div', { class: 'diagram' },
     h('div', { class: 'n' }, diagramHand(hands[N], lbl(N))),
     h('div', { class: 'w' }, diagramHand(hands[W], lbl(W))),
@@ -161,13 +161,13 @@ function lessons(g: Game): HTMLElement {
     const r = rv.cards[i];
     if (!r || r.bestSide - r.gotSide <= 0) return;
     const best = r.values.filter(v => v.side === r.bestSide).map(v => cardName(v.card));
-    items.push(h('li', null, suitText(t.lessonCard(e.trick + 1, cardName(e.card), r.bestSide - r.gotSide, best.slice(0, 3).join(', '))),
+    items.push(h('li', null, suitText(t.lessonCard(e.trick + 1, cardName(e.card), r.bestSide - r.gotSide, fmtList(best.slice(0, 3)))),
       e.advice && e.advice.samples > 0 && e.advice.equal.includes(e.card) ? h('span', { class: 'muted' }, t.bestOnInfo) : e.principle ? h('span', { class: 'muted' }, `· ${e.principle.title}`) : null));
   });
   if (rv.contract && rv.par && rv.table) {
     const c = rv.contract;
     const tricks = rv.table[c.strain][c.declarer];
-    items.push(h('li', null, suitText(t.lessonContract(contractName(c), tricks >= c.level + 6, tricks, rv.par.contracts.join(', ')))));
+    items.push(h('li', null, suitText(t.lessonContract(contractName(c), tricks >= c.level + 6, tricks, fmtList(rv.par.contracts)))));
   }
   if (!items.length) items.push(h('li', null, t.cleanHand));
   return h('ul', null, items);

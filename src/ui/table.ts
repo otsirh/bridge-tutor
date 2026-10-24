@@ -5,7 +5,7 @@ import { type Call, PASS, DOUBLE, REDOUBLE, bid, callName, isBid, contractName }
 import { readAuction } from '../bidding/engine';
 import { Auction } from '../core/auction';
 import type { Game } from '../game/game';
-import { T, locale } from '../i18n';
+import { T, fmtUnit, locale } from '../i18n';
 import { h, suitText } from './dom';
 import { handEl, miniHand, backEl, cardEl } from './cards';
 import type { UIState } from './app';
@@ -51,7 +51,7 @@ function seatBlock(g: Game, seat: Seat): HTMLElement {
   const actor = g.actor;
   if (actor === seat && g.phase !== 'review') chips.push(h('span', { class: 'chip turn' }, g.humanControls(seat) ? t.yourTurn : t.toPlay));
   const showHcp = g.visible(seat) && (g.settings.tutor || g.phase === 'review');
-  const label = h('div', { class: 'seat-label' }, h('span', { class: 'name' }, seatTitle(g, seat)), ...chips, showHcp ? h('span', null, `${g.hcpOf(seat)} ${T.core.hcp}`) : null);
+  const label = h('div', { class: 'seat-label' }, h('span', { class: 'name' }, seatTitle(g, seat)), ...chips, showHcp ? h('span', null, fmtUnit(g.hcpOf(seat), T.core.hcp)) : null);
   const hand = p ? p.hands[seat] : g.deal[seat];
   let body: HTMLElement;
   const big = seat === S || seat === N;
