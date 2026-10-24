@@ -27,20 +27,24 @@ You sit South; North is your partner. When your side declares, you play both han
 - **Signals**: the bot defenders give standard attitude, count and suit-preference signals (only with
   cards that cost nothing) and use their partner's; the tutor reads them for you and tells you which
   card to signal with.
-- **Think first**: the recommendation stays hidden until you ask. **Coach**: asks you to confirm a
-  clear mistake.
+- **Think first**: the recommendation stays hidden until you ask, and as declarer you count your
+  losers or top tricks before the plan is shown. **Coach**: asks you to confirm a clear mistake.
 
-**After the hand, the review**: your score against double-dummy par in IMPs, every call compared with
-the system, every card checked both double-dummy (hindsight) and with the information you had, the
-key moments where the card mattered most, and what to take away. Replay the deal, or share it as a
-link, a code, PBN or a BBO hand.
+**After the hand, the review**: your score against double-dummy par in IMPs, the contract the system
+would have reached (and how yours compares), a game or slam you missed, every call compared with the
+system, every card checked both double-dummy (hindsight) and with the information you had, and the
+key moments where the card mattered most — each one can be played again from that point. Replay the
+deal, or share it as a link, a code, PBN or a BBO hand.
 
 ![The hand review](docs/images/review.png)
 
 **The Training room** turns your play into practice:
 
 - **Review**: calls that differed from the system and cards that were clearly worse *with what you
-  knew* come back as drills, spaced over days until you get them right.
+  knew* come back as drills, spaced over days until you get them right; a bidding mistake alternates
+  with a fresh deal on the same rule, so you learn the idea rather than the board.
+- **Bidding only**: practise auctions without playing the cards; each contract is scored with best
+  play and compared with the system's.
 - **Skills**: accuracy in nine areas — opening, responding, rebids, notrump, competitive, slam,
   opening leads, declarer play, defence — with the weakest one suggested next.
 - **Topics**: boards dealt so a topic really comes up (Stayman, splinters, negative doubles, balancing,

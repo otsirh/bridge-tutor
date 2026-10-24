@@ -2,6 +2,23 @@
 
 All notable changes to Bridge Tutor. Dates are when a version went live.
 
+## Unreleased
+
+### Learning
+- Bidding only: practise auctions without card play, scored with best play.
+- The review shows the system's contract and a missed game or slam; key moments can be played again.
+- Reviews of bidding mistakes alternate with a fresh deal on the same rule.
+- With think-first on, declarer counts losers or top tricks before the plan is shown.
+- Skill accuracy counts only real decisions; the next lesson follows the course's levels.
+- A first visit is welcomed, with a path for beginners.
+- Lesson corrections from a teacher's review, and seven new glossary terms.
+
+### Everywhere
+- Phones: one-row header, a compact table, and a bidding pad that shows a call's meaning before you make it.
+- Keyboard and screen readers: every bid and card reachable, focus kept, modal dialogs, spoken calls and cards.
+- Better contrast; a tap on the table skips the bots' pause; New deal asks before leaving a hand.
+- Faster start: fonts don't block the first paint, and lessons load after the first screen.
+
 ## [1.0.0] — 2026-10-25
 
 The first complete version.
