@@ -220,6 +220,7 @@ export const ui: Text['ui'] = {
     sdChecking: (done: number, total: number) => `正在检查你的出牌 ${done}/${total}`,
     keyMoments: '关键时刻',
     keyMomentsText: '出哪张牌影响最大的那些决定，依据你当时掌握的信息。',
+    tryAgain: '从这里重来',
     keyMoment: (trick: number, card: string, right: boolean) => `第${trick}墩，你出了${card}${right ? ' — 正是最佳选择。' : '。'}`,
     keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `最佳是${best}（成功率${bs}），最差是${worst}（${ws}）。`,
     keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `最佳是${best}（平均${bt}墩），最差是${worst}（${wt}墩）。`,

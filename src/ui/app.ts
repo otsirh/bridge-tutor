@@ -244,6 +244,13 @@ export function mountApp(root: HTMLElement) {
       game.newDeal(true);
       render(true);
     },
+    retry: (index: number) => {
+      if (!game.rewindTo(index)) return;
+      ui.modal = null;
+      // the hand is open again: the review shows once more when it ends
+      ui.autoOpenedReview = '';
+      render(true);
+    },
     next: () => {
       ui.modal = null;
       ui.selectedCall = null;

@@ -220,6 +220,7 @@ export const ui: Text['ui'] = {
     sdChecking: (done: number, total: number) => `あなたのカードをチェック中 ${done}/${total}`,
     keyMoments: '重要な場面',
     keyMomentsText: 'カードの選択が最も大きな意味を持った場面を、その時点であなたが持っていた情報とともに示します。',
+    tryAgain: 'ここからやり直す',
     keyMoment: (trick: number, card: string, right: boolean) => `第${trick}トリック、あなたは${card}をプレイしました${right ? ' — 最善のカードです。' : '。'}`,
     keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `最善は${best}（成功率${bs}）、最悪は${worst}（${ws}）。`,
     keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `最善は${best}（平均${bt}トリック）、最悪は${worst}（${wt}）。`,

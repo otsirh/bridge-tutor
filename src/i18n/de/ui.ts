@@ -224,6 +224,7 @@ export const ui: Text['ui'] = {
     sdChecking: (done: number, total: number) => `Ihre Karten werden geprüft: ${done}/${total}`,
     keyMoments: 'Schlüsselmomente',
     keyMomentsText: 'Die Entscheidungen, bei denen es am meisten auf die Karte ankam – mit den Informationen, die Sie hatten.',
+    tryAgain: 'Ab hier noch einmal',
     keyMoment: (trick: number, card: string, right: boolean) => `Stich ${trick}: Sie haben ${card} gespielt${right ? ' – die beste Karte.' : '.'}`,
     keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `Beste Karte ${best} (Erfolg ${bs}), schlechteste ${worst} (${ws}).`,
     keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `Beste Karte ${best} (durchschnittlich ${bt} Stiche), schlechteste ${worst} (${wt}).`,

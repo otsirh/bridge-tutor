@@ -221,6 +221,7 @@ export const ui: Text['ui'] = {
     sdChecking: (done: number, total: number) => `проверявам картите ви ${done}/${total}`,
     keyMoments: 'Ключови моменти',
     keyMomentsText: 'Решенията, при които картата имаше най-голямо значение, с информацията, която имахте.',
+    tryAgain: 'Опитайте отново оттук',
     keyMoment: (trick: number, card: string, right: boolean) => `Взятка ${trick}, изиграхте ${card}${right ? ' — най-добрата карта.' : '.'}`,
     keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `Най-добре ${best} (успех ${bs}), най-зле ${worst} (${ws}).`,
     keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `Най-добре ${best} (средно ${bt} взятки), най-зле ${worst} (${wt}).`,

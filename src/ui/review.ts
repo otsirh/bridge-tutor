@@ -27,6 +27,8 @@ export interface ReviewActions {
   replay(): void;
   /** Deal the next board (absent when reviewing an archived board). */
   next?: () => void;
+  /** Take the hand back to just before card `index` and play on from there (absent for an archived board). */
+  retry?: (index: number) => void;
   toast(msg: string): void;
 }
 
@@ -130,7 +132,7 @@ function ddTableEl(g: Game): HTMLElement {
  * The decisions that mattered most: where, with the information available,
  * the best card did clearly better than the worst (right or wrong).
  */
-function keyMoments(g: Game): HTMLElement | null {
+function keyMoments(g: Game, act: ReviewActions): HTMLElement | null {
   const t = T.ui.review;
   const moments = g.cards
     .filter(e => e.human && e.advice && e.advice.samples >= 8 && e.advice.stats.length > 1)
@@ -154,7 +156,10 @@ function keyMoments(g: Game): HTMLElement | null {
         suitText(Math.abs(m.best.success - m.worst.success) >= 0.1
           ? t.keyMomentNumbers(cardName(m.best.card), fmtPct(m.best.success), cardName(m.worst.card), fmtPct(m.worst.success))
           : t.keyMomentTricks(cardName(m.best.card), fmtNum(m.best.tricks, 1), cardName(m.worst.card), fmtNum(m.worst.tricks, 1))),
-        right && m.e.principle ? h('span', { class: 'muted' }, ` · ${m.e.principle.title}`) : null);
+        right && m.e.principle ? h('span', { class: 'muted' }, ` · ${m.e.principle.title}`) : null,
+        act.retry && g.canRewindTo(g.cards.indexOf(m.e))
+          ? h('button', { class: 'btn small ghost', type: 'button', style: 'margin-left:6px', onclick: () => act.retry!(g.cards.indexOf(m.e)) }, t.tryAgain)
+          : null);
     })));
 }
 
@@ -329,7 +334,7 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
   if (tab === 'summary') {
     body = h('div', null, hero(g),
       h('div', { class: 'grid2' },
-        h('div', null, h('h3', null, t.takeaways), lessons(g), keyMoments(g), shareBox(g, act)),
+        h('div', null, h('h3', null, t.takeaways), lessons(g), keyMoments(g, act), shareBox(g, act)),
         h('div', null, h('h3', null, t.theDeal), dealDiagram(g), h('h3', null, t.ddMakes), ddTableEl(g))));
   } else if (tab === 'bidding') body = biddingTab(g);
   else body = playTab(g, ui, act);

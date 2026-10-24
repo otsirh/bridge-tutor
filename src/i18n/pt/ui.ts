@@ -222,6 +222,7 @@ export const ui: Text['ui'] = {
     sdChecking: (done: number, total: number) => `verificando suas cartas ${done}/${total}`,
     keyMoments: 'Momentos decisivos',
     keyMomentsText: 'As decisões em que a carta mais importou, com a informação que você tinha.',
+    tryAgain: 'Tentar de novo a partir daqui',
     keyMoment: (trick: number, card: string, right: boolean) => `Vaza ${trick}, você jogou ${card}${right ? ' — a melhor carta.' : '.'}`,
     keyMomentNumbers: (best: string, bs: string, worst: string, ws: string) => `Melhor: ${best} (sucesso de ${bs}); pior: ${worst} (${ws}).`,
     keyMomentTricks: (best: string, bt: string, worst: string, wt: string) => `Melhor: ${best} (${bt} vazas em média); pior: ${worst} (${wt}).`,

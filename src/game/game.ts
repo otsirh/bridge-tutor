@@ -560,6 +560,20 @@ export class Game {
     return this.snapshots.length > 0;
   }
 
+  /** Can the hand be taken back to just before card `index` (one you played)? */
+  canRewindTo(index: number): boolean {
+    return this.snapshots.some(s => s.cardsPlayed.length === index && s.calls.length === this.auction.calls.length);
+  }
+
+  /** Take the hand back to just before card `index`, to try that decision again. */
+  rewindTo(index: number): boolean {
+    const k = this.snapshots.findIndex(s => s.cardsPlayed.length === index && s.calls.length === this.auction.calls.length);
+    if (k < 0) return false;
+    this.snapshots.length = k + 1;
+    this.undo();
+    return true;
+  }
+
   /** Claim the rest: accepted when your side can take every remaining trick against any defence. */
   async claim(): Promise<string> {
     if (!this.play || this.phase !== 'play' || this.declarerSide !== 0) return T.ui.game.claimOnlyDeclarer;
