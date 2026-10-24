@@ -57,6 +57,7 @@ export interface ArchivedBoard {
   table: number[][] | null; // double-dummy tricks [strain][declarer]
   theme?: string; // practice theme the board was dealt for
   peek?: 1; // all four hands were shown: kept, but not counted towards skills
+  bo?: 1; // bidding only: no card play, scored with best play
 }
 
 /** A deal as 52 seat digits, indexed by card id. */

@@ -13,6 +13,7 @@ export interface Settings {
   dealMode: DealMode;
   strength: 'quick' | 'standard' | 'deep'; // simulation effort
   theme: string | null; // practice theme the boards are dealt for (src/game/themes.ts), or null
+  biddingOnly: boolean; // practise bidding: no card play, the contract is scored with best play
   conventions: Partial<SystemConfig>; // optional conventions switched on or off (src/bidding/config.ts); the rest take their defaults
 }
 
@@ -25,6 +26,7 @@ export const DEFAULT_SETTINGS: Settings = {
   dealMode: 'random',
   strength: 'standard',
   theme: null,
+  biddingOnly: false,
   conventions: {},
 };
 

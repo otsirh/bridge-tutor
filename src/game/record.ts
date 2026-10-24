@@ -37,6 +37,8 @@ export interface FinishedBoard {
   theme?: string | null;
   /** All four hands were shown during the board. */
   peek?: boolean;
+  /** Bidding only: no card play; the contract was scored with best play. */
+  bidOnly?: boolean;
 }
 
 /** The single-dummy verdict on `card` from a simulation, if it was meaningful. */
@@ -74,6 +76,7 @@ export function archiveBoard(f: FinishedBoard): ArchivedBoard {
   };
   if (f.theme) rec.theme = f.theme;
   if (f.peek) rec.peek = 1;
+  if (f.bidOnly) rec.bo = 1;
   return rec;
 }
 

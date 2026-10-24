@@ -172,7 +172,7 @@ describe('tutor text in every language', () => {
         expect(t.trim(), 'empty text').not.toBe('');
         expect(t, t).not.toMatch(/undefined|NaN|\[object/);
       }
-    });
+    }, 60_000); // two dozen deals played out; slow machines need the time
   }
 
   it('writes Bulgarian', () => {

@@ -37,26 +37,35 @@ function hero(g: Game): HTMLElement {
   const t = T.ui.review;
   const c = rv.contract;
   const tiles: HTMLElement[] = [];
+  // bidding only: the result is the double-dummy one, known once the table is solved
+  const pending = rv.bidOnly && !rv.table;
   if (c) {
     const diff = rv.declTricks - (c.level + 6);
-    tiles.push(tile(t.contract, suitText(`${contractName(c)} ${SEAT_LETTERS[c.declarer]}`), diff >= 0 ? (diff ? t.madeOver(diff) : t.madeExactly) : t.down(-diff)));
+    tiles.push(tile(t.contract, suitText(`${contractName(c)} ${SEAT_LETTERS[c.declarer]}`), pending ? '…' : diff >= 0 ? (diff ? t.madeOver(diff) : t.madeExactly) : t.down(-diff)));
   } else tiles.push(tile(t.contract, contractName(null), t.noScore));
-  tiles.push(tile(t.score, fmtSigned(rv.scoreNS), c ? t.declTricks(rv.declTricks) : ''));
+  tiles.push(tile(t.score, pending ? '…' : fmtSigned(rv.scoreNS), c && !pending ? t.declTricks(rv.declTricks) : ''));
   if (rv.par) tiles.push(tile(t.par, fmtSigned(rv.par.scoreNS), suitText(fmtList(rv.par.contracts))));
   else tiles.push(tile(t.par, '…', t.solvingPar));
   if (rv.impsVsPar !== null) tiles.push(tile(t.vsPar, `${fmtSigned(rv.impsVsPar)} ${t.imps(rv.impsVsPar)}`, rv.impsVsPar >= 0 ? t.atOrAbovePar : t.belowPar));
-  if (c && rv.ddResult !== null) tiles.push(tile(t.doubleDummy, fmtUnit(rv.ddResult, T.core.tricks(rv.ddResult)), t.bestPlayAll(rv.ddResult - (c.level + 6) >= 0)));
+  if (c && rv.ddResult !== null && !rv.bidOnly) tiles.push(tile(t.doubleDummy, fmtUnit(rv.ddResult, T.core.tricks(rv.ddResult)), t.bestPlayAll(rv.ddResult - (c.level + 6) >= 0)));
+  if (rv.system) {
+    const s = rv.system.contract;
+    const same = (!!s && !!c && contractName(s) === contractName(c) && s.declarer === c.declarer) || (!s && !c);
+    tiles.push(tile(t.systemContract, suitText(s ? `${contractName(s)} ${SEAT_LETTERS[s.declarer]}` : contractName(null)),
+      same ? t.systemSame : t.systemDiff(`${fmtSigned(rv.system.imps)} ${t.imps(rv.system.imps)}`)));
+  }
   const mine = g.calls.filter(x => x.human);
   if (mine.length) tiles.push(tile(t.yourBidding, `${mine.filter(x => x.agrees).length}/${mine.length}`, t.callsMatching));
   const costs = humanCosts(g);
-  if (costs.done) tiles.push(tile(t.yourPlay, costs.total === 0 ? t.noErrors : fmtUnit(`−${costs.total}`, T.core.tricks(costs.total)), t.ddCards(costs.count)));
+  // (bidding only: no card play to judge)
+  if (costs.done && !rv.bidOnly) tiles.push(tile(t.yourPlay, costs.total === 0 ? t.noErrors : fmtUnit(`−${costs.total}`, T.core.tricks(costs.total)), t.ddCards(costs.count)));
   else if (g.cards.some(x => x.human)) tiles.push(tile(t.yourPlay, '…', t.analysing(fmtPct(rv.progress))));
   const sd = singleDummy(g);
   if (sd.cards) {
     const checking = rv.sim.total > 0 && rv.sim.done < rv.sim.total;
     tiles.push(tile(t.sdTitle, checking ? '…' : sd.errors === 0 ? t.noErrors : t.sdErrors(sd.errors), checking ? t.sdChecking(rv.sim.done, rv.sim.total) : t.sdNote(sd.judged)));
   }
-  return h('div', { class: 'result-hero' }, tiles);
+  return h('div', null, h('div', { class: 'result-hero' }, tiles), rv.bidOnly ? h('p', { class: 'small muted', style: 'margin:6px 0 0' }, t.bidOnlyNote) : null);
 }
 
 /** "none vulnerable", "N/S vulnerable"… */
@@ -300,7 +309,7 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
 
 export function reviewSignature(g: Game, ui: UIState): string {
   const rv = g.review;
-  return JSON.stringify([g.board, g.seed, g.boardId, rv ? [rv.progress, !!rv.table, rv.cards.filter(Boolean).length, rv.sim] : null, ui.reviewTab, ui.reviewTrick]);
+  return JSON.stringify([g.board, g.seed, g.boardId, rv ? [rv.progress, !!rv.table, !!rv.system, rv.cards.filter(Boolean).length, rv.sim] : null, ui.reviewTab, ui.reviewTrick]);
 }
 
 export { suitOf };

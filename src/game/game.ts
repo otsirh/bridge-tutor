@@ -76,6 +76,25 @@ export interface ReviewData {
   ddResult: number | null; // DD tricks for declarer from the start
   /** Single-dummy check of your cards after the hand (those without a simulation at the time). */
   sim: { done: number; total: number };
+  /** Bidding only: no card play; `declTricks` and the score are double-dummy. */
+  bidOnly: boolean;
+  /**
+   * Where the system would have bid this deal (every seat bidding by the
+   * system), and how your contract compares with it, both with best play.
+   */
+  system: { contract: Contract | null; ddScoreNS: number; yoursDD: number; imps: number } | null;
+}
+
+/** The whole auction as the system bids it at every seat. */
+function systemAuction(deal: Card[][], dealer: Seat, vul: Vulnerability): Auction {
+  const a = new Auction(dealer);
+  while (!a.isComplete()) a.push(advise(deal[a.nextSeat], readAuction(a, vul).ctx).call);
+  return a;
+}
+
+/** North-South's score for a contract taking its double-dummy tricks (0 when passed out). */
+function ddScoreNS(c: Contract | null, table: number[][], vul: Vulnerability): number {
+  return c ? scoreNS(c, table[c.strain][c.declarer], vul) : 0;
 }
 
 /** A deal to play from outside the normal flow: an archived board, an imported one. */
@@ -388,7 +407,8 @@ export class Game {
 
   private startPlay() {
     const c = this.auction.contract();
-    if (!c) {
+    // bidding only: the auction is the whole board, scored with best play
+    if (!c || this.settings.biddingOnly) {
       this.phase = 'review';
       this.finishBoard();
       return;
@@ -663,21 +683,25 @@ export class Game {
     const c = this.auction.contract();
     const declTricks = this.play ? this.play.declarerTricks : 0;
     const sc = scoreNS(c, declTricks, this.vul);
-    this.review = { contract: c, declTricks, scoreNS: sc, table: null, par: null, impsVsPar: null, cards: this.cards.map(() => null), progress: 0, ddResult: null, sim: { done: 0, total: 0 } };
-    if (c) {
-      const made = declTricks - (c.level + 6);
-      const ours = (c.declarer & 1) === 0;
-      this.feedback.unshift(note((made >= 0) === ours ? 'good' : 'bad', () => {
-        const n = T.ui.notes;
-        return {
-          title: fmtLabel(T.ui.common.contractBy(contractName(c), SEAT_NAMES[c.declarer]), made >= 0 ? (made === 0 ? n.madeExactly : n.madePlus(made)) : n.down(-made)),
-          text: n.resultText(fmtSigned(sc)),
-        };
-      }));
-    }
+    const bidOnly = !!c && !this.play;
+    this.review = { contract: c, declTricks, scoreNS: sc, table: null, par: null, impsVsPar: null, cards: this.cards.map(() => null), progress: 0, ddResult: null, sim: { done: 0, total: 0 }, bidOnly, system: null };
+    if (c && !bidOnly) this.resultNote(c, declTricks, sc);
     this.record();
     this.emit();
     void this.analyzeReview();
+  }
+
+  /** The made/down note in the tutor's feed. */
+  private resultNote(c: Contract, declTricks: number, sc: number) {
+    const made = declTricks - (c.level + 6);
+    const ours = (c.declarer & 1) === 0;
+    this.feedback.unshift(note((made >= 0) === ours ? 'good' : 'bad', () => {
+      const n = T.ui.notes;
+      return {
+        title: fmtLabel(T.ui.common.contractBy(contractName(c), SEAT_NAMES[c.declarer]), made >= 0 ? (made === 0 ? n.madeExactly : n.madePlus(made)) : n.down(-made)),
+        text: n.resultText(fmtSigned(sc)),
+      };
+    }));
   }
 
   private async analyzeReview() {
@@ -688,12 +712,24 @@ export class Game {
       const table = await ddTableAsync(this.deal, 1, group);
       if (myGen !== this.gen || !table) return;
       rv.table = table;
+      if (rv.bidOnly && rv.contract) {
+        rv.declTricks = table[rv.contract.strain][rv.contract.declarer];
+        rv.scoreNS = scoreNS(rv.contract, rv.declTricks, this.vul);
+        if (!this.archived) this.resultNote(rv.contract, rv.declTricks, rv.scoreNS);
+      }
       rv.par = parScore(table, this.vul);
       rv.impsVsPar = imps(rv.scoreNS - rv.par.scoreNS);
       this.record();
       this.emit();
     }
-    if (!rv.contract) return;
+    if (!rv.system) {
+      const sys = systemAuction(this.deal, this.dealer, this.vul).contract();
+      const yoursDD = ddScoreNS(rv.contract, rv.table, this.vul);
+      const ddScore = ddScoreNS(sys, rv.table, this.vul);
+      rv.system = { contract: sys, ddScoreNS: ddScore, yoursDD, imps: imps(yoursDD - ddScore) };
+      this.emit();
+    }
+    if (!rv.contract || rv.bidOnly) return;
     rv.ddResult = rv.table[rv.contract.strain][rv.contract.declarer];
     // replay the play, analysing each position
     const p = new PlayState(rv.contract, this.deal);
@@ -787,6 +823,7 @@ export class Game {
       table: rv.table,
       theme: this.theme,
       peek: this.peeked,
+      bidOnly: rv.bidOnly,
     };
     saveBoard(archiveBoard(f));
     if (!this.peeked) addItems(reviewItems(f, this.boardId));
@@ -834,7 +871,7 @@ export class Game {
     g.review = {
       contract, declTricks: rec.declTricks, scoreNS: rec.scoreNS, table: rec.table, par,
       impsVsPar: par ? imps(rec.scoreNS - par.scoreNS) : null, cards: g.cards.map(() => null), progress: 0, ddResult: null,
-      sim: { done: 0, total: 0 },
+      sim: { done: 0, total: 0 }, bidOnly: !!rec.bo, system: null,
     };
     g.phase = 'review';
     void g.analyzeReview();

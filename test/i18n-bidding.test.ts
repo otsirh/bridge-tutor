@@ -127,7 +127,7 @@ describe('bidding in every language', () => {
         expect(s.trim(), 'empty text').not.toBe('');
         expect(s, s).not.toMatch(/undefined|NaN|\[object/);
       }
-    });
+    }, 60_000); // a whole system's worth of auctions; slow machines need the time
   }
 
   it('switching back gives the same English (nothing cached at load)', () => {

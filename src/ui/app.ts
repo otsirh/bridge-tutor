@@ -368,6 +368,7 @@ export function mountApp(root: HTMLElement) {
         row(t.coach.title, t.coach.desc, toggle('', s.coach, v => { setSetting('coach', v); render(true); }, undefined, t.coach.title)),
         row(t.peek.title, t.peek.desc, toggle('', s.peek, v => { setSetting('peek', v); render(true); }, undefined, t.peek.title)),
         row(t.dealMode.title, t.dealMode.desc, select('dealmode', t.dealMode.title, s.dealMode, options(DEAL_MODES, t.dealModes), v => setSetting('dealMode', v))),
+        row(t.biddingOnly.title, t.biddingOnly.desc, toggle('', s.biddingOnly, v => { setSetting('biddingOnly', v); render(true); }, undefined, t.biddingOnly.title)),
         row(t.strength.title, t.strength.desc, select('strength', t.strength.title, s.strength, options(['quick', 'standard', 'deep'], t.strengths), v => setSetting('strength', v))),
         row(t.speed.title, t.speed.desc, select('speed', t.speed.title, s.speed, options(['slow', 'normal', 'fast'], t.speeds), v => setSetting('speed', v))),
         row(t.theme.title, t.theme.desc, select('theme', t.theme.title, theme, options(['system', 'light', 'dark'], t.themes), v => { theme = v; applyTheme(v); })),
