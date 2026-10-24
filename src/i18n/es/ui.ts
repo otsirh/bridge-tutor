@@ -100,6 +100,7 @@ export const ui: Text['ui'] = {
     label: 'Caja de subasta',
     notSystem: ' (no es una voz del sistema: se lee de forma natural)',
     hoverHelp: 'Pasa el cursor sobre una voz para ver qué le diría a tu compañero.',
+    pickHelp: 'Elige una voz para ver qué le dice a tu compañero; tócala otra vez (o ✓) para declararla.',
   },
 
   /** The tutor's column. */

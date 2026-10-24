@@ -97,6 +97,7 @@ export const ui = {
     label: 'Bidding box',
     notSystem: ' (not a system bid — read naturally)',
     hoverHelp: 'Hover over a call to see what it would tell partner.',
+    pickHelp: 'Choose a call to see what it tells partner, then tap it again (or ✓) to make it.',
   },
 
   /** The tutor's column. */

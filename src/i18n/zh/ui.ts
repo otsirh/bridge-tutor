@@ -79,6 +79,7 @@ export const ui: Text['ui'] = {
     label: '叫牌盒',
     notSystem: '（非体系叫品，按自然叫理解）',
     hoverHelp: '把鼠标移到叫品上，看看它会告诉同伴什么。',
+    pickHelp: '选择一个叫品可查看它向同伴传达的信息；再点一次（或点 ✓）即可叫出。',
   },
 
   panel: {

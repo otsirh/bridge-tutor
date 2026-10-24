@@ -81,6 +81,7 @@ export const ui: Text['ui'] = {
     label: 'Caixa de leilão',
     notSystem: ' (não é voz do sistema — leitura natural)',
     hoverHelp: 'Passe o mouse sobre uma voz para ver o que ela diria ao parceiro.',
+    pickHelp: 'Escolha uma voz para ver o que ela diz ao parceiro; toque nela de novo (ou em ✓) para fazê-la.',
   },
 
   panel: {

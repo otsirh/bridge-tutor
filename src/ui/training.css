@@ -109,13 +109,24 @@
   .topbar .hbtn { padding-inline: 9px; }
 }
 @media (max-width: 640px) {
-  .topbar { gap: 8px 8px; }
-  .topbar .brand { order: 0; }
-  .topbar .newdeal { order: 1; margin-left: auto; }
+  /* one row: the board details are on the table, the language in Settings */
+  .topbar { gap: 6px; position: static; padding-block: 8px; }
+  .topbar .brand { font-size: 19px; margin-right: auto; }
+  .topbar .brand .pips { display: none; }
   .topbar .boardinfo { order: 2; flex-basis: 100%; gap: 4px 10px; }
-  .topbar .spacer { display: none; }
-  .topbar > :not(.brand):not(.newdeal):not(.boardinfo) { order: 3; }
+  .topbar .boardinfo > :not(.topicchip) { display: none; }
+  .topbar .boardinfo:not(:has(.topicchip)) { display: none; }
+  .topbar .spacer, .topbar .langpick { display: none; }
+  .topbar .toggle .tlabel { display: none; }
+  .topbar .hbtn { padding-inline: 8px; min-height: 36px; }
+  .topbar .newdeal { padding-inline: 10px; min-height: 36px; }
+  /* New deal as an icon, unless it is asking for confirmation */
+  .topbar .newdeal:not(.confirm) .lbl { display: none; }
+  .topbar .newdeal.confirm .ico { display: none; }
 }
+.newdeal { display: inline-flex; align-items: center; gap: 6px; }
+.newdeal .ico { display: none; }
+@media (max-width: 640px) { .topbar .newdeal .ico { display: inline-flex; } }
 @media (min-width: 641px) {
   .topbar { flex-wrap: nowrap; }
   .topbar > * { flex: none; }

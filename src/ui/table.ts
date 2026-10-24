@@ -1,7 +1,7 @@
 // The felt: four hands, the trick or the auction, the bidding box.
 
 import { type Seat, type Card, N, E, S, W, SEAT_NAMES, STRAIN_SYMBOLS, suitOf } from '../core/cards';
-import { type Call, PASS, DOUBLE, REDOUBLE, bid, callName, isBid, contractName } from '../core/auction';
+import { type Call, PASS, DOUBLE, REDOUBLE, bid, callName, isBid, levelOf, contractName } from '../core/auction';
 import { readAuction } from '../bidding/engine';
 import { Auction } from '../core/auction';
 import type { Game } from '../game/game';
@@ -20,6 +20,9 @@ export interface TableActions {
   toast(msg: string): void;
   openReview(): void;
   next(): void;
+  /** The compact bidding pad (phones): choose a level, then a call; choosing the call again makes it. */
+  pickLevel(level: number): void;
+  choose(call: Call): void;
 }
 
 function seatTitle(g: Game, seat: Seat): string {
@@ -159,7 +162,37 @@ function biddingBox(g: Game, ui: UIState, act: TableActions): HTMLElement | null
     onmouseleave: () => act.preview(null),
   }, label);
   const specials = h('div', { class: 'specials' }, special(PASS, 'pass', callName(PASS)), special(DOUBLE, 'dbl', callName(DOUBLE)), special(REDOUBLE, 'rdbl', callName(REDOUBLE)));
-  return h('div', null, bidPreview(g, ui), h('div', { class: 'bidwrap' }, grid, specials));
+  return h('div', null, bidPreview(g, ui), h('div', { class: 'bidwrap' }, grid, specials), bidPad(g, ui, act, legal, recCall));
+}
+
+/**
+ * The bidding box on a phone: three rows (levels, strains, Pass/Double/Redouble).
+ * A call is chosen first — its meaning shows above — and made with a second tap
+ * or the ✓ button, so you can read what a call says before you make it.
+ */
+function bidPad(g: Game, ui: UIState, act: TableActions, legal: Set<Call>, recCall: Call | null): HTMLElement {
+  const chosen = ui.preview !== null && legal.has(ui.preview) ? ui.preview : null;
+  const level = ui.pickLevel ?? (chosen !== null && isBid(chosen) ? levelOf(chosen) : null);
+  const recLevel = recCall !== null && isBid(recCall) ? levelOf(recCall) : null;
+  const btn = (cls: string, label: string | HTMLElement, disabled: boolean, onclick: () => void, name?: string) =>
+    h('button', { class: `pad ${cls}`, type: 'button', 'data-fg': 'bid', 'aria-label': name, disabled, onclick }, label);
+  const levels = Array.from({ length: 7 }, (_, i) => {
+    const l = i + 1;
+    const any = [0, 1, 2, 3, 4].some(s => legal.has(bid(l, s)));
+    return btn(`lvl ${level === l ? 'on' : ''} ${recLevel === l ? 'rec' : ''}`, String(l), !any, () => act.pickLevel(l));
+  });
+  const strains = [0, 1, 2, 3, 4].map(s => {
+    const c = level === null ? null : bid(level, s);
+    const label = s === 4 ? STRAIN_SYMBOLS[4] : suitText(STRAIN_SYMBOLS[s]);
+    return btn(`str ${c !== null && c === chosen ? 'on' : ''} ${c !== null && c === recCall ? 'rec' : ''}`, label, c === null || !legal.has(c), () => act.choose(c!), c === null ? undefined : callName(c));
+  });
+  const special = (c: Call, cls: string) => btn(`sp ${cls} ${c === chosen ? 'on' : ''} ${c === recCall ? 'rec' : ''}`, callName(c), !legal.has(c), () => act.choose(c));
+  return h('div', { class: 'bidpad', role: 'group', 'aria-label': T.ui.bidBox.label },
+    h('div', { class: 'row levels' }, levels),
+    h('div', { class: 'row strains' }, strains),
+    h('div', { class: 'row specials' }, special(PASS, 'pass'), special(DOUBLE, 'dbl'), special(REDOUBLE, 'rdbl'),
+      h('button', { class: 'pad go', type: 'button', 'data-fg': 'bid', disabled: chosen === null, onclick: () => chosen !== null && g.submitCall(chosen) },
+        chosen === null ? '✓' : suitText(`✓ ${callName(chosen)}`))));
 }
 
 /**
@@ -172,7 +205,7 @@ export function bidPreview(g: Game, ui: UIState): HTMLElement {
     const m = view.records[view.records.length - 1].meaning;
     return h('div', { class: 'preview' }, h('b', null, suitText(fmtLabel(callName(ui.preview), m.name))), m.natural ? T.ui.bidBox.notSystem : '', ' — ', suitText(m.desc));
   }
-  return h('div', { class: 'preview muted' }, T.ui.bidBox.hoverHelp);
+  return h('div', { class: 'preview muted' }, h('span', { class: 'for-hover' }, T.ui.bidBox.hoverHelp), h('span', { class: 'for-pad' }, T.ui.bidBox.pickHelp));
 }
 
 /** The line under the table: whose turn it is, or what is happening. */
@@ -222,7 +255,7 @@ export function tableSignature(g: Game, ui: UIState): string {
   const hint = g.hint;
   return JSON.stringify([
     g.board, g.seed, g.phase, g.auction.calls, p ? p.history().length : -1, g.displayTrick?.cards, g.thinking,
-    g.settings.peek, g.settings.tutor, g.settings.autoHint, g.hintRevealed, ui.selectedCall, g.canUndo,
+    g.settings.peek, g.settings.tutor, g.settings.autoHint, g.hintRevealed, ui.selectedCall, ui.pickLevel, ui.pickRev, g.canUndo,
     hint && hint.kind === 'card' ? [hint.decision?.card, hint.lead?.[0]?.card] : hint && hint.kind === 'bid' ? hint.advice.call : null,
     g.isHumanTurn(),
   ]);

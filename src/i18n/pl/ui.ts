@@ -86,6 +86,7 @@ export const ui: Text['ui'] = {
     label: 'Pudełko licytacyjne',
     notSystem: ' (odzywka spoza systemu — rozumiana naturalnie)',
     hoverHelp: 'Najedź na odzywkę, aby zobaczyć, co powie partnerowi.',
+    pickHelp: 'Wybierz odzywkę, aby zobaczyć, co mówi partnerowi; dotknij jej ponownie (lub ✓), aby ją zgłosić.',
   },
 
   panel: {

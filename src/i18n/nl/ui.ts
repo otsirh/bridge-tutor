@@ -82,6 +82,7 @@ export const ui: Text['ui'] = {
     label: 'Biddingbox',
     notSystem: ' (geen systeembod — wordt natuurlijk gelezen)',
     hoverHelp: 'Ga met de muis over een bod om te zien wat het je partner vertelt.',
+    pickHelp: 'Kies een bod om te zien wat het je partner vertelt; tik er nog eens op (of op ✓) om het te doen.',
   },
 
   panel: {

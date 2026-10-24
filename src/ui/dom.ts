@@ -42,7 +42,7 @@ function focusKey(el: Element): string {
 }
 
 function usable(el: HTMLElement): boolean {
-  return !(el as HTMLButtonElement).disabled && el.getAttribute('tabindex') !== '-1';
+  return !(el as HTMLButtonElement).disabled && el.getAttribute('tabindex') !== '-1' && el.getClientRects().length > 0;
 }
 
 /**

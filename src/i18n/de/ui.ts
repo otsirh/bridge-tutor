@@ -83,6 +83,7 @@ export const ui: Text['ui'] = {
     label: 'Bidding-Box',
     notSystem: ' (kein Systemgebot – wird natürlich verstanden)',
     hoverHelp: 'Zeigen Sie mit der Maus auf eine Ansage, um zu sehen, was sie dem Partner mitteilt.',
+    pickHelp: 'Wähle ein Gebot, um zu sehen, was es dem Partner sagt; tippe es noch einmal an (oder ✓), um es abzugeben.',
   },
 
   panel: {

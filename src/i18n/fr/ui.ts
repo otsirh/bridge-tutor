@@ -80,6 +80,7 @@ export const ui: Text['ui'] = {
     label: 'Boîte à enchères',
     notSystem: ' (pas une enchère du système — sens naturel)',
     hoverHelp: 'Survolez une enchère pour voir ce qu’elle dirait à votre partenaire.',
+    pickHelp: 'Choisissez une enchère pour voir ce qu’elle dit au partenaire, puis touchez-la de nouveau (ou ✓) pour la faire.',
   },
 
   panel: {

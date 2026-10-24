@@ -81,6 +81,7 @@ export const ui: Text['ui'] = {
     label: 'Bidding box',
     notSystem: ' (non è una dichiarazione di sistema: si legge in senso naturale)',
     hoverHelp: 'Passa il mouse su una dichiarazione per vedere che cosa direbbe al compagno.',
+    pickHelp: 'Scegli una dichiarazione per vedere che cosa dice al compagno, poi toccala di nuovo (o ✓) per farla.',
   },
 
   panel: {

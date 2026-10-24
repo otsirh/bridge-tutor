@@ -24,6 +24,9 @@ function getSystemSetting(s: Settings, id: ConventionId): boolean {
 export interface UIState {
   selectedCall: number | null;
   preview: Call | null;
+  /** The level chosen on the phone's bidding pad, and a counter that redraws the pad when its choice changes. */
+  pickLevel: number | null;
+  pickRev: number;
   modal: null | 'review' | 'learn' | 'training' | 'archive' | 'settings' | 'help';
   reviewTab: 'summary' | 'bidding' | 'play';
   reviewTrick: number | null;
@@ -87,6 +90,7 @@ const GLOBE =
 const ICONS = {
   learn: '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M1.8 3.4c2.1-.9 4.2-.9 6.2.3 2-1.2 4.1-1.2 6.2-.3v9.3c-2.1-.9-4.2-.9-6.2.3-2-1.2-4.1-1.2-6.2-.3z"/><path d="M8 3.7V13"/></svg>',
   training: '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.2"/><circle cx="8" cy="8" r="3.4"/><circle cx="8" cy="8" r="0.9" fill="currentColor"/></svg>',
+  deal: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="2.2" y="3.4" width="7.4" height="10.4" rx="1.2" transform="rotate(-10 5.9 8.6)"/><rect x="6.6" y="2.2" width="7.4" height="10.4" rx="1.2" fill="var(--brass)"/><path d="M10.3 5.4v4.4M8.1 7.6h4.4"/></svg>',
   settings: '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 4h12M2 8h12M2 12h12"/><circle cx="5" cy="4" r="1.6" fill="var(--paper)"/><circle cx="10.5" cy="8" r="1.6" fill="var(--paper)"/><circle cx="6.5" cy="12" r="1.6" fill="var(--paper)"/></svg>',
 };
 
@@ -115,7 +119,7 @@ export function mountApp(root: HTMLElement) {
   (window as unknown as { __bridge: Game }).__bridge = game; // handy for debugging in the console
   let theme = loadTheme();
   applyTheme(theme);
-  const ui: UIState = { selectedCall: null, preview: null, modal: null, reviewTab: 'summary', reviewTrick: null, learnTab: 'lessons', lessonId: null, autoOpenedReview: '' };
+  const ui: UIState = { selectedCall: null, preview: null, pickLevel: null, pickRev: 0, modal: null, reviewTab: 'summary', reviewTrick: null, learnTab: 'lessons', lessonId: null, autoOpenedReview: '' };
 
   const header = h('header', { class: 'topbar' });
   const tableCol = h('section', { class: 'tablecol' });
@@ -181,6 +185,21 @@ export function mountApp(root: HTMLElement) {
       if (ui.preview === c) return;
       ui.preview = c;
       tableCol.querySelector('.preview')?.replaceWith(bidPreview(game, ui));
+    },
+    pickLevel: (level: number) => {
+      ui.pickLevel = level;
+      ui.preview = null;
+      ui.pickRev++;
+      render();
+    },
+    choose: (c: Call) => {
+      if (ui.preview === c) {
+        game.submitCall(c);
+        return;
+      }
+      ui.preview = c;
+      ui.pickRev++;
+      render();
     },
     toast: (msg: string) => {
       toastEl.textContent = msg;
@@ -284,7 +303,7 @@ export function mountApp(root: HTMLElement) {
 
   /** A switch; `name` is its screen-reader name when it has no visible label. */
   function toggle(label: string, on: boolean, onChange: (v: boolean) => void, title?: string, name?: string) {
-    return h('button', { class: `toggle ${on ? 'on' : ''}`, type: 'button', role: 'switch', 'aria-checked': on ? 'true' : 'false', 'aria-label': name, title, onclick: () => onChange(!on) }, h('span', { class: 'track' }), label);
+    return h('button', { class: `toggle ${on ? 'on' : ''}`, type: 'button', role: 'switch', 'aria-checked': on ? 'true' : 'false', 'aria-label': name, title, onclick: () => onChange(!on) }, h('span', { class: 'track' }), label ? h('span', { class: 'tlabel' }, label) : null);
   }
 
   function renderHeader() {
@@ -303,11 +322,12 @@ export function mountApp(root: HTMLElement) {
           h('button', { type: 'button', 'aria-label': T.practice.stopTopic, title: T.practice.stopTopic, onclick: () => game.updateSettings({ theme: null }) }, '×')) : null),
       h('span', { class: 'spacer' }),
       languagePicker(languageOffline),
-      toggle(t.tutor, g.settings.tutor, v => setSetting('tutor', v), t.tutorTitle),
+      toggle(t.tutor, g.settings.tutor, v => setSetting('tutor', v), t.tutorTitle, t.tutor),
       headerButton('learn', t.learn, () => { ui.modal = 'learn'; render(true); }),
       headerButton('training', T.practice.title, () => { ui.modal = 'training'; render(true); }, dueNow() ? h('span', { class: 'badge', 'aria-label': T.practice.tileDue }, String(dueNow())) : null),
       headerButton('settings', t.settings, () => { ui.modal = 'settings'; render(true); }),
-      h('button', { class: `btn primary newdeal ${confirmNew ? 'confirm' : ''}`, type: 'button', 'data-key': 'newdeal', onclick: newDealClicked }, confirmNew ? t.newDealConfirm : t.newDeal),
+      h('button', { class: `btn primary newdeal ${confirmNew ? 'confirm' : ''}`, type: 'button', 'data-key': 'newdeal', 'aria-label': confirmNew ? t.newDealConfirm : t.newDeal, title: t.newDeal, onclick: newDealClicked },
+        h('span', { class: 'ico', 'aria-hidden': 'true', html: ICONS.deal }), h('span', { class: 'lbl' }, confirmNew ? t.newDealConfirm : t.newDeal)),
     ];
   }
 
@@ -419,7 +439,10 @@ export function mountApp(root: HTMLElement) {
   }
 
   game.onChange(() => {
-    if (game.phase !== 'bidding' || !game.isHumanTurn()) ui.preview = null;
+    if (game.phase !== 'bidding' || !game.isHumanTurn()) {
+      ui.preview = null;
+      ui.pickLevel = null;
+    }
     render();
     announce();
   });
