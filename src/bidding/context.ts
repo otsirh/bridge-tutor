@@ -100,11 +100,14 @@ export class Ctx {
     return (seat & 1) === (this.seat & 1);
   }
 
-  /** Strains bid naturally (suit really shown) by a side. */
+  /** Strains bid naturally (suit really shown) by a side, and the suits a two-suited overcall shows. */
   naturalSuits(side: 0 | 1): number[] {
     const out = new Set<number>();
     for (const r of this.records) {
-      if ((r.seat & 1) !== side || !isBid(r.call) || r.meaning.artificial) continue;
+      if ((r.seat & 1) !== side || !isBid(r.call)) continue;
+      const two = r.meaning.tag === 'michaels' || r.meaning.tag === 'unusual';
+      if (two) for (const st of [r.meaning.data?.a ?? -1, r.meaning.data?.b ?? -1]) if (st >= 0) out.add(st);
+      if (r.meaning.artificial) continue;
       const st = strainOf(r.call);
       if (st < 4) out.add(st);
     }

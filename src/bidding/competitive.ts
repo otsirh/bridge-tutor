@@ -133,12 +133,19 @@ export function overcallRules(x: Ctx): Rule[] {
   const short = theirs.length
     ? cond(t.shortIn(theirs), h => theirs.every(s => h.len[s] <= 2), sh => { theirs.forEach(s => (sh.len[s] = [0, Math.min(2, sh.len[s][1])])); }, h => T.bidding.conds.lengths(h.len, theirs))
     : cond(t.noSuitShown, () => true);
+  // three cards in every unbid suit; a doubleton is allowed in one unbid minor when holding four in each unbid major
   const support = cond(t.supportUnbid(unbid.some(s => s >= HEARTS)), h => {
     const weak = unbid.filter(s => h.len[s] < 3);
-    return weak.length === 0 || (weak.length === 1 && weak[0] <= DIAMONDS && unbid.filter(s => s >= HEARTS).every(s => h.len[s] >= 4));
+    return weak.length === 0 || (weak.length === 1 && weak[0] <= DIAMONDS && h.len[weak[0]] === 2 && unbid.filter(s => s >= HEARTS).every(s => h.len[s] >= 4));
   }, sh => { unbid.filter(s => s >= HEARTS).forEach(s => (sh.len[s] = [Math.max(3, sh.len[s][0]), sh.len[s][1]])); }, h => T.bidding.conds.lengths(h.len, unbid));
+  // with a good six-card suit, overcall (a stronger hand doubles first, see below)
+  const goodLong = (h: HandInfo) => unbid.find(s => h.len[s] >= 6 && goodSuit(h, s));
+  const noLong = cond(t.noSixCardSuit, h => goodLong(h) === undefined, undefined, h => {
+    const s = goodLong(h);
+    return s === undefined ? T.bidding.conds.shape(h.shape) : T.bidding.conds.suitQuality(s, true);
+  });
   const minX = preempt ? 13 + Math.max(0, lastLevel - 2) : bal ? 9 : 12;
-  rules.push(R(DOUBLE, 'takeoutDouble', t.takeoutDouble(minX), [hcpC(minX), short, support], { tag: 'takeoutX', forcing: 'one' }));
+  rules.push(R(DOUBLE, 'takeoutDouble', t.takeoutDouble(minX), [hcpC(minX), short, support, noLong], { tag: 'takeoutX', forcing: 'one' }));
   // too strong for a (balancing) 1NT or an overcall: double first
   rules.push(R(DOUBLE, 'strongDouble', bal ? t.strongDoubleBalancing : t.strongDouble, [hcpC(bal ? 15 : 17)], { tag: 'takeoutX', forcing: 'one' }));
 
@@ -320,7 +327,9 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
     if (raise !== null && levelOf(raise) <= 3) {
       const j = x.jump(ps);
       if (j !== null && levelOf(j) <= 3) rules.push(R(j, 'preemptiveRaise', t.preemptiveRaise, [lenC(ps, 4), hcpC(0, 8)]));
-      rules.push(R(raise, 'raise', t.raise(supLen, ps), [lenC(ps, supLen), dpC(ps, 6, 9)]));
+      // no room for a cue-bid raise below game: the raise also takes the invitational hands
+      const noCue = cue === null || levelOf(cue) > 3 || cue > bid(4, ps);
+      rules.push(R(raise, 'raise', noCue ? t.raiseNoCue(supLen, ps) : t.raise(supLen, ps), [lenC(ps, supLen), dpC(ps, 6, noCue ? 12 : 9)]));
     }
     const nt = x.cheapest(NT);
     if (nt !== null) {
@@ -352,6 +361,8 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
   if (!rc) return [];
   const theirs = x.theirSuits();
   const support = os >= HEARTS ? 3 : 4;
+  // a jump raise is preemptive: four trumps for a major, five for a minor (1♣/1♦ may be three cards)
+  const preLen = os >= HEARTS ? 4 : 5;
 
   if (os === NT) {
     if (rc.call === DOUBLE) {
@@ -366,11 +377,19 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
     rules.push(R(bid(3, NT), ['nt', 3], t.threeNtOver1nt, [hcpC(10), stopC(theirs)]));
     rules.push(R(DOUBLE, 'cooperativeDouble', t.cooperative, [hcpC(8),
       cond(t.cooperativeCond, h => theirs.some(s => h.len[s] >= 3) && h.shape[0] <= 4)], { tag: 'penaltyX' }));
+    // a suit at the three level is forcing with game values; at the two level it competes
     for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
       if (theirs.includes(s)) continue;
       const c = x.cheapest(s);
       if (c === null || levelOf(c) > 3) continue;
-      rules.push(R(c, 'natural', t.natural(s), [lenC(s, 5)]));
+      const three = levelOf(c) === 3 ? c : bid(3, s);
+      rules.push(R(three, 'naturalForcing', t.naturalForcing(s), [lenC(s, 5), hcpC(10)], { forcing: 'game' }));
+    }
+    for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
+      if (theirs.includes(s)) continue;
+      const c = x.cheapest(s);
+      if (c === null || levelOf(c) > 2) continue;
+      rules.push(R(c, 'natural', t.natural(s), [lenC(s, 5), hcpC(0, 9)]));
     }
     rules.push(R(PASS, 'pass', t.nothingToSay, []));
     return rules;
@@ -382,7 +401,7 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
     rules.push(R(REDOUBLE, 'redouble', t.redouble, [hcpC(10)], {
       tag: 'redouble', shows: os >= HEARTS ? s => { s.len[os] = [s.len[os][0], Math.min(3, s.len[os][1])]; } : undefined,
     }));
-    rules.push(R(bid(3, os), 'preemptiveRaise', t.preemptiveRaiseAfterDouble, [lenC(os, 4), hcpC(0, 9)]));
+    rules.push(R(bid(3, os), 'preemptiveRaise', t.preemptiveRaiseAfterDouble(preLen), [lenC(os, preLen), hcpC(0, 9)]));
     rules.push(R(bid(2, os), 'raise', t.raiseContested(support), [lenC(os, support), dpC(os, 6, 10)]));
     for (const s of [HEARTS, SPADES]) {
       if (s <= os) continue;
@@ -394,7 +413,9 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
   }
 
   if (!isBid(rc.call)) return [];
-  const ys = strainOf(rc.call), yl = levelOf(rc.call);
+  // a two-suited overcall (Michaels, the unusual 2NT) cue-bids nothing of ours: their suit is one it shows
+  const shownSuit = rc.meaning.tag === 'michaels' || rc.meaning.tag === 'unusual' ? rc.meaning.data?.a ?? -1 : -1;
+  const ys = shownSuit >= 0 ? shownSuit : strainOf(rc.call), yl = levelOf(rc.call);
   if (ys === NT) {
     rules.push(R(DOUBLE, 'penaltyDouble', t.penaltyOverNt, [hcpC(9)], { tag: 'penaltyX' }));
     rules.push(R(x.cheapest(os)!, 'raise', t.raiseWeak, [lenC(os, support), hcpC(5, 8)]));
@@ -411,7 +432,7 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
   const raise = x.cheapest(os);
   const jr = x.jump(os);
   if (jr !== null && levelOf(jr) <= 4 && os >= HEARTS && levelOf(jr) === 4) rules.push(R(jr, 'gameRaise', t.gameRaiseContested, [lenC(os, 5), cond(T.bidding.conds.singletonOrVoid, h => h.shape[3] <= 1)]));
-  if (jr !== null && levelOf(jr) <= 3) rules.push(R(jr, 'preemptiveRaise', t.preemptiveRaiseContested, [lenC(os, 4), hcpC(0, 9)]));
+  if (jr !== null && levelOf(jr) <= 3) rules.push(R(jr, 'preemptiveRaise', t.preemptiveRaiseContested(preLen), [lenC(os, preLen), hcpC(0, 9)]));
   if (raise !== null && levelOf(raise) <= 3) rules.push(R(raise, 'raise', t.raiseContested(support), [lenC(os, support), dpC(os, 6, 10)]));
 
   for (const s of [SPADES, HEARTS]) {
@@ -420,8 +441,10 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
     if (c !== null && levelOf(c) === 1) rules.push(R(c, 'newSuit', t.newSuitFive(s), [hcpC(6), lenC(s, 5)], { forcing: 'one' }));
   }
 
+  // over a two-suiter the double shows values, ready to double the suit they choose
+  if (shownSuit >= 0) rules.push(R(DOUBLE, 'penaltyDouble', t.doubleTwoSuiter, [hcpC(10)], { tag: 'penaltyX' }));
   // negative double through 2♠
-  if (rc.call <= bid(2, SPADES) && ys < NT) {
+  else if (rc.call <= bid(2, SPADES) && ys < NT) {
     const unbidMajors = [HEARTS, SPADES].filter(s => s !== ys && s !== os);
     const unbidMinors = [CLUBS, DIAMONDS].filter(s => s !== ys && s !== os);
     const shows = unbidMajors.length ? unbidMajors : unbidMinors;
@@ -447,6 +470,7 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
     const l = levelOf(c);
     if (l === 1) rules.push(R(c, 'newSuit', t.newSuitFour(s), [hcpC(6), lenC(s, 4)], { forcing: 'one' }));
     else if (l === 2) rules.push(R(c, 'newSuit', t.newSuitTwoLevel(s), [hcpC(10), lenC(s, 5)], { forcing: 'one' }));
+    else if (l === 3) rules.push(R(c, 'newSuit', t.newSuitThreeLevel(s), [hcpC(11), lenC(s, 5), decentSuit(s)], { forcing: 'one' }));
   }
   rules.push(R(PASS, 'pass', t.passContested, []));
   return rules;
@@ -482,6 +506,7 @@ export function afterReopeningDouble(x: Ctx, dbl: CallRecord): Rule[] {
   return [R(PASS, 'penaltyPass', t.penaltyPassReopening, [
     cond(t.penaltyPassNegativeDoubleCond, h => h.len[ts] >= 4 && suitHonours(h, ts) >= 2, s => { s.len[ts] = [Math.max(4, s.len[ts][0]), s.len[ts][1]]; },
       h => T.bidding.conds.lenValue(h.len[ts], ts)),
+    hcpC(6), // defending a doubled contract needs some values as well as trumps
   ])];
 }
 
@@ -506,17 +531,22 @@ export function openerAfterNegDouble(x: Ctx, negX: CallRecord, open: CallRecord)
   const rules: Rule[] = [];
   const os = strainOf(open.call);
   const theirs = x.theirSuits();
-  const shownMajors = [negX.meaning.data!.a, negX.meaning.data!.b].filter(s => s >= 0);
-  for (const s of shownMajors) {
+  const shownSuits = [negX.meaning.data!.a, negX.meaning.data!.b].filter(s => s >= 0);
+  const nt = x.cheapest(NT);
+  for (const s of shownSuits) {
+    const c = x.cheapest(s);
+    if (c !== null && s >= HEARTS && levelOf(c) <= 3) rules.push(R(bid(4, s), 'game', t.gameAfterNegativeDouble, [lenC(s, 4), hcpC(18)]));
+  }
+  // a jump in notrump shows 18–19 balanced, too strong to open 1NT
+  if (nt !== null && levelOf(nt) <= 2) rules.push(R(bid(levelOf(nt) + 1, NT), 'notrump', t.ntJumpAfterNegativeDouble, [hcpC(18, 19), balancedC(), stopC(theirs)]));
+  for (const s of shownSuits) {
     const c = x.cheapest(s);
     if (c === null) continue;
     const l = levelOf(c);
-    if (s >= HEARTS && l <= 3) rules.push(R(bid(4, s), 'game', t.gameAfterNegativeDouble, [lenC(s, 4), hcpC(18)]));
     if (l + 1 <= 3) rules.push(R(bid(l + 1, s), 'jump', t.jumpAfterNegativeDouble(s), [lenC(s, 4), hcpC(16, 18)]));
     rules.push(R(c, 'showFit', t.showFit(s), [lenC(s, 4)]));
   }
   rules.push(R(PASS, 'penaltyPass', t.penaltyPassNegativeDouble, [cond(t.penaltyPassNegativeDoubleCond, h => theirs.some(s => h.len[s] >= 4 && suitHonours(h, s) >= 2)), hcpC(13)]));
-  const nt = x.cheapest(NT);
   if (nt !== null && levelOf(nt) <= 2) rules.push(R(nt, 'notrump', t.ntAfterNegativeDouble, [hcpC(12, 14), stopC(theirs)]));
   const own = x.cheapest(os);
   if (own !== null) rules.push(R(own, 'rebidSuit', t.rebidAfterNegativeDouble, []));
@@ -550,15 +580,18 @@ export function doublerRebid(x: Ctx, resp: CallRecord): Rule[] {
     }
     return rules.filter(r => r.call !== null);
   }
+  // partner's jump response (9–11) has already invited game: accept with a sound double
+  const jumped = x.shownBy(x.partner).hcp[0] >= 9;
+  const bal = balancingCall(x, x.lastAction(x.seat)!);
   if (rs < NT) {
     const g = rs >= HEARTS ? 4 : 5;
-    rules.push(R(bid(g, rs), 'raiseToGame', t.raiseToGame, [lenC(rs, 4), dpC(rs, 19)]));
+    if (jumped) rules.push(R(bid(g, rs), 'raiseToGame', t.raiseToGameAfterJump, [lenC(rs, 4), dpC(rs, g === 4 ? 15 : 17)]));
+    else rules.push(R(bid(g, rs), 'raiseToGame', t.raiseToGame, [lenC(rs, 4), dpC(rs, 19)]));
     const raise = x.cheapest(rs);
-    if (raise !== null && levelOf(raise) <= 3) rules.push(R(raise, 'invitationalRaise', t.invitationalRaise, [lenC(rs, 4), dpC(rs, 16, 18)], { tag: 'invite' }));
+    if (raise !== null && levelOf(raise) <= 3 && !jumped) rules.push(R(raise, 'invitationalRaise', t.invitationalRaise, [lenC(rs, 4), dpC(rs, 16, 18)], { tag: 'invite' }));
   }
   const nt = x.cheapest(NT);
   // a balancing double has borrowed a king: notrump next shows 15–18, not 18–20
-  const bal = balancingCall(x, x.lastAction(x.seat)!);
   if (nt !== null && levelOf(nt) <= 2) rules.push(R(nt, 'notrump', bal ? t.ntDoublerBalancing : t.ntDoubler, [bal ? hcpC(15, 18) : hcpC(18, 20), balancedC(), stopC(theirs)]));
   for (const su of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
     if (theirs.includes(su) || su === rs) continue;

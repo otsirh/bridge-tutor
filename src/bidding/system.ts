@@ -9,7 +9,7 @@ import { openingRules } from './openings';
 import { responsesToOneSuit, responsesTo1NT, responsesTo2NT, responsesTo2C, responsesToWeakTwo, responsesToPreempt } from './responses';
 import {
   openerRebidOneSuit, openerAfterNT, responderAfterNTConvention, openerAfterNTContinuation,
-  openerAfter2C, openerAfterFeatureAsk, responderAfterInvite,
+  openerAfter2C, openerAfterFeatureAsk, openerAfterWeakTwoNewSuit, responderAfterInvite,
 } from './rebids';
 import {
   overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise, openerReopening, afterReopeningDouble, openerAfterRedouble, doublerAfterRedouble,
@@ -91,6 +91,7 @@ function specificRules(x: Ctx): Rule[] {
       if (!rhoQuiet && !interfered) return [];
       if (op.meaning.tag === 'strong2c') return openerAfter2C(x, resp);
       if (op.meaning.tag === 'weak2' && resp.meaning.tag === 'featureAsk') return openerAfterFeatureAsk(x, os);
+      if (op.meaning.tag === 'weak2' && resp.meaning.tag === 'w2new' && rhoQuiet) return openerAfterWeakTwoNewSuit(x, os, resp.meaning.data!.suit);
       if (ol === 1 && os < NT) return openerRebidOneSuit(x, os, resp);
       if (os === NT && ol <= 2) return openerAfterNT(x, ol, resp);
       return [];

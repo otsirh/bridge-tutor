@@ -131,6 +131,6 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Wiederbelebungskontra (reopening double)', def: 'Das Kontra des Eröffners in der Wiederbelebungsposition nach einer Gegenreizung, meist mit Kürze in der gegengereizten Farbe, damit der Partner zur Strafe passen kann.' },
   { term: 'Wiedergebot (rebid)', def: 'Das zweite Gebot eines Spielers in einer Reizung.' },
   { term: 'Yarborough', def: 'Eine Hand ohne jede Karte über der 9.' },
-  { term: 'Zwanzigerregel (Rule of 20)', def: 'Eröffnen Sie in erster oder zweiter Hand eine Hand mit 10–11 FP, wenn FP plus die Längen der beiden längsten Farben 20 oder mehr ergeben.' },
+  { term: 'Zwanzigerregel (Rule of 20)', def: 'Eröffnen Sie in erster, zweiter oder dritter Hand eine Hand mit 10–11 FP, wenn FP plus die Längen der beiden längsten Farben 20 oder mehr ergeben.' },
   { term: 'Zweite Hand tief (second hand low)', def: 'Die Richtlinie, dass ein Gegenspieler, der als Zweiter zu einem Stich spielt, meist eine kleine Karte legt.' },
 ];

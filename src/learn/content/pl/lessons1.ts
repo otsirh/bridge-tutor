@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>Reguła 20 i reguła 15</h3>
-<p>Na pierwszej lub drugiej ręce otwórz rękę z 10 lub 11 PC, jeśli PC plus liczba kart w dwóch najdłuższych kolorach daje co najmniej 20.</p>
+<p>Na pierwszej, drugiej lub trzeciej ręce otwórz rękę z 10 lub 11 PC, jeśli PC plus liczba kart w dwóch najdłuższych kolorach daje co najmniej 20.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Reguła 20: otwórz 1♠"></div>
 <p>10 PC + 5 + 5 = 20, więc otwierasz, a z dwiema piątkami otwierasz wyższy kolor: 1♠. Porównaj ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PC + 4 + 3 = 18, więc pas. Rozproszone damy i walety oraz płaski układ sprawiają, że to słabe otwarcie.</p>
 <p>Na czwartej ręce, po trzech pasach, stosuj regułę 15: otwórz, jeśli PC plus liczba pików daje co najmniej 15. Jeśli spasujesz, rozdanie jest przepasowane, więc otwierasz tylko wtedy, gdy twoja para ma szansę wygrać walkę o częściówkę – a większość takich walk rozstrzygają piki.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'PC: as 4, król 3, dama 2, walet 1; w talii jest ich 40, w przeciętnej ręce 10.',
       'Oceniając własną rękę, dodaj punkt za każdą kartę ponad cztery; podnosząc partnera, licz zamiast tego krótkości (renons 5, singiel 3, dubel 1 przy czterech atutach).',
-      'Reguła 20 dla lekkich otwarć na pierwszej lub drugiej ręce; reguła 15 (PC + piki) na czwartej ręce.',
+      'Reguła 20 dla lekkich otwarć na pierwszej, drugiej lub trzeciej ręce; reguła 15 (PC + piki) na czwartej ręce.',
       'LTC: lewy ≈ 24 − łączna liczba przegrywających; minimalne otwarcie ma około 7 przegrywających.',
       'Około 25 punktów łącznie na 3BA lub dograną w starszym, 29 na dograną w młodszym, 33 na szlemika.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Czy to ręka na otwarcie?</h3>
-<p>Z 12 lub więcej PC otwieraj, z wyjątkiem czwartej ręki. Z 10-11 PC na pierwszej lub drugiej ręce otwórz, jeśli spełniona jest reguła 20 (PC + długości dwóch najdłuższych kolorów ≥ 20). Na czwartej ręce otwieraj z 13 lub więcej PC, a z 10-12 PC tylko wtedy, gdy spełniona jest reguła 15 (PC + liczba pików ≥ 15). Ręce z długim kolorem i mniejszą siłą mogą się za to nadawać na słabe dwa albo otwarcie blokujące.</p>
+<p>Z 12 lub więcej PC otwieraj, z wyjątkiem czwartej ręki. Z 10-11 PC na pierwszej, drugiej lub trzeciej ręce otwórz, jeśli spełniona jest reguła 20 (PC + długości dwóch najdłuższych kolorów ≥ 20). Na czwartej ręce otwieraj z 13 lub więcej PC, a z 10-12 PC tylko wtedy, gdy spełniona jest reguła 15 (PC + liczba pików ≥ 15). Ręce z długim kolorem i mniejszą siłą mogą się za to nadawać na słabe dwa albo otwarcie blokujące.</p>
 
 <h3>Ręce zrównoważone: decydują punkty</h3>
 <p>Ręka zrównoważona nie ma renonsu ani singla i ma co najwyżej jeden dubel: 4-3-3-3, 4-4-3-2 lub 5-3-3-2. Z ręką zrównoważoną twoim planem jest zawsze pokazanie siły w bez atu – od razu albo w następnej odzywce:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Nigdy nie otwieraj 1♥ ani 1♠ z czterema kartami. Partner podniesie z trzykartowym poparciem, licząc na co najmniej ośmiokartowy fit.</div>
 `,
     keyPoints: [
-      'Otwieraj z 12+ PC; z 10-11 stosuj regułę 20 (pierwsza lub druga ręka). Na czwartej ręce otwieraj z 13+ albo z 10-12, jeśli spełniona jest reguła 15.',
+      'Otwieraj z 12+ PC; z 10-11 stosuj regułę 20 (pierwsza, druga lub trzecia ręka). Na czwartej ręce otwieraj z 13+ albo z 10-12, jeśli spełniona jest reguła 15.',
       '1♥/1♠ obiecują pięć kart; bez piątki w starszym otwórz dłuższy młodszy (1♣ z 3-3, 1♦ z 4-4).',
       'Ręce zrównoważone: 12-14 otwórz kolor i daj rebid 1BA; 15-17 1BA; 18-19 skok na 2BA; 20-21 2BA; 22+ 2♣.',
       'Dwie piątki: otwórz wyższy kolor; 6-5: otwórz dłuższy.',

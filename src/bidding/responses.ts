@@ -75,6 +75,11 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
     rules.push(
       R(bid(3, M), 'limitRaise', t.limitRaiseMajor, [lenC(M, 4), dpC(M, 10, 12)]),
     );
+    // three trumps and 11–12 points but too few HCP for a two-over-one: the limit raise
+    // (1NT would deny the support)
+    rules.push(
+      R(bid(3, M), 'limitRaise', t.limitRaiseThree, [lenC(M, 3, 3), hcpC(0, 10), dpC(M, 11, 12)], { family: 'limitRaise3' }),
+    );
     rules.push(
       R(bid(2, M), 'singleRaise', t.singleRaiseMajor(M), [lenC(M, 3), dpC(M, 6, 10)]),
     );
@@ -240,6 +245,13 @@ export function responsesToWeakTwo(x: Ctx, s: number): Rule[] {
   const t = T.bidding.responses;
   const rules: Rule[] = [];
   const major = s >= HEARTS;
+  // a misfit with a good suit of your own: bid it (forcing) rather than ask about partner's
+  for (const o of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
+    const c = x.cheapest(o);
+    if (o === s || c === null) continue;
+    const decent = cond(T.bidding.competitive.decent(o), h => goodSuit(h, o) || h.len[o] >= 6, undefined, h => T.bidding.conds.suitQuality(o, goodSuit(h, o)));
+    rules.push(R(c, 'newSuit', t.newSuitWeakTwo(o), [hcpC(16), lenC(o, 5), decent, lenC(s, 0, 1)], { forcing: 'one', tag: 'w2new', data: { suit: o } }));
+  }
   rules.push(
     R(bid(2, NT), 'featureAsk', t.featureAsk(s), [hcpC(15)], {
       artificial: true, forcing: 'one', tag: 'featureAsk', data: { suit: s },
@@ -255,7 +267,7 @@ export function responsesToWeakTwo(x: Ctx, s: number): Rule[] {
     if (o === s) continue;
     const c = x.cheapest(o);
     if (c === null) continue;
-    rules.push(R(c, 'newSuit', t.newSuitWeakTwo(o), [hcpC(16), lenC(o, 5), goodSuitC(o)], { forcing: 'one' }));
+    rules.push(R(c, 'newSuit', t.newSuitWeakTwo(o), [hcpC(16), lenC(o, 5), goodSuitC(o)], { forcing: 'one', tag: 'w2new', data: { suit: o } }));
   }
   rules.push(R(bid(3, s), 'preemptiveRaise', t.preemptiveRaiseWeakTwo, [lenC(s, 3), hcpC(0, 14)]));
   rules.push(passResponse(t.passWeakTwo, 14));

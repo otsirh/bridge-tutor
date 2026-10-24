@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>A Regra dos 20 e a Regra dos 15</h3>
-<p>Em primeira ou segunda posição, abra uma mão de 10 ou 11 PH se os PH mais o número de cartas dos seus dois naipes mais longos somarem 20 ou mais.</p>
+<p>Em primeira, segunda ou terceira posição, abra uma mão de 10 ou 11 PH se os PH mais o número de cartas dos seus dois naipes mais longos somarem 20 ou mais.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regra dos 20: abra 1♠"></div>
 <p>10 PH + 5 + 5 = 20, então abra, e com dois naipes de 5 cartas abra o de categoria mais alta: 1♠. Compare com ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PH + 4 + 3 = 18, então passe. As damas e os valetes espalhados e a distribuição plana fazem dela uma abertura ruim.</p>
 <p>Em quarta posição, depois de três passos, use a Regra dos 15: abra se os PH mais o número de espadas somarem 15 ou mais. Se você passar, a mão é recolhida sem ser jogada, então só convém abrir quando a sua dupla tem boas chances de ganhar a disputa pelo parcial, e quem decide a maioria dessas disputas é o naipe de espadas.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'PH: ás 4, rei 3, dama 2, valete 1; 40 no baralho, 10 numa mão média.',
       'Na sua própria mão, some um ponto por carta além da quarta; ao apoiar o parceiro, conte os naipes curtos (com quatro trunfos: chicana 5, singleton 3, doubleton 1).',
-      'Regra dos 20 para aberturas leves em primeira ou segunda posição; Regra dos 15 (PH + espadas) em quarta posição.',
+      'Regra dos 20 para aberturas leves em primeira, segunda ou terceira posição; Regra dos 15 (PH + espadas) em quarta posição.',
       'LTC: vazas ≈ 24 − perdedoras da dupla; uma abertura mínima tem cerca de 7 perdedoras.',
       'Cerca de 25 pontos somados para 3ST ou game num naipe rico, 29 para game num naipe pobre, 33 para pequeno slam.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>É uma mão de abertura?</h3>
-<p>Com 12 PH ou mais, abra, exceto em quarta posição. Com 10-11 PH em primeira ou segunda posição, abra se a Regra dos 20 estiver satisfeita (PH + comprimento dos seus dois naipes mais longos ≥ 20). Em quarta posição, abra com 13 PH ou mais, e com 10-12 PH só se a Regra dos 15 estiver satisfeita (PH + número de espadas ≥ 15). Mãos com um naipe longo e menos pontos podem servir para um dois fraco ou uma barragem.</p>
+<p>Com 12 PH ou mais, abra, exceto em quarta posição. Com 10-11 PH em primeira, segunda ou terceira posição, abra se a Regra dos 20 estiver satisfeita (PH + comprimento dos seus dois naipes mais longos ≥ 20). Em quarta posição, abra com 13 PH ou mais, e com 10-12 PH só se a Regra dos 15 estiver satisfeita (PH + número de espadas ≥ 15). Mãos com um naipe longo e menos pontos podem servir para um dois fraco ou uma barragem.</p>
 
 <h3>Mãos balanceadas: os pontos decidem</h3>
 <p>Uma mão balanceada não tem chicana nem singleton, e tem no máximo um doubleton: 4-3-3-3, 4-4-3-2 ou 5-3-3-2. Com uma mão balanceada, o seu plano é sempre mostrar a força em sem trunfo, logo de saída ou na sua próxima voz:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Nunca abra 1♥ ou 1♠ com apenas quatro cartas. O parceiro apoiará com três cartas, contando com um fit de pelo menos oito.</div>
 `,
     keyPoints: [
-      'Abra com 12+ PH; com 10-11, use a Regra dos 20 (primeira ou segunda posição). Em quarta posição, abra com 13+, ou com 10-12 se a Regra dos 15 estiver satisfeita.',
+      'Abra com 12+ PH; com 10-11, use a Regra dos 20 (primeira, segunda ou terceira posição). Em quarta posição, abra com 13+, ou com 10-12 se a Regra dos 15 estiver satisfeita.',
       '1♥/1♠ prometem cinco cartas; sem naipe rico de 5 cartas, abra o pobre mais longo (1♣ com 3-3, 1♦ com 4-4).',
       'Balanceada: com 12-14 abra um naipe e remarque 1ST; 15-17, 1ST; 18-19, salte para 2ST; 20-21, 2ST; 22+, 2♣.',
       'Dois naipes de 5 cartas: abra o mais alto; 6-5: abra o mais longo.',

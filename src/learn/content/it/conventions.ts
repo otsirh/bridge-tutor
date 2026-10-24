@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Un esempio completo</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Nord salta a 4♥ con appoggio quarto e 19+ punti. Sud ha 17 PO e una fonte di prese a quadri, quindi lo slam è probabile. 5♣ mostra una o quattro carte chiave. Sud ha solo il ♣A, e l’appoggio forte di Nord non si spiega senza assi, quindi sono quattro. Resta una sola domanda, la ♥Q, e 5♦ la pone. Nord ce l’ha e dichiara 6♥, e Sud passa: non manca niente, ma non c’è una tredicesima presa su cui contare.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Nord salta a 4♥ con appoggio quarto e 19+ punti. Sud ha 17 PO e una fonte di prese a quadri, quindi lo slam è probabile. 5♣ mostra una o quattro carte chiave. Sud ha solo il ♣A, e l’appoggio forte di Nord non si spiega senza assi, quindi sono quattro. Resta una sola domanda, la ♥Q, e 5♦ la pone. Nord ce l’ha e dichiara 6♥. Ora Sud può contare tredici prese: quattro a cuori, cinque a quadri (l’♦A di Nord con ♦KQJ10 di Sud) più l’asso e il re di picche e di fiori. Sud dichiara 7♥ e Nord passa.</p>
 <div class="tip">Prima di dichiarare 4SA, assicurati che la risposta non possa portarti oltre il contratto che vuoi. Con atout fiori o quadri, una risposta di 5♥ o 5♠ non lascia modo di fermarsi a livello di cinque, quindi devi sapere che non possono mancare due carte chiave.</div>
 <div class="warn">La RKCB richiede un colore d’atout concordato. Dopo un senza atout naturale del compagno, 4SA è quantitativo. Con una chicane la RKCB non può dirti se le carte chiave del compagno sono utili: fai invece una cue bid.</div>
 `,
@@ -190,7 +190,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Dopo 1♦ – 1♠ – 1SA, il rispondente con cinque picche e valori di manche vorrebbe sapere se l’apertore ha tre picche. 3♠ sarebbe solo invitante; 4♠ potrebbe finire in un fit 5-2; 3SA potrebbe perdere un fit 5-3. Le dichiarazioni naturali non possono fare la domanda, quindi la fa una dichiarazione convenzionale.</p>
 
 <h3>Il nuovo minore forzante</h3>
-<p>Dopo la ridichiarazione di 1SA dell’apertore, la dichiarazione dell’<strong>altro minore</strong> a livello di due da parte del rispondente (1♣ – 1♥ – 1SA – 2♦, oppure 1♦ – 1♠ – 1SA – 2♣) è convenzionale e forzante per un giro. Mostra 11 o più punti e chiede informazioni sulla nobile del rispondente. Il rispondente ne ha esattamente cinque carte oppure, dopo 1♠, quattro picche e quattro cuori; con sei carte il rispondente ripete semplicemente la nobile o dichiara manche.</p>
+<p>Dopo la ridichiarazione di 1SA dell’apertore, la dichiarazione dell’<strong>altro minore</strong> a livello di due da parte del rispondente (1♣ – 1♥ – 1SA – 2♦, oppure 1♦ – 1♠ – 1SA – 2♣) è convenzionale e forzante per un giro. Mostra 11 o più punti e chiede informazioni sulla nobile del rispondente. Il rispondente ne ha esattamente cinque carte (dopo 1♠, magari con quattro cuori; con quattro carte in ciascuna nobile avrebbe risposto 1♥); con sei carte il rispondente ripete semplicemente la nobile o dichiara manche.</p>
 <table>
 <thead><tr><th>Risposta dell’apertore</th><th>Significato</th></tr></thead>
 <tbody>

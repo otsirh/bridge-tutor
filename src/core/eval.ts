@@ -92,12 +92,15 @@ export function goodSuit(h: HandInfo, s: number): boolean {
   return top3 >= 2 || suitHonours(h, s) >= 3;
 }
 
-/** Dummy points when raising partner's suit: shortness counted, length points not. */
-export function dummyPoints(h: HandInfo, trump: number): number {
+/**
+ * Dummy points when raising partner's suit: shortness counted, length points not.
+ * Shortness in `partnerSuits` (other suits partner has bid) is no asset and is not counted.
+ */
+export function dummyPoints(h: HandInfo, trump: number, partnerSuits: readonly number[] = []): number {
   const support = h.len[trump];
   let pts = h.hcp;
   for (let s = 0; s < 4; s++) {
-    if (s === trump) continue;
+    if (s === trump || partnerSuits.includes(s)) continue;
     const l = h.len[s];
     if (support >= 4) pts += l === 0 ? 5 : l === 1 ? 3 : l === 2 ? 1 : 0;
     else if (support === 3) pts += l === 0 ? 3 : l === 1 ? 2 : l === 2 ? 1 : 0;
@@ -105,11 +108,11 @@ export function dummyPoints(h: HandInfo, trump: number): number {
   return pts;
 }
 
-/** Points for a hand that has found a fit as the long-trump hand: HCP + length + a little for shortness. */
-export function declarerPoints(h: HandInfo, trump: number): number {
+/** Points for a hand that has found a fit as the long-trump hand: HCP + length + a little for shortness (not in `partnerSuits`). */
+export function declarerPoints(h: HandInfo, trump: number, partnerSuits: readonly number[] = []): number {
   let pts = h.hcp + h.lengthPts;
   for (let s = 0; s < 4; s++) {
-    if (s === trump) continue;
+    if (s === trump || partnerSuits.includes(s)) continue;
     if (h.len[s] === 0) pts += 2;
     else if (h.len[s] === 1) pts += 1;
   }

@@ -140,9 +140,9 @@ describe('control bids', () => {
 });
 
 describe('new minor forcing', () => {
-  it('asks with 11+ and five cards in the major (or four spades and four hearts)', () => {
+  it('asks with 11+ and five cards in the major (after 1♠, perhaps with four hearts too)', () => {
     expect(next('SK SQ S8 S5 S4 HA H3 DJ D4 CQ C9 C8 C2', '1D P 1S P 1NT P')).toMatchObject({ call: '2C', tag: 'nmf' });
-    expect(next('SK SQ S8 S5 HA HJ H3 H2 DJ D4 CQ C9 C8', '1D P 1S P 1NT P')).toMatchObject({ call: '2C', tag: 'nmf' });
+    expect(next('SK SQ S8 S5 S4 HA HJ H3 H2 DJ D4 CQ C9', '1D P 1S P 1NT P')).toMatchObject({ call: '2C', tag: 'nmf' });
     expect(next('SA SJ S8 S4 HK H5 DQ D7 D3 CQ C10 C6 C2', '1D P 1S P 1NT P').call).not.toBe('2C');
   });
   it('opener shows three-card support, four hearts, or neither', () => {

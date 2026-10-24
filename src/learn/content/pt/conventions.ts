@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Um exemplo completo</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Norte salta para 4♥ com apoio de quatro cartas e 19+ pontos. Sul tem 17 PH e uma fonte de vazas em ouros, então o slam é provável. 5♣ mostra uma ou quatro cartas-chave. Sul tem só o ♣A, e o apoio forte de Norte não se completa sem ases, então são quatro. Resta uma pergunta, a ♥Q, e 5♦ a faz. Norte tem a dama e marca 6♥, e Sul passa: não falta nada, mas não há uma décima terceira vaza com que contar.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Norte salta para 4♥ com apoio de quatro cartas e 19+ pontos. Sul tem 17 PH e uma fonte de vazas em ouros, então o slam é provável. 5♣ mostra uma ou quatro cartas-chave. Sul tem só o ♣A, e o apoio forte de Norte não se completa sem ases, então são quatro. Resta uma pergunta, a ♥Q, e 5♦ a faz. Norte tem a dama e marca 6♥. Agora Sul pode contar treze vazas: quatro de copas, cinco de ouros (o ♦A de Norte com os ♦KQJ10 de Sul) e o ás e o rei de espadas e de paus. Sul marca 7♥ e Norte passa.</p>
 <div class="tip">Antes de marcar 4ST, garanta que a resposta não pode levá-lo além do contrato que você quer. Com paus ou ouros como trunfo, uma resposta de 5♥ ou 5♠ não deixa como parar no nível 5, então você precisa saber que não podem faltar duas cartas-chave.</div>
 <div class="warn">O RKCB precisa de um naipe de trunfo combinado. Depois de uma voz natural de sem trunfo do parceiro, 4ST é quantitativo. Com uma chicana, o RKCB não diz se as cartas-chave do parceiro são úteis: faça um cue-bid.</div>
 `,
@@ -191,7 +191,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Depois de 1♦ – 1♠ – 1ST, um respondedor com cinco espadas e valores de game gostaria de saber se o abridor tem três espadas. 3♠ seria só convite; 4♠ poderia cair num fit 5-2; 3ST poderia perder um fit 5-3. As vozes naturais não conseguem fazer a pergunta, então uma voz artificial a faz.</p>
 
 <h3>Novo menor forcing</h3>
-<p>Depois da remarcação de 1ST do abridor, a voz do respondedor no <strong>outro naipe pobre</strong> no nível 2 (1♣ – 1♥ – 1ST – 2♦, ou 1♦ – 1♠ – 1ST – 2♣) é artificial e forcing por uma volta. Mostra 11 ou mais pontos e pergunta sobre o rico do respondedor. O respondedor tem exatamente cinco cartas nele ou, depois de 1♠, quatro espadas e quatro copas; com seis, o respondedor simplesmente remarca o rico ou marca o game.</p>
+<p>Depois da remarcação de 1ST do abridor, a voz do respondedor no <strong>outro naipe pobre</strong> no nível 2 (1♣ – 1♥ – 1ST – 2♦, ou 1♦ – 1♠ – 1ST – 2♣) é artificial e forcing por uma volta. Mostra 11 ou mais pontos e pergunta sobre o rico do respondedor. O respondedor tem exatamente cinco cartas nele (depois de 1♠, talvez também quatro copas; com quatro cartas em cada rico teria respondido 1♥); com seis, o respondedor simplesmente remarca o rico ou marca o game.</p>
 <table>
 <thead><tr><th>Resposta do abridor</th><th>Significado</th></tr></thead>
 <tbody>

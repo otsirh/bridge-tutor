@@ -293,6 +293,8 @@ export function responderAfterNTConvention(x: Ctx, ntLevel: number, myConv: Call
       return rules;
     }
     if (ntLevel === 1) {
+      // five-five in the majors with game values: show hearts too, and let opener choose
+      if (M === SPADES) rules.push(R(bid(3, HEARTS), 'newSuit', t.fiveFiveMajors, [lenC(SPADES, 5), lenC(HEARTS, 5), hcpC(10, 15)], { forcing: 'game', tag: 'fiveFive' }));
       rules.push(R(bid(4, M), 'game', t.gameSixPlus(M), [lenC(M, 6), hcpC(10, 15)]));
       rules.push(R(bid(3, NT), 'choiceOfGames', t.choiceOfGames(M), [lenC(M, 5, 5), hcpC(10, 15)], { tag: 'choiceOfGames', data: { suit: M } }));
       rules.push(R(bid(3, M), 'invitation', t.inviteSix(M), [lenC(M, 6), hcpC(8, 9)], { tag: 'invite' }));
@@ -358,6 +360,12 @@ export function openerAfterNTContinuation(x: Ctx, ntLevel: number, conv: CallRec
       rules.push(R(PASS, 'decline', t.declineDoubleton, []));
       return rules;
     }
+    if (cont.meaning.tag === 'fiveFive') {
+      rules.push(R(bid(4, SPADES), 'chooseMajor', t.chooseMajorFiveFive(SPADES), [cond(t.moreInMajorCond(SPADES), h => h.len[SPADES] >= 3 && h.len[SPADES] >= h.len[HEARTS], undefined, h => T.bidding.conds.lengths(h.len, [SPADES, HEARTS]))]));
+      rules.push(R(bid(4, HEARTS), 'chooseMajor', t.chooseMajorFiveFive(HEARTS), [cond(t.moreInMajorCond(HEARTS), h => h.len[HEARTS] >= 3, undefined, h => T.bidding.conds.lengths(h.len, [SPADES, HEARTS]))]));
+      rules.push(R(bid(4, SPADES), 'chooseMajor', t.chooseMajorFiveFive(SPADES), []));
+      return rules;
+    }
     if (cont.meaning.tag === 'choiceOfGames') {
       rules.push(R(bid(4, M), 'chooseMajor', t.chooseMajor, [lenC(M, 3)]));
       rules.push(R(PASS, 'chooseNt', t.chooseNt, []));
@@ -419,6 +427,20 @@ export function openerAfterFeatureAsk(x: Ctx, s: number): Rule[] {
     rules.push(R(c, 'feature', t.feature(o), [hcpC(8, 10), cond(t.featureCond(o), h => h.ranks[o].some(r => r >= 13))], { artificial: true }));
   }
   rules.push(R(bid(3, s), 'minimum', t.minimumWeakTwo, [], { shows: sh => { sh.hcp = [sh.hcp[0], Math.min(sh.hcp[1], 8)]; } }));
+  return rules;
+}
+
+/** Weak-two opener after responder's new suit (forcing): raise with three cards or a doubleton honour, otherwise rebid the suit. */
+export function openerAfterWeakTwoNewSuit(x: Ctx, s: number, o: number): Rule[] {
+  const t = T.bidding.rebids;
+  const rules: Rule[] = [];
+  const raise = x.cheapest(o), own = x.cheapest(s);
+  if (raise !== null) {
+    rules.push(R(raise, 'raise', t.raiseNewSuitWeakTwo(o), [
+      cond(t.supportNewSuitCond(o), h => h.len[o] >= 3 || (h.len[o] === 2 && h.ranks[o][0] >= 12), sh => { sh.len[o] = [Math.max(2, sh.len[o][0]), sh.len[o][1]]; }, h => T.bidding.conds.lenValue(h.len[o], o)),
+    ]));
+  }
+  if (own !== null) rules.push(R(own, 'rebidSuit', t.rebidWeakTwo(s), []));
   return rules;
 }
 

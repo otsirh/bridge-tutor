@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Pełny przykład</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Północ skacze do 4♥ z czterokartowym poparciem i 19+ punktami. Południe ma 17 PC i źródło lew w karach, więc szlemik jest prawdopodobny. 5♣ pokazuje jedną lub cztery wartości kluczowe. Południe ma tylko ♣A, a silnego podniesienia Północy nie da się złożyć bez asów, więc są to cztery. Zostaje jedno pytanie, o ♥Q, i zadaje je 5♦. Północ ją ma i licytuje 6♥, a Południe pasuje: niczego nie brakuje, ale nie ma trzynastej lewy, na którą można liczyć.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Północ skacze do 4♥ z czterokartowym poparciem i 19+ punktami. Południe ma 17 PC i źródło lew w karach, więc szlemik jest prawdopodobny. 5♣ pokazuje jedną lub cztery wartości kluczowe. Południe ma tylko ♣A, a silnego podniesienia Północy nie da się złożyć bez asów, więc są to cztery. Zostaje jedno pytanie, o ♥Q, i zadaje je 5♦. Północ ją ma i licytuje 6♥. Teraz Południe może policzyć trzynaście lew: cztery w kierach, pięć w karach (♦A Północy z ♦KQJ10 Południa) oraz asa i króla pik i trefl. Południe licytuje 7♥, a Północ pasuje.</p>
 <div class="tip">Zanim zalicytujesz 4BA, upewnij się, że odpowiedź nie wyniesie cię ponad kontrakt, który chcesz grać. Przy treflach lub karach w atu odpowiedź 5♥ lub 5♠ nie pozwala zatrzymać się na wysokości pięciu, więc musisz wiedzieć, że nie może brakować dwóch wartości kluczowych.</div>
 <div class="warn">RKCB wymaga uzgodnionego koloru atutowego. Po naturalnym bez atu partnera 4BA jest ilościowe. Z renonsem RKCB nie powie ci, czy wartości kluczowe partnera są przydatne: zamiast tego daj cue bid.</div>
 `,
@@ -191,7 +191,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Po 1♦ – 1♠ – 1BA odpowiadający z pięcioma pikami i siłą na dograną chciałby wiedzieć, czy otwierający ma trzy piki. 3♠ byłoby tylko inwitem; 4♠ może trafić na fit 5-2; 3BA może przegapić fit 5-3. Naturalne odzywki nie pozwalają zadać tego pytania, więc robi to odzywka sztuczna.</p>
 
 <h3>Nowy młodszy forsujący</h3>
-<p>Po rebidzie 1BA otwierającego odzywka odpowiadającego w <strong>drugi kolor młodszy</strong> na wysokości dwóch (1♣ – 1♥ – 1BA – 2♦ albo 1♦ – 1♠ – 1BA – 2♣) jest sztuczna i forsująca na jedno okrążenie. Pokazuje 11 lub więcej punktów i pyta o kolor starszy odpowiadającego. Odpowiadający ma w nim dokładnie pięć kart albo, po 1♠, cztery piki i cztery kiery; z szóstką po prostu powtarza kolor starszy albo licytuje dograną.</p>
+<p>Po rebidzie 1BA otwierającego odzywka odpowiadającego w <strong>drugi kolor młodszy</strong> na wysokości dwóch (1♣ – 1♥ – 1BA – 2♦ albo 1♦ – 1♠ – 1BA – 2♣) jest sztuczna i forsująca na jedno okrążenie. Pokazuje 11 lub więcej punktów i pyta o kolor starszy odpowiadającego. Odpowiadający ma w nim dokładnie pięć kart (po 1♠ być może także cztery kiery; z czterema kartami w każdym kolorze starszym odpowiedziałby 1♥); z szóstką po prostu powtarza kolor starszy albo licytuje dograną.</p>
 <table>
 <thead><tr><th>Odpowiedź otwierającego</th><th>Znaczenie</th></tr></thead>
 <tbody>

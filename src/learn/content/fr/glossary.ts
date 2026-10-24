@@ -107,7 +107,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Règle des 11 (Rule of 11)', def: 'Quand votre partenaire entame en 4e meilleure, retranchez la valeur de la carte de 11 pour savoir combien de cartes plus hautes détiennent les trois autres mains.' },
   { term: 'Règle des 15 (Rule of 15)', def: 'En 4e position, ouvrez si le total des H et du nombre de piques atteint 15 ou plus.' },
   { term: 'Règle des 2-3-4 (Rule of 2-3-4)', def: 'Repère pour barrer : soyez à deux levées de votre contrat à vulnérabilité défavorable, à trois à vulnérabilité égale et à quatre à vulnérabilité favorable.' },
-  { term: 'Règle des 20 (Rule of 20)', def: 'En 1re ou 2e position, ouvrez une main de 10-11 H si le total des H et des longueurs des deux plus longues couleurs atteint 20 ou plus.' },
+  { term: 'Règle des 20 (Rule of 20)', def: 'En 1re, 2e ou 3e position, ouvrez une main de 10-11 H si le total des H et des longueurs des deux plus longues couleurs atteint 20 ou plus.' },
   { term: 'Règle des 7 (Rule of 7)', def: 'Repère pour laisser passer : retranchez de sept le nombre de cartes que vous avez avec le mort dans la couleur entamée ; le résultat indique combien de fois laisser passer.' },
   { term: 'Remontée (entry)', def: 'Carte qui fait une levée dans une main donnée et vous permet de jouer de cette main.' },
   { term: 'Renonce (revoke)', def: 'Ne pas fournir alors qu’on le pouvait. Une fois consommée, la renonce coûte en général une ou deux levées, transférées aux adversaires.' },

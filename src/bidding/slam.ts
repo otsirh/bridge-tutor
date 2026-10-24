@@ -47,7 +47,8 @@ const REPLY_COUNTS = [[1, 4], [0, 3], [2, 2], [2, 2]];
  * Partner's key cards from an ambiguous reply (5♣ = 1 or 4, 5♦ = 0 or 3), as a
  * player works it out: a count that does not fit is ruled out, either because
  * partner's shown strength could not be made up without the higher count (the
- * high cards left outside my hand are mostly key cards), or because partner is
+ * high cards left outside my hand are mostly key cards, so partner would need
+ * nearly all the others), or because partner is
  * too weak to hold it. Otherwise the lower count, unless that leaves the
  * partnership with fewer than two key cards or partner has shown plenty.
  */
@@ -57,7 +58,8 @@ function partnerKeyCards(step: number, h: HandInfo, trump: number, partner: Show
   if (mine + hi > 5) return lo;
   const kingOut = h.ranks[trump].includes(13) ? 0 : 3;
   const otherHcpOut = 40 - h.hcp - (4 - h.aces) * 4 - kingOut; // high cards outside my hand that are not key cards
-  if (partner.hcp[0] > otherHcpOut + 4 * lo) return hi;
+  // (or could only just: partner would need nearly every other high card left)
+  if (partner.hcp[0] > otherHcpOut - 2 + 4 * lo) return hi;
   if (partner.hcp[1] < 4 * hi - (kingOut ? 1 : 0)) return lo;
   const est = partner.hcp[1] - partner.hcp[0] > 12 ? partner.hcp[0] + 2 : (partner.hcp[0] + partner.hcp[1]) / 2;
   return mine + lo < 2 || est >= 4 * hi + 2 ? hi : lo;
@@ -114,6 +116,37 @@ function lastKeyCardReply(x: Ctx): CallRecord | undefined {
   return x.records.filter(r => r.seat === x.partner && r.meaning.tag === 'rkcbReply').at(-1);
 }
 
+/**
+ * Tricks the asker can count once every key card and the trump queen are known
+ * to be ours: the trump suit when its top cards cover the opponents' trumps,
+ * and in each side suit the run of top cards from the ace down that the two
+ * hands hold between them (every ace is ours; the rest of the run must be in
+ * my hand), up to my length in the suit, or one for partner's ace where I am void.
+ */
+export function countedTricks(h: HandInfo, trump: number, partner: Shown): number {
+  const run = (s: number, known: number[]) => {
+    let n = 0;
+    for (let rank = 14; rank >= 2 && (known.includes(rank) || h.ranks[s].includes(rank)); rank--) n++;
+    return n;
+  };
+  const fit = h.len[trump] + partner.len[trump][0];
+  const trumpRun = run(trump, [14, 13, 12]);
+  const solid = trumpRun >= 4 || (trumpRun >= 3 && fit >= 9) || trumpRun >= 13 - fit;
+  let tricks = solid ? Math.max(h.len[trump], partner.len[trump][0]) : trumpRun;
+  for (const s of [CLUBS, DIAMONDS, HEARTS, SPADES]) {
+    if (s !== trump) tricks += Math.min(run(s, [14]), Math.max(1, h.len[s]));
+  }
+  return tricks;
+}
+
+/** A grand slam the asker can count: every key card and the trump queen held, and thirteen tricks. */
+function countedGrand(trump: number, ok: (h: HandInfo) => boolean, partner: Shown): Rule {
+  const t = T.bidding.rkcb;
+  return R(bid(7, trump), 'grandSlam', t.grandCounted, [
+    cond(t.grandCountedCond, h => ok(h) && countedTricks(h, trump, partner) >= 13, undefined, h => t.tricksValue(countedTricks(h, trump, partner))),
+  ]);
+}
+
 /** The asker's next bid after the key-card reply. */
 function afterKeyCardReply(x: Ctx, trump: number, reply: CallRecord): Rule[] {
   const t = T.bidding.rkcb;
@@ -128,6 +161,7 @@ function afterKeyCardReply(x: Ctx, trump: number, reply: CallRecord): Rule[] {
   const missingValue = (h: HandInfo) => t.missingValue(missing(h));
   const rules: Rule[] = [];
 
+  rules.push(countedGrand(trump, h => missing(h) === 0 && haveQueen(h), P));
   rules.push(R(bid(5, NT), 'kingAsk', t.kingAsk, [
     cond(t.kingAskCond, (h, xx) => missing(h) === 0 && haveQueen(h) && h.hcp + xx.partnerHcp().est >= 35, undefined, missingValue),
   ], { artificial: true, forcing: 'one', tag: 'kingask', data: { suit: trump, rkcb: 1 } }));
@@ -166,6 +200,7 @@ function afterQueenReply(x: Ctx, trump: number, reply: CallRecord): Rule[] {
   const missing = (h: HandInfo) => 5 - keyCards(h, trump) - partnerKeyCards(step, h, trump, P);
   const rules: Rule[] = [];
   if (queen && seven > r) {
+    rules.push(countedGrand(trump, h => missing(h) === 0, P));
     rules.push(R(seven, 'grandSlam', t.grandSlam, [cond(t.grandSlamCond, (h, xx) => missing(h) === 0 && h.hcp + xx.partnerHcp().est >= 36)]));
   }
   if (six > r) rules.push(R(six, 'smallSlam', queen ? t.smallSlamQueen : t.smallSlamNoQueen, [cond(t.smallSlamCond, h => missing(h) <= (queen ? 1 : 0))]));

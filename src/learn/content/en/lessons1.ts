@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>The Rule of 20 and the Rule of 15</h3>
-<p>In first or second seat, open a hand with 10 or 11 HCP if HCP plus the number of cards in your two longest suits comes to 20 or more.</p>
+<p>In first, second or third seat, open a hand with 10 or 11 HCP if HCP plus the number of cards in your two longest suits comes to 20 or more.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Rule of 20: open 1♠"></div>
 <p>10 HCP + 5 + 5 = 20, so open, and with two 5-card suits open the higher-ranking one: 1♠. Compare ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 HCP + 4 + 3 = 18, so pass. The scattered queens and jacks and flat shape make it a poor opening.</p>
 <p>In fourth seat, after three passes, use the Rule of 15: open if HCP plus the number of spades is 15 or more. If you pass, the deal is thrown in, so you only want to open when your side is likely to win the partscore battle, and the spade suit decides most of those battles.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'HCP: ace 4, king 3, queen 2, jack 1; 40 in the deck, 10 in an average hand.',
       'For your own hand add a point per card beyond four; when raising partner count shortness instead (void 5, singleton 3, doubleton 1 with four trumps).',
-      'Rule of 20 for light openings in first or second seat; Rule of 15 (HCP + spades) in fourth seat.',
+      'Rule of 20 for light openings in first, second or third seat; Rule of 15 (HCP + spades) in fourth seat.',
       'LTC: tricks ≈ 24 − combined losers, and a minimum opener has about 7 losers.',
       'About 25 combined points for 3NT or a major game, 29 for a minor game, 33 for a small slam.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Is it an opening hand?</h3>
-<p>With 12 or more HCP, open, except in fourth seat. With 10-11 HCP in first or second seat, open if the Rule of 20 is met (HCP + the lengths of your two longest suits ≥ 20). In fourth seat open with 13 or more HCP, and with 10-12 HCP only if the Rule of 15 is met (HCP + number of spades ≥ 15). Hands with a long suit and fewer points may suit a weak two or a preempt instead.</p>
+<p>With 12 or more HCP, open, except in fourth seat. With 10-11 HCP in first, second or third seat, open if the Rule of 20 is met (HCP + the lengths of your two longest suits ≥ 20). In fourth seat open with 13 or more HCP, and with 10-12 HCP only if the Rule of 15 is met (HCP + number of spades ≥ 15). Hands with a long suit and fewer points may suit a weak two or a preempt instead.</p>
 
 <h3>Balanced hands: let the points decide</h3>
 <p>A balanced hand has no void, no singleton and at most one doubleton: 4-3-3-3, 4-4-3-2 or 5-3-3-2. With a balanced hand your plan is always to show your strength in notrump, either at once or on your next turn:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Never open 1♥ or 1♠ with only four cards. Partner will raise with three-card support, expecting at least an eight-card fit.</div>
 `,
     keyPoints: [
-      'Open with 12+ HCP; with 10-11 use the Rule of 20 (first or second seat). In fourth seat open with 13+, or with 10-12 if the Rule of 15 is met.',
+      'Open with 12+ HCP; with 10-11 use the Rule of 20 (first, second or third seat). In fourth seat open with 13+, or with 10-12 if the Rule of 15 is met.',
       '1♥/1♠ promise five cards; with no 5-card major open the longer minor (1♣ with 3-3, 1♦ with 4-4).',
       'Balanced: 12-14 open a suit and rebid 1NT; 15-17 1NT; 18-19 jump to 2NT; 20-21 2NT; 22+ 2♣.',
       'Two 5-card suits: open the higher-ranking; 6-5: open the longer.',

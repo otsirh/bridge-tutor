@@ -100,7 +100,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Rule of 7', def: 'A hold-up guide: subtract from seven the number of cards you and dummy hold in the suit led; the answer is how many times to hold up.' },
   { term: 'Rule of 11', def: 'When partner leads fourth best, subtract the card\'s rank from 11 to find how many higher cards are held by the other three hands.' },
   { term: 'Rule of 15', def: 'In fourth seat, open the bidding if HCP plus the number of spades is 15 or more.' },
-  { term: 'Rule of 20', def: 'In first or second seat, open a hand of 10-11 HCP if HCP plus the lengths of the two longest suits is 20 or more.' },
+  { term: 'Rule of 20', def: 'In first, second or third seat, open a hand of 10-11 HCP if HCP plus the lengths of the two longest suits is 20 or more.' },
   { term: 'Sacrifice', def: 'Bidding a contract you expect to fail because the penalty will cost less than the opponents\' contract would score.' },
   { term: 'Safety play', def: 'A way of playing a suit or a whole hand that guards against a bad split, usually at the cost of a small chance of an overtrick.' },
   { term: 'Second hand low', def: 'The guideline that a defender playing second to a trick usually plays a low card.' },

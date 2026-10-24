@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>La règle des 20 et la règle des 15</h3>
-<p>En 1re ou 2e position, ouvrez une main de 10 ou 11 H si le total des H et du nombre de cartes de vos deux plus longues couleurs atteint 20 ou plus.</p>
+<p>En 1re, 2e ou 3e position, ouvrez une main de 10 ou 11 H si le total des H et du nombre de cartes de vos deux plus longues couleurs atteint 20 ou plus.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Règle des 20 : ouvrez de 1♠"></div>
 <p>10 H + 5 + 5 = 20 : vous ouvrez, et avec deux couleurs cinquièmes vous ouvrez de la plus chère, 1♠. Comparez avec ♠QJ5 ♥K92 ♦QJ84 ♣Q73 : 11 H + 4 + 3 = 18, donc passe. Les Dames et Valets dispersés et la distribution plate en font une mauvaise ouverture.</p>
 <p>En 4e position, après trois passes, appliquez la règle des 15 : ouvrez si le total des H et du nombre de piques atteint 15 ou plus. Si vous passez, la donne est annulée ; vous ne voulez donc ouvrir que si votre camp a de bonnes chances de gagner la bataille de la partielle, et c’est la couleur de pique qui tranche le plus souvent ces batailles.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'H : As 4, Roi 3, Dame 2, Valet 1 ; 40 dans le jeu, 10 dans une main moyenne.',
       'Pour votre propre main, ajoutez un point par carte au-delà de la quatrième ; pour soutenir le partenaire, comptez plutôt les courtes (chicane 5, singleton 3, doubleton 1 avec quatre atouts).',
-      'Règle des 20 pour les ouvertures légères en 1re ou 2e position ; règle des 15 (H + piques) en 4e position.',
+      'Règle des 20 pour les ouvertures légères en 1re, 2e ou 3e position ; règle des 15 (H + piques) en 4e position.',
       'LTC : levées ≈ 24 − total des perdantes, et une ouverture minimum compte environ 7 perdantes.',
       'Environ 25 points à deux pour 3SA ou la manche en majeure, 29 pour la manche en mineure, 33 pour un petit chelem.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Est-ce une main d’ouverture ?</h3>
-<p>Avec 12 H ou plus, ouvrez, sauf en 4e position. Avec 10-11 H en 1re ou 2e position, ouvrez si la règle des 20 est respectée (H + longueurs de vos deux plus longues couleurs ≥ 20). En 4e position, ouvrez avec 13 H ou plus, et avec 10-12 H seulement si la règle des 15 est respectée (H + nombre de piques ≥ 15). Les mains avec une longue couleur et moins de points se prêtent plutôt à un deux faible ou à un barrage.</p>
+<p>Avec 12 H ou plus, ouvrez, sauf en 4e position. Avec 10-11 H en 1re, 2e ou 3e position, ouvrez si la règle des 20 est respectée (H + longueurs de vos deux plus longues couleurs ≥ 20). En 4e position, ouvrez avec 13 H ou plus, et avec 10-12 H seulement si la règle des 15 est respectée (H + nombre de piques ≥ 15). Les mains avec une longue couleur et moins de points se prêtent plutôt à un deux faible ou à un barrage.</p>
 
 <h3>Mains régulières : les points décident</h3>
 <p>Une main régulière n’a ni chicane, ni singleton, et au plus un doubleton : 4-3-3-3, 4-4-3-2 ou 5-3-3-2. Avec une main régulière, votre plan est toujours de montrer votre force à sans-atout, tout de suite ou à votre tour suivant :</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">N’ouvrez jamais de 1♥ ou 1♠ avec quatre cartes seulement. Votre partenaire soutiendra avec trois cartes, en comptant sur un fit d’au moins huit cartes.</div>
 `,
     keyPoints: [
-      'Ouvrez avec 12+ H ; avec 10-11, appliquez la règle des 20 (1re ou 2e position). En 4e position, ouvrez avec 13+, ou avec 10-12 si la règle des 15 est respectée.',
+      'Ouvrez avec 12+ H ; avec 10-11, appliquez la règle des 20 (1re, 2e ou 3e position). En 4e position, ouvrez avec 13+, ou avec 10-12 si la règle des 15 est respectée.',
       '1♥/1♠ promettent cinq cartes ; sans majeure cinquième, ouvrez de la mineure la plus longue (1♣ avec 3-3, 1♦ avec 4-4).',
       'Main régulière : 12-14, ouvrez à la couleur et redemandez 1SA ; 15-17, 1SA ; 18-19, sautez à 2SA ; 20-21, 2SA ; 22+, 2♣.',
       'Deux couleurs cinquièmes : ouvrez de la plus chère ; 6-5 : ouvrez de la plus longue.',

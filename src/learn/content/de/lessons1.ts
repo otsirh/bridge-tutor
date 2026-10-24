@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>Zwanzigerregel und Fünfzehnerregel</h3>
-<p>An erster oder zweiter Position eröffnen Sie eine Hand mit 10 oder 11 FP, wenn die FP plus die Kartenzahl Ihrer beiden längsten Farben 20 oder mehr ergeben.</p>
+<p>An erster, zweiter oder dritter Position eröffnen Sie eine Hand mit 10 oder 11 FP, wenn die FP plus die Kartenzahl Ihrer beiden längsten Farben 20 oder mehr ergeben.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Zwanzigerregel: 1♠ eröffnen"></div>
 <p>10 FP + 5 + 5 = 20, also eröffnen Sie, und mit zwei Fünferlängen die höherrangige Farbe: 1♠. Zum Vergleich ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 FP + 4 + 3 = 18, also passen Sie. Die verstreuten Damen und Buben und die flache Verteilung machen daraus eine schlechte Eröffnung.</p>
 <p>An vierter Position, nach drei Passe, gilt die Fünfzehnerregel: Eröffnen Sie, wenn die FP plus die Anzahl Ihrer Pikkarten 15 oder mehr ergeben. Passen Sie, wird das Spiel eingepasst; eröffnen wollen Sie also nur, wenn Ihre Seite den Kampf um den Teilkontrakt wahrscheinlich gewinnt – und diesen Kampf entscheidet meistens die Pikfarbe.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'FP: Ass 4, König 3, Dame 2, Bube 1; 40 im ganzen Spiel, 10 in einer Durchschnittshand.',
       'Für die eigene Hand zählen Sie einen Punkt pro Karte über vier; wenn Sie Partner heben, zählen Sie stattdessen die Kürze (mit vier Trümpfen: Chicane 5, Single 3, Double 1).',
-      'Zwanzigerregel für leichte Eröffnungen an erster oder zweiter Position; Fünfzehnerregel (FP + Pikkarten) an vierter Position.',
+      'Zwanzigerregel für leichte Eröffnungen an erster, zweiter oder dritter Position; Fünfzehnerregel (FP + Pikkarten) an vierter Position.',
       'Verliererzählung: Stiche ≈ 24 − gemeinsame Verlierer; eine Minimum-Eröffnung hat etwa 7 Verlierer.',
       'Etwa 25 gemeinsame Punkte für 3SA oder ein Vollspiel in Oberfarbe, 29 für ein Vollspiel in Unterfarbe, 33 für einen Kleinschlemm.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Ist es eine Eröffnungshand?</h3>
-<p>Mit 12 oder mehr FP eröffnen Sie, außer an vierter Position. Mit 10–11 FP an erster oder zweiter Position eröffnen Sie, wenn die Zwanzigerregel erfüllt ist (FP + die Längen Ihrer beiden längsten Farben ≥ 20). An vierter Position eröffnen Sie mit 13 oder mehr FP, mit 10–12 FP aber nur, wenn die Fünfzehnerregel erfüllt ist (FP + Anzahl der Pikkarten ≥ 15). Hände mit einer langen Farbe und weniger Punkten eignen sich eher für eine schwache Zwei oder eine Sperreröffnung.</p>
+<p>Mit 12 oder mehr FP eröffnen Sie, außer an vierter Position. Mit 10–11 FP an erster, zweiter oder dritter Position eröffnen Sie, wenn die Zwanzigerregel erfüllt ist (FP + die Längen Ihrer beiden längsten Farben ≥ 20). An vierter Position eröffnen Sie mit 13 oder mehr FP, mit 10–12 FP aber nur, wenn die Fünfzehnerregel erfüllt ist (FP + Anzahl der Pikkarten ≥ 15). Hände mit einer langen Farbe und weniger Punkten eignen sich eher für eine schwache Zwei oder eine Sperreröffnung.</p>
 
 <h3>Ausgeglichene Hände: Die Punkte entscheiden</h3>
 <p>Eine ausgeglichene Hand hat keine Chicane, kein Single und höchstens ein Double: 4-3-3-3, 4-4-3-2 oder 5-3-3-2. Mit einer ausgeglichenen Hand planen Sie immer, Ihre Stärke in SA zu zeigen, entweder sofort oder mit dem nächsten Gebot:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Eröffnen Sie nie 1♥ oder 1♠ mit nur vier Karten. Partner hebt schon mit Dreierunterstützung und erwartet mindestens einen 8er-Fit.</div>
 `,
     keyPoints: [
-      'Eröffnen Sie mit 12+ FP; mit 10–11 gilt die Zwanzigerregel (erste oder zweite Position). An vierter Position eröffnen Sie mit 13+ oder mit 10–12, wenn die Fünfzehnerregel erfüllt ist.',
+      'Eröffnen Sie mit 12+ FP; mit 10–11 gilt die Zwanzigerregel (erste, zweite oder dritte Position). An vierter Position eröffnen Sie mit 13+ oder mit 10–12, wenn die Fünfzehnerregel erfüllt ist.',
       '1♥/1♠ versprechen fünf Karten; ohne Fünferoberfarbe eröffnen Sie die längere Unterfarbe (1♣ mit 3-3, 1♦ mit 4-4).',
       'Ausgeglichen: mit 12–14 eine Farbe eröffnen und 1SA wiederbieten; 15–17 1SA; 18–19 Sprung auf 2SA; 20–21 2SA; 22+ 2♣.',
       'Zwei Fünferlängen: die höherrangige eröffnen; 6-5: die längere eröffnen.',

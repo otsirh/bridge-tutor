@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>La regola del 20 e la regola del 15</h3>
-<p>In prima o seconda posizione apri una mano da 10 o 11 PO se i PO più il numero di carte dei tuoi due colori più lunghi fanno 20 o più.</p>
+<p>In prima, seconda o terza posizione apri una mano da 10 o 11 PO se i PO più il numero di carte dei tuoi due colori più lunghi fanno 20 o più.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regola del 20: apri 1♠"></div>
 <p>10 PO + 5 + 5 = 20, quindi apri, e con due colori quinti apri nel più alto: 1♠. Confronta ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PO + 4 + 3 = 18, quindi passa. Donne e fanti sparsi e una distribuzione piatta ne fanno una cattiva apertura.</p>
 <p>In quarta posizione, dopo tre passo, usa la regola del 15: apri se i PO più il numero di picche fanno 15 o più. Se passi la smazzata si chiude, quindi conviene aprire solo quando la tua linea ha buone probabilità di vincere la lotta per il parziale, e quelle lotte le decide quasi sempre il colore di picche.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'PO: asso 4, re 3, donna 2, fante 1; 40 nel mazzo, 10 in una mano media.',
       'Per la tua mano aggiungi un punto per ogni carta oltre la quarta; quando appoggi il compagno conta invece le corte (chicane 5, singolo 3, doubleton 1 con quattro atout).',
-      'Regola del 20 per le aperture leggere in prima o seconda posizione; regola del 15 (PO + picche) in quarta.',
+      'Regola del 20 per le aperture leggere in prima, seconda o terza posizione; regola del 15 (PO + picche) in quarta.',
       'LTC: prese ≈ 24 − perdenti della coppia, e un’apertura minima ha circa 7 perdenti.',
       'Circa 25 punti in linea per 3SA o la manche nobile, 29 per la manche nel minore, 33 per il piccolo slam.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>È una mano d’apertura?</h3>
-<p>Con 12 o più PO apri, tranne in quarta posizione. Con 10-11 PO in prima o seconda posizione apri se è rispettata la regola del 20 (PO + lunghezze dei due colori più lunghi ≥ 20). In quarta posizione apri con 13 o più PO, e con 10-12 PO solo se è rispettata la regola del 15 (PO + numero di picche ≥ 15). Le mani con un colore lungo e meno punti possono essere adatte invece a un due debole o a un barrage.</p>
+<p>Con 12 o più PO apri, tranne in quarta posizione. Con 10-11 PO in prima, seconda o terza posizione apri se è rispettata la regola del 20 (PO + lunghezze dei due colori più lunghi ≥ 20). In quarta posizione apri con 13 o più PO, e con 10-12 PO solo se è rispettata la regola del 15 (PO + numero di picche ≥ 15). Le mani con un colore lungo e meno punti possono essere adatte invece a un due debole o a un barrage.</p>
 
 <h3>Mani bilanciate: decidono i punti</h3>
 <p>Una mano bilanciata non ha chicane né singoli e ha al massimo un doubleton: 4-3-3-3, 4-4-3-2 o 5-3-3-2. Con una mano bilanciata il tuo piano è sempre mostrare la forza a senza atout, subito o al turno successivo:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Non aprire mai 1♥ o 1♠ con sole quattro carte. Il compagno appoggerà con tre carte, contando su un fit di almeno otto carte.</div>
 `,
     keyPoints: [
-      'Apri con 12+ PO; con 10-11 usa la regola del 20 (prima o seconda posizione). In quarta posizione apri con 13+, o con 10-12 se è rispettata la regola del 15.',
+      'Apri con 12+ PO; con 10-11 usa la regola del 20 (prima, seconda o terza posizione). In quarta posizione apri con 13+, o con 10-12 se è rispettata la regola del 15.',
       '1♥/1♠ promettono cinque carte; senza nobile quinta apri nel minore più lungo (1♣ con 3-3, 1♦ con 4-4).',
       'Bilanciate: 12-14 apri a colore e ridichiari 1SA; 15-17 1SA; 18-19 salti a 2SA; 20-21 2SA; 22+ 2♣.',
       'Due colori quinti: apri nel più alto; 6-5: apri nel più lungo.',

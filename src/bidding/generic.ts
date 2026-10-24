@@ -25,23 +25,67 @@ export interface Target {
   why: string; // the reasoning, in the active language
 }
 
+const isGame = (call: number) => {
+  const l = levelOf(call), s = strainOf(call);
+  return (s === NT && l >= 3) || (s >= HEARTS && s < NT && l >= 4) || l >= 5;
+};
+
+/** Must we bid again: partner's last call is forcing, or game is forced and not yet reached? */
+function mustBid(x: Ctx): boolean {
+  const lb = x.lastBidRecord();
+  return x.forcedByPartner() || (x.gameForced() && !(lb && x.ourSide(lb.seat) && isGame(lb.call)));
+}
+
+/** Partner's last action is natural notrump, made after the opponents' last suit bid (so their suits are stopped). */
+function partnerNotrump(x: Ctx): boolean {
+  const pLast = x.lastAction(x.partner);
+  const theirLastSuitBid = Math.max(-1, ...x.records.filter(r => !x.ourSide(r.seat) && isBid(r.call) && strainOf(r.call) < NT && !r.meaning.artificial).map(r => r.index));
+  return !!pLast && isBid(pLast.call) && strainOf(pLast.call) === NT && !pLast.meaning.artificial && pLast.index > theirLastSuitBid;
+}
+
+/** Suits partner has bid naturally and shown four or more cards in: shortness there is no asset. */
+export const partnerSuits = (x: Ctx) => {
+  const P = x.shownBy(x.partner);
+  return [...new Set(x.bidsBy(x.partner).filter(r => !r.meaning.artificial && strainOf(r.call) < NT).map(r => strainOf(r.call)))].filter(s => P.len[s][0] >= 4);
+};
+
+/** Suits nobody has bid naturally. */
+const unbidSuits = (x: Ctx) => [0, 1, 2, 3].filter(s => !x.ourSuits().includes(s) && !x.theirSuits().includes(s));
+
+/**
+ * Is notrump a sensible strain for this hand? A balanced or semi-balanced hand
+ * (or one opposite a balanced partner) is fine. An unbalanced one needs a
+ * stopper in every suit nobody has bid, a singleton only in a suit partner has
+ * bid (or a singleton ace), and no second five-card suit.
+ */
+function notrumpHand(h: HandInfo, x: Ctx, partnerBal: boolean): { shape: boolean; unbidStopped: boolean } {
+  if (partnerBal || h.semiBalanced) return { shape: true, unbidStopped: true };
+  const P = x.shownBy(x.partner);
+  const partnerBid = (s: number) => x.bidsBy(x.partner).some(r => !r.meaning.artificial && strainOf(r.call) === s);
+  const shortOk = [0, 1, 2, 3].every(s => h.len[s] >= 2 || (h.len[s] === 1 && (partnerBid(s) || h.ranks[s][0] === 14)));
+  const shape = shortOk && h.shape[1] <= 4;
+  const unbidStopped = unbidSuits(x).every(s => hasStopper(h, s) || P.len[s][0] >= 4);
+  return { shape, unbidStopped };
+}
+
 /** Work out the best contract given my hand and what partner has shown. */
 export function targetContract(h: HandInfo, x: Ctx): Target {
   const t = T.bidding.generic;
   const P = x.shownBy(x.partner);
   const ph = x.partnerHcp();
   const theirs = x.theirSuits();
+  const ours = x.ourSuits();
   const fitLen = (s: number) => h.len[s] + P.len[s][0];
-  const pts = (s: number) => (h.len[s] >= P.len[s][0] ? declarerPoints(h, s) : dummyPoints(h, s));
+  const pSuits = partnerSuits(x);
+  const pts = (s: number) => (h.len[s] >= P.len[s][0] ? declarerPoints(h, s, pSuits) : dummyPoints(h, s, pSuits));
   // best fit: majors first
   let fit = -1;
   for (const s of [SPADES, HEARTS]) if (fitLen(s) >= 8 && (fit < 0 || fitLen(s) > fitLen(fit))) fit = s;
   if (fit < 0) for (const s of [1, 0]) if (fitLen(s) >= 8 && (fit < 0 || fitLen(s) > fitLen(fit))) fit = s;
-  const pLast = x.lastAction(x.partner);
-  const theirLastSuitBid = Math.max(-1, ...x.records.filter(r => !x.ourSide(r.seat) && isBid(r.call) && strainOf(r.call) < NT && !r.meaning.artificial).map(r => r.index));
-  const partnerBidNT = !!pLast && isBid(pLast.call) && strainOf(pLast.call) === NT && !pLast.meaning.artificial && pLast.index > theirLastSuitBid;
+  const partnerBidNT = partnerNotrump(x);
   const stoppers = partnerBidNT || theirs.every(s => hasStopper(h, s) || P.len[s][0] >= 4);
-  const ntShape = h.semiBalanced || P.balanced === true;
+  const nt = notrumpHand(h, x, partnerBidNT || P.balanced === true);
+  const ntShape = nt.shape;
   const partnerPart = t.partner(ph.est, ph.min, ph.max >= 30 ? null : ph.max);
 
   const level = (c: number, gameLevel: number) => (c >= 37 ? 7 : c >= 33 ? 6 : c >= (gameLevel === 5 ? 28 : 25) ? gameLevel : c >= 23 ? -1 : 0);
@@ -58,10 +102,22 @@ export function targetContract(h: HandInfo, x: Ctx): Target {
     const c = h.tp + ph.est - 1;
     return { strain: longMajor, level: level(c, 4), combined: c, fit: h.len[longMajor] + Math.max(1, P.len[longMajor][0]), why: t.whyLongMajor(longMajor, h.tp, partnerPart, c) };
   }
+  // forced to bid on and a major of mine is still unshown: show it before choosing notrump
+  const showMajor = () => {
+    if (fit >= HEARTS || !mustBid(x)) return undefined;
+    return [SPADES, HEARTS].find(s => {
+      const c = x.cheapest(s);
+      return c !== null && levelOf(c) <= (x.gameForced() ? 3 : 2) && !ours.includes(s) && !theirs.includes(s) && (h.len[s] >= 5 ? P.len[s][1] >= 3 : h.len[s] === 4 && P.len[s][1] >= 4);
+    });
+  };
+  const notrump = (why: (c: number) => string): Target => {
+    const c = h.hcp + ph.est, show = showMajor();
+    if (show !== undefined) return { strain: -1, level: level(c, 3), combined: c, fit: 0, why: t.whyShowMajor(show, h.hcp, partnerPart, c) };
+    return { strain: NT, level: level(c, 3), combined: c, fit: 0, why: why(c) };
+  };
   const minorFitNT = fit >= 0 && h.shape[3] >= 1;
-  if (stoppers && (ntShape || minorFitNT || (fit < 0 && h.shape[3] >= 1)) && (fit < 0 || h.hcp + ph.est < 29)) {
-    const c = h.hcp + ph.est;
-    return { strain: NT, level: level(c, 3), combined: c, fit: 0, why: t.whyNoMajorFit(theirs.length > 0, h.hcp, partnerPart, c) };
+  if (stoppers && nt.unbidStopped && (ntShape || minorFitNT) && (fit < 0 || h.hcp + ph.est < 29)) {
+    return notrump(c => t.whyNoMajorFit(theirs.length > 0, h.hcp, partnerPart, c));
   }
   if (fit >= 0) {
     const c = pts(fit) + ninth(fit) + ph.est;
@@ -76,13 +132,10 @@ export function targetContract(h: HandInfo, x: Ctx): Target {
   }
   const c = h.hcp + ph.est;
   if (!stoppers) return { strain: -1, level: 0, combined: c, fit: 0, why: t.whyNotStopped(h.hcp, partnerPart, c) };
-  return { strain: NT, level: level(c, 3), combined: c, fit: 0, why: t.whyNoFitYet(h.hcp, partnerPart, c) };
+  // an awkward shape is no reason to stop short of game when nothing else fits
+  if (!nt.unbidStopped || (!ntShape && c < 25)) return { strain: -1, level: 0, combined: c, fit: 0, why: t.whyNotNotrump(h.hcp, partnerPart, c) };
+  return notrump(cc => t.whyNoFitYet(h.hcp, partnerPart, cc));
 }
-
-const isGame = (call: number) => {
-  const l = levelOf(call), s = strainOf(call);
-  return (s === NT && l >= 3) || (s >= HEARTS && s < NT && l >= 4) || l >= 5;
-};
 
 /**
  * The slam decisions of general judgment: ask for key cards, quantitative 4NT,
@@ -134,7 +187,7 @@ export function slamRules(x: Ctx): Rule[] {
         cond(t.setTrumpsCond(s), h => {
           const tc = target(h);
           return tc.strain === s && tc.level >= 6 && h.len[s] >= 6;
-        }, undefined, value),
+        }, sh => { sh.len[s] = [Math.max(6, sh.len[s][0]), sh.len[s][1]]; }, value),
       ], { forcing: 'one' }));
     }
   }
@@ -189,7 +242,8 @@ export function slamRules(x: Ctx): Rule[] {
 export function afterMinorSlamTry(x: Ctx, m: number): Rule[] {
   const t = T.bidding.generic;
   const value = (h: HandInfo) => targetContract(h, x).why;
-  const points = (h: HandInfo) => (h.len[m] >= 4 ? declarerPoints(h, m) : dummyPoints(h, m));
+  const pSuits = partnerSuits(x);
+  const points = (h: HandInfo) => (h.len[m] >= 4 ? declarerPoints(h, m, pSuits) : dummyPoints(h, m, pSuits));
   const strong = (h: HandInfo) => points(h) + x.partnerHcp().est >= SLAM_TRY;
   return [
     aceAsk(m, [cond(t.acceptSlamTry, strong, undefined, value), cond(t.noVoid, h => h.shape[3] > 0)]),
@@ -204,7 +258,7 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
   const lb = x.lastBidRecord();
   const weHold = x.weHoldContract();
   const P = x.shownBy(x.partner);
-  const forced = x.forcedByPartner() || (x.gameForced() && !(lb && x.ourSide(lb.seat) && isGame(lb.call)));
+  const forced = mustBid(x);
   const theirs = x.theirSuits();
   const target = (h: HandInfo) => targetContract(h, x);
   const value = (h: HandInfo) => target(h).why;
@@ -223,6 +277,16 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
         rules.push(R(bid(4, M), 'correctToMajor', t.correctLong(M), [
           cond(t.correctLongCond(M), h => h.len[M] >= 6 && h.shape[3] <= 1 && (h.ranks[M].filter(r => r >= 12).length >= 2 || h.shape[1] >= 5) && !theirs.includes(M)),
         ]));
+      }
+      // five cards in the major I bid and four in the other: partner's 3NT denied support
+      // for the first, not four cards in the second
+      const mine = x.shownBy(x.seat);
+      for (const M of [HEARTS, SPADES]) {
+        const other = M === HEARTS ? SPADES : HEARTS;
+        if (lb.seat !== x.partner || mine.len[other][0] < 5 || x.ourSuits().includes(M) || theirs.includes(M) || P.len[M][1] < 4) continue;
+        rules.push(R(bid(4, M), 'correctToMajor', t.correctSecondMajor(M, other), [
+          cond(t.correctSecondMajorCond(M, other), h => h.len[M] >= 4 && h.len[other] >= 5 && h.shape[3] <= 1),
+        ], { shows: sh => { sh.len[M] = [Math.max(4, sh.len[M][0]), sh.len[M][1]]; } }));
       }
     }
     rules.push(R(PASS, 'pass', t.passGame, [cond(t.noSlam, h => target(h).level < 6 || levelOf(cur) >= target(h).level, undefined, value)]));
@@ -253,10 +317,12 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
     const gl = s === NT ? 3 : s >= HEARTS ? 4 : 5;
     const c = bid(gl, s);
     if (!x.isLegal(c)) continue;
+    // forced below game with a long minor and no known fit: show it cheaply rather than jump to five
+    const showFirst = s < HEARTS && forced && levelOf(x.cheapest(s) ?? c) < gl - 1;
     rules.push(R(c, 'bidGame', s === NT ? t.gameNt : s >= HEARTS ? t.gameMajor(s) : t.gameMinor(s), [
       cond(t.gameCond(s), h => {
         const tc = target(h);
-        return tc.strain === s && tc.level >= gl;
+        return tc.strain === s && tc.level >= gl && !(showFirst && h.len[s] + P.len[s][0] < 8);
       }, undefined, value),
     ], { shows: sh => { sh.hcp = [Math.max(sh.hcp[0], Math.max(0, 25 - x.partnerHcp().est - 2)), sh.hcp[1]]; } }));
   }
@@ -311,10 +377,22 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
       if (c === null || claimed.has(c) || levelOf(c) > 4) continue;
-      rules.push(R(c, 'rebidSuit', t.rebidSuit(s), [cond(T.bidding.conds.lenMin(6, s), h => h.len[s] >= 6)]));
+      const mineAlready = x.bidsBy(x.seat).some(r => strainOf(r.call) === s && !r.meaning.artificial);
+      if (mineAlready || x.ourSuits().includes(s) || theirs.includes(s)) rules.push(R(c, 'rebidSuit', t.rebidSuit(s), [lenC(s, 6)]));
+      else rules.push(R(c, 'longSuit', t.showLongSuit(s), [lenC(s, 6)]));
+    }
+    // a major nobody has bid comes before notrump: five cards, or four when partner may hold four
+    for (const need of [5, 4]) {
+      for (const s of [SPADES, HEARTS]) {
+        const c = x.cheapest(s);
+        if (c === null || claimed.has(c) || levelOf(c) > (x.gameForced() ? 3 : 2) || x.ourSuits().includes(s) || theirs.includes(s) || P.len[s][1] < 8 - need) continue;
+        rules.push(R(c, 'newSuit', t.newSuit(s), [lenC(s, need)]));
+      }
     }
     const nt = x.cheapest(NT);
-    if (nt !== null && levelOf(nt) <= 3) rules.push(R(nt, 'notrump', t.ntStoppers, [cond(t.stoppersTheirs, h => theirs.every(s => hasStopper(h, s)))]));
+    const partnerBal = P.balanced === true || partnerNotrump(x);
+    const open = unbidSuits(x);
+    if (nt !== null && levelOf(nt) <= 3) rules.push(R(nt, 'notrump', t.ntStoppers, [cond(t.stoppersTheirs, h => theirs.every(s => hasStopper(h, s)) && (partnerBal || open.every(s => hasStopper(h, s) || P.len[s][0] >= 4)))]));
     else if (nt !== null && levelOf(nt) === 4 && x.records.some(r => x.ourSide(r.seat) && isBid(r.call) && strainOf(r.call) < NT && !r.meaning.artificial)) {
       // above 3NT, keep bidding suits — 4NT would be Blackwood
       for (const s of [3, 2, 1, 0]) {
@@ -326,17 +404,17 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
       if (c === null || levelOf(c) > 3 || x.ourSuits().includes(s) || theirs.includes(s)) continue;
-      rules.push(R(c, 'newSuit', t.newSuit(s), [cond(T.bidding.conds.lenMin(4, s), h => h.len[s] >= 4)]));
+      rules.push(R(c, 'newSuit', t.newSuit(s), [lenC(s, 4)]));
     }
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
-      if (c === null || claimed.has(c)) continue;
-      rules.push(R(c, 'preference', t.preference(s), [cond(t.preferenceCond(s), h => P.len[s][0] >= 3 && h.len[s] >= 2)]));
+      if (c === null || claimed.has(c) || P.len[s][0] < 3) continue;
+      rules.push(R(c, 'preference', t.preference(s), [cond(t.preferenceCond(s), h => h.len[s] >= 2, sh => { sh.len[s] = [Math.max(2, sh.len[s][0]), sh.len[s][1]]; })]));
     }
     if (nt !== null && levelOf(nt) <= 3) rules.push(R(nt, 'notrump', t.ntFallback, []));
     for (const s of [3, 2, 1, 0]) {
       const c = x.cheapest(s);
-      if (c !== null && !claimed.has(c) && levelOf(c) <= 5) rules.push(R(c, 'longestSuit', t.longestSuit, [cond(T.bidding.conds.longestSuit(s), h => h.len[s] === h.shape[0])]));
+      if (c !== null && !claimed.has(c) && levelOf(c) <= 5) rules.push(R(c, 'longestSuit', t.longestSuit, [cond(T.bidding.conds.longestSuit(s), h => h.len[s] === h.shape[0], sh => { sh.len[s] = [Math.max(4, sh.len[s][0]), sh.len[s][1]]; })]));
     }
   }
 
@@ -377,12 +455,21 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
   if (lb && weHold && lb.seat === x.partner && !isGame(lb.call)) {
     const ls = strainOf(lb.call);
     if (ls < NT) {
+      // a long suit of my own needs little help: rebid it rather than play in partner's misfit
+      for (const s of [3, 2, 1, 0]) {
+        const c = x.cheapest(s);
+        if (s === ls || c === null || levelOf(c) > 3 || claimed.has(c) || !x.bidsBy(x.seat).some(r => strainOf(r.call) === s && !r.meaning.artificial)) continue;
+        rules.push(R(c, 'rebidSuit', t.rebidMisfit(s, ls), [
+          lenC(s, levelOf(c) >= 3 ? 7 : 6),
+          cond(t.misfitCond(ls), h => h.len[ls] <= 2 && h.len[ls] + P.len[ls][0] < 8, sh => { sh.len[ls] = [sh.len[ls][0], Math.min(2, sh.len[ls][1])]; }, h => T.bidding.conds.lenValue(h.len[ls], ls)),
+        ]));
+      }
       for (const s of [3, 2, 1, 0]) {
         if (s === ls) continue;
         const c = x.cheapest(s);
-        if (c === null || levelOf(c) > 3 || claimed.has(c)) continue;
+        if (c === null || levelOf(c) > 3 || claimed.has(c) || P.len[s][0] < 4) continue;
         rules.push(R(c, 'preference', t.preferenceMisfit(s), [
-          cond(t.betterFit(s, ls), h => P.len[s][0] >= 4 && h.len[s] >= 2 && h.len[s] + P.len[s][0] > h.len[ls] + P.len[ls][0] + 1),
+          cond(t.betterFit(s, ls), h => h.len[s] >= 2 && h.len[s] + P.len[s][0] > h.len[ls] + P.len[ls][0] + 1, sh => { sh.len[s] = [Math.max(2, sh.len[s][0]), sh.len[s][1]]; }),
         ]));
       }
     }

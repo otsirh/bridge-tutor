@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Un ejemplo completo</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Norte salta a 4♥ con apoyo de cuatro cartas y 19+ puntos. Sur tiene 17 PH y una fuente de bazas en diamantes, así que el slam es probable. 5♣ muestra una o cuatro cartas clave. Sur solo tiene el ♣A, y el apoyo fuerte de Norte no se puede completar sin Ases, así que son cuatro. Queda una pregunta, la ♥Q, y 5♦ la hace. Norte la tiene y declara 6♥, y Sur pasa: no falta nada, pero no hay una decimotercera baza con la que contar.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Norte salta a 4♥ con apoyo de cuatro cartas y 19+ puntos. Sur tiene 17 PH y una fuente de bazas en diamantes, así que el slam es probable. 5♣ muestra una o cuatro cartas clave. Sur solo tiene el ♣A, y el apoyo fuerte de Norte no se puede completar sin Ases, así que son cuatro. Queda una pregunta, la ♥Q, y 5♦ la hace. Norte la tiene y declara 6♥. Ahora Sur puede contar trece bazas: cuatro de corazones, cinco de diamantes (el ♦A de Norte con los ♦KQJ10 de Sur) y el As y el Rey de picas y de tréboles. Sur declara 7♥ y Norte pasa.</p>
 <div class="tip">Antes de declarar 4SA, asegúrate de que la respuesta no puede llevarte por encima del contrato que quieres. Con tréboles o diamantes como triunfo, una respuesta de 5♥ o 5♠ no deja forma de pararse a nivel de cinco, así que necesitas saber que no pueden faltar dos cartas clave.</div>
 <div class="warn">El RKCB necesita un palo de triunfo acordado. Tras un sin triunfo natural de tu compañero, 4SA es cuantitativo. Con un fallo, el RKCB no puede decirte si las cartas clave de tu compañero son útiles: haz cue-bids en su lugar.</div>
 `,
@@ -191,7 +191,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Tras 1♦ – 1♠ – 1SA, un respondedor con cinco picas y valores de manga querría saber si el abridor tiene tres picas. 3♠ solo invitaría; 4♠ podría encontrarse con un fit 5-2; 3SA podría perder un fit 5-3. Las voces naturales no pueden hacer la pregunta, así que la hace una voz artificial.</p>
 
 <h3>Nuevo menor forcing</h3>
-<p>Tras la redeclaración de 1SA del abridor, la voz del respondedor en <strong>el otro menor</strong> a nivel de dos (1♣ – 1♥ – 1SA – 2♦, o 1♦ – 1♠ – 1SA – 2♣) es artificial y forcing una vuelta. Muestra 11 o más puntos y pregunta por el mayor del respondedor. El respondedor tiene exactamente cinco cartas en él o, tras 1♠, cuatro picas y cuatro corazones; con seis, el respondedor simplemente repite el mayor o declara la manga.</p>
+<p>Tras la redeclaración de 1SA del abridor, la voz del respondedor en <strong>el otro menor</strong> a nivel de dos (1♣ – 1♥ – 1SA – 2♦, o 1♦ – 1♠ – 1SA – 2♣) es artificial y forcing una vuelta. Muestra 11 o más puntos y pregunta por el mayor del respondedor. El respondedor tiene exactamente cinco cartas en él (tras 1♠, quizá también cuatro corazones; con cuatro cartas en cada mayor habría respondido 1♥); con seis, el respondedor simplemente repite el mayor o declara la manga.</p>
 <table>
 <thead><tr><th>Respuesta del abridor</th><th>Significado</th></tr></thead>
 <tbody>

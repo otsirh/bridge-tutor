@@ -92,12 +92,7 @@ export function tryMajor(x: Ctx): number | null {
   if (!pc || !isBid(pc.call) || (rc && rc.call !== PASS)) return null;
   const raise = pc.meaning.tag === 'drury' || pc.meaning.tag === 'cueRaise';
   if (pc.meaning.artificial && !raise) return null;
-  let M = raise ? pc.meaning.data!.suit : strainOf(pc.call);
-  // partner's new minor after opening a major: the control bid agrees the major
-  if (!raise && M < HEARTS && x.opening()?.seat === x.partner) {
-    const os = strainOf(x.opening()!.call);
-    if (os >= HEARTS && os < NT && levelOf(x.opening()!.call) === 1) M = os;
-  }
+  const M = raise ? pc.meaning.data!.suit : strainOf(pc.call);
   return M >= HEARTS && M < NT && pc.call < bid(4, M) ? M : null;
 }
 
@@ -243,8 +238,9 @@ export function newMinorForcing(m: number, M: number): Rule[] {
   const t = T.bidding.nmf;
   const other = m === CLUBS ? DIAMONDS : CLUBS;
   return [R(bid(2, other), 'nmf', t.ask(M), [hcpC(11),
-    // with six cards in the major responder simply rebids it (or bids game)
-    cond(M === SPADES ? t.askCondSpades : t.askCond(M), h => h.len[M] === 5 || (M === SPADES && h.len[SPADES] <= 5 && h.len[HEARTS] >= 4), undefined, h => T.bidding.conds.lengths(h.len, [SPADES, HEARTS])),
+    // with six cards in the major responder simply rebids it (or bids game); 4-4 in the
+    // majors would have responded 1♥, so after 1♠ four hearts come with five spades
+    cond(M === SPADES ? t.askCondSpades : t.askCond(M), h => h.len[M] === 5, s => { s.len[M] = [5, 5]; }, h => T.bidding.conds.lengths(h.len, [SPADES, HEARTS])),
   ], { artificial: true, forcing: 'one', tag: 'nmf', data: { suit: M } })];
 }
 
