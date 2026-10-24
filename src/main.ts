@@ -4,7 +4,9 @@ import { mountApp } from './ui/app';
 
 // the saved or browser language is loaded before the first render
 await initLang();
-mountApp(document.getElementById('app')!);
+const root = document.getElementById('app')!;
+root.replaceChildren(); // the placeholder shown while loading
+mountApp(root);
 
 // Offline support and installing as an app, where the page is the site itself
 // (not inside a frame, and not the dev server).

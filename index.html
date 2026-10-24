@@ -19,13 +19,29 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%231f5a43%27/%3E%3Ctext x=%2732%27 y=%2746%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23f4f1e8%27%3E%E2%99%A0%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- the fonts load without holding up the first paint (system fonts until they arrive) -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Prata&family=Lora:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap&subset=cyrillic"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Prata&family=Lora:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap&subset=cyrillic"
+      />
+    </noscript>
+    <style>
+      /* shown until the app starts */
+      html { background: #f3f5f1; color: #18211d; }
+      @media (prefers-color-scheme: dark) { html { background: #141a17; color: #e4ebe6; } }
+      .boot { min-height: 100vh; display: grid; place-content: center; justify-items: center; gap: 16px; font: 26px Georgia, 'Times New Roman', serif; }
+      .boot i { width: 132px; height: 84px; border-radius: 16px; background: #1f5a43; box-shadow: inset 0 0 0 5px #164331; }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app"><div class="boot" aria-hidden="true"><i></i>Bridge Tutor</div></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
