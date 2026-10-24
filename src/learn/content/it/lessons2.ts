@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2SA – 3SA. Il giocante è Sud."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Nord-Sud hanno 27 PO e un fit di nove carte a quadri, ma nessun fit nobile e tutti i colori fermati. A 3SA conti quasi subito nove prese: due a picche, una a cuori, cinque a quadri e una a fiori una volta scacciato il ♣A (e magari la ♣Q). A 5♦ ti servono undici prese e hai una perdente a picche, almeno una a cuori e almeno una a fiori. 3SA è di gran lunga la manche migliore.</p>
+<p>Nord-Sud hanno 27 PO e un fit di nove carte a quadri, ma nessun fit nobile e tutti i colori fermati. A 3SA hai otto prese sicure: due a picche, una a cuori e cinque a quadri. La nona arriva dai fiori una volta scacciato il ♣A (e magari la ♣Q). A 5♦ ti servono undici prese e hai una perdente a picche, almeno una a cuori e almeno una a fiori. 3SA è di gran lunga la manche migliore.</p>
 
 <h3>I limiti dei «25 punti per la manche»</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Risposta</th><th>Significato</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>D’attesa: la risposta normale con quasi tutte le mani, deboli o forti</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiva: una buona quinta (due dei tre onori maggiori) e 8+ PO</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiva: una buona quinta (due dei tre onori maggiori o tre dei cinque) e 8+ PO</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Il compagno ha aperto 2♣: dichiara 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ PO o circa nove prese di gioco; convenzionale e forzante.',
-      'Rispondi 2♦ (d’attesa) con quasi tutte le mani; la risposta positiva richiede una buona quinta e 8+ PO.',
+      'Rispondi 2♦ (d’attesa) con quasi tutte le mani; la risposta positiva richiede una buona quinta (due dei tre onori maggiori o tre dei cinque) e 8+ PO.',
       '2♣ – 2♦ – 2SA = bilanciata 22-24 e si può passare; qualsiasi ridichiarazione a colore dell’apertore è forzante.',
       'Apertura di 2SA = bilanciata 20-21; 3♣ Stayman, 3♦/3♥ transfer, 3SA con 4-10, 4SA con 11-12.',
       'Scala delle bilanciate: 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -443,7 +443,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>La linea che ha aperto: il surcontro</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Quando l’apertura del compagno viene contrata, il <strong>surcontro</strong> mostra 10+ PO. Dice all’apertore che la forza è della vostra linea, e di solito significa che cerchi l’occasione per contrare gli avversari per punirli. Con un fit e una mano più debole appoggia invece il compagno; con un nuovo colore e meno di 10 punti dichiaralo.</p>
+<p>Quando l’apertura del compagno viene contrata, il <strong>surcontro</strong> mostra 10+ PO. Dice all’apertore che la forza è della vostra linea, e di solito significa che cerchi l’occasione per contrare gli avversari per punirli. Dopo un’apertura di nobile, <strong>2SA (Jordan)</strong> mostra appoggio di quattro o più carte e un appoggio limite o più forte (10+ punti di appoggio), quindi il surcontro di solito nega quattro atout. Con appoggio e una mano più debole appoggia invece il compagno: l’appoggio semplice mostra circa 6-10 punti, e l’appoggio a salto (1♥ – contro – 3♥) è un barrage, con quattro atout e meno di 10 PO. Con un nuovo colore e meno di 10 punti dichiaralo.</p>
 
 <h3>Il contro sui barrage</h3>
 <p>Anche il contro di un due debole o di un barrage a livello di tre è informativo: valori d’apertura, corto nel loro colore e pronto per qualsiasi colore dichiari il compagno. Il compagno può dover dichiarare a livello di tre con una mano debole, quindi chi contra deve avere una mano solida, non leggera.</p>
@@ -455,7 +455,7 @@ export const LESSONS_2: Lesson[] = [
       'Il compagno deve dichiarare: 0-8 al livello più economico, 9-11 salto, 12+ surlicita o manche; 1SA = 6-10 con il fermo.',
       'Passa sul contro solo con atout lunghe e forti nel loro colore.',
       'Chi ha contrato passa su una risposta minima con 12-15; appoggia con 16-18; salta con 19+.',
-      'Il surcontro dopo un contro informativo mostra 10+ PO.',
+      'Il surcontro dopo un contro informativo mostra 10+ PO; su 1♥ o 1♠, 2SA (Jordan) mostra quattro atout e un appoggio limite o più, e l’appoggio a salto è un barrage.',
     ],
     quiz: [
       {
@@ -960,13 +960,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>Il 4SA quantitativo</h3>
 <p>L’appoggio diretto di 1SA a 4SA non è Blackwood. Mostra 16-17 punti, quindi il totale è 31-34, al limite dei 33 necessari per lo slam. L’apertore passa con un minimo (15) e dichiara 6SA con un massimo (17); con 16 decide a giudizio, accettando con una buona quinta o buone carte intermedie.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Il compagno ha aperto 1SA: dichiara 4SA"></div>
-<p>16 PO, bilanciata. Dichiara 4SA. Con 18-19 dichiareresti direttamente 6SA, perché anche un’apertura minima porta il totale a 33.</p>
+<p>16 PO, bilanciata. Dichiara 4SA. Con 18-21 dichiareresti direttamente 6SA, perché anche un’apertura minima porta il totale a 33; con 22 o più dichiara 7SA, perché anche un minimo porta il totale a 37.</p>
 <p>Su 2SA (20-21), 4SA mostra 11-12 e chiede all’apertore di dichiarare 6SA con un massimo.</p>
 <table>
-<thead><tr><th>Rispondente dopo</th><th>3SA</th><th>4SA (invito)</th><th>6SA</th></tr></thead>
+<thead><tr><th>Rispondente dopo</th><th>3SA</th><th>4SA (invito)</th><th>6SA</th><th>7SA</th></tr></thead>
 <tbody>
-<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

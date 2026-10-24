@@ -219,7 +219,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Süd hat 14 FP und fünf gute Coeur. 2♣, die vierte Farbe, bittet Nord um eine weitere Beschreibung. Nord hat keine Dreierunterstützung in Coeur, aber einen Treff-Stopper, reizt also 2SA, und Süd hebt auf 3SA.</p>
-<div class="tip">Mit einer ausgeglichenen Vollspielhand und einem Stopper in der vierten Farbe reizen Sie einfach 3SA. Vierte Farbe forcierend ist für Hände gedacht, die eine Antwort brauchen.</div>
+<div class="tip">Mit einer ausgeglichenen Vollspielhand, einem Stopper in der vierten Farbe und ohne Fünferlänge in Oberfarbe, für die Sie noch einen Fit suchen, reizen Sie einfach 3SA. Vierte Farbe forcierend ist für Hände gedacht, die eine Antwort brauchen.</div>
 <div class="warn">Beide Gebote sind künstlich: Sie sagen nichts über die Unterfarbe oder die vierte Farbe aus. Alertieren Sie sie, und passen Sie nie darauf.</div>
 `,
     keyPoints: [
@@ -227,7 +227,7 @@ export const LESSONS_4: Lesson[] = [
       'Mit einem Minimum zeigt der Eröffner Unterstützung oder vier Coeur auf der Zweierstufe, mit einem Maximum auf der Dreierstufe; 2SA oder 3SA zeigt weder noch.',
       'Vierte Farbe forcierend: Das Gebot des Antwortenden in der vierten Farbe ist künstlich und vollspielforcierend.',
       'Der Eröffner antwortet zuerst mit Unterstützung für die Farbe des Antwortenden, dann mit Sans Atout bei einem Stopper, dann mit zusätzlicher Länge.',
-      'Mit einer ausgeglichenen Hand und einem Stopper in der vierten Farbe reizen Sie direkt 3SA.',
+      'Mit einer ausgeglichenen Hand, einem Stopper in der vierten Farbe und ohne Fünferlänge in Oberfarbe, für die Sie einen Fit suchen, reizen Sie direkt 3SA.',
     ],
     quiz: [
       {

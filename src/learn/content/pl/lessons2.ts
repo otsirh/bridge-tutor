@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2BA – 3BA. Rozgrywa Południe."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>N/S mają 27 PC i dziewięciokartowy fit karowy, ale nie mają fitu w starszym, a każdy kolor jest zatrzymany. W 3BA niemal od razu liczysz dziewięć lew: dwie w pikach, jedną w kierach, pięć w karach i jedną w treflach po wybiciu ♣A (i być może ♣Q). W 5♦ potrzebujesz jedenastu lew, a masz przegrywającą w pikach, co najmniej jedną w kierach i co najmniej jedną w treflach. 3BA to znacznie lepsza dograna.</p>
+<p>N/S mają 27 PC i dziewięciokartowy fit karowy, ale nie mają fitu w starszym, a każdy kolor jest zatrzymany. W 3BA masz osiem pewnych lew: dwie w pikach, jedną w kierach i pięć w karach. Dziewiątą dadzą trefle po wybiciu ♣A (i być może ♣Q). W 5♦ potrzebujesz jedenastu lew, a masz przegrywającą w pikach, co najmniej jedną w kierach i co najmniej jedną w treflach. 3BA to znacznie lepsza dograna.</p>
 
 <h3>Granice reguły „25 punktów na dograną”</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Odpowiedź</th><th>Znaczenie</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Wyczekująca: zwykła odpowiedź z większością rąk, słabych i silnych</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Pozytywna: dobry pięciokartowy kolor (dwa z trzech najwyższych honorów) i 8+ PC</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Pozytywna: dobry pięciokartowy kolor (dwa z trzech najwyższych honorów albo trzy z pięciu) i 8+ PC</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Partner otworzył 2♣: licytuj 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ PC albo około dziewięciu lew w ręce; sztuczne i forsujące.',
-      'Z większością rąk odpowiadaj 2♦ (wyczekujące); odpowiedź pozytywna wymaga dobrego pięciokartowego koloru i 8+ PC.',
+      'Z większością rąk odpowiadaj 2♦ (wyczekujące); odpowiedź pozytywna wymaga dobrego pięciokartowego koloru (dwa z trzech najwyższych honorów albo trzy z pięciu) i 8+ PC.',
       '2♣ – 2♦ – 2BA = 22-24 w ręce zrównoważonej i można to spasować; każdy rebid w kolor jest forsujący.',
       'Otwarcie 2BA = 20-21 w ręce zrównoważonej; 3♣ Stayman, 3♦/3♥ transfery, 3BA z 4-10, 4BA z 11-12.',
       'Drabinka rąk zrównoważonych: 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -444,7 +444,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Strona otwierająca: rekontra</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Gdy otwarcie partnera zostało skontrowane, <strong>rekontra</strong> pokazuje 10+ PC. Mówi otwierającemu, że wasza strona ma przewagę siły, i zwykle oznacza, że szukasz okazji do karnej kontry przeciwników. Z fitem i słabszą ręką raczej podnieś kolor partnera; z nowym kolorem i mniej niż 10 PC zalicytuj go.</p>
+<p>Gdy otwarcie partnera zostało skontrowane, <strong>rekontra</strong> pokazuje 10+ PC. Mówi otwierającemu, że wasza strona ma przewagę siły, i zwykle oznacza, że szukasz okazji do karnej kontry przeciwników. Po otwarciu w kolorze starszym <strong>2BA (Jordan)</strong> pokazuje co najmniej czterokartowe poparcie i podniesienie inwitujące lub silniejsze (10+ punktów w poparciu), więc rekontra zwykle zaprzecza czterem atutom. Z poparciem i słabszą ręką raczej podnieś kolor partnera: zwykłe podniesienie pokazuje około 6-10 punktów, a podniesienie skokiem (1♥ – kontra – 3♥) jest blokujące, z czterema atutami i mniej niż 10 PC. Z nowym kolorem i mniej niż 10 PC zalicytuj go.</p>
 
 <h3>Kontra otwarć blokujących</h3>
 <p>Kontra słabego dwa lub bloku na wysokości trzech też jest wywołująca: siła otwarcia, krótkość w kolorze przeciwników i gotowość na każdy kolor partnera. Partner może musieć licytować na wysokości trzech ze słabą ręką, więc kontra powinna być solidna, a nie lekka.</p>
@@ -456,7 +456,7 @@ export const LESSONS_2: Lesson[] = [
       'Partner kontrującego musi licytować: 0-8 najtaniej, 9-11 skok, 12+ cue bid lub dograna; 1BA = 6-10 z zatrzymaniem.',
       'Pasuj na kontrę tylko z długimi, mocnymi atutami w kolorze przeciwników.',
       'Kontrujący z 12-15 pasuje na minimalną odpowiedź, z 16-18 podnosi, z 19+ skacze.',
-      'Rekontra po kontrze wywołującej pokazuje 10+ PC.',
+      'Rekontra po kontrze wywołującej pokazuje 10+ PC; po 1♥ lub 1♠ 2BA (Jordan) pokazuje cztery atuty i podniesienie inwitujące lub silniejsze, a podniesienie skokiem jest blokujące.',
     ],
     quiz: [
       {
@@ -963,13 +963,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>Ilościowe 4BA</h3>
 <p>Bezpośrednie podniesienie 1BA do 4BA to nie Blackwood. Pokazuje 16-17 punktów, więc razem jest 31-34, na granicy 33 potrzebnych do szlemika. Otwierający z minimum (15) pasuje, a z maksimum (17) licytuje 6BA; z 16 decyduje według oceny ręki, przyjmując inwit z dobrym kolorem pięciokartowym albo dobrymi kartami pośrednimi.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Partner otworzył 1BA: licytuj 4BA"></div>
-<p>16 PC, ręka zrównoważona. Licytuj 4BA. Z 18-19 licytuje się od razu 6BA, bo nawet minimalne otwarcie daje razem 33.</p>
+<p>16 PC, ręka zrównoważona. Licytuj 4BA. Z 18-21 licytuje się od razu 6BA, bo nawet minimalne otwarcie daje razem 33; z 22 lub więcej licytuje się 7BA, bo nawet minimum daje razem 37.</p>
 <p>Po 2BA (20-21) odzywka 4BA pokazuje 11-12 i prosi otwierającego o 6BA z maksimum.</p>
 <table>
-<thead><tr><th>Odpowiadający po</th><th>3BA</th><th>4BA (inwit)</th><th>6BA</th></tr></thead>
+<thead><tr><th>Odpowiadający po</th><th>3BA</th><th>4BA (inwit)</th><th>6BA</th><th>7BA</th></tr></thead>
 <tbody>
-<tr><td>1BA (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2BA (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1BA (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2BA (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

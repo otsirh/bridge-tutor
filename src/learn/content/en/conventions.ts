@@ -219,7 +219,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>South has 14 HCP and five good hearts. 2♣, the fourth suit, asks North to describe. North has no three-card heart support but has clubs stopped, so bids 2NT, and South raises to 3NT.</p>
-<div class="tip">With a balanced game-going hand and the fourth suit stopped, just bid 3NT. Fourth suit forcing is for hands that need an answer.</div>
+<div class="tip">With a balanced game-going hand, the fourth suit stopped and no five-card major to check, just bid 3NT. Fourth suit forcing is for hands that need an answer.</div>
 <div class="warn">Both bids are artificial: they say nothing about the minor or the fourth suit. Alert them, and never pass them.</div>
 `,
     keyPoints: [
@@ -227,7 +227,7 @@ export const LESSONS_4: Lesson[] = [
       'Opener shows support or four hearts at the two level with a minimum and at the three level with a maximum; 2NT or 3NT shows neither.',
       'Fourth suit forcing: responder\'s bid of the fourth suit is artificial and forcing to game.',
       'Opener answers with support for responder\'s suit first, then notrump with a stopper, then extra length.',
-      'With a balanced hand and a stopper in the fourth suit, bid 3NT directly.',
+      'With a balanced hand, a stopper in the fourth suit and no five-card major to check, bid 3NT directly.',
     ],
     quiz: [
       {

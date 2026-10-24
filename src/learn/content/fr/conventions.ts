@@ -221,7 +221,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Sud a 14 H et cinq beaux cœurs. 2♣, la quatrième couleur, demande à Nord de se décrire. Nord n’a pas trois cartes de soutien à cœur mais a les trèfles arrêtés : il dit 2SA, et Sud soutient à 3SA.</p>
-<div class="tip">Avec une main régulière de manche et la quatrième couleur arrêtée, dites simplement 3SA. La quatrième couleur forcing sert aux mains qui ont besoin d’une réponse.</div>
+<div class="tip">Avec une main régulière de manche, la quatrième couleur arrêtée et pas de majeure cinquième à vérifier, dites simplement 3SA. La quatrième couleur forcing sert aux mains qui ont besoin d’une réponse.</div>
 <div class="warn">Les deux enchères sont artificielles : elles ne disent rien sur la mineure ni sur la quatrième couleur. Alertez-les, et ne passez jamais dessus.</div>
 `,
     keyPoints: [
@@ -229,7 +229,7 @@ export const LESSONS_4: Lesson[] = [
       'L’ouvreur montre le soutien ou quatre cœurs au palier de 2 avec un minimum et au palier de 3 avec un maximum ; 2SA ou 3SA ne montre ni l’un ni l’autre.',
       'Quatrième couleur forcing : la quatrième couleur dite par le répondant est artificielle et forcing de manche.',
       'L’ouvreur répond d’abord par le soutien dans la couleur du répondant, puis par sans-atout avec un arrêt, puis par de la longueur en plus.',
-      'Avec une main régulière et un arrêt dans la quatrième couleur, dites directement 3SA.',
+      'Avec une main régulière, un arrêt dans la quatrième couleur et pas de majeure cinquième à vérifier, dites directement 3SA.',
     ],
     quiz: [
       {

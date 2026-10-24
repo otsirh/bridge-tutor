@@ -219,7 +219,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Sur tiene 14 PH y cinco buenos corazones. 2♣, el cuarto palo, pide a Norte que se describa. Norte no tiene apoyo de tres cartas en corazones pero tiene los tréboles parados, así que declara 2SA, y Sur sube a 3SA.</p>
-<div class="tip">Con una mano equilibrada de manga y el cuarto palo parado, declara simplemente 3SA. El cuarto palo forcing es para las manos que necesitan una respuesta.</div>
+<div class="tip">Con una mano equilibrada de manga, el cuarto palo parado y ningún mayor de cinco cartas que comprobar, declara simplemente 3SA. El cuarto palo forcing es para las manos que necesitan una respuesta.</div>
 <div class="warn">Las dos voces son artificiales: no dicen nada del menor ni del cuarto palo. Alértalas y nunca las pases.</div>
 `,
     keyPoints: [
@@ -227,7 +227,7 @@ export const LESSONS_4: Lesson[] = [
       'El abridor muestra el apoyo o los cuatro corazones a nivel de dos con un mínimo y a nivel de tres con un máximo; 2SA o 3SA no muestra ninguna de las dos cosas.',
       'Cuarto palo forcing: la voz del respondedor en el cuarto palo es artificial y forcing a manga.',
       'El abridor responde mostrando primero apoyo para el palo del respondedor, luego sin triunfo con parada y después longitud extra.',
-      'Con una mano equilibrada y parada en el cuarto palo, declara directamente 3SA.',
+      'Con una mano equilibrada, parada en el cuarto palo y ningún mayor de cinco cartas que comprobar, declara directamente 3SA.',
     ],
     quiz: [
       {

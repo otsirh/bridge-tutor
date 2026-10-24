@@ -218,7 +218,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Sud ha 14 PO e cinque buone cuori. 2♣, il quarto colore, chiede a Nord di descriversi. Nord non ha appoggio terzo a cuori ma ha il fermo a fiori, quindi dichiara 2SA, e Sud appoggia a 3SA.</p>
-<div class="tip">Con una mano bilanciata da manche e il quarto colore fermato, dichiara semplicemente 3SA. Il quarto colore forzante serve alle mani che hanno bisogno di una risposta.</div>
+<div class="tip">Con una mano bilanciata da manche, il quarto colore fermato e nessuna quinta nobile da verificare, dichiara semplicemente 3SA. Il quarto colore forzante serve alle mani che hanno bisogno di una risposta.</div>
 <div class="warn">Entrambe le dichiarazioni sono convenzionali: non dicono nulla sul minore o sul quarto colore. Allertale, e non passarci mai sopra.</div>
 `,
     keyPoints: [
@@ -226,7 +226,7 @@ export const LESSONS_4: Lesson[] = [
       'L’apertore mostra l’appoggio o i quattro cuori a livello di due con un minimo e a livello di tre con un massimo; 2SA o 3SA non mostrano né l’uno né l’altro.',
       'Quarto colore forzante: la dichiarazione del quarto colore da parte del rispondente è convenzionale e forzante manche.',
       'L’apertore risponde prima con l’appoggio nel colore del rispondente, poi con il senza atout se ha il fermo, poi con la lunghezza in più.',
-      'Con una mano bilanciata e il fermo nel quarto colore, dichiara direttamente 3SA.',
+      'Con una mano bilanciata, il fermo nel quarto colore e nessuna quinta nobile da verificare, dichiara direttamente 3SA.',
     ],
     quiz: [
       {

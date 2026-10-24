@@ -219,7 +219,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Południe ma 14 PC i pięć dobrych kierów. 2♣, czwarty kolor, prosi Północ o opis ręki. Północ nie ma trzykartowego poparcia kierowego, ale ma zatrzymane trefle, więc licytuje 2BA, a Południe podnosi do 3BA.</p>
-<div class="tip">Z ręką zrównoważoną z siłą na dograną i zatrzymaniem w czwartym kolorze po prostu licytuj 3BA. Czwarty kolor forsujący jest dla rąk, które potrzebują odpowiedzi.</div>
+<div class="tip">Z ręką zrównoważoną z siłą na dograną, zatrzymaniem w czwartym kolorze i bez piątki w kolorze starszym do sprawdzenia po prostu licytuj 3BA. Czwarty kolor forsujący jest dla rąk, które potrzebują odpowiedzi.</div>
 <div class="warn">Obie odzywki są sztuczne: nic nie mówią o kolorze młodszym ani o czwartym kolorze. Alertuj je i nigdy na nie nie pasuj.</div>
 `,
     keyPoints: [
@@ -227,7 +227,7 @@ export const LESSONS_4: Lesson[] = [
       'Otwierający pokazuje poparcie lub cztery kiery na wysokości dwóch z minimum i na wysokości trzech z maksimum; 2BA lub 3BA zaprzecza obu.',
       'Czwarty kolor forsujący: odzywka odpowiadającego w czwarty kolor jest sztuczna i forsuje do dograny.',
       'Otwierający odpowiada najpierw poparciem w kolorze odpowiadającego, potem bez atu z zatrzymaniem, potem dodatkową długością.',
-      'Z ręką zrównoważoną i zatrzymaniem w czwartym kolorze licytuj od razu 3BA.',
+      'Z ręką zrównoważoną, zatrzymaniem w czwartym kolorze i bez piątki w kolorze starszym do sprawdzenia licytuj od razu 3BA.',
     ],
     quiz: [
       {

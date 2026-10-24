@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2SA – 3SA. Sud est déclarant."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Nord–Sud ont 27 H et un fit de neuf cartes à carreau, mais pas de fit majeur, et toutes les couleurs sont arrêtées. À 3SA, vous comptez neuf levées presque tout de suite : deux piques, un cœur, cinq carreaux et un trèfle une fois l’♣A (et peut-être la ♣Q) chassé. À 5♦, il vous faut onze levées et vous avez une perdante à pique, au moins une perdante à cœur et au moins une perdante à trèfle. 3SA est de loin la meilleure manche.</p>
+<p>Nord–Sud ont 27 H et un fit de neuf cartes à carreau, mais pas de fit majeur, et toutes les couleurs sont arrêtées. À 3SA, vous avez huit levées sûres : deux piques, un cœur et cinq carreaux. Les trèfles fournissent la neuvième une fois l’♣A (et peut-être la ♣Q) chassé. À 5♦, il vous faut onze levées et vous avez une perdante à pique, au moins une perdante à cœur et au moins une perdante à trèfle. 3SA est de loin la meilleure manche.</p>
 
 <h3>Les limites des « 25 points pour la manche »</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Réponse</th><th>Signification</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Attente : la réponse normale avec la plupart des mains, faibles ou fortes</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positive : une belle couleur cinquième (deux des trois gros honneurs) et 8+ H</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positive : une belle couleur cinquième (deux des trois gros honneurs ou trois des cinq honneurs) et 8+ H</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Le partenaire a ouvert de 2♣ : dites 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ H ou environ neuf levées de jeu ; artificiel et forcing.',
-      'Répondez 2♦ (attente) avec la plupart des mains ; une réponse positive exige une belle couleur cinquième et 8+ H.',
+      'Répondez 2♦ (attente) avec la plupart des mains ; une réponse positive exige une belle couleur cinquième (deux des trois gros honneurs ou trois des cinq honneurs) et 8+ H.',
       '2♣ – 2♦ – 2SA = 22-24 régulier et peut être passé ; toute redemande à la couleur de l’ouvreur est forcing.',
       'Ouverture de 2SA = 20-21 régulier ; 3♣ Stayman, 3♦/3♥ Texas, 3SA avec 4-10, 4SA avec 11-12.',
       'Échelle des mains régulières : 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -444,7 +444,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Le camp de l’ouvreur : le surcontre</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Quand l’ouverture de votre partenaire est contrée, un <strong>surcontre</strong> montre 10+ H. Il indique à l’ouvreur que votre camp a la majorité des points, et il signifie en général que vous cherchez une occasion de contrer les adversaires pour punir. Avec un fit et une main plus faible, soutenez plutôt votre partenaire ; avec une couleur nouvelle et moins de 10, nommez-la.</p>
+<p>Quand l’ouverture de votre partenaire est contrée, un <strong>surcontre</strong> montre 10+ H. Il indique à l’ouvreur que votre camp a la majorité des points, et il signifie en général que vous cherchez une occasion de contrer les adversaires pour punir. Après une ouverture en majeure, <strong>2SA (Jordan)</strong> montre un soutien d’au moins quatre cartes et un soutien limite ou mieux (10+ points de soutien) ; le surcontre nie donc en général quatre atouts. Avec du soutien et une main plus faible, soutenez plutôt votre partenaire : un soutien simple montre environ 6-10 points, et un soutien à saut (1♥ – contre – 3♥) est un barrage, avec quatre atouts et moins de 10 H. Avec une couleur nouvelle et moins de 10, nommez-la.</p>
 
 <h3>Le contre des barrages</h3>
 <p>Le contre d’un deux faible ou d’un barrage au palier de 3 est aussi d’appel : valeurs d’ouverture, courte dans leur couleur, et prêt pour n’importe quelle couleur que nommera le partenaire. Celui-ci devra peut-être parler au palier de 3 avec une main faible : le contreur doit donc être solide, pas léger.</p>
@@ -456,7 +456,7 @@ export const LESSONS_2: Lesson[] = [
       'Le partenaire doit parler : 0-8 au plus bas, 9-11 à saut, 12+ cue-bid ou manche ; 1SA = 6-10 avec un arrêt.',
       'Ne passez sur le contre qu’avec des atouts longs et solides dans leur couleur.',
       'Le contreur passe sur une réponse minimum avec 12-15 ; soutient avec 16-18 ; saute avec 19+.',
-      'Le surcontre après un contre d’appel montre 10+ H.',
+      'Le surcontre après un contre d’appel montre 10+ H ; sur 1♥ ou 1♠, 2SA (Jordan) montre quatre atouts et un soutien limite ou mieux, et le soutien à saut est un barrage.',
     ],
     quiz: [
       {
@@ -963,13 +963,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>Le 4SA quantitatif</h3>
 <p>Le soutien direct de 1SA à 4SA n’est pas un Blackwood. Il montre 16-17 points : le total est donc de 31-34, à la limite des 33 nécessaires pour le chelem. L’ouvreur passe avec un minimum (15) et dit 6SA avec un maximum (17) ; avec 16, il juge, en acceptant avec une belle couleur cinquième ou de bonnes cartes intermédiaires.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Le partenaire a ouvert de 1SA : dites 4SA"></div>
-<p>16 H, main régulière. Dites 4SA. Avec 18-19, vous diriez directement 6SA, puisque même un ouvreur minimum donne 33.</p>
+<p>16 H, main régulière. Dites 4SA. Avec 18-21, vous diriez directement 6SA, puisque même un ouvreur minimum donne 33 ; avec 22 ou plus, dites 7SA, puisque même un minimum donne 37.</p>
 <p>Sur 2SA (20-21), 4SA montre 11-12 et demande à l’ouvreur de dire 6SA avec un maximum.</p>
 <table>
-<thead><tr><th>Répondant après</th><th>3SA</th><th>4SA (proposition)</th><th>6SA</th></tr></thead>
+<thead><tr><th>Répondant après</th><th>3SA</th><th>4SA (proposition)</th><th>6SA</th><th>7SA</th></tr></thead>
 <tbody>
-<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

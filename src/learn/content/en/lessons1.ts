@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Is it an opening hand?</h3>
-<p>With 12 or more HCP, open. With 10-11 HCP in first or second seat, open if the Rule of 20 is met (HCP + the lengths of your two longest suits ≥ 20). In fourth seat use the Rule of 15 (HCP + number of spades ≥ 15). Hands with a long suit and fewer points may suit a weak two or a preempt instead.</p>
+<p>With 12 or more HCP, open, except in fourth seat. With 10-11 HCP in first or second seat, open if the Rule of 20 is met (HCP + the lengths of your two longest suits ≥ 20). In fourth seat open with 13 or more HCP, and with 10-12 HCP only if the Rule of 15 is met (HCP + number of spades ≥ 15). Hands with a long suit and fewer points may suit a weak two or a preempt instead.</p>
 
 <h3>Balanced hands: let the points decide</h3>
 <p>A balanced hand has no void, no singleton and at most one doubleton: 4-3-3-3, 4-4-3-2 or 5-3-3-2. With a balanced hand your plan is always to show your strength in notrump, either at once or on your next turn:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Never open 1♥ or 1♠ with only four cards. Partner will raise with three-card support, expecting at least an eight-card fit.</div>
 `,
     keyPoints: [
-      'Open with 12+ HCP; with 10-11 use the Rule of 20 (first or second seat) or the Rule of 15 (fourth seat).',
+      'Open with 12+ HCP; with 10-11 use the Rule of 20 (first or second seat). In fourth seat open with 13+, or with 10-12 if the Rule of 15 is met.',
       '1♥/1♠ promise five cards; with no 5-card major open the longer minor (1♣ with 3-3, 1♦ with 4-4).',
       'Balanced: 12-14 open a suit and rebid 1NT; 15-17 1NT; 18-19 jump to 2NT; 20-21 2NT; 22+ 2♣.',
       'Two 5-card suits: open the higher-ranking; 6-5: open the longer.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>With 6 HCP, five hearts and a singleton, ♠4 ♥QJ852 ♦K9763 ♣82, jump to 4♥ over 1♥. The opponents surely have a fit and plenty of points, and you want them to guess at the five level.</p>
 
 <h4>Three-card support and 10-12 points</h4>
-<p>The jump to three promises four trumps. With only three, bid a new suit first and jump in partner's major next time: over 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 bids 2♦ and then 3♥. With three-card support and 13+, bid a new suit first and then bid game in the major.</p>
+<p>The jump to three promises four trumps. With only three, bid a new suit first and then raise partner's major to the three level (invitational): over 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 bids 2♦ and then 3♥. With three-card support and 13+, bid a new suit first and then bid game in the major.</p>
 
 <h3>Responding to 1♣ or 1♦</h3>
 <p>Partner may have only three cards in the minor, and a major-suit fit is worth more, so look for a major first.</p>
@@ -639,12 +639,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Knock out the opponents' high cards early, while you still have stoppers in every suit. Cash your sure winners last, not first.</div>
 
 <h3>A suit example: count losers</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ by South. West leads the ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Count losers in South's hand:</strong> spades none; hearts one (the third round); diamonds two (the 7 and the 3); clubs one (the ♣A wins the first round, the second round is lost). Total: four. You can afford three.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ by South. West leads the ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Count losers in South's hand:</strong> spades none; hearts one (the third round); diamonds three (the 7, the 3 and the 2); clubs none (dummy's ♣A covers your singleton). Total: four. You can afford three.</p>
 <p><strong>Source:</strong> dummy has only two diamonds. After the ♦A and one more round, dummy is void and can ruff your third diamond with a small trump. That ruff is an extra trick because it is taken by the <em>short</em> trump hand: South's own trumps are winners anyway.</p>
 <p><strong>Danger:</strong> if you draw three rounds of trumps first, dummy has no trumps left for the ruff. You must keep at least one trump in dummy until the ruff has been taken.</p>
-<p><strong>Plan:</strong> win the lead with dummy's ♥A, play a diamond to your ace and give up a diamond. If the defenders win and lead a trump (their best defence), win it and ruff your last diamond in dummy at once. Now draw trumps and play clubs. You lose one heart, one diamond and one club.</p>
+<p><strong>Plan:</strong> win the lead with dummy's ♥A, play a diamond to your ace and give up a diamond. If the defenders win and lead a trump (their best defence), win it and ruff a diamond in dummy at once. Now draw trumps. You lose one heart and two diamonds.</p>
 <div class="warn">"Always draw trumps first" is a good habit with a big exception: when you need dummy's trumps for ruffing, take the ruffs before the trumps are gone.</div>
 
 <h3>Counting is a habit</h3>
@@ -680,7 +680,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'In the 4♠ deal above, what goes wrong if declarer draws three rounds of trumps immediately?',
         options: ['Nothing, it is the safest play', 'Dummy has no trump left to ruff the third diamond', 'The defenders can ruff a heart', 'Declarer loses control of clubs'],
         answer: 1,
-        explain: 'Dummy started with only three trumps. Drawing three rounds uses them all, and declarer is left with two diamond losers plus a heart and a club: one too many.',
+        explain: 'Dummy started with only three trumps. Drawing three rounds uses them all, and declarer is left with three diamond losers plus a heart: one too many.',
       },
     ],
   },
