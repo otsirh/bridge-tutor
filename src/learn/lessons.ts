@@ -18,7 +18,7 @@
 
 export type { LessonTopic, LessonLevel, QuizQuestion, Lesson, GlossaryEntry, LessonContent } from './types';
 import type { Lesson, GlossaryEntry, LessonContent } from './types';
-import { lang, addLanguageData, type Lang } from '../i18n';
+import { lang, locale, addLanguageData, type Lang } from '../i18n';
 import { content as en } from './content/en';
 
 /** Lessons for every language but English load with the language (one chunk each). */
@@ -52,8 +52,17 @@ export function getLessons(): Lesson[] {
   return active().lessons;
 }
 
+const sortedGlossary = new Map<Lang, GlossaryEntry[]>();
+
+/** The glossary in the language's alphabetical order, numbers by value ("Rule of 7" before "Rule of 11"). */
 export function getGlossary(): GlossaryEntry[] {
-  return active().glossary;
+  let g = sortedGlossary.get(lang());
+  if (!g) {
+    const order = new Intl.Collator(locale(), { numeric: true });
+    g = [...active().glossary].sort((a, b) => order.compare(a.term, b.term));
+    sortedGlossary.set(lang(), g);
+  }
+  return g;
 }
 
 /** Lesson by id in the active language (falls back to English). */

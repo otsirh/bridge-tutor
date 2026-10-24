@@ -5,7 +5,7 @@ import { type Call, PASS, DOUBLE, REDOUBLE, bid, callName, isBid, contractName }
 import { readAuction } from '../bidding/engine';
 import { Auction } from '../core/auction';
 import type { Game } from '../game/game';
-import { T, fmtUnit, locale } from '../i18n';
+import { T, fmtLabel, fmtUnit, locale } from '../i18n';
 import { h, suitText } from './dom';
 import { handEl, miniHand, backEl, cardEl } from './cards';
 import type { UIState } from './app';
@@ -159,7 +159,7 @@ function biddingBox(g: Game, ui: UIState, act: TableActions): HTMLElement | null
   if (ui.preview !== null && legal.has(ui.preview)) {
     const view = readAuction(new Auction(g.dealer, [...g.auction.calls, ui.preview]), g.vul);
     const m = view.records[view.records.length - 1].meaning;
-    preview = h('div', { class: 'preview' }, h('b', null, suitText(`${callName(ui.preview)}: ${m.name}`)), m.natural ? T.ui.bidBox.notSystem : '', ' — ', suitText(m.desc));
+    preview = h('div', { class: 'preview' }, h('b', null, suitText(fmtLabel(callName(ui.preview), m.name))), m.natural ? T.ui.bidBox.notSystem : '', ' — ', suitText(m.desc));
   } else {
     preview = h('div', { class: 'preview muted' }, T.ui.bidBox.hoverHelp);
   }

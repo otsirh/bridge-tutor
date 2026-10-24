@@ -4,7 +4,7 @@ import { type Card, suitOf, rankOf, makeCard, SUIT_SYMBOLS, rankLabel, NT } from
 import type { Contract } from '../core/auction';
 import type { CallRecord } from '../bidding/context';
 import { isBid, strainOf } from '../core/auction';
-import { T } from '../i18n';
+import { T, fmtLabel } from '../i18n';
 
 export interface LeadChoice {
   card: Card;
@@ -127,5 +127,5 @@ export function openingLeadChoices(hand: readonly Card[], contract: Contract, re
 }
 
 export function describeLead(c: LeadChoice): string {
-  return `${SUIT_SYMBOLS[suitOf(c.card)]}${rankLabel(rankOf(c.card))}: ${c.suitReason} ${c.cardReason}`;
+  return fmtLabel(`${SUIT_SYMBOLS[suitOf(c.card)]}${rankLabel(rankOf(c.card))}`, `${c.suitReason} ${c.cardReason}`);
 }

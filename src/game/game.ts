@@ -22,7 +22,7 @@ import { type ArchivedBoard, saveBoard, addItems, loadBoards, decodeDeal, update
 import { archiveBoard, reviewItems, simVerdict, type FinishedBoard } from './record';
 import { dealForTheme, themeById, LESSON_THEMES } from './themes';
 import { setSystem } from '../bidding/config';
-import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
+import { T, fmtLabel, fmtNum, fmtPct, fmtSigned } from '../i18n';
 
 export type Phase = 'bidding' | 'play' | 'review';
 
@@ -650,7 +650,7 @@ export class Game {
       this.feedback.unshift(note((made >= 0) === ours ? 'good' : 'bad', () => {
         const n = T.ui.notes;
         return {
-          title: `${T.ui.common.contractBy(contractName(c), SEAT_NAMES[c.declarer])}: ${made >= 0 ? (made === 0 ? n.madeExactly : n.madePlus(made)) : n.down(-made)}`,
+          title: fmtLabel(T.ui.common.contractBy(contractName(c), SEAT_NAMES[c.declarer]), made >= 0 ? (made === 0 ? n.madeExactly : n.madePlus(made)) : n.down(-made)),
           text: n.resultText(fmtSigned(sc)),
         };
       }));
@@ -940,7 +940,7 @@ function situationAt(p: PlayState, seat: Seat): PlaySituation {
 function callWording(e: CallEntry) {
   const a = e.advice!;
   const rule = a.rule?.name ?? callName(PASS);
-  if (e.agrees) return { title: T.ui.notes.callOk(callName(e.call)), text: `${rule}: ${a.rule?.desc ?? ''}` };
+  if (e.agrees) return { title: T.ui.notes.callOk(callName(e.call)), text: fmtLabel(rule, a.rule?.desc ?? '') };
   const m = e.meaning;
   return {
     title: T.ui.notes.callOff(callName(e.call), callName(a.call)),

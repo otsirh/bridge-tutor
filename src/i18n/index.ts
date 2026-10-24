@@ -27,22 +27,23 @@ export interface LanguageInfo {
   name: string; // in the language itself
   locale: string; // for numbers and dates
   listSep?: string; // between items of a list (default ", ")
-  unitSep?: string; // between a number and its unit (default " ")
+  unitSep?: string; // between a number and its unit (default a no-break space)
+  colon?: string; // between a label and its text (default ": ")
 }
 
 export const LANGUAGES: LanguageInfo[] = [
   { id: 'en', name: 'English', locale: 'en-GB' },
   { id: 'de', name: 'Deutsch', locale: 'de-DE' },
   { id: 'es', name: 'Español', locale: 'es-ES' },
-  { id: 'fr', name: 'Français', locale: 'fr-FR' },
+  { id: 'fr', name: 'Français', locale: 'fr-FR', colon: '\u00a0: ' },
   { id: 'it', name: 'Italiano', locale: 'it-IT' },
   { id: 'nl', name: 'Nederlands', locale: 'nl-NL' },
   { id: 'pl', name: 'Polski', locale: 'pl-PL' },
   { id: 'pt', name: 'Português', locale: 'pt-BR' },
   { id: 'bg', name: 'Български', locale: 'bg-BG' },
   { id: 'ru', name: 'Русский', locale: 'ru-RU' },
-  { id: 'ja', name: '日本語', locale: 'ja-JP', listSep: '、', unitSep: '' },
-  { id: 'zh', name: '中文', locale: 'zh-CN', listSep: '、', unitSep: '' },
+  { id: 'ja', name: '日本語', locale: 'ja-JP', listSep: '、', unitSep: '', colon: '：' },
+  { id: 'zh', name: '中文', locale: 'zh-CN', listSep: '、', unitSep: '', colon: '：' },
 ];
 
 /**
@@ -198,9 +199,9 @@ export function fmtNum(x: number, digits = 0): string {
   return x.toLocaleString(locale(), { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
-/** A fraction 0..1 as a percentage ("68%"). */
+/** A fraction 0..1 as a percentage ("68%"; "68 %" in French or German). */
 export function fmtPct(frac: number, digits = 0): string {
-  return `${fmtNum(frac * 100, digits)}%`;
+  return frac.toLocaleString(locale(), { style: 'percent', minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
 /** A signed whole number ("+3", "−2", "0"). */
@@ -213,9 +214,19 @@ export function fmtList(items: readonly string[]): string {
   return items.join(info().listSep ?? ', ');
 }
 
-/** A number with its unit ("13 HCP"; "13点" in Chinese). */
+/** A number with its unit ("13 HCP", kept on one line; "13点" in Chinese). */
 export function fmtUnit(n: number | string, unit: string): string {
-  return `${n}${info().unitSep ?? ' '}${unit}`;
+  return `${n}${info().unitSep ?? '\u00a0'}${unit}`;
+}
+
+/** A label and its text ("Board 3: 4♥ by South"; "Donne 3 : …" in French). */
+export function fmtLabel(label: string, text: string): string {
+  return `${label}${info().colon ?? ': '}${text}`;
+}
+
+/** The first clause of a sentence, up to its first colon or full stop. */
+export function firstClause(s: string): string {
+  return s.split(/[:.;：。；]/)[0].trim();
 }
 
 export function fmtDate(ms: number): string {

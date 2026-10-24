@@ -12,7 +12,7 @@ import { getLessons, getGlossary, type Lesson } from '../learn/lessons';
 import { loadLessonProgress, updateLessonProgress, addItems, encodeDeal } from '../game/journal';
 import { bidSkill } from '../game/skills';
 import { LESSON_THEMES } from '../game/themes';
-import { T } from '../i18n';
+import { T, fmtLabel } from '../i18n';
 import { h, suitText, colorSuitsIn } from './dom';
 import { vulLabel } from './review';
 import { handEl, diagramHand, cardText } from './cards';
@@ -251,7 +251,7 @@ function auctionMini(a: Auction, vul: Vulnerability): HTMLElement {
   const order: Seat[] = [W, N, E, S];
   const cells: (HTMLElement | string)[] = [];
   for (let i = 0; i < order.indexOf(a.dealer); i++) cells.push('');
-  view.records.forEach(r => cells.push(h('span', { title: `${r.meaning.name}: ${r.meaning.desc}` }, r.call === PASS ? callName(PASS) : suitText(callName(r.call)), r.meaning.artificial ? '*' : '')));
+  view.records.forEach(r => cells.push(h('span', { title: fmtLabel(r.meaning.name, r.meaning.desc) }, r.call === PASS ? callName(PASS) : suitText(callName(r.call)), r.meaning.artificial ? '*' : '')));
   if (!a.isComplete()) cells.push(h('span', { class: 'q' }, '?'));
   const rows: HTMLElement[] = [];
   for (let i = 0; i < cells.length; i += 4) rows.push(h('tr', null, cells.slice(i, i + 4).map(c => h('td', null, c))));

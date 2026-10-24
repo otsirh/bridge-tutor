@@ -14,7 +14,7 @@ import { toPBN } from '../core/pbn';
 import { bboHandviewerUrl } from '../core/lin';
 import { encodeBoard } from '../core/share';
 import type { BoardData } from '../core/pbn';
-import { T, fmtList, fmtNum, fmtPct, fmtSigned, fmtUnit } from '../i18n';
+import { T, fmtLabel, fmtList, fmtNum, fmtPct, fmtSigned, fmtUnit } from '../i18n';
 import { h, suitText } from './dom';
 import { diagramHand, cardText } from './cards';
 import type { UIState } from './app';
@@ -175,7 +175,7 @@ function lessons(g: Game): HTMLElement {
 
 function biddingTab(g: Game): HTMLElement {
   return h('div', { class: 'feed' }, g.calls.map(c => h('div', { class: `item ${c.human ? (c.agrees ? 'good' : 'warn') : 'info'}` },
-    h('b', null, suitText(`${SEAT_NAMES[c.seat]}: ${callName(c.call)} — ${c.meaning.name}`)),
+    h('b', null, suitText(fmtLabel(SEAT_NAMES[c.seat], `${callName(c.call)} — ${c.meaning.name}`))),
     h('div', null, suitText(c.meaning.desc)),
     describeShown(c.meaning.shown) ? h('div', { class: 'small muted' }, T.ui.common.shows, suitText(describeShown(c.meaning.shown))) : null,
     c.human && c.advice && !c.agrees ? h('div', { class: 'small', style: 'margin-top:4px' }, suitText(T.ui.review.system(callName(c.advice.call), ruleName(c.advice), c.advice.rule?.desc ?? ''))) : null)));
@@ -219,7 +219,7 @@ function playTab(g: Game, ui: UIState, act: ReviewActions): HTMLElement {
       return h('div', { class: 'small' }, h('b', null, `${SEAT_NAMES[e.seat]}: `), cardText(e.card), t.verdict(r.gotSide, e.seat & 1 ? T.ui.common.sideEW : T.ui.common.sideNS, r.bestSide),
         h('span', { class: 'muted' }, t.options, vals.map((v, k) => h('span', null, k ? ', ' : '', cardText(v.card), ` ${v.side}`))),
         e.signal ? h('div', null, h('span', { class: 'chip sigchip' }, describeSignal(e.signal))) : null,
-        e.principle ? h('div', { class: 'muted' }, `${e.principle.title}: ${e.principle.text}`) : null);
+        e.principle ? h('div', { class: 'muted' }, fmtLabel(e.principle.title, e.principle.text)) : null);
     });
     detail = h('div', { class: 'box', style: 'margin-top:10px' }, h('b', null, t.beforeTrick(n + 1)), dealDiagram(g, handsAt[n], t.trick(n + 1)), h('div', { style: 'display:grid;gap:6px;margin-top:10px' }, verdicts));
   }
@@ -287,7 +287,7 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
   } else if (tab === 'bidding') body = biddingTab(g);
   else body = playTab(g, ui, act);
   return h('div', { class: 'modal', role: 'dialog', 'aria-label': t.label },
-    h('div', { class: 'head' }, h('h2', null, suitText(`${T.ui.common.board(g.board)}: ${title}`)), tabs, h('span', { style: 'flex:1' }),
+    h('div', { class: 'head' }, h('h2', null, suitText(fmtLabel(T.ui.common.board(g.board), title))), tabs, h('span', { style: 'flex:1' }),
       h('button', { class: 'btn', type: 'button', onclick: () => act.replay() }, t.replay),
       act.next ? h('button', { class: 'btn primary', type: 'button', onclick: () => act.next!() }, t.nextDeal) : null,
       h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.ui.common.close, onclick: () => act.close() }, '✕')),

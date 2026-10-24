@@ -8,7 +8,7 @@ import type { Game } from '../game/game';
 import type { BidAdvice } from '../bidding/engine';
 import { explainPlay } from '../tutor/principles';
 import { readPlay, describeSignal } from '../tutor/signals';
-import { T, fmtNum, fmtPct, fmtSigned } from '../i18n';
+import { T, firstClause, fmtLabel, fmtNum, fmtPct, fmtSigned } from '../i18n';
 import { h, suitText } from './dom';
 import { cardText } from './cards';
 import type { UIState } from './app';
@@ -58,7 +58,7 @@ function cardAdviceBox(g: Game): HTMLElement | null {
       h('div', { class: 'advice-call' }, cardText(hint.lead[0].card), h('span', { class: 'tag' }, t.bookLead)),
       h('p', { class: 'advice-desc' }, suitText(hint.lead[0].suitReason)),
       h('p', { class: 'small', style: 'margin:6px 0 0' }, suitText(hint.lead[0].cardReason)),
-      hint.lead.length > 1 ? h('div', { class: 'small muted', style: 'margin-top:8px' }, t.otherSuits, hint.lead.slice(1).map((l, i) => h('span', null, i ? ' · ' : '', cardText(l.card), ` (${l.suitReason.split(':')[0].split('.')[0]})`))) : null,
+      hint.lead.length > 1 ? h('div', { class: 'small muted', style: 'margin-top:8px' }, t.otherSuits, hint.lead.slice(1).map((l, i) => h('span', null, i ? ' · ' : '', cardText(l.card), ` (${firstClause(l.suitReason)})`))) : null,
       !hint.decision && !hint.pending ? h('button', { class: 'btn small', type: 'button', style: 'margin-top:10px', onclick: () => g.simulateLead() }, t.simulateLeads) : null,
     ));
   }
@@ -178,7 +178,7 @@ function selectedCallBox(g: Game, ui: UIState, act: PanelActions): HTMLElement |
   if (!entry) return null;
   const m = entry.meaning;
   return h('div', { class: 'box meaning-pop' },
-    h('div', { style: 'display:flex;align-items:center;gap:8px' }, h('b', null, suitText(`${SEAT_NAMES[entry.seat]}: ${callName(entry.call)}`)), h('span', { class: 'spacer', style: 'flex:1' }), h('button', { class: 'btn small ghost', type: 'button', onclick: () => act.selectCall(null), 'aria-label': T.ui.common.close }, '✕')),
+    h('div', { style: 'display:flex;align-items:center;gap:8px' }, h('b', null, suitText(fmtLabel(SEAT_NAMES[entry.seat], callName(entry.call)))), h('span', { class: 'spacer', style: 'flex:1' }), h('button', { class: 'btn small ghost', type: 'button', onclick: () => act.selectCall(null), 'aria-label': T.ui.common.close }, '✕')),
     h('div', { style: 'margin-top:4px;font-weight:600' }, suitText(m.name), m.artificial ? h('span', { class: 'chip', style: 'margin-left:6px;background:var(--brass);color:#fff' }, T.ui.common.alert) : null),
     h('p', { style: 'margin:6px 0' }, suitText(m.desc)),
     describeShown(m.shown) ? h('div', { class: 'small' }, T.ui.common.shows, suitText(describeShown(m.shown))) : null,

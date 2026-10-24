@@ -11,7 +11,7 @@ import { imps } from '../core/scoring';
 import { readAuction, advise, judgeCall } from '../bidding/engine';
 import { decideCard, type Decision } from '../engine/playEngine';
 import { explainPlay, type PlaySituation } from '../tutor/principles';
-import { T, fmtDate, fmtList, fmtNum, fmtPct } from '../i18n';
+import { T, fmtDate, fmtLabel, fmtList, fmtNum, fmtPct } from '../i18n';
 import { getLessons, getLesson } from '../learn/lessons';
 import {
   type ArchivedBoard, type ReviewItem, loadBoards, loadItems, dueItems, answerItem, updateItem, decodeDeal, addItems,
@@ -110,7 +110,7 @@ function auctionTable(dealer: Seat, calls: readonly Call[], vul: ArchivedBoard['
   const order: Seat[] = [W, N, E, S];
   const cells: (HTMLElement | string)[] = [];
   for (let i = 0; i < order.indexOf(dealer); i++) cells.push('');
-  view.records.forEach(r => cells.push(h('span', { title: `${r.meaning.name}: ${r.meaning.desc}` }, suitText(callName(r.call)), r.meaning.artificial ? '*' : '')));
+  view.records.forEach(r => cells.push(h('span', { title: fmtLabel(r.meaning.name, r.meaning.desc) }, suitText(callName(r.call)), r.meaning.artificial ? '*' : '')));
   if (ask) cells.push(h('span', { class: 'q' }, '?'));
   const rows: HTMLElement[] = [];
   for (let i = 0; i < cells.length; i += 4) rows.push(h('tr', null, cells.slice(i, i + 4).map(c => h('td', null, c))));
