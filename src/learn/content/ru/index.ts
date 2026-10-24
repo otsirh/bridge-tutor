@@ -1,7 +1,13 @@
 // Russian lesson content.
-// PLACEHOLDER: the English lessons until the Russian ones are written.
 
 import type { LessonContent } from '../../types';
-import { content as en } from '../en';
+import { LESSONS_1 } from './lessons1';
+import { LESSONS_2 } from './lessons2';
+import { LESSONS_3 } from './lessons3';
+import { LESSONS_4 } from './conventions';
+import { GLOSSARY } from './glossary';
 
-export const content: LessonContent = en;
+export const content: LessonContent = {
+  lessons: [...LESSONS_1, ...LESSONS_2, ...LESSONS_3, ...LESSONS_4],
+  glossary: GLOSSARY,
+};
