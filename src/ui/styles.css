@@ -783,6 +783,7 @@ select.sel {
 .settings-grid .row .d { font-size: 13px; color: var(--ink-3); }
 .drill { display: grid; gap: 14px; }
 .drill .prompt { font-size: 15px; }
+.drill-felt { background: var(--felt); border-radius: 14px; padding: 10px 14px; min-width: 0; max-width: 100%; }
 .toast {
   position: fixed;
   left: 50%;
@@ -825,4 +826,8 @@ select.sel {
   .brand { font-size: 20px; }
   .trickrow { grid-template-columns: 26px repeat(4, minmax(0, 1fr)); }
   .trickrow .costcol { display: none; }
+  /* a drill's 13-card hand must fit a phone inside the dialog */
+  .drill-felt { padding: 8px 6px; }
+  .drill-felt .hand .card + .card { margin-left: calc(var(--card-w) * -0.56); }
+  .drill-felt .hand .card.gap { margin-left: calc(var(--card-w) * -0.4); }
 }
