@@ -194,3 +194,7 @@ a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items
 
 /* the dialog itself takes focus when it opens; only its controls show a ring */
 .modal:focus { outline: none; }
+
+/* the result of your own count, before the plan */
+.good-text { color: var(--good); font-weight: 600; }
+.warn-text { color: var(--bad); font-weight: 600; }

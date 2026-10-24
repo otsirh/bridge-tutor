@@ -107,6 +107,8 @@ export const ui = {
     yourPlay: 'Your play',
     showCall: 'Show the recommended call',
     showCard: 'Show the recommended card',
+    countFirst: 'Count first',
+    showPlan: 'Show the plan',
     declarerPlan: 'Declarer’s plan',
     counting: 'Counting',
     readingPlay: 'Reading the play',

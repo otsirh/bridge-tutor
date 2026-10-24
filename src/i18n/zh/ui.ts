@@ -88,6 +88,8 @@ export const ui: Text['ui'] = {
     yourPlay: '你的出牌',
     showCall: '显示推荐叫品',
     showCard: '显示推荐出牌',
+    countFirst: '先数一数',
+    showPlan: '显示计划',
     declarerPlan: '庄家计划',
     counting: '计算',
     readingPlay: '解读打牌',

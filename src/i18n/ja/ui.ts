@@ -88,6 +88,8 @@ export const ui: Text['ui'] = {
     yourPlay: 'あなたのプレイ',
     showCall: '推奨コールを表示',
     showCard: '推奨カードを表示',
+    countFirst: 'まず数えましょう',
+    showPlan: 'プランを表示',
     declarerPlan: 'ディクレアラーのプラン',
     counting: 'カウント',
     readingPlay: 'プレイを読む',

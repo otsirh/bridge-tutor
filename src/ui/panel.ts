@@ -114,6 +114,29 @@ function planBox(g: Game): HTMLElement | null {
   );
 }
 
+/**
+ * Thinking first (advice hidden until asked), declarer counts before the plan
+ * is shown: top tricks in notrump, losers in a suit contract. Then the plan
+ * appears with the right count.
+ */
+function countFirst(g: Game, ui: UIState, act: PanelActions): HTMLElement | null {
+  const plan = g.plan!;
+  const board = `${g.board}:${g.seed}`;
+  if (ui.planCount.board !== board) ui.planCount = { board, n: null, skipped: false };
+  const pc = ui.planCount;
+  if (g.settings.autoHint || pc.skipped) return null;
+  const learn = T.ui.learn;
+  const question = plan.kind === 'winners' ? learn.countTopTricks : learn.countLosers;
+  if (pc.n !== null) {
+    const right = pc.n === plan.total;
+    return h('div', null, h('p', { class: `small ${right ? 'good-text' : 'warn-text'}`, style: 'margin:0 0 6px' }, right ? learn.correct : learn.theCountIs(plan.total)), planBox(g));
+  }
+  return h('div', { class: 'box plan' },
+    h('b', null, T.ui.panel.countFirst), h('p', { style: 'margin:4px 0 8px' }, question),
+    h('div', { style: 'display:flex;gap:5px;flex-wrap:wrap' }, Array.from({ length: 14 }, (_, n) => h('button', { class: 'btn small', type: 'button', onclick: () => { pc.n = n; act.rerender(); } }, String(n)))),
+    h('button', { class: 'btn small ghost', type: 'button', style: 'margin-top:6px', onclick: () => { pc.skipped = true; act.rerender(); } }, T.ui.panel.showPlan));
+}
+
 function countingBox(g: Game): HTMLElement | null {
   const p = g.play;
   if (!p?.openingLeadMade) return null;
@@ -249,7 +272,7 @@ export function renderPanel(g: Game, ui: UIState, act: PanelActions): HTMLElemen
 
   if (g.phase === 'play') {
     const pb = planBox(g);
-    if (pb) parts.push(h('h3', null, t.declarerPlan), pb);
+    if (pb) parts.push(h('h3', null, t.declarerPlan), countFirst(g, ui, act) ?? pb);
     const cb = countingBox(g);
     if (cb) parts.push(h('h3', null, t.counting), cb);
     const p = g.play!;
@@ -285,7 +308,7 @@ export function panelSignature(g: Game, ui: UIState): string {
     g.board, g.seed, g.phase, g.auction.calls.length, g.play ? g.play.history().length : -1, g.thinking, g.settings, g.hintRevealed,
     ui.selectedCall, g.warning ? [g.warning.kind, g.warning.kind === 'bid' ? g.warning.call : g.warning.card] : null,
     hint ? (hint.kind === 'bid' ? ['b', hint.advice.call] : ['c', hint.pending, hint.done, hint.total, hint.decision?.card, hint.decision?.samples, hint.lead?.length]) : null,
-    g.feedback.length, g.isHumanTurn(), !!g.plan,
+    g.feedback.length, g.isHumanTurn(), !!g.plan, ui.planCount,
   ]);
 }
 

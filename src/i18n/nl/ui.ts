@@ -91,6 +91,8 @@ export const ui: Text['ui'] = {
     yourPlay: 'Jouw kaart',
     showCall: 'Toon het aanbevolen bod',
     showCard: 'Toon de aanbevolen kaart',
+    countFirst: 'Eerst tellen',
+    showPlan: 'Toon het plan',
     declarerPlan: 'Speelplan van de leider',
     counting: 'Tellen',
     readingPlay: 'Wat het spel vertelt',

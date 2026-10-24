@@ -95,6 +95,8 @@ export const ui: Text['ui'] = {
     yourPlay: 'Twoja karta',
     showCall: 'Pokaż zalecaną odzywkę',
     showCard: 'Pokaż zalecaną kartę',
+    countFirst: 'Najpierw policz',
+    showPlan: 'Pokaż plan',
     declarerPlan: 'Plan rozgrywającego',
     counting: 'Liczenie',
     readingPlay: 'Co mówi rozgrywka',

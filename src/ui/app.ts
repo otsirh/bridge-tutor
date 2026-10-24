@@ -28,6 +28,8 @@ export interface UIState {
   /** The level chosen on the phone's bidding pad, and a counter that redraws the pad when its choice changes. */
   pickLevel: number | null;
   pickRev: number;
+  /** Your own count before the declarer plan is shown ("think first"): for which board, and the number you gave. */
+  planCount: { board: string; n: number | null; skipped: boolean };
   modal: null | 'review' | 'learn' | 'training' | 'archive' | 'settings' | 'help' | 'welcome';
   reviewTab: 'summary' | 'bidding' | 'play';
   reviewTrick: number | null;
@@ -139,7 +141,7 @@ export function mountApp(root: HTMLElement) {
   (window as unknown as { __bridge: Game }).__bridge = game; // handy for debugging in the console
   let theme = loadTheme();
   applyTheme(theme);
-  const ui: UIState = { selectedCall: null, preview: null, pickLevel: null, pickRev: 0, modal: null, reviewTab: 'summary', reviewTrick: null, learnTab: 'lessons', lessonId: null, autoOpenedReview: '' };
+  const ui: UIState = { selectedCall: null, preview: null, pickLevel: null, pickRev: 0, planCount: { board: '', n: null, skipped: false }, modal: null, reviewTab: 'summary', reviewTrick: null, learnTab: 'lessons', lessonId: null, autoOpenedReview: '' };
 
   const header = h('header', { class: 'topbar' });
   const tableCol = h('section', { class: 'tablecol' });

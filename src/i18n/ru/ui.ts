@@ -94,6 +94,8 @@ export const ui: Text['ui'] = {
     yourPlay: 'Ваша карта',
     showCall: 'Показать рекомендуемую заявку',
     showCard: 'Показать рекомендуемую карту',
+    countFirst: 'Сначала посчитайте',
+    showPlan: 'Показать план',
     declarerPlan: 'План разыгрывающего',
     counting: 'Подсчёт',
     readingPlay: 'Что говорят сыгранные карты',

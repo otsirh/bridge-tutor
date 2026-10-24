@@ -90,6 +90,8 @@ export const ui: Text['ui'] = {
     yourPlay: 'Sua jogada',
     showCall: 'Mostrar a voz recomendada',
     showCard: 'Mostrar a carta recomendada',
+    countFirst: 'Conte primeiro',
+    showPlan: 'Mostrar o plano',
     declarerPlan: 'Plano do declarante',
     counting: 'Contagem',
     readingPlay: 'Lendo o carteio',

@@ -89,6 +89,8 @@ export const ui: Text['ui'] = {
     yourPlay: 'Вашата карта',
     showCall: 'Покажи препоръчаната обява',
     showCard: 'Покажи препоръчаната карта',
+    countFirst: 'Първо пребройте',
+    showPlan: 'Покажи плана',
     declarerPlan: 'План на разиграващия',
     counting: 'Броене',
     readingPlay: 'Какво казва играта',
