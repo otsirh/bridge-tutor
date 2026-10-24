@@ -1,11 +1,12 @@
 // Turning a finished board into journal data: the archived board and the
 // review items for the decisions that went wrong.
 
-import type { Card, Seat, Vulnerability } from '../core/cards';
+import { type Card, type Seat, type Vulnerability, S, dealCards, mulberry32, boardDealer, boardVulnerability } from '../core/cards';
 import { Auction, type Call } from '../core/auction';
 import { PlayState } from '../core/play';
 import type { Decision } from '../engine/playEngine';
-import { type ArchivedBoard, type ArchivedCall, type ArchivedCard, type ReviewItem, type SimVerdict, encodeDeal } from './journal';
+import { readAuction, advise } from '../bidding/engine';
+import { type ArchivedBoard, type ArchivedCall, type ArchivedCard, type ReviewItem, type SimVerdict, encodeDeal, decodeDeal } from './journal';
 import { bidSkill, cardSkill, clearCardMistake } from './skills';
 
 export interface FinishedCall {
@@ -117,4 +118,32 @@ export function reviewItems(f: FinishedBoard, now = Date.now()): ReviewItem[] {
     before.push(c.card);
   });
   return out;
+}
+
+/**
+ * A new deal on the same idea: South to call where the system uses the same
+ * rule as in the item. Reviews then test the idea rather than the memory of
+ * one board. Searched within a short time budget; null if none turned up.
+ */
+export function freshBidVariant(item: ReviewItem, budgetMs = 300): ReviewItem | null {
+  const deal = decodeDeal(item.deal);
+  const rule = advise(deal[item.seat], readAuction(new Auction(item.dealer, item.calls), item.vul).ctx).rule;
+  if (!rule || rule.generic) return null;
+  const rnd = mulberry32((item.created + item.tries * 7919) >>> 0);
+  const end = performance.now() + budgetMs;
+  while (performance.now() < end) {
+    const board = 1 + Math.floor(rnd() * 16);
+    const cards = dealCards(rnd);
+    const dealer = boardDealer(board);
+    const vul = boardVulnerability(board);
+    const a = new Auction(dealer);
+    while (!a.isComplete()) {
+      const advice = advise(cards[a.nextSeat], readAuction(a, vul).ctx);
+      if (a.nextSeat === S && advice.rule?.key === rule.key) {
+        return { ...item, board, dealer, vul, deal: encodeDeal(cards), calls: [...a.calls], seat: S, answer: [advice.call], yours: -1 };
+      }
+      a.push(advice.call);
+    }
+  }
+  return null;
 }

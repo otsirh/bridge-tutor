@@ -112,6 +112,7 @@ export const practice: Text['practice'] = {
   reviewDoneText: (total: number, next: string) => `${plural(total, 'beslissing staat', 'beslissingen staan')} gepland voor later (de volgende op ${next}).`,
   sessionScore: (right: number, done: number) => `Deze sessie: ${right}/${done} goed`,
   itemFrom: (date: string, board: number) => `uit spel ${board}, ${date}`,
+  freshDeal: 'Nieuw spel, hetzelfde idee',
   itemFromDrill: (date: string) => `uit de biedoefening, ${date}`,
   itemFromProblem: (date: string) => `uit een opgave, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nieuw' : `stap ${box} van ${last}`),

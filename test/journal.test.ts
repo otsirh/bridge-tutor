@@ -5,7 +5,7 @@ import { PlayState } from '../src/core/play';
 import { readAuction, advise } from '../src/bidding/engine';
 import { encodeDeal, decodeDeal, answerItem, dueItems, INTERVALS, LAST_BOX, type ReviewItem } from '../src/game/journal';
 import { bidSkill, cardSkill, decisions, skillStats, weakestSkill } from '../src/game/skills';
-import { archiveBoard, reviewItems, type FinishedBoard } from '../src/game/record';
+import { archiveBoard, reviewItems, freshBidVariant, type FinishedBoard } from '../src/game/record';
 
 /** A whole board played by the system, with South's calls marked as yours. */
 function playedBoard(seed: number, spoilBid = false): FinishedBoard {
@@ -111,5 +111,25 @@ describe('journal', () => {
     const stats = skillStats([rec]);
     expect(stats.reduce((t, s) => t + s.decisions, 0)).toBe(ds.length);
     expect(typeof weakestSkill(stats)).toBe('string');
+  });
+
+  it('finds a fresh deal where the system calls by the same rule', () => {
+    // an opening decision for South as dealer, whatever the system opens
+    const rnd = mulberry32(77);
+    const deal = dealCards(rnd);
+    const key = advise(deal[S], readAuction(new Auction(S, []), 'None').ctx).rule?.key;
+    const item = {
+      id: '1:b:0', kind: 'bid', skill: 'bid.opening', board: 3, dealer: S, vul: 'None', deal: encodeDeal(deal), calls: [], seat: S,
+      answer: [advise(deal[S], readAuction(new Auction(S, []), 'None').ctx).call], yours: 0, created: 5, box: 1, due: 0, tries: 1, right: 1,
+    } as ReviewItem;
+    const fresh = freshBidVariant(item, 5000);
+    expect(fresh).not.toBeNull();
+    const f = fresh!;
+    expect(f.deal).not.toBe(item.deal);
+    expect(f.seat).toBe(S);
+    const advice = advise(decodeDeal(f.deal)[S], readAuction(new Auction(f.dealer, f.calls), f.vul).ctx);
+    expect(advice.rule?.key).toBe(key);
+    expect(f.answer).toEqual([advice.call]);
+    expect(f.id).toBe(item.id); // still scheduled as the same item
   });
 });

@@ -108,6 +108,7 @@ export const practice: Text['practice'] = {
   reviewDoneText: (total: number, next: string) => `${total}个决定已安排在以后复习（下一次：${next}）。`,
   sessionScore: (right: number, done: number) => `本次：${done}题答对${right}题`,
   itemFrom: (date: string, board: number) => `来自第${board}副，${date}`,
+  freshDeal: '新牌，同样的思路',
   itemFromDrill: (date: string) => `来自叫牌练习，${date}`,
   itemFromProblem: (date: string) => `来自习题，${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? '新' : `第${box}步，共${last}步`),

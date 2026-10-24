@@ -120,6 +120,7 @@ export const practice: Text['practice'] = {
     `${num(total, 'решение запланировано', 'решения запланированы', 'решений запланировано')} на потом (следующее — ${next}).`,
   sessionScore: (right: number, done: number) => `В этом сеансе: ${right}/${done} верно`,
   itemFrom: (date: string, board: number) => `из сдачи ${board}, ${date}`,
+  freshDeal: 'Новая сдача, та же идея',
   itemFromDrill: (date: string) => `из упражнения по торговле, ${date}`,
   itemFromProblem: (date: string) => `из задачи, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'новое' : `шаг ${box} из ${last}`),

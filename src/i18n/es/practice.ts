@@ -116,6 +116,7 @@ export const practice: Text['practice'] = {
   reviewDoneText: (total: number, next: string) => `${plural(total, 'decisión programada', 'decisiones programadas')} para más adelante (la próxima, el ${next}).`,
   sessionScore: (right: number, done: number) => `Esta sesión: ${right}/${done} correctas`,
   itemFrom: (date: string, board: number) => `de la mano ${board}, ${date}`,
+  freshDeal: 'Mano nueva, misma idea',
   itemFromDrill: (date: string) => `de la práctica de subasta, ${date}`,
   itemFromProblem: (date: string) => `de un problema, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nueva' : `paso ${box} de ${last}`),

@@ -23,6 +23,7 @@ import {
 } from '../game/problems';
 import { SKILLS, type SkillId, skillStats, weakestSkill, skillInfo, clearCardMistake } from '../game/skills';
 import { THEMES } from '../game/themes';
+import { freshBidVariant } from '../game/record';
 import { h, suitText } from './dom';
 import { handEl, cardText, diagramHand } from './cards';
 import './training.css';
@@ -51,6 +52,8 @@ export interface TrainingActions {
 
 interface DrillState {
   item: ReviewItem | null;
+  /** What is asked: the item itself, or (bids, every other review) a fresh deal where the system uses the same rule. */
+  shown: ReviewItem | null;
   chosen: number | null;
   correct: boolean | null;
   fresh: Decision | null; // simulation run for a card that is neither the answer nor your original choice
@@ -72,7 +75,7 @@ interface ProblemsState {
 
 const state = {
   tab: 'today' as TrainingTab,
-  drill: { item: null, chosen: null, correct: null, fresh: null, pending: false } as DrillState,
+  drill: { item: null, shown: null, chosen: null, correct: null, fresh: null, pending: false } as DrillState,
   session: { done: 0, right: 0 },
   problems: {
     filter: 'mixed', current: null, chosen: null, correct: null, showDeal: false, last: null, tick: 0,
@@ -180,8 +183,10 @@ function nextItem(): ReviewItem | null {
 }
 
 function resetDrill(item: ReviewItem | null) {
-  state.drill = { item, chosen: null, correct: null, fresh: null, pending: false };
+  const shown = item && item.kind === 'bid' && item.tries % 2 === 1 ? (freshBidVariant(item) ?? item) : item;
+  state.drill = { item, shown, chosen: null, correct: null, fresh: null, pending: false };
 }
+
 
 function itemPosition(item: ReviewItem) {
   const deal = decodeDeal(item.deal);
@@ -223,10 +228,10 @@ function finishAnswer(act: TrainingActions, correct: boolean) {
 
 function answerBid(act: TrainingActions, call: Call) {
   const d = state.drill;
-  if (!d.item || d.chosen !== null) return;
+  if (!d.shown || d.chosen !== null) return;
   d.chosen = call;
-  const { deal, auction } = itemPosition(d.item);
-  const advice = advise(deal[d.item.seat], readAuction(auction, d.item.vul).ctx);
+  const { deal, auction } = itemPosition(d.shown);
+  const advice = advise(deal[d.shown.seat], readAuction(auction, d.shown.vul).ctx);
   finishAnswer(act, call === advice.call);
 }
 
@@ -285,7 +290,7 @@ function bidItemView(item: ReviewItem, act: TrainingActions): HTMLElement {
       h('p', { style: 'margin:6px 0' }, suitText(advice.rule?.desc ?? '')),
       h('ul', { class: 'checks' }, advice.checks.map(c => h('li', null, h('span', { class: c.ok ? 'ok' : 'no' }, c.ok ? '✓' : '✗'), h('span', null, suitText(c.text), c.value ? h('span', { class: 'val' }, ` — ${c.value}`) : null)))),
       !d.correct ? h('p', { class: 'small', style: 'margin:8px 0 0' }, suitText(T.practice.yourCallMeans(callName(d.chosen), j.yourMeaning.name, j.yourMeaning.desc))) : null,
-      d.chosen !== item.yours && item.yours !== advice.call ? h('p', { class: 'small muted', style: 'margin:6px 0 0' }, suitText(T.practice.atTableYouBid(callName(item.yours)))) : null);
+      item.yours >= 0 && d.chosen !== item.yours && item.yours !== advice.call ? h('p', { class: 'small muted', style: 'margin:6px 0 0' }, suitText(T.practice.atTableYouBid(callName(item.yours)))) : null);
   }
   return h('div', { class: 'drill' },
     h('div', { class: 'prompt' }, h('b', null, T.practice.bidPrompt), ' ', T.practice.youAre(SEAT_NAMES[item.seat], T.practice.vul(item.vul, item.seat))),
@@ -390,11 +395,12 @@ function reviewTab(act: TrainingActions): HTMLElement {
   return h('div', null,
     h('div', { class: 'small muted', style: 'display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px' },
       h('span', null, skillName(item.skill)),
-      h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created)) : item.source === 'problem' ? T.practice.itemFromProblem(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
+      state.drill.shown !== item ? h('span', null, T.practice.freshDeal)
+        : h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created)) : item.source === 'problem' ? T.practice.itemFromProblem(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
       h('span', null, T.practice.itemBox(box, LAST_BOX)),
       h('span', null, T.practice.dueLeft(dueItems(all).length)),
       state.session.done ? h('span', null, T.practice.sessionScore(state.session.right, state.session.done)) : null),
-    item.kind === 'bid' ? bidItemView(item, act) : cardItemView(item, act),
+    item.kind === 'bid' ? bidItemView(state.drill.shown ?? item, act) : cardItemView(item, act),
     answered ? h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin-top:12px' },
       h('button', { class: 'btn primary', type: 'button', onclick: () => { resetDrill(nextItem()); act.rerender(); } }, T.practice.next),
       h('span', { class: 'small muted', style: 'align-self:center' }, state.drill.correct ? T.practice.nextIn(INTERVALS[Math.min(item.box, LAST_BOX)]) : T.practice.again),

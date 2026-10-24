@@ -118,6 +118,7 @@ export const practice: Text['practice'] = {
     `${nPl(total, 'décision est programmée', 'décisions sont programmées')} pour plus tard (prochaine révision le ${next}).`,
   sessionScore: (right: number, done: number) => `Cette séance : ${right}/${done} bonnes réponses`,
   itemFrom: (date: string, board: number) => `donne ${board}, ${date}`,
+  freshDeal: 'Nouvelle donne, même idée',
   itemFromDrill: (date: string) => `exercice d’enchères, ${date}`,
   itemFromProblem: (date: string) => `problème, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nouvelle' : `étape ${box} sur ${last}`),

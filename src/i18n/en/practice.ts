@@ -114,6 +114,7 @@ export const practice = {
   reviewDoneText: (total: number, next: string) => `${plural(total, 'decision is', 'decisions are')} scheduled for later (next on ${next}).`,
   sessionScore: (right: number, done: number) => `This session: ${right}/${done} right`,
   itemFrom: (date: string, board: number) => `from board ${board}, ${date}`,
+  freshDeal: 'New deal, same idea',
   itemFromDrill: (date: string) => `from the bidding drill, ${date}`,
   itemFromProblem: (date: string) => `from a problem, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'new' : `step ${box} of ${last}`),

@@ -113,6 +113,7 @@ export const practice: Text['practice'] = {
   reviewDoneText: (total: number, next: string) => `${total}件の判断が後日に予定されています（次回は${next}）。`,
   sessionScore: (right: number, done: number) => `今回のセッション: ${done}問中${right}問正解`,
   itemFrom: (date: string, board: number) => `ボード${board}より、${date}`,
+  freshDeal: '新しいディール、同じ考え方',
   itemFromDrill: (date: string) => `ビッド練習より、${date}`,
   itemFromProblem: (date: string) => `問題より、${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? '新規' : `ステップ ${box}/${last}`),

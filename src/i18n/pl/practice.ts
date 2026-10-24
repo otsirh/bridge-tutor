@@ -116,6 +116,7 @@ export const practice: Text['practice'] = {
     `${decisions(total)} ${plural(total, 'czeka', 'czekają', 'czeka')} na później (następna ${next}).`,
   sessionScore: (right: number, done: number) => `Ta sesja: ${right}/${done} dobrze`,
   itemFrom: (date: string, board: number) => `z rozdania ${board}, ${date}`,
+  freshDeal: 'Nowe rozdanie, ta sama zasada',
   itemFromDrill: (date: string) => `z ćwiczenia licytacji, ${date}`,
   itemFromProblem: (date: string) => `z zadania, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nowa' : `etap ${box} z ${last}`),
