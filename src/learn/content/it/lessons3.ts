@@ -610,5 +610,257 @@ export const LESSONS_3: Lesson[] = [
       },
     ],
   },
+  {
+    id: 'avoidance-play',
+    title: 'L’evitamento: tenere fuori presa l’avversario pericoloso',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Come organizzare il gioco in modo che, se devi cedere una presa, la ceda al difensore che non può farti male.',
+    body: `
+<h3>Mano pericolosa e mano innocua</h3>
+<p>Spesso solo un difensore può farti male. A senza atout è quello che ha vincenti affrancate nel suo colore lungo. In un contratto a colore può essere quello che può muovere attraverso un tuo re, o che può dare un taglio al compagno. Individua presto la <strong>mano pericolosa</strong> e pianifica di cedere le prese che devi cedere alla <strong>mano innocua</strong>. È il gioco d’evitamento.</p>
+
+<h3>Un esempio completo</h3>
+<div class="deal" data-n="S:54 H:K83 D:KQ5 C:AJ1093" data-e="S:97 H:Q975 D:J643 C:Q86" data-s="S:A632 H:AJ4 D:A72 C:K72" data-w="S:KQJ108 H:1062 D:1098 C:54" data-caption="3SA giocato da Sud. Ovest attacca con il ♠K."></div>
+<div class="auction" data-calls="1NT P 3NT P P P" data-dealer="S"></div>
+<p><strong>Conta:</strong> ♠A, ♥AK, ♦AKQ, ♣AK: otto vincenti immediate. Le prese che mancano verranno dai fiori, ma potresti doverne cedere una alla ♣Q.</p>
+<p><strong>Primo passo, il colpo in bianco.</strong> Hai sei picche in linea, quindi per la regola del 7 lisci una volta. Liscia il ♠K e vinci la seconda picca. Est aveva due picche, quindi ora non ne ha più: <strong>Est è la mano innocua, Ovest la mano pericolosa.</strong></p>
+<p><strong>Secondo passo, scegli l’impasse.</strong> Nei fiori puoi scegliere da che parte fare l’impasse alla donna. Gioca il ♣K dalla mano, poi muovi una cartina di fiori verso il morto e, quando Ovest gioca basso, fai l’impasse al 10. Se la donna è di Ovest, l’impasse riesce. Se è di Est, come qui, Est prende ma non ha picche da rinviare. Vinci il cambio e fai dieci prese: una a picche, due a cuori, tre a quadri e quattro a fiori.</p>
+<p>Fare l’impasse dall’altra parte (muovendo il ♣J attraverso Est verso il tuo re) con questa distribuzione funzionerebbe, ma perderebbe ogni volta che la donna fosse di Ovest, e Ovest incasserebbe le picche. La linea d’evitamento vince ovunque sia la donna.</p>
+<p>E l’impasse a cuori, muovendo verso l’A J? Anche quella perderebbe con Ovest se Ovest avesse la ♥Q. Preferisci il colore in cui l’impasse perdente va verso la mano innocua.</p>
+<div class="tip">Con un’impasse che si può fare da entrambe le parti, chiediti prima: «Se questa impasse perde, conta chi prende?» Se conta, fai l’impasse verso la mano innocua, e affidati all’intuito solo quando i due difensori sono ugualmente pericolosi.</div>
+
+<h3>Altre tecniche d’evitamento</h3>
+<ul>
+<li><strong>Lisciare verso la mano innocua.</strong> Quando un colore deve cedere una presa, fai in modo che la vinca il difensore innocuo: muovi dalla mano che ti permette di giocare basso mentre la mano pericolosa non può vincere a buon mercato.</li>
+<li><strong>Proteggere un re.</strong> Con K x in mano e la mano pericolosa alla tua destra, un’uscita attraverso il tuo re è fatale, quindi tieni fuori presa la mano pericolosa.</li>
+<li><strong>Giocare verso gli onori</strong> in modo che a prendere sia il compagno della mano pericolosa, e non la mano pericolosa.</li>
+<li><strong>Nei contratti a colore</strong> il pericolo può essere un taglio: se si sa che un difensore è corto in un colore, tieni fuori presa il suo compagno, così il taglio non può essere dato.</li>
+</ul>
+<div class="warn">L’evitamento funziona solo se sai quale difensore è pericoloso. Osserva l’attacco, la licita e le carte giocate alle prime prese, e individua chi ha il colore lungo prima di muovere il tuo colore chiave.</div>
+`,
+    keyPoints: [
+      'Individua la mano pericolosa (spesso il difensore con vincenti affrancate) e la mano innocua.',
+      'Se devi cedere una presa, cedila alla mano innocua.',
+      'Combina il colpo in bianco con l’evitamento: rendi innocuo il compagno del difensore lungo, poi fai l’impasse verso di lui.',
+      'Con un’impasse che si può fare da entrambe le parti, scegli la direzione che perde solo verso la mano innocua.',
+      'Preferisci una fonte di prese in cui l’opzione perdente va verso la mano innocua.',
+    ],
+    quiz: [
+      {
+        q: 'A senza atout, quale difensore è di solito la mano pericolosa?',
+        options: ['Quello con più PO', 'Quello con vincenti affrancate nel suo colore lungo', 'Quello alla tua sinistra', 'Quello che ha attaccato, sempre'],
+        answer: 1,
+        explain: 'La mano pericolosa è quella che, una volta in presa, può incassare abbastanza prese da batterti: di norma il difensore con il colore lungo affrancato.',
+      },
+      {
+        q: 'Nella smazzata qui sopra, perché lisciare la prima picca?',
+        options: ['Per fare una presa in più a picche', 'Per esaurire le picche di Est, così che Est diventi la mano innocua', 'Per nascondere la tua lunghezza a picche', 'Per creare un rientro al morto'],
+        answer: 1,
+        explain: 'Est aveva due picche. Dopo che hai vinto il secondo giro non ne ha più, quindi in presa non può farti male.',
+      },
+      {
+        q: 'Nella smazzata qui sopra, da che parte devi fare l’impasse a fiori?',
+        options: ['Impasse alla donna in Ovest, così un’impasse perdente va verso Est', 'Impasse alla donna in Est', 'Giocare in battuta', 'Lanciare una moneta'],
+        answer: 0,
+        explain: 'Muovendo verso il morto e facendo l’impasse al 10 vinci se la donna è di Ovest, e perdi solo verso Est, che non ha picche. Il contratto è al sicuro in entrambi i casi.',
+      },
+      {
+        q: 'Perché non tentare l’impasse a cuori (muovendo verso l’A J) per la nona presa?',
+        options: ['Perderebbe se Ovest, la mano pericolosa, avesse la ♥Q', 'Non può riuscire', 'Richiede due rientri', 'I cuori sono bloccati'],
+        answer: 0,
+        explain: 'Muovendo verso l’A J fai l’impasse contro Est ma perdi con la donna di Ovest, che poi incasserebbe le picche. L’impasse a fiori perde solo verso la mano innocua.',
+      },
+      {
+        q: 'Hai K x in mano e la mano pericolosa è alla tua destra. Qual è il rischio?',
+        options: ['Nessuno', 'Un’uscita della mano pericolosa attraverso il tuo re potrebbe intrappolarlo', 'Il tuo re verrà tagliato', 'Potresti bloccare il colore'],
+        answer: 1,
+        explain: 'Se il difensore alla tua destra va in presa, l’asso del suo compagno sta sopra il tuo re. Tieni fuori presa quel difensore, o fai in modo che sia l’altro a vincere le prese che devi cedere.',
+      },
+    ],
+  },
+
+  {
+    id: 'counting-on-defense',
+    title: 'Contare in difesa',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Come i difensori contano i punti, la distribuzione e le prese del giocante per trovare la difesa giusta.',
+    body: `
+<h3>Tre cose da contare</h3>
+<p>I difensori forti sembrano vedere attraverso il dorso delle carte. Il loro segreto è contare. Dalla licita e dalle prime prese ricavano tre cose:</p>
+<ol>
+<li><strong>Punti:</strong> quanti PO hanno il giocante e il compagno.</li>
+<li><strong>Distribuzione:</strong> quante carte ha il giocante in ogni colore.</li>
+<li><strong>Prese:</strong> quante prese può fare il giocante e quante ne servono alla difesa.</li>
+</ol>
+
+<h3>Contare i punti</h3>
+<p>Comincia dalla licita. Un’apertura di 1SA ha 15-17, un due debole 5-10, un appoggio limite 10-12. Quando scende il morto, somma i suoi PO ai tuoi e sottrai da 40.</p>
+<p>Esempio: Sud apre 1SA e Nord appoggia a 3SA. Il morto ha 10 PO e tu 9. Il compagno ha 40 − 10 − 9 − (da 15 a 17) = da 4 a 6 PO. Se il compagno ha già mostrato il ♠K vincendo una presa con esso, ha al massimo altri 3 PO, quindi non può avere un altro asso. Qualsiasi altro asso mancante è quindi del giocante, ed è inutile sperare che il compagno vada in presa per incassare il suo colore lungo.</p>
+<p>Lo stesso conto funziona al contrario. Se il giocante, che ha mostrato 15-17, ha già esibito ♠AQ, ♥AK e ♦K (16), non può avere anche il ♣A (arriverebbe a 20). Ce l’ha il compagno, e puoi muovere fiori con tranquillità attraverso il K del morto.</p>
+
+<h3>Contare la distribuzione</h3>
+<p>Ogni mano ha 13 carte. Usa prima la licita: un’apertura di 1♥ ha cinque o più cuori; 1♠ seguito da 2♥ mostra almeno cinque picche e quattro cuori; un’apertura di 1SA non ha singoli. Aggiungi i segnali di conto del compagno e il momento in cui un giocatore non risponde.</p>
+<table>
+<thead><tr><th>Fonte</th><th>Che cosa ricavi</th></tr></thead>
+<tbody>
+<tr><td>Apertura e ridichiarazione del giocante</td><td>La lunghezza nei colori dichiarati; mano bilanciata o no</td></tr>
+<tr><td>Il morto</td><td>13 carte che puoi vedere</td></tr>
+<tr><td>I segnali di conto del compagno</td><td>La lunghezza del compagno nei colori del giocante, quindi anche quella del giocante</td></tr>
+<tr><td>Un giocatore che non risponde</td><td>La sua lunghezza esatta in quel colore</td></tr>
+</tbody>
+</table>
+<p>Esempio: il giocante ha aperto 1♠ e ridichiarato 2♥, quindi ha almeno 5-4 nelle nobili. Il conto del compagno mostra che il giocante ha due quadri. Fanno undici carte, quindi il giocante ha al massimo due fiori, e se la licita fa pensare a una 5-4-2-2 ne ha esattamente due. Se ora il giocante muove fiori verso K Q x x del morto e tu hai l’asso, sai se lisciando puoi tagliarlo fuori dal resto del colore.</p>
+<div class="tip">Conta la mano il prima possibile, idealmente entro la terza presa. Tieni a mente le quattro lunghezze (per esempio «5-4-2-2») e aggiornale ogni volta che una carta ti dice qualcosa.</div>
+
+<h3>Contare le prese</h3>
+<p>Chiediti: «Quante prese può fare il giocante quando va in presa?» Se bastano già per il contratto, devi fare subito le tue prese: cambia colore, incassa, o fai subito la presa che batte il contratto. Se al giocante mancano prese, difendi in modo passivo e lascia che sia lui a perderle.</p>
+<p>Esempio: contro 4♠ il morto ha ♣A K Q J 5, e la licita e le prime prese mostrano che il giocante ha un colore di picche forte e il ♥A. Battute le atout, il giocante può contare cinque picche, cinque fiori e il ♥A: undici prese. Se hai prese a cuori o a quadri, devi farle subito, anche a costo di muovere sotto un re.</p>
+<p>Al contrario, contro una licita 1SA – 3SA con un morto piatto e senza colori lunghi, il giocante può avere solo sette o otto prese. Allora la difesa deve evitare di aprire nuovi colori e aspettare: il giocante dovrà cedere prese.</p>
+
+<h3>Mettere tutto insieme</h3>
+<p>Contare non è un calcolo isolato, ma un’abitudine. A ogni presa chiediti che cosa ti dice la carta giocata sulle quattro mani. Man mano che il quadro si chiarisce, la difesa giusta spesso diventa ovvia, e quando non lo è, il conto ti dice almeno quali distribuzioni servono perché il contratto cada. Gioca per quelle distribuzioni.</p>
+<div class="warn">Non contare solo le prese della tua linea. La domanda è sempre se il giocante può mantenere il contratto, e come la tua linea può impedirlo.</div>
+`,
+    keyPoints: [
+      'Conta i punti: dalla licita, dal morto e dalla tua mano ricava i PO del compagno.',
+      'Conta la distribuzione: licita, morto, segnali di conto del compagno e mancate risposte devono fare 13.',
+      'Conta le prese del giocante: se ne ha abbastanza, fai subito le tue prese; se no, difendi in modo passivo.',
+      'Quando il giocante ha mostrato una fascia di punti, gli onori già giocati limitano ciò che può ancora avere.',
+      'Presumi la distribuzione che permette di battere il contratto e difendi di conseguenza.',
+    ],
+    quiz: [
+      {
+        q: 'Sud ha aperto 1SA (15-17) e Nord ha appoggiato a 3SA. Il morto ha 10 PO e tu 9. Quanti PO ha il compagno?',
+        options: ['0-2', '4-6', '7-9', '10-12'],
+        answer: 1,
+        explain: '40 − 10 − 9 = 21 tra giocante e compagno. Il giocante ne ha 15-17, quindi il compagno ne ha 4-6.',
+      },
+      {
+        q: 'Il giocante ha aperto 1SA (15-17) e ha già mostrato ♠AQ, ♥AK e ♦K. Chi ha il ♣A?',
+        options: ['Il giocante', 'Il compagno', 'Non si può sapere', 'Il morto'],
+        answer: 1,
+        explain: 'Il giocante ha mostrato 16 PO. Con il ♣A arriverebbe a 20, fuori dalla sua fascia, quindi deve averlo il compagno.',
+      },
+      {
+        q: 'Il giocante ha aperto 1♠ e ridichiarato 2♥. Il conto del compagno mostra che il giocante ha due quadri. Quante carte di fiori può avere al massimo il giocante?',
+        options: ['Una', 'Due', 'Tre', 'Quattro'],
+        answer: 1,
+        explain: 'Almeno cinque picche e quattro cuori più due quadri fanno undici, quindi il giocante ha al massimo due fiori.',
+      },
+      {
+        q: 'Contro 4♠ conti undici prese per il giocante quando tornerà in presa. Che cosa deve fare la difesa?',
+        options: ['Difendere in modo passivo', 'Fare o affrancare subito le proprie prese', 'Giocare atout', 'Aspettare che il giocante sbagli'],
+        answer: 1,
+        explain: 'Se il giocante ha le prese che gli servono, una difesa passiva gli lascia solo il tempo di farle. La tua unica chance è fare subito le tue prese.',
+      },
+      {
+        q: 'Contro 3SA il morto è piatto e il giocante sembra avere solo sette o otto prese. Che tipo di difesa è di solito migliore?',
+        options: ['Passiva: evitare di aprire nuovi colori', 'Attaccare a turno tutti i colori', 'Incassare subito tutti gli assi', 'Muovere sotto i propri re'],
+        answer: 0,
+        explain: 'Al giocante mancano prese. Aprire nuovi colori rischia di regalargliene una; con uscite sicure lo costringi a trovarle da solo.',
+      },
+    ],
+  },
+
+  {
+    id: 'penalty-doubles-and-sacrifices',
+    title: 'Contro punitivi e sacrifici',
+    topic: 'Competitive bidding',
+    level: 'Advanced',
+    summary: 'Quando contrare gli avversari per punirli, e quando proseguire fino a un contratto che ti aspetti di perdere perché costa meno del loro.',
+    body: `
+<h3>I contro punitivi</h3>
+<p>Molti contro a basso livello sono informativi, quindi i contro punitivi nascono da poche situazioni chiare:</p>
+<ul>
+<li><strong>Dopo una sequenza di contro sputnik:</strong> il rispondente passa con una tenuta forte nel colore dell’interveniente, e l’apertore riapre con un contro su cui il rispondente passa (vedi la lezione «Il contro sputnik»).</li>
+<li><strong>Dopo che la tua linea ha surcontrato</strong> (1♥ – X – XX), hai mostrato che la forza è vostra, e i contro sulle dichiarazioni di fuga degli avversari sono punitivi.</li>
+<li><strong>Quando gli avversari si sono spinti</strong> a una manche o a un parziale alto in un misfit o in una licita competitiva, e tu hai prese in atout.</li>
+<li><strong>Quando hai già descritto la tua mano</strong> e il compagno ha valori: allora il contro di uno di voi dice «possiamo batterlo».</li>
+</ul>
+<h4>Linee guida</h4>
+<ul>
+<li>Le prese in atout sono il motivo migliore per contrare. Le carte alte nei colori laterali possono essere tagliate o prese in impasse.</li>
+<li>Non contrare una manche dichiarata liberamente solo con carte alte. Gli avversari sanno che cosa manca loro, e il tuo contro dice al giocante dove sono gli onori.</li>
+<li>Pensa a che cosa succede se il contratto viene mantenuto. 2♥ contrato mantenuto vale 470 o 670: un parziale è diventato una manche.</li>
+<li>Pensa a dove possono scappare. Contrare 1♠ quando hanno una facile fuga verso un fit migliore rende poco.</li>
+</ul>
+
+<h3>Quanto costa una caduta contrata?</h3>
+<table>
+<thead><tr><th>Sotto di</th><th>In prima contrato</th><th>In zona contrato</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>100</td><td>200</td></tr>
+<tr><td>2</td><td>300</td><td>500</td></tr>
+<tr><td>3</td><td>500</td><td>800</td></tr>
+<tr><td>4</td><td>800</td><td>1100</td></tr>
+</tbody>
+</table>
+
+<h3>I sacrifici</h3>
+<p>Un <strong>sacrificio</strong> è un contratto in cui ti aspetti di andare sotto, perché la penalità costerà meno di quanto varrebbe il contratto degli avversari. Confronta i numeri:</p>
+<table>
+<thead><tr><th>La loro manche</th><th>Vale</th><th>Puoi permetterti (contrato), in prima</th><th>Puoi permetterti (contrato), in zona</th></tr></thead>
+<tbody>
+<tr><td>In prima</td><td>420</td><td>2 down (300)</td><td>1 down (200)</td></tr>
+<tr><td>In zona</td><td>620</td><td>3 down (500)</td><td>2 down (500)</td></tr>
+</tbody>
+</table>
+<p>Quindi i sacrifici costano meno in <strong>zona favorevole</strong>: voi in prima, loro in zona.</p>
+<div class="auction" data-calls="1S 2H 4S" data-dealer="W"></div>
+<div class="hand" data-cards="S:5 H:K9743 D:Q862 C:J74" data-label="Zona favorevole: dichiara 5♥"></div>
+<p>Il compagno è intervenuto 2♥ ed Est è saltato a 4♠. Hai appoggio quinto a cuori, un singolo a picche e poca difesa: 4♠ verrà quasi certamente mantenuto, per 620. 5♥ contrato andrà probabilmente due o tre down: 300 o 500. Dichiara subito 5♥, prima che gli avversari possano scambiarsi altre informazioni.</p>
+
+<h3>Quando non sacrificarsi</h3>
+<ul>
+<li><strong>Quando il loro contratto può cadere.</strong> Un sacrificio contro un contratto che sarebbe andato sotto è un <em>falso sacrificio</em>: trasformi un punteggio positivo in uno negativo. Se hai prese in difesa, difendi.</li>
+<li><strong>Quando il costo è troppo alto.</strong> In zona contro prima non c’è quasi mai una difesa conveniente contro una manche.</li>
+<li><strong>Quando hai già descritto la tua mano e il compagno è in una posizione migliore per decidere</strong>: decide il giocatore che ha più informazioni. Non scavalcare la decisione del compagno di difendere. Se il compagno ha fatto un passo forzante, segui gli accordi della coppia.</li>
+<li><strong>Quando gli avversari potrebbero proseguire.</strong> Lasciati in pace, potrebbero salire a un contratto a livello di cinque che va sotto; un sacrificio, invece, può spingerli in uno slam che si mantiene.</li>
+</ul>
+<div class="tip">«Il livello di cinque è degli avversari»: quando dichiarano cinque sopra la tua manche a livello di quattro, difendere (spesso contrando) di solito è giusto. Dichiarare sei per sacrificarsi raramente conviene.</div>
+<div class="warn">Decidi presto. Un sacrificio dichiarato subito, prima che gli avversari si siano scambiati informazioni, è molto più efficace di uno fatto dopo che hanno capito esattamente dove devono arrivare.</div>
+`,
+    keyPoints: [
+      'I contro punitivi rendono di più con prese in atout, dopo che la tua linea ha mostrato di avere la forza.',
+      'Non contrare manche dichiarate liberamente con le sole carte alte laterali, e attenzione a contrare un parziale trasformandolo in manche.',
+      'Un sacrificio conviene quando la penalità è inferiore al valore del loro contratto.',
+      'Contro una manche in zona (620), in prima puoi andare tre down contrato (500); contro una manche in prima (420), due down (300).',
+      'Evita i falsi sacrifici: se hai prese in difesa, difendi.',
+    ],
+    quiz: [
+      {
+        q: 'Entrambe le linee sono in prima. Gli avversari possono mantenere 4♠ (420). Di quante prese puoi permetterti di andare sotto contrato in un sacrificio?',
+        options: ['Una', 'Due', 'Tre', 'Quattro'],
+        answer: 1,
+        explain: 'Due down contrato in prima fa 300, meno di 420. Tre down fa 500, più della loro manche.',
+      },
+      {
+        q: 'In zona favorevole gli avversari possono mantenere 4♠ in zona (620). Di quante prese puoi permetterti di andare sotto contrato?',
+        options: ['Due', 'Tre', 'Quattro', 'Cinque'],
+        answer: 1,
+        explain: 'Tre down contrato in prima costa 500, meno di 620. Quattro down costa 800.',
+      },
+      {
+        q: 'Che cos’è un falso sacrificio?',
+        options: ['Un sacrificio che costa esattamente il valore della loro manche', 'Un sacrificio contro un contratto che sarebbe andato sotto', 'Un sacrificio a livello di sei', 'Un sacrificio che gli avversari non contrano'],
+        answer: 1,
+        explain: 'Se il loro contratto andava sotto, il tuo sacrificio trasforma un più in un meno. I valori difensivi sono un motivo per non sacrificarsi.',
+      },
+      {
+        q: 'Gli avversari dichiarano 1♥ – 3♥ – 4♥ senza interferenze. Hai 12 PO ma solo cartine a cuori. Devi contrare?',
+        options: ['Sì: hai una mano d’apertura', 'No: le carte alte fuori dalle atout raramente giustificano il contro di una manche dichiarata liberamente', 'Sì, per chiedere un attacco', 'Solo se sei in zona'],
+        answer: 1,
+        explain: 'Sanno di non avere tutte le carte alte. Il tuo contro guadagna poco se vanno uno down, costa molto se mantengono, e aiuta il giocante a localizzare gli onori mancanti.',
+      },
+      {
+        q: 'Perché contrare un parziale a basso livello può costare caro?',
+        options: ['Non costa mai caro', 'Perché se viene mantenuto, il valore delle prese contrato può arrivare alla manche: 2♥ contrato vale 470 o 670', 'Perché gli avversari ricevono un premio per essere contrati', 'Perché devi attaccare in atout'],
+        answer: 1,
+        explain: 'Con il contro, 2♥ ha un valore delle prese di 120, che vale come manche. Contra un parziale solo se ti aspetti di batterlo.',
+      },
+    ],
+  },
 // @@CONTINUE@@
 ];
