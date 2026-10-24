@@ -1,29 +1,25 @@
-// PLACEHOLDER (Polish): an English copy until the Polish translation lands.
 // Card, seat and call vocabulary.
 
 import type { Text } from '../en';
-
 import { rankLabel } from '../../core/cards';
+import { SEAT, SUIT, plural } from './grammar';
 
-const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-const RANK_WORDS: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen', 11: 'jack' };
+const RANK_WORDS: Record<number, string> = { 14: 'as', 13: 'król', 12: 'dama', 11: 'walet' };
 
 export const core: Text['core'] = {
-  seats: ['North', 'East', 'South', 'West'],
+  seats: [...SEAT.nom],
   seatLetters: ['N', 'E', 'S', 'W'],
-  /** Plural, as in "five hearts". */
-  suits: SUITS,
-  suitSingular: ['club', 'diamond', 'heart', 'spade'],
-  strains: ['clubs', 'diamonds', 'hearts', 'spades', 'notrump'],
-  /** Notrump in bids and contracts ("3NT"). */
-  nt: 'NT',
-  pass: 'Pass',
-  double: 'Double',
-  redouble: 'Redouble',
-  passedOut: 'Passed out',
-  /** "queen of hearts" */
-  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} of ${SUITS[suit]}`,
-  /** Abbreviation after a number of high-card points ("12 HCP"). */
-  hcp: 'HCP',
-  tricks: (n: number) => (n === 1 ? 'trick' : 'tricks'),
+  /** Plural nominative; the templates take other cases from ./grammar. */
+  suits: [...SUIT.nom],
+  suitSingular: [...SUIT.one],
+  strains: [...SUIT.nom, 'bez atu'],
+  nt: 'BA',
+  pass: 'Pas',
+  double: 'Kontra',
+  redouble: 'Rekontra',
+  passedOut: 'Przepasowane',
+  /** "dama kier", "as pik" */
+  cardLong: (rank: number, suit: number) => `${RANK_WORDS[rank] ?? rankLabel(rank)} ${SUIT.one[suit]}`,
+  hcp: 'PC',
+  tricks: (n: number) => plural(n, 'lewa', 'lewy', 'lew'),
 };
