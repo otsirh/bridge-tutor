@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>È una mano d’apertura?</h3>
-<p>Con 12 o più PO apri. Con 10-11 PO in prima o seconda posizione apri se è rispettata la regola del 20 (PO + lunghezze dei due colori più lunghi ≥ 20). In quarta posizione usa la regola del 15 (PO + numero di picche ≥ 15). Le mani con un colore lungo e meno punti possono essere adatte invece a un due debole o a un barrage.</p>
+<p>Con 12 o più PO apri, tranne in quarta posizione. Con 10-11 PO in prima o seconda posizione apri se è rispettata la regola del 20 (PO + lunghezze dei due colori più lunghi ≥ 20). In quarta posizione apri con 13 o più PO, e con 10-12 PO solo se è rispettata la regola del 15 (PO + numero di picche ≥ 15). Le mani con un colore lungo e meno punti possono essere adatte invece a un due debole o a un barrage.</p>
 
 <h3>Mani bilanciate: decidono i punti</h3>
 <p>Una mano bilanciata non ha chicane né singoli e ha al massimo un doubleton: 4-3-3-3, 4-4-3-2 o 5-3-3-2. Con una mano bilanciata il tuo piano è sempre mostrare la forza a senza atout, subito o al turno successivo:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Non aprire mai 1♥ o 1♠ con sole quattro carte. Il compagno appoggerà con tre carte, contando su un fit di almeno otto carte.</div>
 `,
     keyPoints: [
-      'Apri con 12+ PO; con 10-11 usa la regola del 20 (prima o seconda posizione) o la regola del 15 (quarta posizione).',
+      'Apri con 12+ PO; con 10-11 usa la regola del 20 (prima o seconda posizione). In quarta posizione apri con 13+, o con 10-12 se è rispettata la regola del 15.',
       '1♥/1♠ promettono cinque carte; senza nobile quinta apri nel minore più lungo (1♣ con 3-3, 1♦ con 4-4).',
       'Bilanciate: 12-14 apri a colore e ridichiari 1SA; 15-17 1SA; 18-19 salti a 2SA; 20-21 2SA; 22+ 2♣.',
       'Due colori quinti: apri nel più alto; 6-5: apri nel più lungo.',
@@ -340,7 +340,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Con 6 PO, cinque cuori e un singolo, ♠4 ♥QJ852 ♦K9763 ♣82, su 1♥ salta a 4♥. Gli avversari hanno sicuramente un fit e molti punti, e tu vuoi costringerli a indovinare a livello di cinque.</p>
 
 <h4>Appoggio terzo e 10-12 punti</h4>
-<p>Il salto a tre promette quattro atout. Con tre sole carte dichiara prima un nuovo colore e salta nella nobile del compagno al giro successivo: su 1♥, con ♠A84 ♥K93 ♦KJ752 ♣64 si dichiara 2♦ e poi 3♥. Con appoggio terzo e 13+ dichiara prima un nuovo colore e poi la manche nella nobile.</p>
+<p>Il salto a tre promette quattro atout. Con tre sole carte dichiara prima un nuovo colore e poi appoggia la nobile del compagno a livello di tre (invitante): su 1♥, con ♠A84 ♥K93 ♦KJ752 ♣64 si dichiara 2♦ e poi 3♥. Con appoggio terzo e 13+ dichiara prima un nuovo colore e poi la manche nella nobile.</p>
 
 <h3>Rispondere a 1♣ o 1♦</h3>
 <p>Il compagno può avere solo tre carte nel minore, e un fit nobile vale di più, quindi cerca prima una nobile.</p>
@@ -637,12 +637,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Scaccia presto le carte alte degli avversari, finché hai ancora i fermi in tutti i colori. Le vincenti sicure si incassano per ultime, non per prime.</div>
 
 <h3>Un esempio a colore: conta le perdenti</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ giocato da Sud. Ovest attacca con la ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Conta le perdenti nella mano di Sud:</strong> picche nessuna; cuori una (il terzo giro); quadri due (il 7 e il 3); fiori una (il ♣A vince il primo giro, il secondo si perde). Totale: quattro. Te ne puoi permettere tre.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ giocato da Sud. Ovest attacca con la ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Conta le perdenti nella mano di Sud:</strong> picche nessuna; cuori una (il terzo giro); quadri tre (il 7, il 3 e il 2); fiori nessuna (il ♣A del morto copre il tuo singolo). Totale: quattro. Te ne puoi permettere tre.</p>
 <p><strong>Fonte:</strong> il morto ha solo due quadri. Dopo il ♦A e un altro giro il morto è in chicane e può tagliare la tua terza carta di quadri con una piccola atout. Quel taglio è una presa in più perché lo fa la mano <em>corta</em> in atout: le atout di Sud sono comunque vincenti.</p>
 <p><strong>Pericolo:</strong> se batti prima tre giri d’atout, al morto non resta nessuna atout per il taglio. Devi lasciare almeno un’atout al morto finché il taglio non è stato fatto.</p>
-<p><strong>Piano:</strong> vinci l’attacco con il ♥A del morto, gioca quadri per il tuo asso e cedi una presa a quadri. Se i difensori prendono e giocano atout (la loro difesa migliore), vinci e taglia subito al morto l’ultima carta di quadri. Ora batti atout e gioca fiori. Perdi una presa a cuori, una a quadri e una a fiori.</p>
+<p><strong>Piano:</strong> vinci l’attacco con il ♥A del morto, gioca quadri per il tuo asso e cedi una presa a quadri. Se i difensori prendono e giocano atout (la loro difesa migliore), vinci e taglia subito una carta di quadri al morto. Ora batti atout. Perdi una presa a cuori e due a quadri.</p>
 <div class="warn">«Batti sempre atout per prima cosa» è una buona abitudine con una grossa eccezione: quando ti servono le atout del morto per tagliare, fai i tagli prima che le atout siano finite.</div>
 
 <h3>Contare è un’abitudine</h3>
@@ -678,7 +678,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'Nella smazzata a 4♠ qui sopra, che cosa va storto se il giocante batte subito tre giri d’atout?',
         options: ['Niente, è la giocata più sicura', 'Al morto non resta un’atout per tagliare la terza carta di quadri', 'I difensori possono tagliare una carta di cuori', 'Il giocante perde il controllo dei fiori'],
         answer: 1,
-        explain: 'Il morto aveva solo tre atout. Battendo tre giri le consuma tutte, e al giocante restano due perdenti a quadri più una a cuori e una a fiori: una di troppo.',
+        explain: 'Il morto aveva solo tre atout. Battendo tre giri le consuma tutte, e al giocante restano tre perdenti a quadri più una a cuori: una di troppo.',
       },
     ],
   },

@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2SA – 3SA. Zuid is leider."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Noord-Zuid hebben 27 punten en een negenkaartfit in ruiten, maar geen fit in een hoge kleur, en elke kleur is gestopt. In 3SA tel je bijna meteen negen slagen: twee schoppen, een harten, vijf ruiten en een klaver zodra de ♣A (en misschien de ♣Q) is weggedreven. In 5♦ heb je elf slagen nodig en heb je een schoppenverliezer, minstens één hartenverliezer en minstens één klaververliezer. 3SA is veruit de betere manche.</p>
+<p>Noord-Zuid hebben 27 punten en een negenkaartfit in ruiten, maar geen fit in een hoge kleur, en elke kleur is gestopt. In 3SA heb je acht vaste slagen: twee schoppen, een harten en vijf ruiten. De negende komt uit de klaveren zodra de ♣A (en misschien de ♣Q) is weggedreven. In 5♦ heb je elf slagen nodig en heb je een schoppenverliezer, minstens één hartenverliezer en minstens één klaververliezer. 3SA is veruit de betere manche.</p>
 
 <h3>De grenzen van "25 punten voor de manche"</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Antwoord</th><th>Betekenis</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Wachtbod: het normale antwoord met de meeste handen, zwak of sterk</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positief: een goede vijfkaart (twee van de drie hoogste honneurs) en 8+ punten</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positief: een goede vijfkaart (twee van de drie hoogste honneurs of drie van de vijf hoogste) en 8+ punten</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Partner opende 2♣: bied 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ punten of ongeveer negen speelslagen; kunstmatig en forcing.',
-      'Antwoord met de meeste handen 2♦ (wachtbod); een positief antwoord vraagt een goede vijfkaart en 8+ punten.',
+      'Antwoord met de meeste handen 2♦ (wachtbod); een positief antwoord vraagt een goede vijfkaart (twee van de drie hoogste honneurs of drie van de vijf hoogste) en 8+ punten.',
       '2♣ – 2♦ – 2SA = 22-24 evenwichtig en mag worden gepast; elke herbieding in een kleur door de openaar is forcing.',
       '2SA-opening = 20-21 evenwichtig; 3♣ Stayman, 3♦/3♥ transfers, 3SA met 4-10, 4SA met 11-12.',
       'Evenwichtige ladder: 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -444,7 +444,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>De openende kant: redoublet</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Als de opening van partner wordt gedoubleerd, toont een <strong>redoublet</strong> 10+ punten. Het vertelt de openaar dat jullie kant de meeste kracht heeft, en het betekent meestal dat je een kans zoekt om de tegenstanders voor straf te doubleren. Met een fit en een zwakkere hand verhoog je in plaats daarvan partner; met een nieuwe kleur en minder dan 10 bied je die kleur.</p>
+<p>Als de opening van partner wordt gedoubleerd, toont een <strong>redoublet</strong> 10+ punten. Het vertelt de openaar dat jullie kant de meeste kracht heeft, en het betekent meestal dat je een kans zoekt om de tegenstanders voor straf te doubleren. Na een opening in een hoge kleur toont <strong>2SA (Jordan)</strong> vierkaartsteun of meer en een inviterende verhoging of beter (10+ steunpunten), dus een redoublet ontkent meestal vier troeven. Met steun en een zwakkere hand verhoog je in plaats daarvan partner: een gewone verhoging toont ongeveer 6-10 punten, en een sprongverhoging (1♥ – doublet – 3♥) is preëmptief, met vier troeven en minder dan 10 punten. Met een nieuwe kleur en minder dan 10 bied je die kleur.</p>
 
 <h3>Doubletten van preëmpts</h3>
 <p>Een doublet van een zwakke twee of een preëmpt op 3-niveau is ook informatief: openingskracht, kort in hun kleur, en klaar voor elke kleur die partner biedt. Partner moet misschien met een zwakke hand op 3-niveau bieden, dus de doubleerder moet een degelijke hand hebben, geen lichte.</p>
@@ -456,7 +456,7 @@ export const LESSONS_2: Lesson[] = [
       'De partner van de doubleerder moet bieden: 0-8 zo laag mogelijk, 9-11 springen, 12+ cuebid of manche; 1SA = 6-10 met een stop.',
       'Pas het doublet alleen met lange, sterke troeven in hun kleur.',
       'De doubleerder past op een minimaal antwoord met 12-15, verhoogt met 16-18 en springt met 19+.',
-      'Een redoublet na een informatiedoublet toont 10+ punten.',
+      'Een redoublet na een informatiedoublet toont 10+ punten; na 1♥ of 1♠ toont 2SA (Jordan) vier troeven en een inviterende verhoging of beter, en een sprongverhoging is preëmptief.',
     ],
     quiz: [
       {
@@ -963,13 +963,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>De kwantitatieve 4SA</h3>
 <p>Een directe verhoging van 1SA naar 4SA is geen Blackwood. Die toont 16-17 punten, dus het totaal is 31-34, net rond de 33 die je voor slem nodig hebt. De openaar past met een minimum (15) en biedt 6SA met een maximum (17); met 16 beslist de openaar op gevoel en accepteert hij met een goede vijfkaart of goede tussenkaarten.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Partner opende 1SA: bied 4SA"></div>
-<p>16 punten, evenwichtig. Bied 4SA. Met 18-19 zou je direct 6SA bieden, omdat het totaal dan zelfs tegenover een minimale openaar 33 is.</p>
+<p>16 punten, evenwichtig. Bied 4SA. Met 18-21 zou je direct 6SA bieden, omdat het totaal dan zelfs tegenover een minimale openaar 33 is; met 22 of meer bied je 7SA, omdat het totaal dan zelfs tegenover een minimum 37 is.</p>
 <p>Na 2SA (20-21) toont 4SA 11-12 en vraagt het de openaar om met een maximum 6SA te bieden.</p>
 <table>
-<thead><tr><th>Antwoorder na</th><th>3SA</th><th>4SA (invite)</th><th>6SA</th></tr></thead>
+<thead><tr><th>Antwoorder na</th><th>3SA</th><th>4SA (invite)</th><th>6SA</th><th>7SA</th></tr></thead>
 <tbody>
-<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Est-ce une main d’ouverture ?</h3>
-<p>Avec 12 H ou plus, ouvrez. Avec 10-11 H en 1re ou 2e position, ouvrez si la règle des 20 est respectée (H + longueurs de vos deux plus longues couleurs ≥ 20). En 4e position, appliquez la règle des 15 (H + nombre de piques ≥ 15). Les mains avec une longue couleur et moins de points se prêtent plutôt à un deux faible ou à un barrage.</p>
+<p>Avec 12 H ou plus, ouvrez, sauf en 4e position. Avec 10-11 H en 1re ou 2e position, ouvrez si la règle des 20 est respectée (H + longueurs de vos deux plus longues couleurs ≥ 20). En 4e position, ouvrez avec 13 H ou plus, et avec 10-12 H seulement si la règle des 15 est respectée (H + nombre de piques ≥ 15). Les mains avec une longue couleur et moins de points se prêtent plutôt à un deux faible ou à un barrage.</p>
 
 <h3>Mains régulières : les points décident</h3>
 <p>Une main régulière n’a ni chicane, ni singleton, et au plus un doubleton : 4-3-3-3, 4-4-3-2 ou 5-3-3-2. Avec une main régulière, votre plan est toujours de montrer votre force à sans-atout, tout de suite ou à votre tour suivant :</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">N’ouvrez jamais de 1♥ ou 1♠ avec quatre cartes seulement. Votre partenaire soutiendra avec trois cartes, en comptant sur un fit d’au moins huit cartes.</div>
 `,
     keyPoints: [
-      'Ouvrez avec 12+ H ; avec 10-11, appliquez la règle des 20 (1re ou 2e position) ou la règle des 15 (4e position).',
+      'Ouvrez avec 12+ H ; avec 10-11, appliquez la règle des 20 (1re ou 2e position). En 4e position, ouvrez avec 13+, ou avec 10-12 si la règle des 15 est respectée.',
       '1♥/1♠ promettent cinq cartes ; sans majeure cinquième, ouvrez de la mineure la plus longue (1♣ avec 3-3, 1♦ avec 4-4).',
       'Main régulière : 12-14, ouvrez à la couleur et redemandez 1SA ; 15-17, 1SA ; 18-19, sautez à 2SA ; 20-21, 2SA ; 22+, 2♣.',
       'Deux couleurs cinquièmes : ouvrez de la plus chère ; 6-5 : ouvrez de la plus longue.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Avec 6 H, cinq cœurs et un singleton, ♠4 ♥QJ852 ♦K9763 ♣82, sautez à 4♥ sur 1♥. Les adversaires ont sûrement un fit et beaucoup de points, et vous voulez les obliger à deviner au palier de 5.</p>
 
 <h4>Soutien de trois cartes et 10-12 points</h4>
-<p>Le saut à 3 promet quatre atouts. Avec trois seulement, nommez d’abord une couleur nouvelle, puis sautez dans la majeure du partenaire au tour suivant : sur 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 dit 2♦, puis 3♥. Avec trois cartes de soutien et 13+, nommez d’abord une couleur nouvelle, puis demandez la manche dans la majeure.</p>
+<p>Le saut à 3 promet quatre atouts. Avec trois seulement, nommez d’abord une couleur nouvelle, puis soutenez la majeure du partenaire au palier de 3 (proposition) : sur 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 dit 2♦, puis 3♥. Avec trois cartes de soutien et 13+, nommez d’abord une couleur nouvelle, puis demandez la manche dans la majeure.</p>
 
 <h3>Répondre à 1♣ ou 1♦</h3>
 <p>Votre partenaire n’a peut-être que trois cartes dans sa mineure, et un fit majeur vaut davantage : cherchez d’abord une majeure.</p>
@@ -639,12 +639,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Chassez tôt les gros honneurs adverses, tant que vous avez encore des arrêts dans toutes les couleurs. Encaissez vos levées sûres en dernier, pas en premier.</div>
 
 <h3>Un exemple à l’atout : comptez les perdantes</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ joué par Sud. Ouest entame de la ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Comptez les perdantes de la main de Sud :</strong> aucune à pique ; une à cœur (le troisième tour) ; deux à carreau (le 7 et le 3) ; une à trèfle (l’♣A fait le premier tour, le deuxième est perdu). Total : quatre. Vous pouvez vous en permettre trois.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ joué par Sud. Ouest entame de la ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Comptez les perdantes de la main de Sud :</strong> aucune à pique ; une à cœur (le troisième tour) ; trois à carreau (le 7, le 3 et le 2) ; aucune à trèfle (l’♣A du mort couvre votre singleton). Total : quatre. Vous pouvez vous en permettre trois.</p>
 <p><strong>Source :</strong> le mort n’a que deux carreaux. Après l’♦A et un autre tour, le mort est chicane et peut couper votre troisième carreau avec un petit atout. Cette coupe est une levée de plus parce qu’elle est faite par la main <em>courte</em> à l’atout : les atouts de Sud sont de toute façon maîtres.</p>
 <p><strong>Danger :</strong> si vous tirez d’abord trois tours d’atout, le mort n’a plus d’atout pour couper. Vous devez garder au moins un atout au mort jusqu’à ce que la coupe soit faite.</p>
-<p><strong>Plan :</strong> prenez l’entame de l’♥A du mort, jouez carreau vers votre As et concédez un carreau. Si les défenseurs prennent et rejouent atout (leur meilleure défense), prenez et coupez aussitôt votre dernier carreau au mort. Tirez alors les atouts et jouez trèfle. Vous perdez un cœur, un carreau et un trèfle.</p>
+<p><strong>Plan :</strong> prenez l’entame de l’♥A du mort, jouez carreau vers votre As et concédez un carreau. Si les défenseurs prennent et rejouent atout (leur meilleure défense), prenez et coupez aussitôt un carreau au mort. Tirez alors les atouts. Vous perdez un cœur et deux carreaux.</p>
 <div class="warn">« Toujours tirer les atouts d’abord » est une bonne habitude, avec une grosse exception : quand vous avez besoin des atouts du mort pour couper, faites les coupes avant que les atouts aient disparu.</div>
 
 <h3>Compter, c’est une habitude</h3>
@@ -680,7 +680,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'Dans la donne à 4♠ ci-dessus, que se passe-t-il si le déclarant tire immédiatement trois tours d’atout ?',
         options: ['Rien, c’est le jeu le plus sûr', 'Le mort n’a plus d’atout pour couper le troisième carreau', 'Les défenseurs peuvent couper un cœur', 'Le déclarant perd le contrôle des trèfles'],
         answer: 1,
-        explain: 'Le mort n’avait que trois atouts. Trois tours d’atout les épuisent tous, et le déclarant reste avec deux perdantes à carreau plus un cœur et un trèfle : une de trop.',
+        explain: 'Le mort n’avait que trois atouts. Trois tours d’atout les épuisent tous, et le déclarant reste avec trois perdantes à carreau plus un cœur : une de trop.',
       },
     ],
   },

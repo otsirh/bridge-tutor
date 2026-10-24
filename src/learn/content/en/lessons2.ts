@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2NT – 3NT. South is declarer."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>North–South have 27 HCP and a nine-card diamond fit, but no major fit and every suit stopped. In 3NT you count nine tricks almost at once: two spades, a heart, five diamonds and a club once the ♣A (and perhaps the ♣Q) has been driven out. In 5♦ you need eleven tricks and have a spade loser, at least one heart loser and at least one club loser. 3NT is the far better game.</p>
+<p>North–South have 27 HCP and a nine-card diamond fit, but no major fit and every suit stopped. In 3NT you have eight top tricks: two spades, a heart and five diamonds. Clubs provide the ninth once the ♣A (and perhaps the ♣Q) has been driven out. In 5♦ you need eleven tricks and have a spade loser, at least one heart loser and at least one club loser. 3NT is the far better game.</p>
 
 <h3>The limits of "25 points for game"</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Response</th><th>Meaning</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Waiting: the normal response with most hands, weak or strong</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positive: a good five-card suit (two of the top three honours) and 8+ HCP</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positive: a good five-card suit (two of the top three honours or three of the top five) and 8+ HCP</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Partner opened 2♣: bid 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ HCP or about nine playing tricks; artificial and forcing.',
-      'Respond 2♦ (waiting) with most hands; a positive needs a good five-card suit and 8+ HCP.',
+      'Respond 2♦ (waiting) with most hands; a positive needs a good five-card suit (two of the top three honours or three of the top five) and 8+ HCP.',
       '2♣ – 2♦ – 2NT = 22-24 balanced and may be passed; any suit rebid by opener is forcing.',
       '2NT opening = 20-21 balanced; 3♣ Stayman, 3♦/3♥ transfers, 3NT with 4-10, 4NT with 11-12.',
       'Balanced ladder: 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -444,7 +444,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>The opening side: redouble</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>When partner's opening is doubled, a <strong>redouble</strong> shows 10+ HCP. It tells opener that your side has the balance of strength, and it usually means you are looking for a chance to double the opponents for penalty. With a fit and a weaker hand, raise partner instead; with a new suit and less than 10, bid it.</p>
+<p>When partner's opening is doubled, a <strong>redouble</strong> shows 10+ HCP. It tells opener that your side has the balance of strength, and it usually means you are looking for a chance to double the opponents for penalty. After a major-suit opening, <strong>2NT (Jordan)</strong> shows four-card or longer support and a limit raise or better (10+ dummy points), so a redouble usually denies four trumps. With support and a weaker hand, raise partner instead: a simple raise shows about 6-10 points, and a jump raise (1♥ – double – 3♥) is preemptive, with four trumps and less than 10 HCP. With a new suit and less than 10, bid it.</p>
 
 <h3>Doubles of preempts</h3>
 <p>A double of a weak two or a three-level preempt is also for takeout: opening values, short in their suit, and ready for whatever suit partner bids. Partner may have to bid at the three level with a weak hand, so the doubler should be sound, not light.</p>
@@ -456,7 +456,7 @@ export const LESSONS_2: Lesson[] = [
       'Advancer must bid: 0-8 cheapest, 9-11 jump, 12+ cue bid or game; 1NT = 6-10 with a stopper.',
       'Pass the double only with long, strong trumps in their suit.',
       'Doubler passes a minimum response with 12-15; raises with 16-18; jumps with 19+.',
-      'Redouble after a takeout double shows 10+ HCP.',
+      'Redouble after a takeout double shows 10+ HCP; over 1♥ or 1♠, 2NT (Jordan) shows four trumps and a limit raise or better, and a jump raise is preemptive.',
     ],
     quiz: [
       {
@@ -963,13 +963,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>The quantitative 4NT</h3>
 <p>A direct raise of 1NT to 4NT is not Blackwood. It shows 16-17 points, so the total is 31-34, on the edge of the 33 needed for slam. Opener passes with a minimum (15) and bids 6NT with a maximum (17); with 16, opener uses judgement, accepting with a good five-card suit or good intermediate cards.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Partner opened 1NT: bid 4NT"></div>
-<p>16 HCP, balanced. Bid 4NT. With 18-19 you would bid 6NT directly, since even a minimum opener gives 33.</p>
+<p>16 HCP, balanced. Bid 4NT. With 18-21 you would bid 6NT directly, since even a minimum opener gives 33; with 22 or more, bid 7NT, since even a minimum gives 37.</p>
 <p>Over 2NT (20-21), 4NT shows 11-12 and asks opener to bid 6NT with a maximum.</p>
 <table>
-<thead><tr><th>Responder after</th><th>3NT</th><th>4NT (invite)</th><th>6NT</th></tr></thead>
+<thead><tr><th>Responder after</th><th>3NT</th><th>4NT (invite)</th><th>6NT</th><th>7NT</th></tr></thead>
 <tbody>
-<tr><td>1NT (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2NT (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1NT (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2NT (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

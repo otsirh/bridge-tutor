@@ -219,7 +219,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Zuid heeft 14 punten en vijf goede harten. 2♣, de vierde kleur, vraagt Noord zijn hand te beschrijven. Noord heeft geen driekaartsteun in harten, maar wel een klaverstop, en biedt dus 2SA, waarna Zuid naar 3SA verhoogt.</p>
-<div class="tip">Met een evenwichtige manchehand en een stop in de vierde kleur bied je gewoon 3SA. Vierde kleur forcing is voor handen die een antwoord nodig hebben.</div>
+<div class="tip">Met een evenwichtige manchehand, een stop in de vierde kleur en geen vijfkaart in een hoge kleur waarvoor je nog een fit zoekt, bied je gewoon 3SA. Vierde kleur forcing is voor handen die een antwoord nodig hebben.</div>
 <div class="warn">Beide biedingen zijn kunstmatig: ze zeggen niets over de lage kleur of de vierde kleur. Alerteer ze, en pas er nooit op.</div>
 `,
     keyPoints: [
@@ -227,7 +227,7 @@ export const LESSONS_4: Lesson[] = [
       'De openaar toont steun of vier harten op 2-niveau met een minimum en op 3-niveau met een maximum; 2SA of 3SA toont geen van beide.',
       'Vierde kleur forcing: een bod van de antwoorder in de vierde kleur is kunstmatig en mancheforcing.',
       'De openaar antwoordt eerst met steun voor de kleur van de antwoorder, dan met sans atout als hij een stop heeft, dan met extra lengte.',
-      'Met een evenwichtige hand en een stop in de vierde kleur bied je direct 3SA.',
+      'Met een evenwichtige hand, een stop in de vierde kleur en geen vijfkaart in een hoge kleur waarvoor je een fit zoekt, bied je direct 3SA.',
     ],
     quiz: [
       {

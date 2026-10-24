@@ -219,7 +219,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:AJ74 H:83 D:J1072 C:AQ10" data-s="S:Q96 H:AKQ42 D:85 C:K75"></div>
 <div class="auction" data-calls="1D P 1H P 1S P 2C P 2NT P 3NT P P P" data-dealer="N"></div>
 <p>Sul tem 14 PH e cinco boas copas. 2♣, o quarto naipe, pede a Norte que se descreva. Norte não tem apoio de três cartas em copas, mas tem os paus parados, então marca 2ST, e Sul sobe para 3ST.</p>
-<div class="tip">Com uma mão balanceada de game e o quarto naipe parado, simplesmente marque 3ST. O quarto naipe forcing é para mãos que precisam de uma resposta.</div>
+<div class="tip">Com uma mão balanceada de game, o quarto naipe parado e nenhum rico de cinco cartas para verificar, simplesmente marque 3ST. O quarto naipe forcing é para mãos que precisam de uma resposta.</div>
 <div class="warn">As duas vozes são artificiais: não dizem nada sobre o naipe pobre nem sobre o quarto naipe. Alerte-as, e nunca passe sobre elas.</div>
 `,
     keyPoints: [
@@ -227,7 +227,7 @@ export const LESSONS_4: Lesson[] = [
       'O abridor mostra apoio ou quatro copas no nível 2 com mínimo e no nível 3 com máximo; 2ST ou 3ST nega as duas coisas.',
       'Quarto naipe forcing: a voz do respondedor no quarto naipe é artificial e forcing de game.',
       'O abridor responde primeiro com apoio para o naipe do respondedor, depois sem trunfo com parada, depois comprimento extra.',
-      'Com uma mão balanceada e parada no quarto naipe, marque 3ST direto.',
+      'Com uma mão balanceada, parada no quarto naipe e nenhum rico de cinco cartas para verificar, marque 3ST direto.',
     ],
     quiz: [
       {

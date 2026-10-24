@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Czy to ręka na otwarcie?</h3>
-<p>Z 12 lub więcej PC otwieraj. Z 10-11 PC na pierwszej lub drugiej ręce otwórz, jeśli spełniona jest reguła 20 (PC + długości dwóch najdłuższych kolorów ≥ 20). Na czwartej ręce stosuj regułę 15 (PC + liczba pików ≥ 15). Ręce z długim kolorem i mniejszą siłą mogą się za to nadawać na słabe dwa albo otwarcie blokujące.</p>
+<p>Z 12 lub więcej PC otwieraj, z wyjątkiem czwartej ręki. Z 10-11 PC na pierwszej lub drugiej ręce otwórz, jeśli spełniona jest reguła 20 (PC + długości dwóch najdłuższych kolorów ≥ 20). Na czwartej ręce otwieraj z 13 lub więcej PC, a z 10-12 PC tylko wtedy, gdy spełniona jest reguła 15 (PC + liczba pików ≥ 15). Ręce z długim kolorem i mniejszą siłą mogą się za to nadawać na słabe dwa albo otwarcie blokujące.</p>
 
 <h3>Ręce zrównoważone: decydują punkty</h3>
 <p>Ręka zrównoważona nie ma renonsu ani singla i ma co najwyżej jeden dubel: 4-3-3-3, 4-4-3-2 lub 5-3-3-2. Z ręką zrównoważoną twoim planem jest zawsze pokazanie siły w bez atu – od razu albo w następnej odzywce:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Nigdy nie otwieraj 1♥ ani 1♠ z czterema kartami. Partner podniesie z trzykartowym poparciem, licząc na co najmniej ośmiokartowy fit.</div>
 `,
     keyPoints: [
-      'Otwieraj z 12+ PC; z 10-11 stosuj regułę 20 (pierwsza lub druga ręka) albo regułę 15 (czwarta ręka).',
+      'Otwieraj z 12+ PC; z 10-11 stosuj regułę 20 (pierwsza lub druga ręka). Na czwartej ręce otwieraj z 13+ albo z 10-12, jeśli spełniona jest reguła 15.',
       '1♥/1♠ obiecują pięć kart; bez piątki w starszym otwórz dłuższy młodszy (1♣ z 3-3, 1♦ z 4-4).',
       'Ręce zrównoważone: 12-14 otwórz kolor i daj rebid 1BA; 15-17 1BA; 18-19 skok na 2BA; 20-21 2BA; 22+ 2♣.',
       'Dwie piątki: otwórz wyższy kolor; 6-5: otwórz dłuższy.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Z 6 PC, pięcioma kierami i singlem, ♠4 ♥QJ852 ♦K9763 ♣82, skocz po 1♥ na 4♥. Przeciwnicy na pewno mają fit i sporo punktów, a ty chcesz, żeby zgadywali na wysokości pięciu.</p>
 
 <h4>Trzykartowe poparcie i 10-12 punktów</h4>
-<p>Skok na trzy obiecuje cztery atuty. Mając tylko trzy, najpierw zalicytuj nowy kolor, a w następnej odzywce skocz w kolor starszy partnera: po 1♥ ręka ♠A84 ♥K93 ♦KJ752 ♣64 licytuje 2♦, a potem 3♥. Z trzykartowym poparciem i 13+ najpierw zalicytuj nowy kolor, a potem dograną w kolorze starszym partnera.</p>
+<p>Skok na trzy obiecuje cztery atuty. Mając tylko trzy, najpierw zalicytuj nowy kolor, a w następnej odzywce podnieś kolor starszy partnera na poziom trzech (inwitująco): po 1♥ ręka ♠A84 ♥K93 ♦KJ752 ♣64 licytuje 2♦, a potem 3♥. Z trzykartowym poparciem i 13+ najpierw zalicytuj nowy kolor, a potem dograną w kolorze starszym partnera.</p>
 
 <h3>Odpowiedzi na 1♣ lub 1♦</h3>
 <p>Partner może mieć w młodszym tylko trzy karty, a fit w starszym jest więcej wart, więc najpierw szukaj fitu w starszym.</p>
@@ -639,12 +639,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Wybijaj wysokie karty przeciwników wcześnie, póki masz zatrzymania we wszystkich kolorach. Pewne lewy ściągaj na końcu, a nie na początku.</div>
 
 <h3>Przykład w kolorze: licz przegrywające</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ rozgrywa Południe. Zachód wistuje ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Przegrywające w ręce Południa:</strong> piki – żadnej; kiery – jedna (trzecia runda); kara – dwie (siódemka i trójka); trefle – jedna (♣A bierze pierwszą rundę, drugą się oddaje). Razem cztery. Możesz sobie pozwolić na trzy.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ rozgrywa Południe. Zachód wistuje ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Przegrywające w ręce Południa:</strong> piki – żadnej; kiery – jedna (trzecia runda); kara – trzy (siódemka, trójka i dwójka); trefle – żadnej (♣A dziadka pokrywa twojego singla). Razem cztery. Możesz sobie pozwolić na trzy.</p>
 <p><strong>Źródło:</strong> dziadek ma tylko dwa kara. Po ♦A i jeszcze jednej rundzie dziadek będzie miał renons i przebije twoje trzecie karo małym atutem. Ta przebitka to dodatkowa lewa, bo bierze ją ręka z <em>krótszymi</em> atutami: własne atuty Południa i tak są lewami.</p>
 <p><strong>Zagrożenie:</strong> jeśli najpierw ściągniesz trzy rundy atutów, dziadkowi nie zostanie atut do przebitki. Musisz zachować na stole co najmniej jeden atut, dopóki nie wykonasz przebitki.</p>
-<p><strong>Plan:</strong> weź wist ♥A ze stołu, zagraj karo do asa i oddaj karo. Jeśli obrońcy wezmą lewę i zagrają atut (to ich najlepsza obrona), weź go i od razu przebij ostatnie karo na stole. Teraz ściągnij atuty i graj trefle. Oddajesz jedną lewę kierową, jedną karową i jedną treflową.</p>
+<p><strong>Plan:</strong> weź wist ♥A ze stołu, zagraj karo do asa i oddaj karo. Jeśli obrońcy wezmą lewę i zagrają atut (to ich najlepsza obrona), weź go i od razu przebij karo na stole. Teraz ściągnij atuty. Oddajesz jedną lewę kierową i dwie karowe.</p>
 <div class="warn">„Zawsze najpierw ściągaj atuty” to dobry nawyk z jednym ważnym wyjątkiem: gdy potrzebujesz atutów dziadka do przebitek, wykonaj przebitki, zanim atuty znikną.</div>
 
 <h3>Liczenie to nawyk</h3>
@@ -680,7 +680,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'Co pójdzie źle w rozdaniu 4♠ powyżej, jeśli rozgrywający od razu ściągnie trzy rundy atutów?',
         options: ['Nic, to najbezpieczniejsza rozgrywka', 'Dziadkowi nie zostanie atut do przebicia trzeciego kara', 'Obrońcy przebiją kiera', 'Rozgrywający straci kontrolę nad treflami'],
         answer: 1,
-        explain: 'Dziadek miał tylko trzy atuty. Trzy rundy atutów zużywają je wszystkie, a rozgrywającemu zostają dwie przegrywające karowe oraz kierowa i treflowa: o jedną za dużo.',
+        explain: 'Dziadek miał tylko trzy atuty. Trzy rundy atutów zużywają je wszystkie, a rozgrywającemu zostają trzy przegrywające karowe oraz kierowa: o jedną za dużo.',
       },
     ],
   },

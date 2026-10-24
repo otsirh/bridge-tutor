@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2SA – 3SA. Süd ist Alleinspieler."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Nord-Süd haben 27 FP und einen 9er-Fit in Karo, aber keinen Fit in Oberfarbe, und jede Farbe ist gestoppt. In 3SA zählen Sie fast sofort neun Stiche: zwei in Pik, einen in Coeur, fünf in Karo und einen in Treff, sobald das ♣A (und vielleicht die ♣Q) herausgetrieben ist. In 5♦ brauchen Sie elf Stiche und haben einen Pik-Verlierer, mindestens einen Coeur-Verlierer und mindestens einen Treff-Verlierer. 3SA ist das weit bessere Vollspiel.</p>
+<p>Nord-Süd haben 27 FP und einen 9er-Fit in Karo, aber keinen Fit in Oberfarbe, und jede Farbe ist gestoppt. In 3SA haben Sie acht sichere Stiche: zwei in Pik, einen in Coeur und fünf in Karo. Den neunten liefert Treff, sobald das ♣A (und vielleicht die ♣Q) herausgetrieben ist. In 5♦ brauchen Sie elf Stiche und haben einen Pik-Verlierer, mindestens einen Coeur-Verlierer und mindestens einen Treff-Verlierer. 3SA ist das weit bessere Vollspiel.</p>
 
 <h3>Die Grenzen von „25 Punkte für das Vollspiel“</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Antwort</th><th>Bedeutung</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Wartegebot: die normale Antwort mit den meisten Händen, ob schwach oder stark</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiv: eine gute Fünferlänge (zwei der drei höchsten Figuren) und 8+ FP</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiv: eine gute Fünferlänge (zwei der drei höchsten oder drei der fünf höchsten Figuren) und 8+ FP</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Partner hat 2♣ eröffnet: 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ FP oder etwa neun Spielstiche; künstlich und forcierend.',
-      'Antworten Sie mit den meisten Händen 2♦ (Wartegebot); eine positive Antwort braucht eine gute Fünferlänge und 8+ FP.',
+      'Antworten Sie mit den meisten Händen 2♦ (Wartegebot); eine positive Antwort braucht eine gute Fünferlänge (zwei der drei höchsten oder drei der fünf höchsten Figuren) und 8+ FP.',
       '2♣ – 2♦ – 2SA = 22–24 ausgeglichen und darf gepasst werden; jedes Farbwiedergebot des Eröffners ist forcierend.',
       '2SA-Eröffnung = 20–21 ausgeglichen; 3♣ Stayman, 3♦/3♥ Transfer, 3SA mit 4–10, 4SA mit 11–12.',
       'Leiter der ausgeglichenen Hände: 12–14, 15–17, 18–19, 20–21, 22–24, 25–27.',
@@ -444,7 +444,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Die eröffnende Seite: Rekontra</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Wird die Eröffnung des Partners kontriert, zeigt ein <strong>Rekontra</strong> 10+ FP. Es sagt dem Eröffner, dass Ihre Seite die Mehrheit der Stärke hat, und meist heißt es, dass Sie eine Gelegenheit suchen, die Gegner zur Strafe zu kontrieren. Mit Fit und einer schwächeren Hand heben Sie stattdessen den Partner; mit einer neuen Farbe und weniger als 10 reizen Sie diese.</p>
+<p>Wird die Eröffnung des Partners kontriert, zeigt ein <strong>Rekontra</strong> 10+ FP. Es sagt dem Eröffner, dass Ihre Seite die Mehrheit der Stärke hat, und meist heißt es, dass Sie eine Gelegenheit suchen, die Gegner zur Strafe zu kontrieren. Nach einer Oberfarberöffnung zeigt <strong>2SA (Jordan)</strong> mindestens Viererunterstützung und eine Limit-Hebung oder mehr (10+ Unterstützungspunkte); ein Rekontra verneint deshalb meist vier Trümpfe. Mit Unterstützung und einer schwächeren Hand heben Sie stattdessen den Partner: Eine einfache Hebung zeigt etwa 6–10 Punkte, eine Sprunghebung (1♥ – Kontra – 3♥) ist ein Sperrgebot mit vier Trümpfen und weniger als 10 FP. Mit einer neuen Farbe und weniger als 10 reizen Sie diese.</p>
 
 <h3>Kontras auf Sperren</h3>
 <p>Auch ein Kontra auf eine schwache Zwei oder eine Sperre auf der Dreierstufe ist ein Informationskontra: Eröffnungsstärke, Kürze in der gegnerischen Farbe und Bereitschaft für jede Farbe, die der Partner reizt. Der Partner muss womöglich mit einer schwachen Hand auf der Dreierstufe reizen, daher sollte der Kontrierende solide sein, nicht leicht.</p>
@@ -456,7 +456,7 @@ export const LESSONS_2: Lesson[] = [
       'Der Partner muss reizen: 0–8 billigste Stufe, 9–11 Sprung, 12+ Cuebid oder Vollspiel; 1SA = 6–10 mit Stopper.',
       'Lassen Sie das Kontra nur mit langen, starken Trümpfen in der gegnerischen Farbe stehen.',
       'Der Kontrierende passt eine Minimum-Antwort mit 12–15, hebt mit 16–18 und springt mit 19+.',
-      'Rekontra nach einem Informationskontra zeigt 10+ FP.',
+      'Rekontra nach einem Informationskontra zeigt 10+ FP; über 1♥ oder 1♠ zeigt 2SA (Jordan) vier Trümpfe und eine Limit-Hebung oder mehr, und eine Sprunghebung ist ein Sperrgebot.',
     ],
     quiz: [
       {
@@ -963,13 +963,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>Das quantitative 4SA</h3>
 <p>Eine direkte Hebung von 1SA auf 4SA ist kein Blackwood. Sie zeigt 16–17 Punkte, zusammen also 31–34, an der Grenze der 33, die man für einen Schlemm braucht. Der Eröffner passt mit Minimum (15) und reizt mit Maximum (17) 6SA; mit 16 entscheidet er nach eigenem Urteil und nimmt mit einer guten Fünferlänge oder guten Zwischenkarten an.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Partner hat 1SA eröffnet: 4SA"></div>
-<p>16 FP, ausgeglichen. Reizen Sie 4SA. Mit 18–19 würden Sie direkt 6SA reizen, da schon ein Minimum des Eröffners 33 ergibt.</p>
+<p>16 FP, ausgeglichen. Reizen Sie 4SA. Mit 18–21 würden Sie direkt 6SA reizen, da schon ein Minimum des Eröffners 33 ergibt; mit 22 oder mehr reizen Sie 7SA, da schon ein Minimum 37 ergibt.</p>
 <p>Über 2SA (20–21) zeigt 4SA 11–12 und bittet den Eröffner, mit Maximum 6SA zu reizen.</p>
 <table>
-<thead><tr><th>Antwortender nach</th><th>3SA</th><th>4SA (einladend)</th><th>6SA</th></tr></thead>
+<thead><tr><th>Antwortender nach</th><th>3SA</th><th>4SA (einladend)</th><th>6SA</th><th>7SA</th></tr></thead>
 <tbody>
-<tr><td>1SA (15–17)</td><td>10–15</td><td>16–17</td><td>18–19</td></tr>
-<tr><td>2SA (20–21)</td><td>4–10</td><td>11–12</td><td>13–14</td></tr>
+<tr><td>1SA (15–17)</td><td>10–15</td><td>16–17</td><td>18–21</td><td>22+</td></tr>
+<tr><td>2SA (20–21)</td><td>4–10</td><td>11–12</td><td>13–16</td><td>17+</td></tr>
 </tbody>
 </table>
 

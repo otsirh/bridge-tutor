@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Ist es eine Eröffnungshand?</h3>
-<p>Mit 12 oder mehr FP eröffnen Sie. Mit 10–11 FP an erster oder zweiter Position eröffnen Sie, wenn die Zwanzigerregel erfüllt ist (FP + die Längen Ihrer beiden längsten Farben ≥ 20). An vierter Position gilt die Fünfzehnerregel (FP + Anzahl der Pikkarten ≥ 15). Hände mit einer langen Farbe und weniger Punkten eignen sich eher für eine schwache Zwei oder eine Sperreröffnung.</p>
+<p>Mit 12 oder mehr FP eröffnen Sie, außer an vierter Position. Mit 10–11 FP an erster oder zweiter Position eröffnen Sie, wenn die Zwanzigerregel erfüllt ist (FP + die Längen Ihrer beiden längsten Farben ≥ 20). An vierter Position eröffnen Sie mit 13 oder mehr FP, mit 10–12 FP aber nur, wenn die Fünfzehnerregel erfüllt ist (FP + Anzahl der Pikkarten ≥ 15). Hände mit einer langen Farbe und weniger Punkten eignen sich eher für eine schwache Zwei oder eine Sperreröffnung.</p>
 
 <h3>Ausgeglichene Hände: Die Punkte entscheiden</h3>
 <p>Eine ausgeglichene Hand hat keine Chicane, kein Single und höchstens ein Double: 4-3-3-3, 4-4-3-2 oder 5-3-3-2. Mit einer ausgeglichenen Hand planen Sie immer, Ihre Stärke in SA zu zeigen, entweder sofort oder mit dem nächsten Gebot:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Eröffnen Sie nie 1♥ oder 1♠ mit nur vier Karten. Partner hebt schon mit Dreierunterstützung und erwartet mindestens einen 8er-Fit.</div>
 `,
     keyPoints: [
-      'Eröffnen Sie mit 12+ FP; mit 10–11 gilt die Zwanzigerregel (erste oder zweite Position) bzw. die Fünfzehnerregel (vierte Position).',
+      'Eröffnen Sie mit 12+ FP; mit 10–11 gilt die Zwanzigerregel (erste oder zweite Position). An vierter Position eröffnen Sie mit 13+ oder mit 10–12, wenn die Fünfzehnerregel erfüllt ist.',
       '1♥/1♠ versprechen fünf Karten; ohne Fünferoberfarbe eröffnen Sie die längere Unterfarbe (1♣ mit 3-3, 1♦ mit 4-4).',
       'Ausgeglichen: mit 12–14 eine Farbe eröffnen und 1SA wiederbieten; 15–17 1SA; 18–19 Sprung auf 2SA; 20–21 2SA; 22+ 2♣.',
       'Zwei Fünferlängen: die höherrangige eröffnen; 6-5: die längere eröffnen.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Mit 6 FP, fünf Coeur und einem Single, ♠4 ♥QJ852 ♦K9763 ♣82, springen Sie über 1♥ auf 4♥. Die Gegner haben sicher einen Fit und reichlich Punkte, und Sie wollen sie zwingen, auf der Fünferstufe zu raten.</p>
 
 <h4>Dreierunterstützung und 10–12 Punkte</h4>
-<p>Der Sprung auf die Dreierstufe verspricht vier Trümpfe. Mit nur drei Trümpfen bieten Sie zuerst eine neue Farbe und springen beim nächsten Mal in Partners Oberfarbe: Mit ♠A84 ♥K93 ♦KJ752 ♣64 bieten Sie über 1♥ zuerst 2♦ und dann 3♥. Mit Dreierunterstützung und 13+ bieten Sie zuerst eine neue Farbe und dann das Vollspiel in der Oberfarbe.</p>
+<p>Der Sprung auf die Dreierstufe verspricht vier Trümpfe. Mit nur drei Trümpfen bieten Sie zuerst eine neue Farbe und heben danach Partners Oberfarbe auf die Dreierstufe (einladend): Mit ♠A84 ♥K93 ♦KJ752 ♣64 bieten Sie über 1♥ zuerst 2♦ und dann 3♥. Mit Dreierunterstützung und 13+ bieten Sie zuerst eine neue Farbe und dann das Vollspiel in der Oberfarbe.</p>
 
 <h3>Antworten auf 1♣ oder 1♦</h3>
 <p>Partner hat in der Unterfarbe vielleicht nur drei Karten, und ein Fit in einer Oberfarbe ist mehr wert; suchen Sie also zuerst nach einer Oberfarbe.</p>
@@ -639,12 +639,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Treiben Sie die hohen Karten der Gegner früh aus, solange Sie noch in jeder Farbe Stopper haben. Ziehen Sie Ihre sicheren Stiche zuletzt ab, nicht zuerst.</div>
 
 <h3>Ein Farbbeispiel: Verlierer zählen</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ von Süd. West spielt die ♥Q aus."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Verlierer in der Hand von Süd zählen:</strong> Pik keiner; Coeur einer (die dritte Runde); Karo zwei (die 7 und die 3); Treff einer (das ♣A gewinnt die erste Runde, die zweite geht verloren). Insgesamt vier. Abgeben dürfen Sie drei.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ von Süd. West spielt die ♥Q aus."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Verlierer in der Hand von Süd zählen:</strong> Pik keiner; Coeur einer (die dritte Runde); Karo drei (die 7, die 3 und die 2); Treff keiner (das ♣A am Tisch deckt Ihr Single). Insgesamt vier. Abgeben dürfen Sie drei.</p>
 <p><strong>Quelle:</strong> Der Dummy hat nur zwei Karo. Nach dem ♦A und einer weiteren Runde hat der Tisch kein Karo mehr und kann Ihr drittes Karo mit einem kleinen Trumpf schnappen. Dieser Schnapper bringt einen zusätzlichen Stich, weil ihn die Hand mit den <em>kürzeren</em> Trümpfen macht: Die Trümpfe von Süd sind ohnehin Gewinner.</p>
 <p><strong>Gefahr:</strong> Ziehen Sie zuerst drei Runden Trumpf, bleibt am Tisch kein Trumpf für den Schnapper. Sie müssen mindestens einen Trumpf am Tisch behalten, bis der Schnapper ausgeführt ist.</p>
-<p><strong>Plan:</strong> Gewinnen Sie das Ausspiel mit dem ♥A am Tisch, spielen Sie Karo zu Ihrem Ass und geben Sie ein Karo ab. Gewinnen die Gegenspieler und spielen Trumpf nach (ihre beste Verteidigung), nehmen Sie den Stich und schnappen sofort Ihr letztes Karo am Tisch. Jetzt ziehen Sie Trumpf und spielen Treff. Sie verlieren ein Coeur, ein Karo und ein Treff.</p>
+<p><strong>Plan:</strong> Gewinnen Sie das Ausspiel mit dem ♥A am Tisch, spielen Sie Karo zu Ihrem Ass und geben Sie ein Karo ab. Gewinnen die Gegenspieler und spielen Trumpf nach (ihre beste Verteidigung), nehmen Sie den Stich und schnappen sofort ein Karo am Tisch. Jetzt ziehen Sie Trumpf. Sie verlieren ein Coeur und zwei Karo.</p>
 <div class="warn">„Immer zuerst Trumpf ziehen“ ist eine gute Gewohnheit mit einer großen Ausnahme: Wenn Sie die Trümpfe des Dummys zum Schnappen brauchen, schnappen Sie, bevor die Trümpfe weg sind.</div>
 
 <h3>Zählen ist Gewohnheitssache</h3>
@@ -680,7 +680,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'Was geht im 4♠-Spiel oben schief, wenn der Alleinspieler sofort drei Runden Trumpf zieht?',
         options: ['Nichts, das ist das sicherste Spiel', 'Am Tisch bleibt kein Trumpf, um das dritte Karo zu schnappen', 'Die Gegenspieler können ein Coeur schnappen', 'Der Alleinspieler verliert die Kontrolle über Treff'],
         answer: 1,
-        explain: 'Der Dummy hatte nur drei Trümpfe. Drei Runden Trumpf verbrauchen sie alle, und dem Alleinspieler bleiben zwei Karo-Verlierer plus ein Coeur und ein Treff: einer zu viel.',
+        explain: 'Der Dummy hatte nur drei Trümpfe. Drei Runden Trumpf verbrauchen sie alle, und dem Alleinspieler bleiben drei Karo-Verlierer plus ein Coeur: einer zu viel.',
       },
     ],
   },

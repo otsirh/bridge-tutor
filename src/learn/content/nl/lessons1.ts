@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Is het een openingshand?</h3>
-<p>Met 12 of meer punten open je. Met 10-11 punten in eerste of tweede hand open je als aan de regel van 20 is voldaan (punten + de lengte van je twee langste kleuren ≥ 20). In vierde hand gebruik je de regel van 15 (punten + aantal schoppen ≥ 15). Handen met een lange kleur en minder punten passen misschien beter bij een zwakke twee of een preëmpt.</p>
+<p>Met 12 of meer punten open je, behalve in vierde hand. Met 10-11 punten in eerste of tweede hand open je als aan de regel van 20 is voldaan (punten + de lengte van je twee langste kleuren ≥ 20). In vierde hand open je met 13 of meer punten, en met 10-12 punten alleen als aan de regel van 15 is voldaan (punten + aantal schoppen ≥ 15). Handen met een lange kleur en minder punten passen misschien beter bij een zwakke twee of een preëmpt.</p>
 
 <h3>Evenwichtige handen: de punten beslissen</h3>
 <p>Een evenwichtige hand heeft geen renonce, geen singleton en hoogstens één doubleton: 4-3-3-3, 4-4-3-2 of 5-3-3-2. Met een evenwichtige hand is je plan altijd om je kracht in sans atout te tonen, meteen of bij je volgende bod:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Open nooit 1♥ of 1♠ met maar vier kaarten. Partner verhoogt met driekaartsteun en rekent dan op minstens een achtkaartfit.</div>
 `,
     keyPoints: [
-      'Open met 12+ punten; met 10-11 gebruik je de regel van 20 (eerste of tweede hand) of de regel van 15 (vierde hand).',
+      'Open met 12+ punten; met 10-11 gebruik je de regel van 20 (eerste of tweede hand). In vierde hand open je met 13+, of met 10-12 als aan de regel van 15 is voldaan.',
       '1♥/1♠ beloven vijf kaarten; zonder vijfkaart hoge kleur open je de langste lage kleur (1♣ met 3-3, 1♦ met 4-4).',
       'Evenwichtig: met 12-14 open je een kleur en herbied je 1SA; 15-17 1SA; 18-19 spring naar 2SA; 20-21 2SA; 22+ 2♣.',
       'Twee vijfkaarten: open de hoogste; 6-5: open de langste.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Met 6 punten, vijf harten en een singleton, ♠4 ♥QJ852 ♦K9763 ♣82, spring je na 1♥ naar 4♥. De tegenstanders hebben vast een fit en een hoop punten, en je wilt ze laten gokken op 5-niveau.</p>
 
 <h4>Driekaartsteun en 10-12 punten</h4>
-<p>De sprong naar drie belooft vier troeven. Met maar drie bied je eerst een nieuwe kleur en spring je de volgende keer in de hoge kleur van partner: na 1♥ biedt ♠A84 ♥K93 ♦KJ752 ♣64 eerst 2♦ en daarna 3♥. Met driekaartsteun en 13+ bied je eerst een nieuwe kleur en daarna manche in de hoge kleur.</p>
+<p>De sprong naar drie belooft vier troeven. Met maar drie bied je eerst een nieuwe kleur en verhoog je daarna de hoge kleur van partner naar drie (inviterend): na 1♥ biedt ♠A84 ♥K93 ♦KJ752 ♣64 eerst 2♦ en daarna 3♥. Met driekaartsteun en 13+ bied je eerst een nieuwe kleur en daarna manche in de hoge kleur.</p>
 
 <h3>Antwoorden op 1♣ of 1♦</h3>
 <p>Partner kan maar drie kaarten in de lage kleur hebben, en een fit in een hoge kleur is meer waard, dus zoek eerst naar een hoge kleur.</p>
@@ -639,12 +639,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Drijf de hoge kaarten van de tegenstanders vroeg weg, zolang je nog in elke kleur een stop hebt. Incasseer je vaste slagen als laatste, niet als eerste.</div>
 
 <h3>Een voorbeeld met troef: tel je verliezers</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ door Zuid. West komt uit met ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Tel de verliezers in de hand van Zuid:</strong> schoppen geen; harten één (de derde ronde); ruiten twee (de 7 en de 3); klaveren één (de ♣A wint de eerste ronde, de tweede ronde gaat verloren). Totaal: vier. Je mag er drie hebben.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ door Zuid. West komt uit met ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Tel de verliezers in de hand van Zuid:</strong> schoppen geen; harten één (de derde ronde); ruiten drie (de 7, de 3 en de 2); klaveren geen (de ♣A van de dummy dekt je singleton). Totaal: vier. Je mag er drie hebben.</p>
 <p><strong>Bron:</strong> de dummy heeft maar twee ruiten. Na de ♦A en nog een ronde is de dummy renonce en kan hij je derde ruiten introeven met een kleine troef. Die troefslag is een extra slag, omdat hij gemaakt wordt door de hand met de <em>korte</em> troeven: de eigen troeven van Zuid zijn toch al vaste slagen.</p>
 <p><strong>Gevaar:</strong> als je eerst drie keer troef trekt, heeft de dummy geen troef meer om in te troeven. Je moet minstens één troef in de dummy houden tot je hebt ingetroefd.</p>
-<p><strong>Plan:</strong> neem de uitkomst met de ♥A van de dummy, speel een ruiten naar je aas en geef een ruiten af. Als de tegenspelers de slag nemen en troef terugspelen (hun beste verdediging), neem je die en troef je meteen je laatste ruiten in de dummy. Trek daarna troef en speel klaveren. Je verliest één harten, één ruiten en één klaver.</p>
+<p><strong>Plan:</strong> neem de uitkomst met de ♥A van de dummy, speel een ruiten naar je aas en geef een ruiten af. Als de tegenspelers de slag nemen en troef terugspelen (hun beste verdediging), neem je die en troef je meteen een ruiten in de dummy. Trek daarna troef. Je verliest één harten en twee ruiten.</p>
 <div class="warn">"Altijd eerst troef trekken" is een goede gewoonte met een grote uitzondering: als je de troeven van de dummy nodig hebt om in te troeven, doe dat dan voordat de troeven op zijn.</div>
 
 <h3>Tellen is een gewoonte</h3>
@@ -680,7 +680,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'Wat gaat er in het 4♠-spel hierboven mis als de leider meteen drie keer troef trekt?',
         options: ['Niets, dat is het veiligste spel', 'De dummy heeft geen troef meer om de derde ruiten in te troeven', 'De tegenspelers kunnen een harten introeven', 'De leider verliest de controle over de klaveren'],
         answer: 1,
-        explain: 'De dummy begon met maar drie troeven. Door drie keer troef te trekken zijn die allemaal op, en houdt de leider twee ruitenverliezers plus een harten en een klaver over: één te veel.',
+        explain: 'De dummy begon met maar drie troeven. Door drie keer troef te trekken zijn die allemaal op, en houdt de leider drie ruitenverliezers plus een harten over: één te veel.',
       },
     ],
   },

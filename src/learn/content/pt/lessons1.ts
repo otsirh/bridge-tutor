@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>É uma mão de abertura?</h3>
-<p>Com 12 PH ou mais, abra. Com 10-11 PH em primeira ou segunda posição, abra se a Regra dos 20 estiver satisfeita (PH + comprimento dos seus dois naipes mais longos ≥ 20). Em quarta posição, use a Regra dos 15 (PH + número de espadas ≥ 15). Mãos com um naipe longo e menos pontos podem servir para um dois fraco ou uma barragem.</p>
+<p>Com 12 PH ou mais, abra, exceto em quarta posição. Com 10-11 PH em primeira ou segunda posição, abra se a Regra dos 20 estiver satisfeita (PH + comprimento dos seus dois naipes mais longos ≥ 20). Em quarta posição, abra com 13 PH ou mais, e com 10-12 PH só se a Regra dos 15 estiver satisfeita (PH + número de espadas ≥ 15). Mãos com um naipe longo e menos pontos podem servir para um dois fraco ou uma barragem.</p>
 
 <h3>Mãos balanceadas: os pontos decidem</h3>
 <p>Uma mão balanceada não tem chicana nem singleton, e tem no máximo um doubleton: 4-3-3-3, 4-4-3-2 ou 5-3-3-2. Com uma mão balanceada, o seu plano é sempre mostrar a força em sem trunfo, logo de saída ou na sua próxima voz:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Nunca abra 1♥ ou 1♠ com apenas quatro cartas. O parceiro apoiará com três cartas, contando com um fit de pelo menos oito.</div>
 `,
     keyPoints: [
-      'Abra com 12+ PH; com 10-11, use a Regra dos 20 (primeira ou segunda posição) ou a Regra dos 15 (quarta posição).',
+      'Abra com 12+ PH; com 10-11, use a Regra dos 20 (primeira ou segunda posição). Em quarta posição, abra com 13+, ou com 10-12 se a Regra dos 15 estiver satisfeita.',
       '1♥/1♠ prometem cinco cartas; sem naipe rico de 5 cartas, abra o pobre mais longo (1♣ com 3-3, 1♦ com 4-4).',
       'Balanceada: com 12-14 abra um naipe e remarque 1ST; 15-17, 1ST; 18-19, salte para 2ST; 20-21, 2ST; 22+, 2♣.',
       'Dois naipes de 5 cartas: abra o mais alto; 6-5: abra o mais longo.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Com 6 PH, cinco copas e um singleton, ♠4 ♥QJ852 ♦K9763 ♣82, salte para 4♥ sobre 1♥. Os adversários certamente têm um fit e muitos pontos, e você quer obrigá-los a adivinhar no nível de 5.</p>
 
 <h4>Apoio de três cartas e 10-12 pontos</h4>
-<p>O salto para três promete quatro trunfos. Com apenas três, marque primeiro um naipe novo e salte no rico do parceiro na voz seguinte: sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 marca 2♦ e depois 3♥. Com apoio de três cartas e 13+, marque primeiro um naipe novo e depois o game no rico.</p>
+<p>O salto para três promete quatro trunfos. Com apenas três, marque primeiro um naipe novo e depois apoie o rico do parceiro no nível de três (convite): sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 marca 2♦ e depois 3♥. Com apoio de três cartas e 13+, marque primeiro um naipe novo e depois o game no rico.</p>
 
 <h3>Respondendo a 1♣ ou 1♦</h3>
 <p>O parceiro pode ter só três cartas no pobre, e um fit num naipe rico vale mais, então procure primeiro um rico.</p>
@@ -638,12 +638,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Expulse cedo as cartas altas dos adversários, enquanto você ainda tem paradas em todos os naipes. Bata as suas vencedoras garantidas por último, não primeiro.</div>
 
 <h3>Um exemplo em naipe: conte as perdedoras</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ por Sul. Oeste sai com a ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Conte as perdedoras da mão de Sul:</strong> espadas, nenhuma; copas, uma (a terceira volta); ouros, duas (o 7 e o 3); paus, uma (o ♣A ganha a primeira volta e a segunda se perde). Total: quatro. Você pode se permitir três.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ por Sul. Oeste sai com a ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Conte as perdedoras da mão de Sul:</strong> espadas, nenhuma; copas, uma (a terceira volta); ouros, três (o 7, o 3 e o 2); paus, nenhuma (o ♣A do morto cobre o seu singleton). Total: quatro. Você pode se permitir três.</p>
 <p><strong>Fonte:</strong> o morto tem só dois ouros. Depois do ♦A e de mais uma volta, o morto fica em chicana e pode cortar o seu terceiro ouro com um trunfo pequeno. Esse corte é uma vaza extra porque é feito pela mão <em>curta</em> em trunfos: os trunfos de Sul já são vencedores de qualquer jeito.</p>
 <p><strong>Perigo:</strong> se você tirar três voltas de trunfo primeiro, o morto fica sem trunfo para o corte. Você precisa manter pelo menos um trunfo no morto até fazer o corte.</p>
-<p><strong>Plano:</strong> ganhe a saída com o ♥A do morto, jogue ouro para o seu ás e ceda uma vaza de ouros. Se os defensores ganharem e jogarem trunfo (a melhor defesa), ganhe e corte imediatamente o seu último ouro no morto. Agora tire os trunfos e jogue paus. Você perde uma copa, um ouro e um pau.</p>
+<p><strong>Plano:</strong> ganhe a saída com o ♥A do morto, jogue ouro para o seu ás e ceda uma vaza de ouros. Se os defensores ganharem e jogarem trunfo (a melhor defesa), ganhe e corte imediatamente um ouro no morto. Agora tire os trunfos. Você perde uma copa e dois ouros.</p>
 <div class="warn">“Tire sempre os trunfos primeiro” é um bom hábito com uma grande exceção: quando você precisa dos trunfos do morto para cortar, faça os cortes antes que os trunfos acabem.</div>
 
 <h3>Contar é um hábito</h3>
@@ -679,7 +679,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'Na mão de 4♠ acima, o que dá errado se o declarante tirar três voltas de trunfo de imediato?',
         options: ['Nada, é a jogada mais segura', 'O morto fica sem trunfo para cortar o terceiro ouro', 'Os defensores podem cortar uma copa', 'O declarante perde o controle de paus'],
         answer: 1,
-        explain: 'O morto começou com só três trunfos. Três voltas de trunfo gastam todos, e o declarante fica com duas perdedoras de ouros, mais uma de copas e uma de paus: uma a mais do que pode.',
+        explain: 'O morto começou com só três trunfos. Três voltas de trunfo gastam todos, e o declarante fica com três perdedoras de ouros, mais uma de copas: uma a mais do que pode.',
       },
     ],
   },

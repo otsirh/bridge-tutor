@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2ST – 3ST. Sul é o declarante."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Norte–Sul têm 27 PH e um fit de nove cartas em ouros, mas nenhum fit num rico, e todos os naipes estão parados. Em 3ST você conta nove vazas quase de imediato: duas de espadas, uma de copas, cinco de ouros e uma de paus depois de expulsar o ♣A (e talvez a ♣Q). Em 5♦ você precisa de onze vazas e tem uma perdedora de espadas, pelo menos uma de copas e pelo menos uma de paus. 3ST é de longe o melhor game.</p>
+<p>Norte–Sul têm 27 PH e um fit de nove cartas em ouros, mas nenhum fit num rico, e todos os naipes estão parados. Em 3ST você tem oito vazas firmes: duas de espadas, uma de copas e cinco de ouros. A nona vem de paus depois de expulsar o ♣A (e talvez a ♣Q). Em 5♦ você precisa de onze vazas e tem uma perdedora de espadas, pelo menos uma de copas e pelo menos uma de paus. 3ST é de longe o melhor game.</p>
 
 <h3>Os limites dos “25 pontos para game”</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Resposta</th><th>Significado</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>Espera: a resposta normal com a maioria das mãos, fracas ou fortes</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiva: um bom naipe de cinco cartas (duas das três honras mais altas) e 8+ PH</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiva: um bom naipe de cinco cartas (duas das três honras mais altas ou três das cinco mais altas) e 8+ PH</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="O parceiro abriu 2♣: marque 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ PH ou cerca de nove vazas de jogo; artificial e forcing.',
-      'Responda 2♦ (espera) com a maioria das mãos; a positiva exige um bom naipe de cinco cartas e 8+ PH.',
+      'Responda 2♦ (espera) com a maioria das mãos; a positiva exige um bom naipe de cinco cartas (duas das três honras mais altas ou três das cinco mais altas) e 8+ PH.',
       '2♣ – 2♦ – 2ST = 22-24 balanceada e pode ser passado; qualquer remarcação em naipe do abridor é forcing.',
       'Abertura de 2ST = 20-21 balanceada; 3♣ Stayman, 3♦/3♥ transfers, 3ST com 4-10, 4ST com 11-12.',
       'Escada das balanceadas: 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -443,7 +443,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>O lado que abriu: o redobre</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Quando a abertura do parceiro é dobrada, um <strong>redobre</strong> mostra 10+ PH. Diz ao abridor que a força está do seu lado e em geral significa que você procura uma chance de dobrar os adversários para punir. Com fit e uma mão mais fraca, apoie o parceiro; com um naipe novo e menos de 10, marque-o.</p>
+<p>Quando a abertura do parceiro é dobrada, um <strong>redobre</strong> mostra 10+ PH. Diz ao abridor que a força está do seu lado e em geral significa que você procura uma chance de dobrar os adversários para punir. Depois de uma abertura num rico, <strong>2ST (Jordan)</strong> mostra apoio de quatro ou mais cartas e um apoio limite ou mais forte (10+ pontos de apoio), por isso o redobre em geral nega quatro trunfos. Com apoio e uma mão mais fraca, apoie o parceiro: o apoio simples mostra cerca de 6-10 pontos, e o apoio em salto (1♥ – dobre – 3♥) é de barragem, com quatro trunfos e menos de 10 PH. Com um naipe novo e menos de 10, marque-o.</p>
 
 <h3>Dobres de barragens</h3>
 <p>Um dobre de um dois fraco ou de uma barragem no nível 3 também é informativo: valores de abertura, curto no naipe deles e pronto para qualquer naipe que o parceiro marcar. O parceiro pode ter de marcar no nível 3 com mão fraca, então quem dobra deve ter uma mão sólida, não leve.</p>
@@ -455,7 +455,7 @@ export const LESSONS_2: Lesson[] = [
       'Quem responde tem de marcar: 0-8 no nível mais barato, 9-11 em salto, 12+ cue-bid ou game; 1ST = 6-10 com parada.',
       'Passe o dobre só com trunfos longos e fortes no naipe deles.',
       'Quem dobrou passa uma resposta mínima com 12-15; apoia com 16-18; salta com 19+.',
-      'O redobre depois de um dobre informativo mostra 10+ PH.',
+      'O redobre depois de um dobre informativo mostra 10+ PH; sobre 1♥ ou 1♠, 2ST (Jordan) mostra quatro trunfos e um apoio limite ou mais, e o apoio em salto é de barragem.',
     ],
     quiz: [
       {
@@ -961,13 +961,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>O 4ST quantitativo</h3>
 <p>Um apoio direto de 1ST para 4ST não é Blackwood. Mostra 16-17 pontos, então o total é 31-34, no limite dos 33 necessários para o slam. O abridor passa com mínimo (15) e marca 6ST com máximo (17); com 16, decide pelo critério dele, aceitando com um bom naipe de cinco cartas ou boas cartas intermediárias.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="O parceiro abriu 1ST: marque 4ST"></div>
-<p>16 PH, balanceada. Marque 4ST. Com 18-19 você marcaria 6ST direto, já que até um abridor mínimo dá 33.</p>
+<p>16 PH, balanceada. Marque 4ST. Com 18-21 você marcaria 6ST direto, já que até um abridor mínimo dá 33; com 22 ou mais, marque 7ST, já que até um mínimo dá 37.</p>
 <p>Sobre 2ST (20-21), 4ST mostra 11-12 e pede ao abridor que marque 6ST com máximo.</p>
 <table>
-<thead><tr><th>Respondedor depois de</th><th>3ST</th><th>4ST (convite)</th><th>6ST</th></tr></thead>
+<thead><tr><th>Respondedor depois de</th><th>3ST</th><th>4ST (convite)</th><th>6ST</th><th>7ST</th></tr></thead>
 <tbody>
-<tr><td>1ST (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2ST (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1ST (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2ST (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

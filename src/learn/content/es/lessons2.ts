@@ -51,7 +51,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="deal" data-n="S:K72 H:A85 D:AQ963 C:J4" data-s="S:A93 H:Q76 D:KJ84 C:K102" data-caption="1♦ – 2SA – 3SA. Sur es el declarante."></div>
 <div class="auction" data-calls="1D P 2NT P 3NT P P P" data-dealer="N"></div>
-<p>Norte-Sur tienen 27 PH y un fit de nueve cartas en diamantes, pero ningún fit en un mayor y todos los palos parados. En 3SA cuentas nueve bazas casi enseguida: dos picas, un corazón, cinco diamantes y un trébol una vez expulsado el ♣A (y quizá la ♣Q). En 5♦ necesitas once bazas y tienes una perdedora de pica, al menos una de corazón y al menos una de trébol. 3SA es con mucho la mejor manga.</p>
+<p>Norte-Sur tienen 27 PH y un fit de nueve cartas en diamantes, pero ningún fit en un mayor y todos los palos parados. En 3SA tienes ocho bazas seguras: dos picas, un corazón y cinco diamantes. Los tréboles dan la novena una vez expulsado el ♣A (y quizá la ♣Q). En 5♦ necesitas once bazas y tienes una perdedora de pica, al menos una de corazón y al menos una de trébol. 3SA es con mucho la mejor manga.</p>
 
 <h3>Los límites de «25 puntos para la manga»</h3>
 <ul>
@@ -124,7 +124,7 @@ export const LESSONS_2: Lesson[] = [
 <thead><tr><th>Respuesta</th><th>Significado</th></tr></thead>
 <tbody>
 <tr><td>2♦</td><td>De espera: la respuesta normal con la mayoría de las manos, débiles o fuertes</td></tr>
-<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiva: un buen palo de cinco cartas (dos de los tres honores mayores) y 8+ PH</td></tr>
+<tr><td>2♥, 2♠, 3♣, 3♦</td><td>Positiva: un buen palo de cinco cartas (dos de los tres honores mayores o tres de los cinco) y 8+ PH</td></tr>
 </tbody>
 </table>
 <div class="hand" data-cards="S:Q74 H:J863 D:952 C:K84" data-label="Tu compañero abrió de 2♣: declara 2♦"></div>
@@ -170,7 +170,7 @@ export const LESSONS_2: Lesson[] = [
 `,
     keyPoints: [
       '2♣ = 22+ PH o unas nueve bazas de juego; artificial y forcing.',
-      'Responde 2♦ (espera) con la mayoría de las manos; una respuesta positiva necesita un buen palo de cinco cartas y 8+ PH.',
+      'Responde 2♦ (espera) con la mayoría de las manos; una respuesta positiva necesita un buen palo de cinco cartas (dos de los tres honores mayores o tres de los cinco) y 8+ PH.',
       '2♣ – 2♦ – 2SA = 22-24 equilibrada y se puede pasar; cualquier redeclaración a palo del abridor es forcing.',
       'Apertura de 2SA = 20-21 equilibrada; 3♣ Stayman, 3♦/3♥ transfers, 3SA con 4-10, 4SA con 11-12.',
       'Escalera de manos equilibradas: 12-14, 15-17, 18-19, 20-21, 22-24, 25-27.',
@@ -444,7 +444,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>El bando que ha abierto: el redoblo</h3>
 <div class="auction" data-calls="1H X XX" data-dealer="N"></div>
-<p>Cuando doblan la apertura de tu compañero, un <strong>redoblo</strong> muestra 10+ PH. Le dice al abridor que vuestro bando tiene la mayor parte de la fuerza y normalmente significa que buscas la ocasión de doblar de castigo a los rivales. Con fit y una mano más débil, apoya a tu compañero; con un palo nuevo y menos de 10, decláralo.</p>
+<p>Cuando doblan la apertura de tu compañero, un <strong>redoblo</strong> muestra 10+ PH. Le dice al abridor que vuestro bando tiene la mayor parte de la fuerza y normalmente significa que buscas la ocasión de doblar de castigo a los rivales. Tras una apertura en mayor, <strong>2SA (Jordan)</strong> muestra apoyo de cuatro o más cartas y un apoyo invitativo o más fuerte (10+ puntos de apoyo), así que el redoblo suele negar cuatro triunfos. Con apoyo y una mano más débil, apoya a tu compañero: el apoyo simple muestra unos 6-10 puntos, y el apoyo a salto (1♥ – doblo – 3♥) es de barrage, con cuatro triunfos y menos de 10 PH. Con un palo nuevo y menos de 10, decláralo.</p>
 
 <h3>Doblos de barrages</h3>
 <p>El doblo de un dos débil o de un barrage a nivel de tres también es informativo: valores de apertura, corto en su palo y preparado para cualquier palo que declare tu compañero. Tu compañero puede tener que declarar a nivel de tres con una mano débil, así que el doblador debe ser sólido, no ligero.</p>
@@ -456,7 +456,7 @@ export const LESSONS_2: Lesson[] = [
       'El compañero del doblador debe declarar: 0-8 al nivel más barato, 9-11 con salto, 12+ cue-bid o manga; 1SA = 6-10 con parada.',
       'Pasa el doblo solo con triunfos largos y fuertes en su palo.',
       'El doblador pasa una respuesta mínima con 12-15, apoya con 16-18 y salta con 19+.',
-      'El redoblo tras un doblo informativo muestra 10+ PH.',
+      'El redoblo tras un doblo informativo muestra 10+ PH; sobre 1♥ o 1♠, 2SA (Jordan) muestra cuatro triunfos y un apoyo invitativo o más, y el apoyo a salto es de barrage.',
     ],
     quiz: [
       {
@@ -963,13 +963,13 @@ export const LESSONS_2: Lesson[] = [
 <h3>El 4SA cuantitativo</h3>
 <p>Subir directamente de 1SA a 4SA no es Blackwood. Muestra 16-17 puntos, así que el total es de 31-34, en el límite de los 33 necesarios para el slam. El abridor pasa con un mínimo (15) y declara 6SA con un máximo (17); con 16 decide según su criterio, aceptando con un buen palo de cinco cartas o con buenas cartas intermedias.</p>
 <div class="hand" data-cards="S:KQ5 H:AJ4 D:KJ63 C:Q72" data-label="Tu compañero abrió de 1SA: declara 4SA"></div>
-<p>16 PH, equilibrada. Declara 4SA. Con 18-19 declararías 6SA directamente, porque incluso con un abridor mínimo sumáis 33.</p>
+<p>16 PH, equilibrada. Declara 4SA. Con 18-21 declararías 6SA directamente, porque incluso con un abridor mínimo sumáis 33; con 22 o más, declara 7SA, porque incluso con un mínimo sumáis 37.</p>
 <p>Sobre 2SA (20-21), 4SA muestra 11-12 y pide al abridor que declare 6SA con un máximo.</p>
 <table>
-<thead><tr><th>Respondedor tras</th><th>3SA</th><th>4SA (invita)</th><th>6SA</th></tr></thead>
+<thead><tr><th>Respondedor tras</th><th>3SA</th><th>4SA (invita)</th><th>6SA</th><th>7SA</th></tr></thead>
 <tbody>
-<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-19</td></tr>
-<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-14</td></tr>
+<tr><td>1SA (15-17)</td><td>10-15</td><td>16-17</td><td>18-21</td><td>22+</td></tr>
+<tr><td>2SA (20-21)</td><td>4-10</td><td>11-12</td><td>13-16</td><td>17+</td></tr>
 </tbody>
 </table>
 

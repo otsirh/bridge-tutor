@@ -36,6 +36,9 @@ const CLAIMED: Claimed[] = [
   { lesson: 'slam-controls-and-cue-bids', deal: 0, auction: 0, why: 'cue-bid example' },
   // the plain Blackwood example, bid with plain Blackwood and no control bids
   { lesson: 'slam-bidding-and-blackwood', deal: 0, auction: 0, system: { rkcb: false, controlBids: false }, why: 'Blackwood example' },
+  // the play examples come with the auction that reached the contract
+  { lesson: 'planning-the-play', deal: 0, auction: 0, why: 'notrump planning example' },
+  { lesson: 'planning-the-play', deal: 1, auction: 1, why: 'suit planning example' },
 ];
 
 /** Auctions a lesson describes in words as the bots' auction, with the default system. */

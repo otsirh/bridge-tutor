@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>¿Es una mano de apertura?</h3>
-<p>Con 12 PH o más, abre. Con 10-11 PH en primera o segunda posición, abre si se cumple la regla del 20 (PH + la longitud de tus dos palos más largos ≥ 20). En cuarta posición usa la regla del 15 (PH + número de picas ≥ 15). Las manos con un palo largo y menos puntos pueden encajar mejor en un dos débil o en un barrage.</p>
+<p>Con 12 PH o más, abre, salvo en cuarta posición. Con 10-11 PH en primera o segunda posición, abre si se cumple la regla del 20 (PH + la longitud de tus dos palos más largos ≥ 20). En cuarta posición abre con 13 PH o más, y con 10-12 PH solo si se cumple la regla del 15 (PH + número de picas ≥ 15). Las manos con un palo largo y menos puntos pueden encajar mejor en un dos débil o en un barrage.</p>
 
 <h3>Manos equilibradas: deciden los puntos</h3>
 <p>Una mano equilibrada no tiene fallo, ni semifallo, y como mucho un doubleton: 4-3-3-3, 4-4-3-2 o 5-3-3-2. Con una mano equilibrada, tu plan siempre es mostrar tu fuerza a sin triunfo, ya sea de entrada o en tu siguiente turno:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Nunca abras de 1♥ o de 1♠ con solo cuatro cartas. Tu compañero apoyará con tres cartas, contando con un fit de al menos ocho.</div>
 `,
     keyPoints: [
-      'Abre con 12+ PH; con 10-11 usa la regla del 20 (primera o segunda posición) o la regla del 15 (cuarta posición).',
+      'Abre con 12+ PH; con 10-11 usa la regla del 20 (primera o segunda posición). En cuarta posición abre con 13+, o con 10-12 si se cumple la regla del 15.',
       '1♥/1♠ prometen cinco cartas; sin mayor quinto abre el menor más largo (1♣ con 3-3, 1♦ con 4-4).',
       'Equilibrada: con 12-14 abre a palo y redeclara 1SA; 15-17, 1SA; 18-19, salta a 2SA; 20-21, 2SA; 22+, 2♣.',
       'Dos palos de cinco cartas: abre el de mayor rango; con 6-5, abre el más largo.',
@@ -341,7 +341,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Con 6 PH, cinco corazones y un semifallo, ♠4 ♥QJ852 ♦K9763 ♣82, salta a 4♥ sobre 1♥. Los rivales seguro que tienen fit y muchos puntos, y quieres que tengan que adivinar a nivel de cinco.</p>
 
 <h4>Apoyo de tres cartas y 10-12 puntos</h4>
-<p>El salto a tres promete cuatro triunfos. Con solo tres, declara primero un palo nuevo y salta en el mayor de tu compañero en la siguiente vuelta: sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 declara 2♦ y luego 3♥. Con apoyo de tres cartas y 13+, declara primero un palo nuevo y luego la manga en el mayor.</p>
+<p>El salto a tres promete cuatro triunfos. Con solo tres, declara primero un palo nuevo y luego apoya el mayor de tu compañero a nivel de tres (invitativo): sobre 1♥, ♠A84 ♥K93 ♦KJ752 ♣64 declara 2♦ y luego 3♥. Con apoyo de tres cartas y 13+, declara primero un palo nuevo y luego la manga en el mayor.</p>
 
 <h3>Responder a 1♣ o 1♦</h3>
 <p>Tu compañero puede tener solo tres cartas en el menor, y un fit en un mayor vale más, así que busca primero un mayor.</p>
@@ -639,12 +639,12 @@ export const LESSONS_1: Lesson[] = [
 <div class="tip">Expulsa pronto las cartas altas de los rivales, mientras aún tienes paradas en todos los palos. Cobra tus ganadoras seguras al final, no al principio.</div>
 
 <h3>Un ejemplo a palo: cuenta las perdedoras</h3>
-<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A73 C:92" data-caption="4♠ por Sur. Oeste sale con la ♥Q."></div>
-<div class="auction" data-calls="1S P 2S P 3S P 4S P P P" data-dealer="S"></div>
-<p><strong>Cuenta las perdedoras de la mano de Sur:</strong> en picas, ninguna; en corazones, una (la tercera vuelta); en diamantes, dos (el 7 y el 3); en tréboles, una (el ♣A gana la primera vuelta y la segunda se pierde). Total: cuatro. Puedes permitirte tres.</p>
+<div class="deal" data-n="S:1064 H:A65 D:84 C:AJ876" data-s="S:AKQJ5 H:K84 D:A732 C:2" data-caption="4♠ por Sur. Oeste sale con la ♥Q."></div>
+<div class="auction" data-calls="1S P 2S P 4S P P P" data-dealer="S"></div>
+<p><strong>Cuenta las perdedoras de la mano de Sur:</strong> en picas, ninguna; en corazones, una (la tercera vuelta); en diamantes, tres (el 7, el 3 y el 2); en tréboles, ninguna (el ♣A del muerto cubre tu semifallo). Total: cuatro. Puedes permitirte tres.</p>
 <p><strong>Fuente:</strong> el muerto solo tiene dos diamantes. Tras el ♦A y una vuelta más, el muerto queda con fallo y puede fallar tu tercer diamante con un triunfo pequeño. Ese fallo es una baza extra porque lo hace la mano <em>corta</em> en triunfos: los triunfos de Sur son ganadores de todos modos.</p>
 <p><strong>Peligro:</strong> si primero das tres vueltas de triunfo, al muerto no le quedan triunfos para el fallo. Tienes que conservar al menos un triunfo en el muerto hasta haber hecho el fallo.</p>
-<p><strong>Plan:</strong> gana la salida con el ♥A del muerto, juega un diamante a tu As y cede un diamante. Si los defensores ganan y juegan triunfo (su mejor defensa), gánalo y falla enseguida tu último diamante en el muerto. Después destriunfa y juega los tréboles. Pierdes un corazón, un diamante y un trébol.</p>
+<p><strong>Plan:</strong> gana la salida con el ♥A del muerto, juega un diamante a tu As y cede un diamante. Si los defensores ganan y juegan triunfo (su mejor defensa), gánalo y falla enseguida un diamante en el muerto. Después destriunfa. Pierdes un corazón y dos diamantes.</p>
 <div class="warn">“Destriunfa siempre primero” es un buen hábito con una gran excepción: cuando necesitas los triunfos del muerto para fallar, haz los fallos antes de que se acaben los triunfos.</div>
 
 <h3>Contar es un hábito</h3>
@@ -680,7 +680,7 @@ export const LESSONS_1: Lesson[] = [
         q: 'En la mano de 4♠ de arriba, ¿qué sale mal si el declarante da tres vueltas de triunfo de inmediato?',
         options: ['Nada, es la jugada más segura', 'Al muerto no le queda ningún triunfo para fallar el tercer diamante', 'Los defensores pueden fallar un corazón', 'El declarante pierde el control de los tréboles'],
         answer: 1,
-        explain: 'El muerto empezó con solo tres triunfos. Dar tres vueltas los gasta todos, y al declarante le quedan dos perdedoras de diamante más un corazón y un trébol: una de más.',
+        explain: 'El muerto empezó con solo tres triunfos. Dar tres vueltas los gasta todos, y al declarante le quedan tres perdedoras de diamante más un corazón: una de más.',
       },
     ],
   },

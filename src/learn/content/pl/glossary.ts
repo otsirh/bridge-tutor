@@ -4,6 +4,8 @@
 import type { GlossaryEntry } from '../../types';
 
 export const GLOSSARY: GlossaryEntry[] = [
+  { term: '2BA Jordana (Jordan 2NT)', def: 'Po kontrze wywołującej na otwarcie partnera 1♥ lub 1♠ sztuczne 2BA, pokazujące co najmniej czterokartowe poparcie i podniesienie inwitujące lub silniejsze (10+ punktów w poparciu). Podniesienie skokiem po kontrze jest blokujące.' },
+  { term: 'Alert', def: 'Ostrzeżenie dla przeciwników, że odzywka jest sztuczna lub ma znaczenie, którego mogą się nie spodziewać, żeby mogli zapytać, co pokazuje. Przy stole alertuje partner licytującego.' },
   { term: 'Atut (trump)', def: 'Kolor wymieniony w kontrakcie. Każdy atut bije każdą kartę innego koloru.' },
   { term: 'Blackwood', def: 'Odzywka 4BA po uzgodnieniu koloru, pytająca o asy: 5♣ = 0 lub 4, 5♦ = 1, 5♥ = 2, 5♠ = 3. Potem 5BA pyta o króle.' },
   { term: 'Boczna figura (feature)', def: 'Boczny as lub król pokazywany przez otwierającego słabe dwa z maksimum w odpowiedzi na pytanie partnera 2BA.' },
@@ -12,6 +14,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Częściówka (partscore)', def: 'Kontrakt, za którego lewy zapisuje się mniej niż 100. W brydżu porównawczym daje premię 50.' },
   { term: 'Czwarta od góry (fourth best)', def: 'Czwarta co do wysokości karta w kolorze; standardowy wist z długiego koloru przeciw bez atu.' },
   { term: 'Czwarty kolor forsujący (fourth suit forcing)', def: 'Gdy zalicytowano naturalnie trzy kolory, odzywka odpowiadającego w czwarty kolor jest sztuczna i forsuje do dograny: prosi otwierającego o dalszy opis ręki.' },
+  { term: 'Deklaracja lew (claim)', def: 'Przerwanie rozgrywki przez oświadczenie, ile z pozostałych lew weźmiesz i w jaki sposób. Deklaracja musi być słuszna przy każdej obronie; wątpliwości rozstrzyga się na niekorzyść deklarującego.' },
   { term: 'Dograna (game)', def: 'Kontrakt, za którego lewy zapisuje się 100 lub więcej: 3BA, 4♥, 4♠, 5♣ lub 5♦. Daje premię 300 przed partią lub 500 po partii.' },
   { term: 'Dojście (entry)', def: 'Karta, która bierze lewę w określonej ręce i pozwala z niej wyjść.' },
   { term: 'Dokładanie do koloru (follow suit)', def: 'Zagranie karty w kolorze wyjścia, obowiązkowe zawsze, gdy to możliwe.' },
@@ -51,10 +54,12 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Obrona fantomowa (phantom sacrifice)', def: 'Obrona licytacyjna przeciw kontraktowi przeciwników, który w rzeczywistości by upadł.' },
   { term: 'Obrona licytacyjna (sacrifice)', def: 'Wylicytowanie kontraktu, który zapewne przegra, bo kara będzie mniejsza niż zapis przeciwników za ich kontrakt.' },
   { term: 'Odblokowanie (unblock)', def: 'Zagranie najpierw wysokich kart z krótszej ręki, żeby kolor dało się odegrać bez zablokowania.' },
+  { term: 'Odpowiadający (responder)', def: 'Partner otwierającego, który odpowiada na otwarcie.' },
   { term: 'Odpowiedź pozytywna (positive response)', def: 'Odpowiedź na otwarcie 2♣, która zamiast wyczekującego 2♦ pokazuje dobry pięciokartowy kolor i 8+ PC.' },
   { term: 'Odzywka forsująca (forcing bid)', def: 'Odzywka, której partner nie może spasować. Przykładami są nowy kolor odpowiadającego i otwarcie 2♣.' },
   { term: 'Odzywka wyczekująca (waiting bid)', def: 'Odzywka, która podtrzymuje licytację, nie pokazując niczego konkretnego, np. 2♦ w odpowiedzi na 2♣.' },
   { term: 'Otwarcie blokujące (preempt)', def: 'Otwarcie (albo wejście) na wysokim poziomie z długim kolorem i słabą ręką, które ma odebrać przeciwnikom przestrzeń licytacyjną.' },
+  { term: 'Otwierający (opener)', def: 'Gracz, który otwiera licytację: pierwszy zgłasza kolor lub bez atu.' },
   { term: 'Par', def: 'Wynik rozdania przy bezbłędnej licytacji obu stron, łącznie z opłacalnymi obronami.' },
   { term: 'Partner wchodzącego (advancer)', def: 'Partner gracza, który wszedł do licytacji albo dał kontrę wywołującą.' },
   { term: 'Pierwszy wist (opening lead)', def: 'Pierwsza karta rozgrywki, zagrywana odkryta przez gracza po lewej stronie rozgrywającego, zanim dziadek wyłoży karty.' },
@@ -81,6 +86,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Rekontra (redouble)', def: 'Odzywka po kontrze przeciwnika, która jeszcze zwiększa zapis. Po kontrze wywołującej otwarcia partnera pokazuje 10+ PC.' },
   { term: 'Renons (void)', def: 'Brak jakichkolwiek kart w kolorze.' },
   { term: 'Rewers (reverse)', def: 'Rebid otwierającego w nowy kolor na wysokości dwóch, wyższy od jego pierwszego koloru. Pokazuje 17+ punktów i jest forsujący.' },
+  { term: 'Rewokacja (revoke)', def: 'Niedołożenie do koloru, gdy było to możliwe. Ustalona rewokacja kosztuje zwykle jedną lub dwie lewy, które przechodzą na przeciwników.' },
   { term: 'Ręka zrównoważona (balanced hand)', def: 'Ręka bez renonsu, bez singla i z najwyżej jednym dublem: 4-3-3-3, 4-4-3-2 lub 5-3-3-2.' },
   { term: 'Roman Key Card Blackwood (RKCB)', def: '4BA po uzgodnieniu atutu, pytające o wartości kluczowe: 5♣ = 1 lub 4, 5♦ = 0 lub 3, 5♥ = 2 bez damy atutowej, 5♠ = 2 z damą. Boty grają nim domyślnie.' },
   { term: 'Rozdający (dealer)', def: 'Gracz, który rozdaje karty i jako pierwszy składa odzywkę w licytacji.' },
@@ -126,4 +132,5 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Zasada ograniczonego wyboru (restricted choice)', def: 'Zasada mówiąca, że gdy obrońca zagrywa jeden z dwóch równorzędnych honorów, bardziej prawdopodobne jest, że miał tylko tę kartę, niż obie.' },
   { term: 'Zatrzymanie (stopper)', def: 'Układ, który nie pozwala przeciwnikom odegrać koloru w bez atu, np. A, K-x, Q-x-x lub J-10-x-x.' },
   { term: 'Złoty fit (golden fit)', def: 'Co najmniej ośmiokartowy fit w kolorze starszym, zwykle najlepsze miejsce na dograną.' },
+  { term: 'Zrzutka (discard)', def: 'Karta innego koloru, nie atut, zagrana, gdy nie możesz dołożyć do koloru. Obrońcy dobierają zrzutki tak, by sygnalizować i zachować ważne karty.' },
 ];
