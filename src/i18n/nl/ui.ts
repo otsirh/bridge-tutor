@@ -245,6 +245,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Maar met de informatie die je had, was het de beste kaart — double dummy kijkt achteraf in alle handen.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Contract: ${contract} is double dummy ${makes ? 'te maken' : 'niet te maken'} (${tricks(t)}). Par is ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Er zat een manche in: ${contract} wordt gemaakt bij het beste spel, en samen hadden jullie ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Er zat een slem in: ${contract} wordt gemaakt bij het beste spel, en samen hadden jullie ${hcp}.`,
     cleanHand: 'Foutloos spel: geen afwijkingen van het systeem in de bieding en geen double-dummyfouten in het kaartspel.',
     system: (call: string, rule: string, desc: string) => `Systeem: ${call} (${rule}) — ${desc}`,
     noPlay: 'Geen kaartspel: het spel is rondgepast.',

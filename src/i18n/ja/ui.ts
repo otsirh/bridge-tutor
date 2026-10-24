@@ -242,6 +242,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'ただし、その時点の情報では最善のカードでした — ダブルダミーはすべてのハンドを見たうえでの後知恵です。',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `コントラクト: ${contract}はダブルダミーで${makes ? 'メイクできます' : 'メイクできません'}（${tricks(t)}）。パーは${par}です。`,
+    missedGame: (contract: string, hcp: string) => `ゲームがありました：${contract}は最善のプレイでメイクでき、二人で合計${hcp}でした。`,
+    missedSlam: (contract: string, hcp: string) => `スラムがありました：${contract}は最善のプレイでメイクでき、二人で合計${hcp}でした。`,
     cleanHand: '申し分のないハンドです: ビッドの食い違いも、ダブルダミーでのカードのミスもありません。',
     system: (call: string, rule: string, desc: string) => `システム: ${call}（${rule}） — ${desc}`,
     noPlay: 'プレイなし: オールパスでした。',

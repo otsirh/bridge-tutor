@@ -245,6 +245,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Mais c’était la meilleure carte avec les informations dont vous disposiez — l’analyse à quatre jeux, elle, voit toutes les mains.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Contrat : ${contract} ${makes ? 'gagne' : 'chute'} à quatre jeux (${tricks(t)}). Le par est ${par}.`,
+    missedGame: (contract: string, hcp: string) => `La manche était là : ${contract} gagne avec le meilleur jeu, et vous aviez ensemble ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Le chelem était là : ${contract} gagne avec le meilleur jeu, et vous aviez ensemble ${hcp}.`,
     cleanHand: 'Donne sans faute : aucun désaccord avec le système et aucune erreur de carte à quatre jeux.',
     system: (call: string, rule: string, desc: string) => `Système : ${call} (${rule}) — ${desc}`,
     noPlay: 'Pas de jeu : tout le monde a passé.',

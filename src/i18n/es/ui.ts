@@ -278,6 +278,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Pero era la mejor carta con la información que tenías: el análisis a doble muerto ve todas las manos.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Contrato: ${contract} ${makes ? 'se cumple' : 'no se cumple'} a doble muerto (${tricks(t)}). El par es ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Había manga: ${contract} se cumple con el mejor carteo, y la pareja sumaba ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Había slam: ${contract} se cumple con el mejor carteo, y la pareja sumaba ${hcp}.`,
     cleanHand: 'Mano limpia: ninguna discrepancia en la subasta y ningún error de carteo a doble muerto.',
     // bidding tab
     system: (call: string, rule: string, desc: string) => `Sistema: ${call} (${rule}) — ${desc}`,

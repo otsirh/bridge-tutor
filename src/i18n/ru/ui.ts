@@ -250,6 +250,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Но с той информацией, что у вас была, это была лучшая карта: анализ в открытую видит все руки задним числом.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Контракт: ${contract} ${makes ? 'выполняется' : 'не выполняется'} в открытую (${tricks(t)}). Пар: ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Была игра: ${contract} выполняется при лучшей игре, а вместе у вас было ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Был шлем: ${contract} выполняется при лучшей игре, а вместе у вас было ${hcp}.`,
     cleanHand: 'Чистая сдача: в торговле никаких расхождений с системой, в розыгрыше ни одной ошибки в открытую.',
     system: (call: string, rule: string, desc: string) => `Система: ${call} (${rule}) — ${desc}`,
     noPlay: 'Розыгрыша не было: все спасовали.',

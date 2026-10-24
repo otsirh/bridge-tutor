@@ -250,6 +250,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Ale przy dostępnych wtedy informacjach była to najlepsza karta — analiza w otwarte karty widzi wszystkie ręce.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Kontrakt: ${contract} ${makes ? 'wychodzi' : 'nie wychodzi'} w otwarte karty (${tricks(t)}). Par to ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Była dograna: ${contract} wychodzi przy najlepszej grze, a razem mieliście ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Był szlemik: ${contract} wychodzi przy najlepszej grze, a razem mieliście ${hcp}.`,
     cleanHand: 'Czyste rozdanie: licytacja zgodna z systemem i żadnych błędów w otwarte karty.',
     system: (call: string, rule: string, desc: string) => `System: ${call} (${rule}) — ${desc}`,
     noPlay: 'Bez rozgrywki: rozdanie przepasowano.',

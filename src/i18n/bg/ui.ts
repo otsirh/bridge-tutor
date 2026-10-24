@@ -244,6 +244,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Но с информацията, която имахте, това беше най-добрата карта — анализът при открити карти вижда всички ръце.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Договор: ${contract} ${makes ? 'се изпълнява' : 'не се изпълнява'} при открити карти (${tricks(t)}). Пар: ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Имаше игра: ${contract} се изпълнява при най-добра игра, а заедно имахте ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Имаше шлем: ${contract} се изпълнява при най-добра игра, а заедно имахте ${hcp}.`,
     cleanHand: 'Чисто раздаване: няма разлики с лицитацията на системата и няма грешки при открити карти.',
     system: (call: string, rule: string, desc: string) => `Системата: ${call} (${rule}) — ${desc}`,
     noPlay: 'Няма разиграване: всички пасуваха.',

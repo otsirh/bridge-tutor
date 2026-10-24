@@ -242,6 +242,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: '但根据你当时掌握的信息，这是最好的一张牌——双明手分析是看到四家牌之后的“马后炮”。',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `定约：按双明手分析，${contract}${makes ? '能完成' : '完不成'}（${tricks(t)}）。最佳定约是${par}。`,
+    missedGame: (contract: string, hcp: string) => `本来有成局：${contract}在最佳打法下能完成，你们两人共有${hcp}。`,
+    missedSlam: (contract: string, hcp: string) => `本来有满贯：${contract}在最佳打法下能完成，你们两人共有${hcp}。`,
     cleanHand: '干净利落的一副牌：叫牌与体系一致，打牌没有双明手失误。',
     system: (call: string, rule: string, desc: string) => `体系：${call}（${rule}）— ${desc}`,
     noPlay: '没有打牌：这副牌四家不叫。',

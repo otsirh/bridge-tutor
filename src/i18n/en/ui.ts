@@ -275,6 +275,8 @@ export const ui = {
     bestOnInfo: 'But it was the best card on the information you had — double-dummy hindsight sees all hands.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Contract: ${contract} ${makes ? 'can make' : 'cannot make'} double-dummy (${tricks(t)}). Par is ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Game was there: ${contract} makes with best play, and together you held ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Slam was there: ${contract} makes with best play, and together you held ${hcp}.`,
     cleanHand: 'Clean hand: no bidding disagreements and no double-dummy card errors.',
     // bidding tab
     system: (call: string, rule: string, desc: string) => `System: ${call} (${rule}) — ${desc}`,

@@ -1,8 +1,9 @@
 // The post-hand review: result vs par, the bidding call by call, the play
 // trick by trick with double-dummy verdicts, and the lessons to take away.
 
-import { type Seat, type Card, type Vulnerability, N, E, S, W, SEAT_NAMES, SEAT_LETTERS, STRAIN_SYMBOLS, cardName, suitOf } from '../core/cards';
-import { PASS, callName, contractName } from '../core/auction';
+import { type Seat, type Card, type Vulnerability, N, E, S, W, SEAT_NAMES, SEAT_LETTERS, STRAIN_SYMBOLS, cardName, suitOf, hcp } from '../core/cards';
+import { type Contract, PASS, callName, contractName } from '../core/auction';
+import { scoreNS } from '../core/scoring';
 import { PlayState } from '../core/play';
 import { describeShown } from '../bidding/types';
 import type { BidAdvice } from '../bidding/engine';
@@ -157,6 +158,33 @@ function keyMoments(g: Game): HTMLElement | null {
     })));
 }
 
+/** 0 partscore, 1 game, 2 slam. */
+function bonusLevel(c: Contract): number {
+  if (c.level >= 6) return 2;
+  return c.level >= (c.strain === 4 ? 3 : c.strain >= 2 ? 4 : 5) ? 1 : 0;
+}
+
+/**
+ * The game or slam North-South missed: their best contract with best play
+ * (by score) when it is a level above the one they played (or defended).
+ */
+function missedBonus(played: Contract | null, table: number[][], vul: Vulnerability): { contract: Contract; slam: boolean } | null {
+  let best: { contract: Contract; score: number } | null = null;
+  for (let strain = 0; strain < 5; strain++) {
+    for (const declarer of [N, S] as Seat[]) {
+      const tricks = table[strain][declarer];
+      if (tricks < 7) continue;
+      const contract: Contract = { level: Math.min(7, tricks - 6), strain: strain as Contract['strain'], declarer, doubled: 0 };
+      const score = scoreNS(contract, tricks, vul);
+      if (!best || score > best.score) best = { contract, score };
+    }
+  }
+  if (!best) return null;
+  const ours = played && (played.declarer & 1) === 0 ? bonusLevel(played) : 0;
+  const there = bonusLevel(best.contract);
+  return there > ours ? { contract: best.contract, slam: there === 2 } : null;
+}
+
 function lessons(g: Game): HTMLElement {
   const rv = g.review!;
   const t = T.ui.review;
@@ -177,6 +205,12 @@ function lessons(g: Game): HTMLElement {
     const c = rv.contract;
     const tricks = rv.table[c.strain][c.declarer];
     items.push(h('li', null, suitText(t.lessonContract(contractName(c), tricks >= c.level + 6, tricks, fmtList(rv.par.contracts)))));
+  }
+  const missed = rv.table && missedBonus(rv.contract, rv.table, g.vul);
+  if (missed) {
+    const hcpNS = hcp(g.deal[N]) + hcp(g.deal[S]);
+    const name = T.ui.common.contractBy(contractName(missed.contract), SEAT_NAMES[missed.contract.declarer]);
+    items.push(h('li', null, suitText((missed.slam ? t.missedSlam : t.missedGame)(name, fmtUnit(hcpNS, T.core.hcp)))));
   }
   if (!items.length) items.push(h('li', null, t.cleanHand));
   return h('ul', null, items);

@@ -245,6 +245,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Ma con le informazioni che avevi era la carta migliore: l’analisi a carte viste vede tutte le mani.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Contratto: ${contract} ${makes ? 'si mantiene' : 'non si mantiene'} a carte viste (${tricks(t)}). Il par è ${par}.`,
+    missedGame: (contract: string, hcp: string) => `C’era la manche: ${contract} si mantiene col miglior gioco, e insieme avevate ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `C’era lo slam: ${contract} si mantiene col miglior gioco, e insieme avevate ${hcp}.`,
     cleanHand: 'Smazzata pulita: nessuna divergenza dal sistema in licita e nessun errore di carta a carte viste.',
     system: (call: string, rule: string, desc: string) => `Sistema: ${call} (${rule}) — ${desc}`,
     noPlay: 'Nessun gioco: tutti hanno passato.',

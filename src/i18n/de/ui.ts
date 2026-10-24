@@ -246,6 +246,8 @@ export const ui: Text['ui'] = {
     bestOnInfo: 'Nach Ihrem Wissensstand war es aber die beste Karte – Double Dummy sieht im Nachhinein alle Hände.',
     lessonContract: (contract: string, makes: boolean, t: number, par: string) =>
       `Kontrakt: ${contract} ist Double Dummy ${makes ? 'erfüllbar' : 'nicht erfüllbar'} (${tricks(t)}). Das Par ist ${par}.`,
+    missedGame: (contract: string, hcp: string) => `Ein Vollspiel war drin: ${contract} ist bei bestem Spiel erfüllbar, und zusammen hattet ihr ${hcp}.`,
+    missedSlam: (contract: string, hcp: string) => `Ein Schlemm war drin: ${contract} ist bei bestem Spiel erfüllbar, und zusammen hattet ihr ${hcp}.`,
     cleanHand: 'Sauber gespielt: keine Abweichung in der Reizung und kein Double-Dummy-Fehler im Kartenspiel.',
     system: (call: string, rule: string, desc: string) => `System: ${call} (${rule}) – ${desc}`,
     noPlay: 'Kein Spiel: Das Board wurde eingepasst.',
