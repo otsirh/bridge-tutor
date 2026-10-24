@@ -2,7 +2,7 @@
 
 All notable changes to Bridge Tutor. Dates are when a version went live.
 
-## [1.0.0] — unreleased
+## [1.0.0] — 2026-10-25
 
 The first complete version.
 
@@ -23,5 +23,7 @@ The first complete version.
 - 40 lessons with quizzes and practice deals, a glossary, and drills.
 
 ### Everywhere
-- English and Bulgarian, switchable at any time; new languages need only their own catalogue.
+- Twelve languages, switchable at any time; each loads only when it is chosen.
 - Installable, works offline; progress backup and restore.
+
+[1.0.0]: https://github.com/otsirh/bridge-tutor/releases/tag/v1.0.0
