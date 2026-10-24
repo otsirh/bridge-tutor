@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>A complete example</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>North jumps to 4♥ with four-card support and 19+ points. South has 17 HCP and a source of tricks in diamonds, so slam is likely. 5♣ shows one or four key cards. South holds only the ♣A, and North's strong raise cannot be made up without aces, so it is four. One question remains, the ♥Q, and 5♦ asks it. North has it and bids 6♥, and South passes: nothing is missing, but there is no thirteenth trick to count on.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>North jumps to 4♥ with four-card support and 19+ points. South has 17 HCP and a source of tricks in diamonds, so slam is likely. 5♣ shows one or four key cards. South holds only the ♣A, and North's strong raise cannot be made up without aces, so it is four. One question remains, the ♥Q, and 5♦ asks it. North has it and bids 6♥. Now South can count thirteen tricks: four hearts, five diamonds (North's ♦A with South's ♦KQJ10), and the ace and king of both spades and clubs. South bids 7♥, and North passes.</p>
 <div class="tip">Before you bid 4NT, make sure that the reply cannot carry you past the contract you want. With clubs or diamonds as trumps, a 5♥ or 5♠ reply leaves no way to stop at the five level, so you need to know that two key cards cannot be missing.</div>
 <div class="warn">RKCB needs an agreed trump suit. After a natural notrump bid by partner, 4NT is quantitative. With a void, RKCB cannot tell you whether partner's key cards are useful: cue bid instead.</div>
 `,
@@ -191,7 +191,7 @@ export const LESSONS_4: Lesson[] = [
 <p>After 1♦ – 1♠ – 1NT, responder with five spades and game values would like to know whether opener has three spades. 3♠ would only invite; 4♠ might find a 5-2 fit; 3NT might miss a 5-3 fit. Natural bids cannot ask the question, so an artificial bid does.</p>
 
 <h3>New minor forcing</h3>
-<p>After opener's 1NT rebid, responder's bid of <strong>the other minor</strong> at the two level (1♣ – 1♥ – 1NT – 2♦, or 1♦ – 1♠ – 1NT – 2♣) is artificial and forcing for one round. It shows 11 or more points and asks about responder's major. Responder has exactly five cards in it or, after 1♠, four spades and four hearts; with six, responder simply rebids the major or bids game.</p>
+<p>After opener's 1NT rebid, responder's bid of <strong>the other minor</strong> at the two level (1♣ – 1♥ – 1NT – 2♦, or 1♦ – 1♠ – 1NT – 2♣) is artificial and forcing for one round. It shows 11 or more points and asks about responder's major. Responder has exactly five cards in it (after 1♠, perhaps with four hearts as well; with four cards in each major responder would have answered 1♥); with six, responder simply rebids the major or bids game.</p>
 <table>
 <thead><tr><th>Opener's reply</th><th>Meaning</th></tr></thead>
 <tbody>

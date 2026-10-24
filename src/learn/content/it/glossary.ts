@@ -92,7 +92,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Reclamo (claim)', def: 'Interrompere il gioco dichiarando quante delle prese rimanenti farai, e come. Il reclamo deve reggere contro qualunque difesa; i punti dubbi si risolvono contro chi reclama.' },
   { term: 'Regola del 15 (Rule of 15)', def: 'In quarta posizione apri la licita se i PO più il numero di picche fanno 15 o più.' },
   { term: 'Regola del 2-3-4 (Rule of 2-3-4)', def: 'Una guida per il barrage: non essere a più di due prese dal contratto in zona sfavorevole, tre in parità di zona e quattro in zona favorevole.' },
-  { term: 'Regola del 20 (Rule of 20)', def: 'In prima o seconda posizione apri una mano da 10-11 PO se i PO più le lunghezze dei due colori più lunghi fanno 20 o più.' },
+  { term: 'Regola del 20 (Rule of 20)', def: 'In prima, seconda o terza posizione apri una mano da 10-11 PO se i PO più le lunghezze dei due colori più lunghi fanno 20 o più.' },
   { term: 'Regola del 7 (Rule of 7)', def: 'Una guida per il colpo in bianco: sottrai da sette il numero di carte del colore uscito che hai tra mano e morto; il risultato è il numero di volte in cui lisciare.' },
   { term: 'Regola dell’11 (Rule of 11)', def: 'Quando il compagno attacca di quarta migliore, sottrai il valore della carta da 11 per sapere quante carte più alte hanno le altre tre mani.' },
   { term: 'Renonce (revoke)', def: 'Non rispondere al colore quando si poteva farlo. Una volta consumata, la renonce costa di solito una o due prese, trasferite agli avversari.' },

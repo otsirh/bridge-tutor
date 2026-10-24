@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Een volledig voorbeeld</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Noord springt met vierkaartsteun en 19+ punten naar 4♥. Zuid heeft 17 punten en een slagenbron in de ruiten, dus slem is waarschijnlijk. 5♣ toont één of vier sleutelkaarten. Zuid heeft alleen de ♣A, en de sterke verhoging van Noord is zonder azen niet mogelijk, dus het zijn er vier. Er blijft één vraag over, de ♥Q, en die stelt 5♦. Noord heeft haar en biedt 6♥, en Zuid past: er ontbreekt niets, maar er is geen dertiende slag waarop je kunt rekenen.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Noord springt met vierkaartsteun en 19+ punten naar 4♥. Zuid heeft 17 punten en een slagenbron in de ruiten, dus slem is waarschijnlijk. 5♣ toont één of vier sleutelkaarten. Zuid heeft alleen de ♣A, en de sterke verhoging van Noord is zonder azen niet mogelijk, dus het zijn er vier. Er blijft één vraag over, de ♥Q, en die stelt 5♦. Noord heeft haar en biedt 6♥. Nu kan Zuid dertien slagen tellen: vier in harten, vijf in ruiten (de ♦A van Noord met de ♦KQJ10 van Zuid) en de aas en de heer in schoppen en in klaveren. Zuid biedt 7♥, en Noord past.</p>
 <div class="tip">Zorg er voordat je 4SA biedt voor dat het antwoord je niet voorbij het gewenste contract kan brengen. Met klaveren of ruiten als troef heb je na een antwoord van 5♥ of 5♠ geen manier meer om op 5-niveau te stoppen, dus je moet weten dat er geen twee sleutelkaarten kunnen ontbreken.</div>
 <div class="warn">RKCB vraagt een afgesproken troefkleur. Na een natuurlijk SA-bod van partner is 4SA kwantitatief. Met een renonce kan RKCB je niet vertellen of de sleutelkaarten van partner bruikbaar zijn: geef dan een cuebid.</div>
 `,
@@ -191,7 +191,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Na 1♦ – 1♠ – 1SA wil een antwoorder met vijf schoppen en manchekracht weten of de openaar drie schoppen heeft. 3♠ zou alleen inviteren; met 4♠ kom je misschien in een 5-2-fit terecht; met 3SA mis je misschien een 5-3-fit. Met natuurlijke biedingen kun je die vraag niet stellen, dus doe je het met een kunstmatig bod.</p>
 
 <h3>Nieuwe minor forcing</h3>
-<p>Na een herbieding van 1SA door de openaar is een bod van de antwoorder in <strong>de andere lage kleur</strong> op 2-niveau (1♣ – 1♥ – 1SA – 2♦, of 1♦ – 1♠ – 1SA – 2♣) kunstmatig en forcing voor één ronde. Het toont 11 of meer punten en vraagt naar de hoge kleur van de antwoorder. De antwoorder heeft daarin precies vijf kaarten of, na 1♠, vier schoppen en vier harten; met zes herhaalt de antwoorder gewoon zijn hoge kleur of biedt hij manche.</p>
+<p>Na een herbieding van 1SA door de openaar is een bod van de antwoorder in <strong>de andere lage kleur</strong> op 2-niveau (1♣ – 1♥ – 1SA – 2♦, of 1♦ – 1♠ – 1SA – 2♣) kunstmatig en forcing voor één ronde. Het toont 11 of meer punten en vraagt naar de hoge kleur van de antwoorder. De antwoorder heeft daarin precies vijf kaarten (na 1♠ misschien met vier harten erbij; met vier kaarten in beide hoge kleuren had hij 1♥ geantwoord); met zes herhaalt de antwoorder gewoon zijn hoge kleur of biedt hij manche.</p>
 <table>
 <thead><tr><th>Antwoord van de openaar</th><th>Betekenis</th></tr></thead>
 <tbody>

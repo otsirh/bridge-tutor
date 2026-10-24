@@ -53,8 +53,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Ein vollständiges Beispiel</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Nord springt mit Viererunterstützung und 19+ Punkten auf 4♥. Süd hat 17 FP und mit der Karofarbe eine Stichquelle, also ist ein Schlemm wahrscheinlich. 5♣ zeigt eine oder vier Schlüsselkarten. Süd selbst hat nur das ♣A, und Nords starke Hebung ist ohne Asse nicht denkbar, also sind es vier. Bleibt eine Frage, die ♥Q, und 5♦ stellt sie. Nord hat sie und reizt 6♥, und Süd passt: Es fehlt nichts, aber auf einen dreizehnten Stich kann man nicht zählen.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Nord springt mit Viererunterstützung und 19+ Punkten auf 4♥. Süd hat 17 FP und mit der Karofarbe eine Stichquelle, also ist ein Schlemm wahrscheinlich. 5♣ zeigt eine oder vier Schlüsselkarten. Süd selbst hat nur das ♣A, und Nords starke Hebung ist ohne Asse nicht denkbar, also sind es vier. Bleibt eine Frage, die ♥Q, und 5♦ stellt sie. Nord hat sie und reizt 6♥. Jetzt kann Süd dreizehn Stiche zählen: vier in Coeur, fünf in Karo (Nords ♦A mit Süds ♦KQJ10) sowie Ass und König in Pik und in Treff. Süd reizt 7♥, und Nord passt.</p>
 <div class="tip">Bevor Sie 4SA reizen, vergewissern Sie sich, dass die Antwort Sie nicht über den gewünschten Kontrakt hinausträgt. Ist Treff oder Karo Trumpf, können Sie nach einer Antwort von 5♥ oder 5♠ nicht mehr auf der Fünferstufe stehen bleiben – Sie müssen also wissen, dass nicht zwei Schlüsselkarten fehlen können.</div>
 <div class="warn">RKCB braucht eine vereinbarte Trumpffarbe. Nach einem natürlichen SA-Gebot des Partners ist 4SA quantitativ. Mit einer Chicane kann RKCB Ihnen nicht sagen, ob die Schlüsselkarten des Partners nützlich sind: Reizen Sie stattdessen Kontrollgebote (Cuebids).</div>
 `,
@@ -191,7 +191,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Nach 1♦ – 1♠ – 1SA möchte der Antwortende mit fünf Pik und Vollspielwerten wissen, ob der Eröffner drei Pik hat. 3♠ wäre nur einladend, 4♠ könnte in einem 5-2-Fit landen, 3SA könnte einen 5-3-Fit verpassen. Mit natürlichen Geboten lässt sich die Frage nicht stellen, also übernimmt das ein künstliches Gebot.</p>
 
 <h3>Neue Unterfarbe forcierend</h3>
-<p>Nach dem 1SA-Wiedergebot des Eröffners ist das Gebot des Antwortenden in <strong>der anderen Unterfarbe</strong> auf der Zweierstufe (1♣ – 1♥ – 1SA – 2♦ oder 1♦ – 1♠ – 1SA – 2♣) künstlich und rundenforcierend. Es zeigt 11 oder mehr Punkte und fragt nach der Oberfarbe des Antwortenden. Der Antwortende hat darin genau fünf Karten oder, nach 1♠, vier Pik und vier Coeur; mit sechs reizt er einfach die Oberfarbe noch einmal oder das Vollspiel.</p>
+<p>Nach dem 1SA-Wiedergebot des Eröffners ist das Gebot des Antwortenden in <strong>der anderen Unterfarbe</strong> auf der Zweierstufe (1♣ – 1♥ – 1SA – 2♦ oder 1♦ – 1♠ – 1SA – 2♣) künstlich und rundenforcierend. Es zeigt 11 oder mehr Punkte und fragt nach der Oberfarbe des Antwortenden. Der Antwortende hat darin genau fünf Karten (nach 1♠ vielleicht dazu vier Coeur; mit je vier Karten in beiden Oberfarben hätte er 1♥ geantwortet); mit sechs reizt er einfach die Oberfarbe noch einmal oder das Vollspiel.</p>
 <table>
 <thead><tr><th>Antwort des Eröffners</th><th>Bedeutung</th></tr></thead>
 <tbody>

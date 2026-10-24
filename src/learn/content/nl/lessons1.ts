@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>De regel van 20 en de regel van 15</h3>
-<p>In eerste of tweede hand open je een hand met 10 of 11 punten als je punten plus het aantal kaarten in je twee langste kleuren samen 20 of meer is.</p>
+<p>In eerste, tweede of derde hand open je een hand met 10 of 11 punten als je punten plus het aantal kaarten in je twee langste kleuren samen 20 of meer is.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regel van 20: open 1♠"></div>
 <p>10 punten + 5 + 5 = 20, dus je opent, en met twee vijfkaarten open je de hoogste: 1♠. Vergelijk ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 punten + 4 + 3 = 18, dus pas. De verspreide vrouwen en boeren en de vlakke verdeling maken er een slechte opening van.</p>
 <p>In vierde hand, na drie passen, gebruik je de regel van 15: open als je punten plus het aantal schoppen 15 of meer is. Als je past, wordt het spel rondgepast. Je wilt dus alleen openen als jouw kant waarschijnlijk de strijd om de deelscore wint, en die strijd wordt meestal door de schoppenkleur beslist.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'Punten: aas 4, heer 3, vrouw 2, boer 1; 40 in het spel, 10 in een gemiddelde hand.',
       'Voor je eigen hand tel je een punt per kaart boven de vier; als je partner verhoogt, tel je in plaats daarvan korte kleuren (renonce 5, singleton 3, doubleton 1 met vier troeven).',
-      'Regel van 20 voor lichte openingen in eerste of tweede hand; regel van 15 (punten + schoppen) in vierde hand.',
+      'Regel van 20 voor lichte openingen in eerste, tweede of derde hand; regel van 15 (punten + schoppen) in vierde hand.',
       'Verliezerstelling: slagen ≈ 24 − de verliezers samen; een minimale opening heeft ongeveer 7 verliezers.',
       'Samen ongeveer 25 punten voor 3SA of een manche in een hoge kleur, 29 voor een manche in een lage kleur, 33 voor klein slem.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>Is het een openingshand?</h3>
-<p>Met 12 of meer punten open je, behalve in vierde hand. Met 10-11 punten in eerste of tweede hand open je als aan de regel van 20 is voldaan (punten + de lengte van je twee langste kleuren ≥ 20). In vierde hand open je met 13 of meer punten, en met 10-12 punten alleen als aan de regel van 15 is voldaan (punten + aantal schoppen ≥ 15). Handen met een lange kleur en minder punten passen misschien beter bij een zwakke twee of een preëmpt.</p>
+<p>Met 12 of meer punten open je, behalve in vierde hand. Met 10-11 punten in eerste, tweede of derde hand open je als aan de regel van 20 is voldaan (punten + de lengte van je twee langste kleuren ≥ 20). In vierde hand open je met 13 of meer punten, en met 10-12 punten alleen als aan de regel van 15 is voldaan (punten + aantal schoppen ≥ 15). Handen met een lange kleur en minder punten passen misschien beter bij een zwakke twee of een preëmpt.</p>
 
 <h3>Evenwichtige handen: de punten beslissen</h3>
 <p>Een evenwichtige hand heeft geen renonce, geen singleton en hoogstens één doubleton: 4-3-3-3, 4-4-3-2 of 5-3-3-2. Met een evenwichtige hand is je plan altijd om je kracht in sans atout te tonen, meteen of bij je volgende bod:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Open nooit 1♥ of 1♠ met maar vier kaarten. Partner verhoogt met driekaartsteun en rekent dan op minstens een achtkaartfit.</div>
 `,
     keyPoints: [
-      'Open met 12+ punten; met 10-11 gebruik je de regel van 20 (eerste of tweede hand). In vierde hand open je met 13+, of met 10-12 als aan de regel van 15 is voldaan.',
+      'Open met 12+ punten; met 10-11 gebruik je de regel van 20 (eerste, tweede of derde hand). In vierde hand open je met 13+, of met 10-12 als aan de regel van 15 is voldaan.',
       '1♥/1♠ beloven vijf kaarten; zonder vijfkaart hoge kleur open je de langste lage kleur (1♣ met 3-3, 1♦ met 4-4).',
       'Evenwichtig: met 12-14 open je een kleur en herbied je 1SA; 15-17 1SA; 18-19 spring naar 2SA; 20-21 2SA; 22+ 2♣.',
       'Twee vijfkaarten: open de hoogste; 6-5: open de langste.',

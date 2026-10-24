@@ -136,7 +136,7 @@ export const LESSONS_1: Lesson[] = [
 </ul>
 
 <h3>La regla del 20 y la regla del 15</h3>
-<p>En primera o segunda posición, abre una mano de 10 u 11 PH si los PH más el número de cartas de tus dos palos más largos suman 20 o más.</p>
+<p>En primera, segunda o tercera posición, abre una mano de 10 u 11 PH si los PH más el número de cartas de tus dos palos más largos suman 20 o más.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regla del 20: abre de 1♠"></div>
 <p>10 PH + 5 + 5 = 20, así que se abre, y con dos palos de cinco cartas se abre el de mayor rango: 1♠. Compárala con ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PH + 4 + 3 = 18, así que pasas. Las Damas y los Valets dispersos y la distribución plana hacen que sea una mala apertura.</p>
 <p>En cuarta posición, después de tres pasos, usa la regla del 15: abre si los PH más el número de picas suman 15 o más. Si pasas, la mano se recoge, así que solo te interesa abrir cuando es probable que tu bando gane la lucha por el parcial, y la mayoría de esas luchas las decide el palo de picas.</p>
@@ -165,7 +165,7 @@ export const LESSONS_1: Lesson[] = [
     keyPoints: [
       'PH: As 4, Rey 3, Dama 2, Valet 1; 40 en la baraja y 10 en una mano media.',
       'Para tu propia mano suma un punto por cada carta a partir de la quinta; al apoyar a tu compañero cuenta en su lugar los cortos (fallo 5, semifallo 3, doubleton 1 con cuatro triunfos).',
-      'Regla del 20 para las aperturas ligeras en primera o segunda posición; regla del 15 (PH + picas) en cuarta posición.',
+      'Regla del 20 para las aperturas ligeras en primera, segunda o tercera posición; regla del 15 (PH + picas) en cuarta posición.',
       'LTC: bazas ≈ 24 − perdedoras de la pareja, y una apertura mínima tiene unas 7 perdedoras.',
       'Unos 25 puntos entre los dos para 3SA o la manga en un mayor, 29 para la manga en un menor y 33 para el pequeño slam.',
     ],
@@ -227,7 +227,7 @@ export const LESSONS_1: Lesson[] = [
 </table>
 
 <h3>¿Es una mano de apertura?</h3>
-<p>Con 12 PH o más, abre, salvo en cuarta posición. Con 10-11 PH en primera o segunda posición, abre si se cumple la regla del 20 (PH + la longitud de tus dos palos más largos ≥ 20). En cuarta posición abre con 13 PH o más, y con 10-12 PH solo si se cumple la regla del 15 (PH + número de picas ≥ 15). Las manos con un palo largo y menos puntos pueden encajar mejor en un dos débil o en un barrage.</p>
+<p>Con 12 PH o más, abre, salvo en cuarta posición. Con 10-11 PH en primera, segunda o tercera posición, abre si se cumple la regla del 20 (PH + la longitud de tus dos palos más largos ≥ 20). En cuarta posición abre con 13 PH o más, y con 10-12 PH solo si se cumple la regla del 15 (PH + número de picas ≥ 15). Las manos con un palo largo y menos puntos pueden encajar mejor en un dos débil o en un barrage.</p>
 
 <h3>Manos equilibradas: deciden los puntos</h3>
 <p>Una mano equilibrada no tiene fallo, ni semifallo, y como mucho un doubleton: 4-3-3-3, 4-4-3-2 o 5-3-3-2. Con una mano equilibrada, tu plan siempre es mostrar tu fuerza a sin triunfo, ya sea de entrada o en tu siguiente turno:</p>
@@ -265,7 +265,7 @@ export const LESSONS_1: Lesson[] = [
 <div class="warn">Nunca abras de 1♥ o de 1♠ con solo cuatro cartas. Tu compañero apoyará con tres cartas, contando con un fit de al menos ocho.</div>
 `,
     keyPoints: [
-      'Abre con 12+ PH; con 10-11 usa la regla del 20 (primera o segunda posición). En cuarta posición abre con 13+, o con 10-12 si se cumple la regla del 15.',
+      'Abre con 12+ PH; con 10-11 usa la regla del 20 (primera, segunda o tercera posición). En cuarta posición abre con 13+, o con 10-12 si se cumple la regla del 15.',
       '1♥/1♠ prometen cinco cartas; sin mayor quinto abre el menor más largo (1♣ con 3-3, 1♦ con 4-4).',
       'Equilibrada: con 12-14 abre a palo y redeclara 1SA; 15-17, 1SA; 18-19, salta a 2SA; 20-21, 2SA; 22+, 2♣.',
       'Dos palos de cinco cartas: abre el de mayor rango; con 6-5, abre el más largo.',

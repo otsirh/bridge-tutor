@@ -55,8 +55,8 @@ export const LESSONS_4: Lesson[] = [
 
 <h3>Un exemple complet</h3>
 <div class="deal" data-n="S:A54 H:AKQ3 D:A4 C:Q976" data-s="S:K9 H:J1095 D:KQJ106 C:AK"></div>
-<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P P P" data-dealer="N"></div>
-<p>Nord saute à 4♥ avec quatre cartes de soutien et 19+ points. Sud a 17 H et une source de levées à carreau : le chelem est probable. 5♣ montre une ou quatre clés. Sud n’a que l’♣A, et le soutien fort de Nord est impossible sans As : c’est donc quatre. Il reste une question, la ♥Q, et 5♦ la pose. Nord l’a et dit 6♥, et Sud passe : rien ne manque, mais il n’y a pas de treizième levée sur laquelle compter.</p>
+<div class="auction" data-calls="1C P 1H P 4H P 4NT P 5C P 5D P 6H P 7H P P P" data-dealer="N"></div>
+<p>Nord saute à 4♥ avec quatre cartes de soutien et 19+ points. Sud a 17 H et une source de levées à carreau : le chelem est probable. 5♣ montre une ou quatre clés. Sud n’a que l’♣A, et le soutien fort de Nord est impossible sans As : c’est donc quatre. Il reste une question, la ♥Q, et 5♦ la pose. Nord l’a et dit 6♥. Sud peut maintenant compter treize levées : quatre à cœur, cinq à carreau (l’♦A de Nord avec les ♦KQJ10 de Sud), plus l’As et le Roi de pique et de trèfle. Sud dit 7♥, et Nord passe.</p>
 <div class="tip">Avant de dire 4SA, vérifiez que la réponse ne peut pas vous faire dépasser le contrat que vous visez. Avec trèfle ou carreau comme atout, une réponse de 5♥ ou 5♠ ne vous permet plus de vous arrêter au palier de 5 : vous devez savoir qu’il ne peut pas manquer deux clés.</div>
 <div class="warn">Le Blackwood à 5 clés exige un atout fixé. Après un sans-atout naturel du partenaire, 4SA est quantitatif. Avec une chicane, le Blackwood ne peut pas vous dire si les clés de votre partenaire sont utiles : faites plutôt des cue-bids.</div>
 `,
@@ -193,7 +193,7 @@ export const LESSONS_4: Lesson[] = [
 <p>Après 1♦ – 1♠ – 1SA, un répondant qui a cinq piques et les valeurs de manche aimerait savoir si l’ouvreur a trois piques. 3♠ ne serait qu’une proposition ; 4♠ risque de tomber sur un fit 5-2 ; 3SA risque de rater un fit 5-3. Les enchères naturelles ne permettent pas de poser la question : une enchère artificielle s’en charge.</p>
 
 <h3>La nouvelle mineure forcing</h3>
-<p>Après une redemande de 1SA de l’ouvreur, le répondant qui nomme <strong>l’autre mineure</strong> au palier de 2 (1♣ – 1♥ – 1SA – 2♦, ou 1♦ – 1♠ – 1SA – 2♣) fait une enchère artificielle et forcing un tour. Elle montre 11 points ou plus et interroge sur la majeure du répondant. Celui-ci y a exactement cinq cartes ou, après 1♠, quatre piques et quatre cœurs ; avec six cartes, il répète simplement sa majeure ou demande la manche.</p>
+<p>Après une redemande de 1SA de l’ouvreur, le répondant qui nomme <strong>l’autre mineure</strong> au palier de 2 (1♣ – 1♥ – 1SA – 2♦, ou 1♦ – 1♠ – 1SA – 2♣) fait une enchère artificielle et forcing un tour. Elle montre 11 points ou plus et interroge sur la majeure du répondant. Celui-ci y a exactement cinq cartes (après 1♠, peut-être avec quatre cœurs en plus ; avec quatre cartes dans chaque majeure, il aurait répondu 1♥) ; avec six cartes, il répète simplement sa majeure ou demande la manche.</p>
 <table>
 <thead><tr><th>Réponse de l’ouvreur</th><th>Signification</th></tr></thead>
 <tbody>

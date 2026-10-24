@@ -93,7 +93,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Regra do 2-3-4 (rule of 2-3-4)', def: 'Guia de barragem: fique a no máximo duas vazas do contrato com vulnerabilidade desfavorável, três com igual e quatro com favorável.' },
   { term: 'Regra do 7 (rule of 7)', def: 'Guia para deixar passar: subtraia de sete o número de cartas que você e o morto têm no naipe jogado; o resultado é quantas vezes deixar passar.' },
   { term: 'Regra dos 15 (rule of 15)', def: 'Em quarta posição, abra o leilão se os PH mais o número de espadas somarem 15 ou mais.' },
-  { term: 'Regra dos 20 (rule of 20)', def: 'Em primeira ou segunda posição, abra uma mão de 10-11 PH se os PH mais os comprimentos dos dois naipes mais longos somarem 20 ou mais.' },
+  { term: 'Regra dos 20 (rule of 20)', def: 'Em primeira, segunda ou terceira posição, abra uma mão de 10-11 PH se os PH mais os comprimentos dos dois naipes mais longos somarem 20 ou mais.' },
   { term: 'Reivindicação (claim)', def: 'Parar o jogo declarando quantas das vazas restantes você vai ganhar, e como. A reivindicação deve valer contra qualquer defesa; os pontos duvidosos são decididos contra quem reivindica.' },
   { term: 'Remarcação (rebid)', def: 'A segunda voz de um jogador no leilão.' },
   { term: 'Renúncia (revoke)', def: 'Não servir quando podia. Uma vez consumada, a renúncia costuma custar uma ou duas vazas, transferidas aos adversários.' },
