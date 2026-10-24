@@ -298,7 +298,7 @@ export const LESSONS_3: Lesson[] = [
 <li><strong>Tras 1SA – paso – paso</strong>, reabre solo con un buen palo o con distribución. El compañero del abridor puede tener hasta 7 puntos, y la fuerza está más repartida.</li>
 </ul>
 <div class="hand" data-cards="S:Q74 H:KJ953 D:A5 C:J82" data-label="1♥ – P – P – ?: paso"></div>
-<p>11 PH, pero cinco corazones situados detrás del abridor. Tu compañero tiene probablemente como mucho uno o dos corazones y no ha doblado, así que es débil. Es probable que 1♥ se multe; pasa.</p>
+<p>11 PH, pero cinco corazones, el palo del abridor. Tu compañero tiene probablemente como mucho uno o dos corazones y no ha doblado, así que es débil. Es probable que 1♥ se multe; pasa.</p>
 <div class="tip">Cuando reabre tu compañero, recuerda que ya ha contado con parte de tus valores. Declara un nivel más prudente de lo que harías frente a una acción en posición directa.</div>
 <div class="warn">No castigues a tu compañero por reabrir la subasta. Si tienes una buena mano y tu compañero reabre con un doblo, piensa si está haciendo una reapertura ligera antes de saltar a la manga.</div>
 `,
@@ -326,7 +326,7 @@ export const LESSONS_3: Lesson[] = [
         q: '1♥ – P – P – ? Tienes ♠Q74 ♥KJ953 ♦A5 ♣J82 (11 PH).',
         options: ['Paso', 'Doblo', '1SA', '2♦'],
         answer: 0,
-        explain: 'Con cinco corazones estás situado detrás del abridor, y tu compañero, que es corto en corazones, habría doblado con valores. Es muy posible que 1♥ se multe; pasa.',
+        explain: 'Con cinco cartas en el palo del abridor, tu compañero es corto en corazones y habría doblado con valores. Es muy posible que 1♥ se multe; pasa.',
       },
       {
         q: '¿Por qué puedes reabrir con menos puntos de los que necesitarías en posición directa?',
