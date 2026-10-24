@@ -1,359 +1,328 @@
-// PLACEHOLDER (Japanese): an English copy until the Japanese translation lands.
 // Tutor: play principles, declarer planning, leads, signals, hand evaluation, scoring.
 //
-// Grouped by the file that shows the text. Suits and seats arrive as indexes
-// (suit 0..3 = clubs, diamonds, hearts, spades; seat 0..3 = N, E, S, W), cards
-// as card ids and ranks as numbers (14 = ace), so each language picks its own
-// word forms. Holdings ("KJ104") and split odds ("3-2 68%, …") arrive ready-made.
+// Same layout as src/i18n/en/tutor.ts (see the notes there on parameters).
+// Japanese has no plural forms; counts take counters (枚, トリック, 個).
 
 import type { Text } from '../en';
-
 import { type Card, SUIT_SYMBOLS, cardName, rankLabel, rankOf, suitOf } from '../../core/cards';
 import type { Height, Look } from '../../engine/signalling';
 import { core } from './core';
 
-/** "1 trick", "2 tricks". */
-const plural = (n: number, word: string) => (n === 1 ? word : `${word}s`);
-/** "A 3-card", "An 8-card". */
-const aCard = (n: number) => `${n === 8 || n === 11 ? 'An' : 'A'} ${n}-card`;
 /** Leading toward the honours in the other hand. */
-const TOWARD = { aq: 'A-Q', king: 'king', queen: 'queen', honours: 'honours' };
-const HONOUR: Record<number, string> = { 14: 'ace', 13: 'king', 12: 'queen' };
-/** "2 or 4", "1, 3 or 5" (the three shortest). */
+const TOWARD = { aq: 'A-Q', king: 'キング', queen: 'クイーン', honours: 'オナー' };
+const HONOUR: Record<number, string> = { 14: 'エース', 13: 'キング', 12: 'クイーン' };
+/** "2か4", "1、3か5" (the three shortest). */
 const orList = (ns: number[]) => {
   const xs = ns.slice(0, 3);
-  return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}` : String(xs[0]);
+  return xs.length > 1 ? `${xs.slice(0, -1).join('、')}か${xs[xs.length - 1]}` : String(xs[0]);
 };
-/** How a signal card looks from across the table: "High-low (♣8, then ♣3)", "♣7 looks high (…)". */
+/** How a signal card looks from across the table. */
 const looks = (card: Card, l: Look) =>
   l.echo !== null
-    ? `${l.height === 'high' ? 'High-low' : 'Low-high'} (${cardName(card)}, then ${cardName(l.echo)})`
+    ? `${l.height === 'high' ? 'ハイロー' : 'ローハイ'}（${cardName(card)}、次に${cardName(l.echo)}）`
     : l.sure && rankOf(card) === 2
-      ? `${cardName(card)} is always low`
+      ? `${cardName(card)}は常にローです`
       : l.sure
-        ? `${cardName(card)} is ${l.height} (every ${l.height === 'high' ? 'higher' : 'lower'} spot card is accounted for)`
-        : `${cardName(card)} looks ${l.height} (some ${l.height === 'high' ? 'lower' : 'higher'} spot cards are still out)`;
+        ? `${cardName(card)}は${l.height === 'high' ? 'ハイ' : 'ロー'}です（それより${l.height === 'high' ? '高い' : '低い'}スポットカードはすべて所在がわかっています）`
+        : `${cardName(card)}は${l.height === 'high' ? 'ハイ' : 'ロー'}に見えます（それより${l.height === 'high' ? '低い' : '高い'}スポットカードがまだ残っています）`;
 
 export const tutor: Text['tutor'] = {
   // -------------------------------------------------------------------------
-  // src/tutor/principles.ts — the principle behind a card: a short title (the
-  // review also shows it alone) and one or two sentences of explanation.
+  // src/tutor/principles.ts
   principles: {
     openingLead: {
-      title: 'Opening lead',
-      /** The card led is not the book card from this holding; `why` explains the book card. */
-      notStandard: (holding: string, rank: number, why: string) => `From ${holding} the standard card is ${rankLabel(rank)}: ${why}`,
+      title: 'オープニングリード',
+      notStandard: (holding: string, rank: number, why: string) => `${holding}からの標準的なカードは${rankLabel(rank)}です: ${why}`,
     },
 
     // declarer's side on lead
     drawTrumps: {
-      title: 'Drawing trumps',
-      text: 'Leading trumps removes the defenders’ trumps so they cannot ruff your winners. Draw them early unless dummy’s trumps are needed for ruffs.',
+      title: 'トランプを抜く',
+      text: 'トランプをリードしてディフェンダーのトランプを取り除けば、こちらのウィナーをラフされなくなります。ダミーのトランプをラフに使う必要がない限り、早めに抜きましょう。',
     },
     unblock: {
-      title: 'Unblocking',
-      text: 'Cash the high card from the short hand first, so the long hand keeps the lead and can run the rest of the suit.',
+      title: 'アンブロック',
+      text: '短い方のハンドの高いカードを先にキャッシュし、長い方のハンドにリードを残して、スートの残りを走らせられるようにします。',
     },
     cash: {
-      title: 'Cashing a winner',
-      declarer: (card: Card) => `${cardName(card)} is the highest ${core.suitSingular[suitOf(card)]} left: it wins the trick unless someone ruffs.`,
-      defender: 'Take your sure trick before declarer can discard losers on dummy’s long suit.',
+      title: 'ウィナーのキャッシュ',
+      declarer: (card: Card) => `${cardName(card)}は残っている${core.suits[suitOf(card)]}の中で最も高いカードです: 誰かにラフされない限りトリックを取ります。`,
+      defender: 'ディクレアラーがダミーの長いスートでルーザーを捨てる前に、確実なトリックを取っておきます。',
     },
     crossToOtherHand: {
-      title: 'Crossing to the other hand',
-      text: 'Leading low to a winner in the other hand uses it as an entry, so you can lead from there next.',
+      title: 'もう一方のハンドへ渡る',
+      text: 'もう一方のハンドのウィナーへ低いカードをリードすると、それをエントリーとして使い、次はそちらからリードできます。',
     },
     leadTowardHonours: {
-      title: 'Leading toward honours',
-      /** What the other hand holds: A-Q, the king, the queen, or several honours. */
+      title: 'オナーに向かってリードする',
       text: (toward: 'aq' | 'king' | 'queen' | 'honours') =>
-        `Lead low toward the ${TOWARD[toward]} so the defender on your left must play before you choose your card from the other hand — the basis of the finesse.`,
+        `${TOWARD[toward]}に向かって低いカードをリードすれば、左のディフェンダーが先にカードを出さなければならず、あなたはそれを見てからもう一方のハンドのカードを選べます — フィネスの基本です。`,
     },
     develop: {
-      title: 'Developing a suit',
-      text: 'Losing a trick in this suit now sets up the remaining cards as winners while you still control the other suits.',
+      title: 'スートの確立',
+      text: 'このスートで今1トリックを失っておけば、他のスートをまだコントロールしているうちに、残りのカードがウィナーになります。',
     },
 
     // defenders on lead
     trumpLead: {
-      title: 'Trump lead',
-      text: 'A trump lead reduces declarer’s ruffs in dummy — strong when dummy is short in a side suit.',
+      title: 'トランプのリード',
+      text: 'トランプのリードはディクレアラーがダミーでラフする回数を減らします — ダミーにショートスートがあるときに効果的です。',
     },
     lookForRuff: {
-      title: 'Looking for a ruff',
-      text: 'A short suit lead hopes partner gets in and gives you a ruff.',
+      title: 'ラフを狙う',
+      text: 'ショートスートのリードは、パートナーがリードを取ってラフさせてくれることを期待するものです。',
     },
     switchSuits: {
-      title: 'Switching suits',
-      text: 'Lead through declarer’s strength, or toward dummy’s weakness: the defender in front of the strong hand should lead that suit.',
+      title: 'スートを切り替える',
+      text: 'ディクレアラーの強いスートを通してリードするか、ダミーの弱いスートに向かってリードします: 強いハンドの前に座るディフェンダーがそのスートをリードしましょう。',
     },
 
     // not following suit
     overruff: {
-      title: 'Overruff',
-      text: 'Ruffing higher than the trump already played wins the trick.',
+      title: 'オーバーラフ',
+      text: 'すでに出ているトランプより高いトランプでラフすればトリックを取れます。',
     },
     ruffPartnersWinner: {
-      title: 'Ruffing partner’s winner',
-      text: 'Usually wasteful: partner was already winning this trick.',
+      title: 'パートナーのウィナーをラフする',
+      text: 'たいていは無駄です: パートナーはすでにこのトリックを取っていました。',
     },
     ruff: {
-      title: 'Ruffing',
-      declarer: 'Ruffing in the hand with fewer trumps gains a trick; ruffing in the long trump hand just uses a trump you would make anyway.',
-      defender: 'You are out of the suit led, so a ruff takes the trick.',
+      title: 'ラフ',
+      declarer: 'トランプの少ない方のハンドでラフすれば1トリック増えます。トランプの長い方のハンドでラフしても、どのみち取れるトランプを使うだけです。',
+      defender: 'リードされたスートを持っていないので、ラフすればトリックを取れます。',
     },
     discard: {
-      title: 'Discard',
-      defender: 'Discard from a suit you don’t need, and keep length in suits where you must guard against declarer’s or dummy’s long cards.',
-      declarer: 'Throw a loser from a suit that can’t win tricks, keeping the cards that may still be needed.',
+      title: 'ディスカード',
+      defender: '不要なスートから捨て、ディクレアラーやダミーの長いスートを守る必要があるスートの長さは残しておきます。',
+      declarer: 'トリックにならないスートのルーザーを捨て、まだ必要になりそうなカードは残しておきます。',
     },
 
-    // defenders' signals: `right` = the card says what this hand should say; `best` = the card that would
+    // defenders' signals
     countSignal: {
-      title: 'Count signal',
-      /** `n` cards in the suit before playing. */
+      title: 'カウントシグナル',
       text: (n: number, suit: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Declarer is playing this suit and partner expects count: with ${n} ${core.suits[suit]} (an ${n % 2 ? 'odd' : 'even'} number) the standard card is ${cardName(best)}${n % 2 ? '' : ', then a lower one (high-low)'}. ${cardName(card)} would show an ${n % 2 ? 'even' : 'odd'} number.`
+          ? `ディクレアラーがこのスートをプレイしており、パートナーはカウントを期待しています: ${core.suits[suit]}が${n}枚（${n % 2 ? '奇数' : '偶数'}）なら、標準的なカードは${cardName(best)}です${n % 2 ? '' : '（次にそれより低いカードを出してハイロー）'}。${cardName(card)}では${n % 2 ? '偶数' : '奇数'}枚を示してしまいます。`
           : n % 2
-            ? `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an odd number) play your lowest card, ${cardName(card)}. Partner can then tell how many declarer holds and when to take the ace.`
-            : `Declarer is playing this suit, so show your count: with ${n} ${core.suits[suit]} (an even number) play high-low — ${cardName(card)} now, a lower card next time. Partner can then tell how many declarer holds and when to take the ace.`,
+            ? `ディクレアラーがこのスートをプレイしているので、カウントを示します: ${core.suits[suit]}が${n}枚（奇数）なので、最も低いカード${cardName(card)}を出します。これでパートナーはディクレアラーの枚数と、エースを取るタイミングがわかります。`
+            : `ディクレアラーがこのスートをプレイしているので、カウントを示します: ${core.suits[suit]}が${n}枚（偶数）なので、ハイローをします — 今${cardName(card)}、次にそれより低いカード。これでパートナーはディクレアラーの枚数と、エースを取るタイミングがわかります。`,
     },
     attitudeSignal: {
-      title: 'Attitude signal',
-      /** Why you like partner's suit (an honour — the highest you hold is `honour` — or a doubleton to ruff), or null. */
+      title: 'アティチュードシグナル',
       text: (reason: 'honour' | 'ruff' | null, honour: number, card: Card, best: Card, right: boolean) =>
         !right
-          ? `Partner led this suit and expects your attitude: you ${reason ? 'like' : 'don’t like'} it, so the standard card is ${cardName(best)}. ${cardName(card)} says the opposite.`
+          ? `パートナーがこのスートをリードし、あなたのアティチュードを待っています: あなたはこのスートを${reason ? '続けてほしい' : '続けてほしくない'}ので、標準的なカードは${cardName(best)}です。${cardName(card)}では逆の意味になります。`
           : reason === 'honour'
-            ? `Partner led this suit: give attitude. You hold the ${HONOUR[honour]}, so encourage with the highest spot card you can spare, ${cardName(card)}, and partner will continue.`
+            ? `パートナーがこのスートをリードしたので、アティチュードを示します。あなたは${HONOUR[honour]}を持っているので、出せる中で最も高いスポットカード${cardName(card)}でエンカレッジし、パートナーに続けてもらいます。`
             : reason === 'ruff'
-              ? `Partner led this suit: give attitude. With a doubleton, start with the higher card (${cardName(card)}): high-low asks partner to continue, and you ruff the third round.`
-              : `Partner led this suit: give attitude. Nothing here is worth continuing, so discourage with your lowest card, ${cardName(card)}; partner will look for a switch.`,
+              ? `パートナーがこのスートをリードしたので、アティチュードを示します。ダブルトンなので高い方のカード（${cardName(card)}）から出します: ハイローはパートナーに続けるよう求め、3巡目にあなたがラフします。`
+              : `パートナーがこのスートをリードしたので、アティチュードを示します。続けてもらう価値のあるものがないので、最も低いカード${cardName(card)}でディスカレッジします。パートナーはスートの切り替えを考えます。`,
     },
     discardSignal: {
-      title: 'Discard (attitude)',
-      /** `want`: you would like this suit led; `clear`: you have a spot card high enough to say so. */
+      title: 'ディスカード（アティチュード）',
       text: (want: boolean, clear: boolean, suit: number, card: Card, best: Card, right: boolean) =>
         want && !clear
-          ? `You would like ${core.suits[suit]} led, but no ${core.suitSingular[suit]} you can spare is high enough to read as encouraging; discard low from a suit you don’t want instead.`
+          ? `${core.suits[suit]}をリードしてほしいところですが、捨てられる${core.suits[suit]}にエンカレッジと読めるほど高いカードがありません。代わりに、リードしてほしくないスートから低いカードを捨てましょう。`
           : want
             ? right
-              ? `A high discard encourages: ${cardName(card)} asks partner to lead ${core.suits[suit]}, where you hold strength.`
-              : `You would like ${core.suits[suit]} led, but ${cardName(card)} is your lowest and discourages; a high one (${cardName(best)}) would encourage — or discard low from a suit you don’t want.`
+              ? `高いカードのディスカードはエンカレッジです: ${cardName(card)}は、あなたが強さを持つ${core.suits[suit]}をリードするようパートナーに求めます。`
+              : `${core.suits[suit]}をリードしてほしいのに、${cardName(card)}はあなたの最も低いカードなのでディスカレッジになります。高いカード（${cardName(best)}）ならエンカレッジになります — または、リードしてほしくないスートから低いカードを捨てましょう。`
             : right
-              ? `A low discard discourages: ${cardName(card)} tells partner not to lead ${core.suits[suit]}.`
-              : `A high discard asks partner to lead ${core.suits[suit]}, which you don’t want; discard your lowest (${cardName(best)}) instead.`,
+              ? `低いカードのディスカードはディスカレッジです: ${cardName(card)}は、${core.suits[suit]}をリードしないようパートナーに伝えます。`
+              : `高いカードのディスカードは、リードしてほしくない${core.suits[suit]}のリードを求めてしまいます。代わりに最も低いカード（${cardName(best)}）を捨てましょう。`,
     },
     preferenceSignal: {
-      title: 'Suit-preference signal',
-      /** Leading for partner to ruff; `sides` = the other two side suits, lower first; `want` high = the higher one. */
+      title: 'スートプリファレンスシグナル',
       text: (want: Height, sides: number[], card: Card, best: Card, right: boolean) =>
         !right
           ? want === 'middle'
-            ? `Partner will ruff this and read your card as suit preference; with no preference, lead a middle card such as ${cardName(best)}.`
-            : `Partner will ruff this and read your card as suit preference: you want ${core.suits[want === 'high' ? sides[1] : sides[0]]} back, so lead ${cardName(best)}.`
+            ? `パートナーはこれをラフし、あなたのカードをスートプリファレンスとして読みます。特に希望がないなら、${cardName(best)}のような中くらいのカードをリードします。`
+            : `パートナーはこれをラフし、あなたのカードをスートプリファレンスとして読みます: ${core.suits[want === 'high' ? sides[1] : sides[0]]}を返してほしいので、${cardName(best)}をリードします。`
           : want === 'middle'
-            ? 'Partner will ruff this, and your card also says which suit to return: with no preference, lead a middle card — neither high nor low.'
-            : `Partner will ruff this, and your card also says which suit to return: a ${want} card asks for ${core.suits[want === 'high' ? sides[1] : sides[0]]} (the ${want === 'high' ? 'higher' : 'lower'} of the other two side suits), where you hold the ace.`,
+            ? 'パートナーはこれをラフします。あなたのカードは返してほしいスートも伝えます: 特に希望がないので、高くも低くもない中くらいのカードをリードします。'
+            : `パートナーはこれをラフします。あなたのカードは返してほしいスートも伝えます: ${want === 'high' ? '高い' : '低い'}カードは、あなたがエースを持つ${core.suits[want === 'high' ? sides[1] : sides[0]]}（残り2つのサイドスートのうち${want === 'high' ? '上位' : '下位'}の方）を求めます。`,
     },
 
     // second hand
     coverHonour: {
-      title: 'Cover an honour with an honour',
-      text: 'Covering forces declarer to spend two high cards to win one trick, which may promote a lower card in your or partner’s hand.',
+      title: 'オナーにはオナーでカバー',
+      text: 'カバーすれば、ディクレアラーは1トリックのために高いカードを2枚使わなければならず、あなたやパートナーの低いカードが昇格することがあります。',
     },
     secondHandLow: {
-      title: 'Second hand low',
-      text: 'Partner plays after you and the leader’s partner, so playing low keeps your high card to capture something bigger later.',
+      title: 'セカンドハンド・ロー',
+      text: 'あなたの後にはリードした側のパートナーとあなたのパートナーがプレイするので、低いカードを出して高いカードを残しておけば、あとでもっと大きなカードを捕らえられます。',
     },
     sureTrick: {
-      title: 'Winning a sure trick',
-      text: (card: Card) => `${cardName(card)} is the highest card left in the suit.`,
+      title: '確実なトリックを取る',
+      text: (card: Card) => `${cardName(card)}はこのスートで残っている最も高いカードです。`,
     },
     splitHonours: {
-      title: 'Splitting honours',
-      text: 'Playing one of touching honours stops declarer winning cheaply with a lower card.',
+      title: 'オナーを割って出す',
+      text: '連続したオナーの1枚を出せば、ディクレアラーが低いカードで安くトリックを取るのを防げます。',
     },
 
     // third and fourth hand
     partnerWinning: {
-      title: 'Partner is winning',
-      third: 'Partner’s card is already winning, so play low (or signal).',
-      fourth: 'Don’t overtake: play your lowest card.',
+      title: 'パートナーが勝っている',
+      third: 'パートナーのカードがすでにトリックを取っているので、低いカードを出します（またはシグナルを出します）。',
+      fourth: 'パートナーのトリックを奪ってはいけません: 最も低いカードを出します。',
     },
     thirdHandHighEquals: {
-      title: 'Third hand high — lowest of equals',
-      text: 'Play the cheaper of touching cards: partner can then work out where the higher one is.',
+      title: 'サードハンド・ハイ — 同等なら低い方',
+      text: '連続したカードのうち低い方を出します: そうすればパートナーは高い方のカードの位置を推理できます。',
     },
     thirdHandHigh: {
-      title: 'Third hand high',
-      text: 'With partner’s lead not winning, play high to win the trick or force out a big card.',
+      title: 'サードハンド・ハイ',
+      text: 'パートナーのリードがトリックを取れていないので、高いカードを出してトリックを取るか、大きなカードを出させます。',
     },
     cantWin: {
-      title: 'Can’t win the trick',
-      third: 'Play your lowest card (or signal attitude if partner led the suit).',
-      fourth: 'Play your lowest card in the suit.',
+      title: 'トリックを取れない',
+      third: '最も低いカードを出します（パートナーがリードしたスートならアティチュードを示します）。',
+      fourth: 'そのスートの最も低いカードを出します。',
     },
     winCheaply: {
-      title: 'Win cheaply',
-      text: 'Last to play: win with the smallest card that does the job.',
+      title: '安く勝つ',
+      text: '最後にプレイするので、トリックを取れる最も小さいカードで取ります。',
     },
   },
 
   // -------------------------------------------------------------------------
-  // src/tutor/planner.ts — declarer's plan once dummy is down: count winners
-  // (notrump) or losers (suit contracts) and where extra tricks can come from.
+  // src/tutor/planner.ts — declarer's plan once dummy is down.
   plan: {
-    // sure tricks in one suit
-    allWinners: 'all winners',
-    topTricks: (n: number) => `${n} top ${plural(n, 'trick')}`,
-    noTopTricks: 'no top tricks',
-    /** Opponents' cards in a suit when there are too many for the split table. */
-    cardsOut: (n: number) => `${n} cards`,
+    allWinners: 'すべてウィナー',
+    topTricks: (n: number) => `トップトリック${n}`,
+    noTopTricks: 'トップトリックなし',
+    cardsOut: (n: number) => `${n}枚`,
 
     // summary, notrump
     ntEnough: (total: number, need: number) =>
-      `You have ${total} top tricks and need ${need}: take your tricks — and don't block a suit (cash the high cards from the short hand first).`,
+      `トップトリックが${total}あり、必要なのは${need}です: トリックを取りましょう — スートをブロックしないように注意します（短い方のハンドの高いカードを先にキャッシュ）。`,
     ntShort: (total: number, need: number) =>
-      `You have ${total} top ${plural(total, 'trick')} and need ${need}: find ${need - total} more before the defenders establish their suit.`,
+      `トップトリックが${total}で、必要なのは${need}です: ディフェンダーが自分たちのスートを確立する前に、あと${need - total}トリックを見つけましょう。`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `About ${losers} ${plural(losers, 'loser')} and you can afford ${allowed}: draw trumps and take your tricks, unless an early ruff or discard is needed.`,
+      `ルーザーは約${losers}で、許されるのは${allowed}です: 早めのラフやディスカードが必要でなければ、トランプを抜いてトリックを取りましょう。`,
     tooManyLosers: (losers: number, allowed: number) =>
-      `About ${losers} losers but you can afford only ${allowed}: you need to get rid of ${losers - allowed} (ruff them, discard them on extra winners, or finesse).`,
+      `ルーザーは約${losers}ですが、許されるのは${allowed}だけです: ${losers - allowed}つを処理する必要があります（ラフする、余分なウィナーで捨てる、フィネスする）。`,
 
     // ideas
     establish: (suit: number, total: number, missing: number, odds: string, extra: number) =>
-      `Establish ${core.suits[suit]}: with ${total} cards between you (${missing} out, ${odds}), the long ${SUIT_SYMBOLS[suit]} can produce about ${extra} extra ${plural(extra, 'trick')}.`,
+      `${core.suits[suit]}を確立する: 両ハンドで${total}枚（相手に${missing}枚、${odds}）あるので、長い${SUIT_SYMBOLS[suit]}から約${extra}トリック余分に取れます。`,
     finesseAQ: (suit: number, holding: string) =>
-      `Finesse in ${core.suits[suit]}: lead toward A-Q (${holding}) and play the queen if the king doesn't appear — about 50%.`,
+      `${core.suits[suit]}のフィネス: A-Q（${holding}）に向かってリードし、キングが出なければクイーンを出します — 成功率は約50%です。`,
     leadTowardKing: (suit: number, holding: string) =>
-      `In ${core.suits[suit]}, lead toward the king (${holding}): it scores if the ace is on your left — about 50%.`,
+      `${core.suits[suit]}では、キング（${holding}）に向かってリードします: エースが左の相手にあればキングがトリックになります — 約50%です。`,
     doubleFinesse: (suit: number) =>
-      `Double finesse in ${core.suits[suit]} (A-J-10): finesse twice; you make two tricks 76% of the time.`,
+      `${core.suits[suit]}のダブルフィネス（A-J-10）: 2回フィネスすれば、76%の確率で2トリック取れます。`,
     knockOutAce: (suit: number, withJack: boolean) =>
-      `Knock out the ace of ${core.suits[suit]}: K-Q${withJack ? '-J' : ''} will then give you ${withJack ? '2+ tricks' : '1+ trick'}.`,
-    ntDevelopEarly: 'In notrump, set up extra tricks early, while you still control the suits — and count how many times you can afford to lose the lead.',
-    /** Suits to ruff in the short trump hand, with that hand's length in each (0 = void). */
+      `${core.suits[suit]}のエースを追い出す: そうすればK-Q${withJack ? '-J' : ''}から${withJack ? '2トリック以上' : '1トリック以上'}取れます。`,
+    ntDevelopEarly: 'ノートランプでは、まだ各スートをコントロールしているうちに早めに余分なトリックを確立しましょう — そして、リードを相手に渡せる回数を数えておきましょう。',
     ruffInShortHand: (inDummy: boolean, suits: { suit: number; len: number }[]) =>
-      `Ruff losers in ${inDummy ? 'dummy' : 'your hand'}, the short trump hand: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]} (${x.len || 'void'})`).join(', ')}. A ruff in the short hand is an extra trick; a ruff in the long trump hand is not.`,
-    /** Extra winners in `suit` to throw losers in `loserSuits` on. */
+      `トランプの短い方のハンドである${inDummy ? 'ダミー' : 'あなたのハンド'}でルーザーをラフします: ${suits.map(x => `${SUIT_SYMBOLS[x.suit]}（${x.len ? `${x.len}枚` : 'ボイド'}）`).join('、')}。短い方のハンドでのラフは余分なトリックになりますが、トランプの長い方のハンドでのラフはそうなりません。`,
     discardOnWinners: (inDummy: boolean, extra: number, suit: number, loserSuits: number[]) =>
-      `Discards: ${inDummy ? 'dummy' : 'your hand'} has ${extra} extra ${SUIT_SYMBOLS[suit]} ${plural(extra, 'winner')} — throw ${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')} losers from the other hand on ${extra === 1 ? 'it' : 'them'} (usually after drawing trumps).`,
+      `ディスカード: ${inDummy ? 'ダミー' : 'あなたのハンド'}には${SUIT_SYMBOLS[suit]}の余分なウィナーが${extra}枚あります — その上で、もう一方のハンドの${loserSuits.map(s => SUIT_SYMBOLS[s]).join('/')}のルーザーを捨てます（ふつうはトランプを抜いた後で）。`,
     trumpsOut: (n: number, odds: string) =>
-      `Trumps: ${n} ${n === 1 ? 'is' : 'are'} out (${odds}). Draw ${n === 1 ? 'it' : 'them'} early unless you need dummy's trumps for ruffs or must set up a side suit first.`,
+      `トランプ: 相手に${n}枚残っています（${odds}）。ダミーのトランプをラフに使う必要があるか、先にサイドスートを確立しなければならない場合を除き、早めに抜きましょう。`,
   },
 
   // -------------------------------------------------------------------------
   // src/engine/leads.ts — opening leads by the book
   leads: {
-    /** Why this card from the suit. */
     card: {
-      singleton: 'A singleton: lead it.',
-      ak: 'Ace from ace-king: you keep the lead and see dummy before deciding what next.',
-      doubleton: 'Top of a doubleton: the high card first, then the low one (high-low shows a doubleton and may get you a ruff).',
-      sequence: (holding: string) => `Top of a sequence (${holding}): promises the card below it and denies the one above.`,
-      interior: (holding: string, rank: number) => `Interior sequence (${holding}): lead the top of the touching cards, ${rankLabel(rank)}.`,
-      touching: (holding: string) => `Top of touching honours (${holding}).`,
-      nothing: 'Top of nothing from three small cards: tells partner you have no honour here.',
-      small: 'From four or more small cards, lead the second-highest so partner does not place you with an honour.',
-      partnerLow: 'Low from an honour and two others in partner’s suit (third best).',
-      fourth: (holding: string) => `Fourth best from your longest and strongest suit (${holding}). Partner can use the Rule of 11.`,
-      third: (holding: string) => `Third best from an honour with two small cards (${holding}): keep the honour to capture one of declarer’s.`,
+      singleton: 'シングルトンです: それをリードします。',
+      ak: 'A-Kからはエースをリードします: リードを保ったままダミーを見てから、次の手を決められます。',
+      doubleton: 'ダブルトンのトップ: 高いカードを先に、次に低いカードを出します（ハイローでダブルトンを示し、ラフにつながることがあります）。',
+      sequence: (holding: string) => `シークエンスのトップ（${holding}）: すぐ下のカードを約束し、すぐ上のカードを否定します。`,
+      interior: (holding: string, rank: number) => `インテリアシークエンス（${holding}）: 連続したカードのいちばん上、${rankLabel(rank)}をリードします。`,
+      touching: (holding: string) => `連続したオナーのトップ（${holding}）。`,
+      nothing: '小さなカード3枚からのトップ・オブ・ナッシング: このスートにオナーがないことをパートナーに伝えます。',
+      small: '小さなカード4枚以上からは、2番目に高いカードをリードします。パートナーがあなたにオナーがあると誤解しないようにするためです。',
+      partnerLow: 'パートナーのスートで、オナーと他に2枚を持っているときは低いカード（3番目に高いカード）をリードします。',
+      fourth: (holding: string) => `最も長く強いスート（${holding}）から4番目に高いカード（フォースベスト）をリードします。パートナーは11のルールを使えます。`,
+      third: (holding: string) => `オナーと小さなカード2枚（${holding}）からは3番目に高いカードをリードします: オナーを残してディクレアラーのオナーを捕らえます。`,
     },
-    /** Why this suit. */
     suit: {
-      partnerBid: (suit: number) => `Partner bid ${core.suits[suit]}: leading partner's suit is rarely wrong and usually best.`,
-      theyBid: (suit: number) => `The opponents bid ${core.suits[suit]} — leading their suit usually helps declarer.`,
+      partnerBid: (suit: number) => `パートナーが${core.suits[suit]}をビッドしました: パートナーのスートのリードはめったに間違いにならず、たいてい最善です。`,
+      theyBid: (suit: number) => `相手が${core.suits[suit]}をビッドしました: 相手のスートのリードはたいていディクレアラーを助けてしまいます。`,
       // against notrump
       ntLong: (suit: number, n: number) =>
-        `Against notrump, lead your longest and strongest suit (${n} ${core.suits[suit]}): you hope to set up long-card winners.`,
-      ntSequence: 'A solid sequence is safe and builds tricks.',
-      ntShort: (n: number) => `${n === 1 ? 'A singleton' : `${aCard(n)} suit`}: not the ideal notrump lead.`,
+        `ノートランプに対しては最も長く強いスート（${core.suits[suit]}${n}枚）をリードします: 長いスートの残りのカードをウィナーにすることを狙います。`,
+      ntSequence: '堅いシークエンス: 安全で、トリックを作れます。',
+      ntShort: (n: number) => `${n === 1 ? 'シングルトン' : `${n}枚のスート`}: ノートランプに対しては理想的なリードではありません。`,
       // against a suit contract
-      trump: 'A trump lead: safe and passive, and it cuts down dummy’s ruffs.',
-      singleton: 'A singleton: you hope partner wins an early trick and gives you a ruff.',
-      aceAway: 'Never lead away from an ace against a suit contract — and leading the ace itself rarely helps.',
-      sequence: (suit: number) => `Top of a sequence in ${core.suits[suit]}: safe, and it may set up tricks.`,
+      trump: 'トランプのリード: 安全で受け身なリードで、ダミーでのラフを減らします。',
+      singleton: 'シングルトン: パートナーが早めにトリックを取ってラフさせてくれることを狙います。',
+      aceAway: 'スートコントラクトに対してはエースのあるスートから小さなカードをリードしてはいけません — エースそのもののリードもめったに役立ちません。',
+      sequence: (suit: number) => `${core.suits[suit]}のシークエンスのトップ: 安全で、トリックを確立できることがあります。`,
       plain: (suit: number, n: number) =>
-        n === 1 ? `A singleton ${core.suitSingular[suit]}.` : `${aCard(n)} ${core.suitSingular[suit]} holding.`,
+        n === 1 ? `${core.suits[suit]}のシングルトン。` : `${core.suits[suit]}${n}枚の持ち札。`,
     },
   },
 
   // -------------------------------------------------------------------------
   // src/tutor/signals.ts — what the opening lead and partner's signals tell you
   signals: {
-    /** Heading over the meaning of the opening lead. */
     leadBy: {
-      you: (card: Card) => `Your opening lead: ${cardName(card)}`,
-      partner: (card: Card) => `Partner’s opening lead: ${cardName(card)}`,
-      seat: (seat: number, card: Card) => `${core.seats[seat]}’s opening lead: ${cardName(card)}`,
+      you: (card: Card) => `あなたのオープニングリード: ${cardName(card)}`,
+      partner: (card: Card) => `パートナーのオープニングリード: ${cardName(card)}`,
+      seat: (seat: number, card: Card) => `${core.seats[seat]}のオープニングリード: ${cardName(card)}`,
     },
-    /** What the card led usually shows, by rank. */
     lead: {
       ace: (vsNT: boolean) =>
         vsNT
-          ? 'The ace: usually from ace-king (against notrump it can also ask partner to unblock).'
-          : 'The ace: usually from ace-king, or a singleton/doubleton ace.',
+          ? 'エース: ふつうはA-Kからです（ノートランプに対しては、パートナーにアンブロックを求めることもあります）。'
+          : 'エース: ふつうはA-Kから、またはシングルトンかダブルトンのエースです。',
       king: (vsNT: boolean) =>
-        vsNT ? 'The king: top of a sequence — K-Q (or A-K). It denies the ace unless from A-K.' : 'The king: top of a sequence — K-Q. It denies the ace.',
-      queen: 'The queen: top of a sequence (Q-J…), denying the king.',
-      jack: 'The jack: top of J-10…, or from an interior sequence such as K-J-10. Denies the queen.',
-      ten: 'The ten: top of 10-9…, or an interior sequence (Q-10-9, K-10-9).',
-      nine: 'The nine: top of a short or worthless holding, or 9-8-x.',
+        vsNT ? 'キング: シークエンスのトップ — K-Q（またはA-K）。A-Kからでなければエースを否定します。' : 'キング: シークエンスのトップ — K-Q。エースを否定します。',
+      queen: 'クイーン: シークエンスのトップ（Q-J…）で、キングを否定します。',
+      jack: 'ジャック: J-10…のトップ、またはK-J-10のようなインテリアシークエンスから。クイーンを否定します。',
+      ten: '10: 10-9…のトップ、またはインテリアシークエンス（Q-10-9、K-10-9）から。',
+      nine: '9: 短いか価値のない持ち札のトップ、または9-8-x。',
       low: (suit: number, vsNT: boolean) =>
         vsNT
-          ? `A low ${core.suitSingular[suit]}: probably fourth best from length with an honour. Use the Rule of 11.`
-          : `A low ${core.suitSingular[suit]}: usually third/fourth best from an honour — or a singleton.`,
+          ? `${core.suits[suit]}の低いカード: おそらくオナーを含む長いスートからの4番目に高いカードです。11のルールを使いましょう。`
+          : `${core.suits[suit]}の低いカード: ふつうはオナーからの3番目か4番目に高いカード — またはシングルトンです。`,
     },
     ruleOf11: {
-      title: 'Rule of 11',
-      /** 11 − rank led = cards above it in the other three hands; `declarer` of them are declarer's. */
+      title: '11のルール',
       text: (rank: number, above: number, seen: number, declarer: number) =>
-        `Rule of 11: 11 − ${rankLabel(rank)} = ${above} cards higher than the ${rankLabel(rank)} in the other three hands. You can see ${seen} (dummy and your hand), so declarer holds ${declarer}.`,
+        `11のルール: 11 − ${rankLabel(rank)} = ${above}。他の3つのハンドに${rankLabel(rank)}より高いカードが${above}枚あります。あなたに見えているのは${seen}枚（ダミーとあなたのハンド）なので、ディクレアラーは${declarer}枚持っています。`,
     },
-    /** Partner's signals (and, for declarer, the defenders' count): `look` says how high the card looks and how sure that is. */
     read: {
       count: {
-        /** `who`: a seat, or null for partner. */
-        title: (who: number | null, card: Card) => `${who === null ? 'Partner’s' : `${core.seats[who]}’s`} ${cardName(card)}: count`,
-        /** `lengths`: the lengths that fit; `declarer`: read from declarer's seat. */
+        title: (who: number | null, card: Card) => `${who === null ? 'パートナー' : core.seats[who]}の${cardName(card)}: カウント`,
         text: (card: Card, look: Look, suit: number, lengths: number[], declarer: boolean) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: wait for the next card in ${core.suits[suit]} to read the count.`
-            : `${looks(card, look)}: ${look.sure ? '' : 'probably '}an ${look.height === 'high' ? 'even' : 'odd'} number of ${core.suits[suit]}${lengths.length ? ` (${orList(lengths)})` : ''}.${declarer ? ' Defenders sometimes falsecard, so treat it as a clue.' : ''}`,
+            ? `${cardName(card)}はハイともローとも取れます: カウントを読むには、${core.suits[suit]}の次のカードを待ちましょう。`
+            : `${looks(card, look)}: ${look.sure ? '' : 'おそらく'}${core.suits[suit]}は${look.height === 'high' ? '偶数' : '奇数'}枚です${lengths.length ? `（${orList(lengths)}枚）` : ''}。${declarer ? 'ディフェンダーはフォールスカードを使うこともあるので、手がかりとして扱いましょう。' : ''}`,
       },
       attitude: {
-        title: (card: Card) => `Partner’s ${cardName(card)} on your lead: attitude`,
+        title: (card: Card) => `あなたのリードに対するパートナーの${cardName(card)}: アティチュード`,
         text: (card: Card, look: Look) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner likes the suit.`
-            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'partner likes the suit — continue it.' : 'partner probably likes the suit.') : `partner ${look.sure ? '' : 'probably '}doesn’t like the suit — think about a switch.`}`,
+            ? `${cardName(card)}はハイともローとも取れます: パートナーがこのスートを好んでいるかはまだはっきりしません。`
+            : `${looks(card, look)}: ${look.height === 'high' ? (look.sure ? 'パートナーはこのスートを好んでいます — 続けましょう。' : 'パートナーはおそらくこのスートを好んでいます。') : `パートナーは${look.sure ? '' : 'おそらく'}このスートを好んでいません — スートの切り替えを考えましょう。`}`,
       },
       discard: {
-        title: (card: Card) => `Partner discarded ${cardName(card)}`,
+        title: (card: Card) => `パートナーは${cardName(card)}をディスカードしました`,
         text: (card: Card, look: Look, suit: number) =>
           look.height === null
-            ? `${cardName(card)} could be high or low: not clear yet whether partner wants ${core.suits[suit]} led.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}${look.height === 'high' ? 'wants' : 'doesn’t want'} ${core.suits[suit]} led.`,
+            ? `${cardName(card)}はハイともローとも取れます: パートナーが${core.suits[suit]}のリードを望んでいるかはまだはっきりしません。`
+            : `${looks(card, look)}: パートナーは${look.sure ? '' : 'おそらく'}${core.suits[suit]}のリードを${look.height === 'high' ? '望んでいます' : '望んでいません'}。`,
       },
       preference: {
-        title: (card: Card) => `Partner leads ${cardName(card)} for you to ruff: suit preference`,
-        /** `sides`: the other two side suits, lower first. */
+        title: (card: Card) => `パートナーはあなたにラフさせるために${cardName(card)}をリードしました: スートプリファレンス`,
         text: (card: Card, look: Look, sides: number[]) =>
           look.height === null
-            ? `${cardName(card)} is neither clearly high nor low: partner may have no preference — return whatever suits you best.`
-            : `${looks(card, look)}: partner ${look.sure ? '' : 'probably '}asks for ${core.suits[look.height === 'high' ? sides[1] : sides[0]]} back, the ${look.height === 'high' ? 'higher' : 'lower'} of the other two side suits.`,
+            ? `${cardName(card)}ははっきりハイともローとも言えません: パートナーには特に希望がないのかもしれません — あなたに都合のよいスートを返しましょう。`
+            : `${looks(card, look)}: パートナーは${look.sure ? '' : 'おそらく'}、残り2つのサイドスートのうち${look.height === 'high' ? '上位' : '下位'}の${core.suits[look.height === 'high' ? sides[1] : sides[0]]}を返すよう求めています。`,
       },
     },
-    /** Short labels for a signal a bot gave, e.g. a badge on its card. */
     badge: {
-      count: (even: boolean) => `Count: ${even ? 'even' : 'odd'}`,
-      attitude: (encourage: boolean) => `Attitude: ${encourage ? 'encouraging' : 'discouraging'}`,
-      discard: (encourage: boolean, suit: number) => `Discard: ${encourage ? 'encouraging' : 'discouraging'} ${SUIT_SYMBOLS[suit]}`,
-      /** The suit asked for, or null for no preference. */
-      preference: (suit: number | null) => `Suit preference: ${suit === null ? 'none' : SUIT_SYMBOLS[suit]}`,
+      count: (even: boolean) => `カウント: ${even ? '偶数' : '奇数'}`,
+      attitude: (encourage: boolean) => `アティチュード: ${encourage ? 'エンカレッジ' : 'ディスカレッジ'}`,
+      discard: (encourage: boolean, suit: number) => `ディスカード: ${SUIT_SYMBOLS[suit]}を${encourage ? 'エンカレッジ' : 'ディスカレッジ'}`,
+      preference: (suit: number | null) => `スートプリファレンス: ${suit === null ? 'なし' : SUIT_SYMBOLS[suit]}`,
     },
   },
 
@@ -362,25 +331,25 @@ export const tutor: Text['tutor'] = {
   eval: {
     hcp: 'HCP',
     hcpNote: 'A=4 K=3 Q=2 J=1',
-    total: 'Total pts',
-    totalNote: (lengthPts: number) => `HCP + ${lengthPts} for length`,
-    shape: 'Shape',
-    balanced: 'balanced',
-    semiBalanced: 'semi-balanced',
-    unbalanced: 'unbalanced',
-    losers: 'Losers',
-    losersNote: 'Losing Trick Count',
-    quickTricks: 'Quick tricks',
+    total: 'トータル',
+    totalNote: (lengthPts: number) => `HCP + 長さの点${lengthPts}`,
+    shape: '分布',
+    balanced: 'バランス型',
+    semiBalanced: 'セミバランス型',
+    unbalanced: 'アンバランス型',
+    losers: 'ルーザー',
+    losersNote: 'ルージングトリックカウント',
+    quickTricks: 'クイックトリック',
     quickTricksNote: 'AK=2 AQ=1½ A=1 KQ=1 Kx=½',
-    longest: 'Longest',
-    controls: (n: number) => `${n} ${plural(n, 'control')}`,
+    longest: '最長スート',
+    controls: (n: number) => `コントロール${n}`,
   },
 
   // -------------------------------------------------------------------------
   // src/core/scoring.ts — the par contract in the review
   par: {
-    /** "4♠X by N/S (N)": the contract, the side, and the seat that declares it. */
+    /** "4♠X 南北（北）": the contract, the side, and the seat that declares it. */
     contract: (contract: string, declarer: number) =>
-      `${contract} by ${core.seatLetters[declarer & 1]}/${core.seatLetters[(declarer & 1) + 2]} (${core.seatLetters[declarer]})`,
+      `${contract} ${declarer & 1 ? '東西' : '南北'}（${core.seatLetters[declarer]}）`,
   },
 };
