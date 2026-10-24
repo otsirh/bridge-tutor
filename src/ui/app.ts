@@ -515,7 +515,12 @@ export function mountApp(root: HTMLElement) {
     installPrompt = null;
     if (ui.modal === 'settings') render(true);
   });
-  document.addEventListener('keydown', e => {
+  // touch screens have no hover: tapping a chip (NV, Dealer, …) shows what its tooltip says
+  document.addEventListener('click', e => {
+    const chip = (e.target as Element | null)?.closest?.('.chip[title]');
+    if (chip) actions.toast(chip.getAttribute('title')!);
+  });
+    document.addEventListener('keydown', e => {
     // Space with nothing focused skips the bots' pause
     if (e.key === ' ' && e.target === document.body && !ui.modal) {
       e.preventDefault();
