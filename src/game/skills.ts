@@ -31,7 +31,7 @@ export const SKILLS: SkillInfo[] = [
   { id: 'bid.response', lessons: ['responding-to-one-of-a-suit', 'responders-rebid-and-choosing-game', 'splinters-and-drury', 'new-minor-and-fourth-suit-forcing'], theme: 'responses' },
   { id: 'bid.rebid', lessons: ['openers-rebid', 'responders-rebid-and-choosing-game'], theme: 'rebids' },
   { id: 'bid.notrump', lessons: ['notrump-bidding', 'strong-openings', 'texas-transfers'], theme: 'notrump' },
-  { id: 'bid.competitive', lessons: ['overcalls', 'takeout-doubles', 'negative-doubles', 'michaels-and-unusual-2nt', 'balancing', 'law-of-total-tricks', 'penalty-doubles-and-sacrifices'], theme: 'competitive' },
+  { id: 'bid.competitive', lessons: ['overcalls', 'takeout-doubles', 'negative-doubles', 'when-they-double-us', 'competing-over-1nt', 'competing-over-preempts', 'michaels-and-unusual-2nt', 'balancing', 'law-of-total-tricks', 'penalty-doubles-and-sacrifices'], theme: 'competitive' },
   { id: 'bid.slam', lessons: ['slam-bidding-and-blackwood', 'roman-key-card-blackwood', 'gerber-and-quantitative', 'slam-controls-and-cue-bids'], theme: 'slam' },
   { id: 'play.lead', lessons: ['opening-leads', 'rule-of-eleven', 'leads-against-slams-and-doubles'], theme: 'leads' },
   { id: 'play.declarer', lessons: ['planning-the-play', 'establishing-long-suits', 'finesses', 'hold-up-and-entries', 'trump-management', 'suit-combinations-and-odds', 'ruffing-finesse-and-loser-on-loser', 'safety-plays', 'avoidance-play', 'dummy-reversal-and-trump-coup', 'squeezes-and-endplays'], theme: 'declarer' },

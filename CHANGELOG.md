@@ -10,8 +10,10 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
   read correctly, and countable grand slams bid. A competitive double is read as takeout (partner
   used to pass it as a penalty double), strong or shapely hands no longer pass partner's opening,
   suit slams are bid with about 32 points and a fit, and calls show tighter ranges (opener's 2NT
-  after a two-over-one reads 12–14). Average loss against double-dummy par fell from 4.86 to 4.49
-  IMPs a board over 750 deals.
+  after a two-over-one reads 12–14). After our redouble, doubles are for penalties again; opener
+  passes partner's redouble of a doubled 1NT; over their 1NT the advancer raises partner's overcall
+  naturally instead of with an artificial 3♣. Average loss against double-dummy par fell from 4.86
+  to 4.49 IMPs a board over 750 deals.
 - Card play: each card's principle now matches it (overruff and underruff, returning partner's
   suit, declarer's ruffs, trumps already drawn…); the bots sample more layouts in the first tricks;
   passive opening leads against slams.
@@ -28,6 +30,9 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - Lesson corrections from a teacher's review, and seven new glossary terms.
 - Four new lessons: defending against notrump, ruffing finesses and loser on loser, dummy reversal
   and the trump coup, and leads against slams and doubled contracts; eight new glossary terms.
+- Three new lessons on competitive bidding: competing over the opponents' 1NT, competing over
+  preempts, and what to do when they double our opening; three practice topics to go with them
+  and six new glossary terms. Every hand and auction in them is checked against the bots.
 - Technique practice: whole deals where one declarer technique decides the contract — a finesse,
   the hold-up, unblocking, drawing trumps, ruffing in the short hand, and the rarer duck or safety play —
   played at the table with the auction made; the review shows the key moment with the simulation
