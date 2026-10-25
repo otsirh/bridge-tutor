@@ -208,8 +208,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Een evenwichtige hand die te sterk is voor 1SA: 20–21 punten.',
     open1nt: 'Het werkpaard: 15–17 punten en evenwichtig. Met 1SA beschrijf je je hand in één bod, zodat partner meestal het contract kan bepalen.',
     strength: '12–21 punten (of 10–11 met de regel van 20)',
-    strength4th: '12–21 punten, en in vierde hand voldoen aan de regel van 15 (punten + schoppen ≥ 15)',
+    strength4th: '13–21 punten in vierde hand, of 10–12 als je voldoet aan de regel van 15 (punten + schoppen ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `je hebt ${hcp} punten${rule20 === null ? '' : `; de regel van 20 geeft ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `je hebt ${hcp} punten${rule15 === null ? '' : `; de regel van 15 geeft ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} is de kleur om mee te openen (de langste; met 5-5 open je de hoogste)`,
     whichDiamonds: '♦ is de kleur om mee te openen (geen vijfkaart hoge kleur; de langste lage kleur, of 4-4 in de lage kleuren)',
     whichClubs: '♣ is de kleur om mee te openen (geen vijfkaart hoge kleur; de langste lage kleur, of 3-3 in de lage kleuren)',

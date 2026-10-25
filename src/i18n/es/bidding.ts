@@ -223,9 +223,11 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Una mano equilibrada demasiado fuerte para 1SA: 20–21 PH.',
     open1nt: 'La apertura más útil: 15–17 PH y mano equilibrada. Abrir de 1SA describe tu mano en una sola voz, así que normalmente tu compañero puede fijar el contrato.',
     strength: '12–21 PH (o 10–11 con la regla del 20)',
-    strength4th: '12–21 PH, cumpliendo en cuarta posición la regla del 15 (PH + picas ≥ 15)',
+    strength4th: '13–21 PH en cuarta posición, o 10–12 cumpliendo la regla del 15 (PH + picas ≥ 15)',
     /** `rule20` is given when the hand has fewer than 12 HCP. */
     strengthValue: (hcp: number, rule20: number | null) => `tienes ${hcp} PH${rule20 === null ? '' : `; la regla del 20 da ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `tienes ${hcp} PH${rule15 === null ? '' : `; la regla del 15 da ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} es el palo de apertura (el más largo; con 5-5, abre el más alto)`,
     whichDiamonds: '♦ es el palo de apertura (sin mayor quinto; el menor más largo, o 4-4 en menores)',
     whichClubs: '♣ es el palo de apertura (sin mayor quinto; el menor más largo, o 3-3 en menores)',

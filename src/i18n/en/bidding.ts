@@ -225,9 +225,11 @@ export const bidding = {
     open2nt: 'A balanced hand too strong for 1NT: 20–21 HCP.',
     open1nt: 'The workhorse: 15–17 HCP and balanced. Opening 1NT describes your hand in one bid, so partner can usually place the contract.',
     strength: '12–21 HCP (or 10–11 with the Rule of 20)',
-    strength4th: '12–21 HCP, passing the Rule of 15 (HCP + spades ≥ 15) in fourth seat',
+    strength4th: '13–21 HCP in fourth seat, or 10–12 passing the Rule of 15 (HCP + spades ≥ 15)',
     /** `rule20` is given when the hand has fewer than 12 HCP. */
     strengthValue: (hcp: number, rule20: number | null) => `you have ${hcp} HCP${rule20 === null ? '' : `; Rule of 20 gives ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `you have ${hcp} HCP${rule15 === null ? '' : `; Rule of 15 gives ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} is the suit to open (longest; with 5-5 open the higher)`,
     whichDiamonds: '♦ is the suit to open (no 5-card major; longer minor, or 4-4 in the minors)',
     whichClubs: '♣ is the suit to open (no 5-card major; longer minor, or 3-3 in the minors)',

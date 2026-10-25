@@ -217,8 +217,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Ręka zrównoważona, za silna na 1BA: 20–21 PC.',
     open1nt: 'Najważniejsze otwarcie: 15–17 PC i ręka zrównoważona. Otwarcie 1BA opisuje rękę jedną odzywką, więc partner zwykle sam może wybrać kontrakt.',
     strength: '12–21 PC (albo 10–11 według reguły 20)',
-    strength4th: '12–21 PC i reguła 15 na czwartej ręce (PC + piki ≥ 15)',
+    strength4th: '13–21 PC na czwartej ręce albo 10–12 z regułą 15 (PC + piki ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `masz ${hcp} PC${rule20 === null ? '' : `; reguła 20 daje ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `masz ${hcp} PC${rule15 === null ? '' : `; reguła 15 daje ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} to kolor otwarcia (najdłuższy; z 5-5 otwierasz wyższym)`,
     whichDiamonds: '♦ to kolor otwarcia (bez piątki w starszym; dłuższy młodszy albo 4-4 w młodszych)',
     whichClubs: '♣ to kolor otwarcia (bez piątki w starszym; dłuższy młodszy albo 3-3 w młodszych)',

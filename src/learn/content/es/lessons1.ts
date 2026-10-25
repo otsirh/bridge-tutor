@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>En primera, segunda o tercera posición, abre una mano de 10 u 11 PH si los PH más el número de cartas de tus dos palos más largos suman 20 o más.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regla del 20: abre de 1♠"></div>
 <p>10 PH + 5 + 5 = 20, así que se abre, y con dos palos de cinco cartas se abre el de mayor rango: 1♠. Compárala con ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PH + 4 + 3 = 18, así que pasas. Las Damas y los Valets dispersos y la distribución plana hacen que sea una mala apertura.</p>
-<p>En cuarta posición, después de tres pasos, usa la regla del 15: abre si los PH más el número de picas suman 15 o más. Si pasas, la mano se recoge, así que solo te interesa abrir cuando es probable que tu bando gane la lucha por el parcial, y la mayoría de esas luchas las decide el palo de picas.</p>
+<p>En cuarta posición, después de tres pasos, abre con 13 PH o más; con 10-12 PH usa la regla del 15: abre solo si los PH más el número de picas suman 15 o más. Si pasas, la mano se recoge, así que solo te interesa abrir cuando es probable que tu bando gane la lucha por el parcial, y la mayoría de esas luchas las decide el palo de picas.</p>
 
 <h3>El cómputo de perdedoras</h3>
 <p>Una vez encontrado un fit de 8 o más cartas, el cómputo de perdedoras (LTC, Losing Trick Count) da una segunda opinión basada en la distribución. Mira las tres primeras cartas de cada palo y cuenta una perdedora por cada As, Rey o Dama que falte entre ellas:</p>

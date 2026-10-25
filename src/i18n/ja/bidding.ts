@@ -205,8 +205,10 @@ export const bidding: Text['bidding'] = {
     open2nt: '1NTには強すぎるバランスハンド: 20–21 HCP。',
     open1nt: '最も頼りになるオープニング: 15–17 HCPのバランスハンド。1NTのオープンは1回のビッドでハンドを説明するので、たいていパートナーがコントラクトを決められます。',
     strength: '12–21 HCP（または20のルールで10–11）',
-    strength4th: '12–21 HCPで、4番手では15のルール（HCP + スペードの枚数 ≥ 15）を満たす',
+    strength4th: '4番手では13–21 HCP、または15のルール（HCP + スペードの枚数 ≥ 15）を満たす10–12 HCP',
     strengthValue: (hcp: number, rule20: number | null) => `あなたは${hcp} HCP${rule20 === null ? '' : `、20のルールでは${rule20}`}です`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `あなたは${hcp} HCP${rule15 === null ? '' : `、15のルールでは${rule15}`}です`,
     whichMajor: (suit: number) => `オープンするスートは${SUIT_SYMBOLS[suit]}（最も長いスート。5-5なら上位のスート）`,
     whichDiamonds: 'オープンするスートは♦（5枚メジャーがなく、長い方のマイナー、またはマイナーが4-4）',
     whichClubs: 'オープンするスートは♣（5枚メジャーがなく、長い方のマイナー、またはマイナーが3-3）',

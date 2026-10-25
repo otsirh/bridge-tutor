@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>An erster, zweiter oder dritter Position eröffnen Sie eine Hand mit 10 oder 11 FP, wenn die FP plus die Kartenzahl Ihrer beiden längsten Farben 20 oder mehr ergeben.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Zwanzigerregel: 1♠ eröffnen"></div>
 <p>10 FP + 5 + 5 = 20, also eröffnen Sie, und mit zwei Fünferlängen die höherrangige Farbe: 1♠. Zum Vergleich ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 FP + 4 + 3 = 18, also passen Sie. Die verstreuten Damen und Buben und die flache Verteilung machen daraus eine schlechte Eröffnung.</p>
-<p>An vierter Position, nach drei Passe, gilt die Fünfzehnerregel: Eröffnen Sie, wenn die FP plus die Anzahl Ihrer Pikkarten 15 oder mehr ergeben. Passen Sie, wird das Spiel eingepasst; eröffnen wollen Sie also nur, wenn Ihre Seite den Kampf um den Teilkontrakt wahrscheinlich gewinnt – und diesen Kampf entscheidet meistens die Pikfarbe.</p>
+<p>An vierter Position, nach drei Passe, eröffnen Sie mit 13 oder mehr FP; mit 10–12 FP gilt die Fünfzehnerregel: Eröffnen Sie nur, wenn die FP plus die Anzahl Ihrer Pikkarten 15 oder mehr ergeben. Passen Sie, wird das Spiel eingepasst; eröffnen wollen Sie also nur, wenn Ihre Seite den Kampf um den Teilkontrakt wahrscheinlich gewinnt – und diesen Kampf entscheidet meistens die Pikfarbe.</p>
 
 <h3>Verliererzählung</h3>
 <p>Ist ein Fit von 8+ Karten gefunden, liefert die Verliererzählung (Losing Trick Count, LTC) eine zweite Meinung, die auf der Verteilung beruht. Betrachten Sie die ersten drei Karten jeder Farbe und zählen Sie für jedes Ass, jeden König und jede Dame, die darunter fehlen, einen Verlierer:</p>

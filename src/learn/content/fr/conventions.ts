@@ -261,7 +261,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Après 1♦ – 1♠ – 1SA, quelle main doit employer la nouvelle mineure forcing ?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Cinq piques et 12 H : demandez un soutien de trois cartes. La première main est trop faible ; la troisième aussi, elle passe (2♠ montrerait six piques) ; et la dernière, avec quatre piques et 12 H, propose la manche par 2SA.',
+        explain: 'Cinq piques et 12 H : demandez un soutien de trois cartes. La première main est trop faible ; la troisième aussi, elle passe (2♠ montrerait six piques) ; et la dernière, avec quatre piques et 12 H, propose la manche par 2SA.',
       },
     ],
   },

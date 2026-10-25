@@ -94,7 +94,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Redoublet (redouble)', def: 'Een bod na een doublet van een tegenstander dat de scores opnieuw verhoogt. Na een informatiedoublet op de opening van partner toont het 10+ punten.' },
   { term: 'Reeks (sequence)', def: 'Drie aaneengesloten kaarten, zoals K-Q-J of Q-J-10; voor uitkomsten ook twee aaneengesloten kaarten plus de op één na volgende (K-Q-10). Kom uit met de hoogste kaart van een reeks.' },
   { term: 'Regel van 11 (Rule of 11)', def: 'Als partner uitkomt met de vierde van boven, trek je de waarde van die kaart af van 11 om te weten hoeveel hogere kaarten de andere drie handen samen hebben.' },
-  { term: 'Regel van 15 (Rule of 15)', def: 'Open in vierde hand als je punten plus het aantal schoppen samen 15 of meer is.' },
+  { term: 'Regel van 15 (Rule of 15)', def: 'Open in vierde hand met 10-12 punten alleen als je punten plus het aantal schoppen samen 15 of meer is; met 13 of meer open je hoe dan ook.' },
   { term: 'Regel van 2-3-4 (Rule of 2-3-4)', def: 'Een richtlijn voor preëmptief bieden: kom hoogstens twee slagen tekort bij ongunstige kwetsbaarheid, drie bij gelijke en vier bij gunstige.' },
   { term: 'Regel van 20 (Rule of 20)', def: 'Open in eerste, tweede of derde hand een hand met 10-11 punten als je punten plus de lengte van je twee langste kleuren samen 20 of meer is.' },
   { term: 'Regel van 7 (Rule of 7)', def: 'Een richtlijn voor ophouden: trek het aantal kaarten dat jij en de dummy in de gespeelde kleur hebben af van zeven; de uitkomst is hoe vaak je ophoudt.' },

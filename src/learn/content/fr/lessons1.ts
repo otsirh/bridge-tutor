@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>En 1re, 2e ou 3e position, ouvrez une main de 10 ou 11 H si le total des H et du nombre de cartes de vos deux plus longues couleurs atteint 20 ou plus.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Règle des 20 : ouvrez de 1♠"></div>
 <p>10 H + 5 + 5 = 20 : vous ouvrez, et avec deux couleurs cinquièmes vous ouvrez de la plus chère, 1♠. Comparez avec ♠QJ5 ♥K92 ♦QJ84 ♣Q73 : 11 H + 4 + 3 = 18, donc passe. Les Dames et Valets dispersés et la distribution plate en font une mauvaise ouverture.</p>
-<p>En 4e position, après trois passes, appliquez la règle des 15 : ouvrez si le total des H et du nombre de piques atteint 15 ou plus. Si vous passez, la donne est annulée ; vous ne voulez donc ouvrir que si votre camp a de bonnes chances de gagner la bataille de la partielle, et c’est la couleur de pique qui tranche le plus souvent ces batailles.</p>
+<p>En 4e position, après trois passes, ouvrez avec 13 H ou plus ; avec 10-12 H, appliquez la règle des 15 : n’ouvrez que si le total des H et du nombre de piques atteint 15 ou plus. Si vous passez, la donne est annulée ; vous ne voulez donc ouvrir que si votre camp a de bonnes chances de gagner la bataille de la partielle, et c’est la couleur de pique qui tranche le plus souvent ces batailles.</p>
 
 <h3>La méthode des perdantes</h3>
 <p>Une fois un fit de 8 cartes ou plus trouvé, la méthode des perdantes (LTC) donne un second avis fondé sur la distribution. Regardez les trois premières cartes de chaque couleur et comptez une perdante pour chaque As, Roi ou Dame manquant parmi elles :</p>

@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Em primeira, segunda ou terceira posição, abra uma mão de 10 ou 11 PH se os PH mais o número de cartas dos seus dois naipes mais longos somarem 20 ou mais.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regra dos 20: abra 1♠"></div>
 <p>10 PH + 5 + 5 = 20, então abra, e com dois naipes de 5 cartas abra o de categoria mais alta: 1♠. Compare com ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PH + 4 + 3 = 18, então passe. As damas e os valetes espalhados e a distribuição plana fazem dela uma abertura ruim.</p>
-<p>Em quarta posição, depois de três passos, use a Regra dos 15: abra se os PH mais o número de espadas somarem 15 ou mais. Se você passar, a mão é recolhida sem ser jogada, então só convém abrir quando a sua dupla tem boas chances de ganhar a disputa pelo parcial, e quem decide a maioria dessas disputas é o naipe de espadas.</p>
+<p>Em quarta posição, depois de três passos, abra com 13 PH ou mais; com 10-12 PH use a Regra dos 15: abra só se os PH mais o número de espadas somarem 15 ou mais. Se você passar, a mão é recolhida sem ser jogada, então só convém abrir quando a sua dupla tem boas chances de ganhar a disputa pelo parcial, e quem decide a maioria dessas disputas é o naipe de espadas.</p>
 
 <h3>Contagem de Perdedoras</h3>
 <p>Depois de encontrado um fit de 8+ cartas, a Contagem de Perdedoras (LTC) dá uma segunda opinião, baseada na distribuição. Olhe as três primeiras cartas de cada naipe e conte uma perdedora para cada ás, rei ou dama que falte entre elas:</p>

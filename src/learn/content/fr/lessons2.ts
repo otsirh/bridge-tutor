@@ -985,8 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Après la réponse, 5♣ de la part de celui qui interroge demande les Rois selon le même schéma (5♦ = 0 ou 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Toute autre enchère fixe le contrat ; un 4SA de celui qui interroge est un arrêt, et si la réponse du partenaire était 4SA, il peut simplement passer.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Le partenaire a ouvert de 1SA : dites 4♥ (Texas)"></div>
-<p>16 H (31-33 au total) et six piques solides : la main est riche en levées, mais vous n’avez aucun As, la question porte donc sur les As. Les robots jouent par défaut les Texas au palier de 4 : dites 4♥, le partenaire complète le Texas par 4♠, et votre 4SA est alors un Blackwood à 5 clés, qui compte aussi le Roi et la Dame de pique. Sans Texas, dites 4♣, Gerber : sur 4♠ (deux As), passez et jouez 4♠ ; sur 4SA (trois As), dites 6♠.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Le partenaire a ouvert de 1SA : dites 4♥ (Texas)"></div>
+<p>16 H (31-33 au total) et six piques solides : la main est riche en levées, mais vous n’avez aucun As, la question porte donc sur les As. Les robots jouent par défaut les Texas au palier de 4 : dites 4♥, le partenaire complète le Texas par 4♠, et votre 4SA est alors un Blackwood à 5 clés, qui compte aussi le Roi et la Dame de pique. Sans Texas, dites 4♣, Gerber : sur 4♠ (deux As), passez et jouez 4♠ ; sur 4SA (trois As), dites 6♠.</p>
 
 <h3>Lequel utiliser ?</h3>
 <ul>

@@ -209,8 +209,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Une main régulière trop forte pour 1SA : 20–21 H.',
     open1nt: 'L’ouverture la plus utile : 15–17 H et main régulière. 1SA décrit votre main en une seule enchère, si bien que votre partenaire peut en général fixer le contrat.',
     strength: '12–21 H (ou 10–11 avec la règle des 20)',
-    strength4th: '12–21 H, et la règle des 15 en 4e position (H + piques ≥ 15)',
+    strength4th: '13–21 H en 4e position, ou 10–12 avec la règle des 15 (H + piques ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `vous avez ${hcp} H${rule20 === null ? '' : ` ; la règle des 20 donne ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `vous avez ${hcp} H${rule15 === null ? '' : ` ; la règle des 15 donne ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} est la couleur d’ouverture (la plus longue ; avec 5-5, ouvrez de la plus chère)`,
     whichDiamonds: '♦ est la couleur d’ouverture (pas de majeure cinquième ; la mineure la plus longue, ou 4-4 en mineures)',
     whichClubs: '♣ est la couleur d’ouverture (pas de majeure cinquième ; la mineure la plus longue, ou 3-3 en mineures)',
@@ -455,8 +457,8 @@ export const bidding: Text['bidding'] = {
     supportNewSuitCond: (suit: number) => `trois ${SUIT_SYMBOLS[suit]}, ou deux avec l’As, le Roi ou la Dame`,
     rebidWeakTwo: (suit: number) => `La couleur nouvelle du partenaire est forcing et vous ne pouvez pas la soutenir : répétez vos ${plural(suit)}.`,
     // responder after opener's 1NT rebid
-    threeNtOver1ntRebid: 'La redemande de 1SA de l’ouvreur montre 12–14 H et une main régulière : avec 13+ H, la paire a les 25 points environ nécessaires pour la manche. Demandez-la.',
-    twoNtOver1ntRebid: 'La redemande de 1SA de l’ouvreur montre 12–14 H et une main régulière : avec 11–12 H, la manche dépend de la force de l’ouvreur. Proposez-la avec 2SA ; l’ouvreur dit 3SA avec un maximum.',
+    threeNtOver1ntRebid: 'La redemande de 1SA de l’ouvreur montre 12–14 H et une main régulière : avec 13+ H, la paire a les 25 points environ nécessaires pour la manche. Demandez-la.',
+    twoNtOver1ntRebid: 'La redemande de 1SA de l’ouvreur montre 12–14 H et une main régulière : avec 11–12 H, la manche dépend de la force de l’ouvreur. Proposez-la avec 2SA ; l’ouvreur dit 3SA avec un maximum.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `La proposition de votre partenaire montre ${min}–${max} : avec ${need}+ H, la paire totalise 33 points, assez pour douze levées.`,
     quantAfterInvite: 'Le chelem est possible si votre partenaire est maximum : 4SA propose 6SA (ce n’est pas un Blackwood).',
@@ -488,7 +490,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Rien qui vaille d’être montré sur leur sans-atout fort.',
     passNt: 'Ils ont dit sans-atout : aucune action raisonnable.',
     balancing1nt: 'En réveil, 1SA montre 11–14, main régulière avec un arrêt (vous « empruntez » les points de votre partenaire).',
-    notLongInTheirs: (suits: number[]) => `au plus quatre cartes à ${syms(suits, ' ')} (avec cinq, le partenaire est court et n’a pas contré : passez)`,
+    notLongInTheirs: (suits: number[]) => `au plus quatre cartes à ${syms(suits, ' ')} (avec cinq, le partenaire est court et n’a pas contré : passez)`,
     overcall1nt: 'Comme une ouverture de 1SA — 15–18, main régulière — avec en plus un arrêt dans leur couleur.',
     overcall2nt: 'Sur un deux faible : 15–18, main régulière avec un arrêt.',
     overcall3nt: 'Sur un barrage : une main régulière forte (16–21) avec un arrêt — pour jouer.',
@@ -539,11 +541,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Un fit à ${single(suit)} et de bonnes valeurs (ou un grand fit) : demandez la manche.`,
     preference: (suit: number) => `Choisissez la couleur du partenaire que vous préférez : les ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} est votre meilleur fit`,
-    preferenceMajor: (suit: number) => `Un soutien dans les ${plural(suit)} du partenaire (trois cartes ou plus) : nommez-les au palier le plus économique.`,
-    askMinor: (suit: number) => `Artificiel : pas de fit dans les ${plural(suit)} du partenaire, alors 2${sym(4)} demande de nommer la mineure. Ensuite vous passez, ou demandez la manche avec un fit et les valeurs.`,
+    preferenceMajor: (suit: number) => `Un soutien dans les ${plural(suit)} du partenaire (trois cartes ou plus) : nommez-les au palier le plus économique.`,
+    askMinor: (suit: number) => `Artificiel : pas de fit dans les ${plural(suit)} du partenaire, alors 2${sym(4)} demande de nommer la mineure. Ensuite vous passez, ou demandez la manche avec un fit et les valeurs.`,
     askMinorCond: (suit: number) => `4+ cartes dans chaque mineure, ou au plus un ${SUIT_SYMBOLS[suit]}`,
-    preferenceDoubleton: (suit: number) => `Seulement deux ${plural(suit)}, mais pas de fit en mineure : la majeure est le contrat le plus économique.`,
-    showMinor: (suit: number) => `Le 2${sym(4)} de votre partenaire demande votre mineure : nommez vos ${plural(suit)} (cinq cartes ou plus).`,
+    preferenceDoubleton: (suit: number) => `Seulement deux ${plural(suit)}, mais pas de fit en mineure : la majeure est le contrat le plus économique.`,
+    showMinor: (suit: number) => `Le 2${sym(4)} de votre partenaire demande votre mineure : nommez vos ${plural(suit)} (cinq cartes ou plus).`,
     passDefend: 'Vous préférez défendre.',
     // advancing a penalty double
     passPenalty: 'Le contre de votre partenaire est punitif : passez et défendez.',
@@ -559,7 +561,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manche dans les ${plural(suit)} du partenaire : 13+ points de soutien, ou une main faible avec cinq atouts et de la distribution.`,
     gameRaiseCond: '13+ points de soutien, ou cinq atouts avec un singleton',
-    gameRaiseWeak: (suit: number) => `Cinq ${plural(suit)} ou plus, de la distribution et une main faible : sautez tout de suite à la manche et laissez les adversaires deviner. Avec 10+ points et un soutien, faites d’abord un cue-bid dans leur couleur.`,
+    gameRaiseWeak: (suit: number) => `Cinq ${plural(suit)} ou plus, de la distribution et une main faible : sautez tout de suite à la manche et laissez les adversaires deviner. Avec 10+ points et un soutien, faites d’abord un cue-bid dans leur couleur.`,
     cueBidRaise: (min: number, suit: number) => `Un cue-bid dans leur couleur montre un bon soutien : ${min}+ ${plural(suit)} et 10+ points. Un soutien simple serait plus faible.`,
     preemptiveRaise: 'Soutien de quatre cartes et main faible : montez au palier de votre fit (loi des levées totales).',
     raise: (min: number, suit: number) => `Soutien dans la couleur du partenaire (${min}+ ${SUIT_SYMBOLS[suit]}) et 6–9 points.`,
@@ -634,9 +636,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Votre partenaire a montré un bon soutien (10+) : avec une intervention solide (13+ points), demandez la manche.',
     minimumCueBidRaise: 'Une intervention minimum : nommez notre couleur au palier le plus bas. Votre partenaire peut encore demander la manche avec des valeurs supplémentaires.',
-    gameAfterCueRaise: (suit: number) => `Des valeurs de manche avec un soutien dans les ${plural(suit)} du partenaire : demandez la manche même face à une intervention minimum.`,
-    inviteAfterCueRaise: 'Un peu plus qu’un soutien limite : proposez la manche. Votre partenaire la demande avec le haut d’une intervention minimum.',
-    passAfterCueRaise: 'Seulement un soutien limite face à une intervention minimum : restez en partielle.',
+    gameAfterCueRaise: (suit: number) => `Des valeurs de manche avec un soutien dans les ${plural(suit)} du partenaire : demandez la manche même face à une intervention minimum.`,
+    inviteAfterCueRaise: 'Un peu plus qu’un soutien limite : proposez la manche. Votre partenaire la demande avec le haut d’une intervention minimum.',
+    passAfterCueRaise: 'Seulement un soutien limite face à une intervention minimum : restez en partielle.',
   },
 
   // ---------------------------------------------------------------------------

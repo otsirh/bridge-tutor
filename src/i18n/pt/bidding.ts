@@ -207,8 +207,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Mão balanceada forte demais para 1ST: 20–21 PH.',
     open1nt: 'A abertura mais útil: 15–17 PH e mão balanceada. Abrir 1ST descreve a sua mão numa só voz, e o parceiro em geral já consegue decidir o contrato.',
     strength: '12–21 PH (ou 10–11 pela Regra dos 20)',
-    strength4th: '12–21 PH, cumprindo a Regra dos 15 (PH + espadas ≥ 15) em quarta posição',
+    strength4th: '13–21 PH em quarta posição, ou 10–12 cumprindo a Regra dos 15 (PH + espadas ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `você tem ${hcp} PH${rule20 === null ? '' : `; a Regra dos 20 dá ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `você tem ${hcp} PH${rule15 === null ? '' : `; a Regra dos 15 dá ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} é o naipe da abertura (o mais longo; com 5-5, abra no mais alto)`,
     whichDiamonds: '♦ é o naipe da abertura (sem rico quinto; o pobre mais longo, ou 4-4 nos pobres)',
     whichClubs: '♣ é o naipe da abertura (sem rico quinto; o pobre mais longo, ou 3-3 nos pobres)',

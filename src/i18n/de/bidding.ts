@@ -217,8 +217,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Eine ausgeglichene Hand, zu stark für 1SA: 20–21 FP.',
     open1nt: 'Die wichtigste Eröffnung überhaupt: 15–17 FP und ausgeglichen. Mit 1SA beschreiben Sie Ihre Hand in einem einzigen Gebot, sodass der Partner meist den Kontrakt bestimmen kann.',
     strength: '12–21 FP (oder 10–11 nach der Zwanzigerregel)',
-    strength4th: '12–21 FP und in vierter Hand die Fünfzehnerregel erfüllt (FP + Anzahl Pik ≥ 15)',
+    strength4th: '13–21 FP in vierter Hand, oder 10–12 mit erfüllter Fünfzehnerregel (FP + Anzahl Pik ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `Sie haben ${hcp} FP${rule20 === null ? '' : `; nach der Zwanzigerregel ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `Sie haben ${hcp} FP${rule15 === null ? '' : `; nach der Fünfzehnerregel ${rule15}`}`,
     whichMajor: (s: number) => `${SUIT_SYMBOLS[s]} ist die Eröffnungsfarbe (die längste; mit 5-5 die höhere)`,
     whichDiamonds: '♦ ist die Eröffnungsfarbe (keine Fünferoberfarbe; die längere Unterfarbe oder 4-4 in den Unterfarben)',
     whichClubs: '♣ ist die Eröffnungsfarbe (keine Fünferoberfarbe; die längere Unterfarbe oder 3-3 in den Unterfarben)',

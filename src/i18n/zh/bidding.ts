@@ -208,8 +208,10 @@ export const bidding: Text['bidding'] = {
     open2nt: '牌力太强、不能开叫1NT的平均牌型：20–21大牌点。',
     open1nt: '最常用的开叫：15–17大牌点，平均牌型。1NT开叫一次就描述了你的牌，同伴通常就能确定定约。',
     strength: '12–21大牌点（或按20法则10–11点）',
-    strength4th: '12–21大牌点，第四家须符合15法则（大牌点 + 黑桃张数 ≥ 15）',
+    strength4th: '第四家13–21大牌点，或符合15法则（大牌点 + 黑桃张数 ≥ 15）的10–12点',
     strengthValue: (hcp: number, rule20: number | null) => `你有${hcp}个大牌点${rule20 === null ? '' : `；按20法则为${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `你有${hcp}个大牌点${rule15 === null ? '' : `；按15法则为${rule15}`}`,
     whichMajor: (suit: number) => `开叫花色为${SUIT_SYMBOLS[suit]}（最长的花色；5-5时开叫较高的）`,
     whichDiamonds: '开叫花色为♦（没有5张高花；低花较长，或低花4-4）',
     whichClubs: '开叫花色为♣（没有5张高花；低花较长，或低花3-3）',

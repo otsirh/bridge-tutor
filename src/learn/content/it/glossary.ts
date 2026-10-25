@@ -104,7 +104,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Quarta migliore (fourth best)', def: 'La quarta carta più alta di un colore; l’attacco standard da un colore lungo contro i senza atout.' },
   { term: 'Quarto colore forzante (fourth suit forcing)', def: 'Quando sono stati dichiarati tre colori in modo naturale, la dichiarazione del quarto colore da parte del rispondente è convenzionale e forzante manche: chiede all’apertore di descrivere meglio la mano.' },
   { term: 'Reclamo (claim)', def: 'Interrompere il gioco dichiarando quante delle prese rimanenti farai, e come. Il reclamo deve reggere contro qualunque difesa; i punti dubbi si risolvono contro chi reclama.' },
-  { term: 'Regola del 15 (Rule of 15)', def: 'In quarta posizione apri la licita se i PO più il numero di picche fanno 15 o più.' },
+  { term: 'Regola del 15 (Rule of 15)', def: 'In quarta posizione apri una mano di 10-12 PO solo se i PO più il numero di picche fanno 15 o più; con 13 o più apri comunque.' },
   { term: 'Regola del 2-3-4 (Rule of 2-3-4)', def: 'Una guida per il barrage: non essere a più di due prese dal contratto in zona sfavorevole, tre in parità di zona e quattro in zona favorevole.' },
   { term: 'Regola del 20 (Rule of 20)', def: 'In prima, seconda o terza posizione apri una mano da 10-11 PO se i PO più le lunghezze dei due colori più lunghi fanno 20 o più.' },
   { term: 'Regola del 7 (Rule of 7)', def: 'Una guida per il colpo in bianco: sottrai da sette il numero di carte del colore uscito che hai tra mano e morto; il risultato è il numero di volte in cui lisciare.' },

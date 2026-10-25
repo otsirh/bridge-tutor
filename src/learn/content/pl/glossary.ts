@@ -90,7 +90,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Pytanie o damę atutową (queen ask)', def: 'Po odpowiedzi 5♣ lub 5♦ na Roman Key Card Blackwood następny stopień pyta o damę atutową; bez niej partner wraca do koloru atutowego.' },
   { term: 'Rebid', def: 'Druga odzywka gracza w licytacji, zwłaszcza otwierającego.' },
   { term: 'Reguła 11 (Rule of 11)', def: 'Gdy partner wistuje czwartą od góry, odejmij wysokość karty od 11, żeby ustalić, ile wyższych kart mają pozostałe trzy ręce.' },
-  { term: 'Reguła 15 (Rule of 15)', def: 'Na czwartej ręce otwórz licytację, jeśli PC plus liczba pików wynosi co najmniej 15.' },
+  { term: 'Reguła 15 (Rule of 15)', def: 'Na czwartej ręce z 10-12 PC otwórz licytację tylko wtedy, gdy PC plus liczba pików wynosi co najmniej 15; z 13 lub więcej PC otwieraj zawsze.' },
   { term: 'Reguła 2-3-4 (Rule of 2-3-4)', def: 'Wskazówka dla otwarć blokujących: do kontraktu może ci brakować najwyżej dwóch lew przy niekorzystnych założeniach, trzech przy równych i czterech przy korzystnych.' },
   { term: 'Reguła 20 (Rule of 20)', def: 'Na pierwszej, drugiej lub trzeciej ręce otwórz rękę z 10-11 PC, jeśli PC plus długości dwóch najdłuższych kolorów wynoszą co najmniej 20.' },
   { term: 'Reguła 7 (Rule of 7)', def: 'Wskazówka dla przepuszczania: od siedmiu odejmij liczbę kart, które razem z dziadkiem masz w kolorze wistu; wynik to liczba przepuszczeń.' },

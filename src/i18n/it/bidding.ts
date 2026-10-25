@@ -202,8 +202,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Una mano bilanciata troppo forte per 1SA: 20–21 PO.',
     open1nt: 'L’apertura più utile: 15–17 PO e mano bilanciata. Aprendo di 1SA descrivi la mano con una sola dichiarazione, e di solito il compagno può scegliere il contratto.',
     strength: '12–21 PO (o 10–11 con la regola del 20)',
-    strength4th: '12–21 PO, rispettando in quarta posizione la regola del 15 (PO + picche ≥ 15)',
+    strength4th: '13–21 PO in quarta posizione, o 10–12 rispettando la regola del 15 (PO + picche ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `hai ${hcp} PO${rule20 === null ? '' : `; la regola del 20 dà ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `hai ${hcp} PO${rule15 === null ? '' : `; la regola del 15 dà ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} è il colore d’apertura (il più lungo; con 5-5 apri nel più alto)`,
     whichDiamonds: '♦ è il colore d’apertura (niente nobile quinta; il minore più lungo, oppure 4-4 nei minori)',
     whichClubs: '♣ è il colore d’apertura (niente nobile quinta; il minore più lungo, oppure 3-3 nei minori)',
