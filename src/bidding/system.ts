@@ -13,6 +13,7 @@ import {
 } from './rebids';
 import {
   overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise, openerReopening, afterReopeningDouble, openerAfterRedouble, doublerAfterRedouble,
+  michaelsMinorReply,
 } from './competitive';
 import { conventionReplies, blackwoodTrump } from './slam';
 import { getSystem } from './config';
@@ -122,6 +123,8 @@ function specificRules(x: Ctx): Rule[] {
   // the opponents opened
   if (myActs.length === 0 && pActs.length === 0) return overcallRules(x);
   if (myActs.length === 0 && pActs.length >= 1) return advanceRules(x, pActs[pActs.length - 1]);
+  // our Michaels cue bid (the other major and a minor), and partner's 2NT asks for the minor
+  if (myActs.length === 1 && myActs[0].meaning.tag === 'michaels' && pc?.meaning.tag === 'askMinor' && pActs.length === 1) return michaelsMinorReply(x);
   if (myActs.length === 1 && myActs[0].meaning.tag === 'takeoutX' && pActs.length === 1 && pActs[0].index > myActs[0].index && x.partnerCall()?.index === pActs[0].index) {
     return doublerRebid(x, pActs[0]);
   }

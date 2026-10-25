@@ -126,7 +126,8 @@ export const bidding: Text['bidding'] = {
     /** Answering partner's takeout double. */
     advance: 'Respuesta',
     freeBid: 'Voz libre',
-    passOrCorrect: 'Pasa o corrige',
+    askMinor: 'Pregunta por el menor',
+    showMinor: 'Mostrar el menor',
     toPlay: 'Para jugar',
     cueBidRaise: 'Cue-bid de apoyo',
     escape: 'Huida',
@@ -549,7 +550,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Fit en ${plural(suit)} y buenos valores (o un gran fit): declara la manga.`,
     preference: (suit: number) => `Elige el palo de tu compañero que más te guste: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} es tu mejor fit`,
-    passOrCorrect: 'Sin fit en el mayor: declara tréboles; tu compañero corrige a diamantes si ese es su menor.',
+    preferenceMajor: (suit: number) => `Apoyo para el palo de tu compañero (tres o más ${plural(suit)}): decláralo al nivel más barato.`,
+    askMinor: (suit: number) => `Artificial: sin fit en ${the(suit)} de tu compañero, 2${sym(4)} le pide que declare su menor. Luego pasas, o declaras la manga con fit y valores.`,
+    askMinorCond: (suit: number) => `4+ cartas en cada menor, o como máximo 1 ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Solo dos ${plural(suit)}, pero sin fit en ningún menor: el mayor es el contrato más barato.`,
+    showMinor: (suit: number) => `El 2${sym(4)} de tu compañero pregunta por tu menor: declara tus ${plural(suit)} (cinco o más).`,
     passDefend: 'Te conformas con defender.',
     // advancing a penalty double
     passPenalty: 'El doblo de tu compañero es de castigo: pasa y defiende.',

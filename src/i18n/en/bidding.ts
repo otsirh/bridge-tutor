@@ -128,7 +128,8 @@ export const bidding = {
     /** Answering partner's takeout double. */
     advance: 'Response',
     freeBid: 'Free bid',
-    passOrCorrect: 'Pass or correct',
+    askMinor: 'Ask for the minor',
+    showMinor: 'Show the minor',
     toPlay: 'To play',
     cueBidRaise: 'Cue-bid raise',
     escape: 'Escape',
@@ -551,7 +552,11 @@ export const bidding = {
     gameTwoSuiter: (suit: number) => `A fit in ${plural(suit)} and good values (or a big fit): bid game.`,
     preference: (suit: number) => `Choose partner's suit you like best: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} is your better fit`,
-    passOrCorrect: 'No fit for the major: bid clubs; partner corrects to diamonds if that is the minor.',
+    preferenceMajor: (suit: number) => `Support for partner's ${plural(suit)} (three or more): bid them at the cheapest level.`,
+    askMinor: (suit: number) => `Artificial: no fit for partner's ${plural(suit)}, so 2NT asks partner to bid the minor. You pass it, or bid game with a fit and the values.`,
+    askMinorCond: (suit: number) => `4+ cards in each minor, or at most one ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Only two ${plural(suit)}, but no fit for either minor: the major is the cheapest place to play.`,
+    showMinor: (suit: number) => `Partner's 2NT asks for your minor: bid your ${plural(suit)} (five or more).`,
     passDefend: 'Content to defend.',
     // advancing a penalty double
     passPenalty: 'Partner’s double is for penalties: pass and defend.',

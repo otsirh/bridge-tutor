@@ -280,14 +280,21 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
       const game = s >= HEARTS ? 4 : 5;
       rules.push(R(bid(game, s), 'game', t.gameTwoSuiter(s), [lenC(s, 3), hcpC(11)]));
     }
-    for (const s of choices) {
-      const c = x.cheapest(s);
-      if (c === null) continue;
-      rules.push(R(c, 'preference', t.preference(s), [cond(t.betterFit(s), h => choices.every(o => h.len[o] <= h.len[s]))]));
-    }
-    if (b < 0) {
-      const c = x.cheapest(CLUBS);
-      if (c !== null) rules.push(R(c, 'passOrCorrect', t.passOrCorrect, [lenC(a, 0, 2)], { tag: 'pOrC' }));
+    if (b >= 0) {
+      for (const s of choices) {
+        const c = x.cheapest(s);
+        if (c === null) continue;
+        rules.push(R(c, 'preference', t.preference(s), [cond(t.betterFit(s), h => choices.every(o => h.len[o] <= h.len[s]))]));
+      }
+    } else {
+      // the other major and an unknown minor: bid the major with support, or ask for the minor with 2NT
+      const c = x.cheapest(a);
+      if (c !== null) rules.push(R(c, 'preference', t.preferenceMajor(a), [lenC(a, 3)]));
+      if (x.cheapest(NT) === bid(2, NT)) {
+        rules.push(R(bid(2, NT), 'askMinor', t.askMinor(a), [lenC(a, 0, 2),
+          cond(t.askMinorCond(a), h => h.len[a] <= 1 || (h.len[CLUBS] >= 4 && h.len[DIAMONDS] >= 4))], { artificial: true, forcing: 'one', tag: 'askMinor' }));
+      }
+      if (c !== null) rules.push(R(c, 'preference', t.preferenceDoubleton(a), [lenC(a, 2)]));
     }
     rules.push(R(PASS, 'pass', t.passDefend, []));
     return rules;
@@ -625,6 +632,17 @@ export function doublerAfterRedouble(x: Ctx): Rule[] {
     if (!unbid.includes(su)) continue;
     const c = x.cheapest(su);
     if (c !== null) rules.push(R(c, 'showSuit', t.rescueRedouble(su), [cond(t.bestUnbid(su), h => bestUnbid(h, unbid) === su)]));
+  }
+  return rules;
+}
+
+/** The Michaels bidder (the other major and a minor) after partner's 2NT asks for the minor: bid it. */
+export function michaelsMinorReply(x: Ctx): Rule[] {
+  const t = T.bidding.competitive;
+  const rules: Rule[] = [];
+  for (const m of [DIAMONDS, CLUBS]) {
+    const c = x.cheapest(m);
+    if (c !== null && levelOf(c) <= 4) rules.push(R(c, 'showMinor', t.showMinor(m), [lenC(m, 5)]));
   }
   return rules;
 }
