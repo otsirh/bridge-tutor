@@ -983,9 +983,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Depois da resposta, 5♣ de quem perguntou pede os reis no mesmo esquema (5♦ = 0 ou 4, 5♥ = 1, 5♠ = 2, 5ST = 3). Qualquer outra voz decide o contrato; um 4ST de quem perguntou é sign-off, e se a resposta do parceiro foi 4ST, quem perguntou pode simplesmente passar.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="O parceiro abriu 1ST: marque 4♣"></div>
-<p>16 PH (31-33 no total) e seis espadas fortes: a mão é rica em vazas, mas você não tem nenhum ás. A pergunta é sobre ases, então marque 4♣. Sobre 4♠ (dois ases), passe e jogue 4♠. Sobre 4ST (três ases), marque 6♠.</p>
-<p>Com os transfers Texas há outro caminho: 4♥, transfer para espadas, e depois 4ST, Blackwood de cartas-chave, que também conta o rei e a dama de espadas.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="O parceiro abriu 1ST: marque 4♥ (Texas)"></div>
+<p>16 PH (31-33 no total) e seis espadas fortes: a mão é rica em vazas, mas você não tem nenhum ás, então a pergunta é sobre ases. Os robôs jogam transfers Texas por padrão: marque 4♥, o parceiro completa o transfer com 4♠, e o seu 4ST é então Blackwood de cartas-chave, que também conta o rei e a dama de espadas. Sem Texas, marque 4♣, Gerber: sobre 4♠ (dois ases), passe e jogue 4♠; sobre 4ST (três ases), marque 6♠.</p>
 
 <h3>Qual usar?</h3>
 <ul>

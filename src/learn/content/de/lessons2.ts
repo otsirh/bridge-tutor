@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Nach der Antwort fragt 5♣ des Fragenden nach demselben Schema nach Königen (5♦ = 0 oder 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Jedes andere Gebot legt den Kontrakt fest; ein 4SA-Gebot des Fragenden ist ein Abschlussgebot, und war die Antwort des Partners 4SA, kann der Fragende einfach passen.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner hat 1SA eröffnet: 4♣"></div>
-<p>16 FP (zusammen 31–33) und sechs starke Pik: Die Hand ist reich an Stichen, enthält aber kein Ass. Die Frage sind also die Asse, darum reizen Sie 4♣. Auf 4♠ (zwei Asse) passen Sie und spielen 4♠. Auf 4SA (drei Asse) reizen Sie 6♠.</p>
-<p>Mit Texas-Transfers gibt es noch einen anderen Weg: 4♥, Transfer auf Pik, und dann 4SA, Roman Key Card Blackwood, das auch König und Dame in Pik mitzählt.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner hat 1SA eröffnet: 4♥ (Texas)"></div>
+<p>16 FP (zusammen 31–33) und sechs starke Pik: Die Hand ist reich an Stichen, enthält aber kein Ass, die Frage sind also die Asse. Die Bots spielen standardmäßig Texas-Transfers: Reizen Sie 4♥, der Partner vollendet den Transfer mit 4♠, und Ihr 4SA ist dann Roman Key Card Blackwood, das auch König und Dame in Pik mitzählt. Ohne Texas reizen Sie 4♣, Gerber: Auf 4♠ (zwei Asse) passen Sie und spielen 4♠; auf 4SA (drei Asse) reizen Sie 6♠.</p>
 
 <h3>Welches Werkzeug wann?</h3>
 <ul>

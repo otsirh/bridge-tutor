@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>After the reply, 5♣ by the asker asks for kings on the same pattern (5♦ = 0 or 4, 5♥ = 1, 5♠ = 2, 5NT = 3). Any other bid places the contract; a 4NT bid by the asker is a sign-off, and if partner's reply was 4NT, the asker can simply pass.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opened 1NT: bid 4♣"></div>
-<p>16 HCP (31-33 in total) and six strong spades: the hand is rich in tricks, but you hold no aces. The question is aces, so bid 4♣. Over 4♠ (two aces), pass and play in 4♠. Over 4NT (three aces), bid 6♠.</p>
-<p>With Texas transfers there is another way: 4♥, a transfer to spades, and then 4NT, Roman Key Card Blackwood, which also counts the king and queen of spades.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opened 1NT: bid 4♥ (Texas)"></div>
+<p>16 HCP (31-33 in total) and six strong spades: the hand is rich in tricks, but you hold no aces, so the question is aces. The bots play Texas transfers by default: bid 4♥, partner completes the transfer with 4♠, and your 4NT is then Roman Key Card Blackwood, which also counts the king and queen of spades. Without Texas, bid 4♣, Gerber: over 4♠ (two aces), pass and play in 4♠; over 4NT (three aces), bid 6♠.</p>
 
 <h3>Which to use?</h3>
 <ul>

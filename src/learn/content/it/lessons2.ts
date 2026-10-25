@@ -982,9 +982,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Dopo la risposta, 5♣ di chi ha chiesto domanda i re con lo stesso schema (5♦ = 0 o 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Qualsiasi altra dichiarazione sceglie il contratto; 4SA di chi ha chiesto è una chiusura, e se la risposta del compagno era 4SA, chi ha chiesto può semplicemente passare.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Il compagno ha aperto 1SA: dichiara 4♣"></div>
-<p>16 PO (31-33 in totale) e sei picche forti: la mano è ricca di prese, ma non hai assi. La domanda riguarda gli assi, quindi dichiara 4♣. Su 4♠ (due assi) passa e gioca 4♠. Su 4SA (tre assi) dichiara 6♠.</p>
-<p>Con i transfer Texas c’è un’altra strada: 4♥, transfer a picche, e poi 4SA, Roman Key Card Blackwood, che conta anche il re e la donna di picche.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Il compagno ha aperto 1SA: dichiara 4♥ (Texas)"></div>
+<p>16 PO (31-33 in totale) e sei picche forti: la mano è ricca di prese, ma non hai assi, quindi la domanda riguarda gli assi. I bot giocano di default i transfer Texas: dichiara 4♥, il compagno completa il transfer con 4♠, e il tuo 4SA è allora la Roman Key Card Blackwood, che conta anche il re e la donna di picche. Senza Texas, dichiara 4♣, Gerber: su 4♠ (due assi) passa e gioca 4♠; su 4SA (tre assi) dichiara 6♠.</p>
 
 <h3>Quale usare?</h3>
 <ul>

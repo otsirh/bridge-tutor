@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Na het antwoord vraagt 5♣ van de vrager op dezelfde manier naar heren (5♦ = 0 of 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Elk ander bod bepaalt het contract; een bod van 4SA door de vrager is afsluitend, en als partner 4SA antwoordde, kan de vrager gewoon passen.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opende 1SA: bied 4♣"></div>
-<p>16 punten (samen 31-33) en zes sterke schoppen: de hand zit vol slagen, maar je hebt geen azen. De vraag is dus hoeveel azen er zijn: bied 4♣. Na 4♠ (twee azen) pas je en speel je 4♠. Na 4SA (drie azen) bied je 6♠.</p>
-<p>Met Texas-transfers is er nog een andere manier: 4♥, een transfer naar schoppen, en daarna 4SA, Roman Key Card Blackwood, dat ook de heer en de vrouw van schoppen meetelt.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opende 1SA: bied 4♥ (Texas)"></div>
+<p>16 punten (samen 31-33) en zes sterke schoppen: de hand zit vol slagen, maar je hebt geen azen, dus de vraag is hoeveel azen er zijn. De bots spelen standaard Texas-transfers: bied 4♥, partner voltooit de transfer met 4♠, en je 4SA is dan Roman Key Card Blackwood, dat ook de heer en de vrouw van schoppen meetelt. Zonder Texas bied je 4♣, Gerber: na 4♠ (twee azen) pas je en speel je 4♠; na 4SA (drie azen) bied je 6♠.</p>
 
 <h3>Welke gebruik je?</h3>
 <ul>

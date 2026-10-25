@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Po odpowiedzi 5♣ pytającego pyta o króle według tego samego schematu (5♦ = 0 lub 4, 5♥ = 1, 5♠ = 2, 5BA = 3). Każda inna odzywka ustala kontrakt; 4BA pytającego jest zamknięciem, a jeśli partner odpowiedział 4BA, pytający może po prostu spasować.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner otworzył 1BA: licytuj 4♣"></div>
-<p>16 PC (razem 31-33) i sześć mocnych pików: ręka jest bogata w lewy, ale nie masz asów. Pytanie dotyczy asów, więc licytuj 4♣. Po 4♠ (dwa asy) spasuj i graj 4♠. Po 4BA (trzy asy) licytuj 6♠.</p>
-<p>Z transferami Texas jest inny sposób: 4♥, czyli transfer na piki, a potem 4BA, Roman Key Card Blackwood, który liczy też króla i damę pik.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner otworzył 1BA: licytuj 4♥ (Texas)"></div>
+<p>16 PC (razem 31-33) i sześć mocnych pików: ręka jest bogata w lewy, ale nie masz asów, więc pytanie dotyczy asów. Boty domyślnie grają transfery Texas: licytuj 4♥, partner kończy transfer odzywką 4♠, a twoje 4BA jest wtedy Roman Key Card Blackwood, który liczy też króla i damę pik. Bez Texasu licytuj 4♣, Gerber: po 4♠ (dwa asy) spasuj i graj 4♠; po 4BA (trzy asy) licytuj 6♠.</p>
 
 <h3>Czego użyć?</h3>
 <ul>
