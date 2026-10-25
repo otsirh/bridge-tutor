@@ -224,6 +224,10 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
       for (const M of [SPADES, HEARTS]) {
         if (!unbid.includes(M)) continue;
         rules.push(R(bid(4, M), 'game', t.gameAfterDouble(M, 10), [lenC(M, 5), hcpC(10)]));
+        // over a two- or three-level opening there is no jump response below game: with
+        // four cards and the values for one, bid the game
+        const c = x.cheapest(M);
+        if (c !== null && levelOf(c) === 3) rules.push(R(bid(4, M), 'game', t.gameAfterDoubleNoRoom(M), [lenC(M, 4), hcpC(9, 11), cond(t.bestSuit(M), h => bestUnbid(h, unbid) === M)]));
       }
       rules.push(R(bid(3, NT), ['nt', 3], t.threeNtAfterDouble(13, 16), [hcpC(13, 16), stopC(theirs)]));
       for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
@@ -308,9 +312,10 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
     }
     rules.push(R(bid(3, NT), ['nt', 3], t.threeNtAfterNt, [hcpC(10)]));
     rules.push(R(bid(2, NT), 'invitation', t.twoNtAfterNt, [hcpC(8, 9)], { tag: 'nt-invite' }));
+    // a weak hand takes out partner's 1NT or 2NT, not a 3NT game
     for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
       const c = x.cheapest(s);
-      if (c === null || theirs.includes(s)) continue;
+      if (c === null || theirs.includes(s) || levelOf(pAct.call) >= 3) continue;
       rules.push(R(c, 'toPlay', t.toPlay(s), [lenC(s, 5), hcpC(0, 7)]));
     }
     rules.push(R(PASS, 'pass', t.passAfterNt, []));
@@ -383,13 +388,13 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
       const c = x.cheapest(s);
       if (c === null || levelOf(c) > 3) continue;
       const three = levelOf(c) === 3 ? c : bid(3, s);
-      rules.push(R(three, 'naturalForcing', t.naturalForcing(s), [lenC(s, 5), hcpC(10)], { forcing: 'game' }));
+      rules.push(R(three, 'naturalForcing', t.naturalForcing(s), [lenC(s, 5), tpC(11)], { forcing: 'game' }));
     }
     for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
       if (theirs.includes(s)) continue;
       const c = x.cheapest(s);
       if (c === null || levelOf(c) > 2) continue;
-      rules.push(R(c, 'natural', t.natural(s), [lenC(s, 5), hcpC(0, 9)]));
+      rules.push(R(c, 'natural', t.natural(s), [lenC(s, 5), tpC(0, 10)]));
     }
     rules.push(R(PASS, 'pass', t.nothingToSay, []));
     return rules;
@@ -429,6 +434,8 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
     ? R(cue, 'cueBidRaise', t.cueBidRaiseContested(support), [lenC(os, support), dpC(os, 10)], { artificial: true, forcing: 'one', tag: 'cueRaise', data: { suit: os } })
     : null;
   if (cueRule && os >= HEARTS) rules.push(cueRule);
+  // no room for a cue-bid raise below game: with game values and support, bid it
+  if (!cueRule && os >= HEARTS && x.isLegal(bid(4, os))) rules.push(R(bid(4, os), 'gameRaise', t.gameRaiseContested, [lenC(os, 3), dpC(os, 13)]));
   const raise = x.cheapest(os);
   const jr = x.jump(os);
   if (jr !== null && levelOf(jr) <= 4 && os >= HEARTS && levelOf(jr) === 4) rules.push(R(jr, 'gameRaise', t.gameRaiseContested, [lenC(os, 5), cond(T.bidding.conds.singletonOrVoid, h => h.shape[3] <= 1)]));
@@ -461,7 +468,7 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
     const l = levelOf(nt);
     if (l === 1) rules.push(R(nt, ['nt', 1], t.oneNtContested, [hcpC(8, 10), stopC([ys])]));
     if (l <= 2) rules.push(R(bid(2, NT), ['nt', 2], t.twoNtContested, [hcpC(11, 12), stopC([ys])]));
-    if (l <= 3) rules.push(R(bid(3, NT), ['nt', 3], t.threeNtContested, [hcpC(13, 15), stopC([ys])]));
+    if (l <= 3) rules.push(R(bid(3, NT), ['nt', 3], t.threeNtContested, [hcpC(13), stopC([ys])]));
   }
   for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
     if (s === os || s === ys) continue;
@@ -583,9 +590,13 @@ export function doublerRebid(x: Ctx, resp: CallRecord): Rule[] {
   // partner's jump response (9–11) has already invited game: accept with a sound double
   const jumped = x.shownBy(x.partner).hcp[0] >= 9;
   const bal = balancingCall(x, x.lastAction(x.seat)!);
+  // partner bid freely (LHO had bid) at the three level: values, and no room to invite below game
+  const before = x.records[resp.index - 1];
+  const freeThree = !jumped && levelOf(resp.call) >= 3 && !!before && isBid(before.call);
   if (rs < NT) {
     const g = rs >= HEARTS ? 4 : 5;
     if (jumped) rules.push(R(bid(g, rs), 'raiseToGame', t.raiseToGameAfterJump, [lenC(rs, 4), dpC(rs, g === 4 ? 15 : 17)]));
+    else if (freeThree && g === 4) rules.push(R(bid(g, rs), 'raiseToGame', t.raiseToGameAfterFreeBid, [lenC(rs, 4), dpC(rs, 16)]));
     else rules.push(R(bid(g, rs), 'raiseToGame', t.raiseToGame, [lenC(rs, 4), dpC(rs, 19)]));
     const raise = x.cheapest(rs);
     if (raise !== null && levelOf(raise) <= 3 && !jumped) rules.push(R(raise, 'invitationalRaise', t.invitationalRaise, [lenC(rs, 4), dpC(rs, 16, 18)], { tag: 'invite' }));

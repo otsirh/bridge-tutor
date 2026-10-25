@@ -73,7 +73,8 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
     );
     if (drury) rules.push(...druryRaise(M));
     rules.push(
-      R(bid(3, M), 'limitRaise', t.limitRaiseMajor, [lenC(M, 4), dpC(M, 10, 12)]),
+      // a shapely hand counts more than 12 but without the HCP for Jacoby still makes a limit raise
+      R(bid(3, M), 'limitRaise', t.limitRaiseMajor, [lenC(M, 4), hcpC(0, 12), dpC(M, 10)]),
     );
     // three trumps and 11–12 points but too few HCP for a two-over-one: the limit raise
     // (1NT would deny the support)
@@ -148,6 +149,12 @@ export function responsesToOneSuit(x: Ctx, open: number): Rule[] {
   // awkward 11-12 balanced hands: temporise with a new minor
   if (m === CLUBS) rules.push(R(bid(1, DIAMONDS), ['response', 1, DIAMONDS], t.oneDiamondWaiting, [hcpC(11, 12), lenC(DIAMONDS, 3), noFourMajor()], { forcing: 'one' }));
   else rules.push(R(bid(2, CLUBS), 'twoOverOne', t.twoClubsWaiting, [hcpC(11, 12), lenC(CLUBS, 3), noFourMajor()], { forcing: 'one' }));
+  // game values, no major and nothing above fits (an unbalanced hand, often with a fit for
+  // partner's minor, or too strong for 3NT): a forcing new minor, then show the hand
+  if (!passed) {
+    if (m === CLUBS) rules.push(R(bid(1, DIAMONDS), ['response', 1, DIAMONDS], t.newMinorGameValues, [hcpC(13), noFourMajor()], { forcing: 'one' }));
+    else rules.push(R(bid(2, CLUBS), 'twoOverOne', t.newMinorGameValues, [hcpC(13), noFourMajor()], { forcing: 'one' }));
+  }
   rules.push(R(bid(1, NT), ['response', 1, NT], t.oneNtFallback, [hcpC(6, 12)]));
   rules.push(passResponse(t.passMinor));
   return rules;

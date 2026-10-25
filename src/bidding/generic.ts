@@ -9,7 +9,7 @@ import type { HandInfo } from '../core/eval';
 import { hasStopper, dummyPoints, declarerPoints, suitHonours } from '../core/eval';
 import { T } from '../i18n';
 import type { Ctx } from './context';
-import { R, cond, always, lenC, type Rule } from './types';
+import { R, cond, always, lenC, hcpC, type Rule } from './types';
 import { blackwoodTrump, aceAsk, aceAskMade } from './slam';
 import { getSystem } from './config';
 import { controlBidTry, tryMajor } from './conventions';
@@ -88,7 +88,7 @@ export function targetContract(h: HandInfo, x: Ctx): Target {
   const ntShape = nt.shape;
   const partnerPart = t.partner(ph.est, ph.min, ph.max >= 30 ? null : ph.max);
 
-  const level = (c: number, gameLevel: number) => (c >= 37 ? 7 : c >= 33 ? 6 : c >= (gameLevel === 5 ? 28 : 25) ? gameLevel : c >= 23 ? -1 : 0);
+  const level = (c: number, gameLevel: number) => (c >= 37 ? 7 : c >= (gameLevel === 3 ? 33 : 32) ? 6 : c >= (gameLevel === 5 ? 28 : 25) ? gameLevel : c >= 23 ? -1 : 0);
 
   // each trump beyond eight is worth about a point (up to two)
   const ninth = (s: number) => Math.max(0, Math.min(2, fitLen(s) - 8));
@@ -116,7 +116,10 @@ export function targetContract(h: HandInfo, x: Ctx): Target {
     return { strain: NT, level: level(c, 3), combined: c, fit: 0, why: why(c) };
   };
   const minorFitNT = fit >= 0 && h.shape[3] >= 1;
-  if (stoppers && nt.unbidStopped && (ntShape || minorFitNT) && (fit < 0 || h.hcp + ph.est < 29)) {
+  // with a minor fit, notrump is preferred for the nine-trick game only while 3NT is still available
+  const nt3 = x.cheapest(NT);
+  const ntGameOpen = nt3 !== null && levelOf(nt3) <= 3;
+  if (stoppers && nt.unbidStopped && (ntShape || minorFitNT) && (fit < 0 || (h.hcp + ph.est < 29 && ntGameOpen))) {
     return notrump(c => t.whyNoMajorFit(theirs.length > 0, h.hcp, partnerPart, c));
   }
   if (fit >= 0) {
@@ -183,12 +186,13 @@ export function slamRules(x: Ctx): Rule[] {
     for (const s of [SPADES, HEARTS, 1, 0]) {
       const c = x.cheapest(s);
       if (c === null || ours.includes(s) || theirs.includes(s) || c >= bid(4, NT) || cueSlots.includes(c)) continue;
+      // its own family: the same call is also a forced new suit (4+), so it reads as 4+
       rules.push(R(c, 'newSuit', t.setTrumps(s), [
         cond(t.setTrumpsCond(s), h => {
           const tc = target(h);
           return tc.strain === s && tc.level >= 6 && h.len[s] >= 6;
         }, sh => { sh.len[s] = [Math.max(6, sh.len[s][0]), sh.len[s][1]]; }, value),
-      ], { forcing: 'one' }));
+      ], { forcing: 'one', family: 'setTrumps' }));
     }
   }
   // with Roman Key Card, a suit grand slam is only bid after asking for key cards
@@ -197,7 +201,7 @@ export function slamRules(x: Ctx): Rule[] {
     for (const s of [NT, SPADES, HEARTS, 1, 0]) {
       const c = bid(lvl, s);
       if (!x.isLegal(c)) continue;
-      const min = lvl === 7 ? 37 : 33;
+      const min = lvl === 7 ? 37 : s === NT ? 33 : 32;
       rules.push(R(c, lvl === 7 ? 'grandSlam' : 'smallSlam', lvl === 7 ? t.grandSlam : t.smallSlam, [
         cond(s === NT ? t.slamNoFit(min) : t.slamFit(min, s), h => {
           const tc = target(h);
@@ -217,7 +221,7 @@ export function slamRules(x: Ctx): Rule[] {
     const ph0 = x.partnerHcp();
     rules.push(...controlBidTry(x, cond(T.bidding.cues.slamTry, h => {
       const tc = target(h);
-      return tc.strain === M && tc.level < 6 && tc.combined >= SLAM_TRY && tc.combined - ph0.est + ph0.max >= 33;
+      return tc.strain === M && tc.level < 6 && tc.combined >= SLAM_TRY && tc.combined - ph0.est + ph0.max >= 32;
     }, s => { s.hcp = [Math.max(s.hcp[0], SLAM_TRY - 2 - ph0.est), s.hcp[1]]; }, value)));
     // in a minor, raise to the four level: past 3NT, forcing, a slam try
     const m = strainOf(pLast.call), four = bid(4, m);
@@ -228,7 +232,7 @@ export function slamRules(x: Ctx): Rule[] {
         cond(T.bidding.cues.supportCond(need, m), h => h.len[m] >= need, s => { s.len[m] = [Math.max(need, s.len[m][0]), s.len[m][1]]; }, h => T.bidding.conds.lenValue(h.len[m], m)),
         cond(T.bidding.cues.slamTry, h => {
           const tc = target(h);
-          return tc.strain === m && tc.level < 6 && tc.combined >= SLAM_TRY && tc.combined - ph0.est + ph0.max >= 33;
+          return tc.strain === m && tc.level < 6 && tc.combined >= SLAM_TRY && tc.combined - ph0.est + ph0.max >= 32;
         }, s => { s.hcp = [Math.max(s.hcp[0], SLAM_TRY - 2 - ph0.est), s.hcp[1]]; }, value),
       ], { forcing: 'one', tag: 'minorTry', data: { suit: m } }));
     }
@@ -346,15 +350,20 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
     }
   }
 
-  // --- penalty doubles
+  // --- penalty doubles (a call's meaning is read from its first rule, so a double offered
+  // only where it can apply: below the three level after we have bid, a double of their
+  // suit is the competitive double, for takeout)
   if (lb && !weHold && x.auction.doubleStatus() === 0) {
     const ts = strainOf(lb.call), tl = levelOf(lb.call);
-    rules.push(R(DOUBLE, 'penaltyDouble', t.penaltyDouble, [
-      cond(t.strengthCond, h => h.hcp + ph.est >= 24, undefined, h => t.strengthValue(h.hcp, ph.est)),
-      cond(t.threeLevel, () => tl >= 3),
-      cond(ts === NT ? t.ntContract : t.trumpLength, h => ts === NT || h.len[ts] >= 2),
-    ], { tag: 'penaltyX' }));
-    if (ts < NT) {
+    const competitive = ts < NT && tl <= 2 && x.actionsBy(x.seat).length > 0;
+    if (tl >= 3) {
+      rules.push(R(DOUBLE, 'penaltyDouble', t.penaltyDouble, [
+        cond(t.strengthCond, h => h.hcp + ph.est >= 24, undefined, h => t.strengthValue(h.hcp, ph.est)),
+        cond(t.threeLevel, () => tl >= 3),
+        cond(ts === NT ? t.ntContract : t.trumpLength, h => ts === NT || h.len[ts] >= 2),
+      ], { tag: 'penaltyX' }));
+    }
+    if (ts < NT && tl >= 2 && !competitive) {
       rules.push(R(DOUBLE, 'penaltyDouble', t.trumpStack, [
         cond(t.trumpStackCond, h => h.len[ts] >= 4 && suitHonours(h, ts) >= 2),
         cond(t.valuesCond, h => h.hcp >= 10 && ph.min >= 6),
@@ -365,6 +374,12 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
 
   // --- forced: must find a descriptive bid
   if (forced) {
+    // partner's takeout double of a suit: long, strong trumps convert it to penalties
+    const pDbl = x.partnerCall();
+    if (pDbl?.call === DOUBLE && pDbl.meaning.tag === 'takeoutX' && lb && !weHold && strainOf(lb.call) < NT) {
+      const ts = strainOf(lb.call), c = T.bidding.competitive;
+      rules.push(R(PASS, 'penaltyPass', c.penaltyPass, [lenC(ts, 5), cond(c.threeHonours, h => suitHonours(h, ts) >= 3), hcpC(8)]));
+    }
     const pSuits = [3, 2, 1, 0].filter(s => P.len[s][0] >= 4);
     for (const s of pSuits) {
       const c = x.cheapest(s);
@@ -446,8 +461,8 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
     const ts = strainOf(lb.call);
     if (ts < NT && levelOf(lb.call) <= 2 && x.auction.doubleStatus() === 0) {
       rules.push(R(DOUBLE, 'competitiveDouble', t.competitiveDouble(ts), [
-        cond(t.competitiveDoubleCond(ts), h => h.hcp >= 15 && h.len[ts] <= 1, undefined, h => t.competitiveDoubleValue(h.hcp, h.len[ts], ts)),
-      ], { tag: 'takeoutX' }));
+        cond(t.competitiveDoubleCond(ts), h => (h.hcp >= 15 && h.len[ts] <= 1) || (h.hcp >= 18 && h.len[ts] <= 2), undefined, h => t.competitiveDoubleValue(h.hcp, h.len[ts], ts)),
+      ], { tag: 'takeoutX', forcing: 'one' }));
     }
   }
 
