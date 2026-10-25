@@ -3,7 +3,7 @@
 // values, and bid the right level (partscore, game, slam), or compete with
 // the Law of Total Tricks, or double the opponents when they overreach.
 
-import { bid, PASS, DOUBLE, levelOf, strainOf, isBid } from '../core/auction';
+import { bid, PASS, DOUBLE, REDOUBLE, levelOf, strainOf, isBid } from '../core/auction';
 import { NT, HEARTS, SPADES } from '../core/cards';
 import type { HandInfo } from '../core/eval';
 import { hasStopper, dummyPoints, declarerPoints, suitHonours } from '../core/eval';
@@ -29,6 +29,11 @@ const isGame = (call: number) => {
   const l = levelOf(call), s = strainOf(call);
   return (s === NT && l >= 3) || (s >= HEARTS && s < NT && l >= 4) || l >= 5;
 };
+
+/** Our side has redoubled in this auction. */
+function weRedoubled(x: Ctx): boolean {
+  return [x.seat, x.partner].some(seat => x.actionsBy(seat).some(r => r.call === REDOUBLE));
+}
 
 /** Must we bid again: partner's last call is forcing, or game is forced and not yet reached? */
 function mustBid(x: Ctx): boolean {
@@ -355,7 +360,8 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
   // suit is the competitive double, for takeout)
   if (lb && !weHold && x.auction.doubleStatus() === 0) {
     const ts = strainOf(lb.call), tl = levelOf(lb.call);
-    const competitive = ts < NT && tl <= 2 && x.actionsBy(x.seat).length > 0;
+    // after our redouble every double is for penalties: the redouble said so
+    const competitive = ts < NT && tl <= 2 && x.actionsBy(x.seat).length > 0 && !weRedoubled(x);
     if (tl >= 3) {
       rules.push(R(DOUBLE, 'penaltyDouble', t.penaltyDouble, [
         cond(t.strengthCond, h => h.hcp + ph.est >= 24, undefined, h => t.strengthValue(h.hcp, ph.est)),
@@ -459,7 +465,7 @@ export function genericRules(x: Ctx, skipSlam = false): Rule[] {
       ]));
     }
     const ts = strainOf(lb.call);
-    if (ts < NT && levelOf(lb.call) <= 2 && x.auction.doubleStatus() === 0) {
+    if (ts < NT && levelOf(lb.call) <= 2 && x.auction.doubleStatus() === 0 && !weRedoubled(x)) {
       rules.push(R(DOUBLE, 'competitiveDouble', t.competitiveDouble(ts), [
         cond(t.competitiveDoubleCond(ts), h => (h.hcp >= 15 && h.len[ts] <= 1) || (h.hcp >= 18 && h.len[ts] <= 2), undefined, h => t.competitiveDoubleValue(h.hcp, h.len[ts], ts)),
       ], { tag: 'takeoutX', forcing: 'one' }));

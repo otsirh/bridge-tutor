@@ -53,7 +53,7 @@ deal, or share it as a link, a code, PBN or a BBO hand.
 
 ![The Training room](docs/images/training.png)
 
-**Learn**: 44 lessons from the basics to squeezes and endplays, each with a quiz and practice deals at
+**Learn**: 47 lessons from the basics to squeezes and endplays, each with a quiz and practice deals at
 the table, a glossary, and drills for bidding, opening leads and declarer counting.
 
 ![A lesson](docs/images/lesson.png)

@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Voz do parceiro do interventor</th><th>Significado</th></tr></thead>
 <tbody>
-<tr><td>3♥ (apoio)</td><td>Apoio de três cartas e 6-9 pontos (contam os pontos de apoio)</td></tr>
-<tr><td>3♣</td><td>Artificial: apoio de três cartas e 10-12 pontos. O interventor marca o game com 13+ pontos no total; senão, 3♥</td></tr>
+<tr><td>3♥ (apoio)</td><td>Apoio de três cartas e 6-12 pontos (contam os pontos de apoio). O interventor marca o game só com um máximo, cerca de 15 PH</td></tr>
 <tr><td>4♥</td><td>Apoio e 13+ pontos, ou cinco trunfos e um singleton</td></tr>
 <tr><td>2♠ (naipe novo)</td><td>Um bom naipe de cinco cartas ou mais e 8+ PH; não forcing</td></tr>
 <tr><td>2ST / 3ST</td><td>Sem fit: 12-14 PH, convite / 15+ PH</td></tr>
 <tr><td>Passo</td><td>Todo o resto, inclusive um misfit com um naipe pobre longo</td></tr>
 </tbody>
 </table>
-<p>Os adversários não têm naipe próprio para um cue-bid, por isso os bots usam 3♣ para mostrar o bom apoio. Depois de uma intervenção no nível 2 num naipe pobre, o apoio exige quatro cartas.</p>
+<p>Os adversários não têm naipe próprio para um cue-bid, por isso não há apoio por cue-bid: o apoio para 3♥ abrange tanto as mãos competitivas como as invitativas. Depois de uma intervenção no nível 2 num naipe pobre, o apoio exige quatro cartas.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="Oeste abre 1ST; Norte intervém com 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Norte tem 11 PH e seis boas copas: um 2♥ natural. Sul, com três trunfos e 7 pontos, apoia para 3♥. Com nove trunfos entre os dois o nível 3 é bastante seguro (a Lei das Vazas Totais), e o apoio dificulta para Leste-Oeste, que têm mais de metade dos pontos, encontrar o seu próprio parcial. Norte não tem nada a mais e passa.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'As vozes em naipe no nível 2 são naturais: 8-15 PH e um naipe de seis, ou um bom rico de cinco.',
       'Fique de fora com mãos balanceadas abaixo de 15 PH, naipes pobres de cinco e ricos de cinco fracos.',
       'Na posição de reabertura, pegue um rei emprestado: dobre com 12+, um naipe com 5-12.',
-      'Resposta a um rico: apoio no nível 3 com 6-9 e apoio, 3♣ mostra 10-12, game com 13+.',
+      'Resposta a um rico: apoio no nível 3 com 6-12 e apoio, game com 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'O adversário à esquerda abre 1ST, o parceiro intervém com 2♥ e o adversário à direita passa. Você tem ♠Q852 ♥Q73 ♦K84 ♣962 (7 PH). O que você marca?',
         options: ['Passo', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Apoio de três cartas e 6-9 pontos: apoie para 3♥. Com nove trunfos o nível 3 é bastante seguro. 3♣ mostraria 10-12 pontos, e 4♥ exige 13+.',
+        explain: 'Apoio de três cartas e 6-9 pontos: apoie para 3♥. Com nove trunfos o nível 3 é bastante seguro. 3♣ mostraria um naipe de paus, e 4♥ exige 13+.',
       },
       {
         q: '1ST à sua esquerda, depois passo, passo. Você tem ♠KQ1095 ♥83 ♦952 ♣J84 (6 PH). O que você marca?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Depois do redobre</h3>
-<p>O redobre diz que a mão é do seu lado. O abridor em geral passa e deixa o problema para os adversários: eles têm de achar onde jogar, e o parceiro de quem dobrou, que pode não ter nada, só marca com um naipe de cinco. O abridor marca logo só com um mínimo (no máximo 13 PH) e um naipe de seis, que defende mal. Quando os adversários param num naipe, quem redobrou marca o game se tiver valores para isso, cerca de 12+ PH diante da abertura.</p>
+<p>O redobre diz que a mão é do seu lado. O abridor em geral passa e deixa o problema para os adversários: eles têm de achar onde jogar, e o parceiro de quem dobrou, que pode não ter nada, só marca com um naipe de cinco. O abridor marca logo só com um mínimo (no máximo 13 PH) e um naipe de seis, que defende mal. Quando os adversários param num naipe, quem redobrou marca o game se tiver valores para isso, cerca de 12+ PH diante da abertura. Com 10-11 PH e quatro cartas no naipe deles encabeçadas por duas das três maiores honras, quem redobrou dobra-os em vez disso: depois de um redobre, um dobre do seu lado é punitivo.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Norte abre 1♥ e Leste dobra."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Sul tem 12 PH e só duas copas: redobre. Oeste não tem nada nem um naipe de cinco, então passa; Norte também passa, e Leste tem de escolher um naipe no nível 2. Sul, com 12 PH diante de uma abertura e duas paradas em paus, marca 3ST, que com o melhor jogo faz nove vazas.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1ST – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1ST – X – ?: redobre"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1ST – X – ?: passe"></div>
-<p>A primeira mão foge para os seus cinco ouros. A segunda tem 8 PH: redobre. A terceira não tem naipe de cinco, então passa e deixa o parceiro se virar.</p>
+<p>A primeira mão foge para os seus cinco ouros. A segunda tem 8 PH: redobre. A terceira não tem naipe de cinco, então passa e deixa o parceiro se virar. Depois do redobre, o abridor passa: os adversários têm de achar onde jogar.</p>
 <div class="warn">Depois de 1♥ – dobre, não marque um naipe novo no nível 2 com uma mão fraca: isso não faz parte do sistema. Com 10+ PH redobre primeiro; com menos, marque 1ST ou passe.</div>
 `,
     keyPoints: [
       'Depois de um dobre informativo de 1♥ ou 1♠, 2ST (Jordan) mostra quatro trunfos e 10+ pontos de apoio; o redobre mostra 10+ PH, em geral sem fit.',
       'O apoio em salto é de barragem (quatro trunfos para um rico, cinco para um pobre, menos de 10 PH); o apoio simples mostra 6-10 com apoio.',
       'Um rico no nível 1 mostra quatro ou mais cartas e 6+ PH e é forcing; 1ST mostra 6-9 sem outra voz adequada.',
-      'Depois do redobre o abridor em geral passa e deixa os adversários procurarem um contrato; com valores de game, quem redobrou marca então o game.',
+      'Depois do redobre o abridor em geral passa e deixa os adversários procurarem um contrato; quem redobrou marca então o game com valores de game, ou dobra-os com uma posse forte no naipe deles.',
       'Quando o 1ST do parceiro é dobrado, redobre com 8+; com uma mão fraca e um naipe de cinco, marque-o no nível 2 (natural, sem Stayman nem transfers).',
     ],
     quiz: [

@@ -65,6 +65,9 @@
 // - a suit slam needs about 32 combined points with a fit (33 in notrump): 203,
 //   229, 301, 390; opener shows a second suit with shortness after 2NT: 223,
 //   467; and an open-ended invitation no longer draws a quantitative 4NT: 333.
+//
+// Over their 1NT there is no suit of theirs to cue bid, so the advancer raises
+// partner's overcall naturally instead of bidding an artificial 3♣: 134.
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -201,7 +204,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P P 1S X 2S P 4S P P P',
   '1D 1H P P P',
   'P P 1D 1S 1NT 2S P P P',
-  'P P 1NT P P 2H P 3C P 3H P P P',
+  'P P 1NT P P 2H P 3H P P P',
   'P P 1D P 1H P 1NT P P P',
   '2H P 2NT P 3H P 4H P P P',
   '1H P 2H P 3H P 4H P P P',

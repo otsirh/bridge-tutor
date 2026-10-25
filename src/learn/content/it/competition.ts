@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Dichiarazione del compagno dell’interveniente</th><th>Significato</th></tr></thead>
 <tbody>
-<tr><td>3♥ (appoggio)</td><td>Appoggio di tre carte e 6-9 punti (contano i punti di appoggio)</td></tr>
-<tr><td>3♣</td><td>Artificiale: appoggio di tre carte e 10-12 punti. L’interveniente dichiara manche con 13+ punti totali, altrimenti 3♥</td></tr>
+<tr><td>3♥ (appoggio)</td><td>Appoggio di tre carte e 6-12 punti (contano i punti di appoggio). L’interveniente dichiara manche solo con un massimo, circa 15 PO</td></tr>
 <tr><td>4♥</td><td>Appoggio e 13+ punti, o cinque atout e un singolo</td></tr>
 <tr><td>2♠ (nuovo colore)</td><td>Un buon colore di cinque o più carte e 8+ PO; non forzante</td></tr>
 <tr><td>2SA / 3SA</td><td>Senza fit: 12-14 PO, invitante / 15+ PO</td></tr>
 <tr><td>Passo</td><td>Tutto il resto, compreso un misfit con un minore lungo</td></tr>
 </tbody>
 </table>
-<p>Gli avversari non hanno un colore proprio da surlicitare, quindi i bot usano 3♣ per mostrare il buon appoggio. Dopo un intervento a livello di due in un minore, l’appoggio richiede quattro carte.</p>
+<p>Gli avversari non hanno un colore proprio da surlicitare, quindi non c’è un appoggio in surlicita: l’appoggio a 3♥ comprende sia le mani competitive sia quelle invitanti. Dopo un intervento a livello di due in un minore, l’appoggio richiede quattro carte.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="Ovest apre 1SA; Nord interviene 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Nord ha 11 PO e sei buone cuori: un 2♥ naturale. Sud, con tre atout e 7 punti, appoggia a 3♥. Con nove atout in due il livello di tre è abbastanza sicuro (la legge delle prese totali), e l’appoggio rende più difficile a Est-Ovest, che hanno più di metà dei punti, trovare il loro parziale. Nord non ha niente in più e passa.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Le dichiarazioni a colore a livello di due sono naturali: 8-15 PO e un colore di sei, o una buona nobile di cinque.',
       'Resta fuori con mani bilanciate sotto i 15 PO, minori di cinque e nobili di cinque povere.',
       'In posizione di riapertura prendi in prestito un re: contro con 12+, un colore con 5-12.',
-      'Risposta a una nobile: appoggio a tre con 6-9 e appoggio, 3♣ mostra 10-12, manche con 13+.',
+      'Risposta a una nobile: appoggio a tre con 6-12 e appoggio, manche con 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'L’avversario di sinistra apre 1SA, il compagno interviene 2♥ e l’avversario di destra passa. Hai ♠Q852 ♥Q73 ♦K84 ♣962 (7 PO). Che cosa dichiari?',
         options: ['Passo', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Appoggio di tre carte e 6-9 punti: appoggia a 3♥. Con nove atout il livello di tre è abbastanza sicuro. 3♣ mostrerebbe 10-12 punti, e 4♥ richiede 13+.',
+        explain: 'Appoggio di tre carte e 6-9 punti: appoggia a 3♥. Con nove atout il livello di tre è abbastanza sicuro. 3♣ mostrerebbe un colore di fiori, e 4♥ richiede 13+.',
       },
       {
         q: '1SA alla tua sinistra, poi passo, passo. Hai ♠KQ1095 ♥83 ♦952 ♣J84 (6 PO). Che cosa dichiari?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Dopo il surcontro</h3>
-<p>Il surcontro dice che la mano è della vostra linea. L’apertore di solito passa e lascia il problema agli avversari: devono trovare dove giocare, e il compagno di chi ha contrato, che può non avere niente, dichiara solo con un colore di cinque. L’apertore dichiara subito solo con un minimo (al massimo 13 PO) e un colore di sei, che difende male. Quando gli avversari finiscono in un colore, chi ha surcontrato dichiara la manche se ne ha i valori, circa 12+ PO di fronte all’apertura.</p>
+<p>Il surcontro dice che la mano è della vostra linea. L’apertore di solito passa e lascia il problema agli avversari: devono trovare dove giocare, e il compagno di chi ha contrato, che può non avere niente, dichiara solo con un colore di cinque. L’apertore dichiara subito solo con un minimo (al massimo 13 PO) e un colore di sei, che difende male. Quando gli avversari finiscono in un colore, chi ha surcontrato dichiara la manche se ne ha i valori, circa 12+ PO di fronte all’apertura. Con 10-11 PO e quattro carte nel loro colore con due dei tre onori maggiori, chi ha surcontrato li contra invece: dopo un surcontro, un contro della vostra linea è punitivo.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Nord apre 1♥ ed Est contra."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Sud ha 12 PO e solo due cuori: surcontro. Ovest non ha niente né un colore di cinque, quindi passa; passa anche Nord, ed Est deve scegliere un colore a livello di due. Sud, con 12 PO di fronte a un’apertura e due fermi a fiori, dichiara 3SA, che con il gioco migliore realizza nove prese.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1SA – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1SA – X – ?: surcontro"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1SA – X – ?: passo"></div>
-<p>La prima mano scappa nelle sue cinque quadri. La seconda ha 8 PO: surcontro. La terza non ha un colore di cinque, quindi passa e lascia che il compagno se la cavi.</p>
+<p>La prima mano scappa nelle sue cinque quadri. La seconda ha 8 PO: surcontro. La terza non ha un colore di cinque, quindi passa e lascia che il compagno se la cavi. Dopo il surcontro l’apertore passa: gli avversari devono trovare dove giocare.</p>
 <div class="warn">Dopo 1♥ – contro, non dichiarare un nuovo colore a livello di due con una mano debole: non fa parte del sistema. Con 10+ PO surcontra prima; con meno, dichiara 1SA o passa.</div>
 `,
     keyPoints: [
       'Dopo un contro informativo su 1♥ o 1♠, 2SA (Jordan) mostra quattro atout e 10+ punti di appoggio; il surcontro mostra 10+ PO, di solito senza fit.',
       'L’appoggio a salto è un barrage (quattro atout per una nobile, cinque per un minore, meno di 10 PO); l’appoggio semplice mostra 6-10 con appoggio.',
       'Una nobile a livello di uno mostra quattro o più carte e 6+ PO ed è forzante; 1SA mostra 6-9 senza un’altra dichiarazione adatta.',
-      'Dopo il surcontro l’apertore di solito passa e lascia che gli avversari cerchino un contratto; con valori di manche, chi ha surcontrato dichiara poi la manche.',
+      'Dopo il surcontro l’apertore di solito passa e lascia che gli avversari cerchino un contratto; chi ha surcontrato dichiara poi la manche con valori di manche, oppure li contra con una tenuta forte nel loro colore.',
       'Quando l’1SA del compagno viene contrato, surcontra con 8+; con una mano debole e un colore di cinque, dichiaralo a livello di due (naturale, senza Stayman né transfer).',
     ],
     quiz: [

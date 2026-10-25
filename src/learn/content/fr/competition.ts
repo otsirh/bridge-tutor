@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Enchère du partenaire de l’intervenant</th><th>Signification</th></tr></thead>
 <tbody>
-<tr><td>3♥ (soutien)</td><td>Soutien de trois cartes et 6-9 points (les points de soutien comptent)</td></tr>
-<tr><td>3♣</td><td>Artificiel : soutien de trois cartes et 10-12 points. L’intervenant dit la manche avec 13+ points au total, sinon 3♥</td></tr>
+<tr><td>3♥ (soutien)</td><td>Soutien de trois cartes et 6-12 points (les points de soutien comptent). L’intervenant dit la manche seulement avec un maximum, environ 15 H</td></tr>
 <tr><td>4♥</td><td>Soutien et 13+ points, ou cinq atouts et un singleton</td></tr>
 <tr><td>2♠ (couleur nouvelle)</td><td>Une bonne couleur de cinq cartes ou plus et 8+ H ; non forcing</td></tr>
 <tr><td>2SA / 3SA</td><td>Pas de fit : 12-14 H, proposition / 15+ H</td></tr>
 <tr><td>Passe</td><td>Tout le reste, y compris un misfit avec une longue mineure</td></tr>
 </tbody>
 </table>
-<p>Les adversaires n’ont pas de couleur à eux pour un cue-bid, donc les bots utilisent 3♣ pour montrer le bon soutien. Après une intervention au palier de 2 dans une mineure, le soutien demande quatre cartes.</p>
+<p>Les adversaires n’ont pas de couleur à eux pour un cue-bid, donc il n’y a pas de soutien par cue-bid : le soutien à 3♥ couvre à la fois les mains compétitives et les mains invitationnelles. Après une intervention au palier de 2 dans une mineure, le soutien demande quatre cartes.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="Ouest ouvre de 1SA ; Nord intervient à 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Nord a 11 H et six bons cœurs : un 2♥ naturel. Sud, avec trois atouts et 7 points, soutient à 3♥. Avec neuf atouts à vous deux, le palier de 3 est assez sûr (loi des levées totales), et le soutien complique la tâche d’Est-Ouest, qui ont plus de la moitié des points, pour trouver leur propre partielle. Nord n’a rien de plus et passe.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Les enchères à la couleur au palier de 2 sont naturelles : 8-15 H et une sixième, ou une bonne majeure cinquième.',
       'Restez en dehors avec une main régulière de moins de 15 H, une mineure cinquième ou une majeure cinquième pauvre.',
       'En position de réveil, empruntez un Roi : contre avec 12+, une couleur avec 5-12.',
-      'Réponse à une majeure : soutien à 3 avec 6-9 et du soutien, 3♣ montre 10-12, manche avec 13+.',
+      'Réponse à une majeure : soutien à 3 avec 6-12 et du soutien, manche avec 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Votre adversaire de gauche ouvre de 1SA, votre partenaire intervient à 2♥ et votre adversaire de droite passe. Vous avez ♠Q852 ♥Q73 ♦K84 ♣962 (7 H). Que dites-vous ?',
         options: ['Passe', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Soutien de trois cartes et 6-9 points : soutenez à 3♥. Avec neuf atouts, le palier de 3 est assez sûr. 3♣ montrerait 10-12 points, et 4♥ demande 13+.',
+        explain: 'Soutien de trois cartes et 6-9 points : soutenez à 3♥. Avec neuf atouts, le palier de 3 est assez sûr. 3♣ montrerait des trèfles, et 4♥ demande 13+.',
       },
       {
         q: '1SA à votre gauche, puis passe, passe. Vous avez ♠KQ1095 ♥83 ♦952 ♣J84 (6 H). Que dites-vous ?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ? : 3♦"></div>
 
 <h3>Après le surcontre</h3>
-<p>Le surcontre dit que la donne appartient à votre camp. L’ouvreur passe normalement et laisse le problème aux adversaires : ils doivent trouver où jouer, et le partenaire du contreur, qui n’a peut-être rien, ne parle qu’avec une cinquième. L’ouvreur reparle tout de suite seulement avec un minimum (13 H au plus) et une sixième, qui défend mal. Quand les adversaires aboutissent dans une couleur, le surcontreur dit la manche s’il en a les valeurs, environ 12+ H face à l’ouverture.</p>
+<p>Le surcontre dit que la donne appartient à votre camp. L’ouvreur passe normalement et laisse le problème aux adversaires : ils doivent trouver où jouer, et le partenaire du contreur, qui n’a peut-être rien, ne parle qu’avec une cinquième. L’ouvreur reparle tout de suite seulement avec un minimum (13 H au plus) et une sixième, qui défend mal. Quand les adversaires aboutissent dans une couleur, le surcontreur dit la manche s’il en a les valeurs, environ 12+ H face à l’ouverture. Avec 10-11 H et quatre cartes dans leur couleur, dont deux des trois plus gros honneurs, le surcontreur les contre plutôt : après un surcontre, un contre de votre camp est punitif.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Nord ouvre de 1♥ et Est contre."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Sud a 12 H et seulement deux cœurs : surcontre. Ouest n’a rien ni cinquième, donc il passe ; Nord passe aussi, et Est doit choisir une couleur au palier de 2. Sud, avec 12 H face à une ouverture et deux arrêts à trèfle, dit 3SA, qui fait neuf levées avec le meilleur jeu.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1SA – X – ? : 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1SA – X – ? : surcontre"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1SA – X – ? : passe"></div>
-<p>La première main se sauve dans ses cinq carreaux. La deuxième a 8 H : surcontre. La troisième n’a pas de cinquième, donc elle passe et laisse le partenaire se débrouiller.</p>
+<p>La première main se sauve dans ses cinq carreaux. La deuxième a 8 H : surcontre. La troisième n’a pas de cinquième, donc elle passe et laisse le partenaire se débrouiller. Après le surcontre, l’ouvreur passe : les adversaires doivent trouver où jouer.</p>
 <div class="warn">Après 1♥ – contre, ne nommez pas une couleur nouvelle au palier de 2 avec une main faible : cela ne fait pas partie du système. Avec 10+ H surcontrez d’abord ; avec moins, dites 1SA ou passez.</div>
 `,
     keyPoints: [
       'Après un contre d’appel de 1♥ ou 1♠, 2SA (Jordan) montre quatre atouts et 10+ points de soutien ; le surcontre montre 10+ H, en général sans fit.',
       'Le soutien à saut est un barrage (quatre atouts pour une majeure, cinq pour une mineure, moins de 10 H) ; le soutien simple montre 6-10 avec du soutien.',
       'Une majeure au palier de 1 montre quatre cartes ou plus et 6+ H et est forcing ; 1SA montre 6-9 sans autre enchère adaptée.',
-      'Après le surcontre, l’ouvreur passe en général et laisse les adversaires chercher un contrat ; avec des valeurs de manche, le surcontreur dit alors la manche.',
+      'Après le surcontre, l’ouvreur passe en général et laisse les adversaires chercher un contrat ; le surcontreur dit ensuite la manche avec des valeurs de manche, ou les contre avec une forte tenue dans leur couleur.',
       'Quand le 1SA du partenaire est contré, surcontrez avec 8+ ; avec une main faible et une cinquième, nommez-la au palier de 2 (naturel, sans Stayman ni Texas).',
     ],
     quiz: [

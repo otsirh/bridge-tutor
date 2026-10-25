@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Bod van de partner van de volgbieder</th><th>Betekenis</th></tr></thead>
 <tbody>
-<tr><td>3♥ (verhoging)</td><td>Driekaartsteun en 6-9 punten (steunpunten tellen mee)</td></tr>
-<tr><td>3♣</td><td>Kunstmatig: driekaartsteun en 10-12 punten. De volgbieder biedt manche met 13+ punten in totaal, anders 3♥</td></tr>
+<tr><td>3♥ (verhoging)</td><td>Driekaartsteun en 6-12 punten (steunpunten tellen mee). De volgbieder biedt alleen manche met een maximum, ongeveer 15 punten</td></tr>
 <tr><td>4♥</td><td>Steun en 13+ punten, of vijf troeven en een singleton</td></tr>
 <tr><td>2♠ (nieuwe kleur)</td><td>Een goede vijf- of langere kaart en 8+ punten; niet forcing</td></tr>
 <tr><td>2SA / 3SA</td><td>Geen fit: 12-14 punten, inviterend / 15+ punten</td></tr>
 <tr><td>Pas</td><td>Al het andere, ook een misfit met een lange lage kleur</td></tr>
 </tbody>
 </table>
-<p>De tegenstanders hebben geen eigen kleur om te cuebidden, dus gebruiken de bots 3♣ om de goede verhoging te tonen. Na een volgbod op 2-niveau in een lage kleur vraagt een verhoging vierkaartsteun.</p>
+<p>De tegenstanders hebben geen eigen kleur om te cuebidden, dus is er geen cuebid-verhoging: de verhoging naar 3♥ dekt zowel de competitieve als de uitnodigende handen. Na een volgbod op 2-niveau in een lage kleur vraagt een verhoging vierkaartsteun.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="West opent 1SA; Noord volgt met 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Noord heeft 11 punten en zes goede harten: een natuurlijk 2♥. Zuid verhoogt met drie troeven en 7 punten naar 3♥. Met negen troeven samen is het 3-niveau veilig genoeg (de wet van het totaal aantal slagen), en de verhoging maakt het Oost-West, die meer dan de helft van de punten hebben, moeilijker om hun eigen deelscore te vinden. Noord heeft niets extra en past.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Kleurbiedingen op 2-niveau zijn natuurlijk: 8-15 punten en een zeskaart, of een goede hoge vijfkaart.',
       'Blijf buiten met evenwichtige handen onder 15 punten, lage vijfkaarten en zwakke hoge vijfkaarten.',
       'Leen in de balanspositie een heer: doublet met 12+, een kleur met 5-12.',
-      'Antwoord op een hoge kleur: verhoog naar drie met 6-9 en steun, 3♣ toont 10-12, manche met 13+.',
+      'Antwoord op een hoge kleur: verhoog naar drie met 6-12 en steun, manche met 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Je linkertegenstander opent 1SA, partner volgt met 2♥ en je rechtertegenstander past. Je hebt ♠Q852 ♥Q73 ♦K84 ♣962 (7 punten). Wat bied je?',
         options: ['Pas', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Driekaartsteun en 6-9 punten: verhoog naar 3♥. Met negen troeven is het 3-niveau veilig genoeg. 3♣ zou 10-12 punten tonen, en 4♥ vraagt 13+.',
+        explain: 'Driekaartsteun en 6-9 punten: verhoog naar 3♥. Met negen troeven is het 3-niveau veilig genoeg. 3♣ zou een klaverenkleur tonen, en 4♥ vraagt 13+.',
       },
       {
         q: '1SA links van je, dan pas, pas. Je hebt ♠KQ1095 ♥83 ♦952 ♣J84 (6 punten). Wat bied je?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Na het redoublet</h3>
-<p>Het redoublet zegt dat het spel van jullie kant is. De openaar past normaal en laat het probleem aan de tegenstanders: zij moeten een plek vinden om te spelen, en de partner van de doubleerder, die misschien niets heeft, biedt alleen met een vijfkaart. De openaar biedt meteen alleen met een minimum (hooguit 13 punten) en een zeskaart, die slecht verdedigt. Als de tegenstanders in een kleur belanden, biedt de redoubleerder de manche als hij de waarden ervoor heeft, ongeveer 12+ punten tegenover de opening.</p>
+<p>Het redoublet zegt dat het spel van jullie kant is. De openaar past normaal en laat het probleem aan de tegenstanders: zij moeten een plek vinden om te spelen, en de partner van de doubleerder, die misschien niets heeft, biedt alleen met een vijfkaart. De openaar biedt meteen alleen met een minimum (hooguit 13 punten) en een zeskaart, die slecht verdedigt. Als de tegenstanders in een kleur belanden, biedt de redoubleerder de manche als hij de waarden ervoor heeft, ongeveer 12+ punten tegenover de opening. Met 10-11 punten en vier kaarten in hun kleur met twee van de drie hoogste honneurs doubleert de redoubleerder hen in plaats daarvan: na een redoublet is een doublet van jullie kant een strafdoublet.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Noord opent 1♥ en Oost doubleert."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Zuid heeft 12 punten en maar twee harten: redoublet. West heeft niets en geen vijfkaart, dus past hij; Noord past ook, en Oost moet een kleur op 2-niveau kiezen. Zuid heeft 12 punten tegenover een opening en twee stops in klaveren, en biedt 3SA, dat bij het beste spel negen slagen maakt.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1SA – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1SA – X – ?: redoublet"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1SA – X – ?: pas"></div>
-<p>De eerste hand vlucht naar zijn vijf ruiten. De tweede heeft 8 punten: redoublet. De derde heeft geen vijfkaart, dus past hij en laat het aan partner over.</p>
+<p>De eerste hand vlucht naar zijn vijf ruiten. De tweede heeft 8 punten: redoublet. De derde heeft geen vijfkaart, dus past hij en laat het aan partner over. Na het redoublet past de openaar: de tegenstanders moeten een plek vinden om te spelen.</p>
 <div class="warn">Bied na 1♥ – doublet met een zwakke hand geen nieuwe kleur op 2-niveau: dat hoort niet bij het systeem. Met 10+ punten redoubleer je eerst; met minder bied je 1SA of pas je.</div>
 `,
     keyPoints: [
       'Na een informatiedoublet op 1♥ of 1♠ toont 2SA (Jordan) vier troeven en 10+ steunpunten; een redoublet toont 10+ punten, meestal zonder fit.',
       'De sprongverhoging is preëmptief (vier troeven voor een hoge kleur, vijf voor een lage, minder dan 10 punten); de gewone verhoging toont 6-10 met steun.',
       'Een hoge kleur op 1-niveau toont vier of meer kaarten en 6+ punten en is forcing; 1SA toont 6-9 zonder ander passend bod.',
-      'Na het redoublet past de openaar meestal en laat hij de tegenstanders een contract zoeken; met manchewaarden biedt de redoubleerder daarna de manche.',
+      'Na het redoublet past de openaar meestal en laat hij de tegenstanders een contract zoeken; de redoubleerder biedt daarna de manche met manchewaarden, of doubleert hen met een sterke lengte in hun kleur.',
       'Als de 1SA van partner wordt gedoubleerd, redoubleer je met 8+; met een zwakke hand en een vijfkaart bied je die op 2-niveau (natuurlijk, zonder Stayman of transfers).',
     ],
     quiz: [

@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Odzywka partnera wchodzącego</th><th>Znaczenie</th></tr></thead>
 <tbody>
-<tr><td>3♥ (podniesienie)</td><td>Trzykartowe poparcie i 6-9 punktów (liczą się punkty w poparciu)</td></tr>
-<tr><td>3♣</td><td>Sztuczna: trzykartowe poparcie i 10-12 punktów. Wchodzący licytuje dograną z 13+ punktami łącznie, w przeciwnym razie 3♥</td></tr>
+<tr><td>3♥ (podniesienie)</td><td>Trzykartowe poparcie i 6-12 punktów (liczą się punkty w poparciu). Wchodzący licytuje dograną tylko z maksimum, około 15 PC</td></tr>
 <tr><td>4♥</td><td>Poparcie i 13+ punktów albo pięć atutów i singiel</td></tr>
 <tr><td>2♠ (nowy kolor)</td><td>Dobry kolor pięciokartowy lub dłuższy i 8+ PC; nieforsujące</td></tr>
 <tr><td>2BA / 3BA</td><td>Bez fitu: 12-14 PC, inwitujące / 15+ PC</td></tr>
 <tr><td>Pas</td><td>Wszystko inne, także misfit z długim kolorem młodszym</td></tr>
 </tbody>
 </table>
-<p>Przeciwnicy nie mają własnego koloru do cue bidu, więc boty używają 3♣, żeby pokazać dobre podniesienie. Po wejściu w kolor młodszy na wysokości dwóch podniesienie wymaga czterokartowego poparcia.</p>
+<p>Przeciwnicy nie mają własnego koloru do cue bidu, więc nie ma podniesienia przez cue bid: podniesienie do 3♥ obejmuje zarówno ręce rywalizacyjne, jak i inwitujące. Po wejściu w kolor młodszy na wysokości dwóch podniesienie wymaga czterokartowego poparcia.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="Zachód otwiera 1BA; Północ wchodzi 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Północ ma 11 PC i sześć dobrych kierów: naturalne 2♥. Południe z trzema atutami i 7 punktami podnosi do 3♥. Z dziewięcioma wspólnymi atutami wysokość trzech jest dość bezpieczna (prawo totalnej liczby lew), a podniesienie utrudnia parze Wschód-Zachód, która ma ponad połowę punktów, znalezienie własnej częściówki. Północ nie ma nic ekstra i pasuje.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Odzywki kolorowe na wysokości dwóch są naturalne: 8-15 PC i kolor sześciokartowy albo dobry pięciokartowy starszy.',
       'Nie wchodź z ręką zrównoważoną poniżej 15 PC, z pięciokartowym młodszym ani ze słabym pięciokartowym starszym.',
       'Na pozycji wznawiającej pożycz króla: kontra z 12+, kolor z 5-12.',
-      'Odpowiedź na kolor starszy: podniesienie do trzech z 6-9 i poparciem, 3♣ pokazuje 10-12, dograna z 13+.',
+      'Odpowiedź na kolor starszy: podniesienie do trzech z 6-12 i poparciem, dograna z 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Lewy przeciwnik otwiera 1BA, partner wchodzi 2♥, a prawy przeciwnik pasuje. Masz ♠Q852 ♥Q73 ♦K84 ♣962 (7 PC). Co licytujesz?',
         options: ['Pas', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Trzykartowe poparcie i 6-9 punktów: podnieś do 3♥. Z dziewięcioma atutami wysokość trzech jest dość bezpieczna. 3♣ pokazywałoby 10-12 punktów, a 4♥ wymaga 13+.',
+        explain: 'Trzykartowe poparcie i 6-9 punktów: podnieś do 3♥. Z dziewięcioma atutami wysokość trzech jest dość bezpieczna. 3♣ pokazywałoby trefle, a 4♥ wymaga 13+.',
       },
       {
         q: '1BA po twojej lewej, potem pas, pas. Masz ♠KQ1095 ♥83 ♦952 ♣J84 (6 PC). Co licytujesz?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Po rekontrze</h3>
-<p>Rekontra mówi, że rozdanie należy do waszej strony. Otwierający zwykle pasuje i zostawia problem przeciwnikom: muszą znaleźć miejsce do gry, a partner kontrującego, który może nie mieć nic, licytuje tylko z kolorem pięciokartowym. Otwierający licytuje od razu tylko z minimum (najwyżej 13 PC) i kolorem sześciokartowym, który słabo się broni. Gdy przeciwnicy wylądują w jakimś kolorze, rekontrujący licytuje dograną, jeśli ma na nią wartości, mniej więcej 12+ PC przy otwarciu partnera.</p>
+<p>Rekontra mówi, że rozdanie należy do waszej strony. Otwierający zwykle pasuje i zostawia problem przeciwnikom: muszą znaleźć miejsce do gry, a partner kontrującego, który może nie mieć nic, licytuje tylko z kolorem pięciokartowym. Otwierający licytuje od razu tylko z minimum (najwyżej 13 PC) i kolorem sześciokartowym, który słabo się broni. Gdy przeciwnicy wylądują w jakimś kolorze, rekontrujący licytuje dograną, jeśli ma na nią wartości, mniej więcej 12+ PC przy otwarciu partnera. Z 10-11 PC i czterema kartami w ich kolorze z dwoma z trzech najwyższych honorów rekontrujący zamiast tego ich kontruje: po rekontrze kontra waszej strony jest karna.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Północ otwiera 1♥, a Wschód kontruje."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Południe ma 12 PC i tylko dwa kiery: rekontra. Zachód nie ma nic ani koloru pięciokartowego, więc pasuje; Północ też pasuje, a Wschód musi wybrać kolor na wysokości dwóch. Południe z 12 PC przy otwarciu partnera i podwójnym zatrzymaniem treflowym licytuje 3BA, które przy najlepszej grze bierze dziewięć lew.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1BA – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1BA – X – ?: rekontra"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1BA – X – ?: pas"></div>
-<p>Pierwsza ręka ucieka w swoje pięć kar. Druga ma 8 PC: rekontra. Trzecia nie ma koloru pięciokartowego, więc pasuje i zostawia partnerowi radzenie sobie.</p>
+<p>Pierwsza ręka ucieka w swoje pięć kar. Druga ma 8 PC: rekontra. Trzecia nie ma koloru pięciokartowego, więc pasuje i zostawia partnerowi radzenie sobie. Po rekontrze otwierający pasuje: przeciwnicy muszą znaleźć miejsce do gry.</p>
 <div class="warn">Po 1♥ – kontra nie licytuj ze słabą ręką nowego koloru na wysokości dwóch: to nie należy do systemu. Z 10+ PC najpierw daj rekontrę; z mniejszą siłą licytuj 1BA albo pasuj.</div>
 `,
     keyPoints: [
       'Po kontrze wywołującej 1♥ lub 1♠ 2BA (Jordan) pokazuje cztery atuty i 10+ punktów w poparciu; rekontra pokazuje 10+ PC, zwykle bez fitu.',
       'Podniesienie skokiem jest blokujące (cztery atuty w starszym, pięć w młodszym, mniej niż 10 PC); zwykłe podniesienie pokazuje 6-10 z poparciem.',
       'Kolor starszy na wysokości jednego pokazuje cztery lub więcej kart i 6+ PC i jest forsujący; 1BA pokazuje 6-9 bez innej odpowiedniej odzywki.',
-      'Po rekontrze otwierający zwykle pasuje i pozwala przeciwnikom szukać kontraktu; z wartościami na dograną rekontrujący licytuje potem dograną.',
+      'Po rekontrze otwierający zwykle pasuje i pozwala przeciwnikom szukać kontraktu; rekontrujący licytuje potem dograną z wartościami na nią albo kontruje ich, mając silne honory w ich kolorze.',
       'Gdy 1BA partnera zostaje skontrowane, daj rekontrę z 8+; ze słabą ręką i kolorem pięciokartowym zalicytuj go na wysokości dwóch (naturalnie, bez Staymana i transferów).',
     ],
     quiz: [

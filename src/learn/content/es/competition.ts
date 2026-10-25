@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Voz del compañero del interventor</th><th>Significado</th></tr></thead>
 <tbody>
-<tr><td>3♥ (apoyo)</td><td>Apoyo de tres cartas y 6-9 puntos (cuentan los puntos de apoyo)</td></tr>
-<tr><td>3♣</td><td>Artificial: apoyo de tres cartas y 10-12 puntos. El interventor declara la manga con 13+ puntos totales; si no, 3♥</td></tr>
+<tr><td>3♥ (apoyo)</td><td>Apoyo de tres cartas y 6-12 puntos (cuentan los puntos de apoyo). El interventor declara la manga solo con un máximo, unos 15 PH</td></tr>
 <tr><td>4♥</td><td>Apoyo y 13+ puntos, o cinco triunfos y un semifallo</td></tr>
 <tr><td>2♠ (palo nuevo)</td><td>Un buen palo de cinco o más cartas y 8+ PH; no forcing</td></tr>
 <tr><td>2SA / 3SA</td><td>Sin fit: 12-14 PH, invitativo / 15+ PH</td></tr>
 <tr><td>Paso</td><td>Todo lo demás, incluido un misfit con un menor largo</td></tr>
 </tbody>
 </table>
-<p>Los rivales no tienen palo propio para hacer un cue-bid, así que los bots usan 3♣ para mostrar el buen apoyo. Tras una intervención a nivel de dos en un menor, el apoyo necesita cuatro cartas.</p>
+<p>Los rivales no tienen palo propio para hacer un cue-bid, así que no hay apoyo con cue-bid: el apoyo a 3♥ recoge tanto las manos competitivas como las invitativas. Tras una intervención a nivel de dos en un menor, el apoyo necesita cuatro cartas.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="Oeste abre de 1SA; Norte interviene con 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Norte tiene 11 PH y seis buenos corazones: un 2♥ natural. Sur, con tres triunfos y 7 puntos, apoya a 3♥. Con nueve triunfos entre los dos el nivel de tres es bastante seguro (la Ley de las bazas totales), y el apoyo le pone más difícil a Este-Oeste, que tienen más de la mitad de los puntos, encontrar su propio parcial. Norte no tiene nada extra y pasa.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Las voces a palo a nivel de dos son naturales: 8-15 PH y un palo de seis, o un buen mayor de cinco.',
       'Quédate fuera con manos equilibradas de menos de 15 PH, menores de cinco y mayores de cinco pobres.',
       'En posición de reapertura, pide prestado un Rey: doblo con 12+, un palo con 5-12.',
-      'Respuesta a un mayor: apoyo a tres con 6-9 y apoyo, 3♣ muestra 10-12, manga con 13+.',
+      'Respuesta a un mayor: apoyo a tres con 6-12 y apoyo, manga con 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'El rival de la izquierda abre de 1SA, tu compañero interviene con 2♥ y el rival de la derecha pasa. Tienes ♠Q852 ♥Q73 ♦K84 ♣962 (7 PH). ¿Qué declaras?',
         options: ['Paso', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Apoyo de tres cartas y 6-9 puntos: apoya a 3♥. Con nueve triunfos el nivel de tres es bastante seguro. 3♣ mostraría 10-12 puntos, y 4♥ necesita 13+.',
+        explain: 'Apoyo de tres cartas y 6-9 puntos: apoya a 3♥. Con nueve triunfos el nivel de tres es bastante seguro. 3♣ mostraría un palo de tréboles, y 4♥ necesita 13+.',
       },
       {
         q: '1SA a tu izquierda, paso, paso. Tienes ♠KQ1095 ♥83 ♦952 ♣J84 (6 PH). ¿Qué declaras?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Después del redoblo</h3>
-<p>El redoblo dice que la mano es de tu bando. El abridor normalmente pasa y deja el problema a los rivales: tienen que encontrar dónde jugar, y el compañero del doblador, que puede no tener nada, solo declara con un palo de cinco. El abridor declara enseguida solo con un mínimo (13 PH o menos) y un palo de seis, que defiende mal. Cuando los rivales acaban en un palo, el redoblador declara la manga si tiene valores para ello, unos 12+ PH frente a la apertura.</p>
+<p>El redoblo dice que la mano es de tu bando. El abridor normalmente pasa y deja el problema a los rivales: tienen que encontrar dónde jugar, y el compañero del doblador, que puede no tener nada, solo declara con un palo de cinco. El abridor declara enseguida solo con un mínimo (13 PH o menos) y un palo de seis, que defiende mal. Cuando los rivales acaban en un palo, el redoblador declara la manga si tiene valores para ello, unos 12+ PH frente a la apertura. Con 10-11 PH y cuatro cartas en su palo encabezadas por dos de los tres honores mayores, el redoblador los dobla en su lugar: tras un redoblo, un doblo de tu bando es de castigo.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Norte abre de 1♥ y Este dobla."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Sur tiene 12 PH y solo dos corazones: redoblo. Oeste no tiene nada ni un palo de cinco, así que pasa; Norte también pasa, y Este tiene que elegir un palo a nivel de dos. Sur, con 12 PH frente a una apertura y los tréboles parados dos veces, declara 3SA, que con el mejor juego cumple nueve bazas.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1SA – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1SA – X – ?: redoblo"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1SA – X – ?: paso"></div>
-<p>La primera mano escapa a sus cinco diamantes. La segunda tiene 8 PH: redoblo. La tercera no tiene palo de cinco, así que pasa y deja que su compañero se las arregle.</p>
+<p>La primera mano escapa a sus cinco diamantes. La segunda tiene 8 PH: redoblo. La tercera no tiene palo de cinco, así que pasa y deja que su compañero se las arregle. Tras el redoblo, el abridor pasa: los rivales tienen que encontrar dónde jugar.</p>
 <div class="warn">Tras 1♥ – doblo, no declares un palo nuevo a nivel de dos con una mano débil: no forma parte del sistema. Con 10+ PH redobla primero; con menos, declara 1SA o pasa.</div>
 `,
     keyPoints: [
       'Tras un doblo informativo de 1♥ o 1♠, 2SA (Jordan) muestra cuatro triunfos y 10+ puntos de apoyo; el redoblo muestra 10+ PH, normalmente sin fit.',
       'El apoyo a salto es de barrage (cuatro triunfos para un mayor, cinco para un menor, menos de 10 PH); el apoyo simple muestra 6-10 con apoyo.',
       'Un mayor a nivel de uno muestra cuatro o más cartas y 6+ PH y es forcing; 1SA muestra 6-9 sin otra voz que hacer.',
-      'Tras el redoblo el abridor suele pasar y deja que los rivales busquen contrato; con valores de manga, el redoblador declara entonces la manga.',
+      'Tras el redoblo el abridor suele pasar y deja que los rivales busquen contrato; luego el redoblador declara la manga con valores de manga, o los dobla si tiene una tenencia fuerte en su palo.',
       'Cuando doblan el 1SA de tu compañero, redobla con 8+; con una mano débil y un palo de cinco, decláralo a nivel de dos (natural, sin Stayman ni transferencias).',
     ],
     quiz: [

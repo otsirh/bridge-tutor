@@ -68,15 +68,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Gebot des Partners</th><th>Bedeutung</th></tr></thead>
 <tbody>
-<tr><td>3♥ (Hebung)</td><td>Dreierunterstützung und 6–9 Punkte (Unterstützungspunkte zählen)</td></tr>
-<tr><td>3♣</td><td>Künstlich: Dreierunterstützung und 10–12 Punkte. Der Gegenreizer reizt mit 13+ Gesamtpunkten das Vollspiel, sonst 3♥</td></tr>
+<tr><td>3♥ (Hebung)</td><td>Dreierunterstützung und 6–12 Punkte (Unterstützungspunkte zählen). Der Gegenreizer reizt das Vollspiel nur mit Maximum, etwa 15 FP</td></tr>
 <tr><td>4♥</td><td>Unterstützung und 13+ Punkte, oder fünf Trümpfe und ein Single</td></tr>
 <tr><td>2♠ (neue Farbe)</td><td>Eine gute Fünfer- oder längere Farbe und 8+ FP; nicht forcierend</td></tr>
 <tr><td>2SA / 3SA</td><td>Kein Fit: 12–14 FP, einladend / 15+ FP</td></tr>
 <tr><td>Passe</td><td>Alles andere, auch ein Misfit mit einer langen Unterfarbe</td></tr>
 </tbody>
 </table>
-<p>Die Gegner haben keine eigene Farbe für ein Cuebid, deshalb verwenden die Bots 3♣, um die gute Hebung zu zeigen. Nach einer Gegenreizung in einer Unterfarbe auf der Zweierstufe braucht eine Hebung Viererunterstützung.</p>
+<p>Die Gegner haben keine eigene Farbe für ein Cuebid, also gibt es keine Cuebid-Hebung: Die Hebung auf 3♥ umfasst sowohl die kompetitiven als auch die einladenden Hände. Nach einer Gegenreizung in einer Unterfarbe auf der Zweierstufe braucht eine Hebung Viererunterstützung.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="West eröffnet 1SA; Nord reizt 2♥ gegen."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>Nord hat 11 FP und sechs gute Coeur: ein natürliches 2♥. Süd hebt mit drei Trümpfen und 7 Punkten auf 3♥. Mit neun gemeinsamen Trümpfen ist die Dreierstufe sicher genug (Gesetz der totalen Stiche), und die Hebung macht es Ost-West, die mehr als die Hälfte der Punkte haben, schwerer, ihren eigenen Teilkontrakt zu finden. Nord hat nichts extra und passt.</p>
@@ -87,7 +86,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Farbgebote auf der Zweierstufe sind natürlich: 8–15 FP und eine Sechserlänge oder eine gute Fünfer-Oberfarbe.',
       'Bleiben Sie still mit ausgeglichenen Händen unter 15 FP, mit Fünfer-Unterfarben und schwachen Fünfer-Oberfarben.',
       'In der Wiederbelebungsposition borgen Sie einen König: Kontra mit 12+, eine Farbe mit 5–12.',
-      'Antwort auf eine Oberfarbe: Hebung auf drei mit 6–9 und Unterstützung, 3♣ zeigt 10–12, Vollspiel mit 13+.',
+      'Antwort auf eine Oberfarbe: Hebung auf drei mit 6–12 und Unterstützung, Vollspiel mit 13+.',
     ],
     quiz: [
       {
@@ -112,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Ihr linker Gegner eröffnet 1SA, der Partner reizt 2♥ gegen, und Ihr rechter Gegner passt. Sie halten ♠Q852 ♥Q73 ♦K84 ♣962 (7 FP). Was reizen Sie?',
         options: ['Passe', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Dreierunterstützung und 6–9 Punkte: Heben Sie auf 3♥. Mit neun Trümpfen ist die Dreierstufe sicher genug. 3♣ würde 10–12 Punkte zeigen, und 4♥ braucht 13+.',
+        explain: 'Dreierunterstützung und 6–9 Punkte: Heben Sie auf 3♥. Mit neun Trümpfen ist die Dreierstufe sicher genug. 3♣ würde eine Treff-Farbe zeigen, und 4♥ braucht 13+.',
       },
       {
         q: 'Links von Ihnen 1SA, dann Passe, Passe. Sie halten ♠KQ1095 ♥83 ♦952 ♣J84 (6 FP). Was reizen Sie?',
@@ -277,7 +276,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Nach dem Rekontra</h3>
-<p>Das Rekontra sagt, dass das Spiel Ihrer Seite gehört. Der Eröffner passt normalerweise und überlässt das Problem den Gegnern: Sie müssen einen Platz zum Spielen finden, und der Partner des Kontrierenden, der vielleicht nichts hat, reizt nur mit einer Fünferlänge. Der Eröffner reizt sofort nur mit Minimum (höchstens 13 FP) und einer Sechserlänge, also mit schwacher Verteidigung. Landen die Gegner in einer Farbe, reizt der Rekontrierende mit den Werten dafür das Vollspiel, etwa ab 12 FP gegenüber der Eröffnung.</p>
+<p>Das Rekontra sagt, dass das Spiel Ihrer Seite gehört. Der Eröffner passt normalerweise und überlässt das Problem den Gegnern: Sie müssen einen Platz zum Spielen finden, und der Partner des Kontrierenden, der vielleicht nichts hat, reizt nur mit einer Fünferlänge. Der Eröffner reizt sofort nur mit Minimum (höchstens 13 FP) und einer Sechserlänge, also mit schwacher Verteidigung. Landen die Gegner in einer Farbe, reizt der Rekontrierende mit den Werten dafür das Vollspiel, etwa ab 12 FP gegenüber der Eröffnung. Mit 10–11 FP und vier Karten in ihrer Farbe mit zwei der drei höchsten Figuren kontriert der Rekontrierende stattdessen: Nach einem Rekontra ist ein Kontra Ihrer Seite ein Strafkontra.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Nord eröffnet 1♥, und Ost kontriert."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>Süd hat 12 FP und nur zwei Coeur: Rekontra. West hat nichts und keine Fünferlänge, also passt er; auch Nord passt, und Ost muss auf der Zweierstufe eine Farbe wählen. Süd hat 12 FP gegenüber einer Eröffnung und Treff doppelt gestoppt und reizt 3SA, das bei bestem Spiel neun Stiche macht.</p>
@@ -302,14 +301,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1SA – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1SA – X – ?: Rekontra"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1SA – X – ?: Passe"></div>
-<p>Die erste Hand flüchtet in ihre fünf Karo. Die zweite hat 8 FP: Rekontra. Die dritte hat keine Fünferlänge, also passt sie und überlässt es dem Partner, damit zurechtzukommen.</p>
+<p>Die erste Hand flüchtet in ihre fünf Karo. Die zweite hat 8 FP: Rekontra. Die dritte hat keine Fünferlänge, also passt sie und überlässt es dem Partner, damit zurechtzukommen. Nach dem Rekontra passt der Eröffner: Die Gegner müssen einen Platz zum Spielen finden.</p>
 <div class="warn">Reizen Sie nach 1♥ – Kontra mit einer schwachen Hand keine neue Farbe auf der Zweierstufe: Das gehört nicht zum System. Mit 10+ FP geben Sie zuerst Rekontra; mit weniger reizen Sie 1SA oder passen.</div>
 `,
     keyPoints: [
       'Nach einem Informationskontra auf 1♥ oder 1♠ zeigt 2SA (Jordan) vier Trümpfe und 10+ Unterstützungspunkte; Rekontra zeigt 10+ FP, meist ohne Fit.',
       'Die Sprunghebung ist sperrend (vier Trümpfe für eine Oberfarbe, fünf für eine Unterfarbe, unter 10 FP); die einfache Hebung zeigt 6–10 mit Unterstützung.',
       'Eine Oberfarbe auf der Einerstufe zeigt vier oder mehr Karten und 6+ FP und ist forcierend; 1SA zeigt 6–9 ohne anderes passendes Gebot.',
-      'Nach dem Rekontra passt der Eröffner meist und lässt die Gegner einen Kontrakt suchen; mit Vollspielwerten reizt der Rekontrierende dann das Vollspiel.',
+      'Nach dem Rekontra passt der Eröffner meist und lässt die Gegner einen Kontrakt suchen; der Rekontrierende reizt dann mit Vollspielwerten das Vollspiel oder kontriert mit einer starken Länge in ihrer Farbe.',
       'Wird 1SA des Partners kontriert, geben Sie mit 8+ Rekontra; mit einer schwachen Hand und einer Fünferlänge reizen Sie diese auf der Zweierstufe (natürlich, ohne Stayman und Transfers).',
     ],
     quiz: [

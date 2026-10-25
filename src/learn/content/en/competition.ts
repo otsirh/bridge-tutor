@@ -69,15 +69,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <table>
 <thead><tr><th>Advancer's bid</th><th>Meaning</th></tr></thead>
 <tbody>
-<tr><td>3♥ (raise)</td><td>Three-card support and 6-9 points (dummy points count)</td></tr>
-<tr><td>3♣</td><td>Artificial: three-card support and 10-12 points. The overcaller bids game with 13+ total points, otherwise 3♥</td></tr>
+<tr><td>3♥ (raise)</td><td>Three-card support and 6-12 points (dummy points count). The overcaller bids game only with a maximum, about 15 HCP</td></tr>
 <tr><td>4♥</td><td>Support and 13+ points, or five trumps and a singleton</td></tr>
 <tr><td>2♠ (new suit)</td><td>A good five-card or longer suit and 8+ HCP; not forcing</td></tr>
 <tr><td>2NT / 3NT</td><td>No fit: 12-14 HCP, invitational / 15+ HCP</td></tr>
 <tr><td>Pass</td><td>Everything else, including a misfit with a long minor</td></tr>
 </tbody>
 </table>
-<p>The opponents have no suit of their own to cue bid, so the bots use 3♣ to show the good raise. After a two-level overcall in a minor, a raise needs four-card support.</p>
+<p>The opponents have no suit of their own to cue bid, so there is no cue-bid raise: the raise to 3♥ takes both the competitive and the invitational hands. After a two-level overcall in a minor, a raise needs four-card support.</p>
 <div class="deal" data-n="S:4 H:AKJ1052 D:Q93 C:J84" data-s="S:Q852 H:Q73 D:K84 C:962" data-caption="West opens 1NT; North overcalls 2♥."></div>
 <div class="auction" data-calls="1NT 2H P 3H P P P" data-dealer="W"></div>
 <p>North has 11 HCP and six good hearts: a natural 2♥. South, with three trumps and 7 points, raises to 3♥. With nine trumps between you the three level is safe enough (the Law of Total Tricks), and the raise makes it harder for East-West, who hold more than half the points, to find their own partscore. North has nothing extra and passes.</p>
@@ -88,7 +87,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Two-level suit bids are natural: 8-15 HCP and a six-card suit, or a good five-card major.',
       'Stay out with balanced hands below 15 HCP, five-card minors and poor five-card majors.',
       'In the balancing seat, borrow a king: double with 12+, bid a suit with 5-12.',
-      'Advancing a major: raise to three with 6-9 and support, 3♣ shows 10-12, game with 13+.',
+      'Advancing a major: raise to three with 6-12 and support, game with 13+.',
     ],
     quiz: [
       {
@@ -113,7 +112,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'LHO opens 1NT, partner overcalls 2♥ and RHO passes. You hold ♠Q852 ♥Q73 ♦K84 ♣962 (7 HCP). What do you bid?',
         options: ['Pass', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Three-card support and 6-9 points: raise to 3♥. With nine trumps the three level is safe enough. 3♣ would show 10-12 points, and 4♥ needs 13+.',
+        explain: 'Three-card support and 6-9 points: raise to 3♥. With nine trumps the three level is safe enough. 3♣ would show a club suit, and 4♥ needs 13+.',
       },
       {
         q: '1NT on your left, then pass, pass. You hold ♠KQ1095 ♥83 ♦952 ♣J84 (6 HCP). What do you bid?',
@@ -278,7 +277,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>After the redouble</h3>
-<p>The redouble says that the hand belongs to your side. Opener normally passes and leaves the problem to the opponents: they must find somewhere to play, and the doubler's partner, who may hold nothing, bids only with a five-card suit. Opener bids at once only with a minimum (13 HCP or less) and a six-card suit, which is poor defence. When the opponents land in a suit, the redoubler bids game with the values for it, about 12+ HCP opposite the opening.</p>
+<p>The redouble says that the hand belongs to your side. Opener normally passes and leaves the problem to the opponents: they must find somewhere to play, and the doubler's partner, who may hold nothing, bids only with a five-card suit. Opener bids at once only with a minimum (13 HCP or less) and a six-card suit, which is poor defence. When the opponents land in a suit, the redoubler bids game with the values for it, about 12+ HCP opposite the opening. With 10-11 HCP and four cards in their suit headed by two of the top three honours, the redoubler doubles them instead: after a redouble, a double by your side is for penalties.</p>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="North opens 1♥ and East doubles."></div>
 <div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
 <p>South has 12 HCP and only two hearts: redouble. West has nothing and no five-card suit, so passes; North passes too, and East must choose a suit at the two level. South, with 12 HCP opposite an opening bid and the clubs stopped twice over, bids 3NT, which makes nine tricks with best play.</p>
@@ -303,14 +302,14 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:Q74 H:62 D:J9853 C:932" data-label="1NT – X – ?: 2♦"></div>
 <div class="hand" data-cards="S:Q74 H:62 D:KJ85 C:Q932" data-label="1NT – X – ?: redouble"></div>
 <div class="hand" data-cards="S:Q74 H:J62 D:J85 C:9432" data-label="1NT – X – ?: pass"></div>
-<p>The first hand runs to its five diamonds. The second has 8 HCP: redouble. The third has no five-card suit, so it passes and leaves partner to cope.</p>
+<p>The first hand runs to its five diamonds. The second has 8 HCP: redouble. The third has no five-card suit, so it passes and leaves partner to cope. After the redouble, opener passes: the opponents must find somewhere to play.</p>
 <div class="warn">After 1♥ – double, don't bid a new suit at the two level with a weak hand: it is not part of the system. With 10+ HCP redouble first; with less, bid 1NT or pass.</div>
 `,
     keyPoints: [
       'After a takeout double of 1♥ or 1♠, 2NT (Jordan) shows four trumps and 10+ dummy points; redouble shows 10+ HCP, usually without a fit.',
       'The jump raise is preemptive (four trumps for a major, five for a minor, under 10 HCP); the simple raise shows 6-10 with support.',
       'A major at the one level shows four+ cards and 6+ HCP and is forcing; 1NT shows 6-9 with nothing else to bid.',
-      'After the redouble opener usually passes and lets the opponents find a contract; with game values the redoubler then bids game.',
+      'After the redouble opener usually passes and lets the opponents find a contract; the redoubler then bids game with game values, or doubles them with a strong holding in their suit.',
       'When partner\'s 1NT is doubled, redouble with 8+; with a weak hand and a five-card suit, bid it at the two level (natural, no Stayman or transfers).',
     ],
     quiz: [

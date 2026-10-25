@@ -323,7 +323,8 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
   }
 
   if (ps >= 0 && ps < 4) {
-    const cue = x.cheapest(opp);
+    // a cue-bid raise needs a suit of theirs to cue (over their 1NT there is none)
+    const cue = theirs.length ? x.cheapest(opp) : null;
     const supLen = ps >= HEARTS ? 3 : 4;
     if (ps >= HEARTS) rules.push(R(bid(4, ps), 'gameRaise', t.gameRaise(ps), [lenC(ps, 3),
       cond(t.gameRaiseCond, h => dummyPoints(h, ps) >= 13 || (h.len[ps] >= 5 && h.shape[3] <= 1))]));
@@ -371,7 +372,7 @@ export function contestedResponse(x: Ctx, open: CallRecord): Rule[] {
 
   if (os === NT) {
     if (rc.call === DOUBLE) {
-      rules.push(R(REDOUBLE, 'redouble', t.redouble1nt, [hcpC(8)]));
+      rules.push(R(REDOUBLE, 'redouble', t.redouble1nt, [hcpC(8)], { tag: 'redouble' }));
       for (const su of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
         rules.push(R(bid(2, su), 'escape', t.escape(su), [hcpC(0, 7), lenC(su, 5), longestC(su)]));
       }
@@ -527,7 +528,7 @@ export function openerAfterRedouble(x: Ctx, open: CallRecord): Rule[] {
   const os = strainOf(open.call);
   const c = x.cheapest(os);
   const rules: Rule[] = [];
-  if (c !== null && levelOf(c) <= 2) rules.push(R(c, 'rebidSuit', t.rebidAfterRedouble, [lenC(os, 6), hcpC(0, 13)]));
+  if (os < NT && c !== null && levelOf(c) <= 2) rules.push(R(c, 'rebidSuit', t.rebidAfterRedouble, [lenC(os, 6), hcpC(0, 13)]));
   rules.push(R(PASS, 'pass', t.passAfterRedouble, []));
   return rules;
 }

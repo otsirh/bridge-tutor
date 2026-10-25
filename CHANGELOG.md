@@ -10,8 +10,10 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
   read correctly, and countable grand slams bid. A competitive double is read as takeout (partner
   used to pass it as a penalty double), strong or shapely hands no longer pass partner's opening,
   suit slams are bid with about 32 points and a fit, and calls show tighter ranges (opener's 2NT
-  after a two-over-one reads 12–14). Average loss against double-dummy par fell from 4.86 to 4.49
-  IMPs a board over 750 deals.
+  after a two-over-one reads 12–14). After our redouble, doubles are for penalties again; opener
+  passes partner's redouble of a doubled 1NT; over their 1NT the advancer raises partner's overcall
+  naturally instead of with an artificial 3♣. Average loss against double-dummy par fell from 4.86
+  to 4.49 IMPs a board over 750 deals.
 - Card play: each card's principle now matches it (overruff and underruff, returning partner's
   suit, declarer's ruffs, trumps already drawn…); the bots sample more layouts in the first tricks;
   passive opening leads against slams.

@@ -75,8 +75,9 @@ const CALLS: { lesson: string; hand: number | string; dealer: string; before: st
   { lesson: 'competing-over-1nt', hand: 7, dealer: 'W', before: '1NT', call: 'P' },
   { lesson: 'competing-over-1nt', hand: 8, dealer: 'W', before: '1NT P P', call: 'X' },
   { lesson: 'competing-over-1nt', hand: 'S:Q852 H:Q73 D:K84 C:962', dealer: 'W', before: '1NT 2H P', call: '3H' },
-  { lesson: 'competing-over-1nt', hand: 'S:K852 H:Q73 D:AJ4 C:Q62', dealer: 'W', before: '1NT 2H P', call: '3C' },
-  { lesson: 'competing-over-1nt', hand: 'S:4 H:AKJ1052 D:Q93 C:J84', dealer: 'W', before: '1NT 2H P 3C P', call: '4H' },
+  { lesson: 'competing-over-1nt', hand: 'S:K852 H:Q73 D:AJ4 C:Q62', dealer: 'W', before: '1NT 2H P', call: '3H' },
+  { lesson: 'competing-over-1nt', hand: 'S:4 H:AKJ1052 D:AQ3 C:J84', dealer: 'W', before: '1NT 2H P 3H P', call: '4H' },
+  { lesson: 'competing-over-1nt', hand: 'S:4 H:AKJ1052 D:KQ3 C:J84', dealer: 'W', before: '1NT 2H P 3H P', call: 'P' },
   { lesson: 'competing-over-1nt', hand: 'S:K85 H:4 D:AK9652 C:J84', dealer: 'W', before: '1NT 2H P', call: 'P' },
   { lesson: 'competing-over-1nt', hand: 'S:KQ105 H:AJ94 D:K52 C:84', dealer: 'W', before: '1NT', call: 'P' },
   { lesson: 'competing-over-1nt', hand: 'S:Q85 H:J94 D:9652 C:J84', dealer: 'W', before: '1NT X P', call: 'P' },
@@ -114,6 +115,9 @@ const CALLS: { lesson: string; hand: number | string; dealer: string; before: st
   { lesson: 'when-they-double-us', hand: 'S:A5 H:QJ10842 D:K72 C:84', dealer: 'N', before: '1H X XX P', call: '2H' },
   { lesson: 'when-they-double-us', hand: 'S:A5 H:AQJ84 D:K1072 C:84', dealer: 'N', before: '1H X XX P', call: 'P' },
   { lesson: 'when-they-double-us', hand: 'S:8742 H:109732 D:86 C:53', dealer: 'N', before: '1H X XX', call: 'P' },
+  { lesson: 'when-they-double-us', hand: 'S:K85 H:62 D:Q853 C:KQ94', dealer: 'N', before: '1H X XX P P 2C', call: 'X' },
+  { lesson: 'when-they-double-us', hand: 'S:K85 H:62 D:A853 C:KQ94', dealer: 'N', before: '1H X XX P P 2C', call: '3NT' },
+  { lesson: 'when-they-double-us', hand: 'S:AJ4 H:KQ62 D:K85 C:Q94', dealer: 'N', before: '1NT X XX P', call: 'P' },
 ];
 
 /** Diagram data attributes of one kind, in order. */
