@@ -229,7 +229,9 @@ export const tutor: Text['tutor'] = {
     ntShort: (total: number, need: number) =>
       `你有${total}个稳赢墩，需要${need}墩：要在防守方树立他们的长套之前，再找到${need - total}墩。`,
     losersOk: (losers: number, allowed: number) =>
-      `大约有${losers}个输张，你最多能输${allowed}个：清将，然后拿下你的赢墩，除非需要先将吃或先垫牌。`,
+      losers === 0
+        ? '没有需要担心的输张：清将，然后拿下你的赢墩，除非需要先将吃或先垫牌。'
+        : `大约有${losers}个输张，你最多能输${allowed}个：清将，然后拿下你的赢墩，除非需要先将吃或先垫牌。`,
     tooManyLosers: (losers: number, allowed: number) =>
       `大约有${losers}个输张，但你最多只能输${allowed}个：需要消除${losers - allowed}个（将吃掉、垫在多余的赢张上，或者飞牌）。`,
 

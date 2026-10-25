@@ -252,7 +252,9 @@ export const tutor: Text['tutor'] = {
     ntShort: (total: number, need: number) =>
       `Hai ${count(total, 'presa sicura', 'prese sicure')} e te ne servono ${need}: ${need - total === 1 ? 'trova quella che manca' : `trova le ${need - total} che mancano`} prima che i difensori affranchino il loro colore.`,
     losersOk: (losers: number, allowed: number) =>
-      `Circa ${count(losers, 'perdente', 'perdenti')} e te ne puoi permettere ${allowed}: batti atout e incassa le tue prese, a meno che non serva subito un taglio o uno scarto.`,
+      losers === 0
+        ? 'Nessuna perdente di cui preoccuparsi: batti atout e incassa le tue prese, a meno che non serva subito un taglio o uno scarto.'
+        : `Circa ${count(losers, 'perdente', 'perdenti')} e te ne puoi permettere ${allowed}: batti atout e incassa le tue prese, a meno che non serva subito un taglio o uno scarto.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Circa ${losers} perdenti, ma te ne puoi permettere solo ${allowed}: devi liberartene di ${losers - allowed} (tagliandole, scartandole su vincenti in più o con un’impasse).`,
 

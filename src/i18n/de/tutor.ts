@@ -243,7 +243,9 @@ export const tutor: Text['tutor'] = {
     ntShort: (total: number, need: number) =>
       `Sie haben ${count(total, 'Topstich', 'Topstiche')} und brauchen ${need}: Finden Sie ${need - total} weitere, bevor die Gegenspieler ihre Farbe hochspielen.`,
     losersOk: (losers: number, allowed: number) =>
-      `Etwa ${losers} Verlierer, und Sie können sich ${allowed} leisten: Ziehen Sie Trumpf und holen Sie Ihre Stiche, außer ein früher Schnapper oder Abwurf ist nötig.`,
+      losers === 0
+        ? 'Keine Verlierer, um die Sie sich sorgen müssen: Ziehen Sie Trumpf und holen Sie Ihre Stiche, außer ein früher Schnapper oder Abwurf ist nötig.'
+        : `Etwa ${losers} Verlierer, und Sie können sich ${allowed} leisten: Ziehen Sie Trumpf und holen Sie Ihre Stiche, außer ein früher Schnapper oder Abwurf ist nötig.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Etwa ${losers} Verlierer, aber Sie können sich nur ${allowed} leisten: Sie müssen ${losers - allowed} loswerden (schnappen, auf zusätzliche Gewinner abwerfen oder schneiden).`,
 

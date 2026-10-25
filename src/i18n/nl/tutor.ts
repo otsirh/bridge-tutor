@@ -246,7 +246,9 @@ export const tutor: Text['tutor'] = {
       `Je hebt ${total} vaste ${slagen(total)} en hebt er ${need} nodig: vind er nog ${need - total} voordat de tegenspelers hun kleur vrijspelen.`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `Ongeveer ${losers} ${losers === 1 ? 'verliezer' : 'verliezers'}, en je mag er ${allowed} hebben: trek troef en incasseer je slagen, tenzij je eerst moet introeven of afgooien.`,
+      losers === 0
+        ? 'Geen verliezers om je zorgen over te maken: trek troef en incasseer je slagen, tenzij je eerst moet introeven of afgooien.'
+        : `Ongeveer ${losers} ${losers === 1 ? 'verliezer' : 'verliezers'}, en je mag er ${allowed} hebben: trek troef en incasseer je slagen, tenzij je eerst moet introeven of afgooien.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Ongeveer ${losers} verliezers, maar je mag er maar ${allowed} hebben: je moet er ${losers - allowed} kwijt (door ze in te troeven, ze af te gooien op extra slagen of met een snit).`,
 

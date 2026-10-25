@@ -1,10 +1,11 @@
 /* Layout concept: a card-room table — green baize on the left, the tutor's
    notebook on the right; brass for anything that needs your attention. */
 /* Prata's "1" reads as an "l" ("Board l"), so headings take their digits from
-   Lora: a 2 kB subset of 0-9 (SIL Open Font License), inlined by the build. */
+   Lora: a 2 kB subset of 0-9, renamed "Display Digits" as the SIL Open Font
+   License asks of a modified font (fonts/OFL.txt), inlined by the build. */
 @font-face {
   font-family: 'Display Digits';
-  src: url('./fonts/lora-digits.woff2') format('woff2');
+  src: url('./fonts/display-digits.woff2') format('woff2');
   unicode-range: U+0030-0039;
   font-display: swap;
 }

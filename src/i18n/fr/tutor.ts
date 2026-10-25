@@ -254,7 +254,9 @@ export const tutor: Text['tutor'] = {
       `Vous avez ${nPl(total, 'levée de tête', 'levées de tête')} et il vous en faut ${need} : trouvez-en ${need - total} de plus avant que les défenseurs n’affranchissent leur couleur.`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `Environ ${nPl(losers, 'perdante', 'perdantes')}, et vous pouvez vous en permettre ${allowed} : tirez les atouts et encaissez vos levées, sauf si une coupe ou une défausse rapide s’impose.`,
+      losers === 0
+        ? 'Aucune perdante à craindre : tirez les atouts et encaissez vos levées, sauf si une coupe ou une défausse rapide s’impose.'
+        : `Environ ${nPl(losers, 'perdante', 'perdantes')}, et vous pouvez vous en permettre ${allowed} : tirez les atouts et encaissez vos levées, sauf si une coupe ou une défausse rapide s’impose.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Environ ${losers} perdantes, mais vous ne pouvez vous en permettre que ${allowed} : il faut vous débarrasser de ${losers - allowed} (en coupant, en défaussant sur des levées supplémentaires ou grâce à une impasse).`,
 

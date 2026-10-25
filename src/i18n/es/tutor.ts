@@ -257,7 +257,9 @@ export const tutor: Text['tutor'] = {
       `Tienes ${total} ${plural(total, 'baza firme', 'bazas firmes')} y necesitas ${need}: busca ${need - total} más antes de que los defensores afirmen su palo.`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `Alrededor de ${losers} ${plural(losers, 'perdedora', 'perdedoras')} y puedes permitirte ${allowed}: destriunfa y cobra tus bazas, salvo que haga falta fallar o descartar algo antes.`,
+      losers === 0
+        ? 'No hay perdedoras que te preocupen: destriunfa y cobra tus bazas, salvo que haga falta fallar o descartar algo antes.'
+        : `Alrededor de ${losers} ${plural(losers, 'perdedora', 'perdedoras')} y puedes permitirte ${allowed}: destriunfa y cobra tus bazas, salvo que haga falta fallar o descartar algo antes.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Alrededor de ${losers} perdedoras, pero solo puedes permitirte ${allowed}: tienes que deshacerte de ${losers - allowed} (fallándolas, descartándolas sobre ganadoras sobrantes o con un impasse).`,
 

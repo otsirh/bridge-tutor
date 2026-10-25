@@ -131,6 +131,20 @@ whole auctions, inferences and tutor decisions are identical in every language.
    then the English lessons are shown.
 4. `npx tsc --noEmit && npm test`.
 
+## Contributing
+
+Bug reports, ideas and pull requests are welcome. A wrong explanation from the tutor or a bot that
+bids or plays badly is a bug: paste the deal's code from the hand review into the issue, so it can be
+replayed exactly. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, and
+[SECURITY.md](SECURITY.md) for reporting security problems privately.
+
+## Credits
+
+The double-dummy solver, the bidding engine, the bots and all the teaching material are this
+project's own. The fonts are Prata, Lora, Source Sans 3 and JetBrains Mono, served by Google Fonts
+under the SIL Open Font License; headings take their digits from a small subset of Lora bundled with
+the app as "Display Digits" (`src/ui/fonts/`, with its [license](src/ui/fonts/OFL.txt)).
+
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). The bundled font subset is under the SIL Open Font License 1.1.

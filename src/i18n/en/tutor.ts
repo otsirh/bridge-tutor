@@ -261,7 +261,9 @@ export const tutor = {
       `You have ${total} top ${plural(total, 'trick')} and need ${need}: find ${need - total} more before the defenders establish their suit.`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `About ${losers} ${plural(losers, 'loser')} and you can afford ${allowed}: draw trumps and take your tricks, unless an early ruff or discard is needed.`,
+      losers === 0
+        ? 'No losers to worry about: draw trumps and take your tricks, unless an early ruff or discard is needed.'
+        : `About ${losers} ${plural(losers, 'loser')} and you can afford ${allowed}: draw trumps and take your tricks, unless an early ruff or discard is needed.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `About ${losers} losers but you can afford only ${allowed}: you need to get rid of ${losers - allowed} (ruff them, discard them on extra winners, or finesse).`,
 

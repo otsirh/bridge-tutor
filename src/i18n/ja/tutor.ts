@@ -238,7 +238,9 @@ export const tutor: Text['tutor'] = {
       `トップトリックが${total}で、必要なのは${need}です: ディフェンダーが自分たちのスートを確立する前に、あと${need - total}トリックを見つけましょう。`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `ルーザーは約${losers}で、許されるのは${allowed}です: 早めのラフやディスカードが必要でなければ、トランプを抜いてトリックを取りましょう。`,
+      losers === 0
+        ? '心配すべきルーザーはありません: 早めのラフやディスカードが必要でなければ、トランプを抜いてトリックを取りましょう。'
+        : `ルーザーは約${losers}で、許されるのは${allowed}です: 早めのラフやディスカードが必要でなければ、トランプを抜いてトリックを取りましょう。`,
     tooManyLosers: (losers: number, allowed: number) =>
       `ルーザーは約${losers}ですが、許されるのは${allowed}だけです: ${losers - allowed}つを処理する必要があります（ラフする、余分なウィナーで捨てる、フィネスする）。`,
 

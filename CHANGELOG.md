@@ -2,7 +2,7 @@
 
 All notable changes to Bridge Tutor. Dates are when a version went live.
 
-## Unreleased
+## [1.1.0] — 2026-10-25
 
 ### Bots and tutor
 - Bidding: no notrump on shapely hands without stoppers, better competition after overcalls and
@@ -87,4 +87,5 @@ The first complete version.
 - Twelve languages, switchable at any time; each loads only when it is chosen.
 - Installable, works offline; progress backup and restore.
 
+[1.1.0]: https://github.com/otsirh/bridge-tutor/releases/tag/v1.1.0
 [1.0.0]: https://github.com/otsirh/bridge-tutor/releases/tag/v1.0.0

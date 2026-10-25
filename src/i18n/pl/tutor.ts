@@ -235,7 +235,9 @@ export const tutor: Text['tutor'] = {
     ntShort: (total: number, need: number) =>
       `Masz ${count(total, 'lewę', 'lewy', 'lew')} z góry, a potrzebujesz ${need}: znajdź jeszcze ${count(need - total, 'lewę', 'lewy', 'lew')}, zanim obrońcy wyrobią swój kolor.`,
     losersOk: (losers: number, allowed: number) =>
-      `Około ${count(losers, 'przegrywającej', 'przegrywających', 'przegrywających')}, a możesz oddać ${allowed}: ściągnij atuty i bierz swoje lewy, chyba że wcześniej trzeba coś przebić lub zrzucić.`,
+      losers === 0
+        ? 'Nie ma się czym martwić, przegrywających brak: ściągnij atuty i bierz swoje lewy, chyba że wcześniej trzeba coś przebić lub zrzucić.'
+        : `Około ${count(losers, 'przegrywającej', 'przegrywających', 'przegrywających')}, a możesz oddać ${allowed}: ściągnij atuty i bierz swoje lewy, chyba że wcześniej trzeba coś przebić lub zrzucić.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Około ${count(losers, 'przegrywającej', 'przegrywających', 'przegrywających')}, a możesz oddać tylko ${allowed}: musisz pozbyć się ${losers - allowed === 1 ? 'jednej' : losers - allowed} (przebić je, zrzucić na dodatkowe lewy albo zaimpasować).`,
 

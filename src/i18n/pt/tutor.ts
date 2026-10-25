@@ -243,7 +243,9 @@ export const tutor: Text['tutor'] = {
       `Você tem ${total} ${plural(total, 'vaza')} ${plural(total, 'firme')} e precisa de ${need}: encontre mais ${need - total} antes que os defensores firmem o naipe deles.`,
     // summary, suit contracts
     losersOk: (losers: number, allowed: number) =>
-      `Cerca de ${losers} ${plural(losers, 'perdedora')}, e você pode se permitir ${allowed}: tire os trunfos e faça as suas vazas, a menos que precise de um corte ou de um descarte logo de início.`,
+      losers === 0
+        ? 'Não há perdedoras com que se preocupar: tire os trunfos e faça as suas vazas, a menos que precise de um corte ou de um descarte logo de início.'
+        : `Cerca de ${losers} ${plural(losers, 'perdedora')}, e você pode se permitir ${allowed}: tire os trunfos e faça as suas vazas, a menos que precise de um corte ou de um descarte logo de início.`,
     tooManyLosers: (losers: number, allowed: number) =>
       `Cerca de ${losers} perdedoras, mas você só pode se permitir ${allowed}: precisa se livrar de ${losers - allowed} (cortando-as, descartando-as em vencedoras extras ou com uma finesse).`,
 
