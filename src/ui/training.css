@@ -71,6 +71,8 @@
 .topicchip button { border: 0; background: rgba(255, 255, 255, 0.22); color: #fff; border-radius: 999px; width: 18px; height: 18px; line-height: 16px; padding: 0; cursor: pointer; font-size: 13px; }
 .box.practise { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; margin: 12px 0; }
 @media (max-width: 560px) { .box.practise { grid-template-columns: minmax(0, 1fr); } }
+.practisebtns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 560px) { .practisebtns { justify-content: flex-start; } }
 .quizscore { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
 .lessons-list .done { color: var(--good); font-weight: 700; }
 .importbox textarea, .share textarea {
@@ -169,6 +171,20 @@ a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items
 .pwait .progress { max-width: 420px; }
 .pdeal { max-width: 460px; }
 .pdeal .c { font-family: var(--f-card); font-weight: 700; font-size: 15px; color: var(--ink-2); }
+
+/* Techniques tab: the picker (with the deals ready of each), the chosen technique, the hint switch */
+.tfilter { margin-bottom: 12px; }
+.tfilter .cnt { margin-left: 6px; font-size: 11.5px; font-variant-numeric: tabular-nums; opacity: 0.7; }
+.tdesc { max-width: 640px; margin-bottom: 12px; }
+.thints { display: grid; gap: 4px; margin: 0 0 14px; max-width: 640px; }
+.thints .toggle { justify-self: start; text-align: start; }
+.tplay { align-items: center; margin-bottom: 12px; }
+.tscore { margin-top: 4px; }
+
+/* the technique of a technique deal, in the hand review */
+.techbox { margin: 12px 0 4px; }
+.techbox .tline { margin: 6px 0; }
+.techbox .pbtns { margin-top: 10px; }
 
 /* a bot defender's signal in the review */
 .tc .sig { color: var(--brass); font-weight: 700; margin-left: 1px; }

@@ -12,6 +12,7 @@ import { getLessons, getGlossary, lessonsReady, type Lesson } from '../learn/les
 import { loadLessonProgress, updateLessonProgress, addItems, encodeDeal } from '../game/journal';
 import { bidSkill } from '../game/skills';
 import { LESSON_THEMES } from '../game/themes';
+import { LESSON_TECHNIQUES, type TechniqueId } from '../game/techniques';
 import { T, fmtLabel } from '../i18n';
 import { h, suitText, colorSuitsIn } from './dom';
 import { vulLabel } from './review';
@@ -23,6 +24,8 @@ export interface LearnActions {
   close(): void;
   /** Deal boards for a practice theme at the table. */
   practise?: (theme: string) => void;
+  /** Technique practice for this technique (the Training room's Techniques tab). */
+  practiseTechnique?: (id: TechniqueId) => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -127,13 +130,17 @@ function lessonView(l: Lesson, act: LearnActions): HTMLElement {
       h('b', null, T.practice.quizScore(l.quiz.filter((q, i) => saved[i] === q.answer).length, l.quiz.length)),
       h('button', { class: 'btn small', type: 'button', onclick: () => { retryQuiz(l); act.rerender(); } }, T.practice.quizRetry)) : null)
     : null;
-  const theme = LESSON_THEMES[l.id];
+  const theme = act.practise ? LESSON_THEMES[l.id] : undefined;
+  // a lesson on a declarer technique offers deals where that technique decides the contract
+  const technique = act.practiseTechnique ? LESSON_TECHNIQUES[l.id] : undefined;
   // offered after the key points, and again after the quiz
-  const practise = (withText: boolean) => theme && act.practise
+  const practise = (withText: boolean) => theme || technique
     ? h('div', { class: 'box practise' },
-      h('div', null, h('b', null, T.practice.practiseLesson),
-        withText ? h('div', { class: 'small muted' }, T.practice.practiseLessonText, progress.practiced ? ` ${T.practice.practicedCount(progress.practiced)}.` : '') : null),
-      h('button', { class: 'btn primary small', type: 'button', onclick: () => act.practise!(theme) }, T.practice.practiseAtTable))
+      h('div', null, h('b', null, technique ? T.practice.practiseTechnique(T.practice.techniques.names[technique]) : T.practice.practiseLesson),
+        withText ? h('div', { class: 'small muted' }, technique ? T.practice.practiseTechniqueText : T.practice.practiseLessonText, progress.practiced ? ` ${T.practice.practicedCount(progress.practiced)}.` : '') : null),
+      h('div', { class: 'practisebtns' },
+        technique ? h('button', { class: 'btn primary small', type: 'button', onclick: () => act.practiseTechnique!(technique) }, T.practice.practiseTechniqueBtn) : null,
+        theme ? h('button', { class: `btn small ${technique ? '' : 'primary'}`, type: 'button', onclick: () => act.practise!(theme) }, T.practice.practiseAtTable) : null))
     : null;
   return h('article', null,
     h('div', { class: 'small muted' }, `${t.topics[l.topic]} · ${t.levels[l.level]}`, (progress.quizBest ?? 0) >= 0.8 ? ` · ✓ ${T.practice.lessonDone}` : ''),

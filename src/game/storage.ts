@@ -15,6 +15,7 @@ export interface Settings {
   theme: string | null; // practice theme the boards are dealt for (src/game/themes.ts), or null
   biddingOnly: boolean; // practise bidding: no card play, the contract is scored with best play
   conventions: Partial<SystemConfig>; // optional conventions switched on or off (src/bidding/config.ts); the rest take their defaults
+  techniqueHints: boolean; // technique practice: name the technique before the hand (src/game/techniques.ts)
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -28,6 +29,7 @@ export const DEFAULT_SETTINGS: Settings = {
   theme: null,
   biddingOnly: false,
   conventions: {},
+  techniqueHints: false,
 };
 
 const KEY_SETTINGS = 'bridge-tutor.settings.v1';

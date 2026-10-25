@@ -10,7 +10,8 @@ import { renderTable, tableSignature, bidPreview, tableStatus } from './table';
 import { renderPanel, panelSignature } from './panel';
 import { renderReview, reviewSignature } from './review';
 import { renderLearn, relocalizeDrills } from './learn';
-import { renderTraining, trainingSignature, dueCount, type TrainingActions } from './training';
+import { renderTraining, trainingSignature, dueCount, setTrainingTab, showTechniques, takeTechnique, startTechniqueFactory, type TrainingActions } from './training';
+import type { TechniqueDeal } from '../game/techniques';
 import { getBoard, decodeDeal, loadBoards } from '../game/journal';
 import { FIRST_LESSON, ensureLessons, lessonsReady } from '../learn/lessons';
 import { importBoards } from '../core/importer';
@@ -258,6 +259,24 @@ export function mountApp(root: HTMLElement) {
       render(true);
     },
     practise: (theme: string) => training.practiseTheme(theme),
+    practiseTechnique: (id: TechniqueDeal['technique']) => {
+      showTechniques(id);
+      ui.modal = 'training';
+      render(true);
+    },
+    openLesson: (id: string) => training.openLesson(id),
+    nextTechnique: () => {
+      const td = takeTechnique();
+      if (td) return playTechnique(td);
+      // none ready: the Techniques tab shows one being prepared
+      setTrainingTab('techniques');
+      ui.modal = 'training';
+      render(true);
+    },
+    playFromKey: () => {
+      const run = game.technique;
+      if (run) playTechnique(run.deal, true);
+    },
   };
 
   /** Play a deal from outside (archive, import, a shared link). */
@@ -269,6 +288,16 @@ export function mountApp(root: HTMLElement) {
     render(true);
   }
 
+  /** Play a technique deal (from its key moment with `fromKey`); more are prepared while it is played. */
+  function playTechnique(td: TechniqueDeal, fromKey = false) {
+    viewer = null;
+    ui.modal = null;
+    ui.selectedCall = null;
+    game.playTechnique(td, { hints: game.settings.techniqueHints, fromKey });
+    startTechniqueFactory(training);
+    render(true);
+  }
+
   const training: TrainingActions = {
     rerender: () => render(true),
     close: actions.close,
@@ -276,6 +305,10 @@ export function mountApp(root: HTMLElement) {
     playDeal: spec => playDeal(spec),
     // problem generation waits while the bots are thinking, so it never slows the table
     handBusy: () => game.thinking !== null,
+    playTechnique: td => playTechnique(td),
+    techniqueHints: () => game.settings.techniqueHints,
+    setTechniqueHints: on => game.updateSettings({ techniqueHints: on }),
+    techniqueInPlay: () => !!game.technique && game.phase === 'play',
     practiseTheme: id => {
       game.updateSettings({ theme: id });
       ui.modal = null;

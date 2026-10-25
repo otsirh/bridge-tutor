@@ -79,8 +79,8 @@ export function decodeDeal(s: string): Card[][] {
 export interface ReviewItem {
   id: string; // `${board id}:${b|c}:${index}`
   kind: 'bid' | 'card';
-  /** Where the mistake was made: a board at the table (default), a drill in the Learn room, or a problem in the Training room. */
-  source?: 'drill' | 'problem';
+  /** Where the mistake was made: a board at the table (default), a drill in the Learn room, or a problem or technique deal in the Training room. */
+  source?: 'drill' | 'problem' | 'technique';
   skill: SkillId;
   board: number;
   dealer: Seat;
@@ -267,7 +267,7 @@ export function streak(now = Date.now()): number {
 // ---------------------------------------------------------------------------
 // Backup: everything the app stores, as one JSON file
 
-const BACKUP_KEYS = [KEY_BOARDS, KEY_REVIEW, KEY_LESSONS, KEY_DAYS, 'bridge-tutor.history.v1', 'bridge-tutor.settings.v1', 'bridge-tutor.board.v1', 'bridge-tutor.lang.v1', 'bridge-tutor.theme', 'bridge-tutor.problems.v1'];
+const BACKUP_KEYS = [KEY_BOARDS, KEY_REVIEW, KEY_LESSONS, KEY_DAYS, 'bridge-tutor.history.v1', 'bridge-tutor.settings.v1', 'bridge-tutor.board.v1', 'bridge-tutor.lang.v1', 'bridge-tutor.theme', 'bridge-tutor.problems.v1', 'bridge-tutor.techniques.v1'];
 
 export function exportAll(): string {
   const data: Record<string, unknown> = {};

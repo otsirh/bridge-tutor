@@ -21,6 +21,9 @@ import {
   type Problem, type ProblemKind, type KindScore, PROBLEM_KINDS, problemFactory, problemPosition, pickProblem, removeFromBank,
   recordScore, loadScore, bankCounts, problemReviewItem, bookLead,
 } from '../game/problems';
+import {
+  type TechniqueDeal, type TechniqueId, TECHNIQUES, TECHNIQUE_INFO, techniqueFactory, techCounts, pickTechnique, removeTechnique, loadTechScore,
+} from '../game/techniques';
 import { SKILLS, type SkillId, skillStats, weakestSkill, skillInfo, clearCardMistake } from '../game/skills';
 import { THEMES } from '../game/themes';
 import { freshBidVariant } from '../game/record';
@@ -28,7 +31,7 @@ import { h, suitText } from './dom';
 import { handEl, cardText, diagramHand } from './cards';
 import './training.css';
 
-export type TrainingTab = 'today' | 'review' | 'problems' | 'skills' | 'topics' | 'history';
+export type TrainingTab = 'today' | 'review' | 'problems' | 'techniques' | 'skills' | 'topics' | 'history';
 
 export interface TrainingActions {
   rerender(): void;
@@ -48,6 +51,13 @@ export interface TrainingActions {
   playDeal?(spec: { deal: Card[][]; dealer: Seat; vul: Vulnerability; board?: number }): void;
   /** A hand is being played at the table right now (bots thinking): problem generation waits. */
   handBusy?(): boolean;
+  /** Play a technique deal at the table. Optional: technique practice shows only when provided. */
+  playTechnique?(td: TechniqueDeal): void;
+  /** Technique practice: is the technique named before the hand (a setting)? */
+  techniqueHints?(): boolean;
+  setTechniqueHints?(on: boolean): void;
+  /** A technique deal is being played at the table: more are prepared meanwhile. */
+  techniqueInPlay?(): boolean;
 }
 
 interface DrillState {
@@ -73,6 +83,12 @@ interface ProblemsState {
   tick: number; // bumped as the background generation progresses
 }
 
+interface TechniquesState {
+  filter: TechniqueId | 'any';
+  last: TechniqueId | null; // technique of the last deal played (any: the next one is of another)
+  tick: number;
+}
+
 const state = {
   tab: 'today' as TrainingTab,
   drill: { item: null, shown: null, chosen: null, correct: null, fresh: null, pending: false } as DrillState,
@@ -81,10 +97,27 @@ const state = {
     filter: 'mixed', current: null, chosen: null, correct: null, showDeal: false, last: null, tick: 0,
     session: { declarer: { done: 0, right: 0 }, defense: { done: 0, right: 0 }, lead: { done: 0, right: 0 } },
   } as ProblemsState,
+  techniques: { filter: 'any', last: null, tick: 0 } as TechniquesState,
 };
 
 export function setTrainingTab(tab: TrainingTab) {
   state.tab = tab;
+}
+
+/** Open the Techniques tab on this technique (or any). */
+export function showTechniques(filter: TechniqueId | 'any') {
+  state.tab = 'techniques';
+  state.techniques.filter = filter;
+}
+
+/** The next technique deal for the technique chosen in the Techniques tab, taken from the bank (null when none is ready). */
+export function takeTechnique(): TechniqueDeal | null {
+  const ts = state.techniques;
+  const td = pickTechnique(ts.filter, ts.last);
+  if (!td) return null;
+  removeTechnique(td.id);
+  ts.last = td.technique;
+  return td;
 }
 
 /** Number of review items due now (for the header badge). */
@@ -161,6 +194,11 @@ function todayTab(act: TrainingActions): HTMLElement {
   steps.push(h('div', { class: 'step' },
     h('div', null, h('b', null, T.practice.stepProblemsTitle), h('div', { class: 'small muted' }, T.practice.stepProblemsText)),
     h('button', { class: 'btn', type: 'button', onclick: () => { state.tab = 'problems'; act.rerender(); } }, T.practice.openProblems)));
+  if (act.playTechnique) {
+    steps.push(h('div', { class: 'step' },
+      h('div', null, h('b', null, T.practice.stepTechniquesTitle), h('div', { class: 'small muted' }, T.practice.stepTechniquesText)),
+      h('button', { class: 'btn', type: 'button', onclick: () => { state.tab = 'techniques'; act.rerender(); } }, T.practice.openTechniques)));
+  }
   if (nextLesson) {
     steps.push(h('div', { class: 'step' },
       h('div', null, h('b', null, suitText(T.practice.stepCourseTitle(nextLesson.title))), h('div', { class: 'small muted' }, T.practice.stepCourseText(course.indexOf(nextLesson) + 1, course.length))),
@@ -371,7 +409,7 @@ function cardItemView(item: ReviewItem, act: TrainingActions): HTMLElement {
     const freshMine = fresh?.stats.find(s => s.card === d.chosen);
     fb = h('div', { class: `box ${d.correct ? '' : 'warnbox'}` },
       h('b', null, suitText(d.correct ? T.practice.cardRight : T.practice.cardWrong(fmtList(item.answer.map(cardName))))),
-      sim ? h('p', { style: 'margin:6px 0' }, suitText((item.source === 'problem' ? T.practice.cardSimProblem : T.practice.cardSim)(sim.n, cardName(best), fmtNum(sim.bt, 2), fmtPct(sim.bs), cardName(item.yours), fmtNum(sim.mt, 2), fmtPct(sim.ms), declaring))) : null,
+      sim ? h('p', { style: 'margin:6px 0' }, suitText((item.source === 'problem' || item.source === 'technique' ? T.practice.cardSimProblem : T.practice.cardSim)(sim.n, cardName(best), fmtNum(sim.bt, 2), fmtPct(sim.bs), cardName(item.yours), fmtNum(sim.mt, 2), fmtPct(sim.ms), declaring))) : null,
       fresh && freshMine ? h('p', { class: 'small', style: 'margin:6px 0' }, suitText(T.practice.cardFresh(cardName(d.chosen!), fmtNum(freshMine.tricks, 2), fmtPct(freshMine.success), fresh.samples))) : null,
       h('div', { class: 'principle' }, h('b', null, pr.title), suitText(pr.text)));
   }
@@ -399,7 +437,9 @@ function reviewTab(act: TrainingActions): HTMLElement {
     h('div', { class: 'small muted', style: 'display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px' },
       h('span', null, skillName(item.skill)),
       state.drill.shown !== item ? h('span', null, T.practice.freshDeal)
-        : h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created)) : item.source === 'problem' ? T.practice.itemFromProblem(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
+        : h('span', null, item.source === 'drill' ? T.practice.itemFromDrill(fmtDate(item.created))
+          : item.source === 'problem' ? T.practice.itemFromProblem(fmtDate(item.created))
+            : item.source === 'technique' ? T.practice.itemFromTechnique(fmtDate(item.created)) : T.practice.itemFrom(fmtDate(item.created), item.board)),
       h('span', null, T.practice.itemBox(box, LAST_BOX)),
       h('span', null, T.practice.dueLeft(dueItems(all).length)),
       state.session.done ? h('span', null, T.practice.sessionScore(state.session.right, state.session.done)) : null),
@@ -625,6 +665,97 @@ function problemsTab(act: TrainingActions): HTMLElement {
 }
 
 // ---------------------------------------------------------------------------
+// Techniques: whole deals where one declarer technique decides the contract
+
+/** The Techniques view on screen. */
+let techEl: HTMLElement | null = null;
+let techAct: TrainingActions | null = null;
+let techHooked = false;
+let techTick = 0;
+
+/** Redraw as deals are found, and the progress while none is ready for the technique chosen. */
+function hookTechFactory() {
+  if (techHooked) return;
+  techHooked = true;
+  techniqueFactory().onChange(event => {
+    const ts = state.techniques;
+    if (state.tab !== 'techniques' || !techEl?.isConnected || !techAct) return;
+    const now = Date.now();
+    if (event === 'progress' && (now - techTick < 250 || pickTechnique(ts.filter, ts.last))) return;
+    techTick = now;
+    ts.tick++;
+    techAct.rerender();
+  });
+}
+
+/** Prepare technique deals in the background while the tab is open or a technique deal is being played. */
+export function startTechniqueFactory(act: TrainingActions) {
+  hookTechFactory();
+  techniqueFactory().start({
+    active: () => (state.tab === 'techniques' && !!techEl?.isConnected) || !!act.techniqueInPlay?.(),
+    busy: () => !!act.handBusy?.(),
+    prefer: () => state.techniques.filter,
+  });
+}
+
+function techWaitingView(): HTMLElement {
+  const X = T.practice.techniques;
+  const P = T.practice.problems;
+  const f = techniqueFactory();
+  const pg = f.progress;
+  const stage = !pg || pg.stage === 'dealing' ? P.stageDealing('declarer') : pg.stage === 'playing' ? P.stagePlaying(pg.trick) : P.stageTesting(pg.trick, pg.done, pg.total);
+  const frac = pg?.total ? pg.done / pg.total : 0;
+  return h('div', { class: 'box pwait', role: 'status' },
+    h('b', null, X.preparing),
+    h('div', { class: 'small', style: 'margin-top:4px' }, stage),
+    h('div', { class: 'progress' }, h('i', { style: `width:${Math.round(frac * 100)}%` })),
+    f.tried ? h('p', { class: 'small muted', style: 'margin:8px 0 0' }, P.tried(f.tried)) : null,
+    h('p', { class: 'small muted', style: 'margin:8px 0 0' }, X.waitNote));
+}
+
+function techniquesTab(act: TrainingActions): HTMLElement {
+  const ts = state.techniques;
+  const X = T.practice.techniques;
+  techAct = act;
+  const counts = techCounts();
+  const total = TECHNIQUES.reduce((t, k) => t + counts[k], 0);
+  const sel = ts.filter;
+  const next = pickTechnique(sel, ts.last);
+  const lessonId = sel === 'any' ? null : TECHNIQUE_INFO[sel].lesson;
+  const lesson = lessonId ? getLesson(lessonId) : undefined;
+  const hints = !!act.techniqueHints?.();
+  const score = loadTechScore();
+  const done = TECHNIQUES.reduce((t, k) => t + score[k].done, 0);
+  const right = TECHNIQUES.reduce((t, k) => t + score[k].right, 0);
+  const filters: (TechniqueId | 'any')[] = ['any', ...TECHNIQUES];
+  const el = h('div', null,
+    h('p', { class: 'small muted', style: 'margin-top:0' }, X.intro),
+    h('div', { class: 'pfilter tfilter', role: 'group', 'aria-label': X.filterLabel }, filters.map(f => {
+      const n = f === 'any' ? total : counts[f];
+      return h('button', { class: `btn small ${sel === f ? 'on' : ''}`, type: 'button', 'aria-pressed': sel === f ? 'true' : 'false', title: X.ready(n), onclick: () => { ts.filter = f; act.rerender(); } },
+        f === 'any' ? X.any : X.names[f], h('span', { class: 'cnt', 'aria-hidden': 'true' }, String(n)));
+    })),
+    sel !== 'any' ? h('div', { class: 'box tdesc' },
+      h('b', null, X.names[sel]),
+      h('p', { class: 'small', style: 'margin:4px 0 0' }, suitText(X.descs[sel])),
+      lesson ? h('button', { class: 'btn small ghost', type: 'button', style: 'margin-top:6px', onclick: () => act.openLesson(lessonId!) }, suitText(X.lessonLink(lesson.title))) : null) : null,
+    h('div', { class: 'thints' },
+      h('button', { class: `toggle ${hints ? 'on' : ''}`, type: 'button', role: 'switch', 'aria-checked': hints ? 'true' : 'false', onclick: () => { act.setTechniqueHints?.(!hints); act.rerender(); } },
+        h('span', { class: 'track' }), h('span', { class: 'tlabel' }, X.hints)),
+      h('div', { class: 'small muted' }, X.hintsNote)),
+    h('div', { class: 'pbtns tplay' },
+      h('button', { class: 'btn primary', type: 'button', disabled: !next, onclick: () => { const td = takeTechnique(); if (td) act.playTechnique?.(td); } }, X.play),
+      h('span', { class: 'small muted' }, X.ready(sel === 'any' ? total : counts[sel]))),
+    next ? null : techWaitingView(),
+    done ? h('div', { class: 'pscore small muted tscore' },
+      h('span', null, h('b', null, X.score(right, done))),
+      TECHNIQUES.filter(k => score[k].done).map(k => h('span', null, X.techScore(X.names[k], score[k].right, score[k].done)))) : null);
+  techEl = el;
+  startTechniqueFactory(act);
+  return el;
+}
+
+// ---------------------------------------------------------------------------
 // Skills
 
 function skillsTab(act: TrainingActions): HTMLElement {
@@ -746,11 +877,13 @@ function historyTab(act: TrainingActions): HTMLElement {
 // ---------------------------------------------------------------------------
 
 export function renderTraining(act: TrainingActions): HTMLElement {
-  const tabs: [TrainingTab, string][] = [['today', T.practice.tabs.today], ['review', T.practice.tabs.review], ['problems', T.practice.tabs.problems], ['skills', T.practice.tabs.skills], ['topics', T.practice.tabs.topics], ['history', T.practice.tabs.history]];
+  const tabs: [TrainingTab, string][] = [['today', T.practice.tabs.today], ['review', T.practice.tabs.review], ['problems', T.practice.tabs.problems], ['techniques', T.practice.tabs.techniques], ['skills', T.practice.tabs.skills], ['topics', T.practice.tabs.topics], ['history', T.practice.tabs.history]];
+  if (!act.playTechnique && state.tab === 'techniques') state.tab = 'today';
   const due = dueCount();
-  const tabEl = h('div', { class: 'tabs', role: 'tablist' }, tabs.map(([k, label]) =>
-    h('button', { class: `tab ${state.tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { state.tab = k; act.rerender(); } }, label, k === 'review' && due ? h('span', { class: 'badge' }, String(due)) : null)));
-  const body = state.tab === 'today' ? todayTab(act) : state.tab === 'review' ? reviewTab(act) : state.tab === 'problems' ? problemsTab(act) : state.tab === 'skills' ? skillsTab(act) : state.tab === 'topics' ? topicsTab(act) : historyTab(act);
+  const tabEl = h('div', { class: 'tabs', role: 'tablist' }, tabs.filter(([k]) => k !== 'techniques' || act.playTechnique).map(([k, label]) =>
+    h('button', { class: `tab ${state.tab === k ? 'on' : ''}`, type: 'button', role: 'tab', 'aria-selected': state.tab === k ? 'true' : 'false', onclick: () => { state.tab = k; act.rerender(); } }, label, k === 'review' && due ? h('span', { class: 'badge' }, String(due)) : null)));
+  const body = state.tab === 'today' ? todayTab(act) : state.tab === 'review' ? reviewTab(act) : state.tab === 'problems' ? problemsTab(act) : state.tab === 'techniques' ? techniquesTab(act)
+    : state.tab === 'skills' ? skillsTab(act) : state.tab === 'topics' ? topicsTab(act) : historyTab(act);
   return h('div', { class: 'modal', role: 'dialog', 'aria-label': T.practice.title },
     h('div', { class: 'head' }, h('h2', null, T.practice.title), tabEl, h('span', { style: 'flex:1' }),
       h('button', { class: 'btn ghost', type: 'button', 'aria-label': T.practice.close, onclick: () => act.close() }, '✕')),
@@ -761,6 +894,7 @@ export function renderTraining(act: TrainingActions): HTMLElement {
 export function trainingSignature(): string {
   const d = state.drill;
   const ps = state.problems;
-  return JSON.stringify([state.tab, d.item?.id, d.chosen, d.correct, d.pending, !!d.fresh, state.session, ps.filter, ps.current?.id, ps.chosen, ps.showDeal, ps.tick]);
+  const ts = state.techniques;
+  return JSON.stringify([state.tab, d.item?.id, d.chosen, d.correct, d.pending, !!d.fresh, state.session, ps.filter, ps.current?.id, ps.chosen, ps.showDeal, ps.tick, ts.filter, ts.tick]);
 }
 
