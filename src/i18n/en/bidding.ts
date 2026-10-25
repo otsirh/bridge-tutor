@@ -471,6 +471,9 @@ export const bidding = {
     raiseNewSuitWeakTwo: (suit: number) => `Partner’s new suit is forcing: raise ${plural(suit)} with three-card support or a doubleton honour.`,
     supportNewSuitCond: (suit: number) => `three ${SUIT_SYMBOLS[suit]}, or two with the ace, king or queen`,
     rebidWeakTwo: (suit: number) => `Partner’s new suit is forcing, and you cannot support it: rebid your ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Opener’s 1NT rebid shows 12–14 balanced: with 13+ the partnership has the 25 or so for game. Bid it.',
+    twoNtOver1ntRebid: 'Opener’s 1NT rebid shows 12–14 balanced: with 11–12, game depends on opener’s strength. Invite with 2NT; opener bids 3NT with a maximum.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Partner's invitation shows ${min}–${max}: with ${need}+ HCP the partnership has 33, enough for twelve tricks.`,
     quantAfterInvite: 'Slam is possible if partner is maximum: 4NT invites 6NT (not Blackwood).',

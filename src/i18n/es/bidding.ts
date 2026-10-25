@@ -469,6 +469,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `El palo nuevo de tu compañero es forcing: apoya ${the(suit)} con tres cartas o con un doubleton de honor.`,
     supportNewSuitCond: (suit: number) => `tres cartas de ${SUIT_SYMBOLS[suit]}, o dos con el As, el Rey o la Dama`,
     rebidWeakTwo: (suit: number) => `El palo nuevo de tu compañero es forcing y no puedes apoyarlo: repite ${the(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'La redeclaración de 1SA del abridor muestra 12–14 y mano equilibrada: con 13+ PH la pareja tiene los 25 puntos aproximados para la manga. Declárala.',
+    twoNtOver1ntRebid: 'La redeclaración de 1SA del abridor muestra 12–14 y mano equilibrada: con 11–12 PH, la manga depende de la fuerza del abridor. Invita con 2SA; el abridor declara 3SA con un máximo.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `La invitación de tu compañero muestra ${min}–${max}: con ${need}+ PH la pareja suma 33, suficiente para doce bazas.`,
     quantAfterInvite: 'El slam es posible si tu compañero es máximo: 4SA invita a 6SA (no es Blackwood).',

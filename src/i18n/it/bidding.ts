@@ -447,6 +447,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `Il nuovo colore del compagno è forzante: appoggia ${plural(suit)} con tre carte o con un doubleton d’onore.`,
     supportNewSuitCond: (suit: number) => `tre carte di ${SUIT_SYMBOLS[suit]}, o due con l’asso, il re o la donna`,
     rebidWeakTwo: (suit: number) => `Il nuovo colore del compagno è forzante e non puoi appoggiarlo: ripeti ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'La ridichiarazione di 1SA dell’apertore mostra 12–14 bilanciata: con 13+ PO la linea ha i 25 punti circa per la manche. Dichiarala.',
+    twoNtOver1ntRebid: 'La ridichiarazione di 1SA dell’apertore mostra 12–14 bilanciata: con 11–12 PO la manche dipende dalla forza dell’apertore. Invita con 2SA; con un massimo l’apertore dichiara 3SA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `L’invito del compagno mostra ${min}–${max}: con ${need}+ PO la linea ha 33 punti, abbastanza per dodici prese.`,
     quantAfterInvite: 'Lo slam è possibile se il compagno è massimo: 4SA invita a 6SA (non è Blackwood).',

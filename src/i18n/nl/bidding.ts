@@ -453,6 +453,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `De nieuwe kleur van partner is forcing: verhoog ${plural(suit)} met driekaartsteun of een doubleton met een honneur.`,
     supportNewSuitCond: (suit: number) => `drie ${SUIT_SYMBOLS[suit]}, of twee met de aas, heer of vrouw`,
     rebidWeakTwo: (suit: number) => `De nieuwe kleur van partner is forcing en je kunt hem niet steunen: herhaal je ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'De herbieding 1SA van de openaar toont 12–14 punten, evenwichtig: met 13+ punten heeft het paar de ongeveer 25 punten voor de manche. Bied die.',
+    twoNtOver1ntRebid: 'De herbieding 1SA van de openaar toont 12–14 punten, evenwichtig: met 11–12 punten hangt de manche af van de kracht van de openaar. Nodig uit met 2SA; met een maximum biedt de openaar 3SA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `De invite van partner toont ${min}–${max}: met ${need}+ punten heeft het paar samen 33, genoeg voor twaalf slagen.`,
     quantAfterInvite: 'Slem is mogelijk als partner maximaal is: 4SA is een invite voor 6SA (geen Blackwood).',

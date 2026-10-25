@@ -462,6 +462,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `Nowy kolor partnera jest forsujący: podnieś kolor ${SUIT_SYMBOLS[suit]} z trzykartowym poparciem albo z dubletonem z honorem.`,
     supportNewSuitCond: (suit: number) => `trzy karty w ${SUIT_SYMBOLS[suit]} albo dwie z asem, królem lub damą`,
     rebidWeakTwo: (suit: number) => `Nowy kolor partnera jest forsujący, a nie możesz go poprzeć: powtórz swój kolor ${adj(suit, 'y')}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Rebid 1BA otwierającego pokazuje 12–14 PC i rękę zrównoważoną: z 13+ PC para ma około 25 punktów na dograną. Zalicytuj ją.',
+    twoNtOver1ntRebid: 'Rebid 1BA otwierającego pokazuje 12–14 PC i rękę zrównoważoną: z 11–12 PC dograna zależy od siły otwierającego. Zaproś licytacją 2BA; z maksimum otwierający licytuje 3BA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Inwit partnera pokazuje ${min}–${max}: z ${need}+ PC para ma 33, dość na dwanaście lew.`,
     quantAfterInvite: 'Szlemik jest możliwy, jeśli partner ma maksimum: 4BA inwituje 6BA (to nie Blackwood).',

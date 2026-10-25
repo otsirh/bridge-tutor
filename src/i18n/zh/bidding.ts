@@ -453,6 +453,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `同伴的新花色是逼叫：有3张支持或带大牌的双张时加叫${w(suit)}。`,
     supportNewSuitCond: (suit: number) => `3张${SUIT_SYMBOLS[suit]}，或带A、K、Q之一的2张`,
     rebidWeakTwo: (suit: number) => `同伴的新花色是逼叫，而你无法支持：再叫你的${w(suit)}。`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: '开叫人再叫1NT表示12–14点的平均牌型：你有13+点，双方大约有成局所需的25点。叫到成局。',
+    twoNtOver1ntRebid: '开叫人再叫1NT表示12–14点的平均牌型：你有11–12点，能否成局取决于开叫人的牌力。叫2NT邀请；开叫人高限时叫3NT。',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `同伴的邀请表示${min}–${max}点：你有${need}+大牌点，双方合计33点，足够拿12墩。`,
     quantAfterInvite: '如果同伴是高限就可能有满贯：4NT邀请6NT（不是黑木）。',

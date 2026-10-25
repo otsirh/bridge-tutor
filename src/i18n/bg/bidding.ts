@@ -446,6 +446,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `Новият цвят на партньора е форсиращ: подкрепете ${plural(suit)} с три карти или с дубълтон с фигура.`,
     supportNewSuitCond: (suit: number) => `три ${SUIT_SYMBOLS[suit]} или две с асо, поп или дама`,
     rebidWeakTwo: (suit: number) => `Новият цвят на партньора е форсиращ, а не можете да го подкрепите: повторете ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Повторната обява 1БК на откриващия показва 12–14 точки и балансирана ръка: с 13+ точки двойката има около 25-те точки за гейм. Обявете го.',
+    twoNtOver1ntRebid: 'Повторната обява 1БК на откриващия показва 12–14 точки и балансирана ръка: с 11–12 точки геймът зависи от силата на откриващия. Поканете с 2БК; с максимум откриващият обявява 3БК.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Инвитацията на партньора показва ${min}–${max}: с ${need}+ точки двойката има 33, достатъчно за дванадесет взятки.`,
     quantAfterInvite: 'Слемът е възможен, ако партньорът е с максимум: 4БК е инвитация за 6БК (не е Блекууд).',

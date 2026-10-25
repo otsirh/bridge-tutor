@@ -462,6 +462,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (s: number) => `Die neue Farbe des Partners ist forcierend: Heben Sie ${suit(s)} mit Dreierunterstützung oder einem Double mit Figur.`,
     supportNewSuitCond: (s: number) => `drei ${SUIT_SYMBOLS[s]}, oder zwei mit Ass, König oder Dame`,
     rebidWeakTwo: (s: number) => `Die neue Farbe des Partners ist forcierend, und Sie können sie nicht unterstützen: Wiederholen Sie ${suit(s)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Das 1SA-Wiedergebot des Eröffners zeigt 12–14 ausgeglichen: Mit 13+ FP hat das Paar die etwa 25 Punkte für das Vollspiel. Reizen Sie es.',
+    twoNtOver1ntRebid: 'Das 1SA-Wiedergebot des Eröffners zeigt 12–14 ausgeglichen: Mit 11–12 FP hängt das Vollspiel von der Stärke des Eröffners ab. Laden Sie mit 2SA ein; mit Maximum reizt der Eröffner 3SA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Die Einladung des Partners zeigt ${range(min, max)}: Mit ${need}+ FP hat das Paar 33, genug für zwölf Stiche.`,
     quantAfterInvite: 'Schlemm ist möglich, wenn der Partner ein Maximum hat: 4SA lädt zu 6SA ein (kein Blackwood).',

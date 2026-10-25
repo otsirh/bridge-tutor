@@ -450,6 +450,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `パートナーの新しいスートはフォーシングです: 3枚のサポートかオナー付きのダブルトンがあれば${name(suit)}をレイズします。`,
     supportNewSuitCond: (suit: number) => `${SUIT_SYMBOLS[suit]}3枚、またはエース・キング・クイーンのいずれかを含む2枚`,
     rebidWeakTwo: (suit: number) => `パートナーの新しいスートはフォーシングですが、サポートできません: ${name(suit)}をリビッドします。`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'オープナーの1NTのリビッドは12–14点のバランスハンドを示します: 13点以上あれば、パートナーシップでゲームに必要な約25点があります。ゲームをビッドします。',
+    twoNtOver1ntRebid: 'オープナーの1NTのリビッドは12–14点のバランスハンドを示します: 11–12点なら、ゲームはオープナーの強さ次第です。2NTでインバイトし、オープナーはマキシマムなら3NTをビッドします。',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `パートナーのインビテーションは${min}–${max}を示します: ${need} HCP以上あればパートナーシップで33になり、12トリックに十分です。`,
     quantAfterInvite: 'パートナーがマキシマムならスラムの可能性があります: 4NTは6NTへのインビテーションです（ブラックウッドではありません）。',

@@ -461,6 +461,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `Новая масть партнёра форсирующая: поддержите ${SUIT_SYMBOLS[suit]} с тремя картами или с дублетом с онёром.`,
     supportNewSuitCond: (suit: number) => `три ${SUIT_SYMBOLS[suit]} или две с тузом, королём или дамой`,
     rebidWeakTwo: (suit: number) => `Новая масть партнёра форсирующая, а поддержать её нечем: повторите свою ${SUIT_ADJ_ACC[suit]} масть.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Повторная заявка открывающего 1БК показывает 12–14 очков и равномерную руку: с 13+ очками у пары около 25 очков на гейм. Заявите его.',
+    twoNtOver1ntRebid: 'Повторная заявка открывающего 1БК показывает 12–14 очков и равномерную руку: с 11–12 очками гейм зависит от силы открывающего. Пригласите заявкой 2БК; с максимумом открывающий заявит 3БК.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Приглашение партнёра показывает ${min}–${max}: если у вас ${ptsPlus(need)}, у пары 33 — этого хватает на двенадцать взяток.`,
     quantAfterInvite: 'Шлем возможен, если у партнёра максимум: 4БК приглашают в 6БК (это не Блэквуд).',

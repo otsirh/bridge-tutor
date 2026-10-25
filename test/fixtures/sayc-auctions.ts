@@ -77,7 +77,10 @@
 //   to game is the weak, shapely raise: 59, 276, 387;
 // - the Unusual 2NT is bid (the rule used to wait for 2NT to be the cheapest
 //   notrump bid, which it never is over a one-level suit): 8–12 HCP with the
-//   honours in the two suits, or 16+: 83, 199, 221, 240, 245.
+//   honours in the two suits, or 16+: 83, 199, 221, 240, 245;
+// - after opener's 1NT rebid (12–14) a balanced responder invites with 2NT
+//   on 11–12 and bids 3NT on 13+ (the general invitation wanted a range
+//   three points wide): 293.
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -373,7 +376,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1C 2S X P 3H P 4H P P P',
   '1NT P 2C P 2H P 3H P P P',
   'P P P 1S P 1NT P 2S P P P',
-  'P 1C P 1S P 1NT P 3NT P P P',
+  'P 1C P 1S P 1NT P 2NT P P P',
   'P 1D X P 1H P 4H P P P',
   '1H P 3H P 4H P P P',
   '1H P 2D P 3C P 4H P P P',

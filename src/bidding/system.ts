@@ -9,7 +9,7 @@ import { openingRules } from './openings';
 import { responsesToOneSuit, responsesTo1NT, responsesTo2NT, responsesTo2C, responsesToWeakTwo, responsesToPreempt } from './responses';
 import {
   openerRebidOneSuit, openerAfterNT, responderAfterNTConvention, openerAfterNTContinuation,
-  openerAfter2C, openerAfterFeatureAsk, openerAfterWeakTwoNewSuit, responderAfterInvite,
+  openerAfter2C, openerAfterFeatureAsk, openerAfterWeakTwoNewSuit, responderAfterInvite, responderAfter1ntRebid,
 } from './rebids';
 import {
   overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise, openerReopening, afterReopeningDouble, openerAfterRedouble, doublerAfterRedouble,
@@ -78,8 +78,10 @@ function specificRules(x: Ctx): Rule[] {
       if (myFirst.meaning.tag === 'drury') return afterDruryReply(x) ?? [];
       if (reply && reply.index > myFirst.index && !interfered && ol === 1 && os < NT && naturalSuitBid(myFirst)) {
         const y = strainOf(myFirst.call);
-        // 1♣/1♦ – 1♥/1♠ – 1NT: new minor forcing
-        if (os <= DIAMONDS && levelOf(myFirst.call) === 1 && y >= HEARTS && reply.call === bid(1, NT)) return newMinorForcing(os, y);
+        // 1♣/1♦ – 1♥/1♠ – 1NT: new minor forcing; and after any 1NT rebid, notrump with a balanced hand
+        if (levelOf(myFirst.call) === 1 && reply.call === bid(1, NT)) {
+          return [...(os <= DIAMONDS && y >= HEARTS ? newMinorForcing(os, y) : []), ...responderAfter1ntRebid()];
+        }
         // three suits bid naturally: fourth suit forcing
         if (naturalSuitBid(reply) && y !== os && strainOf(reply.call) !== os && strainOf(reply.call) !== y) return fourthSuitForcing(x, os, y, strainOf(reply.call));
       }

@@ -452,6 +452,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `O naipe novo do parceiro é forcing: apoie ${plural(suit)} com três cartas ou com um doubleton de honra.`,
     supportNewSuitCond: (suit: number) => `três cartas de ${SUIT_SYMBOLS[suit]}, ou duas com o ás, o rei ou a dama`,
     rebidWeakTwo: (suit: number) => `O naipe novo do parceiro é forcing e você não pode apoiá-lo: remarque o seu naipe de ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'A remarcação de 1ST do abridor mostra 12–14 balanceada: com 13+ PH a dupla tem os cerca de 25 pontos para o game. Marque-o.',
+    twoNtOver1ntRebid: 'A remarcação de 1ST do abridor mostra 12–14 balanceada: com 11–12 PH o game depende da força do abridor. Convide com 2ST; o abridor marca 3ST com um máximo.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `O convite do parceiro mostra ${min}–${max}: com ${need}+ PH a dupla tem 33, o bastante para doze vazas.`,
     quantAfterInvite: 'O slam é possível se o parceiro for máximo: 4ST convida a 6ST (não é Blackwood).',

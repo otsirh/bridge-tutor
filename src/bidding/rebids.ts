@@ -456,6 +456,18 @@ export function openerAfterWeakTwoNewSuit(x: Ctx, s: number, o: number): Rule[] 
 }
 
 /** Responder's continuation after partner's invitation: accept when the combined total can reach game. */
+/**
+ * Responder after opener's 1NT rebid (12–14 balanced), with a balanced hand:
+ * game with 13+, an invitation with 11–12. Other hands use general judgment.
+ */
+export function responderAfter1ntRebid(): Rule[] {
+  const t = T.bidding.rebids;
+  return [
+    R(bid(3, NT), ['nt', 3], t.threeNtOver1ntRebid, [hcpC(13, 18), balancedC()]),
+    R(bid(2, NT), 'invitation', t.twoNtOver1ntRebid, [hcpC(11, 12), balancedC()], { tag: 'invite' }),
+  ];
+}
+
 export function responderAfterInvite(x: Ctx, trump: number): Rule[] {
   const t = T.bidding.rebids;
   const rules: Rule[] = [];

@@ -454,6 +454,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `La couleur nouvelle du partenaire est forcing : soutenez les ${plural(suit)} avec trois cartes ou un doubleton d’honneur.`,
     supportNewSuitCond: (suit: number) => `trois ${SUIT_SYMBOLS[suit]}, ou deux avec l’As, le Roi ou la Dame`,
     rebidWeakTwo: (suit: number) => `La couleur nouvelle du partenaire est forcing et vous ne pouvez pas la soutenir : répétez vos ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'La redemande de 1SA de l’ouvreur montre 12–14 H et une main régulière : avec 13+ H, la paire a les 25 points environ nécessaires pour la manche. Demandez-la.',
+    twoNtOver1ntRebid: 'La redemande de 1SA de l’ouvreur montre 12–14 H et une main régulière : avec 11–12 H, la manche dépend de la force de l’ouvreur. Proposez-la avec 2SA ; l’ouvreur dit 3SA avec un maximum.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `La proposition de votre partenaire montre ${min}–${max} : avec ${need}+ H, la paire totalise 33 points, assez pour douze levées.`,
     quantAfterInvite: 'Le chelem est possible si votre partenaire est maximum : 4SA propose 6SA (ce n’est pas un Blackwood).',
