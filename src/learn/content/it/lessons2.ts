@@ -785,7 +785,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Il passo punitivo e il contro di riapertura</h3>
 <p>Poiché il contro del rispondente è informativo, il rispondente non può contrare per punire quando ha una tenuta forte nel colore dell’interveniente. Il rispondente invece <strong>passa</strong> e aspetta. Quando l’apertore è corto nel colore dell’intervento deve riaprire con un contro, che il rispondente trasforma in punitivo passando.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: passo"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: passo"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Apertore (Nord): contro di riapertura"></div>
 <p>Le ♣KQ1093 di Sud stanno sopra i fiori di Est, e 2♣ contrato probabilmente andrà sotto di parecchie prese. Nord, con un singolo a fiori, riapre con un contro perché il passo del compagno potrebbe nascondere proprio una mano di questo tipo. Con lunghezza nel colore dell’interveniente l’apertore deve essere più prudente nel riaprire: in quel caso è improbabile che il compagno stia aspettando per punire.</p>
@@ -813,7 +813,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Dopo un intervento di 1♥ il contro mostra esattamente quattro picche, quindi con cinque picche dichiara 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Hai ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PO).',
+        q: '1♥ – (2♣) – ? Hai ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PO).',
         options: ['Contro', 'Passo', '3SA', '2SA'],
         answer: 1,
         explain: 'Vorresti contrare per punire, ma il tuo contro sarebbe uno sputnik. Passa e aspettati che il compagno riapra con un contro se è corto a fiori; su quel contro passerai.',

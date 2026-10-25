@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>The penalty pass and the reopening double</h3>
 <p>Because responder's double is for takeout, responder cannot double for penalty with a strong holding in the overcaller's suit. Instead, responder <strong>passes</strong> and waits. When opener is short in the overcalled suit, opener should reopen with a double, which responder converts to penalties by passing.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: pass"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: pass"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Opener (North): reopening double"></div>
 <p>South's ♣KQ1093 sit over East's clubs and 2♣ doubled is likely to go down several tricks. North, with a singleton club, reopens with a double because partner's pass may be exactly this kind of hand. With length in the overcaller's suit, opener should be more careful about reopening: then partner is unlikely to be waiting to penalise.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'After a 1♥ overcall the double shows exactly four spades, so with five spades bid 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? You hold ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 HCP).',
+        q: '1♥ – (2♣) – ? You hold ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 HCP).',
         options: ['Double', 'Pass', '3NT', '2NT'],
         answer: 1,
         explain: 'You would love to double for penalty, but your double would be negative. Pass and expect partner to reopen with a double when they are short in clubs; you will pass that.',

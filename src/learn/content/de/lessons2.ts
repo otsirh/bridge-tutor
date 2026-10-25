@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Lauerpasse und Wiederbelebungskontra</h3>
 <p>Weil das Kontra des Antwortenden ein Informationskontra ist, kann er mit einer starken Besetzung in der Farbe des Gegenreizers nicht zur Strafe kontrieren. Stattdessen <strong>passt</strong> der Antwortende und wartet ab. Ist der Eröffner in der gegengereizten Farbe kurz, sollte er mit einem Kontra wiederbeleben, das der Antwortende durch Passen in ein Strafkontra verwandelt.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: Passe"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: Passe"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Eröffner (Nord): Wiederbelebungskontra"></div>
 <p>Süds ♣KQ1093 sitzen hinter den Treffkarten von Ost, und 2♣ kontriert dürfte mehrfach fallen. Nord mit einem Treff-Single belebt mit Kontra wieder, weil das Passe des Partners genau so eine Hand sein kann. Mit Länge in der Farbe des Gegenreizers sollte der Eröffner mit dem Wiederbeleben vorsichtiger sein: Dann lauert der Partner kaum auf eine Strafe.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Nach einer 1♥-Gegenreizung zeigt das Kontra genau vier Pik; mit fünf Pik reizen Sie also 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Sie halten ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 FP).',
+        q: '1♥ – (2♣) – ? Sie halten ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 FP).',
         options: ['Kontra', 'Passe', '3SA', '2SA'],
         answer: 1,
         explain: 'Sie würden gern zur Strafe kontrieren, aber Ihr Kontra wäre negativ. Passen Sie und rechnen Sie damit, dass der Partner mit Treff-Kürze mit einem Kontra wiederbelebt; das lassen Sie dann stehen.',

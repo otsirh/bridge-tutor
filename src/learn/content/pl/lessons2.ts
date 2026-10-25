@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Pas karny i kontra wznawiająca</h3>
 <p>Ponieważ kontra odpowiadającego jest wywołująca, nie może on kontrować karnie z mocnym kolorem wchodzącego. Zamiast tego odpowiadający <strong>pasuje</strong> i czeka. Gdy otwierający jest krótki w kolorze wejścia, powinien wznowić licytację kontrą, którą odpowiadający pasem zamienia na karną.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Otwierający (Północ): kontra wznawiająca"></div>
 <p>♣KQ1093 Południa siedzą za treflami Wschodu i 2♣ z kontrą zapewne przegra kilka lew. Północ z singlem trefl wznawia licytację kontrą, bo pas partnera może oznaczać właśnie taką rękę. Z długością w kolorze wejścia otwierający powinien ostrożniej wznawiać: wtedy jest mało prawdopodobne, że partner czeka na karną kontrę.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Po wejściu 1♥ kontra pokazuje dokładnie cztery piki, więc z pięcioma pikami licytuj 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Masz ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PC).',
+        q: '1♥ – (2♣) – ? Masz ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PC).',
         options: ['Kontra', 'Pas', '3BA', '2BA'],
         answer: 1,
         explain: 'Kusi kontra karna, ale twoja kontra byłaby negatywna. Spasuj i oczekuj, że partner z krótkimi treflami wznowi licytację kontrą; na nią spasujesz.',

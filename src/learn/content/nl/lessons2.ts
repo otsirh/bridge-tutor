@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>De strafpas en het heropeningsdoublet</h3>
 <p>Omdat het doublet van de antwoorder informatief is, kan de antwoorder niet voor straf doubleren met een sterke kaart in de kleur van de volgbieder. In plaats daarvan <strong>past</strong> de antwoorder en wacht hij af. Is de openaar kort in de kleur van de volgbieder, dan moet hij heropenen met een doublet, dat de antwoorder door te passen omzet in een strafdoublet.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Openaar (Noord): heropeningsdoublet"></div>
 <p>De ♣KQ1093 van Zuid zitten achter de klaveren van Oost, en 2♣ gedoubleerd gaat waarschijnlijk een aantal slagen down. Noord heropent met zijn singleton klaver met een doublet, omdat de pas van partner precies zo’n hand kan zijn. Met lengte in de kleur van de volgbieder moet de openaar voorzichtiger zijn met heropenen: dan is het onwaarschijnlijk dat partner zit te wachten om te straffen.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Na een volgbod van 1♥ toont het doublet precies vier schoppen, dus met vijf schoppen bied je 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Je hebt ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 punten).',
+        q: '1♥ – (2♣) – ? Je hebt ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 punten).',
         options: ['Doublet', 'Pas', '3SA', '2SA'],
         answer: 1,
         explain: 'Je zou graag voor straf doubleren, maar jouw doublet zou negatief zijn. Pas en reken erop dat partner met een doublet heropent als hij kort is in klaveren; daarop pas je.',

@@ -785,7 +785,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>O passo punitivo e o dobre de reabertura</h3>
 <p>Como o dobre do respondedor é informativo, ele não pode dobrar para punir quando tem cartas fortes no naipe do interventor. Em vez disso, o respondedor <strong>passa</strong> e espera. Quando o abridor é curto no naipe da intervenção, deve reabrir com um dobre, que o respondedor transforma em punitivo passando.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: passe"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: passe"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Abridor (Norte): dobre de reabertura"></div>
 <p>O ♣KQ1093 de Sul está depois dos paus de Leste, e 2♣ dobrado provavelmente vai cair várias vazas. Norte, com singleton de paus, reabre com um dobre porque o passo do parceiro pode ser exatamente esse tipo de mão. Com comprimento no naipe do interventor, o abridor deve ter mais cuidado ao reabrir: aí é improvável que o parceiro esteja esperando para punir.</p>
@@ -813,7 +813,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Depois de uma intervenção de 1♥, o dobre mostra exatamente quatro espadas; com cinco espadas, marque 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Você tem ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PH).',
+        q: '1♥ – (2♣) – ? Você tem ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PH).',
         options: ['Dobre', 'Passo', '3ST', '2ST'],
         answer: 1,
         explain: 'Você adoraria dobrar para punir, mas o seu dobre seria negativo. Passe e espere que o parceiro reabra com um dobre quando for curto em paus; você vai passar esse dobre.',

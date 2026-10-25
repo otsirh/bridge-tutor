@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>惩罚性不叫与重开加倍</h3>
 <p>由于应叫人的加倍是技术性的，应叫人在争叫人的花色中有强持牌时就不能用加倍来惩罚。这时应叫人<strong>不叫</strong>，等待机会。开叫人在被争叫的花色中短时，应该用加倍重开叫牌，应叫人再不叫，把它转为惩罚。</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ？：不叫"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ？：不叫"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="开叫人（北家）：重开加倍"></div>
 <p>南家的♣KQ1093坐在东家梅花的后面，2♣被加倍很可能要宕好几墩。北家梅花单张，用加倍重开叫牌，因为同伴的不叫可能正是这样一手牌。如果开叫人在争叫人的花色中有长度，重开叫牌就要更谨慎：那时同伴不太可能正在等着惩罚对手。</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: '对手争叫1♥后，加倍表示恰好4张黑桃，所以有5张黑桃就叫1♠。',
       },
       {
-        q: '1♥ – (2♣) – ？你持♠K5 ♥73 ♦AJ84 ♣KQ1093（13个大牌点）。',
+        q: '1♥ – (2♣) – ？你持♠K5 ♥73 ♦Q984 ♣KQ1093（10个大牌点）。',
         options: ['加倍', '不叫', '3NT', '2NT'],
         answer: 1,
         explain: '你很想做惩罚性加倍，但你的加倍会被理解为否定性加倍。不叫，指望同伴在梅花短时用加倍重开叫牌；那时你再不叫。',

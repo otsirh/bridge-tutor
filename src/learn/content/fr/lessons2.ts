@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>La transformation et le contre de réveil</h3>
 <p>Comme le contre du répondant est d’appel, le répondant ne peut pas contrer pour punir avec une teneur solide dans la couleur de l’intervenant. Il <strong>passe</strong> donc et attend. Quand l’ouvreur est court dans la couleur de l’intervention, il doit réveiller par un contre, que le répondant transforme en passant.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ? : passez"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ? : passez"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="L’ouvreur (Nord) : contre de réveil"></div>
 <p>Les ♣KQ1093 de Sud sont placés derrière les trèfles d’Est, et 2♣ contré va probablement chuter de plusieurs levées. Nord, avec un singleton trèfle, réveille par un contre, car le passe de son partenaire peut correspondre exactement à ce type de main. Avec de la longueur dans la couleur de l’intervenant, l’ouvreur doit être plus prudent avant de réveiller : son partenaire a alors peu de chances d’attendre pour punir.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Après une intervention à 1♥, le contre montre exactement quatre piques : avec cinq piques, dites 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Vous avez ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 H).',
+        q: '1♥ – (2♣) – ? Vous avez ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 H).',
         options: ['Contre', 'Passe', '3SA', '2SA'],
         answer: 1,
         explain: 'Vous aimeriez contrer pour punir, mais votre contre serait un Spoutnik. Passez et attendez que votre partenaire réveille par un contre s’il est court à trèfle ; vous passerez alors.',

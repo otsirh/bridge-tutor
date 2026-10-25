@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>El paso de castigo y el doblo de reapertura</h3>
 <p>Como el doblo del respondedor es informativo, el respondedor no puede doblar de castigo con una tenencia fuerte en el palo del interventor. En su lugar, <strong>pasa</strong> y espera. Cuando el abridor es corto en el palo de la intervención, debe reabrir con un doblo, que el respondedor convierte en castigo pasando.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: paso"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: paso"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Abridor (Norte): doblo de reapertura"></div>
 <p>El ♣KQ1093 de Sur está situado detrás de los tréboles de Este y es probable que 2♣ doblado se multe en varias bazas. Norte, con semifallo de trébol, reabre con un doblo porque el paso de su compañero puede ser justamente este tipo de mano. Con longitud en el palo del interventor, el abridor debe ser más prudente al reabrir: entonces es poco probable que su compañero esté esperando para castigar.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Tras una intervención de 1♥, el doblo muestra exactamente cuatro picas, así que con cinco picas declara 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Tienes ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PH).',
+        q: '1♥ – (2♣) – ? Tienes ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PH).',
         options: ['Doblo', 'Paso', '3SA', '2SA'],
         answer: 1,
         explain: 'Te encantaría doblar de castigo, pero tu doblo sería negativo. Pasa y espera que tu compañero reabra con un doblo cuando sea corto en tréboles; tú lo pasarás.',
