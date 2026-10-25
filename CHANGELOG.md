@@ -28,6 +28,9 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - Lesson corrections from a teacher's review, and seven new glossary terms.
 - Four new lessons: defending against notrump, ruffing finesses and loser on loser, dummy reversal
   and the trump coup, and leads against slams and doubled contracts; eight new glossary terms.
+- Three new lessons on competitive bidding: competing over the opponents' 1NT, competing over
+  preempts, and what to do when they double our opening; three practice topics to go with them
+  and six new glossary terms. Every hand and auction in them is checked against the bots.
 
 ### Everywhere
 - Phones: one-row header, a compact table, and a bidding pad that shows a call's meaning before you make it.

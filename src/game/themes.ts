@@ -4,7 +4,7 @@
 // "Stayman" really means South has a Stayman hand opposite partner's 1NT.
 
 import { type Card, type Seat, type Vulnerability, N, E, S, W, NT, dealCards, mulberry32, hcp, suitLengths } from '../core/cards';
-import { Auction, type Contract, PASS, isBid, levelOf, strainOf } from '../core/auction';
+import { Auction, type Contract, PASS, DOUBLE, isBid, levelOf, strainOf } from '../core/auction';
 import { readAuction, advise } from '../bidding/engine';
 import type { CallRecord } from '../bidding/context';
 import type { SkillId } from './skills';
@@ -42,6 +42,12 @@ const southTag = (v: ThemeView, tags: string[]) => v.records.some(r => r.seat ==
 const weDeclare = (v: ThemeView) => !!v.contract && isNS(v.contract.declarer);
 const theyDeclare = (v: ThemeView) => !!v.contract && !isNS(v.contract.declarer);
 const ntOpening = (r: CallRecord | null) => !!r && strainOf(r.call) === NT && levelOf(r.call) <= 2 && !r.meaning.artificial;
+/** Our side acts over their opening before they bid again, and South makes that call or one after it. */
+const ourActionOver = (v: ThemeView, op: CallRecord) => {
+  const act = v.records.find(r => r.index > op.index && isNS(r.seat) && r.call !== PASS);
+  if (!act || v.records.some(r => r.index > op.index && r.index < act.index && !isNS(r.seat) && r.call !== PASS)) return false;
+  return act.seat === S || callsBy(v, S).some(r => r.index > act.index);
+};
 
 export const THEMES: Theme[] = [
   // --- bidding
@@ -153,6 +159,34 @@ export const THEMES: Theme[] = [
     },
   },
   {
+    id: 'over-notrump', skill: 'bid.competitive',
+    pre: h => [E, W].some(s => h[s].balanced && h[s].hcp >= 15 && h[s].hcp <= 17) && (h[N].hcp >= 8 || h[S].hcp >= 8),
+    test: v => {
+      const op = first(v);
+      if (!op || isNS(op.seat) || !ntOpening(op) || levelOf(op.call) !== 1) return false;
+      return ourActionOver(v, op);
+    },
+  },
+  {
+    id: 'over-preempts', skill: 'bid.competitive',
+    pre: h => [E, W].some(s => Math.max(...h[s].len) >= 6 && h[s].hcp <= 11) && (h[N].hcp >= 11 || h[S].hcp >= 11),
+    test: v => {
+      const op = first(v);
+      if (!op || isNS(op.seat) || (tagOf(op) !== 'weak2' && tagOf(op) !== 'preempt')) return false;
+      return ourActionOver(v, op);
+    },
+  },
+  {
+    id: 'opening-doubled', skill: 'bid.competitive',
+    pre: h => (h[N].hcp >= 11 && h[E].hcp >= 11) || (h[S].hcp >= 11 && h[W].hcp >= 11),
+    // our one-level opening is doubled at once; South calls after the double (as responder, or as opener)
+    test: v => {
+      const op = first(v);
+      if (!op || !isNS(op.seat) || levelOf(op.call) !== 1 || v.records[op.index + 1]?.call !== DOUBLE) return false;
+      return callsBy(v, S).some(r => r.index > op.index + 1);
+    },
+  },
+  {
     id: 'balancing', skill: 'bid.competitive',
     test: v => {
       const op = first(v);
@@ -234,6 +268,9 @@ export const LESSON_THEMES: Record<string, string> = {
   'trump-management': 'suit-games',
   'defensive-signals': 'defense',
   'negative-doubles': 'negative-doubles',
+  'competing-over-1nt': 'over-notrump',
+  'competing-over-preempts': 'over-preempts',
+  'when-they-double-us': 'opening-doubled',
   'slam-bidding-and-blackwood': 'slam',
   'gerber-and-quantitative': 'slam',
   'rule-of-eleven': 'defense-nt',
