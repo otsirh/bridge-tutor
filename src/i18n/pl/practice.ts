@@ -11,7 +11,7 @@ const layouts = (n: number) => `${n} ${n === 1 ? 'układzie' : 'układach'}`;
 export const practice: Text['practice'] = {
   title: 'Trening',
   close: 'Zamknij',
-  tabs: { today: 'Dziś', review: 'Powtórki', problems: 'Zadania', skills: 'Umiejętności', topics: 'Tematy', history: 'Historia' },
+  tabs: { today: 'Dziś', review: 'Powtórki', problems: 'Zadania', techniques: 'Techniki', skills: 'Umiejętności', topics: 'Tematy', history: 'Historia' },
 
   skills: {
     'bid.opening': { name: 'Otwarcie licytacji', desc: 'Czy otworzyć i które otwarcie opisuje twoją rękę: jeden w kolor, 1BA, 2♣, słabe dwa i otwarcia blokujące.' },
@@ -82,6 +82,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Za pierwszym razem: ${right} z ${total} dobrze`,
   quizRetry: 'Rozwiąż quiz jeszcze raz',
   practicedCount: (n: number) => `${boards(n)} ${plural(n, 'przećwiczone', 'przećwiczone', 'przećwiczonych')}`,
+  practiseTechnique: (name: string) => `Ćwicz technikę: ${name}`,
+  practiseTechniqueText: 'Całe rozdania, w których ona rozstrzyga o kontrakcie, rozgrywane przy stole i objaśniane po rozdaniu.',
+  practiseTechniqueBtn: 'Ćwicz technikę',
 
   // Today
   tileStreak: 'Dni z rzędu',
@@ -109,6 +112,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Znajdź właściwe zagranie',
   stepProblemsText: 'Zadania z prawdziwych rozdań, w których jedna karta jest wyraźnie najlepsza: rozgrywka, obrona i pierwszy wist.',
   openProblems: 'Rozwiązuj zadania',
+  stepTechniquesTitle: 'Przećwicz technikę rozgrywki',
+  stepTechniquesText: 'Całe rozdania, w których jedna technika rozstrzyga o kontrakcie — impas, przepuszczenie, odblokowanie, gra atutami — objaśniane po rozdaniu.',
+  openTechniques: 'Ćwicz techniki',
   howItWorks: 'Każde ukończone rozdanie zapisuje się razem z analizą. Odzywki niezgodne z systemem i karty wyraźnie gorsze przy informacjach dostępnych w danej chwili (nie tylko z perspektywy czasu) trafiają do kolejki powtórek.',
 
   // Review
@@ -122,6 +128,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Nowe rozdanie, ta sama zasada',
   itemFromDrill: (date: string) => `z ćwiczenia licytacji, ${date}`,
   itemFromProblem: (date: string) => `z zadania, ${date}`,
+  itemFromTechnique: (date: string) => `z ćwiczenia technik, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nowa' : `etap ${box} z ${last}`),
   dueLeft: (n: number) => `${n} do powtórki`,
   next: 'Dalej',
@@ -203,6 +210,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Zagraj to rozdanie od początku',
     declarerTag: 'rozgrywający',
     dummyTag: 'dziadek',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Całe rozdania, w których jedna technika rozgrywającego rozstrzyga o kontrakcie. Rozegraj rozdanie przy stole; potem analiza pokazuje kluczowy moment — czy znalazłeś technikę, wraz z symulacją, która to pokazuje — oraz lekcję, która jej uczy. Każde rozdanie licytuje system, a symulacja sprawdza je wyłącznie na podstawie tego, co widział rozgrywający.',
+    filterLabel: 'Technika',
+    any: 'Wszystkie',
+    names: {
+      finesse: 'Impas',
+      holdUp: 'Przepuszczenie',
+      duck: 'Oddanie lewy',
+      unblock: 'Odblokowanie',
+      drawTrumps: 'Ściąganie atutów',
+      ruffShort: 'Przebitka w krótszej ręce',
+      safety: 'Zagranie bezpieczeństwa',
+    },
+    descs: {
+      finesse: 'Zagraj kartę, która bierze lewę, gdy brakujący honor jest u obrońcy, który już zagrał — damę z A-Q albo króla, w którego kierunku grałeś.',
+      holdUp: 'W bez atu pozwól obrońcom raz czy dwa wziąć lewę w ich kolorze, zanim użyjesz zatrzymania.',
+      duck: 'Oddaj wcześnie jedną rundę swojego długiego koloru, póki długa ręka ma wysokie karty jako dojścia.',
+      unblock: 'Najpierw zagraj wysokie karty z krótszej ręki, żeby wciąż móc dojść do długiej.',
+      drawTrumps: 'Odbierz obrońcom atuty, zanim przebiją twoje wygrywające karty.',
+      ruffShort: 'Przebijaj przegrywające w ręce z mniejszą liczbą atutów: każda przebitka tam to dodatkowa lewa.',
+      safety: 'Zrezygnuj z możliwej nadróbki, żeby zapewnić sobie kontrakt.',
+    },
+    why: {
+      finesse: 'Impas udaje się zawsze, gdy brakujące ci wyższe karty są u obrońcy, który już zagrał do lewy: wtedy twój honor (albo honor partnera, który puszczasz dalej) bierze lewę. Tu była to wyraźnie najlepsza szansa: ściągnięcie wyższej karty coś daje tylko wtedy, gdy brakujący honor spadnie, a mała karta oddaje lewę.',
+      holdUp: 'Przepuszczenie: nie biorąc od razu lewy w kolorze obrońców, pozbawiasz kart tego koloru obrońcę, który ma ich mniej. Jeśli później dojdzie do ręki, nie ma już czym wrócić w ten kolor, a długie karty nigdy nie dochodzą do głosu. Weź pierwszą rundę, a obrońcy odegrają swój kolor, gdy tylko któryś z nich dojdzie do ręki.',
+      duck: 'Oddając rundę w swoim długim kolorze, oddajesz wcześnie lewę — zwykle taką, którą i tak byś stracił — póki długa ręka ma jeszcze wysokie karty. Gdy odzyskasz wist, wciąż dojdziesz do długich kart; weź pierwsze rundy, a ostatnie karty mogą zostać odcięte, bez dojścia.',
+      unblock: 'Odblokowanie: najpierw zagraj wysokie karty z krótszej ręki. Wtedy ostatnie karty koloru zostają w długiej ręce, a ty masz jeszcze małą kartę, żeby do nich dojść; zagraj najpierw honory długiej ręki, a kolor się zablokuje i długie karty będą nieosiągalne.',
+      drawTrumps: 'Ściąganie atutów: dopóki obrońcy mają atuty, mogą przebijać twoje wygrywające karty w kolorach bocznych. Każda runda atutów zabiera po jednym atucie każdemu obrońcy; tutaj ściągnięcie ich od razu było wyraźnie najlepsze.',
+      ruffShort: 'Przebitka w krótszej ręce: przebitka w ręce z mniejszą liczbą atutów to dodatkowa lewa, bo te atuty nie wzięłyby lew same; przebitka w dłuższej ręce nic nie dodaje. Zrób to, póki krótsza ręka ma jeszcze atuty — wcześniejsze ściągnięcie atutów mogłoby jej je zabrać.',
+      safety: 'Zagranie bezpieczeństwa: inna karta dawała średnio więcej lew, ale ta częściej realizowała kontrakt. Rezygnuje z możliwej nadróbki, żeby zabezpieczyć się przed układami, w których bardziej łapczywe zagranie zawodzi — gdy kontrakt jest zagrożony, graj na kontrakt.',
+    },
+    hints: 'Podaj technikę przed rozdaniem',
+    hintsNote: 'Wyłączone: analiza powie ci, jakiej techniki wymagało rozdanie, tak jak przy stole.',
+    play: 'Zagraj rozdanie',
+    ready: (n: number) => count(n, 'rozdanie gotowe', 'rozdania gotowe', 'rozdań gotowych'),
+    score: (right: number, done: number) => `Znalezione: ${right} z ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Lekcja: ${title}`,
+    preparing: 'Przygotowuję rozdanie…',
+    waitNote: 'Zostają tylko rozdania, w których technika wyraźnie rozstrzyga o kontrakcie, więc znalezienie jednego może potrwać kilka minut. Przygotowują się w tle, gdy ta karta jest otwarta i gdy rozgrywasz rozdanie z techniką; do następnego razu zostają do 3 rozdań każdej techniki. Niektóre techniki zdarzają się rzadko (oddanie lewy, odblokowanie, przebitka w krótszej ręce, zagrania bezpieczeństwa): na nie trzeba poczekać dłużej.',
+
+    // at the table
+    noteTitle: 'Ćwiczenie techniki',
+    noteHidden: 'Jedna decyzja w tym rozdaniu wymaga techniki rozgrywającego. Znajdź ją: trener zachowa rady co do kart dla siebie, aż ten moment minie, a analiza go objaśni.',
+    noteLookFor: (name: string, desc: string) => `Szukaj: ${name}. ${desc} Trener zachowa rady co do kart dla siebie, aż ten moment minie.`,
+    withheld: 'Ćwiczenie techniki: ta decyzja należy do ciebie. Rady trenera co do kart wrócą, gdy kluczowy moment minie.',
+
+    // the review
+    reviewTitle: (name: string) => `Technika: ${name}`,
+    found: (trick: number, card: string) => `Znalezione: ${card} w lewie ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `W lewie ${trick} zagrałeś ${card}; techniką było ${best}.`,
+    offScript: (trick: number) => `Rozgrywka potoczyła się inaczej przed kluczowym momentem (lewa ${trick}), więc nie doszło do niego. Zagraj rozdanie od kluczowego momentu, żeby go spróbować.`,
+    auto: (trick: number) => `Kluczowy moment (lewa ${trick}) rozegrano za ciebie — deklaracją lub dograniem rozdania.`,
+    simBest: (n: number, best: string, t: string, s: string) => `W ${layouts(n)} zgodnych z licytacją i dotychczasową rozgrywką ${best} dawała średnio ${t} lewy, a kontrakt wychodził w ${s} przypadków.`,
+    simYours: (card: string, t: string, s: string) => `Twoja karta, ${card}: ${t} lewy, kontrakt w ${s} przypadków.`,
+    simOther: (card: string, t: string, s: string) => `Najlepsza z pozostałych, ${card}: ${t} lewy, kontrakt w ${s} przypadków.`,
+    tryAgain: 'Spróbuj kluczowego momentu jeszcze raz',
+    playFromKey: 'Zagraj od kluczowego momentu',
+    next: 'Następne rozdanie z techniką',
+    addedToReview: 'Dodano do kolejki powtórek: kluczowy moment będzie wracać, dopóki nie odpowiesz dobrze.',
   },
 
   // Skills

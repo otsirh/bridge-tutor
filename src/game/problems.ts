@@ -144,10 +144,15 @@ export function acceptProblem(d: Pick<Decision, 'stats' | 'samples'>, rules: Acc
   return { ok: true, answer: answer.map(s => s.card).sort((a, b) => b - a), best, runnerUp };
 }
 
+/** The looser rules a quick simulation is screened with. */
+export function screenRules(rules: AcceptRules): AcceptRules {
+  return { ...rules, minSamples: 8, successGap: rules.successGap / 2, trickGap: rules.trickGap * 0.6, blunderSuccess: Math.max(0.95, rules.blunderSuccess), blunderTricks: Math.max(2.5, rules.blunderTricks) };
+}
+
 /** A looser test on a quick simulation: worth simulating again with more layouts? */
 export function promising(d: Pick<Decision, 'stats' | 'samples'>, rules: AcceptRules = DEFAULT_RULES): boolean {
   if (d.samples < 8) return false;
-  return acceptProblem(d, { ...rules, minSamples: 8, successGap: rules.successGap / 2, trickGap: rules.trickGap * 0.6, blunderSuccess: 0.95, blunderTricks: 2.5 }).ok;
+  return acceptProblem(d, screenRules(rules)).ok;
 }
 
 /**

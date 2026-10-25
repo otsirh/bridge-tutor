@@ -9,7 +9,7 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 export const practice: Text['practice'] = {
   title: 'Training',
   close: 'Sluiten',
-  tabs: { today: 'Vandaag', review: 'Herhalen', problems: 'Opgaven', skills: 'Vaardigheden', topics: 'Onderwerpen', history: 'Geschiedenis' },
+  tabs: { today: 'Vandaag', review: 'Herhalen', problems: 'Opgaven', techniques: 'Technieken', skills: 'Vaardigheden', topics: 'Onderwerpen', history: 'Geschiedenis' },
 
   skills: {
     'bid.opening': { name: 'Openen', desc: 'Of je opent, en welke opening je hand beschrijft: één in een kleur, 1SA, 2♣, zwakke twee en preëmpts.' },
@@ -80,6 +80,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Eerste poging: ${right} van de ${total} goed`,
   quizRetry: 'Doe de quiz opnieuw',
   practicedCount: (n: number) => (n === 1 ? '1 spel geoefend' : `${n} spellen geoefend`),
+  practiseTechnique: (name: string) => `Oefen de techniek: ${name}`,
+  practiseTechniqueText: 'Hele spellen waarin die het contract beslist, aan tafel gespeeld en daarna uitgelegd.',
+  practiseTechniqueBtn: 'Oefen de techniek',
 
   // Today
   tileStreak: 'Dagen op rij',
@@ -106,6 +109,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Vind de juiste kaart',
   stepProblemsText: 'Opgaven uit echte spellen waarin één kaart duidelijk de beste is: afspel, tegenspel en uitkomsten.',
   openProblems: 'Opgaven oplossen',
+  stepTechniquesTitle: 'Oefen een afspeeltechniek',
+  stepTechniquesText: 'Hele spellen waarin één techniek het contract beslist — snit, ophouden, deblokkeren, troefspel — na het spel uitgelegd.',
+  openTechniques: 'Technieken oefenen',
   howItWorks: 'Elk spel dat je uitspeelt, wordt bewaard met de analyse. Biedingen die van het systeem afwijken en kaarten die duidelijk slechter waren met de informatie die je had (niet alleen achteraf), komen in je herhaallijst.',
 
   // Review
@@ -118,6 +124,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Nieuw spel, hetzelfde idee',
   itemFromDrill: (date: string) => `uit de biedoefening, ${date}`,
   itemFromProblem: (date: string) => `uit een opgave, ${date}`,
+  itemFromTechnique: (date: string) => `uit de techniektraining, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nieuw' : `stap ${box} van ${last}`),
   dueLeft: (n: number) => `nog ${n}`,
   next: 'Volgende',
@@ -196,6 +203,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Speel dit spel vanaf het begin',
     declarerTag: 'leider',
     dummyTag: 'dummy',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Hele spellen waarin één afspeeltechniek het contract beslist. Speel het spel aan tafel; daarna laat de analyse het sleutelmoment zien — of je de techniek vond, met de simulatie erachter — en de les die haar uitlegt. Elk spel wordt door het systeem geboden en met simulatie getest op alleen wat de leider kon zien.',
+    filterLabel: 'Techniek',
+    any: 'Alle',
+    names: {
+      finesse: 'Snit',
+      holdUp: 'Ophouden',
+      duck: 'Duiken',
+      unblock: 'Deblokkeren',
+      drawTrumps: 'Troef trekken',
+      ruffShort: 'Introeven in de korte hand',
+      safety: 'Veiligheidsspel',
+    },
+    descs: {
+      finesse: 'Speel de kaart die wint als de ontbrekende honneur zit bij de tegenspeler die al heeft gespeeld — de vrouw uit A-Q, of de heer waar je naartoe speelde.',
+      holdUp: 'Laat in SA de tegenspelers hun kleur een of twee keer winnen voordat je je stopper neemt.',
+      duck: 'Geef vroeg een ronde van je lange kleur af, zolang de lange hand haar hoge kaarten als entrees houdt.',
+      unblock: 'Speel eerst de hoge kaarten van de kortere hand, zodat je de lange hand nog kunt bereiken.',
+      drawTrumps: 'Haal de troeven van de tegenspelers weg voordat ze je vaste slagen kunnen introeven.',
+      ruffShort: 'Troef verliezers in de hand met minder troeven: elke introever daar is een extra slag.',
+      safety: 'Geef een mogelijke overslag op om zeker te zijn van het contract.',
+    },
+    why: {
+      finesse: 'Een snit wint telkens als de hogere kaarten die je mist bij de tegenspeler zitten die al in de slag heeft gespeeld: dan houdt je honneur (of die van partner, die je laat doorlopen) de slag. Hier was dat duidelijk de beste kans: een hogere kaart afspelen levert alleen iets op als de ontbrekende honneur valt, en een kleine kaart geeft de slag weg.',
+      holdUp: 'Ophouden: door de kleur van de tegenspelers niet meteen te winnen, speel je de tegenspeler met de minste kaarten erin leeg. Komt die later aan slag, dan heeft hij geen kaart van de kleur meer om terug te spelen, en de lange kaarten komen nooit aan bod. Win je de eerste ronde, dan kunnen de tegenspelers hun kleur afspelen zodra een van hen aan slag komt.',
+      duck: 'Door een ronde van je lange kleur te duiken geef je vroeg een slag af — meestal een die je toch zou verliezen — terwijl de lange hand haar hoge kaarten nog heeft. Kom je weer aan slag, dan bereik je de lange kaarten nog; win je de eerste rondes, dan kunnen de laatste kaarten zonder entree blijven steken.',
+      unblock: 'Deblokkeren: speel eerst de hoge kaarten uit de kortere hand. Dan zitten de laatste kaarten van de kleur in de lange hand en heb je nog een kleine kaart om erbij te komen; speel je eerst de honneurs van de lange hand, dan blokkeert de kleur en zijn de lange kaarten onbereikbaar.',
+      drawTrumps: 'Troef trekken: zolang de tegenspelers nog troeven hebben, kunnen ze je vaste slagen in de bijkleuren introeven. Elke troefronde neemt elke tegenspeler een troef af; hier was het duidelijk het beste om de troeven nu te trekken.',
+      ruffShort: 'Introeven in de korte hand: een introever in de hand met minder troeven is een extra slag, want die troeven zouden zelf geen slagen maken; introeven in de lange hand levert niets extra op. Doe het zolang de korte hand nog troeven heeft — eerst troef trekken kan ze wegnemen.',
+      safety: 'Een veiligheidsspel: een andere kaart leverde gemiddeld meer slagen op, maar deze maakte het contract vaker. Ze geeft een mogelijke overslag op om je te beschermen tegen de liggingen waarin het gretigere spel mislukt — als het contract op het spel staat, speel je voor het contract.',
+    },
+    hints: 'Noem de techniek vóór het spel',
+    hintsNote: 'Uit: de analyse vertelt je welke techniek het spel vroeg, zoals aan tafel.',
+    play: 'Speel een spel',
+    ready: (n: number) => (n === 1 ? '1 spel klaar' : `${n} spellen klaar`),
+    score: (right: number, done: number) => `Gevonden: ${right} van ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Les: ${title}`,
+    preparing: 'Een spel wordt voorbereid…',
+    waitNote: 'Alleen spellen waarin de techniek het contract duidelijk beslist worden bewaard, dus het vinden ervan kan een paar minuten duren. Ze worden op de achtergrond voorbereid zolang dit tabblad openstaat en terwijl je een techniekspel speelt; van elke techniek worden er tot 3 bewaard voor de volgende keer. Sommige technieken komen zelden voor (duiken, deblokkeren, introeven in de korte hand, veiligheidsspelen): die duren langer.',
+
+    // at the table
+    noteTitle: 'Techniektraining',
+    noteHidden: 'Eén beslissing in dit spel vraagt om een afspeeltechniek. Vind haar: de tutor houdt zijn kaartadvies voor zich tot dat moment voorbij is, en de analyse legt het uit.',
+    noteLookFor: (name: string, desc: string) => `Let op: ${name}. ${desc} De tutor houdt zijn kaartadvies voor zich tot dat moment voorbij is.`,
+    withheld: 'Techniektraining: deze beslissing is aan jou. Het kaartadvies van de tutor komt terug zodra het sleutelmoment voorbij is.',
+
+    // the review
+    reviewTitle: (name: string) => `De techniek: ${name}`,
+    found: (trick: number, card: string) => `Gevonden: ${card} in slag ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `In slag ${trick} speelde je ${card}; de techniek was ${best}.`,
+    offScript: (trick: number) => `Het spel liep vóór het sleutelmoment (slag ${trick}) anders, dus het kwam niet voor. Speel het spel vanaf het sleutelmoment om het te proberen.`,
+    auto: (trick: number) => `Het sleutelmoment (slag ${trick}) werd voor je gespeeld, door een claim of door het spel uit te spelen.`,
+    simBest: (n: number, best: string, t: string, s: string) => `In ${n} liggingen die passen bij de bieding en het spel tot dan toe, leverde ${best} gemiddeld ${t} slagen op en werd het contract gemaakt in ${s} van de gevallen.`,
+    simYours: (card: string, t: string, s: string) => `Jouw ${card}: ${t} slagen, gemaakt in ${s}.`,
+    simOther: (card: string, t: string, s: string) => `De beste van de rest, ${card}: ${t} slagen, gemaakt in ${s}.`,
+    tryAgain: 'Probeer het sleutelmoment opnieuw',
+    playFromKey: 'Speel vanaf het sleutelmoment',
+    next: 'Volgend techniekspel',
+    addedToReview: 'Toegevoegd aan je herhaallijst: het sleutelmoment komt terug tot je het goed hebt.',
   },
 
   // Skills

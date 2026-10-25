@@ -11,6 +11,8 @@ import type { Game, CardReview } from '../game/game';
 import { simVerdict } from '../game/record';
 import { describeSignal } from '../tutor/signals';
 import { clearCardMistake } from '../game/skills';
+import { TECHNIQUE_INFO } from '../game/techniques';
+import { getLesson } from '../learn/lessons';
 import { toPBN } from '../core/pbn';
 import { bboHandviewerUrl } from '../core/lin';
 import { encodeBoard } from '../core/share';
@@ -30,6 +32,11 @@ export interface ReviewActions {
   /** Take the hand back to just before card `index` and play on from there (absent for an archived board). */
   retry?: (index: number) => void;
   toast(msg: string): void;
+  /** Open a lesson in the Learn room. */
+  openLesson?: (id: string) => void;
+  /** Technique practice: the next technique deal, and this one again from its key moment. */
+  nextTechnique?: () => void;
+  playFromKey?: () => void;
 }
 
 /** A rule's name, or "Pass" when no rule beats passing. */
@@ -161,6 +168,42 @@ function keyMoments(g: Game, act: ReviewActions): HTMLElement | null {
           ? h('button', { class: 'btn small ghost', type: 'button', style: 'margin-left:6px', onclick: () => act.retry!(g.cards.indexOf(m.e)) }, t.tryAgain)
           : null);
     })));
+}
+
+/**
+ * A technique deal: the key moment — found, missed, or never reached — with
+ * the walk's simulation, the principle, and the lesson that teaches it.
+ */
+function techniqueBox(g: Game, act: ReviewActions): HTMLElement | null {
+  const run = g.technique;
+  const out = g.techniqueOutcome();
+  if (!run || !out || out.status === 'ahead') return null;
+  const X = T.practice.techniques;
+  const td = run.deal;
+  const id = td.technique;
+  const trick = Math.floor(out.index / 4) + 1;
+  const reached = out.status === 'found' || out.status === 'missed';
+  const best = out.stats[0];
+  const mine = out.card !== undefined ? out.stats.find(s => s.c === out.card) : undefined;
+  const other = out.stats.find(s => !out.best.includes(s.c));
+  const statusLine = out.status === 'found' ? X.found(trick, cardName(out.card!))
+    : out.status === 'missed' ? X.missed(trick, cardName(out.card!), fmtList(out.best.map(cardName)))
+      : out.status === 'offScript' ? X.offScript(trick) : X.auto(trick);
+  const lessonId = TECHNIQUE_INFO[id].lesson;
+  const lesson = getLesson(lessonId);
+  return h('div', { class: `box techbox ${out.status === 'found' ? 'rightbox' : out.status === 'missed' ? 'warnbox' : ''}` },
+    h('h3', { style: 'margin:0' }, X.reviewTitle(X.names[id])),
+    h('p', { class: 'tline' }, h('b', null, suitText(statusLine))),
+    h('p', { class: 'tline small' }, suitText(X.simBest(td.n, cardName(best.c), fmtNum(best.t, 2), fmtPct(best.s))), ' ',
+      out.status === 'missed' && mine ? suitText(X.simYours(cardName(mine.c), fmtNum(mine.t, 2), fmtPct(mine.s)))
+        : other ? suitText(X.simOther(cardName(other.c), fmtNum(other.t, 2), fmtPct(other.s))) : null),
+    h('div', { class: 'principle' }, h('b', null, X.names[id]), suitText(X.why[id])),
+    out.status === 'missed' && !g.peeked ? h('p', { class: 'small muted', style: 'margin:8px 0 0' }, X.addedToReview) : null,
+    h('div', { class: 'pbtns' },
+      act.nextTechnique ? h('button', { class: 'btn primary small', type: 'button', onclick: () => act.nextTechnique!() }, X.next) : null,
+      reached && act.retry && g.canRewindTo(out.index) ? h('button', { class: 'btn small', type: 'button', onclick: () => act.retry!(out.index) }, X.tryAgain) : null,
+      !reached && act.playFromKey ? h('button', { class: 'btn small', type: 'button', onclick: () => act.playFromKey!() }, X.playFromKey) : null,
+      lesson && act.openLesson ? h('button', { class: 'btn small ghost', type: 'button', onclick: () => act.openLesson!(lessonId) }, suitText(T.practice.readLesson(lesson.title))) : null));
 }
 
 /** 0 partscore, 1 game, 2 slam. */
@@ -332,7 +375,7 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
   const tabs = h('div', { class: 'tabs', role: 'tablist' }, (['summary', 'bidding', 'play'] as const).map(k => h('button', { class: `tab ${tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { ui.reviewTab = k; act.rerender(); } }, t.tabs[k])));
   let body: HTMLElement;
   if (tab === 'summary') {
-    body = h('div', null, hero(g),
+    body = h('div', null, techniqueBox(g, act), hero(g),
       h('div', { class: 'grid2' },
         h('div', null, h('h3', null, t.takeaways), lessons(g), keyMoments(g, act), shareBox(g, act)),
         h('div', null, h('h3', null, t.theDeal), dealDiagram(g), h('h3', null, t.ddMakes), ddTableEl(g))));

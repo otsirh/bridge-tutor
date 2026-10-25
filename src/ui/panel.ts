@@ -110,8 +110,13 @@ function planBox(g: Game): HTMLElement | null {
         h('span', { class: 'mono' }, sp.dummy.map(rankLabel).join(' ') || '—'),
         h('span', { class: 'mono' }, String(plan.kind === 'winners' ? sp.winners : sp.losers)),
       ])),
-    plan.ideas.length ? h('ul', null, plan.ideas.map(i => h('li', null, suitText(i)))) : null,
+    plan.ideas.length && !ideasHidden(g) ? h('ul', null, plan.ideas.map(i => h('li', null, suitText(i)))) : null,
   );
+}
+
+/** Technique practice without hints: the plan's ideas could name the technique, so they wait until the key moment is behind you. */
+function ideasHidden(g: Game): boolean {
+  return !!g.technique && !g.technique.hints && g.techniqueOutcome()?.status === 'ahead';
 }
 
 /**
@@ -261,7 +266,10 @@ export function renderPanel(g: Game, ui: UIState, act: PanelActions): HTMLElemen
   if (g.isHumanTurn() && g.hint) {
     parts.push(h('h3', null, g.phase === 'bidding' ? t.yourCall : t.yourPlay));
     const show = g.settings.autoHint || g.hintRevealed;
-    if (!show) {
+    if (g.hint.kind === 'card' && g.hint.withheld) {
+      // technique practice: the key decision is yours to find
+      parts.push(h('div', { class: 'box small' }, T.practice.techniques.withheld));
+    } else if (!show) {
       parts.push(thinkFirst(g));
       parts.push(h('button', { class: 'reveal', type: 'button', onclick: () => g.revealHint() }, g.phase === 'bidding' ? t.showCall : t.showCard));
     } else if (g.hint.kind === 'bid') parts.push(bidAdviceBox(g.hint.advice));
@@ -307,7 +315,7 @@ export function panelSignature(g: Game, ui: UIState): string {
   return JSON.stringify([
     g.board, g.seed, g.phase, g.auction.calls.length, g.play ? g.play.history().length : -1, g.thinking, g.settings, g.hintRevealed,
     ui.selectedCall, g.warning ? [g.warning.kind, g.warning.kind === 'bid' ? g.warning.call : g.warning.card] : null,
-    hint ? (hint.kind === 'bid' ? ['b', hint.advice.call] : ['c', hint.pending, hint.done, hint.total, hint.decision?.card, hint.decision?.samples, hint.lead?.length]) : null,
+    hint ? (hint.kind === 'bid' ? ['b', hint.advice.call] : ['c', hint.pending, hint.done, hint.total, hint.decision?.card, hint.decision?.samples, hint.lead?.length, hint.withheld]) : null,
     g.feedback.length, g.isHumanTurn(), !!g.plan, ui.planCount,
   ]);
 }

@@ -21,6 +21,9 @@ import { type Settings, loadSettings, saveSettings, loadBoardNumber, saveBoardNu
 import { type ArchivedBoard, saveBoard, addItems, loadBoards, decodeDeal, updateLessonProgress } from './journal';
 import { archiveBoard, reviewItems, simVerdict, type FinishedBoard } from './record';
 import { dealForTheme, themeById, LESSON_THEMES } from './themes';
+import {
+  type TechniqueDeal, type TechniqueOutcome, TECHNIQUE_INFO, techniqueOutcome, scriptedCard, keyDecision, techniqueReviewItem, recordTechScore,
+} from './techniques';
 import { setSystem } from '../bidding/config';
 import { T, fmtLabel, fmtNum, fmtPct, fmtSigned } from '../i18n';
 
@@ -105,9 +108,20 @@ export interface DealSpec {
   board?: number;
 }
 
+/** A technique deal being played (src/game/techniques.ts). */
+export interface TechniqueRun {
+  deal: TechniqueDeal;
+  /** The technique was named before the hand (otherwise only in the review). */
+  hints: boolean;
+  /** Started at the key moment, the cards before it played for you. */
+  fromKey: boolean;
+  /** The outcome has been counted (score, review queue): once per deal, not again on a replay. */
+  counted: boolean;
+}
+
 export type Hint =
   | { kind: 'bid'; advice: BidAdvice }
-  | { kind: 'card'; decision: Decision | null; pending: boolean; done: number; total: number; lead?: LeadChoice[]; plan?: Plan | null };
+  | { kind: 'card'; decision: Decision | null; pending: boolean; done: number; total: number; lead?: LeadChoice[]; plan?: Plan | null; withheld?: boolean };
 
 export type Warning =
   | { kind: 'bid'; call: Call; advice: BidAdvice; failed: { text: string; value?: string }[]; yourMeaning: Meaning }
@@ -147,6 +161,8 @@ export class Game {
   plan: Plan | null = null;
   /** Practice theme this board was dealt for (src/game/themes.ts). */
   theme: string | null = null;
+  /** Technique practice: the deal and how it is played (null for any other board). */
+  technique: TechniqueRun | null = null;
   /** Theme of the board being dealt right now. */
   private dealingFor: string | null = null;
   /** Journal id of this board once finished (0 = not yet). */
@@ -206,7 +222,8 @@ export class Game {
     if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
     // convention switches take effect from the next deal, so a hand is always bid in one system
     setSystem(this.settings.conventions);
-    if (replay) return this.begin(true);
+    // a technique deal is played again from the same point, with its auction made
+    if (replay) return this.begin(true, this.techniquePreset());
     // nothing about the current board changes until the new deal is ready
     const board = this.seed ? this.board + 1 : this.board;
     const seed = (Math.random() * 2 ** 31) | 0;
@@ -215,7 +232,7 @@ export class Game {
     const theme = this.settings.theme && themeById(this.settings.theme) ? this.settings.theme : null;
     const start = (deal: Card[][]) => {
       if (board !== this.board) saveBoardNumber(board);
-      Object.assign(this, { board, seed, dealer, vul, theme, deal });
+      Object.assign(this, { board, seed, dealer, vul, theme, deal, technique: null });
       this.dealingFor = null;
       this.begin(false);
     };
@@ -239,11 +256,49 @@ export class Game {
     this.vul = spec.vul;
     this.deal = spec.deal.map(h => [...h]);
     this.theme = null;
+    this.technique = null;
     this.begin(true);
   }
 
-  /** Reset everything for the current deal and let the bots start. */
-  private begin(replay: boolean) {
+  /**
+   * Play a technique deal: the system's auction is already made and the play
+   * starts at once (from the key moment with `fromKey`, the cards before it
+   * played for you). The technique is named first only with `hints`.
+   */
+  playTechnique(td: TechniqueDeal, opts: { hints: boolean; fromKey?: boolean }) {
+    if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
+    setSystem(this.settings.conventions);
+    this.board = td.board;
+    this.seed ||= 1;
+    this.dealer = td.dealer;
+    this.vul = td.vul;
+    this.deal = decodeDeal(td.deal);
+    this.theme = null;
+    // the same deal again (from its key moment) is counted only if it wasn't already
+    const counted = this.technique?.deal.id === td.id && this.technique.counted;
+    this.technique = { deal: td, hints: opts.hints, fromKey: !!opts.fromKey, counted };
+    this.begin(true, this.techniquePreset());
+  }
+
+  private techniquePreset(): { calls: Call[]; play: Card[] } | undefined {
+    const run = this.technique;
+    return run ? { calls: run.deal.calls, play: run.fromKey ? run.deal.play : [] } : undefined;
+  }
+
+  /** How the technique deal is going: the key moment ahead, found, missed… (null when this is no technique deal). */
+  techniqueOutcome(): TechniqueOutcome | null {
+    const run = this.technique;
+    if (!run || !this.play) return null;
+    return techniqueOutcome(run.deal, this.cards.map(e => e.card), this.cards.map(e => e.human));
+  }
+
+  /** The technique deal's key moment is still to come: the tutor keeps its card advice to itself. */
+  private techniqueAhead(): boolean {
+    return this.techniqueOutcome()?.status === 'ahead';
+  }
+
+  /** Reset everything for the current deal and let the bots start (`preset`: an auction already made, and cards already played). */
+  private begin(replay: boolean, preset?: { calls: Call[]; play: Card[] }) {
     this.auction = new Auction(this.dealer);
     this.view = readAuction(this.auction, this.vul);
     this.play = null;
@@ -261,6 +316,18 @@ export class Game {
     this.hintRevealed = false;
     this.boardId = 0;
     this.peeked = this.settings.peek;
+    if (preset) {
+      for (const c of preset.calls) this.applyCall(c, false);
+      for (const c of preset.play) this.placeCard(c, false);
+    }
+    const run = this.technique;
+    if (run) {
+      const id = run.deal.technique;
+      this.feedback.unshift(note('info', () => {
+        const X = T.practice.techniques;
+        return { title: X.noteTitle, text: run.hints ? X.noteLookFor(X.names[id], X.descs[id]) : X.noteHidden };
+      }));
+    }
     this.gen++;
     this.busy = null;
     this.emit();
@@ -367,6 +434,11 @@ export class Game {
   /** A bot's card, and the signal it gives when the bot chose it as one. */
   private async botCard(seat: Seat): Promise<{ card: Card; signal?: Signal | null }> {
     const p = this.play!;
+    // a technique deal: the defenders play the walk's cards while your play follows it
+    if (this.technique) {
+      const scripted = scriptedCard(this.technique.deal, this.cards.map(e => e.card));
+      if (scripted !== null && p.isLegal(scripted)) return { card: scripted };
+    }
     if (!p.openingLeadMade) {
       const choices = openingLeadChoices(p.hands[seat], p.contract, this.view.records, seat);
       return { card: choices[0].card };
@@ -411,8 +483,8 @@ export class Game {
 
   private startPlay() {
     const c = this.auction.contract();
-    // bidding only: the auction is the whole board, scored with best play
-    if (!c || this.settings.biddingOnly) {
+    // bidding only: the auction is the whole board, scored with best play (a technique deal is played all the same)
+    if (!c || (this.settings.biddingOnly && !this.technique)) {
       this.phase = 'review';
       this.finishBoard();
       return;
@@ -425,7 +497,8 @@ export class Game {
     })));
   }
 
-  private async applyCard(card: Card, human: boolean, myGen = this.gen, advice?: Decision | null, signal?: Signal | null) {
+  /** Play a card on the table and log it; returns the trick it completed, if any. */
+  private placeCard(card: Card, human: boolean, advice?: Decision | null, signal?: Signal | null): Trick | null {
     const p = this.play!;
     const seat = p.toPlay;
     const principle = explainPlay(situationAt(p, seat), card);
@@ -437,8 +510,14 @@ export class Game {
       // dummy just came down: make the declarer plan
       this.plan = makePlan(p.hands[p.contract.declarer], p.hands[p.dummy], p.contract, [card]);
     }
+    if (done) this.displayTrick = done;
+    return done;
+  }
+
+  private async applyCard(card: Card, human: boolean, myGen = this.gen, advice?: Decision | null, signal?: Signal | null) {
+    const p = this.play!;
+    const done = this.placeCard(card, human, advice, signal);
     if (done) {
-      this.displayTrick = done;
       this.emit();
       if (!p.isOver) {
         const next = p.toPlay;
@@ -646,6 +725,12 @@ export class Game {
     const seat = p.toPlay;
     const lead = !p.openingLeadMade ? openingLeadChoices(p.hands[seat], p.contract, this.view.records, seat) : undefined;
     const legal = p.legal();
+    // technique practice: no card advice (and so no coach) until the key moment is behind you
+    if (legal.length > 1 && this.techniqueAhead()) {
+      this.hint = { kind: 'card', decision: null, pending: false, done: 0, total: 0, plan: this.plan, withheld: true };
+      this.emit();
+      return;
+    }
     this.hint = { kind: 'card', decision: null, pending: !lead && legal.length > 1, done: 0, total: 0, lead, plan: this.plan };
     if (legal.length === 1) {
       this.hint.decision = { card: legal[0], stats: [], samples: 0, equal: legal };
@@ -704,9 +789,27 @@ export class Game {
     const bidOnly = !!c && !this.play;
     this.review = { contract: c, declTricks, scoreNS: sc, table: null, par: null, impsVsPar: null, cards: this.cards.map(() => null), progress: 0, ddResult: null, sim: { done: 0, total: 0 }, bidOnly, system: null };
     if (c && !bidOnly) this.resultNote(c, declTricks, sc);
+    this.settleTechnique();
     this.record();
     this.emit();
     void this.analyzeReview();
+  }
+
+  /**
+   * A technique deal's key moment: the walk's simulation (more layouts than
+   * the check after the hand) becomes the verdict on your card there, and the
+   * outcome is counted once — in the score and, if missed, the review queue.
+   */
+  private settleTechnique() {
+    const run = this.technique;
+    const out = this.techniqueOutcome();
+    if (!run || !out || (out.status !== 'found' && out.status !== 'missed')) return;
+    this.cards[out.index].advice = keyDecision(run.deal, this.cards.map(e => e.card));
+    if (run.counted || this.peeked || this.archived) return;
+    run.counted = true;
+    recordTechScore(run.deal.technique, out.status === 'found');
+    if (out.status === 'missed') addItems([techniqueReviewItem(run.deal, out.scripted!)]);
+    updateLessonProgress(TECHNIQUE_INFO[run.deal.technique].lesson, lp => (lp.practiced = (lp.practiced ?? 0) + 1));
   }
 
   /** The made/down note in the tutor's feed. */
@@ -844,7 +947,12 @@ export class Game {
       bidOnly: rv.bidOnly,
     };
     saveBoard(archiveBoard(f));
-    if (!this.peeked) addItems(reviewItems(f, this.boardId));
+    if (!this.peeked) {
+      // a technique deal's key moment has its own review item (src/game/techniques.ts)
+      const key = this.techniqueOutcome();
+      const own = key && (key.status === 'found' || key.status === 'missed') ? `${this.boardId}:c:${key.index}` : null;
+      addItems(reviewItems(f, this.boardId).filter(i => i.id !== own));
+    }
     if (first && this.theme) {
       for (const [lesson, theme] of Object.entries(LESSON_THEMES)) if (theme === this.theme) updateLessonProgress(lesson, lp => (lp.practiced = (lp.practiced ?? 0) + 1));
     }

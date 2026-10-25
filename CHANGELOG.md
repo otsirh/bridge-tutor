@@ -33,6 +33,10 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - Three new lessons on competitive bidding: competing over the opponents' 1NT, competing over
   preempts, and what to do when they double our opening; three practice topics to go with them
   and six new glossary terms. Every hand and auction in them is checked against the bots.
+- Technique practice: whole deals where one declarer technique decides the contract — a finesse,
+  the hold-up, unblocking, drawing trumps, ruffing in the short hand, and the rarer duck or safety play —
+  played at the table with the auction made; the review shows the key moment with the simulation
+  and the lesson, and a miss comes back in the review queue. Lessons on these techniques link to it.
 
 ### Everywhere
 - Phones: one-row header, a compact table, and a bidding pad that shows a call's meaning before you make it.

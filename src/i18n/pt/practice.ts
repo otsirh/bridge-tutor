@@ -10,7 +10,7 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 export const practice: Text['practice'] = {
   title: 'Treino',
   close: 'Fechar',
-  tabs: { today: 'Hoje', review: 'Revisão', problems: 'Problemas', skills: 'Habilidades', topics: 'Temas', history: 'Histórico' },
+  tabs: { today: 'Hoje', review: 'Revisão', problems: 'Problemas', techniques: 'Técnicas', skills: 'Habilidades', topics: 'Temas', history: 'Histórico' },
 
   skills: {
     'bid.opening': { name: 'Abertura do leilão', desc: 'Se você deve abrir e qual abertura descreve a sua mão: 1 em naipe, 1ST, 2♣, dois fracos e barragens.' },
@@ -84,6 +84,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Primeira tentativa: ${right} de ${total} certas`,
   quizRetry: 'Refazer o teste',
   practicedCount: (n: number) => (n === 1 ? '1 mão treinada' : `${n} mãos treinadas`),
+  practiseTechnique: (name: string) => `Treinar a técnica: ${name}`,
+  practiseTechniqueText: 'Mãos inteiras em que ela decide o contrato, jogadas na mesa e explicadas depois.',
+  practiseTechniqueBtn: 'Treinar a técnica',
 
   // Today
   tileStreak: 'Dias seguidos',
@@ -110,6 +113,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Encontre a jogada certa',
   stepProblemsText: 'Problemas de mãos reais em que uma carta é claramente a melhor: carteio, defesa e saídas.',
   openProblems: 'Resolver problemas',
+  stepTechniquesTitle: 'Treine uma técnica de carteio',
+  stepTechniquesText: 'Mãos inteiras em que uma técnica decide o contrato — finesse, deixar passar, desbloqueio, manejo dos trunfos — explicadas depois da mão.',
+  openTechniques: 'Treinar técnicas',
   howItWorks: 'Cada mão que você termina é guardada com a análise. As vozes que diferem do sistema e as cartas que foram claramente piores com a informação que você tinha (não só em retrospecto) vão para a sua fila de revisão.',
 
   // Review
@@ -122,6 +128,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Mão nova, mesma ideia',
   itemFromDrill: (date: string) => `do exercício de leilão, ${date}`,
   itemFromProblem: (date: string) => `de um problema, ${date}`,
+  itemFromTechnique: (date: string) => `do treino de técnicas, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nova' : `etapa ${box} de ${last}`),
   dueLeft: (n: number) => `${n} para hoje`,
   next: 'Próxima',
@@ -203,6 +210,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Jogar esta mão desde o início',
     declarerTag: 'declarante',
     dummyTag: 'morto',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Mãos inteiras em que uma técnica do declarante decide o contrato. Jogue a mão na mesa; depois, a análise mostra o momento-chave — se você encontrou a técnica, com a simulação que comprova — e a lição que a ensina. Cada mão é marcada pelo sistema e testada por simulação usando só o que o declarante podia ver.',
+    filterLabel: 'Técnica',
+    any: 'Todas',
+    names: {
+      finesse: 'Finesse',
+      holdUp: 'Deixar passar',
+      duck: 'Ceder uma vaza',
+      unblock: 'Desbloqueio',
+      drawTrumps: 'Tirar os trunfos',
+      ruffShort: 'Cortar na mão curta',
+      safety: 'Jogada de segurança',
+    },
+    descs: {
+      finesse: 'Jogue a carta que ganha quando a honra que falta está com o defensor que já jogou — a dama de A-Q, ou o rei em cuja direção você jogou.',
+      holdUp: 'Em sem trunfo, deixe os defensores ganharem o naipe deles uma ou duas vezes antes de usar o seu controle.',
+      duck: 'Ceda cedo uma rodada do seu naipe longo, enquanto a mão longa guarda as cartas altas como entradas.',
+      unblock: 'Jogue primeiro as cartas altas da mão mais curta, para ainda conseguir chegar à mão longa.',
+      drawTrumps: 'Tire os trunfos dos defensores antes que eles possam cortar as suas vencedoras.',
+      ruffShort: 'Corte perdedoras na mão com menos trunfos: cada corte ali é uma vaza a mais.',
+      safety: 'Abra mão de uma possível vaza a mais para garantir o contrato.',
+    },
+    why: {
+      finesse: 'Uma finesse ganha sempre que as cartas mais altas que lhe faltam estão com o defensor que já jogou na vaza: então a sua honra (ou a do parceiro, que você deixa correr) faz a vaza. Aqui essa era claramente a melhor chance: bater uma carta mais alta só rende se a honra que falta cair, e jogar baixo entrega a vaza.',
+      holdUp: 'Deixar passar: ao não ganhar logo o naipe dos defensores, você esgota o defensor que tem menos cartas dele. Se esse defensor ganhar a mão mais tarde, não terá carta do naipe para devolver, e as cartas longas nunca chegam a ser batidas. Ganhe a primeira rodada, e os defensores poderão bater o naipe assim que qualquer um deles entrar na mão.',
+      duck: 'Ceder uma rodada do seu naipe longo entrega cedo uma vaza — normalmente uma que você perderia de qualquer jeito — enquanto a mão longa ainda tem as cartas altas. Quando você recuperar a mão, ainda chega às cartas longas; ganhe as primeiras rodadas, e as últimas podem ficar isoladas, sem como alcançá-las.',
+      unblock: 'Desbloqueio: jogue primeiro as cartas altas da mão mais curta. Assim as últimas cartas do naipe ficam na mão longa e você ainda tem uma carta baixa para chegar a elas; jogue primeiro as honras da mão longa, e o naipe fica bloqueado, com as cartas longas fora de alcance.',
+      drawTrumps: 'Tirar os trunfos: enquanto os defensores tiverem trunfos, podem cortar as suas vencedoras nos naipes laterais. Cada rodada de trunfo tira um de cada defensor; aqui, tirá-los logo foi claramente o melhor.',
+      ruffShort: 'Cortar na mão curta: um corte na mão com menos trunfos é uma vaza a mais, porque esses trunfos não fariam vazas sozinhos; cortar na mão longa não rende nada a mais. Faça isso enquanto a mão curta ainda tem trunfos — tirar os trunfos antes poderia acabar com eles.',
+      safety: 'Uma jogada de segurança: outra carta fez mais vazas em média, mas esta cumpriu o contrato com mais frequência. Ela abre mão de uma possível vaza a mais para se proteger das distribuições em que a jogada mais ambiciosa falha — quando o contrato está em jogo, jogue pelo contrato.',
+    },
+    hints: 'Dizer a técnica antes da mão',
+    hintsNote: 'Desligado: a análise diz qual técnica a mão pedia, como seria na mesa.',
+    play: 'Jogar uma mão',
+    ready: (n: number) => (n === 1 ? '1 mão pronta' : `${n} mãos prontas`),
+    score: (right: number, done: number) => `Encontradas: ${right} de ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Lição: ${title}`,
+    preparing: 'Preparando uma mão…',
+    waitNote: 'Só ficam as mãos em que a técnica decide claramente o contrato, então encontrar uma pode levar alguns minutos. Elas são preparadas em segundo plano enquanto esta aba está aberta e enquanto você joga uma mão de técnica; até 3 de cada técnica ficam guardadas para a próxima vez. Algumas técnicas aparecem raramente (ceder uma vaza, desbloqueio, cortar na mão curta, jogadas de segurança): essas demoram mais.',
+
+    // at the table
+    noteTitle: 'Treino de técnicas',
+    noteHidden: 'Uma decisão desta mão pede uma técnica do declarante. Encontre-a: o tutor guarda os conselhos de carta até esse momento passar, e a análise explica.',
+    noteLookFor: (name: string, desc: string) => `Procure: ${name}. ${desc} O tutor guarda os conselhos de carta até esse momento passar.`,
+    withheld: 'Treino de técnicas: esta decisão é sua. Os conselhos de carta do tutor voltam quando o momento-chave tiver passado.',
+
+    // the review
+    reviewTitle: (name: string) => `A técnica: ${name}`,
+    found: (trick: number, card: string) => `Encontrou: ${card} na vaza ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `Na vaza ${trick} você jogou ${card}; a técnica era ${best}.`,
+    offScript: (trick: number) => `O carteio seguiu outro caminho antes do momento-chave (vaza ${trick}), por isso ele não apareceu. Jogue a mão a partir do momento-chave para tentar.`,
+    auto: (trick: number) => `O momento-chave (vaza ${trick}) foi jogado automaticamente, por uma reivindicação ou ao jogar a mão até o fim.`,
+    simBest: (n: number, best: string, t: string, s: string) => `Em ${n} distribuições compatíveis com o leilão e o carteio até ali, ${best} fez em média ${t} vazas e cumpriu o contrato em ${s} dos casos.`,
+    simYours: (card: string, t: string, s: string) => `A sua carta, ${card}: ${t} vazas, cumpriu em ${s} dos casos.`,
+    simOther: (card: string, t: string, s: string) => `A melhor das outras, ${card}: ${t} vazas, cumpriu em ${s} dos casos.`,
+    tryAgain: 'Tentar o momento-chave de novo',
+    playFromKey: 'Jogar a partir do momento-chave',
+    next: 'Próxima mão de técnica',
+    addedToReview: 'Adicionado à sua fila de revisão: o momento-chave volta até você acertar.',
   },
 
   // Skills

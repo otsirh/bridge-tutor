@@ -10,7 +10,7 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 export const practice: Text['practice'] = {
   title: 'Entrenamiento',
   close: 'Cerrar',
-  tabs: { today: 'Hoy', review: 'Repaso', problems: 'Problemas', skills: 'Habilidades', topics: 'Temas', history: 'Historial' },
+  tabs: { today: 'Hoy', review: 'Repaso', problems: 'Problemas', techniques: 'Técnicas', skills: 'Habilidades', topics: 'Temas', history: 'Historial' },
 
   skills: {
     'bid.opening': { name: 'Abrir la subasta', desc: 'Si abrir o no, y qué apertura describe tu mano: uno a palo, 1SA, 2♣, aperturas de dos débil y barrages.' },
@@ -84,6 +84,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Al primer intento: ${right} de ${total} correctas`,
   quizRetry: 'Repetir el test',
   practicedCount: (n: number) => (n === 1 ? '1 mano practicada' : `${n} manos practicadas`),
+  practiseTechnique: (name: string) => `Practicar la técnica: ${name}`,
+  practiseTechniqueText: 'Manos completas en las que decide el contrato, jugadas en la mesa y explicadas después.',
+  practiseTechniqueBtn: 'Practicar la técnica',
 
   // Today
   tileStreak: 'Días seguidos',
@@ -110,6 +113,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Encuentra la jugada correcta',
   stepProblemsText: 'Problemas sacados de manos reales en los que una carta es claramente la mejor: carteo del declarante, defensa y salidas.',
   openProblems: 'Resolver problemas',
+  stepTechniquesTitle: 'Practica una técnica del declarante',
+  stepTechniquesText: 'Manos completas en las que una técnica decide el contrato (impasse, hold-up, desbloqueo, manejo de los triunfos), explicadas después de la mano.',
+  openTechniques: 'Practicar técnicas',
   howItWorks: 'Cada mano que terminas se guarda con su análisis. Las voces que se apartan del sistema y las cartas que eran claramente peores con la información que tenías (no solo a toro pasado) van a tu cola de repaso.',
 
   // Review
@@ -122,6 +128,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Mano nueva, misma idea',
   itemFromDrill: (date: string) => `de la práctica de subasta, ${date}`,
   itemFromProblem: (date: string) => `de un problema, ${date}`,
+  itemFromTechnique: (date: string) => `de la práctica de técnicas, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nueva' : `paso ${box} de ${last}`),
   dueLeft: (n: number) => plural(n, 'pendiente', 'pendientes'),
   next: 'Siguiente',
@@ -203,6 +210,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Jugar esta mano desde el principio',
     declarerTag: 'declarante',
     dummyTag: 'muerto',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Manos completas en las que una técnica del declarante decide el contrato. Juega la mano en la mesa; después, el análisis muestra el momento clave —si encontraste la técnica, con la simulación que lo respalda— y la lección que la enseña. Cada mano la declara el sistema y se comprueba por simulación solo con lo que el declarante podía ver.',
+    filterLabel: 'Técnica',
+    any: 'Todas',
+    names: {
+      finesse: 'Impasse',
+      holdUp: 'Hold-up',
+      duck: 'Agacharse',
+      unblock: 'Desbloqueo',
+      drawTrumps: 'Destriunfar',
+      ruffShort: 'Fallar en la mano corta',
+      safety: 'Jugada de seguridad',
+    },
+    descs: {
+      finesse: 'Juega la carta que gana cuando el honor que falta está en el defensor que ya ha jugado: la Dama del A-Q, o el Rey hacia el que jugaste.',
+      holdUp: 'A sin triunfo, deja que los defensores ganen su palo una o dos veces antes de usar tu control.',
+      duck: 'Cede pronto una vuelta de tu palo largo mientras la mano larga conserva sus cartas altas como entradas.',
+      unblock: 'Juega primero las cartas altas de la mano más corta, para poder llegar todavía a la mano larga.',
+      drawTrumps: 'Quita los triunfos a los defensores antes de que puedan fallar tus ganadoras.',
+      ruffShort: 'Falla perdedoras en la mano con menos triunfos: cada fallo allí es una baza extra.',
+      safety: 'Renuncia a una posible baza de más para asegurar el contrato.',
+    },
+    why: {
+      finesse: 'Un impasse gana siempre que las cartas más altas que te faltan estén en el defensor que ya ha jugado a la baza: entonces tu honor (o el de tu compañero, que dejas correr) se lleva la baza. Aquí era claramente la mejor opción: cobrar una carta más alta solo sirve si el honor que falta cae, y jugar bajo regala la baza.',
+      holdUp: 'El hold-up: al no ganar enseguida el palo de los defensores, dejas sin cartas del palo al defensor que tiene menos. Si ese defensor toma la mano más tarde, no le queda carta del palo para devolver, y las cartas largas nunca llegan a cobrarse. Si ganas la primera vuelta, los defensores pueden cobrar su palo en cuanto cualquiera de ellos entre en mano.',
+      duck: 'Agacharte en una vuelta de tu palo largo cede pronto una baza —normalmente una que perderías de todos modos— mientras la mano larga conserva sus cartas altas. Cuando recuperes la mano todavía podrás llegar a las cartas largas; si ganas las primeras vueltas, las últimas pueden quedar aisladas, sin forma de alcanzarlas.',
+      unblock: 'Desbloqueo: juega primero las cartas altas de la mano más corta. Así las últimas cartas del palo quedan en la mano larga y aún tienes una carta baja para llegar a ellas; si juegas primero los honores de la mano larga, el palo se bloquea y las cartas largas quedan aisladas.',
+      drawTrumps: 'Destriunfar: mientras los defensores tengan triunfos, pueden fallar tus ganadoras de los palos laterales. Cada vuelta de triunfo les quita uno a cada uno; aquí destriunfar enseguida fue claramente lo mejor.',
+      ruffShort: 'Fallar en la mano corta: un fallo en la mano con menos triunfos es una baza extra, porque esos triunfos no harían bazas por sí mismos; fallar en la mano larga no añade nada. Hazlo mientras la mano corta aún tenga triunfos: destriunfar antes podría quitárselos.',
+      safety: 'Una jugada de seguridad: otra carta hizo más bazas de media, pero esta cumplió el contrato más a menudo. Renuncia a una posible baza de más para protegerse de los repartos en los que la jugada más ambiciosa fracasa: cuando el contrato está en juego, juega para cumplirlo.',
+    },
+    hints: 'Nombrar la técnica antes de la mano',
+    hintsNote: 'Desactivado: el análisis te dice qué técnica necesitaba la mano, como pasaría en la mesa.',
+    play: 'Jugar una mano',
+    ready: (n: number) => (n === 1 ? '1 mano lista' : `${n} manos listas`),
+    score: (right: number, done: number) => `Encontradas: ${right} de ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Lección: ${title}`,
+    preparing: 'Preparando una mano…',
+    waitNote: 'Solo se conservan las manos en las que la técnica decide claramente el contrato, así que encontrar una puede llevar unos minutos. Se preparan en segundo plano mientras esta pestaña está abierta y mientras juegas una mano de técnica; se guardan hasta 3 de cada técnica para la próxima vez. Algunas técnicas aparecen pocas veces (agacharse, desbloqueo, fallar en la mano corta, jugadas de seguridad): esas tardan más.',
+
+    // at the table
+    noteTitle: 'Práctica de técnicas',
+    noteHidden: 'Una decisión de esta mano requiere una técnica del declarante. Encuéntrala: el tutor se guarda sus consejos de carta hasta que ese momento haya pasado, y el análisis te lo explica.',
+    noteLookFor: (name: string, desc: string) => `Busca: ${name}. ${desc} El tutor se guarda sus consejos de carta hasta que ese momento haya pasado.`,
+    withheld: 'Práctica de técnicas: esta decisión es tuya. Los consejos de carta del tutor vuelven cuando el momento clave haya pasado.',
+
+    // the review
+    reviewTitle: (name: string) => `La técnica: ${name}`,
+    found: (trick: number, card: string) => `¡La encontraste! ${card} en la baza ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `En la baza ${trick} jugaste ${card}; la técnica era ${best}.`,
+    offScript: (trick: number) => `El carteo tomó otro camino antes del momento clave (baza ${trick}), así que no llegó a presentarse. Juega la mano desde el momento clave para intentarlo.`,
+    auto: (trick: number) => `El momento clave (baza ${trick}) se jugó por ti, con una reclamación o jugando la mano hasta el final.`,
+    simBest: (n: number, best: string, t: string, s: string) => `En ${n} repartos compatibles con la subasta y el carteo hasta ese momento, ${best} hizo una media de ${t} bazas y cumplió el contrato el ${s} de las veces.`,
+    simYours: (card: string, t: string, s: string) => `Tu ${card}: ${t} bazas, cumplió el ${s} de las veces.`,
+    simOther: (card: string, t: string, s: string) => `La mejor de las demás, ${card}: ${t} bazas, cumplió el ${s} de las veces.`,
+    tryAgain: 'Intentar de nuevo el momento clave',
+    playFromKey: 'Jugar desde el momento clave',
+    next: 'Siguiente mano de técnica',
+    addedToReview: 'Añadido a tu cola de repaso: el momento clave volverá hasta que lo resuelvas bien.',
   },
 
   // Skills

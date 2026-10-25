@@ -8,7 +8,7 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 export const practice = {
   title: 'Training',
   close: 'Close',
-  tabs: { today: 'Today', review: 'Review', problems: 'Problems', skills: 'Skills', topics: 'Topics', history: 'History' },
+  tabs: { today: 'Today', review: 'Review', problems: 'Problems', techniques: 'Techniques', skills: 'Skills', topics: 'Topics', history: 'History' },
 
   skills: {
     'bid.opening': { name: 'Opening the bidding', desc: 'Whether to open, and which opening describes your hand: one of a suit, 1NT, 2♣, weak twos and preempts.' },
@@ -82,6 +82,9 @@ export const practice = {
   quizScore: (right: number, total: number) => `First try: ${right} of ${total} right`,
   quizRetry: 'Try the quiz again',
   practicedCount: (n: number) => (n === 1 ? '1 board practised' : `${n} boards practised`),
+  practiseTechnique: (name: string) => `Practise the technique: ${name}`,
+  practiseTechniqueText: 'Whole deals where it decides the contract, played at the table and explained afterwards.',
+  practiseTechniqueBtn: 'Practise the technique',
 
   // Today
   tileStreak: 'Days in a row',
@@ -108,6 +111,9 @@ export const practice = {
   stepProblemsTitle: 'Find the right play',
   stepProblemsText: 'Problems from real deals where one card is clearly best: declarer play, defence and opening leads.',
   openProblems: 'Solve problems',
+  stepTechniquesTitle: 'Practise a declarer technique',
+  stepTechniquesText: 'Whole deals where one technique decides the contract — a finesse, the hold-up, unblocking, trump play — explained after the hand.',
+  openTechniques: 'Practise techniques',
   howItWorks: 'Every board you finish is saved with its analysis. Calls that differ from the system and cards that were clearly worse with the information you had (not just in hindsight) go into your review queue.',
 
   // Review
@@ -120,6 +126,7 @@ export const practice = {
   freshDeal: 'New deal, same idea',
   itemFromDrill: (date: string) => `from the bidding drill, ${date}`,
   itemFromProblem: (date: string) => `from a problem, ${date}`,
+  itemFromTechnique: (date: string) => `from technique practice, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'new' : `step ${box} of ${last}`),
   dueLeft: (n: number) => `${n} due`,
   next: 'Next',
@@ -201,6 +208,69 @@ export const practice = {
     playFromStart: 'Play this deal from the start',
     declarerTag: 'declarer',
     dummyTag: 'dummy',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Whole deals where one declarer technique decides the contract. Play the hand at the table; the review then shows the key moment — whether you found the technique, with the simulation behind it — and the lesson that teaches it. Each deal is bid by the system and tested by simulation with only what declarer could see.',
+    filterLabel: 'Technique',
+    any: 'Any',
+    names: {
+      finesse: 'Finesse',
+      holdUp: 'Hold-up',
+      duck: 'Ducking',
+      unblock: 'Unblocking',
+      drawTrumps: 'Drawing trumps',
+      ruffShort: 'Ruffing in the short hand',
+      safety: 'Safety play',
+    },
+    descs: {
+      finesse: 'Play the card that wins when the missing honour sits with the defender who has already played — the queen from A Q, or the king you led towards.',
+      holdUp: 'Against notrump, let the defenders win their suit once or twice before you take your stopper.',
+      duck: 'Give up an early round of your long suit while the long hand keeps its high cards as entries.',
+      unblock: 'Play the high cards of the shorter hand first, so you can still reach the long hand.',
+      drawTrumps: 'Take the defenders’ trumps before they can ruff your winners.',
+      ruffShort: 'Ruff losers in the hand with fewer trumps: each ruff there is an extra trick.',
+      safety: 'Give up a possible overtrick to make sure of the contract.',
+    },
+    why: {
+      finesse: 'A finesse wins whenever the higher cards you are missing are with the defender who has already played to the trick: then your honour (or partner’s, left to run) holds the trick. Here that was clearly the best chance: cashing a higher card instead gains only if the missing honour drops, and playing low gives the trick away.',
+      holdUp: 'The hold-up: by refusing to win the defenders’ suit at once, you exhaust the defender who has fewer cards in it. If that defender gains the lead later, there is no card of the suit left to return, and the long cards never run. Win the first round and the defenders can cash their suit as soon as either of them gets in.',
+      duck: 'Ducking a round of your long suit gives up a trick early — usually one you would lose anyway — while the long hand still has its high cards. When you regain the lead you can still reach the long cards; win the early rounds and the last ones may be stranded with no way to reach them.',
+      unblock: 'Unblocking: play the high cards from the shorter hand first. Then the last cards of the suit are in the long hand and you still hold a low card to reach them; play the long hand’s honours first and the suit blocks, with the long cards stranded.',
+      drawTrumps: 'Drawing trumps: while the defenders still hold trumps, they can ruff your winners in the side suits. Each round of trumps takes one from each defender; here drawing them now did clearly better than anything else.',
+      ruffShort: 'Ruffing in the short hand: a ruff in the hand with fewer trumps is an extra trick, since those trumps would take no tricks of their own; ruffing in the long hand makes nothing extra. Do it while the short hand still has trumps — drawing trumps first could take them away.',
+      safety: 'A safety play: another card took more tricks on average, but this one made the contract more often. It gives up a possible overtrick to guard against the layouts where the greedier play fails — when the contract is at stake, play for the contract.',
+    },
+    hints: 'Name the technique before the hand',
+    hintsNote: 'Off: the review tells you which technique the deal needed, as it would be at the table.',
+    play: 'Play a deal',
+    ready: (n: number) => (n === 1 ? '1 deal ready' : `${n} deals ready`),
+    score: (right: number, done: number) => `Found: ${right} of ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Lesson: ${title}`,
+    preparing: 'Preparing a deal…',
+    waitNote: 'Only deals where the technique clearly decides the contract are kept, so finding one can take a few minutes. They are prepared in the background while this tab is open and while you play a technique deal; up to 3 of each technique are kept for next time. Some techniques come up rarely (ducking, unblocking, ruffing in the short hand, safety plays): those take longer.',
+
+    // at the table
+    noteTitle: 'Technique practice',
+    noteHidden: 'One decision in this hand calls for a declarer technique. Find it: the tutor keeps its card advice to itself until that moment is behind you, and the review explains it.',
+    noteLookFor: (name: string, desc: string) => `Look for: ${name}. ${desc} The tutor keeps its card advice to itself until that moment is behind you.`,
+    withheld: 'Technique practice: this decision is up to you. The tutor’s card advice comes back once the key moment is behind you.',
+
+    // the review
+    reviewTitle: (name: string) => `The technique: ${name}`,
+    found: (trick: number, card: string) => `You found it: ${card} at trick ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `At trick ${trick} you played ${card}; the technique was ${best}.`,
+    offScript: (trick: number) => `The play took another path before the key moment (trick ${trick}), so it did not come up. Play the deal from the key moment to try it.`,
+    auto: (trick: number) => `The key moment (trick ${trick}) was played for you, by a claim or by playing the hand out.`,
+    simBest: (n: number, best: string, t: string, s: string) => `In ${n} layouts that fit the bidding and the play so far, ${best} averaged ${t} tricks and made the contract ${s} of the time.`,
+    simYours: (card: string, t: string, s: string) => `Your ${card}: ${t} tricks, made ${s}.`,
+    simOther: (card: string, t: string, s: string) => `The best other card, ${card}: ${t} tricks, made ${s}.`,
+    tryAgain: 'Try the key moment again',
+    playFromKey: 'Play from the key moment',
+    next: 'Next technique deal',
+    addedToReview: 'Added to your review queue: the key moment comes back until you get it right.',
   },
 
   // Skills
