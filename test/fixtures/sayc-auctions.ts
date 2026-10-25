@@ -68,6 +68,11 @@
 //
 // Over their 1NT there is no suit of theirs to cue bid, so the advancer raises
 // partner's overcall naturally instead of bidding an artificial 3♣: 134.
+//
+// Making the bots bid what the lessons teach then changed these:
+// - when they bid over partner's single raise, three of opener's suit only
+//   competes, by the Law of Total Tricks (no game invitation, no automatic
+//   pass): 10, 124, 165, 169, 201.
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -80,7 +85,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1D P 1H P 2C P P P',
   '1C P 1S P 1NT P 2NT P P P',
   'P 1C P 1D P 1S P P P',
-  'P P 1D X 2D 2H P P P',
+  'P P 1D X 2D 2H 3D P P P',
   'P 1S P 2C P 3S P 4S P 4NT P 5C P 6S P P P',
   'P 1D P P P',
   'P P 1C P 1D P 1S P P P',
@@ -194,7 +199,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1D P 1S P 2C P 4S P P P',
   'P 1NT P 2D P 2H P 4H P P P',
   '1C 2S 3C 4S P P P',
-  '1D 1NT 2D 2H P P P',
+  '1D 1NT 2D 2H 3D 3H P 4H P P P',
   '2H P 3H P P P',
   '1NT P 2D P 2H P 2NT P 4H P P P',
   'P 1NT P 2C P 2D P 2NT P P P',
@@ -235,11 +240,11 @@ export const SAYC_AUCTIONS: string[] = [
   'P P 1C P 1H P 1S P 2NT P 3NT P P P',
   '1D P 2C P 2D P 4D P 4NT P 5C P 6D P P P',
   'P 1D 1H 1S 2H P P P',
-  '1D 1H 2D 2H P P P',
+  '1D 1H 2D 2H 3D P P P',
   '1S P 2S P 3S P 4S P P P',
   '1D P 1H P 1NT P 3NT P P P',
   'P P 1NT P 2C P 2D P 3NT P P P',
-  'P P 1C 1H 2C 2H P P P',
+  'P P 1C 1H 2C 2H 3C P P P',
   '1D 3C P P P',
   '1H 1S 2S P 4H P P 5C P P P',
   '1S P P P',
@@ -271,7 +276,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1S 3D 4S P P P',
   '1H 3C P P X P 4H P P P',
   'P 1S P 2D P 3D P 3NT P P P',
-  '1H P 2H 2S 3H 3S 4H P P P',
+  '1H P 2H 2S 3H 3S P P 4H P P P',
   'P 1H 1S P P 2H 2S P P 3H 3S P P P',
   '1D P 3D P 4D P 5D P P P',
   '2C P 2D P 2NT P 3NT P P P',

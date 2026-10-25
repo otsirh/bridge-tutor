@@ -113,6 +113,9 @@ export function openerRebidOneSuit(x: Ctx, open: number, resp: CallRecord): Rule
     if (resp.meaning.shown.hcp[1] < 10 && lvl >= 3) return []; // a preemptive raise: use judgment
     if (lvl === 2) {
       rules.push(R(bid(4, open), 'game', t.gameAfterRaise, [declC(open, 19)]));
+      // they bid over the raise: three of our suit only competes, and whether to is
+      // the Law of Total Tricks (general judgment)
+      if (!x.weHoldContract()) return rules;
       rules.push(R(bid(3, open), 'invitation', t.inviteAfterRaise, [declC(open, 16, 18)], { tag: 'invite' }));
       if (open < HEARTS) rules.push(R(bid(2, NT), 'invitation', t.twoNtAfterRaise, [hcpC(18, 19), balancedC()], { tag: 'invite' }));
       rules.push(R(PASS, 'pass', t.passAfterRaise, [], { shows: s => { s.hcp = [s.hcp[0], Math.min(s.hcp[1], 16)]; } }));
