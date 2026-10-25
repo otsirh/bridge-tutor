@@ -132,6 +132,32 @@ test('problems: solve a ready problem, a miss goes to review, then the next one 
   expect(errors).toEqual([]);
 });
 
+test('technique practice: a ready deal starts at the play, the technique named only when asked', async ({ page }) => {
+  const errors = await open(page);
+  await page.locator('header button', { hasText: 'Training' }).click();
+  await page.locator('.modal .tab', { hasText: 'Techniques' }).click();
+  await expect(page.locator('.tfilter .btn')).toHaveCount(8);
+  await page.locator('.tfilter .btn', { hasText: 'Finesse' }).click();
+  await expect(page.locator('.tdesc')).toContainText('Finesse');
+  // name the technique before the hand (a switch, by keyboard)
+  const hints = page.locator('.thints [role="switch"]');
+  await expect(hints).toHaveAttribute('aria-checked', 'false');
+  await hints.focus();
+  await page.keyboard.press('Space');
+  await expect(hints).toHaveAttribute('aria-checked', 'true');
+  await page.locator('.tplay .btn.primary').click();
+  await expect(page.locator('.modal')).toHaveCount(0);
+  const state = await page.evaluate(() => {
+    const g = (window as unknown as { __bridge: { phase: string; technique: { deal: { technique: string } } | null; auction: { calls: number[] } } }).__bridge;
+    return { phase: g.phase, technique: g.technique?.deal.technique, calls: g.auction.calls.length };
+  });
+  expect(state.phase).toBe('play');
+  expect(state.technique).toBe('finesse');
+  expect(state.calls).toBeGreaterThan(3);
+  await expect(page.locator('.panel')).toContainText('Look for: Finesse');
+  expect(errors).toEqual([]);
+});
+
 test('lesson quiz progress is saved', async ({ page }) => {
   const errors = await open(page);
   await page.locator('header button', { hasText: 'Learn' }).click();

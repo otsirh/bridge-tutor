@@ -296,6 +296,8 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
   const ranks = (seat: Seat, s: number) => suitCards(deal[seat], s).map(rankOf);
   const len = (seat: Seat, s: number) => ranks(seat, s).length;
   const sides = [0, 1, 2, 3].filter(s => s !== trump);
+  /** Aces and kings a hand holds outside a suit (in notrump; in a suit contract trumps are entries too). */
+  const sideEntries = (seat: Seat, s: number) => [0, 1, 2, 3].filter(x => x !== s).reduce((n, x) => n + ranks(seat, x).filter(r => r >= 13).length + (x === trump && len(seat, x) ? 1 : 0), 0);
   switch (t) {
     case 'holdUp': {
       // the leader's long suit against a lone ace, and too few top tricks to make it without losing the lead
@@ -308,24 +310,29 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
       return top < contract.level + 6 && len(ranks(decl, s).includes(14) ? decl : dummy, s) >= 2;
     }
     case 'duck':
-      return sides.some(s => {
-        const a = len(decl, s);
-        const b = len(dummy, s);
-        const ours = [...ranks(decl, s), ...ranks(dummy, s)];
-        return a + b >= 7 && Math.max(a, b) >= 5 && Math.min(a, b) <= 3 && ours.includes(14) && !(ours.includes(13) && ours.includes(12) && ours.includes(11));
-      });
+      // a long suit with the ace in a hand that has hardly any way back to it, a round to lose, a short holding opposite
+      return sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([long, short]) => {
+        const ours = [...ranks(long, s), ...ranks(short, s)];
+        return len(long, s) >= 5 && len(short, s) >= 1 && len(short, s) <= 3 && ranks(long, s).includes(14)
+          && !(ours.includes(13) && ours.includes(12) && ours.includes(11)) && sideEntries(long, s) <= 1;
+      }));
     case 'unblock':
+      // an honour in a short holding opposite a long, strong one, the long hand short of other entries
       return sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([short, long]) => {
         const a = len(short, s);
-        return a >= 1 && a <= 3 && len(long, s) >= 4 && ranks(short, s).some(r => r >= 11) && ranks(long, s).filter(r => r >= 10).length >= 2;
+        return a >= 1 && a <= 3 && len(long, s) >= 4 && ranks(short, s).some(r => r >= 11) && ranks(long, s).filter(r => r >= 10).length >= 2 && sideEntries(long, s) <= 1;
       }));
     case 'ruffShort': {
       if (trump === NT || len(decl, trump) === len(dummy, trump)) return false;
       const [long, short] = len(decl, trump) > len(dummy, trump) ? [decl, dummy] : [dummy, decl];
       return len(short, trump) >= 2 && sides.some(s => len(short, s) <= 2 && len(long, s) > len(short, s));
     }
-    case 'drawTrumps':
-      return trump !== NT;
+    case 'drawTrumps': {
+      // the top trumps, so that any trump draws theirs
+      if (trump === NT) return false;
+      const ours = [...ranks(decl, trump), ...ranks(dummy, trump)];
+      return [14, 13, 12].every(r => ours.includes(r)) && ours.length >= 8;
+    }
     default:
       return true;
   }
@@ -334,11 +341,13 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
 /**
  * Like a problem, but the alternatives to a technique are usually natural
  * plays (taking the trick, cashing the ace), so a large gap is no reason to
- * reject a position. The margin is the one defence problems use (the same
- * layouts are compared for every card, so 15 points of success is a clear
- * difference); the technique must also decide the contract (decisive).
+ * reject a position, and "any low card but not the ace" is exactly what a
+ * hold-up or a duck is (a problem would call that no problem). The margin is
+ * the one defence problems use (the same layouts are compared for every card,
+ * so 15 points of success is a clear difference); the technique must also
+ * decide the contract (decisive).
  */
-export const TECHNIQUE_RULES: AcceptRules = { ...DEFAULT_RULES, successGap: 0.15, trickGap: 0.6, blunderSuccess: 2, blunderTricks: 99 };
+export const TECHNIQUE_RULES: AcceptRules = { ...DEFAULT_RULES, successGap: 0.15, trickGap: 0.6, blunderSuccess: 2, blunderTricks: 99, maxShare: 1 };
 /** The technique must give the contract a fair chance: a deal where even the right play usually fails teaches little. */
 export const MIN_SUCCESS = 0.5;
 

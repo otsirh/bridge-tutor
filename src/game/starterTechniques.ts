@@ -1,8 +1,17 @@
 // Ready-made technique deals for a new player's first visit, so the first one
 // starts at once instead of after the minute or so generation can take. Made
-// by generateTechnique (src/game/techniques.ts); more are generated in the
-// background as usual. Language-independent data.
+// by generateTechnique (src/game/techniques.ts) with 64 layouts at the key
+// moment; more are generated in the background as usual. Language-independent
+// data.
 
+// biome-ignore-all lint/suspicious/noApproximativeNumericConstant: simulation averages (3.141 tricks is not π)
 import type { TechniqueDeal } from './techniques';
 
-export const STARTER_TECHNIQUES: TechniqueDeal[] = [];
+export const STARTER_TECHNIQUES: TechniqueDeal[] = [
+  {"v": 1, "id": "starter-finesse-80001", "kind": "declarer", "theme": "nt-games", "board": 10, "dealer": 1, "vul": "Both", "deal": "2013020230013232103013312231311003112200032112312320", "calls": [0, 7, 0, 17, 0, 0, 0], "play": [14, 17, 23, 13, 43, 45, 46, 51, 39, 44, 50, 41, 0, 3], "seat": 0, "skill": "play.declarer", "n": 64, "stats": [{"c": 10, "t": 8.813, "s": 0.844}, {"c": 9, "t": 8.813, "s": 0.844}, {"c": 6, "t": 8.219, "s": 0.484}, {"c": 4, "t": 8.219, "s": 0.484}, {"c": 1, "t": 7.625, "s": 0.156}], "answer": [10, 9], "created": 0, "technique": "finesse"},
+  {"v": 1, "id": "starter-finesse-80003", "kind": "declarer", "theme": "declarer", "board": 5, "dealer": 0, "vul": "NS", "deal": "1332332010012110133300020301021222121102333321003122", "calls": [0, 0, 5, 0, 9, 0, 11, 0, 20, 0, 0, 0], "play": [4], "seat": 0, "skill": "play.declarer", "n": 64, "stats": [{"c": 10, "t": 10.031, "s": 0.922}, {"c": 9, "t": 10.031, "s": 0.922}, {"c": 7, "t": 9.531, "s": 0.5}], "answer": [10, 9], "created": 0, "technique": "finesse"},
+  {"v": 1, "id": "starter-holdUp-20004", "kind": "declarer", "theme": "nt-games", "board": 4, "dealer": 3, "vul": "Both", "deal": "1202103120020101333110212220330221021010333230131332", "calls": [16, 0, 0, 17, 0, 0, 0], "play": [50, 39, 48], "seat": 2, "skill": "play.declarer", "n": 64, "stats": [{"c": 43, "t": 10.109, "s": 1}, {"c": 51, "t": 8.891, "s": 0.813}], "answer": [43], "created": 0, "technique": "holdUp"},
+  {"v": 1, "id": "starter-holdUp-30002", "kind": "declarer", "theme": "nt-games", "board": 13, "dealer": 0, "vul": "Both", "deal": "1120330230300331002231022321332132011200112022131310", "calls": [7, 0, 8, 0, 9, 0, 12, 0, 17, 0, 0, 0], "play": [41, 42, 49], "seat": 0, "skill": "play.declarer", "n": 64, "stats": [{"c": 43, "t": 9.016, "s": 0.734}, {"c": 39, "t": 9.016, "s": 0.734}, {"c": 51, "t": 8.563, "s": 0.563}], "answer": [43, 39], "created": 0, "technique": "holdUp"},
+  {"v": 1, "id": "starter-holdUp-30006", "kind": "declarer", "theme": "nt-games", "board": 14, "dealer": 1, "vul": "None", "deal": "1012231211332320000021303032331230121023013110212302", "calls": [0, 3, 0, 4, 0, 5, 0, 17, 0, 0, 0], "play": [9], "seat": 2, "skill": "play.declarer", "n": 64, "stats": [{"c": 7, "t": 10, "s": 0.906}, {"c": 4, "t": 10, "s": 0.906}, {"c": 3, "t": 10, "s": 0.906}, {"c": 12, "t": 9.734, "s": 0.719}], "answer": [7, 4, 3], "created": 0, "technique": "holdUp"},
+  {"v": 1, "id": "starter-drawTrumps-90014", "kind": "declarer", "theme": "suit-games", "board": 5, "dealer": 0, "vul": "NS", "deal": "3101102000223312101333310002311032123131022120332022", "calls": [0, 0, 6, 0, 16, 0, 21, 0, 0, 0], "play": [22, 24, 18, 15, 40, 39, 48, 46], "seat": 2, "skill": "play.declarer", "n": 64, "stats": [{"c": 51, "t": 10, "s": 1}, {"c": 50, "t": 10, "s": 1}, {"c": 44, "t": 10, "s": 1}, {"c": 42, "t": 10, "s": 1}, {"c": 41, "t": 10, "s": 1}, {"c": 35, "t": 9.594, "s": 0.688}, {"c": 33, "t": 9.594, "s": 0.688}, {"c": 27, "t": 9.594, "s": 0.688}, {"c": 11, "t": 9.563, "s": 0.656}, {"c": 10, "t": 9.563, "s": 0.656}, {"c": 6, "t": 9.563, "s": 0.656}], "answer": [51, 50, 44, 42, 41], "created": 0, "technique": "drawTrumps"},
+];

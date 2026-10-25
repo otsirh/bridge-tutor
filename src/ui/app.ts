@@ -242,6 +242,8 @@ export function mountApp(root: HTMLElement) {
     },
     replay: () => {
       ui.modal = null;
+      // the same board again: its review opens again at the end
+      ui.autoOpenedReview = '';
       game.newDeal(true);
       render(true);
     },

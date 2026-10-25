@@ -269,17 +269,20 @@ describe('the bank of ready deals', () => {
 });
 
 describe('finding deals', () => {
-  const quick = { screenMs: 1e9, extraMs: 1e9, botMs: 1e9, dealBudgetMs: 1e9, now: () => 1 };
+  const quick = { extraSamples: 48, screenMs: 1e9, extraMs: 1e9, botMs: 1e9, dealBudgetMs: 1e9, now: () => 1 };
 
-  it('finds a technique on known seeds, and the stored position gives the same technique again', async () => {
+  it('finds a hold-up on known seeds, and the stored position gives the same technique again', async () => {
     let found: TechniqueDeal | null = null;
-    // seeds known to give a deal (deterministic: unlimited time), others in case the bidding changes
-    for (const seed of [111, 103, 119, 140, 202]) {
-      found = await generateTechnique(seed, quick);
+    // seeds known to give one (deterministic: unlimited time), others in case the bidding changes
+    for (const seed of [20004, 30002, 20000, 20001, 20002]) {
+      found = await generateTechnique(seed, { ...quick, want: 'holdUp' });
       if (found) break;
     }
     expect(found).not.toBeNull();
     const td = found!;
+    expect(td.technique).toBe('holdUp');
+    expect(td.theme).toBe('nt-games');
+    expect(td.play.length).toBeLessThan(8);
     expect(validTechnique(JSON.parse(JSON.stringify(td)))).toBe(true);
     const { play, auction } = problemPosition(td);
     expect(play.toPlay).toBe(td.seat);
