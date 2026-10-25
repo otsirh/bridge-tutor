@@ -52,8 +52,24 @@ function write(key: string, value: unknown) {
   }
 }
 
+const CHOICES: Partial<Record<keyof Settings, readonly unknown[]>> = {
+  speed: ['slow', 'normal', 'fast'],
+  dealMode: ['random', 'declare', 'defend', 'slam', 'competitive', 'strong'],
+  strength: ['quick', 'standard', 'deep'],
+};
+
 export function loadSettings(): Settings {
-  return { ...DEFAULT_SETTINGS, ...read(KEY_SETTINGS, DEFAULT_SETTINGS) };
+  const s: Settings = { ...DEFAULT_SETTINGS, ...read(KEY_SETTINGS, DEFAULT_SETTINGS) };
+  // a value from an older version or an edited backup falls back to the default rather than stopping the table
+  const fix = s as unknown as Record<string, unknown>;
+  for (const k of Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]) {
+    const def = DEFAULT_SETTINGS[k];
+    const choices = CHOICES[k];
+    if (choices ? !choices.includes(fix[k]) : def !== null && typeof fix[k] !== typeof def) fix[k] = def;
+  }
+  if (s.theme !== null && typeof s.theme !== 'string') s.theme = null;
+  if (!s.conventions || typeof s.conventions !== 'object' || Array.isArray(s.conventions)) s.conventions = {};
+  return s;
 }
 
 export function saveSettings(s: Settings) {

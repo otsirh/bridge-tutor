@@ -19,12 +19,12 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%231f5a43%27/%3E%3Ctext x=%2732%27 y=%2746%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23f4f1e8%27%3E%E2%99%A0%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- the fonts load without holding up the first paint (system fonts until they arrive) -->
+    <!-- the fonts load without holding up the first paint (system fonts until they arrive; src/main.ts applies them) -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Prata&family=Lora:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap&subset=cyrillic"
       media="print"
-      onload="this.media='all'"
+      data-fonts
     />
     <noscript>
       <link

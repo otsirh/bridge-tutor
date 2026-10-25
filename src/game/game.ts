@@ -18,7 +18,7 @@ import { makePlan, type Plan } from '../tutor/planner';
 import { masksOf } from '../engine/dds';
 import { ddPool } from '../engine/pool';
 import { type Settings, loadSettings, saveSettings, loadBoardNumber, saveBoardNumber, type DealMode } from './storage';
-import { type ArchivedBoard, saveBoard, addItems, loadBoards, decodeDeal, updateLessonProgress } from './journal';
+import { type ArchivedBoard, saveBoard, addItems, removeItems, loadBoards, decodeDeal, updateLessonProgress } from './journal';
 import { archiveBoard, reviewItems, simVerdict, type FinishedBoard } from './record';
 import { dealForTheme, themeById, LESSON_THEMES } from './themes';
 import {
@@ -173,6 +173,8 @@ export class Game {
   peeked = false;
   private gen = 0;
   private hintGen = 0;
+  /** Stops the tutor's card simulation once its hint is no longer wanted. */
+  private hintSim: AbortController | null = null;
   private reviewGroup = 0;
   private snapshots: Snapshot[] = [];
   private listeners = new Set<() => void>();
@@ -194,6 +196,11 @@ export class Game {
   }
 
   /** What the computer is doing, in the active language (null when it's idle). */
+  /** The computer is playing out the rest of the hand. */
+  get playingOut(): boolean {
+    return this.busy === 'playout';
+  }
+
   get thinking(): string | null {
     if (this.busy === null) return null;
     if (this.busy === 'dealing') {
@@ -314,6 +321,7 @@ export class Game {
     this.plan = null;
     this.snapshots = [];
     this.hintRevealed = false;
+    this.hintSim?.abort();
     this.boardId = 0;
     this.peeked = this.settings.peek;
     if (preset) {
@@ -556,6 +564,7 @@ export class Game {
     if (auto) this.calls[this.calls.length - 1].auto = true;
     this.hint = null;
     this.hintRevealed = false;
+    this.hintSim?.abort();
     this.gen++;
     this.emit();
     void this.run();
@@ -593,6 +602,7 @@ export class Game {
     }
     this.hint = null;
     this.hintRevealed = false;
+    this.hintSim?.abort();
     this.gen++;
     const myGen = this.gen;
     await this.applyCard(card, true, myGen, decision);
@@ -635,6 +645,7 @@ export class Game {
     if (!this.play) this.plan = null;
     this.hint = null;
     this.hintRevealed = false;
+    this.hintSim?.abort();
     this.emit();
     void this.run();
   }
@@ -658,10 +669,13 @@ export class Game {
   }
 
   /** Claim the rest: accepted when your side can take every remaining trick against any defence. */
-  async claim(): Promise<string> {
+  async claim(): Promise<string | null> {
     if (!this.play || this.phase !== 'play' || this.declarerSide !== 0) return T.ui.game.claimOnlyDeclarer;
+    if (this.busy === 'playout') return null;
     const p = this.play;
+    const myGen = this.gen;
     const res = await ddPool().run({ kind: 'value', pos: { masks: masksOf(p.hands), trump: p.trump, leader: p.current.leader, trick: [...p.current.cards] } }, 5);
+    if (myGen !== this.gen || this.play !== p) return null; // the hand moved on (a card, undo or a new deal) while checking
     if (res.kind !== 'value') return T.ui.game.claimUnchecked;
     const remaining = 13 - p.completedTricks.length;
     if (res.value < remaining) return T.ui.game.claimNotYet(remaining - res.value, remaining);
@@ -671,7 +685,7 @@ export class Game {
 
   /** Let the computer play out the rest of the hand. */
   async playOut() {
-    if (!this.play || this.phase !== 'play') return;
+    if (!this.play || this.phase !== 'play' || this.busy === 'playout') return;
     this.snapshot();
     this.gen++;
     await this.finishWithBestPlay();
@@ -683,8 +697,10 @@ export class Game {
     const myGen = this.gen;
     this.busy = 'playout';
     this.emit();
-    while (!p.isOver && myGen === this.gen) {
+    while (!p.isOver) {
       const moves = await ddCardValues(p.hands, p.trump, p.current.leader, p.current.cards, 5);
+      // a new deal, undo or rewind took over while solving: this hand is no longer ours to touch
+      if (myGen !== this.gen) return;
       const side = p.toPlay & 1;
       const best = moves.reduce((a, b) => ((side === 0 ? b.nsTricks > a.nsTricks : b.nsTricks < a.nsTricks) ? b : a), moves[0]);
       const card = best ? best.card : p.legal()[0];
@@ -695,15 +711,20 @@ export class Game {
       if (done) this.displayTrick = done;
     }
     this.busy = null;
-    if (p.isOver && myGen === this.gen) {
-      this.phase = 'review';
-      this.finishBoard();
-    }
+    this.phase = 'review';
+    this.finishBoard();
     this.emit();
   }
 
   // ---------------------------------------------------------------------------
   // tutor hints
+
+  /** A new hint, or none: the simulation for the old one stops, so the bots don't queue behind it. */
+  private stopHintSim(): AbortSignal {
+    this.hintSim?.abort();
+    this.hintSim = new AbortController();
+    return this.hintSim.signal;
+  }
 
   revealHint() {
     this.hintRevealed = true;
@@ -739,7 +760,7 @@ export class Game {
     if (lead || legal.length === 1) return;
     const e = EFFORT[this.settings.strength];
     void decideCard(this.knowledge(seat), {
-      samples: e.hint, timeMs: e.hintTime, minSamples: 12, priority: 4,
+      samples: e.hint, timeMs: e.hintTime, minSamples: 12, priority: 4, signal: this.stopHintSim(),
       onProgress: (done, total) => {
         if (myHint !== this.hintGen || !this.hint || this.hint.kind !== 'card') return;
         this.hint.done = done;
@@ -764,7 +785,7 @@ export class Game {
     this.emit();
     const e = EFFORT[this.settings.strength];
     void decideCard(this.knowledge(seat), {
-      samples: Math.max(24, e.hint >> 1), timeMs: e.hintTime * 3, minSamples: 12, priority: 4,
+      samples: Math.max(24, e.hint >> 1), timeMs: e.hintTime * 3, minSamples: 12, priority: 4, signal: this.stopHintSim(),
       onProgress: (done, total) => {
         if (myHint !== this.hintGen || !this.hint || this.hint.kind !== 'card') return;
         this.hint.done = done;
@@ -951,11 +972,22 @@ export class Game {
       // a technique deal's key moment has its own review item (src/game/techniques.ts)
       const key = this.techniqueOutcome();
       const own = key && (key.status === 'found' || key.status === 'missed') ? `${this.boardId}:c:${key.index}` : null;
-      addItems(reviewItems(f, this.boardId).filter(i => i.id !== own));
+      const items = reviewItems(f, this.boardId).filter(i => i.id !== own);
+      // played again after undo: mistakes from the earlier attempt that were not repeated go
+      removeItems(`${this.boardId}:`, new Set([...items.map(i => i.id), ...(own ? [own] : [])]));
+      addItems(items);
     }
     if (first && this.theme) {
       for (const [lesson, theme] of Object.entries(LESSON_THEMES)) if (theme === this.theme) updateLessonProgress(lesson, lp => (lp.practiced = (lp.practiced ?? 0) + 1));
     }
+  }
+
+  /** A game nobody shows any more (a closed archived board): stop its analysis and forget its listeners. */
+  dispose() {
+    this.gen++;
+    if (this.reviewGroup) ddPool().cancelGroup(this.reviewGroup);
+    this.hintSim?.abort();
+    this.listeners.clear();
   }
 
   /** A finished board from the journal, ready to show in the review (nothing is recorded again). */

@@ -227,9 +227,12 @@ function belt(g: Game, ui: UIState, act: TableActions): HTMLElement {
   items.push(h('span', { class: 'spacer' }));
   if (g.phase === 'bidding' && g.isHumanTurn()) items.push(h('button', { class: 'btn small', type: 'button', onclick: () => g.autoCall(), title: t.bidForMeTitle }, t.bidForMe));
   if (g.phase === 'play' && g.declarerSide === 0) {
-    items.push(h('button', { class: 'btn small', type: 'button', disabled: !g.isHumanTurn(), onclick: async () => act.toast(await g.claim()) }, t.claim));
+    items.push(h('button', { class: 'btn small', type: 'button', disabled: !g.isHumanTurn(), onclick: async () => {
+      const msg = await g.claim();
+      if (msg) act.toast(msg);
+    } }, t.claim));
   }
-  if (g.phase === 'play') items.push(h('button', { class: 'btn small', type: 'button', onclick: () => void g.playOut(), title: t.playOutTitle }, t.playOut));
+  if (g.phase === 'play') items.push(h('button', { class: 'btn small', type: 'button', disabled: g.playingOut, onclick: () => void g.playOut(), title: t.playOutTitle }, t.playOut));
   items.push(h('button', { class: 'btn small', type: 'button', disabled: !g.canUndo, onclick: () => g.undo(), title: t.undoTitle }, t.undo));
   if (g.phase === 'review') {
     items.push(h('button', { class: 'btn small', type: 'button', onclick: () => act.openReview() }, t.review));

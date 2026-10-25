@@ -192,6 +192,7 @@ button { font: inherit; color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-height: 24px; /* the minimum target size for a tap */
   padding: 0;
   border: 0;
   background: none;

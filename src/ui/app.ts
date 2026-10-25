@@ -3,14 +3,15 @@
 import { type Call, callName, contractName, isBid, levelOf, strainOf } from '../core/auction';
 import { SEAT_NAMES, STRAIN_NAMES, SUIT_NAME_SINGULAR, cardLongName, type Seat } from '../core/cards';
 import { Game } from '../game/game';
-import type { Settings, DealMode } from '../game/storage';
+import { type Settings, type DealMode, saveBoardNumber } from '../game/storage';
+import { updateReady } from './update';
 import { T, LANGUAGES, type Lang, lang, isLang, setLang, saveLang, onLangChange, fmtLabel } from '../i18n';
 import { h, Region, suitText } from './dom';
 import { renderTable, tableSignature, bidPreview, tableStatus } from './table';
 import { renderPanel, panelSignature } from './panel';
 import { renderReview, reviewSignature } from './review';
 import { renderLearn, relocalizeDrills } from './learn';
-import { renderTraining, trainingSignature, dueCount, setTrainingTab, showTechniques, takeTechnique, startTechniqueFactory, type TrainingActions } from './training';
+import { renderTraining, trainingSignature, trainingTab, RESTORED_KEY, dueCount, setTrainingTab, showTechniques, takeTechnique, startTechniqueFactory, type TrainingActions } from './training';
 import type { TechniqueDeal } from '../game/techniques';
 import { getBoard, decodeDeal, loadBoards } from '../game/journal';
 import { FIRST_LESSON, ensureLessons, lessonsReady } from '../learn/lessons';
@@ -185,7 +186,15 @@ export function mountApp(root: HTMLElement) {
     }
     confirmNew = false;
     ui.selectedCall = null;
+    if (moveToNewVersion()) return;
     game.newDeal();
+  }
+  /** A new version took over while this tab was open: the next deal starts in it (src/ui/update.ts). */
+  function moveToNewVersion(): boolean {
+    if (!updateReady()) return false;
+    if (game.seed) saveBoardNumber(game.board + 1);
+    location.reload();
+    return true;
   }
   /** The control that opened the dialog: focus goes back to it on close. */
   let opener: HTMLElement | null = null;
@@ -257,6 +266,7 @@ export function mountApp(root: HTMLElement) {
     next: () => {
       ui.modal = null;
       ui.selectedCall = null;
+      if (moveToNewVersion()) return;
       game.newDeal();
       render(true);
     },
@@ -283,6 +293,7 @@ export function mountApp(root: HTMLElement) {
 
   /** Play a deal from outside (archive, import, a shared link). */
   function playDeal(spec: Parameters<Game['playDeal']>[0]) {
+    viewer?.dispose();
     viewer = null;
     ui.modal = null;
     ui.selectedCall = null;
@@ -292,6 +303,7 @@ export function mountApp(root: HTMLElement) {
 
   /** Play a technique deal (from its key moment with `fromKey`); more are prepared while it is played. */
   function playTechnique(td: TechniqueDeal, fromKey = false) {
+    viewer?.dispose();
     viewer = null;
     ui.modal = null;
     ui.selectedCall = null;
@@ -324,6 +336,7 @@ export function mountApp(root: HTMLElement) {
     openArchived: id => {
       const rec = getBoard(id);
       if (!rec) return;
+      viewer?.dispose();
       viewer = Game.fromArchive(rec);
       viewer.onChange(() => render());
       ui.modal = 'archive';
@@ -356,6 +369,7 @@ export function mountApp(root: HTMLElement) {
     rerender: () => render(true),
     toast: actions.toast,
     close: () => {
+      viewer?.dispose();
       viewer = null;
       ui.modal = 'training';
       render(true);
@@ -463,6 +477,11 @@ export function mountApp(root: HTMLElement) {
 
   function render(forceModal = false) {
     needLessons();
+    // an archived board's analysis stops as soon as its review is no longer shown
+    if (viewer && ui.modal !== 'archive') {
+      viewer.dispose();
+      viewer = null;
+    }
     rHeader.update(JSON.stringify([game.board, game.dealer, game.vul, game.contract, game.settings.tutor, game.settings.theme, dueNow(), confirmNew]), () => renderHeader());
     rTable.update(tableSignature(game, ui), () => renderTable(game, ui, actions));
     main.className = `main ${game.settings.tutor ? '' : 'solo'}`;
@@ -492,7 +511,7 @@ export function mountApp(root: HTMLElement) {
       else if (ui.modal === 'welcome') content = renderWelcome();
       else content = renderSettings();
       return h('div', { class: 'scrim', onclick: (e: Event) => { if (e.target === e.currentTarget) actions.close(); } }, content);
-    });
+    }, [ui.modal, ui.modal === 'learn' ? `${ui.learnTab}:${ui.lessonId}` : ui.modal === 'training' ? trainingTab() : ui.reviewTab].join('|'));
     manageDialogFocus();
   }
 
@@ -585,5 +604,18 @@ export function mountApp(root: HTMLElement) {
   const shared = location.hash.match(/[#&]b=([A-Za-z0-9_-]+)/);
   if (!shared && firstVisit()) ui.modal = 'welcome';
   render(true);
-  if (shared) training.importDeal(shared[0]);
+  if (shared) {
+    const err = training.importDeal(shared[0]);
+    if (err) actions.toast(err);
+    // the link has done its job: a reload starts a fresh deal, and a broken link doesn't linger
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  try {
+    if (sessionStorage.getItem(RESTORED_KEY)) {
+      sessionStorage.removeItem(RESTORED_KEY);
+      actions.toast(T.practice.restored);
+    }
+  } catch {
+    /* storage unavailable */
+  }
 }

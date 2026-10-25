@@ -54,21 +54,41 @@ function usable(el: HTMLElement): boolean {
  */
 export class Region {
   private sig = '';
+  private view: string | undefined;
   private lost: { key: string; group: string | null; index: number } | null = null;
   constructor(public el: HTMLElement) {}
-  update(signature: string, render: () => Child) {
+  /**
+   * `view` names what is shown (a dialog and its tab): while it stays the same
+   * the scroll position is kept, both the region's own and that of its outer
+   * element (a dialog's scrim); a new view starts at the top.
+   */
+  update(signature: string, render: () => Child, view?: string) {
     if (signature === this.sig) return;
     this.sig = signature;
-    const scroll = this.el.scrollTop;
+    const keep = view === this.view;
+    this.view = view;
+    const scroll = keep ? this.el.scrollTop : 0;
+    const inner = keep ? ((this.el.firstElementChild as HTMLElement | null)?.scrollTop ?? 0) : 0;
     const active = document.activeElement;
     if (active instanceof HTMLElement && active !== this.el && this.el.contains(active)) {
       const key = focusKey(active);
       const same = [...this.el.querySelectorAll(FOCUSABLE)].filter(e => focusKey(e) === key);
       this.lost = { key, group: active.dataset.fg ?? null, index: same.indexOf(active) };
     }
-    clear(this.el);
-    append(this.el, [render()]);
+    const before = [...this.el.childNodes];
+    try {
+      clear(this.el);
+      append(this.el, [render()]);
+    } catch (e) {
+      // a failed redraw keeps what was shown (and is retried on the next change) rather than leaving a blank region
+      clear(this.el);
+      append(this.el, before);
+      this.sig = '';
+      console.error(e);
+    }
     this.el.scrollTop = scroll;
+    const outer = this.el.firstElementChild as HTMLElement | null;
+    if (outer) outer.scrollTop = inner;
     this.restoreFocus();
   }
   private restoreFocus() {

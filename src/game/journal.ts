@@ -67,6 +67,14 @@ export function encodeDeal(deal: readonly (readonly Card[])[]): string {
   return out.join('');
 }
 
+/** A stored deal string is well formed: 52 seat digits, 13 cards each. */
+export function validDeal(s: unknown): s is string {
+  if (typeof s !== 'string' || !/^[0-3]{52}$/.test(s)) return false;
+  const n = [0, 0, 0, 0];
+  for (const ch of s) n[+ch]++;
+  return n.every(x => x === 13);
+}
+
 export function decodeDeal(s: string): Card[][] {
   const hands: Card[][] = [[], [], [], []];
   for (let c = 0; c < 52; c++) hands[+s[c]].push(c);
@@ -168,9 +176,16 @@ function write(key: string, value: unknown): boolean {
   }
 }
 
+// damaged records (an edited backup, a partial write) are skipped rather than breaking every reader
+const validBoard = (x: ArchivedBoard) =>
+  !!x && x.v === 1 && typeof x.id === 'number' && validDeal(x.deal) && Array.isArray(x.calls) && Array.isArray(x.cards);
+
+const validItem = (i: ReviewItem) =>
+  !!i && typeof i.id === 'string' && (i.kind === 'bid' || i.kind === 'card') && validDeal(i.deal) && Array.isArray(i.calls) && Array.isArray(i.answer) && typeof i.seat === 'number';
+
 export function loadBoards(): ArchivedBoard[] {
   const b = read<ArchivedBoard[]>(KEY_BOARDS, []);
-  return Array.isArray(b) ? b.filter(x => x && x.v === 1) : [];
+  return Array.isArray(b) ? b.filter(validBoard) : [];
 }
 
 export function saveBoard(rec: ArchivedBoard) {
@@ -190,7 +205,7 @@ export function getBoard(id: number): ArchivedBoard | undefined {
 
 export function loadItems(): ReviewItem[] {
   const r = read<ReviewItem[]>(KEY_REVIEW, []);
-  return Array.isArray(r) ? r : [];
+  return Array.isArray(r) ? r.filter(validItem) : [];
 }
 
 export function saveItems(items: ReviewItem[]) {

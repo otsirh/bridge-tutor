@@ -47,6 +47,8 @@ export interface DecideOptions {
   priority?: number;
   seed?: number;
   onProgress?: (done: number, total: number) => void;
+  /** Abandon the simulation (its queued layouts are dropped); it resolves with what is in. */
+  signal?: AbortSignal;
 }
 
 let groupCounter = 1;
@@ -151,17 +153,20 @@ export async function decideCard(k: PlayKnowledge, opts: DecideOptions = {}): Pr
     // (timers longer than 2^31 − 1 ms fire at once, so a practically unlimited budget gets no deadline)
     const limit = Math.max(3 * timeMs, timeMs + 5000);
     const deadline = limit < 2 ** 31 - 1 ? setTimeout(() => finish(), limit) : undefined;
+    const timer = setTimeout(() => {
+      if (done >= minSamples) finish();
+    }, timeMs);
     const finish = () => {
       if (finished) return;
       finished = true;
       clearTimeout(deadline);
+      clearTimeout(timer);
+      opts.signal?.removeEventListener('abort', finish);
       pool.cancelGroup(group);
       resolve();
     };
-    if (!layouts.length) finish();
-    const timer = setTimeout(() => {
-      if (done >= minSamples) finish();
-    }, timeMs);
+    opts.signal?.addEventListener('abort', finish);
+    if (!layouts.length || opts.signal?.aborted) finish();
     let outstanding = layouts.length;
     for (const lay of layouts) {
       const pos: DDPosition = { masks: masksOf(lay.hands), trump: k.contract.strain, leader: cur.leader, trick: [...cur.cards] };

@@ -54,6 +54,21 @@ function serviceWorker(): Plugin {
   };
 }
 
+/** The headers public/_headers gives every path (`/*`), for `vite preview` to send as Cloudflare does. */
+function siteHeaders(): Record<string, string> {
+  const out: Record<string, string> = {};
+  let all = false;
+  for (const line of readFileSync('public/_headers', 'utf8').split('\n')) {
+    if (!line.trim() || line.startsWith('#')) continue;
+    if (!/^\s/.test(line)) all = line.trim() === '/*';
+    else if (all) {
+      const i = line.indexOf(':');
+      out[line.slice(0, i).trim()] = line.slice(i + 1).trim();
+    }
+  }
+  return out;
+}
+
 // `vite build`: the website (Cloudflare) — code-split, one chunk per language.
 // `vite build --mode single`: one self-contained dist-single/index.html (the
 // worker and every language inlined), for hosts that take a single page.
@@ -63,9 +78,10 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [siteUrl(), serviceWorker(), ...(single ? [viteSingleFile()] : [])],
     worker: { format: 'es' },
-    // The main chunk holds the engine, the UI and English (text and lessons), all needed at start:
-    // about 620 kB, 190 kB gzipped. Other languages are separate chunks.
+    // The main chunk holds the engine, the UI and the English text, all needed at start: about
+    // 420 kB, 130 kB gzipped. Other languages and the lessons are separate chunks.
     build: { target: 'es2022', outDir: single ? 'dist-single' : 'dist', chunkSizeWarningLimit: 800 },
+    preview: { headers: siteHeaders() },
     test: { environment: 'node', setupFiles: ['test/setup.ts'], exclude: ['**/node_modules/**', '**/dist/**', '.claude/**', 'e2e/**'] },
   };
 });

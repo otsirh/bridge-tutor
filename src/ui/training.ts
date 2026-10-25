@@ -11,7 +11,7 @@ import { imps } from '../core/scoring';
 import { readAuction, advise, judgeCall } from '../bidding/engine';
 import { decideCard, type Decision } from '../engine/playEngine';
 import { explainPlay, type PlaySituation } from '../tutor/principles';
-import { T, fmtDate, fmtLabel, fmtList, fmtNum, fmtPct } from '../i18n';
+import { T, fmtDate, fmtLabel, fmtList, fmtNum, fmtPct, fmtSigned } from '../i18n';
 import { getLessons, getLesson } from '../learn/lessons';
 import {
   type ArchivedBoard, type ReviewItem, loadBoards, loadItems, dueItems, answerItem, updateItem, decodeDeal, addItems,
@@ -826,8 +826,13 @@ function historyTab(act: TrainingActions): HTMLElement {
   const restore = (file: File) => {
     void file.text().then(text => {
       if (importAll(text)) {
-        act.toast(T.practice.restored);
-        act.rerender();
+        // settings, language and progress are read at start-up: start again with the restored ones
+        try {
+          sessionStorage.setItem(RESTORED_KEY, '1');
+        } catch {
+          /* the toast is only a courtesy */
+        }
+        location.reload();
       } else act.toast(T.practice.restoreFailed);
     });
   };
@@ -842,9 +847,9 @@ function historyTab(act: TrainingActions): HTMLElement {
       h('td', null, fmtDate(b.id)),
       h('td', null, String(b.board)),
       h('td', null, suitText(contractName(c)), c ? ` ${SEAT_LETTERS[c.declarer]}` : ''),
-      h('td', null, result === null ? '—' : result === 0 ? '=' : result > 0 ? `+${result}` : String(result)),
+      h('td', null, result === null ? '—' : result === 0 ? '=' : fmtSigned(result)),
       h('td', null, String(b.scoreNS)),
-      h('td', null, vsPar === null ? '—' : (vsPar > 0 ? '+' : '') + vsPar),
+      h('td', null, vsPar === null ? '—' : fmtSigned(vsPar)),
       h('td', null, mine.length ? `${mine.filter(x => x.a === x.c).length}/${mine.length}` : '—'),
       h('td', null, b.cards.some(x => x.h) ? `${mistakes} · ${lost}` : '—'),
       h('td', { class: 'acts' },
@@ -894,6 +899,12 @@ export function renderTraining(act: TrainingActions): HTMLElement {
 }
 
 /** Signature for re-rendering: changes when anything shown can change. */
+/** Set before the reload that applies a restored backup, so the restart can say so. */
+export const RESTORED_KEY = 'bridge-tutor.restored';
+
+/** The Training room's open tab (a new tab starts at the top of the dialog). */
+export const trainingTab = () => state.tab;
+
 export function trainingSignature(): string {
   const d = state.drill;
   const ps = state.problems;

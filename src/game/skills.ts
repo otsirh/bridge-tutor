@@ -107,22 +107,29 @@ export function decisions(boards: readonly ArchivedBoard[]): Decision[] {
   const out: Decision[] = [];
   for (const b of boards) {
     if (b.peek) continue;
-    const calls: Call[] = [];
-    for (const c of b.calls) {
-      if (c.h && c.a !== undefined) out.push({ skill: bidSkill(b.dealer, calls, c.a), ok: c.a === c.c, board: b.id, weight: c.g ? 0.5 : 1 });
-      calls.push(c.c);
-    }
-    const auction = new Auction(b.dealer, calls);
-    const contract = auction.isComplete() ? auction.contract() : null;
-    if (!contract) continue;
-    const play = new PlayState(contract, decodeDeal(b.deal));
-    b.cards.forEach((card, i) => {
-      const seat = play.toPlay;
-      if (card.h && card.sim && card.sim.best.length < play.legal().length) {
-        out.push({ skill: cardSkill(contract.declarer, seat, i === 0), ok: !clearCardMistake(card.sim, card.c), board: b.id, weight: 1 });
+    const mine: Decision[] = [];
+    try {
+      const calls: Call[] = [];
+      for (const c of b.calls) {
+        if (c.h && c.a !== undefined) mine.push({ skill: bidSkill(b.dealer, calls, c.a), ok: c.a === c.c, board: b.id, weight: c.g ? 0.5 : 1 });
+        calls.push(c.c);
       }
-      play.play(card.c);
-    });
+      const auction = new Auction(b.dealer, calls);
+      const contract = auction.isComplete() ? auction.contract() : null;
+      if (contract) {
+        const play = new PlayState(contract, decodeDeal(b.deal));
+        b.cards.forEach((card, i) => {
+          const seat = play.toPlay;
+          if (card.h && card.sim && card.sim.best.length < play.legal().length) {
+            mine.push({ skill: cardSkill(contract.declarer, seat, i === 0), ok: !clearCardMistake(card.sim, card.c), board: b.id, weight: 1 });
+          }
+          play.play(card.c);
+        });
+      }
+    } catch {
+      continue; // a board that doesn't replay (damaged data) is left out rather than breaking the Training room
+    }
+    out.push(...mine);
   }
   return out;
 }
