@@ -47,6 +47,10 @@ export const tutor = {
       title: 'Drawing trumps',
       text: 'Leading trumps removes the defenders’ trumps so they cannot ruff your winners. Draw them early unless dummy’s trumps are needed for ruffs.',
     },
+    trumpsDrawn: {
+      title: 'Trumps already drawn',
+      text: 'The defenders have no trumps left, so this lead draws nothing: the trump wins the trick in one of your hands — useful as an entry — and each trump you cash makes both defenders discard.',
+    },
     unblock: {
       title: 'Unblocking',
       text: 'Cash the high card from the short hand first, so the long hand keeps the lead and can run the rest of the suit.',
@@ -80,6 +84,14 @@ export const tutor = {
       title: 'Looking for a ruff',
       text: 'A short suit lead hopes partner gets in and gives you a ruff.',
     },
+    returnPartner: {
+      title: 'Returning partner’s suit',
+      text: 'Partner chose this suit: leading it back carries on with partner’s plan — setting up partner’s long cards or giving partner a ruff — instead of opening a new suit for declarer.',
+    },
+    continueSuit: {
+      title: 'Continuing your suit',
+      text: 'You led this suit before: leading it again keeps working on the tricks your side is setting up there instead of opening a new suit for declarer.',
+    },
     switchSuits: {
       title: 'Switching suits',
       text: 'Lead through declarer’s strength, or toward dummy’s weakness: the defender in front of the strong hand should lead that suit.',
@@ -90,14 +102,27 @@ export const tutor = {
       title: 'Overruff',
       text: 'Ruffing higher than the trump already played wins the trick.',
     },
+    underruff: {
+      title: 'Underruffing',
+      /** `forced`: the hand holds nothing but trumps. */
+      text: (forced: boolean) =>
+        forced
+          ? 'A higher trump is already on the trick, so yours cannot win — but you have only trumps left, so you must play one.'
+          : 'A higher trump is already on the trick, so yours cannot win: underruffing spends a trump for nothing. Discard a loser from a side suit instead, unless you must keep every side card.',
+    },
     ruffPartnersWinner: {
       title: 'Ruffing partner’s winner',
       text: 'Usually wasteful: partner was already winning this trick.',
     },
     ruff: {
       title: 'Ruffing',
-      declarer: 'Ruffing in the hand with fewer trumps gains a trick; ruffing in the long trump hand just uses a trump you would make anyway.',
       defender: 'You are out of the suit led, so a ruff takes the trick.',
+      /** Declarer's side, in a hand with no more trumps than the other. */
+      short: 'This hand has no more trumps than the other, so the ruff is an extra trick: the other hand’s trumps still win tricks of their own.',
+      /** Declarer's side, in the long trump hand, on the defenders' lead. */
+      forced: 'You are out of the suit the defenders led, so ruff to win the trick. A ruff in the long trump hand makes no extra trick and shortens your trumps: if the defenders can keep forcing you, you may lose control.',
+      /** Declarer's side, in the long trump hand, on its own lead. */
+      long: 'A ruff in the hand with more trumps uses a trump that would win a trick anyway, so it gains nothing by itself — it helps when it sets up the rest of the suit or brings the lead to this hand.',
     },
     discard: {
       title: 'Discard',
@@ -159,6 +184,7 @@ export const tutor = {
     coverHonour: {
       title: 'Cover an honour with an honour',
       text: 'Covering forces declarer to spend two high cards to win one trick, which may promote a lower card in your or partner’s hand.',
+      declarer: 'Covering makes the defenders spend two high cards to win one trick, which may promote a lower card for your side.',
     },
     secondHandLow: {
       title: 'Second hand low',
@@ -167,6 +193,13 @@ export const tutor = {
     sureTrick: {
       title: 'Winning a sure trick',
       text: (card: Card) => `${cardName(card)} is the highest card left in the suit.`,
+      /** Declarer's side: the higher cards are its own, or the defender still to play is void. */
+      safe: (card: Card) => `${cardName(card)} wins the trick unless it is ruffed: the defender still to play cannot hold a higher card in the suit.`,
+    },
+    finesse: {
+      title: 'Finessing',
+      text: (card: Card) =>
+        `${cardName(card)} wins only if the higher cards you are missing in the suit sit with the defender who has already played — the finesse. If the defender still to play holds one, it beats your card.`,
     },
     splitHonours: {
       title: 'Splitting honours',
@@ -178,10 +211,18 @@ export const tutor = {
       title: 'Partner is winning',
       third: 'Partner’s card is already winning, so play low (or signal).',
       fourth: 'Don’t overtake: play your lowest card.',
+      declarer: 'Your side’s card is winning so far: play low and keep your high cards.',
+    },
+    overtake: {
+      title: 'Overtaking',
+      text: 'Your side’s card was already winning: overtaking spends a second high card on the same trick, so do it only to unblock the suit or to win the lead in this hand.',
     },
     thirdHandHighEquals: {
       title: 'Third hand high — lowest of equals',
       text: 'Play the cheaper of touching cards: partner can then work out where the higher one is.',
+      /** A higher card played from touching cards; `cheapest` would do the same job. */
+      wrong: (card: Card, cheapest: Card) =>
+        `${cardName(cheapest)} does the same job as ${cardName(card)}: play the cheaper of touching cards, so partner can work out where the higher one is.`,
     },
     thirdHandHigh: {
       title: 'Third hand high',
@@ -191,6 +232,10 @@ export const tutor = {
       title: 'Can’t win the trick',
       third: 'Play your lowest card (or signal attitude if partner led the suit).',
       fourth: 'Play your lowest card in the suit.',
+    },
+    duck: {
+      title: 'Ducking',
+      text: 'You could win this trick but let it go: ducking keeps your high card for a later round — to hold up a stopper, keep an entry or keep communications in the suit.',
     },
     winCheaply: {
       title: 'Win cheaply',
@@ -262,7 +307,12 @@ export const tutor = {
     /** Why this suit. */
     suit: {
       partnerBid: (suit: number) => `Partner bid ${core.suits[suit]}: leading partner's suit is rarely wrong and usually best.`,
+      /** The leader showed the suit first and partner raised it or gave preference to it. */
+      supported: (suit: number) => `You showed ${core.suits[suit]} and partner supported them: your side’s suit is a natural lead.`,
       theyBid: (suit: number) => `The opponents bid ${core.suits[suit]} — leading their suit usually helps declarer.`,
+      // against a slam
+      slamRisky: 'Against a slam, leading away from an honour without its touching cards often gives declarer a trick that could not be made otherwise.',
+      slamSafe: 'Against a slam, make a safe lead: from small cards you give nothing away, and one trick given away is usually the contract.',
       // against notrump
       ntLong: (suit: number, n: number) =>
         `Against notrump, lead your longest and strongest suit (${n} ${core.suits[suit]}): you hope to set up long-card winners.`,

@@ -5,7 +5,7 @@ import type { Card } from '../core/cards';
 
 export type DDRequest =
   | { id: number; kind: 'analyze'; pos: DDPosition }
-  | { id: number; kind: 'value'; pos: DDPosition }
+  | { id: number; kind: 'value'; pos: DDPosition; guess?: number } // guess: likely NS tricks (speeds up the search)
   | { id: number; kind: 'table'; hands: Card[][] };
 
 export type DDResponse =
@@ -23,7 +23,7 @@ export function handleDD(solver: DDSolver, req: DDRequest): DDResponse {
     }
     if (req.kind === 'value') {
       solver.load(req.pos);
-      return { id: req.id, kind: 'value', value: solver.value() };
+      return { id: req.id, kind: 'value', value: solver.value(req.guess) };
     }
     return { id: req.id, kind: 'table', table: ddTable(solver, req.hands) };
   } catch (e) {

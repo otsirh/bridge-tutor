@@ -44,6 +44,10 @@ export const tutor: Text['tutor'] = {
       title: 'Ściąganie atutów',
       text: 'Grając w atuty, odbierasz je obrońcom, żeby nie mogli przebijać twoich lew. Ściągaj je wcześnie, chyba że atuty dziadka są potrzebne do przebitek.',
     },
+    trumpsDrawn: {
+      title: 'Atuty już ściągnięte',
+      text: 'Obrońcy nie mają już atutów, więc ta karta niczego nie ściąga: atut weźmie lewę w jednej z twoich rąk — przyda się jako dojście — a każdy kolejny atut zmusza obu obrońców do zrzutki.',
+    },
     unblock: {
       title: 'Odblokowanie',
       text: 'Najpierw ściągnij wysoką kartę z krótszej ręki, żeby lewę wzięła potem ręka dłuższa i mogła odegrać resztę koloru.',
@@ -75,6 +79,14 @@ export const tutor: Text['tutor'] = {
       title: 'Szukanie przebitki',
       text: 'Wyjście w krótki kolor w nadziei, że partner dojdzie do ręki i da ci przebitkę.',
     },
+    returnPartner: {
+      title: 'Powrót w kolor partnera',
+      text: 'Partner wybrał ten kolor: grając go z powrotem, kontynuujesz plan partnera — wyrobienie jego długich kart albo danie mu przebitki — zamiast otwierać rozgrywającemu nowy kolor.',
+    },
+    continueSuit: {
+      title: 'Kontynuacja własnego koloru',
+      text: 'To kolor z twojego wcześniejszego wyjścia: grając go dalej, pracujesz nad lewami, które twoja strona w nim wyrabia, zamiast otwierać rozgrywającemu nowy kolor.',
+    },
     switchSuits: {
       title: 'Zmiana koloru',
       text: 'Graj przez siłę rozgrywającego albo w słabość dziadka: kolor powinien zagrać obrońca siedzący przed silną ręką.',
@@ -84,14 +96,23 @@ export const tutor: Text['tutor'] = {
       title: 'Nadbitka',
       text: 'Przebicie wyżej niż zagrany już atut bierze lewę.',
     },
+    underruff: {
+      title: 'Podbitka',
+      text: (forced: boolean) =>
+        forced
+          ? 'W lewie leży już wyższy atut, więc twój nie może jej wziąć — ale zostały ci same atuty, więc musisz dołożyć jeden z nich.'
+          : 'W lewie leży już wyższy atut, więc twój nie może jej wziąć: podbitka marnuje atut. Zrzuć raczej przegrywającą z koloru bocznego, chyba że musisz zatrzymać wszystkie karty boczne.',
+    },
     ruffPartnersWinner: {
       title: 'Przebicie lewy partnera',
       text: 'Zwykle strata atutu: partner i tak brał tę lewę.',
     },
     ruff: {
       title: 'Przebitka',
-      declarer: 'Przebitka w ręce z krótszymi atutami daje dodatkową lewę; przebitka w ręce z długimi atutami zużywa tylko atut, który i tak wziąłby lewę.',
       defender: 'Nie masz już zagranego koloru, więc przebitka bierze lewę.',
+      short: 'Ta ręka nie ma więcej atutów niż druga, więc przebitka to dodatkowa lewa: atuty drugiej ręki nadal wezmą własne lewy.',
+      forced: 'Nie masz już koloru, w który wyszli obrońcy, więc przebij, żeby wziąć lewę. Przebitka w ręce z długimi atutami nie daje dodatkowej lewy i skraca twoje atuty: jeśli obrońcy mogą dalej zmuszać cię do przebijania, możesz stracić kontrolę.',
+      long: 'Przebitka w ręce z większą liczbą atutów zużywa atut, który i tak wziąłby lewę, więc sama w sobie nic nie daje — pomaga, gdy wyrabia resztę koloru albo daje wejście do tej ręki.',
     },
     discard: {
       title: 'Zrzutka',
@@ -147,6 +168,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Przykryj honor honorem',
       text: 'Przykrycie zmusza rozgrywającego do wydania dwóch wysokich kart na jedną lewę, co może awansować niższą kartę w twojej ręce lub u partnera.',
+      declarer: 'Przykrycie zmusza obrońców do wydania dwóch wysokich kart na jedną lewę, co może awansować niższą kartę po twojej stronie.',
     },
     secondHandLow: {
       title: 'Druga ręka nisko',
@@ -155,6 +177,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Pewna lewa',
       text: (card: Card) => `${cardName(card)} to najwyższa pozostała karta w tym kolorze.`,
+      safe: (card: Card) => `${cardName(card)} weźmie lewę, chyba że ktoś przebije: obrońca, który jeszcze gra, nie może mieć wyższej karty w tym kolorze.`,
+    },
+    finesse: {
+      title: 'Impas',
+      text: (card: Card) => `${cardName(card)} weźmie lewę tylko wtedy, gdy brakujące ci wyższe karty w tym kolorze są u obrońcy, który już zagrał — to impas. Jeśli obrońca, który jeszcze gra, ma jedną z nich, pobije twoją kartę.`,
     },
     splitHonours: {
       title: 'Rozdzielenie honorów',
@@ -165,10 +192,16 @@ export const tutor: Text['tutor'] = {
       title: 'Partner bierze lewę',
       third: 'Karta partnera już bierze lewę, więc zagraj nisko (albo daj sygnał).',
       fourth: 'Nie przejmuj lewy partnera: zagraj najniższą kartę.',
+      declarer: 'Karta twojej strony na razie bierze lewę: zagraj nisko i zachowaj wysokie karty.',
+    },
+    overtake: {
+      title: 'Przejęcie',
+      text: 'Karta twojej strony już brała lewę: przejęcie kosztuje drugą wysoką kartę w tej samej lewie, więc rób to tylko, żeby odblokować kolor albo dojść do tej ręki.',
     },
     thirdHandHighEquals: {
       title: 'Trzecia ręka wysoko — najniższa z równych',
       text: 'Z sąsiednich kart zagraj tańszą: partner wywnioskuje wtedy, gdzie jest wyższa.',
+      wrong: (card: Card, cheapest: Card) => `${cardName(cheapest)} zrobi to samo co ${cardName(card)}: z sąsiednich kart zagraj tańszą, żeby partner mógł wywnioskować, gdzie jest wyższa.`,
     },
     thirdHandHigh: {
       title: 'Trzecia ręka wysoko',
@@ -178,6 +211,10 @@ export const tutor: Text['tutor'] = {
       title: 'Tej lewy nie weźmiesz',
       third: 'Zagraj najniższą kartę (albo daj sygnał zachęcający lub zniechęcający, jeśli partner wyszedł w ten kolor).',
       fourth: 'Zagraj najniższą kartę w kolorze.',
+    },
+    duck: {
+      title: 'Przepuszczenie',
+      text: 'Możesz wziąć tę lewę, ale ją oddajesz: przepuszczenie zachowuje wysoką kartę na później — żeby utrzymać zatrzymanie, zachować dojście albo komunikację w kolorze.',
     },
     winCheaply: {
       title: 'Bierz tanio',
@@ -239,7 +276,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (suit: number) => `Partner licytował ${SUIT.nom[suit]}: wist w kolor partnera rzadko jest błędem i zwykle jest najlepszy.`,
+      supported: (suit: number) => `Partner poparł twoje ${SUIT.nom[suit]}: wist w kolor waszej strony jest naturalny.`,
       theyBid: (suit: number) => `Przeciwnicy licytowali ${SUIT.nom[suit]} — wist w ich kolor zwykle pomaga rozgrywającemu.`,
+      slamRisky: 'Przeciw szlemowi wist spod honoru bez sąsiednich kart często daje rozgrywającemu lewę, której inaczej by nie wziął.',
+      slamSafe: 'Przeciw szlemowi wistuj bezpiecznie: z blotek niczego nie oddajesz, a jedna oddana lewa to zwykle cały kontrakt.',
       ntLong: (suit: number, n: number) =>
         `Przeciw bez atu wistuj w najdłuższy i najsilniejszy kolor (${nSuit(n, suit)}): liczysz na wyrobienie długich kart.`,
       ntSequence: 'Solidny sekwens jest bezpieczny i buduje lewy.',
