@@ -41,6 +41,7 @@ export interface Decision {
 
 export interface DecideOptions {
   samples?: number;
+  /** Stop once this time has passed and minSamples layouts are solved. */
   timeMs?: number;
   minSamples?: number;
   priority?: number;
@@ -218,16 +219,26 @@ export function newGroup(): number {
   return groupCounter++;
 }
 
+/**
+ * How long one contract of the double-dummy table may take. The hardest deals take the solver
+ * several seconds on a fast computer, so a slow phone needs more than the pool's usual limit;
+ * without the table the review has no par and no analysis.
+ */
+const TABLE_JOB_LIMIT_MS = 60_000;
+
 export async function ddTableAsync(hands: Card[][], priority = 0, group = 0): Promise<number[][] | null> {
-  // one strain per job so the pool can run them in parallel
-  const rows = await Promise.all([0, 1, 2, 3, 4].map(async strain => {
-    const row: number[] = [];
-    for (let decl = 0; decl < 4; decl++) {
-      const res = await ddPool().run({ kind: 'value', pos: { masks: masksOf(hands), trump: strain, leader: (decl + 1) & 3, trick: [] } }, priority, group);
-      if (res.kind !== 'value') return null;
-      row.push((decl & 1) === 0 ? res.value : 13 - res.value);
+  // one job per contract, in ten chains the pool can run in parallel: per strain, North then South
+  // declaring, and East then West, each guessing from the one before (usually within a trick)
+  const table = [0, 1, 2, 3, 4].map(() => [0, 0, 0, 0]);
+  const chains = [0, 1, 2, 3, 4].flatMap(strain => [0, 1].map(async first => {
+    let guess: number | undefined;
+    for (const decl of [first, first + 2]) {
+      const res = await ddPool().run({ kind: 'value', pos: { masks: masksOf(hands), trump: strain, leader: (decl + 1) & 3, trick: [] }, guess }, priority, group, TABLE_JOB_LIMIT_MS);
+      if (res.kind !== 'value') return false;
+      guess = res.value;
+      table[strain][decl] = (decl & 1) === 0 ? res.value : 13 - res.value;
     }
-    return row;
+    return true;
   }));
-  return rows.some(r => r === null) ? null : (rows as number[][]);
+  return (await Promise.all(chains)).every(Boolean) ? table : null;
 }

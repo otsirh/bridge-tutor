@@ -40,6 +40,10 @@ export const tutor: Text['tutor'] = {
       title: '清将',
       text: '出将牌可以清除防守方的将牌，使他们无法将吃你的赢张。除非需要明手的将牌来将吃，否则应尽早清将。',
     },
+    trumpsDrawn: {
+      title: '将牌已清完',
+      text: '防守方已经没有将牌，这张将牌清不到什么：它会在你的某一手赢得这一墩——可以当作进手——而你每兑现一张将牌，两个防守者都必须垫牌。',
+    },
     unblock: {
       title: '解封',
       text: '先兑现短套一手中的大牌，这样长套一手能保持出牌权，接着兑现这门花色剩下的牌。',
@@ -71,6 +75,14 @@ export const tutor: Text['tutor'] = {
       title: '寻求将吃',
       text: '攻短套，希望同伴上手后让你将吃。',
     },
+    returnPartner: {
+      title: '回攻同伴的花色',
+      text: '这是同伴选择的花色：回攻它就是延续同伴的计划——树立同伴的长套或让同伴将吃——而不是给庄家打开一门新花色。',
+    },
+    continueSuit: {
+      title: '继续出你的花色',
+      text: '你之前已经出过这门花色：再出它，就是继续树立你方在这门花色中的赢墩，而不是给庄家打开一门新花色。',
+    },
     switchSuits: {
       title: '换攻',
       text: '穿过庄家的强处出牌，或者朝明手的弱处出牌：坐在强手前面的防守者应该出这门花色。',
@@ -80,14 +92,23 @@ export const tutor: Text['tutor'] = {
       title: '超将吃',
       text: '用比已出的将牌更大的将牌将吃，就能赢得这一墩。',
     },
+    underruff: {
+      title: '下将吃',
+      text: (forced: boolean) =>
+        forced
+          ? '这一墩里已经有一张更大的将牌，你的将牌赢不了——但你手里只剩将牌，只能出一张。'
+          : '这一墩里已经有一张更大的将牌，你的将牌赢不了：下将吃只是白白浪费一张将牌。除非你必须保留所有旁套牌，否则不如垫掉一张旁套输张。',
+    },
     ruffPartnersWinner: {
       title: '将吃同伴的赢张',
       text: '通常是浪费：同伴本来已经赢得这一墩。',
     },
     ruff: {
       title: '将吃',
-      declarer: '在将牌较短的一手将吃能多赢一墩；在将牌较长的一手将吃，只是用掉一张本来就能赢墩的将牌。',
       defender: '你已经没有被领出的花色，将吃就能赢得这一墩。',
+      short: '这一手的将牌不比另一手多，所以这次将吃是多出来的一墩：另一手的将牌仍然能赢它们自己的墩。',
+      forced: '你已经没有防守方领出的花色，所以将吃来赢得这一墩。在将牌较长的一手将吃不会多赢一墩，还会缩短你的将牌：如果防守方能一再逼你将吃，你可能会失去控制。',
+      long: '在将牌较多的一手将吃，用掉的是一张本来就能赢墩的将牌，本身并没有收益——只有当它能树立这门花色剩下的牌，或者让这一手取得出牌权时才有用。',
     },
     discard: {
       title: '垫牌',
@@ -143,6 +164,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: '大牌盖大牌',
       text: '盖打迫使庄家用两张大牌才能赢一墩，这可能使你或同伴手中较小的牌升级成赢张。',
+      declarer: '盖打迫使防守方用两张大牌才能赢一墩，这可能使你方较小的牌升级成赢张。',
     },
     secondHandLow: {
       title: '第二家出小',
@@ -151,6 +173,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: '拿下稳赢的一墩',
       text: (card: Card) => `${cardName(card)}是这门花色中剩下最大的牌。`,
+      safe: (card: Card) => `${cardName(card)}除非被将吃，否则就能赢得这一墩：还没出牌的防守者不可能有这门花色中更大的牌。`,
+    },
+    finesse: {
+      title: '飞牌',
+      text: (card: Card) => `只有当你缺少的这门花色中更大的牌在已经出过牌的防守者手里时，${cardName(card)}才能赢——这就是飞牌。如果还没出牌的防守者有一张，就会压过你的牌。`,
     },
     splitHonours: {
       title: '拆出相连大牌',
@@ -161,10 +188,16 @@ export const tutor: Text['tutor'] = {
       title: '同伴正在赢这一墩',
       third: '同伴的牌已经在赢这一墩，所以出小牌（或者给信号）。',
       fourth: '不要超过同伴：出你最小的牌。',
+      declarer: '你方的牌暂时在赢这一墩：出小牌，保留你的大牌。',
+    },
+    overtake: {
+      title: '超过己方的牌',
+      text: '你方的牌本来已经在赢这一墩：超过它会在同一墩里多用一张大牌，所以只有在解封这门花色或要让这一手取得出牌权时才这样做。',
     },
     thirdHandHighEquals: {
       title: '第三家出大——等值牌中出最小的',
       text: '相连的牌中出较小的一张：同伴就能推断出较大的牌在哪里。',
+      wrong: (card: Card, cheapest: Card) => `${cardName(cheapest)}和${cardName(card)}的作用相同：相连的牌中出较小的一张，同伴就能推断出较大的牌在哪里。`,
     },
     thirdHandHigh: {
       title: '第三家出大',
@@ -174,6 +207,10 @@ export const tutor: Text['tutor'] = {
       title: '赢不了这一墩',
       third: '出你最小的牌（如果同伴领出这门花色，则表明态度）。',
       fourth: '出你这门花色中最小的牌。',
+    },
+    duck: {
+      title: '忍让',
+      text: '你本可以赢下这一墩，却让过去：忍让把大牌留到以后——为了保留止张、保留进手，或者保持这门花色的联通。',
     },
     winCheaply: {
       title: '用最小的牌赢',
@@ -231,7 +268,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (s: number) => `同伴叫过${suit(s)}：攻同伴的花色很少会错，通常是最好的。`,
+      supported: (s: number) => `你表示过${suit(s)}，同伴给了支持：攻你方的花色是很自然的首攻。`,
       theyBid: (s: number) => `对手叫过${suit(s)}——攻他们的花色通常会帮庄家的忙。`,
+      slamRisky: '防守满贯时，从没有相连牌的大牌下面首攻，常常会送给庄家一墩他本来拿不到的牌。',
+      slamSafe: '防守满贯时要安全首攻：从小牌出不会送掉什么，而送掉一墩往往就是整个定约。',
       ntLong: (s: number, n: number) =>
         `防守无将定约时，攻你最长最强的花色（${n}张${suit(s)}）：希望树立长套赢张。`,
       ntSequence: '坚实的连张既安全，又能树立赢墩。',

@@ -47,6 +47,10 @@ export const tutor: Text['tutor'] = {
       title: 'Trumpf ziehen',
       text: 'Wenn Sie Trumpf spielen, verlieren die Gegenspieler ihre Trümpfe und können Ihre Gewinner nicht mehr schnappen. Ziehen Sie früh Trumpf, außer Sie brauchen die Trümpfe des Dummys zum Schnappen.',
     },
+    trumpsDrawn: {
+      title: 'Trümpfe schon gezogen',
+      text: 'Die Gegenspieler haben keine Trümpfe mehr, dieses Ausspiel zieht also nichts: Der Trumpf gewinnt den Stich in einer Ihrer Hände – nützlich als Übergang –, und jeder Trumpf, den Sie abziehen, zwingt beide Gegenspieler zum Abwerfen.',
+    },
     unblock: {
       title: 'Deblockieren',
       text: 'Spielen Sie die hohe Karte zuerst aus der kurzen Hand, damit die lange Hand am Spiel bleibt und den Rest der Farbe abziehen kann.',
@@ -79,6 +83,14 @@ export const tutor: Text['tutor'] = {
       title: 'Auf einen Schnapper spielen',
       text: 'Mit dem Ausspiel einer kurzen Farbe hoffen Sie, dass Partner ans Spiel kommt und Ihnen einen Schnapper gibt.',
     },
+    returnPartner: {
+      title: 'Partners Farbe zurückspielen',
+      text: 'Partner hat diese Farbe gewählt: Wenn Sie sie zurückspielen, setzen Sie Partners Plan fort – seine langen Karten hochzuspielen oder ihm einen Schnapper zu geben –, statt dem Alleinspieler eine neue Farbe zu öffnen.',
+    },
+    continueSuit: {
+      title: 'Die eigene Farbe weiterspielen',
+      text: 'Sie haben diese Farbe schon ausgespielt: Wenn Sie sie weiterspielen, arbeiten Sie an den Stichen, die Ihre Seite dort hochspielt, statt dem Alleinspieler eine neue Farbe zu öffnen.',
+    },
     switchSuits: {
       title: 'Farbwechsel',
       text: 'Durch die Stärke des Alleinspielers oder in die Schwäche des Dummys: Der Gegenspieler vor der starken Hand sollte diese Farbe spielen.',
@@ -89,14 +101,23 @@ export const tutor: Text['tutor'] = {
       title: 'Überschnappen',
       text: 'Wer höher schnappt als der bereits gespielte Trumpf, gewinnt den Stich.',
     },
+    underruff: {
+      title: 'Unterschnappen',
+      text: (forced: boolean) =>
+        forced
+          ? 'Ein höherer Trumpf liegt schon im Stich, Ihrer kann also nicht gewinnen – aber Sie haben nur noch Trümpfe und müssen einen spielen.'
+          : 'Ein höherer Trumpf liegt schon im Stich, Ihrer kann also nicht gewinnen: Unterschnappen verschenkt einen Trumpf. Werfen Sie lieber einen Verlierer aus einer Nebenfarbe ab, außer Sie müssen jede Karte der Nebenfarben behalten.',
+    },
     ruffPartnersWinner: {
       title: 'Partners Stich geschnappt',
       text: 'Meist Verschwendung: Die Karte des Partners hielt den Stich bereits.',
     },
     ruff: {
       title: 'Schnappen',
-      declarer: 'Ein Schnapper in der Hand mit weniger Trümpfen bringt einen zusätzlichen Stich; ein Schnapper in der langen Trumpfhand verbraucht nur einen Trumpf, der ohnehin einen Stich gemacht hätte.',
       defender: 'Sie haben keine Karte der ausgespielten Farbe mehr, also gewinnt ein Schnapper den Stich.',
+      short: 'Diese Hand hat nicht mehr Trümpfe als die andere, also bringt der Schnapper einen zusätzlichen Stich: Die Trümpfe der anderen Hand machen weiterhin ihre eigenen Stiche.',
+      forced: 'Sie haben keine Karte der Farbe mehr, die die Gegenspieler ausgespielt haben, also schnappen Sie, um den Stich zu gewinnen. Ein Schnapper in der langen Trumpfhand bringt keinen zusätzlichen Stich und verkürzt Ihre Trümpfe: Können die Gegenspieler Sie immer wieder zum Schnappen zwingen, verlieren Sie womöglich die Kontrolle.',
+      long: 'Ein Schnapper in der Hand mit mehr Trümpfen verbraucht einen Trumpf, der ohnehin einen Stich gemacht hätte, und bringt für sich allein nichts – er hilft, wenn er den Rest der Farbe hochspielt oder diese Hand ans Spiel bringt.',
     },
     discard: {
       title: 'Abwurf',
@@ -154,6 +175,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Figur auf Figur',
       text: 'Wenn Sie decken, muss der Alleinspieler zwei hohe Karten für einen Stich ausgeben, und eine niedrigere Karte bei Ihnen oder Partner kann zum Gewinner werden.',
+      declarer: 'Wenn Sie decken, müssen die Gegenspieler zwei hohe Karten für einen Stich ausgeben, und eine niedrigere Karte Ihrer Seite kann zum Gewinner werden.',
     },
     secondHandLow: {
       title: 'Zweite Hand tief',
@@ -162,6 +184,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Sicherer Stich',
       text: (card: Card) => `${cardName(card)} ist die höchste verbliebene Karte der Farbe.`,
+      safe: (card: Card) => `${cardName(card)} gewinnt den Stich, wenn niemand schnappt: Der Gegenspieler, der noch an der Reihe ist, kann keine höhere Karte der Farbe halten.`,
+    },
+    finesse: {
+      title: 'Schneiden',
+      text: (card: Card) => `${cardName(card)} gewinnt nur, wenn die höheren Karten der Farbe, die Ihnen fehlen, beim Gegenspieler sitzen, der schon gespielt hat – der Schnitt. Hat der Gegenspieler, der noch an der Reihe ist, eine davon, schlägt er Ihre Karte.`,
     },
     splitHonours: {
       title: 'Figur einsetzen',
@@ -173,10 +200,16 @@ export const tutor: Text['tutor'] = {
       title: 'Partner hält den Stich',
       third: 'Die Karte des Partners hält den Stich bereits, also spielen Sie klein (oder markieren).',
       fourth: 'Nicht übernehmen: Spielen Sie Ihre niedrigste Karte.',
+      declarer: 'Die Karte Ihrer Seite hält den Stich bisher: Spielen Sie klein und heben Sie Ihre hohen Karten auf.',
+    },
+    overtake: {
+      title: 'Übernehmen',
+      text: 'Die Karte Ihrer Seite hielt den Stich bereits: Übernehmen kostet eine zweite hohe Karte im selben Stich – tun Sie es nur, um die Farbe zu deblockieren oder in diese Hand zu kommen.',
     },
     thirdHandHighEquals: {
       title: 'Dritte Hand hoch – die niedrigste gleichwertige',
       text: 'Spielen Sie die billigere von benachbarten Karten: So kann Partner erschließen, wo die höhere sitzt.',
+      wrong: (card: Card, cheapest: Card) => `${cardName(cheapest)} leistet dasselbe wie ${cardName(card)}: Spielen Sie die billigere von benachbarten Karten, damit Partner erschließen kann, wo die höhere sitzt.`,
     },
     thirdHandHigh: {
       title: 'Dritte Hand hoch',
@@ -186,6 +219,10 @@ export const tutor: Text['tutor'] = {
       title: 'Stich nicht zu gewinnen',
       third: 'Spielen Sie Ihre niedrigste Karte (oder zeigen Sie Ermutigung, wenn Partner die Farbe ausgespielt hat).',
       fourth: 'Spielen Sie Ihre niedrigste Karte der Farbe.',
+    },
+    duck: {
+      title: 'Ducken',
+      text: 'Sie könnten den Stich gewinnen, geben ihn aber ab: Ducken hebt Ihre hohe Karte für eine spätere Runde auf – um einen Stopper zurückzuhalten, einen Übergang zu bewahren oder die Verbindung in der Farbe zu halten.',
     },
     winCheaply: {
       title: 'Billig gewinnen',
@@ -250,7 +287,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (suit: number) => `Partner hat ${core.suits[suit]} gereizt: Die Farbe des Partners auszuspielen ist selten falsch und meist am besten.`,
+      supported: (suit: number) => `Sie haben ${core.suits[suit]} gezeigt und Partner hat sie unterstützt: Die Farbe Ihrer Seite ist ein natürliches Ausspiel.`,
       theyBid: (suit: number) => `Die Gegner haben ${core.suits[suit]} gereizt – ihre Farbe auszuspielen hilft meist dem Alleinspieler.`,
+      slamRisky: 'Gegen einen Schlemm schenkt ein Ausspiel unter einer Figur ohne Nachbarkarten dem Alleinspieler oft einen Stich, den er sonst nicht machen könnte.',
+      slamSafe: 'Gegen einen Schlemm spielen Sie sicher aus: Aus kleinen Karten verschenken Sie nichts, und ein verschenkter Stich ist meist der Kontrakt.',
       ntLong: (suit: number, n: number) =>
         `Gegen SA spielen Sie Ihre längste und stärkste Farbe aus (${n} ${core.suits[suit]}): Sie hoffen, Längenstiche hochzuspielen.`,
       ntSequence: 'Eine geschlossene Sequenz ist sicher und baut Stiche auf.',

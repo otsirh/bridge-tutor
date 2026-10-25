@@ -4,6 +4,16 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 
 ## Unreleased
 
+### Bots and tutor
+- Bidding: no notrump on shapely hands without stoppers, better competition after overcalls and
+  takeout doubles, misfit rescues, overcalls with a good six-card suit, Michaels and the Unusual 2NT
+  read correctly, and countable grand slams bid. Average loss against double-dummy par fell from
+  4.86 to 4.65 IMPs a board over 750 deals.
+- Card play: each card's principle now matches it (overruff and underruff, returning partner's
+  suit, declarer's ruffs, trumps already drawn…); the bots sample more layouts in the first tricks;
+  passive opening leads against slams.
+- Double-dummy solver: no more hangs on the hardest deals, and a rare one-trick error is fixed.
+
 ### Learning
 - Bidding only: practise auctions without card play, scored with best play.
 - The review shows the system's contract and a missed game or slam; key moments can be played again.

@@ -58,17 +58,23 @@ export function openingLeadChoices(hand: readonly Card[], contract: Contract, re
   const trump = contract.strain;
   const partner = (leader + 2) & 3;
   const declSide = contract.declarer & 1;
-  const bidBy = (side: 'partner' | 'them') => {
-    const set = new Set<number>();
-    for (const r of records) {
-      if (!isBid(r.call) || r.meaning.artificial || strainOf(r.call) === NT) continue;
-      const mine = side === 'partner' ? r.seat === partner : (r.seat & 1) === declSide;
-      if (mine) set.add(strainOf(r.call));
+  const naturalBid = (r: CallRecord, s: number) => isBid(r.call) && !r.meaning.artificial && strainOf(r.call) === s;
+  // a call shows suit s as the bidder's own: a natural bid of it, or a call promising length there (e.g. Michaels)
+  const shows = (r: CallRecord, s: number, len: number) => naturalBid(r, s) || (r.meaning.shown?.len[s][0] ?? 0) >= len;
+  const leaderShowed = (s: number, before: number) => records.some(r => r.seat === leader && r.index < before && shows(r, s, 4));
+  // partner's own suits — not a raise of, or preference for, a suit the leader showed first
+  const partnerSuits = new Set<number>();
+  // the leader's suits that partner then supported
+  const supported = new Set<number>();
+  const theirSuits = new Set<number>();
+  for (const r of records) {
+    for (let s = 0; s < 4; s++) {
+      if (r.seat === partner && shows(r, s, 5)) (leaderShowed(s, r.index) ? supported : partnerSuits).add(s);
+      if ((r.seat & 1) === declSide && naturalBid(r, s)) theirSuits.add(s);
     }
-    return set;
-  };
-  const partnerSuits = bidBy('partner');
-  const theirSuits = bidBy('them');
+  }
+  for (const s of partnerSuits) supported.delete(s);
+  const slam = contract.level >= 6;
   const ranks: number[][] = [[], [], [], []];
   for (const c of hand) ranks[suitOf(c)].push(rankOf(c));
   ranks.forEach(r => r.sort((a, b) => b - a));
@@ -85,23 +91,39 @@ export function openingLeadChoices(hand: readonly Card[], contract: Contract, re
     const pSuit = partnerSuits.has(s);
     const card = cardFromHolding(r, vsNT, pSuit);
     const seqLead = card.kind === 'sequence' || card.kind === 'interior' || card.kind === 'touching' || card.kind === 'ak';
+    // leading away from (or the top of a doubleton with) an honour that has no touching cards to back it
+    const bareHonour = r[0] >= 11 && (card.kind === 'doubleton' || card.kind === 'third' || card.kind === 'fourth' || card.kind === 'partner-low');
     if (pSuit) {
       score += 60;
       why = X.partnerBid(s);
+    } else if (supported.has(s)) {
+      score += 15;
+      why = X.supported(s);
     }
     if (theirSuits.has(s) && s !== trump) {
       score -= 35;
       why ||= X.theyBid(s);
     }
+    // against a slam, be passive: one trick given away is usually the contract
+    if (slam && s !== trump && !seqLead) {
+      if (bareHonour) {
+        score -= r[0] >= 12 ? (vsNT ? 35 : 20) : vsNT ? 15 : 8;
+        why ||= X.slamRisky;
+      } else if (r[0] <= 10) {
+        score += vsNT ? 15 : 6;
+        why ||= X.slamSafe;
+      }
+    }
     if (vsNT) {
-      score += n * 6;
+      // long suits rarely get going against a slam
+      score += n * (slam ? 2 : 6);
       if (seqLead) score += 25;
-      if (n >= 4 && r[0] >= 11) score += 10;
+      if (n >= 4 && r[0] >= 11 && !slam) score += 10;
       if (!why) why = n >= 4 ? X.ntLong(s, n) : seqLead ? X.ntSequence : X.ntShort(n);
     } else {
       if (s === trump) {
         score -= 10;
-        if (n >= 2 && n <= 3 && r[0] <= 10) score += 8;
+        if (n >= 2 && n <= 3 && r[0] <= 10) score += slam ? 16 : 8;
         why ||= X.trump;
       } else {
         if (has(14) && has(13)) score += 40;
