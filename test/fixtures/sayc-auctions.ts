@@ -74,7 +74,10 @@
 //   competes, by the Law of Total Tricks (no game invitation, no automatic
 //   pass): 10, 124, 165, 169, 201;
 // - a good raise of partner's overcall starts with the cue bid, and the jump
-//   to game is the weak, shapely raise: 59, 276, 387.
+//   to game is the weak, shapely raise: 59, 276, 387;
+// - the Unusual 2NT is bid (the rule used to wait for 2NT to be the cheapest
+//   notrump bid, which it never is over a one-level suit): 8–12 HCP with the
+//   honours in the two suits, or 16+: 83, 199, 221, 240, 245.
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -160,7 +163,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1C P 1S P 1NT P P P',
   'P P P P',
   'P P 1C P 1H P 2D P 3NT P P P',
-  '1D 2C X P 2D P P P',
+  '1D 2NT P 3H P P P',
   'P P P 1C P 1S P 3S P 4S P P P',
   '1S 2H 2S 3H P P P',
   '1NT P 2D P 2H P 4H P P P',
@@ -276,7 +279,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1NT 2D P P P',
   '1H P 2H X 3H P 4H P P P',
   'P 1S 3D 4S P P P',
-  '1H 3C P P X P 4H P P P',
+  '1H 2NT 3C 4C 4H P P P',
   'P 1S P 2D P 3D P 3NT P P P',
   '1H P 2H 2S 3H 3S P P 4H P P P',
   'P 1H 1S P P 2H 2S P P 3H 3S P P P',
@@ -298,7 +301,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1D P 1H P 1NT P P P',
   'P 1D P 2D 3C P P 3D P P P',
   'P 1H P 2C P 2D P 3NT P P P',
-  'P P 1S P P 2H P P 2S P P P',
+  'P P 1S 2NT P 5C P P P',
   'P P 1D X 3D P P 3H P P 4D P P P',
   'P 1C 2D 2NT P 3H P 3S P 4S P P P',
   'P 1C P 1H P 2C P P P',
@@ -317,12 +320,12 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1D 1S X 1NT P P P',
   '1C 1H 1S 4H P P 4S P P P',
   '1S P 2D 3H 4S P P P',
-  'P 1H 2D X P 2S P 4S P P P',
+  'P 1H 2NT X 3C 4H P P P',
   'P P 1C P 1H P 1S P P P',
   'P 1H 2D 3H P P P',
   'P P 1H P P 1S 2H 3H P 3S P P P',
   '2H X 3H P 4H P P P',
-  'P 1D 1H X P 2S 3H P P 4S P P P',
+  'P 1D 2NT P 3C 3D 3H P P P',
   'P 1D 1H 2C P 3D P 4D P 5D P P P',
   '1D P 1H X 1NT P P P',
   '1NT P 2C P 2S P 3S P 4S P P P',

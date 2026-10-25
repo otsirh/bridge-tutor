@@ -488,6 +488,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: '对方弱二开叫后：15–18点平均牌型，有止张。',
     overcall3nt: '对方阻击叫后：平均牌型强牌（16–21），有止张——止叫。',
     unusual2nt: (a: number, b: number) => `人为叫：两门最低的未叫花色（${SUIT_SYMBOLS[a]}和${SUIT_SYMBOLS[b]}）至少5-5。请同伴选择。`,
+    honoursInSuits: (suits: number[]) => `大牌集中在${syms(suits, '和')}（其他花色至多2个大牌点）`,
     michaelsMinor: '人为叫：两门高花至少5-5。',
     michaelsMajor: (suit: number) => `人为叫：5张${w(suit)}和一门5张低花。`,
     fiveCardMinor: '一门5张低花',

@@ -497,6 +497,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Po słabym dwa: 15–18, ręka zrównoważona z zatrzymaniem.',
     overcall3nt: 'Po otwarciu blokującym: silna ręka zrównoważona (16–21) z zatrzymaniem — do gry.',
     unusual2nt: (a: number, b: number) => `Sztuczne: co najmniej 5-5 w dwóch najniższych niezalicytowanych kolorach (${SUIT_SYMBOLS[a]} i ${SUIT_SYMBOLS[b]}). Prosi partnera o wybór.`,
+    honoursInSuits: (suits: number[]) => `honory w ${syms(suits, ' i ')} (najwyżej 2 PC poza nimi)`,
     michaelsMinor: 'Sztuczne: co najmniej 5-5 w obu starszych.',
     michaelsMajor: (suit: number) => `Sztuczne: pięć ${gen(suit)} i piątka w młodszym.`,
     fiveCardMinor: 'piątka w młodszym',

@@ -487,6 +487,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Sobre um dois fraco: 15–18 balanceada com parada.',
     overcall3nt: 'Sobre uma barragem: mão forte e balanceada (16–21) com parada — para jogar.',
     unusual2nt: (a: number, b: number) => `Artificial: pelo menos 5-5 nos dois naipes mais baixos não marcados (${SUIT_SYMBOLS[a]} e ${SUIT_SYMBOLS[b]}). Pede ao parceiro que escolha.`,
+    honoursInSuits: (suits: number[]) => `as honras em ${syms(suits, ' e ')} (no máximo 2 PH fora deles)`,
     michaelsMinor: 'Artificial: pelo menos 5-5 nos dois ricos.',
     michaelsMajor: (suit: number) => `Artificial: cinco ${plural(suit)} e um naipe pobre de cinco cartas.`,
     fiveCardMinor: 'um naipe pobre de cinco cartas',

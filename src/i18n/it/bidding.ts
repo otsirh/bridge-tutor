@@ -482,6 +482,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Su un due debole: 15–18 bilanciata con il fermo.',
     overcall3nt: 'Su un barrage: una mano bilanciata forte (16–21) con il fermo, per giocare.',
     unusual2nt: (a: number, b: number) => `Convenzionale: almeno 5-5 nei due colori più bassi non dichiarati (${SUIT_SYMBOLS[a]} e ${SUIT_SYMBOLS[b]}). Chiede al compagno di scegliere.`,
+    honoursInSuits: (suits: number[]) => `gli onori a ${syms(suits, ' e ')} (al massimo 2 PO fuori)`,
     michaelsMinor: 'Convenzionale: almeno 5-5 nelle due nobili.',
     michaelsMajor: (suit: number) => `Convenzionale: cinque carte di ${plural(suit)} e un minore quinto.`,
     fiveCardMinor: 'un minore quinto',

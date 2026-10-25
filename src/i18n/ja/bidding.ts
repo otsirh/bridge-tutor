@@ -485,6 +485,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'ウィークツーに対して: ストッパーのある15–18のバランスハンド。',
     overcall3nt: 'プリエンプトに対して: ストッパーのある強いバランスハンド（16–21） — 最終コントラクトです。',
     unusual2nt: (a: number, b: number) => `人為的: ビッドされていない下位の2スート（${SUIT_SYMBOLS[a]}と${SUIT_SYMBOLS[b]}）が少なくとも5-5。パートナーに選択を求めます。`,
+    honoursInSuits: (suits: number[]) => `オナーが${syms(suits, 'と')}にある（それ以外は2 HCP以下）`,
     michaelsMinor: '人為的: 両メジャーが少なくとも5-5。',
     michaelsMajor: (suit: number) => `人為的: ${name(suit)}5枚と5枚のマイナー。`,
     fiveCardMinor: '5枚のマイナー',

@@ -496,6 +496,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'После слабого открытия на уровне 2: 15–18, равномерная рука с держкой.',
     overcall3nt: 'После блока: сильная равномерная рука (16–21) с держкой — на игру.',
     unusual2nt: (a: number, b: number) => `Искусственная заявка: минимум 5-5 в двух младших незаявленных мастях (${SUIT_SYMBOLS[a]} и ${SUIT_SYMBOLS[b]}). Просит партнёра выбрать.`,
+    honoursInSuits: (suits: number[]) => `онёры в ${syms(suits, ' и ')} (не больше 2 очков вне их)`,
     michaelsMinor: 'Искусственная заявка: минимум 5-5 в мажорах.',
     michaelsMajor: (suit: number) => `Искусственная заявка: пять ${SUIT_GEN[suit]} и пятикартный минор.`,
     fiveCardMinor: 'пятикартный минор',

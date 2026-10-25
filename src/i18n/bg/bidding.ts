@@ -481,6 +481,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Срещу слабо две: 15–18 точки, балансирана ръка, със стопер.',
     overcall3nt: 'Срещу бариерно откриване: силна балансирана ръка (16–21) със стопер — за игра.',
     unusual2nt: (a: number, b: number) => `Изкуствено: поне 5-5 в двата най-ниски необявени цвята (${SUIT_SYMBOLS[a]} и ${SUIT_SYMBOLS[b]}). Партньорът избира.`,
+    honoursInSuits: (suits: number[]) => `фигурите в ${syms(suits, ' и ')} (най-много 2 т. извън тях)`,
     michaelsMinor: 'Изкуствено: поне 5-5 в двата мажора.',
     michaelsMajor: (suit: number) => `Изкуствено: пет ${plural(suit)} и петкартов минор.`,
     fiveCardMinor: 'петкартов минор',

@@ -489,6 +489,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Sur un deux faible : 15–18, main régulière avec un arrêt.',
     overcall3nt: 'Sur un barrage : une main régulière forte (16–21) avec un arrêt — pour jouer.',
     unusual2nt: (a: number, b: number) => `Artificiel : au moins 5-5 dans les deux couleurs non nommées les moins chères (${SUIT_SYMBOLS[a]} et ${SUIT_SYMBOLS[b]}). Demande à votre partenaire de choisir.`,
+    honoursInSuits: (suits: number[]) => `les honneurs à ${syms(suits, ' et ')} (au plus 2 H ailleurs)`,
     michaelsMinor: 'Artificiel : au moins 5-5 dans les deux majeures.',
     michaelsMajor: (suit: number) => `Artificiel : cinq ${plural(suit)} et une mineure cinquième.`,
     fiveCardMinor: 'une mineure cinquième',

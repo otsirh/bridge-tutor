@@ -497,6 +497,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Über eine schwache Zwei: 15–18 ausgeglichen mit Stopper.',
     overcall3nt: 'Über eine Sperre: eine starke ausgeglichene Hand (16–21) mit Stopper – zum Spielen.',
     unusual2nt: (a: number, b: number) => `Künstlich: mindestens 5-5 in den beiden niedrigsten ungereizten Farben (${SUIT_SYMBOLS[a]} und ${SUIT_SYMBOLS[b]}). Bittet den Partner zu wählen.`,
+    honoursInSuits: (suits: number[]) => `die Figuren in ${syms(suits, ' und ')} (höchstens 2 FP außerhalb)`,
     michaelsMinor: 'Künstlich: mindestens 5-5 in beiden Oberfarben.',
     michaelsMajor: (s: number) => `Künstlich: fünf ${suit(s)} und eine Fünferunterfarbe.`,
     fiveCardMinor: 'eine Fünferunterfarbe',

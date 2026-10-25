@@ -507,6 +507,7 @@ export const bidding = {
     overcall2nt: 'Over a weak two: 15–18 balanced with a stopper.',
     overcall3nt: 'Over a preempt: a strong balanced hand (16–21) with a stopper — to play.',
     unusual2nt: (a: number, b: number) => `Artificial: at least 5-5 in the two lowest unbid suits (${SUIT_SYMBOLS[a]} and ${SUIT_SYMBOLS[b]}). Asks partner to choose.`,
+    honoursInSuits: (suits: number[]) => `the honours in ${syms(suits, ' and ')} (at most 2 HCP outside them)`,
     michaelsMinor: 'Artificial: at least 5-5 in both majors.',
     michaelsMajor: (suit: number) => `Artificial: five ${plural(suit)} and a five-card minor.`,
     fiveCardMinor: 'a five-card minor',

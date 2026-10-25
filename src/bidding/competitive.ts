@@ -104,9 +104,15 @@ export function overcallRules(x: Ctx): Rule[] {
   if (!bal && lastLevel === 1 && theirs.length === 1) {
     const other2 = unbid.filter(s => s !== s0);
     const low2 = [...other2].sort((a, b) => a - b).slice(0, 2);
-    if (x.cheapest(NT) === bid(2, NT)) {
-      rules.push(R(bid(2, NT), 'unusual2nt', t.unusual2nt(low2[0], low2[1]), [hcpC(6),
-        lenC(low2[0], 5), lenC(low2[1], 5)], { artificial: true, forcing: 'one', tag: 'unusual', data: { a: low2[0], b: low2[1] } }));
+    // a jump to 2NT over their one-level suit opening (1NT would be natural)
+    if (x.isLegal(bid(2, NT))) {
+      // a modest hand (8–12) with its honours in the two suits, or a strong one (16+, bidding
+      // again later); in between, overcall
+      const inSuits = cond(t.honoursInSuits(low2), h => h.suitHcp[low2[0]] + h.suitHcp[low2[1]] >= h.hcp - 2);
+      for (const strength of [[hcpC(8, 12), inSuits], [hcpC(16)]]) {
+        rules.push(R(bid(2, NT), 'unusual2nt', t.unusual2nt(low2[0], low2[1]), [...strength,
+          lenC(low2[0], 5), lenC(low2[1], 5)], { artificial: true, forcing: 'one', tag: 'unusual', data: { a: low2[0], b: low2[1] } }));
+      }
     }
     const cue = bid(2, s0);
     if (x.isLegal(cue)) {

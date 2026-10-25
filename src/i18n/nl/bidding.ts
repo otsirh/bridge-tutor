@@ -488,6 +488,7 @@ export const bidding: Text['bidding'] = {
     overcall2nt: 'Na een zwakke twee: 15–18 evenwichtig met een stop.',
     overcall3nt: 'Na een preëmpt: een sterke evenwichtige hand (16–21) met een stop — om te spelen.',
     unusual2nt: (a: number, b: number) => `Kunstmatig: minstens 5-5 in de twee laagste ongeboden kleuren (${SUIT_SYMBOLS[a]} en ${SUIT_SYMBOLS[b]}). Vraagt partner te kiezen.`,
+    honoursInSuits: (suits: number[]) => `de honneurs in ${syms(suits, ' en ')} (hoogstens 2 punten daarbuiten)`,
     michaelsMinor: 'Kunstmatig: minstens 5-5 in beide hoge kleuren.',
     michaelsMajor: (suit: number) => `Kunstmatig: vijf ${plural(suit)} en een vijfkaart lage kleur.`,
     fiveCardMinor: 'een vijfkaart lage kleur',
