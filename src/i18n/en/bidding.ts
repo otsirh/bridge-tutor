@@ -128,7 +128,8 @@ export const bidding = {
     /** Answering partner's takeout double. */
     advance: 'Response',
     freeBid: 'Free bid',
-    passOrCorrect: 'Pass or correct',
+    askMinor: 'Ask for the minor',
+    showMinor: 'Show the minor',
     toPlay: 'To play',
     cueBidRaise: 'Cue-bid raise',
     escape: 'Escape',
@@ -181,6 +182,7 @@ export const bidding = {
     compete: 'Compete',
     competeWithSuit: 'Compete with your suit',
     competitiveDouble: 'Competitive double',
+    sacrifice: 'Sacrifice',
   },
 
   /** The optional conventions, for the system settings (ids as in src/bidding/config.ts). */
@@ -224,9 +226,11 @@ export const bidding = {
     open2nt: 'A balanced hand too strong for 1NT: 20–21 HCP.',
     open1nt: 'The workhorse: 15–17 HCP and balanced. Opening 1NT describes your hand in one bid, so partner can usually place the contract.',
     strength: '12–21 HCP (or 10–11 with the Rule of 20)',
-    strength4th: '12–21 HCP, passing the Rule of 15 (HCP + spades ≥ 15) in fourth seat',
+    strength4th: '13–21 HCP in fourth seat, or 10–12 passing the Rule of 15 (HCP + spades ≥ 15)',
     /** `rule20` is given when the hand has fewer than 12 HCP. */
     strengthValue: (hcp: number, rule20: number | null) => `you have ${hcp} HCP${rule20 === null ? '' : `; Rule of 20 gives ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `you have ${hcp} HCP${rule15 === null ? '' : `; Rule of 15 gives ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} is the suit to open (longest; with 5-5 open the higher)`,
     whichDiamonds: '♦ is the suit to open (no 5-card major; longer minor, or 4-4 in the minors)',
     whichClubs: '♣ is the suit to open (no 5-card major; longer minor, or 3-3 in the minors)',
@@ -470,6 +474,9 @@ export const bidding = {
     raiseNewSuitWeakTwo: (suit: number) => `Partner’s new suit is forcing: raise ${plural(suit)} with three-card support or a doubleton honour.`,
     supportNewSuitCond: (suit: number) => `three ${SUIT_SYMBOLS[suit]}, or two with the ace, king or queen`,
     rebidWeakTwo: (suit: number) => `Partner’s new suit is forcing, and you cannot support it: rebid your ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Opener’s 1NT rebid shows 12–14 balanced: with 13+ the partnership has the 25 or so for game. Bid it.',
+    twoNtOver1ntRebid: 'Opener’s 1NT rebid shows 12–14 balanced: with 11–12, game depends on opener’s strength. Invite with 2NT; opener bids 3NT with a maximum.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Partner's invitation shows ${min}–${max}: with ${need}+ HCP the partnership has 33, enough for twelve tricks.`,
     quantAfterInvite: 'Slam is possible if partner is maximum: 4NT invites 6NT (not Blackwood).',
@@ -502,10 +509,12 @@ export const bidding = {
     pass1nt: 'Nothing worth showing over their strong notrump.',
     passNt: 'Their notrump bid: no sensible action.',
     balancing1nt: 'In the balancing seat 1NT shows 11–14 balanced with a stopper (you are "borrowing" partner’s values).',
+    notLongInTheirs: (suits: number[]) => `at most four ${syms(suits, ' ')} (with five, partner is short and did not double: pass)`,
     overcall1nt: 'Like a 1NT opening — 15–18 balanced — plus a stopper in their suit.',
     overcall2nt: 'Over a weak two: 15–18 balanced with a stopper.',
     overcall3nt: 'Over a preempt: a strong balanced hand (16–21) with a stopper — to play.',
     unusual2nt: (a: number, b: number) => `Artificial: at least 5-5 in the two lowest unbid suits (${SUIT_SYMBOLS[a]} and ${SUIT_SYMBOLS[b]}). Asks partner to choose.`,
+    honoursInSuits: (suits: number[]) => `the honours in ${syms(suits, ' and ')} (at most 2 HCP outside them)`,
     michaelsMinor: 'Artificial: at least 5-5 in both majors.',
     michaelsMajor: (suit: number) => `Artificial: five ${plural(suit)} and a five-card minor.`,
     fiveCardMinor: 'a five-card minor',
@@ -551,7 +560,11 @@ export const bidding = {
     gameTwoSuiter: (suit: number) => `A fit in ${plural(suit)} and good values (or a big fit): bid game.`,
     preference: (suit: number) => `Choose partner's suit you like best: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} is your better fit`,
-    passOrCorrect: 'No fit for the major: bid clubs; partner corrects to diamonds if that is the minor.',
+    preferenceMajor: (suit: number) => `Support for partner's ${plural(suit)} (three or more): bid them at the cheapest level.`,
+    askMinor: (suit: number) => `Artificial: no fit for partner's ${plural(suit)}, so 2NT asks partner to bid the minor. You pass it, or bid game with a fit and the values.`,
+    askMinorCond: (suit: number) => `4+ cards in each minor, or at most one ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Only two ${plural(suit)}, but no fit for either minor: the major is the cheapest place to play.`,
+    showMinor: (suit: number) => `Partner's 2NT asks for your minor: bid your ${plural(suit)} (five or more).`,
     passDefend: 'Content to defend.',
     // advancing a penalty double
     passPenalty: 'Partner’s double is for penalties: pass and defend.',
@@ -567,6 +580,7 @@ export const bidding = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Game in partner's ${plural(suit)}: 13+ dummy points with support, or a weak hand with five trumps and shape.`,
     gameRaiseCond: '13+ points in support, or five trumps with a singleton',
+    gameRaiseWeak: (suit: number) => `Five or more ${plural(suit)}, shape and a weak hand: jump to game at once and leave the opponents guessing. With 10+ points and support, cue bid their suit first.`,
     cueBidRaise: (min: number, suit: number) => `A cue bid of their suit shows a good raise: ${min}+ ${plural(suit)} and 10+ points. A simple raise would be weaker.`,
     preemptiveRaise: 'Four-card support and a weak hand: raise to the level of your fit (Law of Total Tricks).',
     raise: (min: number, suit: number) => `Support for partner's suit (${min}+ ${SUIT_SYMBOLS[suit]}) and 6–9 points.`,
@@ -576,6 +590,8 @@ export const bidding = {
     threeNtAfterOvercall: '15+ HCP with a stopper.',
     newSuitAfterOvercall: (suit: number) => `A good suit of your own (5+ ${plural(suit)}) and 8+ HCP. Not forcing.`,
     passNoFit: 'No fit and no extra values.',
+    sacrifice: (suit: number) => `They have bid game, and at favourable vulnerability a sacrifice costs less than their game: with a big ${single(suit)} fit, shortness in their suit and little defence, bid on at once.`,
+    littleDefence: 'little defence (at most one quick trick)',
     // they compete over our 1NT
     redouble1nt: '8+ HCP: we have the balance of power — the opponents are in trouble.',
     escape: (suit: number) => `A weak hand with five or more ${plural(suit)}: run from 1NT doubled to a safer contract.`,
@@ -641,6 +657,9 @@ export const bidding = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Partner showed a good raise (10+): with a sound overcall (13+ points) bid game.',
     minimumCueBidRaise: 'A minimum overcall: bid our suit at the cheapest level. Partner can still bid game with extra values.',
+    gameAfterCueRaise: (suit: number) => `Game values in support of partner's ${plural(suit)}: bid game even opposite a minimum overcall.`,
+    inviteAfterCueRaise: 'A little more than a limit raise: invite game. Partner bids it with the top of a minimum overcall.',
+    passAfterCueRaise: 'Only a limit raise opposite a minimum overcall: stop in the partscore.',
   },
 
   // ---------------------------------------------------------------------------

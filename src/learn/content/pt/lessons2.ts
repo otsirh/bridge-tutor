@@ -435,7 +435,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – dobre – passo: marque 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – dobre – passo: marque 2♠"></div>
-<p>Com 3 PH, marque 1♠ sem medo: o parceiro sabe que você pode não ter nada. Com 10 PH, salte para 2♠ para convidar a game. Com ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH), marque você mesmo 4♠, ou faça cue-bid de 2♥ se não tiver certeza de qual game é melhor.</p>
+<p>Com 3 PH, marque 1♠ sem medo: o parceiro sabe que você pode não ter nada. Com 10 PH, salte para 2♠ para convidar a game. Com ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH) você tem valores de game, mas só quatro espadas: faça cue-bid de 2♥, forcing, e escolha o game depois da resposta do parceiro. Com cinco espadas e 10-11 PH, marque você mesmo 4♠.</p>
 <p>Se o parceiro do abridor marcar (1♥ – dobre – 2♥), você já não é obrigado a falar. Agora uma voz mostra alguns valores, cerca de 6+, e um passo mostra uma mão fraca.</p>
 
 <h3>A remarcação de quem dobrou</h3>
@@ -785,7 +785,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>O passo punitivo e o dobre de reabertura</h3>
 <p>Como o dobre do respondedor é informativo, ele não pode dobrar para punir quando tem cartas fortes no naipe do interventor. Em vez disso, o respondedor <strong>passa</strong> e espera. Quando o abridor é curto no naipe da intervenção, deve reabrir com um dobre, que o respondedor transforma em punitivo passando.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: passe"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: passe"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Abridor (Norte): dobre de reabertura"></div>
 <p>O ♣KQ1093 de Sul está depois dos paus de Leste, e 2♣ dobrado provavelmente vai cair várias vazas. Norte, com singleton de paus, reabre com um dobre porque o passo do parceiro pode ser exatamente esse tipo de mão. Com comprimento no naipe do interventor, o abridor deve ter mais cuidado ao reabrir: aí é improvável que o parceiro esteja esperando para punir.</p>
@@ -813,7 +813,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Depois de uma intervenção de 1♥, o dobre mostra exatamente quatro espadas; com cinco espadas, marque 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Você tem ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PH).',
+        q: '1♥ – (2♣) – ? Você tem ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PH).',
         options: ['Dobre', 'Passo', '3ST', '2ST'],
         answer: 1,
         explain: 'Você adoraria dobrar para punir, mas o seu dobre seria negativo. Passe e espere que o parceiro reabra com um dobre quando for curto em paus; você vai passar esse dobre.',
@@ -983,9 +983,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Depois da resposta, 5♣ de quem perguntou pede os reis no mesmo esquema (5♦ = 0 ou 4, 5♥ = 1, 5♠ = 2, 5ST = 3). Qualquer outra voz decide o contrato; um 4ST de quem perguntou é sign-off, e se a resposta do parceiro foi 4ST, quem perguntou pode simplesmente passar.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="O parceiro abriu 1ST: marque 4♣"></div>
-<p>16 PH (31-33 no total) e seis espadas fortes: a mão é rica em vazas, mas você não tem nenhum ás. A pergunta é sobre ases, então marque 4♣. Sobre 4♠ (dois ases), passe e jogue 4♠. Sobre 4ST (três ases), marque 6♠.</p>
-<p>Com os transfers Texas há outro caminho: 4♥, transfer para espadas, e depois 4ST, Blackwood de cartas-chave, que também conta o rei e a dama de espadas.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="O parceiro abriu 1ST: marque 4♥ (Texas)"></div>
+<p>16 PH (31-33 no total) e seis espadas fortes: a mão é rica em vazas, mas você não tem nenhum ás, então a pergunta é sobre ases. Os robôs jogam transfers Texas por padrão: marque 4♥, o parceiro completa o transfer com 4♠, e o seu 4ST é então Blackwood de cartas-chave, que também conta o rei e a dama de espadas. Sem Texas, marque 4♣, Gerber: sobre 4♠ (dois ases), passe e jogue 4♠; sobre 4ST (três ases), marque 6♠.</p>
 
 <h3>Qual usar?</h3>
 <ul>

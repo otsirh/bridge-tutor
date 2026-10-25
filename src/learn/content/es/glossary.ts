@@ -107,7 +107,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Redeclaración (rebid)', def: 'La segunda voz de un jugador en una subasta.' },
   { term: 'Redoblo (redouble)', def: 'Voz tras el doblo de un rival que vuelve a aumentar la puntuación. Tras un doblo informativo de la apertura del compañero, muestra 10+ PH.' },
   { term: 'Regla del 11 (Rule of 11)', def: 'Cuando tu compañero sale con la cuarta mejor, resta de 11 el valor de la carta para saber cuántas cartas más altas tienen las otras tres manos.' },
-  { term: 'Regla del 15 (Rule of 15)', def: 'En cuarta posición, abre la subasta si los PH más el número de picas suman 15 o más.' },
+  { term: 'Regla del 15 (Rule of 15)', def: 'En cuarta posición, abre una mano de 10-12 PH solo si los PH más el número de picas suman 15 o más; con 13 o más, abre de todos modos.' },
   { term: 'Regla del 2-3-4 (Rule of 2-3-4)', def: 'Guía para los barrages: quédate a dos bazas de tu contrato con vulnerabilidad desfavorable, a tres con igual y a cuatro con favorable.' },
   { term: 'Regla del 20 (Rule of 20)', def: 'En primera, segunda o tercera posición, abre una mano de 10-11 PH si los PH más la longitud de los dos palos más largos suman 20 o más.' },
   { term: 'Regla del 7 (Rule of 7)', def: 'Guía para el hold-up: resta de siete el número de cartas que tenéis entre tú y el muerto en el palo de salida; el resultado es cuántas veces debes agacharte.' },

@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Południe ma 14 PC i pięć pików. 2♣ pyta; 2♠ Północy pokazuje trzykartowe poparcie, a Południe licytuje dograną w piki, gdzie dzięki przebitkom jest jedenaście lew.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Z 11 PC i pięcioma kierami (♠5 ♥AQJ62 ♦A32 ♣9743) Południe pyta przez 2♣, a naprzeciw minimum z trzema kierami inwituje przez 3♥. Północ ma minimum i pasuje.</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Po 1♦ – 1♠ – 1BA która ręka powinna użyć nowego młodszego forsującego?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Pięć pików i 12 PC: zapytaj o trzykartowe poparcie. Pierwsza ręka jest za słaba, trzecia powinna powtórzyć 2♠, a ostatnia, z czterema pikami i 12 PC, licytuje 3BA.',
+        explain: 'Pięć pików i 12 PC: zapytaj o trzykartowe poparcie. Pierwsza ręka jest za słaba; trzecia też i pasuje (2♠ pokazałoby sześć pików); a ostatnia, z czterema pikami i 12 PC, inwituje odzywką 2BA.',
       },
     ],
   },

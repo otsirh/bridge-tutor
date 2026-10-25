@@ -68,6 +68,20 @@
 //
 // Over their 1NT there is no suit of theirs to cue bid, so the advancer raises
 // partner's overcall naturally instead of bidding an artificial 3♣: 134.
+//
+// Making the bots bid what the lessons teach then changed these:
+// - when they bid over partner's single raise, three of opener's suit only
+//   competes, by the Law of Total Tricks (no game invitation, no automatic
+//   pass): 10, 124, 165, 169, 201;
+// - a good raise of partner's overcall starts with the cue bid, and the jump
+//   to game is the weak, shapely raise: 59, 276, 387;
+// - the Unusual 2NT is bid (the rule used to wait for 2NT to be the cheapest
+//   notrump bid, which it never is over a one-level suit): 8–12 HCP with the
+//   honours in the two suits, or 16+: 83, 199, 221, 240, 245;
+// - after opener's 1NT rebid (12–14) a balanced responder invites with 2NT
+//   on 11–12 and bids 3NT on 13+ (the general invitation wanted a range
+//   three points wide): 293;
+// - no balancing 1NT with five cards in their suit: pass instead (113).
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -80,7 +94,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1D P 1H P 2C P P P',
   '1C P 1S P 1NT P 2NT P P P',
   'P 1C P 1D P 1S P P P',
-  'P P 1D X 2D 2H P P P',
+  'P P 1D X 2D 2H 3D P P P',
   'P 1S P 2C P 3S P 4S P 4NT P 5C P 6S P P P',
   'P 1D P P P',
   'P P 1C P 1D P 1S P P P',
@@ -129,7 +143,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1D P 1H P 1S P 3NT P P P',
   '1H 2H 2S 3S P P 4H P P P',
   '1H P 1S 2D 2H P P P',
-  '1C 1S P 4S P P P',
+  '1C 1S P 2C 3C 4S P P P',
   'P 1C 1H X P 1S P 3S P 4S P P P',
   'P 1C P P P',
   'P 2S X P 4H P P P',
@@ -153,7 +167,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1C P 1S P 1NT P P P',
   'P P P P',
   'P P 1C P 1H P 2D P 3NT P P P',
-  '1D 2C X P 2D P P P',
+  '1D 2NT P 3H P P P',
   'P P P 1C P 1S P 3S P 4S P P P',
   '1S 2H 2S 3H P P P',
   '1NT P 2D P 2H P 4H P P P',
@@ -183,7 +197,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1H 1S 2S 3S 4H P P P',
   '3H P P P',
   'P P 1S 3C P P 4S P P P',
-  '1C P P 1NT P 2NT P P P',
+  '1C P P P',
   '1C 1S 2S 3S 5C P P P',
   'P P 1H 1S 2S P 4H P P P',
   'P 1C P 1H P 2H P 3H P 4H P P P',
@@ -194,7 +208,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1D P 1S P 2C P 4S P P P',
   'P 1NT P 2D P 2H P 4H P P P',
   '1C 2S 3C 4S P P P',
-  '1D 1NT 2D 2H P P P',
+  '1D 1NT 2D 2H 3D 3H P 4H P P P',
   '2H P 3H P P P',
   '1NT P 2D P 2H P 2NT P 4H P P P',
   'P 1NT P 2C P 2D P 2NT P P P',
@@ -235,11 +249,11 @@ export const SAYC_AUCTIONS: string[] = [
   'P P 1C P 1H P 1S P 2NT P 3NT P P P',
   '1D P 2C P 2D P 4D P 4NT P 5C P 6D P P P',
   'P 1D 1H 1S 2H P P P',
-  '1D 1H 2D 2H P P P',
+  '1D 1H 2D 2H 3D P P P',
   '1S P 2S P 3S P 4S P P P',
   '1D P 1H P 1NT P 3NT P P P',
   'P P 1NT P 2C P 2D P 3NT P P P',
-  'P P 1C 1H 2C 2H P P P',
+  'P P 1C 1H 2C 2H 3C P P P',
   '1D 3C P P P',
   '1H 1S 2S P 4H P P 5C P P P',
   '1S P P P',
@@ -269,9 +283,9 @@ export const SAYC_AUCTIONS: string[] = [
   '1NT 2D P P P',
   '1H P 2H X 3H P 4H P P P',
   'P 1S 3D 4S P P P',
-  '1H 3C P P X P 4H P P P',
+  '1H 2NT 3C 4C 4H P P P',
   'P 1S P 2D P 3D P 3NT P P P',
-  '1H P 2H 2S 3H 3S 4H P P P',
+  '1H P 2H 2S 3H 3S P P 4H P P P',
   'P 1H 1S P P 2H 2S P P 3H 3S P P P',
   '1D P 3D P 4D P 5D P P P',
   '2C P 2D P 2NT P 3NT P P P',
@@ -291,7 +305,7 @@ export const SAYC_AUCTIONS: string[] = [
   '1D P 1H P 1NT P P P',
   'P 1D P 2D 3C P P 3D P P P',
   'P 1H P 2C P 2D P 3NT P P P',
-  'P P 1S P P 2H P P 2S P P P',
+  'P P 1S 2NT P 5C P P P',
   'P P 1D X 3D P P 3H P P 4D P P P',
   'P 1C 2D 2NT P 3H P 3S P 4S P P P',
   'P 1C P 1H P 2C P P P',
@@ -310,12 +324,12 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1D 1S X 1NT P P P',
   '1C 1H 1S 4H P P 4S P P P',
   '1S P 2D 3H 4S P P P',
-  'P 1H 2D X P 2S P 4S P P P',
+  'P 1H 2NT X 3C 4H P P P',
   'P P 1C P 1H P 1S P P P',
   'P 1H 2D 3H P P P',
   'P P 1H P P 1S 2H 3H P 3S P P P',
   '2H X 3H P 4H P P P',
-  'P 1D 1H X P 2S 3H P P 4S P P P',
+  'P 1D 2NT P 3C 3D 3H P P P',
   'P 1D 1H 2C P 3D P 4D P 5D P P P',
   '1D P 1H X 1NT P P P',
   '1NT P 2C P 2S P 3S P 4S P P P',
@@ -346,7 +360,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P P 2S X P 4H P 4NT P 5D P 6H P P P',
   '1H 2H 2S 3S 4H P 4NT P 5H P 6H P P P',
   '1C 1H P 2NT 3C P P X P P P',
-  '1C P P 1S P 4S P P P',
+  '1C P P 1S P 2C 3C 4S P P P',
   '2C P 2D P 2NT P 3H P 3S P 3NT P 4S P 4NT P 5H P 6S P 7S P P P',
   '1S 2C 3C 3S 4S 5C P P P',
   'P 1D P 1S P 2S P P P',
@@ -363,7 +377,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1C 2S X P 3H P 4H P P P',
   '1NT P 2C P 2H P 3H P P P',
   'P P P 1S P 1NT P 2S P P P',
-  'P 1C P 1S P 1NT P 3NT P P P',
+  'P 1C P 1S P 1NT P 2NT P P P',
   'P 1D X P 1H P 4H P P P',
   '1H P 3H P 4H P P P',
   '1H P 2D P 3C P 4H P P P',
@@ -457,7 +471,7 @@ export const SAYC_AUCTIONS: string[] = [
   '2D X P 3C P 3S P 4S P P P',
   'P 1S P 2H P 3H P 4H P P P',
   'P P P 2C P 2D P 3D P 3H P 5D P P P',
-  'P P 1D 1H 1S 4H P P P',
+  'P P 1D 1H 1S 2D P 4H P P P',
   'P 1D 1H X P 2D P P P',
   '1S 1NT 2S P P P',
   'P 1C P 1H P 2C P 4NT P 5D P 6C P P P',

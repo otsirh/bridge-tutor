@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>In prima, seconda o terza posizione apri una mano da 10 o 11 PO se i PO più il numero di carte dei tuoi due colori più lunghi fanno 20 o più.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regola del 20: apri 1♠"></div>
 <p>10 PO + 5 + 5 = 20, quindi apri, e con due colori quinti apri nel più alto: 1♠. Confronta ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PO + 4 + 3 = 18, quindi passa. Donne e fanti sparsi e una distribuzione piatta ne fanno una cattiva apertura.</p>
-<p>In quarta posizione, dopo tre passo, usa la regola del 15: apri se i PO più il numero di picche fanno 15 o più. Se passi la smazzata si chiude, quindi conviene aprire solo quando la tua linea ha buone probabilità di vincere la lotta per il parziale, e quelle lotte le decide quasi sempre il colore di picche.</p>
+<p>In quarta posizione, dopo tre passo, apri con 13 o più PO; con 10-12 PO usa la regola del 15: apri solo se i PO più il numero di picche fanno 15 o più. Se passi la smazzata si chiude, quindi conviene aprire solo quando la tua linea ha buone probabilità di vincere la lotta per il parziale, e quelle lotte le decide quasi sempre il colore di picche.</p>
 
 <h3>Il conteggio delle perdenti</h3>
 <p>Una volta trovato un fit di 8+ carte, il conteggio delle perdenti (LTC, Losing Trick Count) dà un secondo parere basato sulla distribuzione. Guarda le prime tre carte di ogni colore e conta una perdente per ogni asso, re o donna che manca tra quelle:</p>

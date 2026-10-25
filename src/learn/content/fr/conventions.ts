@@ -207,6 +207,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Sud a 14 H et cinq piques. 2♣ interroge ; le 2♠ de Nord montre trois cartes de soutien, et Sud demande la manche à pique, où les coupes permettent de faire onze levées.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Avec 11 H et cinq cœurs (♠5 ♥AQJ62 ♦A32 ♣9743), Sud interroge par 2♣ et, face à un minimum avec trois cœurs, propose la manche par 3♥. Nord a un minimum et passe.</p>
 
@@ -260,7 +261,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Après 1♦ – 1♠ – 1SA, quelle main doit employer la nouvelle mineure forcing ?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Cinq piques et 12 H : demandez un soutien de trois cartes. La première main est trop faible, la troisième doit redemander 2♠, et la dernière, avec quatre piques et 12 H, dit 3SA.',
+        explain: 'Cinq piques et 12 H : demandez un soutien de trois cartes. La première main est trop faible ; la troisième aussi, elle passe (2♠ montrerait six piques) ; et la dernière, avec quatre piques et 12 H, propose la manche par 2SA.',
       },
     ],
   },

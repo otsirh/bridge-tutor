@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Sul tem 14 PH e cinco espadas. 2♣ pergunta; o 2♠ de Norte mostra apoio de três cartas, e Sul marca o game em espadas, onde o valor dos cortes rende onze vazas.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Com 11 PH e cinco copas (♠5 ♥AQJ62 ♦A32 ♣9743), Sul pergunta com 2♣ e, diante de um mínimo com três copas, convida com 3♥. Norte tem mínimo e passa.</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Depois de 1♦ – 1♠ – 1ST, qual mão deve usar o novo menor forcing?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Cinco espadas e 12 PH: pergunte por apoio de três cartas. A primeira mão é fraca demais, a terceira deve remarcar 2♠, e a última, com quatro espadas e 12 PH, marca 3ST.',
+        explain: 'Cinco espadas e 12 PH: pergunte por apoio de três cartas. A primeira mão é fraca demais; a terceira também, e passa (2♠ mostraria seis espadas); e a última, com quatro espadas e 12 PH, convida com 2ST.',
       },
     ],
   },

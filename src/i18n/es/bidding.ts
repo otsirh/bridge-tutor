@@ -126,7 +126,8 @@ export const bidding: Text['bidding'] = {
     /** Answering partner's takeout double. */
     advance: 'Respuesta',
     freeBid: 'Voz libre',
-    passOrCorrect: 'Pasa o corrige',
+    askMinor: 'Pregunta por el menor',
+    showMinor: 'Mostrar el menor',
     toPlay: 'Para jugar',
     cueBidRaise: 'Cue-bid de apoyo',
     escape: 'Huida',
@@ -179,6 +180,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Competir',
     competeWithSuit: 'Competir con tu palo',
     competitiveDouble: 'Doblo competitivo',
+    sacrifice: 'Sacrificio',
   },
 
   /** The optional conventions, for the system settings (ids as in src/bidding/config.ts). */
@@ -222,9 +224,11 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Una mano equilibrada demasiado fuerte para 1SA: 20–21 PH.',
     open1nt: 'La apertura más útil: 15–17 PH y mano equilibrada. Abrir de 1SA describe tu mano en una sola voz, así que normalmente tu compañero puede fijar el contrato.',
     strength: '12–21 PH (o 10–11 con la regla del 20)',
-    strength4th: '12–21 PH, cumpliendo en cuarta posición la regla del 15 (PH + picas ≥ 15)',
+    strength4th: '13–21 PH en cuarta posición, o 10–12 cumpliendo la regla del 15 (PH + picas ≥ 15)',
     /** `rule20` is given when the hand has fewer than 12 HCP. */
     strengthValue: (hcp: number, rule20: number | null) => `tienes ${hcp} PH${rule20 === null ? '' : `; la regla del 20 da ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `tienes ${hcp} PH${rule15 === null ? '' : `; la regla del 15 da ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} es el palo de apertura (el más largo; con 5-5, abre el más alto)`,
     whichDiamonds: '♦ es el palo de apertura (sin mayor quinto; el menor más largo, o 4-4 en menores)',
     whichClubs: '♣ es el palo de apertura (sin mayor quinto; el menor más largo, o 3-3 en menores)',
@@ -468,6 +472,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `El palo nuevo de tu compañero es forcing: apoya ${the(suit)} con tres cartas o con un doubleton de honor.`,
     supportNewSuitCond: (suit: number) => `tres cartas de ${SUIT_SYMBOLS[suit]}, o dos con el As, el Rey o la Dama`,
     rebidWeakTwo: (suit: number) => `El palo nuevo de tu compañero es forcing y no puedes apoyarlo: repite ${the(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'La redeclaración de 1SA del abridor muestra 12–14 y mano equilibrada: con 13+ PH la pareja tiene los 25 puntos aproximados para la manga. Declárala.',
+    twoNtOver1ntRebid: 'La redeclaración de 1SA del abridor muestra 12–14 y mano equilibrada: con 11–12 PH, la manga depende de la fuerza del abridor. Invita con 2SA; el abridor declara 3SA con un máximo.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `La invitación de tu compañero muestra ${min}–${max}: con ${need}+ PH la pareja suma 33, suficiente para doce bazas.`,
     quantAfterInvite: 'El slam es posible si tu compañero es máximo: 4SA invita a 6SA (no es Blackwood).',
@@ -500,10 +507,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Nada que merezca la pena mostrar sobre su sin triunfo fuerte.',
     passNt: 'Han declarado sin triunfo: ninguna acción sensata.',
     balancing1nt: 'En posición de reapertura, 1SA muestra 11–14 equilibrada con parada (estás “tomando prestados” los puntos de tu compañero).',
+    notLongInTheirs: (suits: number[]) => `como mucho cuatro ${syms(suits, ' ')} (con cinco, tu compañero está corto y no ha doblado: pasa)`,
     overcall1nt: 'Como una apertura de 1SA (15–18 equilibrada), más una parada en su palo.',
     overcall2nt: 'Sobre un dos débil: 15–18 equilibrada con parada.',
     overcall3nt: 'Sobre un barrage: una mano equilibrada fuerte (16–21) con parada; para jugar.',
     unusual2nt: (a: number, b: number) => `Artificial: al menos 5-5 en los dos palos más bajos no declarados (${SUIT_SYMBOLS[a]} y ${SUIT_SYMBOLS[b]}). Pide a tu compañero que elija.`,
+    honoursInSuits: (suits: number[]) => `los honores en ${syms(suits, ' y ')} (como mucho 2 PH fuera de ellos)`,
     michaelsMinor: 'Artificial: al menos 5-5 en los dos mayores.',
     michaelsMajor: (suit: number) => `Artificial: cinco ${plural(suit)} y un menor de cinco cartas.`,
     fiveCardMinor: 'un menor de cinco cartas',
@@ -549,7 +558,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Fit en ${plural(suit)} y buenos valores (o un gran fit): declara la manga.`,
     preference: (suit: number) => `Elige el palo de tu compañero que más te guste: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} es tu mejor fit`,
-    passOrCorrect: 'Sin fit en el mayor: declara tréboles; tu compañero corrige a diamantes si ese es su menor.',
+    preferenceMajor: (suit: number) => `Apoyo para el palo de tu compañero (tres o más ${plural(suit)}): decláralo al nivel más barato.`,
+    askMinor: (suit: number) => `Artificial: sin fit en ${the(suit)} de tu compañero, 2${sym(4)} le pide que declare su menor. Luego pasas, o declaras la manga con fit y valores.`,
+    askMinorCond: (suit: number) => `4+ cartas en cada menor, o como máximo 1 ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Solo dos ${plural(suit)}, pero sin fit en ningún menor: el mayor es el contrato más barato.`,
+    showMinor: (suit: number) => `El 2${sym(4)} de tu compañero pregunta por tu menor: declara tus ${plural(suit)} (cinco o más).`,
     passDefend: 'Te conformas con defender.',
     // advancing a penalty double
     passPenalty: 'El doblo de tu compañero es de castigo: pasa y defiende.',
@@ -565,6 +578,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manga en ${the(suit)} de tu compañero: 13+ puntos de apoyo con fit, o una mano débil con cinco triunfos y distribución.`,
     gameRaiseCond: '13+ puntos de apoyo, o cinco triunfos con un semifallo',
+    gameRaiseWeak: (suit: number) => `Cinco o más ${plural(suit)}, distribución y una mano débil: salta a la manga enseguida y deja a los rivales adivinando. Con 10+ puntos y apoyo, haz primero un cue-bid de su palo.`,
     cueBidRaise: (min: number, suit: number) => `Un cue-bid de su palo muestra un buen apoyo: ${min}+ ${plural(suit)} y 10+ puntos. Un apoyo simple sería más débil.`,
     preemptiveRaise: 'Apoyo de cuatro cartas y una mano débil: sube hasta el nivel de tu fit (ley de las bazas totales).',
     raise: (min: number, suit: number) => `Apoyo al palo de tu compañero (${min}+ ${SUIT_SYMBOLS[suit]}) y 6–9 puntos.`,
@@ -574,6 +588,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PH con parada.',
     newSuitAfterOvercall: (suit: number) => `Un buen palo propio (5+ ${plural(suit)}) y 8+ PH. No forcing.`,
     passNoFit: 'Sin fit y sin valores extra.',
+    sacrifice: (suit: number) => `Los rivales han declarado la manga y, con vulnerabilidad favorable, un sacrificio cuesta menos que su manga: con un gran fit en ${plural(suit)}, corto en su palo y poca defensa, sigue declarando ya.`,
+    littleDefence: 'poca defensa (como mucho una baza rápida)',
     // they compete over our 1NT
     redouble1nt: '8+ PH: tenemos la mayor parte de la fuerza y los rivales están en apuros.',
     escape: (suit: number) => `Una mano débil con cinco o más ${plural(suit)}: escapa de 1SA doblado a un contrato más seguro.`,
@@ -639,6 +655,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Tu compañero ha mostrado un buen apoyo (10+): con una intervención sólida (13+ puntos), declara la manga.',
     minimumCueBidRaise: 'Una intervención mínima: declara nuestro palo al nivel más barato. Tu compañero aún puede declarar la manga con valores extra.',
+    gameAfterCueRaise: (suit: number) => `Valores de manga con apoyo para ${the(suit)} de tu compañero: declara la manga incluso frente a una intervención mínima.`,
+    inviteAfterCueRaise: 'Algo más que un apoyo invitativo: invita a manga. Tu compañero la declara con lo mejor de una intervención mínima.',
+    passAfterCueRaise: 'Solo un apoyo invitativo frente a una intervención mínima: quédate en el parcial.',
   },
 
   // ---------------------------------------------------------------------------

@@ -115,7 +115,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: '被迫应叫',
     advance: '应答',
     freeBid: '自由叫',
-    passOrCorrect: '不叫或改正',
+    askMinor: '询问低花',
+    showMinor: '显示低花',
     toPlay: '止叫',
     cueBidRaise: '扣叫加叫',
     escape: '逃叫',
@@ -165,6 +166,7 @@ export const bidding: Text['bidding'] = {
     compete: '竞叫',
     competeWithSuit: '用自己的花色竞叫',
     competitiveDouble: '竞争性加倍',
+    sacrifice: '牺牲叫',
   },
 
   conventions: {
@@ -207,8 +209,10 @@ export const bidding: Text['bidding'] = {
     open2nt: '牌力太强、不能开叫1NT的平均牌型：20–21大牌点。',
     open1nt: '最常用的开叫：15–17大牌点，平均牌型。1NT开叫一次就描述了你的牌，同伴通常就能确定定约。',
     strength: '12–21大牌点（或按20法则10–11点）',
-    strength4th: '12–21大牌点，第四家须符合15法则（大牌点 + 黑桃张数 ≥ 15）',
+    strength4th: '第四家13–21大牌点，或符合15法则（大牌点 + 黑桃张数 ≥ 15）的10–12点',
     strengthValue: (hcp: number, rule20: number | null) => `你有${hcp}个大牌点${rule20 === null ? '' : `；按20法则为${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `你有${hcp}个大牌点${rule15 === null ? '' : `；按15法则为${rule15}`}`,
     whichMajor: (suit: number) => `开叫花色为${SUIT_SYMBOLS[suit]}（最长的花色；5-5时开叫较高的）`,
     whichDiamonds: '开叫花色为♦（没有5张高花；低花较长，或低花4-4）',
     whichClubs: '开叫花色为♣（没有5张高花；低花较长，或低花3-3）',
@@ -452,6 +456,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `同伴的新花色是逼叫：有3张支持或带大牌的双张时加叫${w(suit)}。`,
     supportNewSuitCond: (suit: number) => `3张${SUIT_SYMBOLS[suit]}，或带A、K、Q之一的2张`,
     rebidWeakTwo: (suit: number) => `同伴的新花色是逼叫，而你无法支持：再叫你的${w(suit)}。`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: '开叫人再叫1NT表示12–14点的平均牌型：你有13+点，双方大约有成局所需的25点。叫到成局。',
+    twoNtOver1ntRebid: '开叫人再叫1NT表示12–14点的平均牌型：你有11–12点，能否成局取决于开叫人的牌力。叫2NT邀请；开叫人高限时叫3NT。',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `同伴的邀请表示${min}–${max}点：你有${need}+大牌点，双方合计33点，足够拿12墩。`,
     quantAfterInvite: '如果同伴是高限就可能有满贯：4NT邀请6NT（不是黑木）。',
@@ -483,10 +490,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: '对方开叫强无将，没有值得表示的东西。',
     passNt: '对方叫了无将：没有合理的行动。',
     balancing1nt: '在平衡位置，1NT表示11–14点平均牌型，对方花色有止张（你在“借用”同伴的牌力）。',
+    notLongInTheirs: (suits: number[]) => `${syms(suits, ' ')}至多4张（有5张时同伴是短套且没有加倍：不叫）`,
     overcall1nt: '与1NT开叫相同——15–18点平均牌型——且对方花色有止张。',
     overcall2nt: '对方弱二开叫后：15–18点平均牌型，有止张。',
     overcall3nt: '对方阻击叫后：平均牌型强牌（16–21），有止张——止叫。',
     unusual2nt: (a: number, b: number) => `人为叫：两门最低的未叫花色（${SUIT_SYMBOLS[a]}和${SUIT_SYMBOLS[b]}）至少5-5。请同伴选择。`,
+    honoursInSuits: (suits: number[]) => `大牌集中在${syms(suits, '和')}（其他花色至多2个大牌点）`,
     michaelsMinor: '人为叫：两门高花至少5-5。',
     michaelsMajor: (suit: number) => `人为叫：5张${w(suit)}和一门5张低花。`,
     fiveCardMinor: '一门5张低花',
@@ -532,7 +541,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `${w(suit)}有配合，牌力好（或配合很好）：叫到成局。`,
     preference: (suit: number) => `在同伴的两门花色中选你最喜欢的：${w(suit)}。`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]}是你配合更好的花色`,
-    passOrCorrect: '与高花没有配合：叫梅花；如果同伴的低花是方块，他会改叫方块。',
+    preferenceMajor: (suit: number) => `支持同伴的${w(suit)}（3张以上）：在最低阶叫出。`,
+    askMinor: (suit: number) => `人为叫：与同伴的${w(suit)}没有配合，所以用2${sym(4)}请同伴叫出低花。之后你不叫，或在有配合和足够牌力时叫到成局。`,
+    askMinorCond: (suit: number) => `两门低花各4张以上，或${SUIT_SYMBOLS[suit]}最多1张`,
+    preferenceDoubleton: (suit: number) => `只有2张${w(suit)}，但两门低花都没有配合：高花是最便宜的定约。`,
+    showMinor: (suit: number) => `同伴的2${sym(4)}在询问你的低花：叫出你的${w(suit)}（5张以上）。`,
     passDefend: '愿意防守。',
     // advancing a penalty double
     passPenalty: '同伴的加倍是惩罚性的：不叫，防守。',
@@ -548,6 +561,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `在同伴的${w(suit)}中成局：有支持且13+支持点，或者有5张将牌、牌型好的弱牌。`,
     gameRaiseCond: '13+支持点，或5张将牌且有单张',
+    gameRaiseWeak: (suit: number) => `5张以上${w(suit)}，牌型好但牌力弱：立刻跳叫成局，让对手去猜。有10+点和支持时，先扣叫对方花色。`,
     cueBidRaise: (min: number, suit: number) => `扣叫对方花色表示好的加叫：${min}张以上${w(suit)}，10+点。简单加叫会弱一些。`,
     preemptiveRaise: '4张支持，弱牌：按配合张数加叫到相应阶数（总墩数定律）。',
     raise: (min: number, suit: number) => `支持同伴的花色（${min}+张${SUIT_SYMBOLS[suit]}），6–9点。`,
@@ -557,6 +571,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+大牌点，有止张。',
     newSuitAfterOvercall: (suit: number) => `有自己的好套（5张以上${w(suit)}），8+大牌点。不逼叫。`,
     passNoFit: '没有配合，也没有多余的牌力。',
+    sacrifice: (suit: number) => `对方已经叫到成局；在有利局况下，牺牲叫的代价小于对方的成局：${w(suit)}配合很好、对方花色短且防守力弱时，立刻继续竞叫。`,
+    littleDefence: '防守力弱（快速赢墩至多1个）',
     // they compete over our 1NT
     redouble1nt: '8+大牌点：我方有实力优势——对手有麻烦了。',
     escape: (suit: number) => `弱牌，有5张以上${w(suit)}：从被加倍的1NT逃到更安全的定约。`,
@@ -622,6 +638,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: '同伴表示了好的加叫（10+）：你的争叫够扎实（13+点）就叫到成局。',
     minimumCueBidRaise: '低限的争叫：在最低阶叫我方花色。同伴有余力仍可叫到成局。',
+    gameAfterCueRaise: (suit: number) => `支持同伴的${w(suit)}且有成局实力：即使同伴是低限争叫也叫到成局。`,
+    inviteAfterCueRaise: '比限制性加叫稍强：邀请成局。同伴的低限争叫偏上限时会叫到成局。',
+    passAfterCueRaise: '只有限制性加叫，而同伴是低限争叫：停在部分定约。',
   },
 
   // ---------------------------------------------------------------------------

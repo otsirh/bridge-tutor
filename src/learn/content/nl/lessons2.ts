@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – doublet – pas: bied 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – doublet – pas: bied 2♠"></div>
-<p>Met 3 punten bied je zonder angst 1♠: partner weet dat je niets kunt hebben. Met 10 punten spring je naar 2♠ als invite voor de manche. Met ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 punten) bied je zelf 4♠, of geef je een cuebid van 2♥ als je niet zeker weet welke manche het beste is.</p>
+<p>Met 3 punten bied je zonder angst 1♠: partner weet dat je niets kunt hebben. Met 10 punten spring je naar 2♠ als invite voor de manche. Met ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 punten) heb je manchekracht, maar maar vier schoppen: geef een cuebid van 2♥, forcing, en kies de manche na het antwoord van partner. Met vijf schoppen en 10-11 punten bied je zelf 4♠.</p>
 <p>Als de partner van de openaar biedt (1♥ – doublet – 2♥), ben je niet meer verplicht te bieden. Een bod toont dan wat punten, ongeveer 6+, en een pas toont een zwakke hand.</p>
 
 <h3>De herbieding van de doubleerder</h3>
@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>De strafpas en het heropeningsdoublet</h3>
 <p>Omdat het doublet van de antwoorder informatief is, kan de antwoorder niet voor straf doubleren met een sterke kaart in de kleur van de volgbieder. In plaats daarvan <strong>past</strong> de antwoorder en wacht hij af. Is de openaar kort in de kleur van de volgbieder, dan moet hij heropenen met een doublet, dat de antwoorder door te passen omzet in een strafdoublet.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Openaar (Noord): heropeningsdoublet"></div>
 <p>De ♣KQ1093 van Zuid zitten achter de klaveren van Oost, en 2♣ gedoubleerd gaat waarschijnlijk een aantal slagen down. Noord heropent met zijn singleton klaver met een doublet, omdat de pas van partner precies zo’n hand kan zijn. Met lengte in de kleur van de volgbieder moet de openaar voorzichtiger zijn met heropenen: dan is het onwaarschijnlijk dat partner zit te wachten om te straffen.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Na een volgbod van 1♥ toont het doublet precies vier schoppen, dus met vijf schoppen bied je 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Je hebt ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 punten).',
+        q: '1♥ – (2♣) – ? Je hebt ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 punten).',
         options: ['Doublet', 'Pas', '3SA', '2SA'],
         answer: 1,
         explain: 'Je zou graag voor straf doubleren, maar jouw doublet zou negatief zijn. Pas en reken erop dat partner met een doublet heropent als hij kort is in klaveren; daarop pas je.',
@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Na het antwoord vraagt 5♣ van de vrager op dezelfde manier naar heren (5♦ = 0 of 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Elk ander bod bepaalt het contract; een bod van 4SA door de vrager is afsluitend, en als partner 4SA antwoordde, kan de vrager gewoon passen.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opende 1SA: bied 4♣"></div>
-<p>16 punten (samen 31-33) en zes sterke schoppen: de hand zit vol slagen, maar je hebt geen azen. De vraag is dus hoeveel azen er zijn: bied 4♣. Na 4♠ (twee azen) pas je en speel je 4♠. Na 4SA (drie azen) bied je 6♠.</p>
-<p>Met Texas-transfers is er nog een andere manier: 4♥, een transfer naar schoppen, en daarna 4SA, Roman Key Card Blackwood, dat ook de heer en de vrouw van schoppen meetelt.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opende 1SA: bied 4♥ (Texas)"></div>
+<p>16 punten (samen 31-33) en zes sterke schoppen: de hand zit vol slagen, maar je hebt geen azen, dus de vraag is hoeveel azen er zijn. De bots spelen standaard Texas-transfers: bied 4♥, partner voltooit de transfer met 4♠, en je 4SA is dan Roman Key Card Blackwood, dat ook de heer en de vrouw van schoppen meetelt. Zonder Texas bied je 4♣, Gerber: na 4♠ (twee azen) pas je en speel je 4♠; na 4SA (drie azen) bied je 6♠.</p>
 
 <h3>Welke gebruik je?</h3>
 <ul>

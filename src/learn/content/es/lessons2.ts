@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – doblo – paso: declara 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – doblo – paso: declara 2♠"></div>
-<p>Con 3 PH, declara 1♠ sin miedo: tu compañero sabe que puedes no tener nada. Con 10 PH, salta a 2♠ para invitar a manga. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH), declara tú mismo 4♠, o haz un cue-bid de 2♥ si no tienes claro cuál es la mejor manga.</p>
+<p>Con 3 PH, declara 1♠ sin miedo: tu compañero sabe que puedes no tener nada. Con 10 PH, salta a 2♠ para invitar a manga. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH) tienes valores de manga, pero solo cuatro picas: haz un cue-bid de 2♥, forcing, y elige la manga después de la respuesta de tu compañero. Con cinco picas y 10-11 PH, declara tú mismo 4♠.</p>
 <p>Si el compañero del abridor declara (1♥ – doblo – 2♥), ya no estás obligado a hablar. Ahora declarar muestra algunos valores, unos 6+, y pasar muestra una mano débil.</p>
 
 <h3>La redeclaración del doblador</h3>
@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>El paso de castigo y el doblo de reapertura</h3>
 <p>Como el doblo del respondedor es informativo, el respondedor no puede doblar de castigo con una tenencia fuerte en el palo del interventor. En su lugar, <strong>pasa</strong> y espera. Cuando el abridor es corto en el palo de la intervención, debe reabrir con un doblo, que el respondedor convierte en castigo pasando.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: paso"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: paso"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Abridor (Norte): doblo de reapertura"></div>
 <p>El ♣KQ1093 de Sur está situado detrás de los tréboles de Este y es probable que 2♣ doblado se multe en varias bazas. Norte, con semifallo de trébol, reabre con un doblo porque el paso de su compañero puede ser justamente este tipo de mano. Con longitud en el palo del interventor, el abridor debe ser más prudente al reabrir: entonces es poco probable que su compañero esté esperando para castigar.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Tras una intervención de 1♥, el doblo muestra exactamente cuatro picas, así que con cinco picas declara 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Tienes ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PH).',
+        q: '1♥ – (2♣) – ? Tienes ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PH).',
         options: ['Doblo', 'Paso', '3SA', '2SA'],
         answer: 1,
         explain: 'Te encantaría doblar de castigo, pero tu doblo sería negativo. Pasa y espera que tu compañero reabra con un doblo cuando sea corto en tréboles; tú lo pasarás.',
@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Tras la respuesta, 5♣ del que pregunta pide los Reyes con el mismo esquema (5♦ = 0 o 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Cualquier otra voz fija el contrato; 4SA del que pregunta es una voz de cierre, y si la respuesta de tu compañero fue 4SA, el que pregunta puede simplemente pasar.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Tu compañero abrió de 1SA: declara 4♣"></div>
-<p>16 PH (31-33 en total) y seis picas fuertes: la mano tiene muchas bazas, pero ningún As. La pregunta son los Ases, así que declara 4♣. Sobre 4♠ (dos Ases), pasa y juega 4♠. Sobre 4SA (tres Ases), declara 6♠.</p>
-<p>Con los transfers Texas hay otro camino: 4♥, transfer a picas, y después 4SA, Roman Key Card Blackwood, que además cuenta el Rey y la Dama de picas.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Tu compañero abrió de 1SA: declara 4♥ (Texas)"></div>
+<p>16 PH (31-33 en total) y seis picas fuertes: la mano tiene muchas bazas, pero ningún As, así que la pregunta son los Ases. Los bots juegan por defecto los transfers Texas: declara 4♥, tu compañero completa el transfer con 4♠ y tu 4SA es entonces Roman Key Card Blackwood, que además cuenta el Rey y la Dama de picas. Sin Texas, declara 4♣, Gerber: sobre 4♠ (dos Ases), pasa y juega 4♠; sobre 4SA (tres Ases), declara 6♠.</p>
 
 <h3>¿Cuál usar?</h3>
 <ul>

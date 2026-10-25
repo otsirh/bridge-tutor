@@ -115,7 +115,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: 'Gedwongen antwoord',
     advance: 'Antwoord',
     freeBid: 'Vrij bod',
-    passOrCorrect: 'Pas of corrigeer',
+    askMinor: 'Vraag naar de lage kleur',
+    showMinor: 'Toon de lage kleur',
     toPlay: 'Om te spelen',
     cueBidRaise: 'Cuebid-verhoging',
     escape: 'Vluchten',
@@ -165,6 +166,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Meebieden',
     competeWithSuit: 'Meebieden met eigen kleur',
     competitiveDouble: 'Competitief doublet',
+    sacrifice: 'Offerbod',
   },
 
   conventions: {
@@ -207,8 +209,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Een evenwichtige hand die te sterk is voor 1SA: 20–21 punten.',
     open1nt: 'Het werkpaard: 15–17 punten en evenwichtig. Met 1SA beschrijf je je hand in één bod, zodat partner meestal het contract kan bepalen.',
     strength: '12–21 punten (of 10–11 met de regel van 20)',
-    strength4th: '12–21 punten, en in vierde hand voldoen aan de regel van 15 (punten + schoppen ≥ 15)',
+    strength4th: '13–21 punten in vierde hand, of 10–12 als je voldoet aan de regel van 15 (punten + schoppen ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `je hebt ${hcp} punten${rule20 === null ? '' : `; de regel van 20 geeft ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `je hebt ${hcp} punten${rule15 === null ? '' : `; de regel van 15 geeft ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} is de kleur om mee te openen (de langste; met 5-5 open je de hoogste)`,
     whichDiamonds: '♦ is de kleur om mee te openen (geen vijfkaart hoge kleur; de langste lage kleur, of 4-4 in de lage kleuren)',
     whichClubs: '♣ is de kleur om mee te openen (geen vijfkaart hoge kleur; de langste lage kleur, of 3-3 in de lage kleuren)',
@@ -452,6 +456,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `De nieuwe kleur van partner is forcing: verhoog ${plural(suit)} met driekaartsteun of een doubleton met een honneur.`,
     supportNewSuitCond: (suit: number) => `drie ${SUIT_SYMBOLS[suit]}, of twee met de aas, heer of vrouw`,
     rebidWeakTwo: (suit: number) => `De nieuwe kleur van partner is forcing en je kunt hem niet steunen: herhaal je ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'De herbieding 1SA van de openaar toont 12–14 punten, evenwichtig: met 13+ punten heeft het paar de ongeveer 25 punten voor de manche. Bied die.',
+    twoNtOver1ntRebid: 'De herbieding 1SA van de openaar toont 12–14 punten, evenwichtig: met 11–12 punten hangt de manche af van de kracht van de openaar. Nodig uit met 2SA; met een maximum biedt de openaar 3SA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `De invite van partner toont ${min}–${max}: met ${need}+ punten heeft het paar samen 33, genoeg voor twaalf slagen.`,
     quantAfterInvite: 'Slem is mogelijk als partner maximaal is: 4SA is een invite voor 6SA (geen Blackwood).',
@@ -483,10 +490,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Niets dat het tonen waard is na hun sterke sans atout.',
     passNt: 'Hun SA-bod: geen zinnige actie.',
     balancing1nt: 'In de balanspositie toont 1SA 11–14 evenwichtig met een stop (je "leent" de punten van partner).',
+    notLongInTheirs: (suits: number[]) => `hoogstens vier ${syms(suits, ' ')} (met vijf is partner kort en heeft niet gedoubleerd: pas)`,
     overcall1nt: 'Zoals een 1SA-opening — 15–18 evenwichtig — plus een stop in hun kleur.',
     overcall2nt: 'Na een zwakke twee: 15–18 evenwichtig met een stop.',
     overcall3nt: 'Na een preëmpt: een sterke evenwichtige hand (16–21) met een stop — om te spelen.',
     unusual2nt: (a: number, b: number) => `Kunstmatig: minstens 5-5 in de twee laagste ongeboden kleuren (${SUIT_SYMBOLS[a]} en ${SUIT_SYMBOLS[b]}). Vraagt partner te kiezen.`,
+    honoursInSuits: (suits: number[]) => `de honneurs in ${syms(suits, ' en ')} (hoogstens 2 punten daarbuiten)`,
     michaelsMinor: 'Kunstmatig: minstens 5-5 in beide hoge kleuren.',
     michaelsMajor: (suit: number) => `Kunstmatig: vijf ${plural(suit)} en een vijfkaart lage kleur.`,
     fiveCardMinor: 'een vijfkaart lage kleur',
@@ -532,7 +541,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Een fit in ${plural(suit)} en goede punten (of een grote fit): bied manche.`,
     preference: (suit: number) => `Kies de kleur van partner die je het best bevalt: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} is je betere fit`,
-    passOrCorrect: 'Geen fit voor de hoge kleur: bied klaveren; partner corrigeert naar ruiten als dat de lage kleur is.',
+    preferenceMajor: (suit: number) => `Steun voor de ${plural(suit)} van partner (drie of meer): bied ze zo laag mogelijk.`,
+    askMinor: (suit: number) => `Kunstmatig: geen fit voor de ${plural(suit)} van partner, dus 2${sym(4)} vraagt partner de lage kleur te bieden. Daarna pas je, of je biedt manche met een fit en genoeg punten.`,
+    askMinorCond: (suit: number) => `4+ kaarten in elke lage kleur, of hoogstens één ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Maar twee ${plural(suit)}, en geen fit in een lage kleur: de hoge kleur is het goedkoopste contract.`,
+    showMinor: (suit: number) => `Het 2${sym(4)}-bod van partner vraagt naar je lage kleur: bied je ${plural(suit)} (vijf of meer).`,
     passDefend: 'Tevreden om tegen te spelen.',
     // advancing a penalty double
     passPenalty: 'Het doublet van partner is een strafdoublet: pas en speel tegen.',
@@ -548,6 +561,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manche in de ${plural(suit)} van partner: 13+ steunpunten met steun, of een zwakke hand met vijf troeven en verdeling.`,
     gameRaiseCond: '13+ steunpunten, of vijf troeven met een singleton',
+    gameRaiseWeak: (suit: number) => `Vijf of meer ${plural(suit)}, verdeling en een zwakke hand: spring meteen naar de manche en laat de tegenstanders raden. Met 10+ punten en steun bied je eerst een cuebid in hun kleur.`,
     cueBidRaise: (min: number, suit: number) => `Een cuebid in hun kleur toont een goede verhoging: ${min}+ ${plural(suit)} en 10+ punten. Een gewone verhoging zou zwakker zijn.`,
     preemptiveRaise: 'Vierkaartsteun en een zwakke hand: verhoog tot het niveau van je fit (wet van het totaal aantal slagen).',
     raise: (min: number, suit: number) => `Steun voor de kleur van partner (${min}+ ${SUIT_SYMBOLS[suit]}) en 6–9 punten.`,
@@ -557,6 +571,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ punten met een stop.',
     newSuitAfterOvercall: (suit: number) => `Een goede eigen kleur (5+ ${plural(suit)}) en 8+ punten. Niet forcing.`,
     passNoFit: 'Geen fit en geen extra kracht.',
+    sacrifice: (suit: number) => `De tegenstanders hebben manche geboden, en bij gunstige kwetsbaarheid kost een offerbod minder dan hun manche: met een grote fit in ${plural(suit)}, kort in hun kleur en weinig verdediging bied je meteen door.`,
+    littleDefence: 'weinig verdediging (hoogstens één snelle slag)',
     // they compete over our 1NT
     redouble1nt: '8+ punten: wij hebben de meeste kracht — de tegenstanders zitten in de problemen.',
     escape: (suit: number) => `Een zwakke hand met vijf of meer ${plural(suit)}: vlucht uit 1SA gedoubleerd naar een veiliger contract.`,
@@ -622,6 +638,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Partner toonde een goede verhoging (10+): met een degelijk volgbod (13+ punten) bied je manche.',
     minimumCueBidRaise: 'Een minimaal volgbod: bied onze kleur op het laagste niveau. Partner kan met extra kracht nog steeds manche bieden.',
+    gameAfterCueRaise: (suit: number) => `Manchekracht met steun voor de ${plural(suit)} van partner: bied manche, ook tegenover een minimaal volgbod.`,
+    inviteAfterCueRaise: 'Iets meer dan een limietverhoging: nodig uit voor de manche. Partner biedt die met de bovenkant van een minimaal volgbod.',
+    passAfterCueRaise: 'Alleen een limietverhoging tegenover een minimaal volgbod: blijf in de deelscore.',
   },
 
   // ---------------------------------------------------------------------------

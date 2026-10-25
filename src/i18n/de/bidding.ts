@@ -124,7 +124,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: 'Erzwungene Antwort',
     advance: 'Antwort',
     freeBid: 'Freies Gebot',
-    passOrCorrect: 'Passe oder korrigieren',
+    askMinor: 'Frage nach der Unterfarbe',
+    showMinor: 'Unterfarbe zeigen',
     toPlay: 'Zum Spielen',
     cueBidRaise: 'Cuebid-Hebung',
     escape: 'Flucht',
@@ -174,6 +175,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Mitreizen',
     competeWithSuit: 'Mitreizen mit eigener Farbe',
     competitiveDouble: 'Kompetitives Kontra',
+    sacrifice: 'Opfergebot',
   },
 
   conventions: {
@@ -216,8 +218,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Eine ausgeglichene Hand, zu stark für 1SA: 20–21 FP.',
     open1nt: 'Die wichtigste Eröffnung überhaupt: 15–17 FP und ausgeglichen. Mit 1SA beschreiben Sie Ihre Hand in einem einzigen Gebot, sodass der Partner meist den Kontrakt bestimmen kann.',
     strength: '12–21 FP (oder 10–11 nach der Zwanzigerregel)',
-    strength4th: '12–21 FP und in vierter Hand die Fünfzehnerregel erfüllt (FP + Anzahl Pik ≥ 15)',
+    strength4th: '13–21 FP in vierter Hand, oder 10–12 mit erfüllter Fünfzehnerregel (FP + Anzahl Pik ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `Sie haben ${hcp} FP${rule20 === null ? '' : `; nach der Zwanzigerregel ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `Sie haben ${hcp} FP${rule15 === null ? '' : `; nach der Fünfzehnerregel ${rule15}`}`,
     whichMajor: (s: number) => `${SUIT_SYMBOLS[s]} ist die Eröffnungsfarbe (die längste; mit 5-5 die höhere)`,
     whichDiamonds: '♦ ist die Eröffnungsfarbe (keine Fünferoberfarbe; die längere Unterfarbe oder 4-4 in den Unterfarben)',
     whichClubs: '♣ ist die Eröffnungsfarbe (keine Fünferoberfarbe; die längere Unterfarbe oder 3-3 in den Unterfarben)',
@@ -461,6 +465,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (s: number) => `Die neue Farbe des Partners ist forcierend: Heben Sie ${suit(s)} mit Dreierunterstützung oder einem Double mit Figur.`,
     supportNewSuitCond: (s: number) => `drei ${SUIT_SYMBOLS[s]}, oder zwei mit Ass, König oder Dame`,
     rebidWeakTwo: (s: number) => `Die neue Farbe des Partners ist forcierend, und Sie können sie nicht unterstützen: Wiederholen Sie ${suit(s)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Das 1SA-Wiedergebot des Eröffners zeigt 12–14 ausgeglichen: Mit 13+ FP hat das Paar die etwa 25 Punkte für das Vollspiel. Reizen Sie es.',
+    twoNtOver1ntRebid: 'Das 1SA-Wiedergebot des Eröffners zeigt 12–14 ausgeglichen: Mit 11–12 FP hängt das Vollspiel von der Stärke des Eröffners ab. Laden Sie mit 2SA ein; mit Maximum reizt der Eröffner 3SA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Die Einladung des Partners zeigt ${range(min, max)}: Mit ${need}+ FP hat das Paar 33, genug für zwölf Stiche.`,
     quantAfterInvite: 'Schlemm ist möglich, wenn der Partner ein Maximum hat: 4SA lädt zu 6SA ein (kein Blackwood).',
@@ -492,10 +499,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Über das starke SA der Gegner nichts, was sich zu zeigen lohnt.',
     passNt: 'Die Gegner haben Sans Atout gereizt: keine sinnvolle Aktion.',
     balancing1nt: 'In der Wiederbelebungsposition zeigt 1SA 11–14 ausgeglichen mit Stopper (Sie „leihen“ sich Werte des Partners).',
+    notLongInTheirs: (suits: number[]) => `höchstens vier ${syms(suits, ' ')} (mit fünf ist der Partner kurz und hat nicht kontriert: passen)`,
     overcall1nt: 'Wie eine 1SA-Eröffnung – 15–18 ausgeglichen – plus Stopper in der Farbe der Gegner.',
     overcall2nt: 'Über eine schwache Zwei: 15–18 ausgeglichen mit Stopper.',
     overcall3nt: 'Über eine Sperre: eine starke ausgeglichene Hand (16–21) mit Stopper – zum Spielen.',
     unusual2nt: (a: number, b: number) => `Künstlich: mindestens 5-5 in den beiden niedrigsten ungereizten Farben (${SUIT_SYMBOLS[a]} und ${SUIT_SYMBOLS[b]}). Bittet den Partner zu wählen.`,
+    honoursInSuits: (suits: number[]) => `die Figuren in ${syms(suits, ' und ')} (höchstens 2 FP außerhalb)`,
     michaelsMinor: 'Künstlich: mindestens 5-5 in beiden Oberfarben.',
     michaelsMajor: (s: number) => `Künstlich: fünf ${suit(s)} und eine Fünferunterfarbe.`,
     fiveCardMinor: 'eine Fünferunterfarbe',
@@ -541,7 +550,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (s: number) => `Ein Fit in ${suit(s)} und gute Werte (oder ein großer Fit): Reizen Sie das Vollspiel.`,
     preference: (s: number) => `Wählen Sie die Farbe des Partners, die Ihnen am besten passt: ${suit(s)}.`,
     betterFit: (s: number) => `${SUIT_SYMBOLS[s]} ist Ihr besserer Fit`,
-    passOrCorrect: 'Kein Fit für die Oberfarbe: Reizen Sie Treff; ist Karo die Unterfarbe, korrigiert der Partner.',
+    preferenceMajor: (s: number) => `Unterstützung für die ${farbe(s)} des Partners (drei oder mehr Karten): Reizen Sie sie auf der niedrigsten Stufe.`,
+    askMinor: (s: number) => `Künstlich: kein Fit für die ${farbe(s)} des Partners, daher fragt 2${sym(4)} nach der Unterfarbe. Danach passen Sie, oder Sie reizen mit Fit und genügend Werten das Vollspiel.`,
+    askMinorCond: (s: number) => `4+ Karten in jeder Unterfarbe oder höchstens ein ${SUIT_SYMBOLS[s]}`,
+    preferenceDoubleton: (s: number) => `Nur zwei ${suit(s)}, aber kein Fit in einer der Unterfarben: Die Oberfarbe ist der billigste Kontrakt.`,
+    showMinor: (s: number) => `Das 2${sym(4)} des Partners fragt nach Ihrer Unterfarbe: Reizen Sie Ihre ${farbe(s)} (fünf oder mehr Karten).`,
     passDefend: 'Zufrieden mit dem Gegenspiel.',
     // advancing a penalty double
     passPenalty: 'Das Kontra des Partners ist Strafe: Passen Sie und spielen Sie gegen.',
@@ -557,6 +570,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (s: number) => `Vollspiel in ${suit(s)}, der Farbe des Partners: 13+ Unterstützungspunkte oder eine schwache Hand mit fünf Trümpfen und Verteilung.`,
     gameRaiseCond: '13+ Unterstützungspunkte oder fünf Trümpfe mit einem Single',
+    gameRaiseWeak: (s: number) => `Fünf oder mehr ${suit(s)}, Verteilung und eine schwache Hand: Springen Sie sofort ins Vollspiel und lassen Sie die Gegner raten. Mit 10+ Punkten und Unterstützung reizen Sie zuerst das Cuebid in der Farbe der Gegner.`,
     cueBidRaise: (min: number, s: number) => `Ein Cuebid in der Farbe der Gegner zeigt eine gute Hebung: ${min}+ ${suit(s)} und 10+ Punkte. Eine einfache Hebung wäre schwächer.`,
     preemptiveRaise: 'Viererunterstützung und eine schwache Hand: Heben Sie auf die Stufe Ihres Fits (Gesetz der totalen Stiche).',
     raise: (min: number, s: number) => `Unterstützung für die Farbe des Partners (${min}+ ${SUIT_SYMBOLS[s]}) und 6–9 Punkte.`,
@@ -566,6 +580,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ FP mit Stopper.',
     newSuitAfterOvercall: (s: number) => `Eine gute eigene Farbe (5+ ${suit(s)}) und 8+ FP. Nicht forcierend.`,
     passNoFit: 'Kein Fit und keine Extrawerte.',
+    sacrifice: (s: number) => `Die Gegner haben das Vollspiel gereizt, und bei günstiger Gefahrenlage kostet ein Opfergebot weniger als ihr Vollspiel: Mit einem großen Fit in ${suit(s)}, Kürze in ihrer Farbe und wenig Verteidigung reizen Sie sofort weiter.`,
+    littleDefence: 'wenig Verteidigung (höchstens ein schneller Stich)',
     // they compete over our 1NT
     redouble1nt: '8+ FP: Wir haben die Punktmehrheit – die Gegner stecken in Schwierigkeiten.',
     escape: (s: number) => `Eine schwache Hand mit fünf oder mehr ${suit(s)}: Flüchten Sie aus 1SA kontriert in einen sichereren Kontrakt.`,
@@ -631,6 +647,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Der Partner hat eine gute Hebung gezeigt (10+): Mit einer soliden Gegenreizung (13+ Punkte) reizen Sie das Vollspiel.',
     minimumCueBidRaise: 'Eine Minimum-Gegenreizung: Reizen Sie unsere Farbe auf der billigsten Stufe. Mit Extrawerten kann der Partner noch das Vollspiel reizen.',
+    gameAfterCueRaise: (s: number) => `Vollspielwerte mit Unterstützung für die ${farbe(s)} des Partners: Reizen Sie das Vollspiel auch gegenüber einer Minimum-Gegenreizung.`,
+    inviteAfterCueRaise: 'Etwas mehr als eine Limit-Hebung: Laden Sie zum Vollspiel ein. Der Partner reizt es mit einer guten Minimum-Gegenreizung.',
+    passAfterCueRaise: 'Nur eine Limit-Hebung gegenüber einer Minimum-Gegenreizung: Bleiben Sie im Teilkontrakt.',
   },
 
   // ---------------------------------------------------------------------------

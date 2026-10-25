@@ -435,7 +435,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – contro – passo: dichiara 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – contro – passo: dichiara 2♠"></div>
-<p>Con 3 PO dichiara 1♠ senza paura: il compagno sa che puoi non avere niente. Con 10 PO salta a 2♠ per invitare a manche. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PO) dichiara tu 4♠, oppure surlicita 2♥ se non sai quale manche sia la migliore.</p>
+<p>Con 3 PO dichiara 1♠ senza paura: il compagno sa che puoi non avere niente. Con 10 PO salta a 2♠ per invitare a manche. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PO) hai valori di manche ma solo quattro picche: surlicita 2♥, forzante, e scegli la manche dopo la risposta del compagno. Con cinque picche e 10-11 PO dichiara tu 4♠.</p>
 <p>Se il compagno dell’apertore dichiara (1♥ – contro – 2♥), non sei più obbligato a dichiarare. Ora una dichiarazione mostra qualche valore, circa 6+, e il passo mostra una mano debole.</p>
 
 <h3>La ridichiarazione di chi ha contrato</h3>
@@ -785,7 +785,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Il passo punitivo e il contro di riapertura</h3>
 <p>Poiché il contro del rispondente è informativo, il rispondente non può contrare per punire quando ha una tenuta forte nel colore dell’interveniente. Il rispondente invece <strong>passa</strong> e aspetta. Quando l’apertore è corto nel colore dell’intervento deve riaprire con un contro, che il rispondente trasforma in punitivo passando.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: passo"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: passo"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Apertore (Nord): contro di riapertura"></div>
 <p>Le ♣KQ1093 di Sud stanno sopra i fiori di Est, e 2♣ contrato probabilmente andrà sotto di parecchie prese. Nord, con un singolo a fiori, riapre con un contro perché il passo del compagno potrebbe nascondere proprio una mano di questo tipo. Con lunghezza nel colore dell’interveniente l’apertore deve essere più prudente nel riaprire: in quel caso è improbabile che il compagno stia aspettando per punire.</p>
@@ -813,7 +813,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Dopo un intervento di 1♥ il contro mostra esattamente quattro picche, quindi con cinque picche dichiara 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Hai ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PO).',
+        q: '1♥ – (2♣) – ? Hai ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PO).',
         options: ['Contro', 'Passo', '3SA', '2SA'],
         answer: 1,
         explain: 'Vorresti contrare per punire, ma il tuo contro sarebbe uno sputnik. Passa e aspettati che il compagno riapra con un contro se è corto a fiori; su quel contro passerai.',
@@ -982,9 +982,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Dopo la risposta, 5♣ di chi ha chiesto domanda i re con lo stesso schema (5♦ = 0 o 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Qualsiasi altra dichiarazione sceglie il contratto; 4SA di chi ha chiesto è una chiusura, e se la risposta del compagno era 4SA, chi ha chiesto può semplicemente passare.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Il compagno ha aperto 1SA: dichiara 4♣"></div>
-<p>16 PO (31-33 in totale) e sei picche forti: la mano è ricca di prese, ma non hai assi. La domanda riguarda gli assi, quindi dichiara 4♣. Su 4♠ (due assi) passa e gioca 4♠. Su 4SA (tre assi) dichiara 6♠.</p>
-<p>Con i transfer Texas c’è un’altra strada: 4♥, transfer a picche, e poi 4SA, Roman Key Card Blackwood, che conta anche il re e la donna di picche.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Il compagno ha aperto 1SA: dichiara 4♥ (Texas)"></div>
+<p>16 PO (31-33 in totale) e sei picche forti: la mano è ricca di prese, ma non hai assi, quindi la domanda riguarda gli assi. I bot giocano di default i transfer Texas: dichiara 4♥, il compagno completa il transfer con 4♠, e il tuo 4SA è allora la Roman Key Card Blackwood, che conta anche il re e la donna di picche. Senza Texas, dichiara 4♣, Gerber: su 4♠ (due assi) passa e gioca 4♠; su 4SA (tre assi) dichiara 6♠.</p>
 
 <h3>Quale usare?</h3>
 <ul>

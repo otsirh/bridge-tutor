@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – kontra – pas: licytuj 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – kontra – pas: licytuj 2♠"></div>
-<p>Z 3 PC licytuj 1♠ bez obaw: partner wie, że możesz nie mieć nic. Z 10 PC skocz na 2♠, inwitując dograną. Z ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PC) zalicytuj od razu 4♠ albo daj cue bid 2♥, jeśli nie wiesz, która dograna jest najlepsza.</p>
+<p>Z 3 PC licytuj 1♠ bez obaw: partner wie, że możesz nie mieć nic. Z 10 PC skocz na 2♠, inwitując dograną. Z ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PC) masz siłę na dograną, ale tylko cztery piki: daj forsujący cue bid 2♥ i wybierz dograną po odpowiedzi partnera. Z pięcioma pikami i 10-11 PC zalicytuj od razu 4♠.</p>
 <p>Jeśli partner otwierającego zalicytuje (1♥ – kontra – 2♥), nie musisz już licytować. Teraz odzywka pokazuje pewną siłę, około 6+, a pas słabą rękę.</p>
 
 <h3>Rebid kontrującego</h3>
@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Pas karny i kontra wznawiająca</h3>
 <p>Ponieważ kontra odpowiadającego jest wywołująca, nie może on kontrować karnie z mocnym kolorem wchodzącego. Zamiast tego odpowiadający <strong>pasuje</strong> i czeka. Gdy otwierający jest krótki w kolorze wejścia, powinien wznowić licytację kontrą, którą odpowiadający pasem zamienia na karną.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: pas"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Otwierający (Północ): kontra wznawiająca"></div>
 <p>♣KQ1093 Południa siedzą za treflami Wschodu i 2♣ z kontrą zapewne przegra kilka lew. Północ z singlem trefl wznawia licytację kontrą, bo pas partnera może oznaczać właśnie taką rękę. Z długością w kolorze wejścia otwierający powinien ostrożniej wznawiać: wtedy jest mało prawdopodobne, że partner czeka na karną kontrę.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Po wejściu 1♥ kontra pokazuje dokładnie cztery piki, więc z pięcioma pikami licytuj 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Masz ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 PC).',
+        q: '1♥ – (2♣) – ? Masz ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 PC).',
         options: ['Kontra', 'Pas', '3BA', '2BA'],
         answer: 1,
         explain: 'Kusi kontra karna, ale twoja kontra byłaby negatywna. Spasuj i oczekuj, że partner z krótkimi treflami wznowi licytację kontrą; na nią spasujesz.',
@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Po odpowiedzi 5♣ pytającego pyta o króle według tego samego schematu (5♦ = 0 lub 4, 5♥ = 1, 5♠ = 2, 5BA = 3). Każda inna odzywka ustala kontrakt; 4BA pytającego jest zamknięciem, a jeśli partner odpowiedział 4BA, pytający może po prostu spasować.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner otworzył 1BA: licytuj 4♣"></div>
-<p>16 PC (razem 31-33) i sześć mocnych pików: ręka jest bogata w lewy, ale nie masz asów. Pytanie dotyczy asów, więc licytuj 4♣. Po 4♠ (dwa asy) spasuj i graj 4♠. Po 4BA (trzy asy) licytuj 6♠.</p>
-<p>Z transferami Texas jest inny sposób: 4♥, czyli transfer na piki, a potem 4BA, Roman Key Card Blackwood, który liczy też króla i damę pik.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner otworzył 1BA: licytuj 4♥ (Texas)"></div>
+<p>16 PC (razem 31-33) i sześć mocnych pików: ręka jest bogata w lewy, ale nie masz asów, więc pytanie dotyczy asów. Boty domyślnie grają transfery Texas: licytuj 4♥, partner kończy transfer odzywką 4♠, a twoje 4BA jest wtedy Roman Key Card Blackwood, który liczy też króla i damę pik. Bez Texasu licytuj 4♣, Gerber: po 4♠ (dwa asy) spasuj i graj 4♠; po 4BA (trzy asy) licytuj 6♠.</p>
 
 <h3>Czego użyć?</h3>
 <ul>

@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – contre – passe : dites 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – contre – passe : dites 2♠"></div>
-<p>Avec 3 H, dites 1♠ sans crainte : votre partenaire sait que vous pouvez n’avoir rien. Avec 10 H, sautez à 2♠ pour proposer la manche. Avec ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 H), dites vous-même 4♠, ou faites un cue-bid à 2♥ si vous ne savez pas quelle manche est la meilleure.</p>
+<p>Avec 3 H, dites 1♠ sans crainte : votre partenaire sait que vous pouvez n’avoir rien. Avec 10 H, sautez à 2♠ pour proposer la manche. Avec ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 H), vous avez les valeurs de la manche mais seulement quatre piques : faites un cue-bid à 2♥, forcing, et choisissez la manche après la réponse de votre partenaire. Avec cinq piques et 10-11 H, dites vous-même 4♠.</p>
 <p>Si le partenaire de l’ouvreur parle (1♥ – contre – 2♥), vous n’êtes plus obligé de parler. Une enchère montre alors quelques valeurs, environ 6+, et un passe montre une main faible.</p>
 
 <h3>La redemande du contreur</h3>
@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>La transformation et le contre de réveil</h3>
 <p>Comme le contre du répondant est d’appel, le répondant ne peut pas contrer pour punir avec une teneur solide dans la couleur de l’intervenant. Il <strong>passe</strong> donc et attend. Quand l’ouvreur est court dans la couleur de l’intervention, il doit réveiller par un contre, que le répondant transforme en passant.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ? : passez"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ? : passez"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="L’ouvreur (Nord) : contre de réveil"></div>
 <p>Les ♣KQ1093 de Sud sont placés derrière les trèfles d’Est, et 2♣ contré va probablement chuter de plusieurs levées. Nord, avec un singleton trèfle, réveille par un contre, car le passe de son partenaire peut correspondre exactement à ce type de main. Avec de la longueur dans la couleur de l’intervenant, l’ouvreur doit être plus prudent avant de réveiller : son partenaire a alors peu de chances d’attendre pour punir.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Après une intervention à 1♥, le contre montre exactement quatre piques : avec cinq piques, dites 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Vous avez ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 H).',
+        q: '1♥ – (2♣) – ? Vous avez ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 H).',
         options: ['Contre', 'Passe', '3SA', '2SA'],
         answer: 1,
         explain: 'Vous aimeriez contrer pour punir, mais votre contre serait un Spoutnik. Passez et attendez que votre partenaire réveille par un contre s’il est court à trèfle ; vous passerez alors.',
@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Après la réponse, 5♣ de la part de celui qui interroge demande les Rois selon le même schéma (5♦ = 0 ou 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Toute autre enchère fixe le contrat ; un 4SA de celui qui interroge est un arrêt, et si la réponse du partenaire était 4SA, il peut simplement passer.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Le partenaire a ouvert de 1SA : dites 4♣"></div>
-<p>16 H (31-33 au total) et six piques solides : la main est riche en levées, mais vous n’avez aucun As. La question porte sur les As : dites 4♣. Sur 4♠ (deux As), passez et jouez 4♠. Sur 4SA (trois As), dites 6♠.</p>
-<p>Avec les Texas au palier de 4, il existe un autre chemin : 4♥, Texas pique, puis 4SA, Blackwood à 5 clés, qui compte aussi le Roi et la Dame de pique.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Le partenaire a ouvert de 1SA : dites 4♥ (Texas)"></div>
+<p>16 H (31-33 au total) et six piques solides : la main est riche en levées, mais vous n’avez aucun As, la question porte donc sur les As. Les robots jouent par défaut les Texas au palier de 4 : dites 4♥, le partenaire complète le Texas par 4♠, et votre 4SA est alors un Blackwood à 5 clés, qui compte aussi le Roi et la Dame de pique. Sans Texas, dites 4♣, Gerber : sur 4♠ (deux As), passez et jouez 4♠ ; sur 4SA (trois As), dites 6♠.</p>
 
 <h3>Lequel utiliser ?</h3>
 <ul>

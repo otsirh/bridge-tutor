@@ -52,7 +52,7 @@ export function openingRules(x: Ctx): Rule[] {
   };
   const strengthCond = cond(pos === 4 ? t.strength4th : t.strength, openOk, s => {
     s.hcp = [Math.max(s.hcp[0], 10), Math.min(s.hcp[1], 21)];
-  }, h => t.strengthValue(h.hcp, h.hcp < 12 ? h.hcp + h.shape[0] + h.shape[1] : null));
+  }, h => (pos === 4 ? t.strengthValue4th(h.hcp, h.hcp < 13 ? h.hcp + h.len[SPADES] : null) : t.strengthValue(h.hcp, h.hcp < 12 ? h.hcp + h.shape[0] + h.shape[1] : null)));
 
   for (const s of [SPADES, HEARTS, DIAMONDS, CLUBS]) {
     const major = s >= HEARTS;

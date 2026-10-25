@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – Kontra – Passe: 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – Kontra – Passe: 2♠"></div>
-<p>Mit 3 FP reizen Sie ohne Angst 1♠: Der Partner weiß, dass Sie nichts haben können. Mit 10 FP springen Sie auf 2♠ und laden zum Vollspiel ein. Mit ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 FP) reizen Sie selbst 4♠ oder geben das Cuebid 2♥ ab, wenn Sie nicht sicher sind, welches Vollspiel das beste ist.</p>
+<p>Mit 3 FP reizen Sie ohne Angst 1♠: Der Partner weiß, dass Sie nichts haben können. Mit 10 FP springen Sie auf 2♠ und laden zum Vollspiel ein. Mit ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 FP) haben Sie Vollspielwerte, aber nur vier Pik: Geben Sie das forcierende Cuebid 2♥ ab und wählen Sie das Vollspiel nach der Antwort des Partners. Mit fünf Pik und 10–11 FP reizen Sie selbst 4♠.</p>
 <p>Reizt der Partner des Eröffners (1♥ – Kontra – 2♥), sind Sie nicht mehr zum Reizen gezwungen. Jetzt zeigt ein Gebot gewisse Werte, etwa 6+, und Passe zeigt eine schwache Hand.</p>
 
 <h3>Das Wiedergebot des Kontrierenden</h3>
@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>Lauerpasse und Wiederbelebungskontra</h3>
 <p>Weil das Kontra des Antwortenden ein Informationskontra ist, kann er mit einer starken Besetzung in der Farbe des Gegenreizers nicht zur Strafe kontrieren. Stattdessen <strong>passt</strong> der Antwortende und wartet ab. Ist der Eröffner in der gegengereizten Farbe kurz, sollte er mit einem Kontra wiederbeleben, das der Antwortende durch Passen in ein Strafkontra verwandelt.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: Passe"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: Passe"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Eröffner (Nord): Wiederbelebungskontra"></div>
 <p>Süds ♣KQ1093 sitzen hinter den Treffkarten von Ost, und 2♣ kontriert dürfte mehrfach fallen. Nord mit einem Treff-Single belebt mit Kontra wieder, weil das Passe des Partners genau so eine Hand sein kann. Mit Länge in der Farbe des Gegenreizers sollte der Eröffner mit dem Wiederbeleben vorsichtiger sein: Dann lauert der Partner kaum auf eine Strafe.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'Nach einer 1♥-Gegenreizung zeigt das Kontra genau vier Pik; mit fünf Pik reizen Sie also 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? Sie halten ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 FP).',
+        q: '1♥ – (2♣) – ? Sie halten ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 FP).',
         options: ['Kontra', 'Passe', '3SA', '2SA'],
         answer: 1,
         explain: 'Sie würden gern zur Strafe kontrieren, aber Ihr Kontra wäre negativ. Passen Sie und rechnen Sie damit, dass der Partner mit Treff-Kürze mit einem Kontra wiederbelebt; das lassen Sie dann stehen.',
@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>Nach der Antwort fragt 5♣ des Fragenden nach demselben Schema nach Königen (5♦ = 0 oder 4, 5♥ = 1, 5♠ = 2, 5SA = 3). Jedes andere Gebot legt den Kontrakt fest; ein 4SA-Gebot des Fragenden ist ein Abschlussgebot, und war die Antwort des Partners 4SA, kann der Fragende einfach passen.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner hat 1SA eröffnet: 4♣"></div>
-<p>16 FP (zusammen 31–33) und sechs starke Pik: Die Hand ist reich an Stichen, enthält aber kein Ass. Die Frage sind also die Asse, darum reizen Sie 4♣. Auf 4♠ (zwei Asse) passen Sie und spielen 4♠. Auf 4SA (drei Asse) reizen Sie 6♠.</p>
-<p>Mit Texas-Transfers gibt es noch einen anderen Weg: 4♥, Transfer auf Pik, und dann 4SA, Roman Key Card Blackwood, das auch König und Dame in Pik mitzählt.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner hat 1SA eröffnet: 4♥ (Texas)"></div>
+<p>16 FP (zusammen 31–33) und sechs starke Pik: Die Hand ist reich an Stichen, enthält aber kein Ass, die Frage sind also die Asse. Die Bots spielen standardmäßig Texas-Transfers: Reizen Sie 4♥, der Partner vollendet den Transfer mit 4♠, und Ihr 4SA ist dann Roman Key Card Blackwood, das auch König und Dame in Pik mitzählt. Ohne Texas reizen Sie 4♣, Gerber: Auf 4♠ (zwei Asse) passen Sie und spielen 4♠; auf 4SA (drei Asse) reizen Sie 6♠.</p>
 
 <h3>Welches Werkzeug wann?</h3>
 <ul>

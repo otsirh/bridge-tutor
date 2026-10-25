@@ -113,6 +113,9 @@ export function openerRebidOneSuit(x: Ctx, open: number, resp: CallRecord): Rule
     if (resp.meaning.shown.hcp[1] < 10 && lvl >= 3) return []; // a preemptive raise: use judgment
     if (lvl === 2) {
       rules.push(R(bid(4, open), 'game', t.gameAfterRaise, [declC(open, 19)]));
+      // they bid over the raise: three of our suit only competes, and whether to is
+      // the Law of Total Tricks (general judgment)
+      if (!x.weHoldContract()) return rules;
       rules.push(R(bid(3, open), 'invitation', t.inviteAfterRaise, [declC(open, 16, 18)], { tag: 'invite' }));
       if (open < HEARTS) rules.push(R(bid(2, NT), 'invitation', t.twoNtAfterRaise, [hcpC(18, 19), balancedC()], { tag: 'invite' }));
       rules.push(R(PASS, 'pass', t.passAfterRaise, [], { shows: s => { s.hcp = [s.hcp[0], Math.min(s.hcp[1], 16)]; } }));
@@ -450,6 +453,18 @@ export function openerAfterWeakTwoNewSuit(x: Ctx, s: number, o: number): Rule[] 
   }
   if (own !== null) rules.push(R(own, 'rebidSuit', t.rebidWeakTwo(s), []));
   return rules;
+}
+
+/**
+ * Responder after opener's 1NT rebid (12–14 balanced), with a balanced hand:
+ * game with 13+, an invitation with 11–12. Other hands use general judgment.
+ */
+export function responderAfter1ntRebid(): Rule[] {
+  const t = T.bidding.rebids;
+  return [
+    R(bid(3, NT), ['nt', 3], t.threeNtOver1ntRebid, [hcpC(13, 18), balancedC()]),
+    R(bid(2, NT), 'invitation', t.twoNtOver1ntRebid, [hcpC(11, 12), balancedC()], { tag: 'invite' }),
+  ];
 }
 
 /** Responder's continuation after partner's invitation: accept when the combined total can reach game. */

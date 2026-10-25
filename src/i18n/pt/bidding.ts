@@ -114,7 +114,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: 'Resposta forçada',
     advance: 'Resposta',
     freeBid: 'Voz livre',
-    passOrCorrect: 'Passe ou corrija',
+    askMinor: 'Pergunta pelo pobre',
+    showMinor: 'Mostrar o pobre',
     toPlay: 'Para jogar',
     cueBidRaise: 'Apoio por cue-bid',
     escape: 'Fuga',
@@ -164,6 +165,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Competir',
     competeWithSuit: 'Competir com o seu naipe',
     competitiveDouble: 'Dobre competitivo',
+    sacrifice: 'Sacrifício',
   },
 
   conventions: {
@@ -206,8 +208,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Mão balanceada forte demais para 1ST: 20–21 PH.',
     open1nt: 'A abertura mais útil: 15–17 PH e mão balanceada. Abrir 1ST descreve a sua mão numa só voz, e o parceiro em geral já consegue decidir o contrato.',
     strength: '12–21 PH (ou 10–11 pela Regra dos 20)',
-    strength4th: '12–21 PH, cumprindo a Regra dos 15 (PH + espadas ≥ 15) em quarta posição',
+    strength4th: '13–21 PH em quarta posição, ou 10–12 cumprindo a Regra dos 15 (PH + espadas ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `você tem ${hcp} PH${rule20 === null ? '' : `; a Regra dos 20 dá ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `você tem ${hcp} PH${rule15 === null ? '' : `; a Regra dos 15 dá ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} é o naipe da abertura (o mais longo; com 5-5, abra no mais alto)`,
     whichDiamonds: '♦ é o naipe da abertura (sem rico quinto; o pobre mais longo, ou 4-4 nos pobres)',
     whichClubs: '♣ é o naipe da abertura (sem rico quinto; o pobre mais longo, ou 3-3 nos pobres)',
@@ -451,6 +455,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `O naipe novo do parceiro é forcing: apoie ${plural(suit)} com três cartas ou com um doubleton de honra.`,
     supportNewSuitCond: (suit: number) => `três cartas de ${SUIT_SYMBOLS[suit]}, ou duas com o ás, o rei ou a dama`,
     rebidWeakTwo: (suit: number) => `O naipe novo do parceiro é forcing e você não pode apoiá-lo: remarque o seu naipe de ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'A remarcação de 1ST do abridor mostra 12–14 balanceada: com 13+ PH a dupla tem os cerca de 25 pontos para o game. Marque-o.',
+    twoNtOver1ntRebid: 'A remarcação de 1ST do abridor mostra 12–14 balanceada: com 11–12 PH o game depende da força do abridor. Convide com 2ST; o abridor marca 3ST com um máximo.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `O convite do parceiro mostra ${min}–${max}: com ${need}+ PH a dupla tem 33, o bastante para doze vazas.`,
     quantAfterInvite: 'O slam é possível se o parceiro for máximo: 4ST convida a 6ST (não é Blackwood).',
@@ -482,10 +489,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Nada que valha a pena mostrar sobre o sem trunfo forte deles.',
     passNt: 'Eles marcaram sem trunfo: nenhuma ação sensata.',
     balancing1nt: 'Em posição de reabertura, 1ST mostra 11–14 balanceada com parada (você está “pegando emprestados” os valores do parceiro).',
+    notLongInTheirs: (suits: number[]) => `no máximo quatro cartas em ${syms(suits, ' ')} (com cinco, o parceiro está curto e não dobrou: passe)`,
     overcall1nt: 'Como uma abertura de 1ST — 15–18 balanceada — mais uma parada no naipe deles.',
     overcall2nt: 'Sobre um dois fraco: 15–18 balanceada com parada.',
     overcall3nt: 'Sobre uma barragem: mão forte e balanceada (16–21) com parada — para jogar.',
     unusual2nt: (a: number, b: number) => `Artificial: pelo menos 5-5 nos dois naipes mais baixos não marcados (${SUIT_SYMBOLS[a]} e ${SUIT_SYMBOLS[b]}). Pede ao parceiro que escolha.`,
+    honoursInSuits: (suits: number[]) => `as honras em ${syms(suits, ' e ')} (no máximo 2 PH fora deles)`,
     michaelsMinor: 'Artificial: pelo menos 5-5 nos dois ricos.',
     michaelsMajor: (suit: number) => `Artificial: cinco ${plural(suit)} e um naipe pobre de cinco cartas.`,
     fiveCardMinor: 'um naipe pobre de cinco cartas',
@@ -531,7 +540,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Fit em ${plural(suit)} e bons valores (ou um grande fit): marque o game.`,
     preference: (suit: number) => `Escolha o naipe do parceiro de que você mais gosta: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} é o seu melhor fit`,
-    passOrCorrect: 'Sem fit no rico: marque paus; o parceiro corrige para ouros se esse for o pobre dele.',
+    preferenceMajor: (suit: number) => `Apoio para as ${plural(suit)} do parceiro (três ou mais): marque-as no nível mais barato.`,
+    askMinor: (suit: number) => `Artificial: sem fit em ${plural(suit)} com o parceiro, por isso 2${sym(4)} pede que o parceiro marque o pobre. Depois você passa, ou marca o game com fit e valores.`,
+    askMinorCond: (suit: number) => `4+ cartas em cada pobre, ou no máximo 1 ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Só duas ${plural(suit)}, mas sem fit em nenhum pobre: o rico é o contrato mais barato.`,
+    showMinor: (suit: number) => `O 2${sym(4)} do parceiro pergunta pelo seu pobre: marque os seus ${plural(suit)} (cinco ou mais).`,
     passDefend: 'Satisfeito em defender.',
     // advancing a penalty double
     passPenalty: 'O dobre do parceiro é punitivo: passe e defenda.',
@@ -547,6 +560,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Game nas ${plural(suit)} do parceiro: 13+ pontos de apoio, ou mão fraca com cinco trunfos e distribuição.`,
     gameRaiseCond: '13+ pontos de apoio, ou cinco trunfos com singleton',
+    gameRaiseWeak: (suit: number) => `Cinco ou mais ${plural(suit)}, distribuição e mão fraca: salte logo para o game e deixe os adversários adivinhando. Com 10+ pontos e apoio, faça primeiro um cue-bid no naipe deles.`,
     cueBidRaise: (min: number, suit: number) => `Um cue-bid no naipe deles mostra um bom apoio: ${min}+ ${plural(suit)} e 10+ pontos. Um apoio simples seria mais fraco.`,
     preemptiveRaise: 'Apoio de quatro cartas e mão fraca: suba até o nível do seu fit (Lei das Vazas Totais).',
     raise: (min: number, suit: number) => `Apoio para o naipe do parceiro (${min}+ ${SUIT_SYMBOLS[suit]}) e 6–9 pontos.`,
@@ -556,6 +570,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PH com parada.',
     newSuitAfterOvercall: (suit: number) => `Um bom naipe próprio (5+ ${plural(suit)}) e 8+ PH. Não forcing.`,
     passNoFit: 'Sem fit e sem valores extras.',
+    sacrifice: (suit: number) => `Os adversários marcaram game e, com vulnerabilidade favorável, um sacrifício custa menos que o game deles: com um grande fit em ${plural(suit)}, curto no naipe deles e pouca defesa, continue marcando já.`,
+    littleDefence: 'pouca defesa (no máximo uma vaza rápida)',
     // they compete over our 1NT
     redouble1nt: '8+ PH: a força está do nosso lado — os adversários estão em apuros.',
     escape: (suit: number) => `Mão fraca com cinco ou mais ${plural(suit)}: fuja de 1ST dobrado para um contrato mais seguro.`,
@@ -621,6 +637,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'O parceiro mostrou um bom apoio (10+): com uma intervenção sólida (13+ pontos), marque o game.',
     minimumCueBidRaise: 'Uma intervenção mínima: marque o nosso naipe no nível mais barato. O parceiro ainda pode marcar o game com valores extras.',
+    gameAfterCueRaise: (suit: number) => `Valores de game com apoio para as ${plural(suit)} do parceiro: marque o game mesmo diante de uma intervenção mínima.`,
+    inviteAfterCueRaise: 'Um pouco mais que um apoio limite: convide para game. O parceiro marca o game com o topo de uma intervenção mínima.',
+    passAfterCueRaise: 'Só um apoio limite diante de uma intervenção mínima: fique no parcial.',
   },
 
   // ---------------------------------------------------------------------------

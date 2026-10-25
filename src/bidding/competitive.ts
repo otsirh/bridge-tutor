@@ -90,8 +90,10 @@ export function overcallRules(x: Ctx): Rule[] {
   const preempt = lb.meaning.tag === 'weak2' || lb.meaning.tag === 'preempt';
 
   if (ntCall === bid(1, NT)) {
+    // in the balancing seat, length in their suit says partner is short and weak: let them play
+    const notLong = cond(t.notLongInTheirs(theirs), h => theirs.every(s => h.len[s] <= 4), sh => { theirs.forEach(s => (sh.len[s] = [sh.len[s][0], Math.min(4, sh.len[s][1])])); }, h => T.bidding.conds.lengths(h.len, theirs));
     rules.push(R(ntCall, bal ? 'balancing1nt' : ['ntOvercall', 1], bal ? t.balancing1nt : t.overcall1nt, [
-      hcpC(bal ? 11 : 15, bal ? 14 : 18), balancedC(), stopC(theirs)]));
+      hcpC(bal ? 11 : 15, bal ? 14 : 18), balancedC(), stopC(theirs), ...(bal ? [notLong] : [])]));
   }
   if (ntCall === bid(2, NT) && preempt) {
     rules.push(R(ntCall, ['ntOvercall', 2], t.overcall2nt, [hcpC(15, 18), balancedC(), stopC(theirs)]));
@@ -104,9 +106,15 @@ export function overcallRules(x: Ctx): Rule[] {
   if (!bal && lastLevel === 1 && theirs.length === 1) {
     const other2 = unbid.filter(s => s !== s0);
     const low2 = [...other2].sort((a, b) => a - b).slice(0, 2);
-    if (x.cheapest(NT) === bid(2, NT)) {
-      rules.push(R(bid(2, NT), 'unusual2nt', t.unusual2nt(low2[0], low2[1]), [hcpC(6),
-        lenC(low2[0], 5), lenC(low2[1], 5)], { artificial: true, forcing: 'one', tag: 'unusual', data: { a: low2[0], b: low2[1] } }));
+    // a jump to 2NT over their one-level suit opening (1NT would be natural)
+    if (x.isLegal(bid(2, NT))) {
+      // a modest hand (8–12) with its honours in the two suits, or a strong one (16+, bidding
+      // again later); in between, overcall
+      const inSuits = cond(t.honoursInSuits(low2), h => h.suitHcp[low2[0]] + h.suitHcp[low2[1]] >= h.hcp - 2);
+      for (const strength of [[hcpC(8, 12), inSuits], [hcpC(16)]]) {
+        rules.push(R(bid(2, NT), 'unusual2nt', t.unusual2nt(low2[0], low2[1]), [...strength,
+          lenC(low2[0], 5), lenC(low2[1], 5)], { artificial: true, forcing: 'one', tag: 'unusual', data: { a: low2[0], b: low2[1] } }));
+      }
     }
     const cue = bid(2, s0);
     if (x.isLegal(cue)) {
@@ -280,14 +288,21 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
       const game = s >= HEARTS ? 4 : 5;
       rules.push(R(bid(game, s), 'game', t.gameTwoSuiter(s), [lenC(s, 3), hcpC(11)]));
     }
-    for (const s of choices) {
-      const c = x.cheapest(s);
-      if (c === null) continue;
-      rules.push(R(c, 'preference', t.preference(s), [cond(t.betterFit(s), h => choices.every(o => h.len[o] <= h.len[s]))]));
-    }
-    if (b < 0) {
-      const c = x.cheapest(CLUBS);
-      if (c !== null) rules.push(R(c, 'passOrCorrect', t.passOrCorrect, [lenC(a, 0, 2)], { tag: 'pOrC' }));
+    if (b >= 0) {
+      for (const s of choices) {
+        const c = x.cheapest(s);
+        if (c === null) continue;
+        rules.push(R(c, 'preference', t.preference(s), [cond(t.betterFit(s), h => choices.every(o => h.len[o] <= h.len[s]))]));
+      }
+    } else {
+      // the other major and an unknown minor: bid the major with support, or ask for the minor with 2NT
+      const c = x.cheapest(a);
+      if (c !== null) rules.push(R(c, 'preference', t.preferenceMajor(a), [lenC(a, 3)]));
+      if (x.cheapest(NT) === bid(2, NT)) {
+        rules.push(R(bid(2, NT), 'askMinor', t.askMinor(a), [lenC(a, 0, 2),
+          cond(t.askMinorCond(a), h => h.len[a] <= 1 || (h.len[CLUBS] >= 4 && h.len[DIAMONDS] >= 4))], { artificial: true, forcing: 'one', tag: 'askMinor' }));
+      }
+      if (c !== null) rules.push(R(c, 'preference', t.preferenceDoubleton(a), [lenC(a, 2)]));
     }
     rules.push(R(PASS, 'pass', t.passDefend, []));
     return rules;
@@ -323,12 +338,29 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
   }
 
   if (ps >= 0 && ps < 4) {
+    // they bid game over partner's overcall: at favourable vulnerability, a big fit with
+    // shortness in their suit and little defence sacrifices at once
+    const lbr = x.lastBidRecord();
+    const theirGame = !!lbr && !x.ourSide(lbr.seat) && strainOf(lbr.call) < NT && strainOf(lbr.call) !== ps
+      && levelOf(lbr.call) >= (strainOf(lbr.call) >= HEARTS ? 4 : 5) && levelOf(lbr.call) <= 5;
+    const save = x.cheapest(ps);
+    if (rhoBid && theirGame && !x.weVul && x.theyVul && save !== null && levelOf(save) <= 5) {
+      const ts = strainOf(lbr!.call);
+      rules.push(R(save, 'sacrifice', t.sacrifice(ps), [lenC(ps, 4), lenC(ts, 0, 1), hcpC(0, 9),
+        cond(t.littleDefence, h => h.qt <= 1)]));
+    }
     // a cue-bid raise needs a suit of theirs to cue (over their 1NT there is none)
     const cue = theirs.length ? x.cheapest(opp) : null;
     const supLen = ps >= HEARTS ? 3 : 4;
-    if (ps >= HEARTS) rules.push(R(bid(4, ps), 'gameRaise', t.gameRaise(ps), [lenC(ps, 3),
-      cond(t.gameRaiseCond, h => dummyPoints(h, ps) >= 13 || (h.len[ps] >= 5 && h.shape[3] <= 1))]));
-    if (cue !== null && cue < bid(4, ps) && levelOf(cue) <= 3) rules.push(R(cue, 'cueBidRaise', t.cueBidRaise(supLen, ps), [lenC(ps, supLen), dpC(ps, 10)], { artificial: true, forcing: 'one', tag: 'cueRaise', data: { suit: ps } }));
+    const cueOk = cue !== null && cue < bid(4, ps) && levelOf(cue) <= 3;
+    if (ps >= HEARTS) {
+      // a good raise starts with the cue bid (the overcall may be a minimum); the direct
+      // jump to game is the weak, shapely hand that wants to shut the opponents out
+      if (cueOk) rules.push(R(bid(4, ps), 'gameRaise', t.gameRaiseWeak(ps), [lenC(ps, 5), hcpC(0, 9), cond(T.bidding.conds.singletonOrVoid, h => h.shape[3] <= 1)]));
+      else rules.push(R(bid(4, ps), 'gameRaise', t.gameRaise(ps), [lenC(ps, 3),
+        cond(t.gameRaiseCond, h => dummyPoints(h, ps) >= 13 || (h.len[ps] >= 5 && h.shape[3] <= 1))]));
+    }
+    if (cueOk) rules.push(R(cue, 'cueBidRaise', t.cueBidRaise(supLen, ps), [lenC(ps, supLen), dpC(ps, 10)], { artificial: true, forcing: 'one', tag: 'cueRaise', data: { suit: ps } }));
     const raise = x.cheapest(ps);
     if (raise !== null && levelOf(raise) <= 3) {
       const j = x.jump(ps);
@@ -629,6 +661,17 @@ export function doublerAfterRedouble(x: Ctx): Rule[] {
   return rules;
 }
 
+/** The Michaels bidder (the other major and a minor) after partner's 2NT asks for the minor: bid it. */
+export function michaelsMinorReply(x: Ctx): Rule[] {
+  const t = T.bidding.competitive;
+  const rules: Rule[] = [];
+  for (const m of [DIAMONDS, CLUBS]) {
+    const c = x.cheapest(m);
+    if (c !== null && levelOf(c) <= 4) rules.push(R(c, 'showMinor', t.showMinor(m), [lenC(m, 5)]));
+  }
+  return rules;
+}
+
 /** The overcaller's rebid after partner's cue-bid raise (a limit raise or better). */
 export function overcallerAfterCueRaise(x: Ctx, cue: CallRecord): Rule[] {
   const t = T.bidding.competitive;
@@ -637,6 +680,18 @@ export function overcallerAfterCueRaise(x: Ctx, cue: CallRecord): Rule[] {
   const rules: Rule[] = [];
   if (x.isLegal(bid(game, suit))) rules.push(R(bid(game, suit), 'accept', t.acceptCueBidRaise, [tpC(13)]));
   const c = x.cheapest(suit);
-  if (c !== null && c < bid(game, suit)) rules.push(R(c, 'minimum', t.minimumCueBidRaise, [], { shows: s => { s.hcp = [s.hcp[0], Math.min(s.hcp[1], 12)]; } }));
+  if (c !== null && c < bid(game, suit)) rules.push(R(c, 'minimum', t.minimumCueBidRaise, [], { tag: 'cueRaiseMin', data: { suit }, shows: s => { s.hcp = [s.hcp[0], Math.min(s.hcp[1], 12)]; } }));
+  return rules;
+}
+
+/** The advancer after a cue-bid raise and partner's minimum: game with game values, otherwise invite or stop. */
+export function advancerAfterCueRaiseMin(x: Ctx, suit: number): Rule[] {
+  const t = T.bidding.competitive;
+  const game = suit >= HEARTS ? 4 : 5;
+  const rules: Rule[] = [];
+  if (x.isLegal(bid(game, suit))) rules.push(R(bid(game, suit), 'game', t.gameAfterCueRaise(suit), [dpC(suit, game === 4 ? 14 : 16)]));
+  const c = x.cheapest(suit);
+  if (c !== null && c < bid(game, suit) && suit >= HEARTS) rules.push(R(c, 'invitation', t.inviteAfterCueRaise, [dpC(suit, 13)], { tag: 'invite' }));
+  rules.push(R(PASS, 'pass', t.passAfterCueRaise, []));
   return rules;
 }

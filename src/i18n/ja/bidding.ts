@@ -112,7 +112,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: '強制されたレスポンス',
     advance: 'レスポンス',
     freeBid: 'フリービッド',
-    passOrCorrect: 'パス・オア・コレクト',
+    askMinor: 'マイナーを尋ねる',
+    showMinor: 'マイナーを示す',
     toPlay: '最終コントラクト',
     cueBidRaise: 'キュービッドレイズ',
     escape: 'エスケープ',
@@ -162,6 +163,7 @@ export const bidding: Text['bidding'] = {
     compete: '競り合う',
     competeWithSuit: '自分のスートで競る',
     competitiveDouble: 'コンペティティブダブル',
+    sacrifice: 'セーブ',
   },
 
   conventions: {
@@ -204,8 +206,10 @@ export const bidding: Text['bidding'] = {
     open2nt: '1NTには強すぎるバランスハンド: 20–21 HCP。',
     open1nt: '最も頼りになるオープニング: 15–17 HCPのバランスハンド。1NTのオープンは1回のビッドでハンドを説明するので、たいていパートナーがコントラクトを決められます。',
     strength: '12–21 HCP（または20のルールで10–11）',
-    strength4th: '12–21 HCPで、4番手では15のルール（HCP + スペードの枚数 ≥ 15）を満たす',
+    strength4th: '4番手では13–21 HCP、または15のルール（HCP + スペードの枚数 ≥ 15）を満たす10–12 HCP',
     strengthValue: (hcp: number, rule20: number | null) => `あなたは${hcp} HCP${rule20 === null ? '' : `、20のルールでは${rule20}`}です`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `あなたは${hcp} HCP${rule15 === null ? '' : `、15のルールでは${rule15}`}です`,
     whichMajor: (suit: number) => `オープンするスートは${SUIT_SYMBOLS[suit]}（最も長いスート。5-5なら上位のスート）`,
     whichDiamonds: 'オープンするスートは♦（5枚メジャーがなく、長い方のマイナー、またはマイナーが4-4）',
     whichClubs: 'オープンするスートは♣（5枚メジャーがなく、長い方のマイナー、またはマイナーが3-3）',
@@ -449,6 +453,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `パートナーの新しいスートはフォーシングです: 3枚のサポートかオナー付きのダブルトンがあれば${name(suit)}をレイズします。`,
     supportNewSuitCond: (suit: number) => `${SUIT_SYMBOLS[suit]}3枚、またはエース・キング・クイーンのいずれかを含む2枚`,
     rebidWeakTwo: (suit: number) => `パートナーの新しいスートはフォーシングですが、サポートできません: ${name(suit)}をリビッドします。`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'オープナーの1NTのリビッドは12–14点のバランスハンドを示します: 13点以上あれば、パートナーシップでゲームに必要な約25点があります。ゲームをビッドします。',
+    twoNtOver1ntRebid: 'オープナーの1NTのリビッドは12–14点のバランスハンドを示します: 11–12点なら、ゲームはオープナーの強さ次第です。2NTでインバイトし、オープナーはマキシマムなら3NTをビッドします。',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `パートナーのインビテーションは${min}–${max}を示します: ${need} HCP以上あればパートナーシップで33になり、12トリックに十分です。`,
     quantAfterInvite: 'パートナーがマキシマムならスラムの可能性があります: 4NTは6NTへのインビテーションです（ブラックウッドではありません）。',
@@ -480,10 +487,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: '相手の強いノートランプに対して、示す価値のあるものがありません。',
     passNt: '相手のノートランプのビッド: 妥当なアクションがありません。',
     balancing1nt: 'バランシングシートでの1NTは、ストッパーのある11–14のバランスハンドを示します（パートナーの強さを「借りて」います）。',
+    notLongInTheirs: (suits: number[]) => `${syms(suits, ' ')}が4枚以下（5枚あればパートナーはショートでダブルしていない: パス）`,
     overcall1nt: '1NTのオープンと同じく15–18のバランスハンドで、さらに相手のスートにストッパーがあります。',
     overcall2nt: 'ウィークツーに対して: ストッパーのある15–18のバランスハンド。',
     overcall3nt: 'プリエンプトに対して: ストッパーのある強いバランスハンド（16–21） — 最終コントラクトです。',
     unusual2nt: (a: number, b: number) => `人為的: ビッドされていない下位の2スート（${SUIT_SYMBOLS[a]}と${SUIT_SYMBOLS[b]}）が少なくとも5-5。パートナーに選択を求めます。`,
+    honoursInSuits: (suits: number[]) => `オナーが${syms(suits, 'と')}にある（それ以外は2 HCP以下）`,
     michaelsMinor: '人為的: 両メジャーが少なくとも5-5。',
     michaelsMajor: (suit: number) => `人為的: ${name(suit)}5枚と5枚のマイナー。`,
     fiveCardMinor: '5枚のマイナー',
@@ -529,7 +538,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `${name(suit)}にフィットがあり、十分な強さ（または大きなフィット）がある: ゲームをビッドします。`,
     preference: (suit: number) => `パートナーの2つのスートのうち、好きな方を選びます: ${name(suit)}。`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]}の方がフィットが良い`,
-    passOrCorrect: 'メジャーにフィットがない: クラブをビッドします。マイナーがダイヤなら、パートナーがダイヤに直します。',
+    preferenceMajor: (suit: number) => `パートナーの${name(suit)}へのサポート（3枚以上）: 一番安いレベルでビッドします。`,
+    askMinor: (suit: number) => `人為的: パートナーの${name(suit)}にフィットがないので、2${sym(4)}でマイナーを尋ねます。答えをパスするか、フィットと十分な強さがあればゲームをビッドします。`,
+    askMinorCond: (suit: number) => `両方のマイナーが4枚以上、または${SUIT_SYMBOLS[suit]}が1枚以下`,
+    preferenceDoubleton: (suit: number) => `${name(suit)}は2枚だけですが、どちらのマイナーにもフィットがありません: メジャーが一番安いコントラクトです。`,
+    showMinor: (suit: number) => `パートナーの2${sym(4)}はマイナーを尋ねています: ${name(suit)}（5枚以上）をビッドします。`,
     passDefend: 'ディフェンスで満足です。',
     // advancing a penalty double
     passPenalty: 'パートナーのダブルはペナルティです: パスしてディフェンスします。',
@@ -545,6 +558,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `パートナーの${name(suit)}でゲーム: サポートがあってダミーポイント13点以上、またはトランプ5枚で偏った分布の弱いハンド。`,
     gameRaiseCond: 'サポートとして13点以上、またはトランプ5枚でシングルトンがある',
+    gameRaiseWeak: (suit: number) => `${name(suit)}5枚以上、偏った分布、弱いハンド: すぐにゲームへジャンプして相手に推測させます。10点以上でサポートがあれば、まず相手のスートにキュービッドします。`,
     cueBidRaise: (min: number, suit: number) => `相手のスートへのキュービッドは良いレイズを示します: ${name(suit)}${min}枚以上と10点以上。単純なレイズならもっと弱いハンドです。`,
     preemptiveRaise: '4枚のサポートと弱いハンド: フィットの枚数に見合うレベルまでレイズします（トータルトリックの法則）。',
     raise: (min: number, suit: number) => `パートナーのスートへのサポート（${SUIT_SYMBOLS[suit]}${min}枚以上）と6–9点。`,
@@ -554,6 +568,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: 'ストッパーのある15 HCP以上。',
     newSuitAfterOvercall: (suit: number) => `自分の良いスート（${name(suit)}5枚以上）と8 HCP以上。フォーシングではありません。`,
     passNoFit: 'フィットもなく、余分な強さもありません。',
+    sacrifice: (suit: number) => `相手がゲームをビッドしました。有利なバルネラビリティなら、セーブのほうが相手のゲームより安くつきます: ${name(suit)}に大きなフィットがあり、相手のスートがショートで、ディフェンス力が乏しければ、すぐに競り上げます。`,
+    littleDefence: 'ディフェンス力が乏しい（クイックトリック1以下）',
     // they compete over our 1NT
     redouble1nt: '8 HCP以上: 力の大半はこちらにあります — 相手は苦しい状況です。',
     escape: (suit: number) => `${name(suit)}5枚以上の弱いハンド: ダブルされた1NTから、より安全なコントラクトへ逃げます。`,
@@ -619,6 +635,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'パートナーは良いレイズ（10以上）を示しました: しっかりしたオーバーコール（13点以上）ならゲームをビッドします。',
     minimumCueBidRaise: 'ミニマムのオーバーコール: 味方のスートを最も安いレベルでビッドします。余分な強さがあれば、パートナーがゲームをビッドできます。',
+    gameAfterCueRaise: (suit: number) => `パートナーの${name(suit)}へのサポートでゲームに十分な強さ: ミニマムのオーバーコールが相手でもゲームをビッドします。`,
+    inviteAfterCueRaise: 'リミットレイズより少し強い: ゲームに招待します。ミニマムの上の方のオーバーコールなら、パートナーがゲームをビッドします。',
+    passAfterCueRaise: 'ミニマムのオーバーコールに対してリミットレイズだけ: パートスコアで止めます。',
   },
 
   // ---------------------------------------------------------------------------

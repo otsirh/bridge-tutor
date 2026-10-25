@@ -9,10 +9,11 @@ import { openingRules } from './openings';
 import { responsesToOneSuit, responsesTo1NT, responsesTo2NT, responsesTo2C, responsesToWeakTwo, responsesToPreempt } from './responses';
 import {
   openerRebidOneSuit, openerAfterNT, responderAfterNTConvention, openerAfterNTContinuation,
-  openerAfter2C, openerAfterFeatureAsk, openerAfterWeakTwoNewSuit, responderAfterInvite,
+  openerAfter2C, openerAfterFeatureAsk, openerAfterWeakTwoNewSuit, responderAfterInvite, responderAfter1ntRebid,
 } from './rebids';
 import {
   overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise, openerReopening, afterReopeningDouble, openerAfterRedouble, doublerAfterRedouble,
+  michaelsMinorReply, advancerAfterCueRaiseMin,
 } from './competitive';
 import { conventionReplies, blackwoodTrump } from './slam';
 import { getSystem } from './config';
@@ -77,8 +78,10 @@ function specificRules(x: Ctx): Rule[] {
       if (myFirst.meaning.tag === 'drury') return afterDruryReply(x) ?? [];
       if (reply && reply.index > myFirst.index && !interfered && ol === 1 && os < NT && naturalSuitBid(myFirst)) {
         const y = strainOf(myFirst.call);
-        // 1♣/1♦ – 1♥/1♠ – 1NT: new minor forcing
-        if (os <= DIAMONDS && levelOf(myFirst.call) === 1 && y >= HEARTS && reply.call === bid(1, NT)) return newMinorForcing(os, y);
+        // 1♣/1♦ – 1♥/1♠ – 1NT: new minor forcing; and after any 1NT rebid, notrump with a balanced hand
+        if (levelOf(myFirst.call) === 1 && reply.call === bid(1, NT)) {
+          return [...(os <= DIAMONDS && y >= HEARTS ? newMinorForcing(os, y) : []), ...responderAfter1ntRebid()];
+        }
         // three suits bid naturally: fourth suit forcing
         if (naturalSuitBid(reply) && y !== os && strainOf(reply.call) !== os && strainOf(reply.call) !== y) return fourthSuitForcing(x, os, y, strainOf(reply.call));
       }
@@ -122,6 +125,10 @@ function specificRules(x: Ctx): Rule[] {
   // the opponents opened
   if (myActs.length === 0 && pActs.length === 0) return overcallRules(x);
   if (myActs.length === 0 && pActs.length >= 1) return advanceRules(x, pActs[pActs.length - 1]);
+  // our cue-bid raise of partner's overcall, and partner showed a minimum
+  if (myActs.length === 1 && myActs[0].meaning.tag === 'cueRaise' && pc?.meaning.tag === 'cueRaiseMin' && rhoQuiet) return advancerAfterCueRaiseMin(x, pc.meaning.data!.suit);
+  // our Michaels cue bid (the other major and a minor), and partner's 2NT asks for the minor
+  if (myActs.length === 1 && myActs[0].meaning.tag === 'michaels' && pc?.meaning.tag === 'askMinor' && pActs.length === 1) return michaelsMinorReply(x);
   if (myActs.length === 1 && myActs[0].meaning.tag === 'takeoutX' && pActs.length === 1 && pActs[0].index > myActs[0].index && x.partnerCall()?.index === pActs[0].index) {
     return doublerRebid(x, pActs[0]);
   }

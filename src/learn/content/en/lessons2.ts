@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – double – pass: bid 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – double – pass: bid 2♠"></div>
-<p>With 3 HCP, bid 1♠ without fear: partner knows you may have nothing. With 10 HCP, jump to 2♠ to invite game. With ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 HCP) bid 4♠ yourself, or cue bid 2♥ if you are unsure which game is best.</p>
+<p>With 3 HCP, bid 1♠ without fear: partner knows you may have nothing. With 10 HCP, jump to 2♠ to invite game. With ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 HCP) you have game values but only four spades: cue bid 2♥, forcing, and choose the game after partner's answer. With five spades and 10-11 HCP, bid 4♠ yourself.</p>
 <p>If the opener's partner bids (1♥ – double – 2♥), you are no longer forced to bid. Now a bid shows some values, about 6+, and a pass shows a weak hand.</p>
 
 <h3>The doubler's rebid</h3>
@@ -787,7 +787,7 @@ export const LESSONS_2: Lesson[] = [
 
 <h3>The penalty pass and the reopening double</h3>
 <p>Because responder's double is for takeout, responder cannot double for penalty with a strong holding in the overcaller's suit. Instead, responder <strong>passes</strong> and waits. When opener is short in the overcalled suit, opener should reopen with a double, which responder converts to penalties by passing.</p>
-<div class="hand" data-cards="S:K5 H:73 D:AJ84 C:KQ1093" data-label="1♥ – (2♣) – ?: pass"></div>
+<div class="hand" data-cards="S:K5 H:73 D:Q984 C:KQ1093" data-label="1♥ – (2♣) – ?: pass"></div>
 <div class="auction" data-calls="1H 2C P P X P P P" data-dealer="N"></div>
 <div class="hand" data-cards="S:A863 H:AQJ74 D:K52 C:6" data-label="Opener (North): reopening double"></div>
 <p>South's ♣KQ1093 sit over East's clubs and 2♣ doubled is likely to go down several tricks. North, with a singleton club, reopens with a double because partner's pass may be exactly this kind of hand. With length in the overcaller's suit, opener should be more careful about reopening: then partner is unlikely to be waiting to penalise.</p>
@@ -815,7 +815,7 @@ export const LESSONS_2: Lesson[] = [
         explain: 'After a 1♥ overcall the double shows exactly four spades, so with five spades bid 1♠.',
       },
       {
-        q: '1♥ – (2♣) – ? You hold ♠K5 ♥73 ♦AJ84 ♣KQ1093 (13 HCP).',
+        q: '1♥ – (2♣) – ? You hold ♠K5 ♥73 ♦Q984 ♣KQ1093 (10 HCP).',
         options: ['Double', 'Pass', '3NT', '2NT'],
         answer: 1,
         explain: 'You would love to double for penalty, but your double would be negative. Pass and expect partner to reopen with a double when they are short in clubs; you will pass that.',
@@ -985,9 +985,8 @@ export const LESSONS_2: Lesson[] = [
 </tbody>
 </table>
 <p>After the reply, 5♣ by the asker asks for kings on the same pattern (5♦ = 0 or 4, 5♥ = 1, 5♠ = 2, 5NT = 3). Any other bid places the contract; a 4NT bid by the asker is a sign-off, and if partner's reply was 4NT, the asker can simply pass.</p>
-<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opened 1NT: bid 4♣"></div>
-<p>16 HCP (31-33 in total) and six strong spades: the hand is rich in tricks, but you hold no aces. The question is aces, so bid 4♣. Over 4♠ (two aces), pass and play in 4♠. Over 4NT (three aces), bid 6♠.</p>
-<p>With Texas transfers there is another way: 4♥, a transfer to spades, and then 4NT, Roman Key Card Blackwood, which also counts the king and queen of spades.</p>
+<div class="hand" data-cards="S:KQJ1065 H:KQ4 D:KQ3 C:5" data-label="Partner opened 1NT: bid 4♥ (Texas)"></div>
+<p>16 HCP (31-33 in total) and six strong spades: the hand is rich in tricks, but you hold no aces, so the question is aces. The bots play Texas transfers by default: bid 4♥, partner completes the transfer with 4♠, and your 4NT is then Roman Key Card Blackwood, which also counts the king and queen of spades. Without Texas, bid 4♣, Gerber: over 4♠ (two aces), pass and play in 4♠; over 4NT (three aces), bid 6♠.</p>
 
 <h3>Which to use?</h3>
 <ul>

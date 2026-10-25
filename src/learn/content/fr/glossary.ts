@@ -118,7 +118,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Rectifier le compte (rectifying the count)', def: 'Perdre tôt des levées pour qu’au moment d’un squeeze le déclarant puisse faire toutes les levées restantes moins une.' },
   { term: 'Redemande (rebid)', def: 'La deuxième enchère d’un joueur.' },
   { term: 'Règle des 11 (Rule of 11)', def: 'Quand votre partenaire entame en 4e meilleure, retranchez la valeur de la carte de 11 pour savoir combien de cartes plus hautes détiennent les trois autres mains.' },
-  { term: 'Règle des 15 (Rule of 15)', def: 'En 4e position, ouvrez si le total des H et du nombre de piques atteint 15 ou plus.' },
+  { term: 'Règle des 15 (Rule of 15)', def: 'En 4e position, n’ouvrez une main de 10-12 H que si le total des H et du nombre de piques atteint 15 ou plus ; avec 13 H ou plus, ouvrez de toute façon.' },
   { term: 'Règle des 2-3-4 (Rule of 2-3-4)', def: 'Repère pour barrer : soyez à deux levées de votre contrat à vulnérabilité défavorable, à trois à vulnérabilité égale et à quatre à vulnérabilité favorable.' },
   { term: 'Règle des 20 (Rule of 20)', def: 'En 1re, 2e ou 3e position, ouvrez une main de 10-11 H si le total des H et des longueurs des deux plus longues couleurs atteint 20 ou plus.' },
   { term: 'Règle des 7 (Rule of 7)', def: 'Repère pour laisser passer : retranchez de sept le nombre de cartes que vous avez avec le mort dans la couleur entamée ; le résultat indique combien de fois laisser passer.' },

@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>In first, second or third seat, open a hand with 10 or 11 HCP if HCP plus the number of cards in your two longest suits comes to 20 or more.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Rule of 20: open 1♠"></div>
 <p>10 HCP + 5 + 5 = 20, so open, and with two 5-card suits open the higher-ranking one: 1♠. Compare ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 HCP + 4 + 3 = 18, so pass. The scattered queens and jacks and flat shape make it a poor opening.</p>
-<p>In fourth seat, after three passes, use the Rule of 15: open if HCP plus the number of spades is 15 or more. If you pass, the deal is thrown in, so you only want to open when your side is likely to win the partscore battle, and the spade suit decides most of those battles.</p>
+<p>In fourth seat, after three passes, open with 13 or more HCP, and with 10-12 HCP use the Rule of 15: open only if HCP plus the number of spades is 15 or more. If you pass, the deal is thrown in, so you only want to open when your side is likely to win the partscore battle, and the spade suit decides most of those battles.</p>
 
 <h3>Losing Trick Count</h3>
 <p>Once a fit of 8+ cards is found, the Losing Trick Count (LTC) gives a second opinion based on shape. Look at the first three cards of each suit and count a loser for each missing ace, king or queen among them:</p>

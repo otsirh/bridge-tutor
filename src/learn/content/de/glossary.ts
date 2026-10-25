@@ -48,7 +48,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: 'Forcierendes Gebot (forcing bid)', def: 'Ein Gebot, auf das der Partner nicht passen darf. Eine neue Farbe des Antwortenden und die 2♣-Eröffnung sind Beispiele.' },
   { term: 'Frage nach der Trumpfdame (queen ask)', def: 'Nach einer Antwort von 5♣ oder 5♦ auf Roman Key Card Blackwood fragt die nächste Stufe nach der Trumpfdame; ohne sie kehrt der Partner in die Trumpffarbe zurück.' },
   { term: 'Freie Plätze (vacant places)', def: 'Die Zahl der unbekannten Karten jedes Gegenspielers. Der Gegenspieler mit mehr freien Plätzen hält mit größerer Wahrscheinlichkeit eine bestimmte fehlende Karte.' },
-  { term: 'Fünfzehnerregel (Rule of 15)', def: 'Eröffnen Sie in vierter Hand, wenn FP plus die Zahl Ihrer Pik 15 oder mehr ergeben.' },
+  { term: 'Fünfzehnerregel (Rule of 15)', def: 'Eröffnen Sie in vierter Hand mit 10–12 FP nur, wenn FP plus die Zahl Ihrer Pik 15 oder mehr ergeben; mit 13 oder mehr FP eröffnen Sie ohnehin.' },
   { term: 'Gabel (tenace)', def: 'Eine Kombination aus zwei nicht zusammenhängenden Figuren wie A-Q oder K-J, die die meisten Stiche bringt, wenn die Gegner die Farbe anspielen oder ein Schnitt sitzt.' },
   { term: 'Gefahrenlage (vulnerability)', def: 'Eine für jedes Spiel festgelegte Bedingung, die die Prämien für Vollspiel und Schlemm sowie die Strafen für Unterstiche erhöht.' },
   { term: 'Gegenreizung (overcall)', def: 'Ein Gebot, nachdem ein Gegner die Reizung eröffnet hat.' },

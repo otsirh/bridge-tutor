@@ -124,7 +124,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: 'Odpowiedź wymuszona',
     advance: 'Odpowiedź',
     freeBid: 'Wolna odzywka',
-    passOrCorrect: 'Pas lub korekta',
+    askMinor: 'Pytanie o młodszy',
+    showMinor: 'Pokazanie młodszego',
     toPlay: 'Do gry',
     cueBidRaise: 'Podniesienie przez cue bid',
     escape: 'Ucieczka',
@@ -174,6 +175,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Walka o kontrakt',
     competeWithSuit: 'Walka własnym kolorem',
     competitiveDouble: 'Kontra konkurencyjna',
+    sacrifice: 'Obrona',
   },
 
   conventions: {
@@ -216,8 +218,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Ręka zrównoważona, za silna na 1BA: 20–21 PC.',
     open1nt: 'Najważniejsze otwarcie: 15–17 PC i ręka zrównoważona. Otwarcie 1BA opisuje rękę jedną odzywką, więc partner zwykle sam może wybrać kontrakt.',
     strength: '12–21 PC (albo 10–11 według reguły 20)',
-    strength4th: '12–21 PC i reguła 15 na czwartej ręce (PC + piki ≥ 15)',
+    strength4th: '13–21 PC na czwartej ręce albo 10–12 z regułą 15 (PC + piki ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `masz ${hcp} PC${rule20 === null ? '' : `; reguła 20 daje ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `masz ${hcp} PC${rule15 === null ? '' : `; reguła 15 daje ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} to kolor otwarcia (najdłuższy; z 5-5 otwierasz wyższym)`,
     whichDiamonds: '♦ to kolor otwarcia (bez piątki w starszym; dłuższy młodszy albo 4-4 w młodszych)',
     whichClubs: '♣ to kolor otwarcia (bez piątki w starszym; dłuższy młodszy albo 3-3 w młodszych)',
@@ -461,6 +465,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `Nowy kolor partnera jest forsujący: podnieś kolor ${SUIT_SYMBOLS[suit]} z trzykartowym poparciem albo z dubletonem z honorem.`,
     supportNewSuitCond: (suit: number) => `trzy karty w ${SUIT_SYMBOLS[suit]} albo dwie z asem, królem lub damą`,
     rebidWeakTwo: (suit: number) => `Nowy kolor partnera jest forsujący, a nie możesz go poprzeć: powtórz swój kolor ${adj(suit, 'y')}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'Rebid 1BA otwierającego pokazuje 12–14 PC i rękę zrównoważoną: z 13+ PC para ma około 25 punktów na dograną. Zalicytuj ją.',
+    twoNtOver1ntRebid: 'Rebid 1BA otwierającego pokazuje 12–14 PC i rękę zrównoważoną: z 11–12 PC dograna zależy od siły otwierającego. Zaproś licytacją 2BA; z maksimum otwierający licytuje 3BA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `Inwit partnera pokazuje ${min}–${max}: z ${need}+ PC para ma 33, dość na dwanaście lew.`,
     quantAfterInvite: 'Szlemik jest możliwy, jeśli partner ma maksimum: 4BA inwituje 6BA (to nie Blackwood).',
@@ -492,10 +499,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Nic wartego pokazania po ich silnym 1BA.',
     passNt: 'Ich odzywka w bez atu: brak sensownej akcji.',
     balancing1nt: 'Na pozycji wznawiającej 1BA pokazuje 11–14 w ręce zrównoważonej z zatrzymaniem („pożyczasz” punkty partnera).',
+    notLongInTheirs: (suits: number[]) => `najwyżej cztery karty w ${syms(suits, ' ')} (z pięcioma partner jest krótki i nie kontrował: pasuj)`,
     overcall1nt: 'Jak otwarcie 1BA — 15–18, ręka zrównoważona — plus zatrzymanie w kolorze przeciwników.',
     overcall2nt: 'Po słabym dwa: 15–18, ręka zrównoważona z zatrzymaniem.',
     overcall3nt: 'Po otwarciu blokującym: silna ręka zrównoważona (16–21) z zatrzymaniem — do gry.',
     unusual2nt: (a: number, b: number) => `Sztuczne: co najmniej 5-5 w dwóch najniższych niezalicytowanych kolorach (${SUIT_SYMBOLS[a]} i ${SUIT_SYMBOLS[b]}). Prosi partnera o wybór.`,
+    honoursInSuits: (suits: number[]) => `honory w ${syms(suits, ' i ')} (najwyżej 2 PC poza nimi)`,
     michaelsMinor: 'Sztuczne: co najmniej 5-5 w obu starszych.',
     michaelsMajor: (suit: number) => `Sztuczne: pięć ${gen(suit)} i piątka w młodszym.`,
     fiveCardMinor: 'piątka w młodszym',
@@ -541,7 +550,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Fit w ${loc(suit)} i dobra siła (albo wielki fit): licytuj dograną.`,
     preference: (suit: number) => `Wybierz ten kolor partnera, który bardziej ci odpowiada: ${nom(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} to twój lepszy fit`,
-    passOrCorrect: 'Brak fitu w starszym: licytuj trefle; jeśli młodszym partnera są kara, partner poprawi.',
+    preferenceMajor: (suit: number) => `Poparcie w ${loc(suit)} partnera (co najmniej trzy karty): licytuj je na najniższym poziomie.`,
+    askMinor: (suit: number) => `Sztuczne: brak fitu w ${loc(suit)} partnera, więc 2${sym(4)} prosi o pokazanie młodszego koloru. Potem pasujesz albo z fitem i siłą licytujesz dograną.`,
+    askMinorCond: (suit: number) => `co najmniej 4 karty w każdym młodszym albo najwyżej jeden ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Tylko dwa ${nom(suit)}, ale brak fitu w młodszych: kolor starszy to najtańszy kontrakt.`,
+    showMinor: (suit: number) => `2${sym(4)} partnera pyta o twój młodszy kolor: licytuj ${nom(suit)} (co najmniej pięć).`,
     passDefend: 'Wolisz się bronić.',
     // advancing a penalty double
     passPenalty: 'Kontra partnera jest karna: pasuj i broń się.',
@@ -557,6 +570,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Dograna w ${loc(suit)} partnera: 13+ punktów w poparciu albo słaba ręka z pięcioma atutami i układem.`,
     gameRaiseCond: '13+ punktów w poparciu albo pięć atutów z singlem',
+    gameRaiseWeak: (suit: number) => `Co najmniej pięć ${gen(suit)}, układ i słaba ręka: od razu skocz do dogranej i zostaw przeciwników w niepewności. Z 10+ punktami i poparciem zacznij od cue bidu w ich kolor.`,
     cueBidRaise: (min: number, suit: number) => `Cue bid w kolor przeciwników pokazuje dobre podniesienie: ${min}+ ${gen(suit)} i 10+ punktów. Zwykłe podniesienie byłoby słabsze.`,
     preemptiveRaise: 'Czterokartowe poparcie i słaba ręka: podnieś do wysokości fitu (prawo totalnej liczby lew).',
     raise: (min: number, suit: number) => `Poparcie w kolorze partnera (${min}+ ${SUIT_SYMBOLS[suit]}) i 6–9 punktów.`,
@@ -566,6 +580,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PC z zatrzymaniem.',
     newSuitAfterOvercall: (suit: number) => `Dobry własny kolor (5+ ${gen(suit)}) i 8+ PC. Nieforsujące.`,
     passNoFit: 'Brak fitu i brak nadwyżki.',
+    sacrifice: (suit: number) => `Przeciwnicy zalicytowali dograną, a przy korzystnych założeniach obrona kosztuje mniej niż ich dograna: z dużym fitem w ${loc(suit)}, krótkością w ich kolorze i małą siłą obronną od razu licytuj dalej.`,
+    littleDefence: 'mała siła obronna (najwyżej jedna szybka lewa)',
     // they compete over our 1NT
     redouble1nt: '8+ PC: mamy przewagę siły — przeciwnicy mają kłopot.',
     escape: (suit: number) => `Słaba ręka z co najmniej pięcioma ${ins(suit)}: uciekaj z 1BA z kontrą do bezpieczniejszego kontraktu.`,
@@ -631,6 +647,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Partner pokazał dobre podniesienie (10+): z pełnowartościowym wejściem (13+ punktów) licytuj dograną.',
     minimumCueBidRaise: 'Minimalne wejście: licytuj nasz kolor najtaniej. Z nadwyżką partner może jeszcze zalicytować dograną.',
+    gameAfterCueRaise: (suit: number) => `Siła na dograną z poparciem w ${loc(suit)} partnera: licytuj dograną nawet naprzeciw minimalnego wejścia.`,
+    inviteAfterCueRaise: 'Trochę więcej niż podniesienie inwitujące: zaproś do dogranej. Partner ją zalicytuje z górą minimalnego wejścia.',
+    passAfterCueRaise: 'Tylko podniesienie inwitujące naprzeciw minimalnego wejścia: zostań w częściówce.',
   },
 
   // ---------------------------------------------------------------------------

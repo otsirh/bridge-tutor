@@ -109,7 +109,8 @@ export const bidding: Text['bidding'] = {
     forcedResponse: 'Risposta obbligata',
     advance: 'Risposta',
     freeBid: 'Dichiarazione libera',
-    passOrCorrect: 'Passa o correggi',
+    askMinor: 'Richiesta del minore',
+    showMinor: 'Mostra il minore',
     toPlay: 'Per giocare',
     cueBidRaise: 'Appoggio in surlicita',
     escape: 'Fuga',
@@ -159,6 +160,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Competere',
     competeWithSuit: 'Competere con il proprio colore',
     competitiveDouble: 'Contro competitivo',
+    sacrifice: 'Sacrificio',
   },
 
   conventions: {
@@ -201,8 +203,10 @@ export const bidding: Text['bidding'] = {
     open2nt: 'Una mano bilanciata troppo forte per 1SA: 20–21 PO.',
     open1nt: 'L’apertura più utile: 15–17 PO e mano bilanciata. Aprendo di 1SA descrivi la mano con una sola dichiarazione, e di solito il compagno può scegliere il contratto.',
     strength: '12–21 PO (o 10–11 con la regola del 20)',
-    strength4th: '12–21 PO, rispettando in quarta posizione la regola del 15 (PO + picche ≥ 15)',
+    strength4th: '13–21 PO in quarta posizione, o 10–12 rispettando la regola del 15 (PO + picche ≥ 15)',
     strengthValue: (hcp: number, rule20: number | null) => `hai ${hcp} PO${rule20 === null ? '' : `; la regola del 20 dà ${rule20}`}`,
+    /** `rule15` is given when the hand has fewer than 13 HCP. */
+    strengthValue4th: (hcp: number, rule15: number | null) => `hai ${hcp} PO${rule15 === null ? '' : `; la regola del 15 dà ${rule15}`}`,
     whichMajor: (suit: number) => `${SUIT_SYMBOLS[suit]} è il colore d’apertura (il più lungo; con 5-5 apri nel più alto)`,
     whichDiamonds: '♦ è il colore d’apertura (niente nobile quinta; il minore più lungo, oppure 4-4 nei minori)',
     whichClubs: '♣ è il colore d’apertura (niente nobile quinta; il minore più lungo, oppure 3-3 nei minori)',
@@ -446,6 +450,9 @@ export const bidding: Text['bidding'] = {
     raiseNewSuitWeakTwo: (suit: number) => `Il nuovo colore del compagno è forzante: appoggia ${plural(suit)} con tre carte o con un doubleton d’onore.`,
     supportNewSuitCond: (suit: number) => `tre carte di ${SUIT_SYMBOLS[suit]}, o due con l’asso, il re o la donna`,
     rebidWeakTwo: (suit: number) => `Il nuovo colore del compagno è forzante e non puoi appoggiarlo: ripeti ${plural(suit)}.`,
+    // responder after opener's 1NT rebid
+    threeNtOver1ntRebid: 'La ridichiarazione di 1SA dell’apertore mostra 12–14 bilanciata: con 13+ PO la linea ha i 25 punti circa per la manche. Dichiarala.',
+    twoNtOver1ntRebid: 'La ridichiarazione di 1SA dell’apertore mostra 12–14 bilanciata: con 11–12 PO la manche dipende dalla forza dell’apertore. Invita con 2SA; con un massimo l’apertore dichiara 3SA.',
     // responder after partner's invitation
     slamAfterInvite: (min: number, max: number, need: number) => `L’invito del compagno mostra ${min}–${max}: con ${need}+ PO la linea ha 33 punti, abbastanza per dodici prese.`,
     quantAfterInvite: 'Lo slam è possibile se il compagno è massimo: 4SA invita a 6SA (non è Blackwood).',
@@ -477,10 +484,12 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Niente che valga la pena mostrare sul loro senza atout forte.',
     passNt: 'Hanno dichiarato senza atout: nessuna azione sensata.',
     balancing1nt: 'In posizione di riapertura 1SA mostra 11–14 bilanciata con il fermo (stai «prendendo in prestito» i punti del compagno).',
+    notLongInTheirs: (suits: number[]) => `al massimo quattro carte di ${syms(suits, ' ')} (con cinque il compagno è corto e non ha contrato: passa)`,
     overcall1nt: 'Come un’apertura di 1SA, 15–18 bilanciata, più il fermo nel loro colore.',
     overcall2nt: 'Su un due debole: 15–18 bilanciata con il fermo.',
     overcall3nt: 'Su un barrage: una mano bilanciata forte (16–21) con il fermo, per giocare.',
     unusual2nt: (a: number, b: number) => `Convenzionale: almeno 5-5 nei due colori più bassi non dichiarati (${SUIT_SYMBOLS[a]} e ${SUIT_SYMBOLS[b]}). Chiede al compagno di scegliere.`,
+    honoursInSuits: (suits: number[]) => `gli onori a ${syms(suits, ' e ')} (al massimo 2 PO fuori)`,
     michaelsMinor: 'Convenzionale: almeno 5-5 nelle due nobili.',
     michaelsMajor: (suit: number) => `Convenzionale: cinque carte di ${plural(suit)} e un minore quinto.`,
     fiveCardMinor: 'un minore quinto',
@@ -526,7 +535,11 @@ export const bidding: Text['bidding'] = {
     gameTwoSuiter: (suit: number) => `Un fit a ${plural(suit)} e buoni valori (o un grande fit): dichiara manche.`,
     preference: (suit: number) => `Scegli il colore del compagno che preferisci: ${plural(suit)}.`,
     betterFit: (suit: number) => `${SUIT_SYMBOLS[suit]} è il fit migliore`,
-    passOrCorrect: 'Niente fit nella nobile: dichiara fiori; se il suo minore è quadri, il compagno corregge.',
+    preferenceMajor: (suit: number) => `Appoggio nel colore di ${plural(suit)} del compagno (tre o più carte): dichiaralo al livello più economico.`,
+    askMinor: (suit: number) => `Convenzionale: niente fit a ${plural(suit)}, quindi 2${sym(4)} chiede al compagno di dichiarare il minore. Poi passi, o dichiari manche con fit e valori sufficienti.`,
+    askMinorCond: (suit: number) => `4+ carte in ogni minore, o al massimo 1 ${SUIT_SYMBOLS[suit]}`,
+    preferenceDoubleton: (suit: number) => `Solo due carte di ${plural(suit)}, ma nessun fit nei minori: la nobile è il contratto più economico.`,
+    showMinor: (suit: number) => `Il 2${sym(4)} del compagno chiede il tuo minore: dichiara il colore di ${plural(suit)} (cinque o più carte).`,
     passDefend: 'Ti va bene difendere.',
     // advancing a penalty double
     passPenalty: 'Il contro del compagno è punitivo: passa e difendi.',
@@ -542,6 +555,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manche nel colore del compagno (${plural(suit)}): 13+ punti di appoggio, oppure una mano debole con cinque atout e distribuzione.`,
     gameRaiseCond: '13+ punti in appoggio, oppure cinque atout con un singolo',
+    gameRaiseWeak: (suit: number) => `Cinque o più carte di ${plural(suit)}, distribuzione e una mano debole: salta subito a manche e lascia gli avversari nel dubbio. Con 10+ punti e appoggio, surlicita prima il loro colore.`,
     cueBidRaise: (min: number, suit: number) => `La surlicita nel loro colore mostra un buon appoggio: ${min}+ carte di ${plural(suit)} e 10+ punti. Un appoggio semplice sarebbe più debole.`,
     preemptiveRaise: 'Appoggio quarto e una mano debole: appoggia fino al livello del tuo fit (Legge delle prese totali).',
     raise: (min: number, suit: number) => `Appoggio nel colore del compagno (${min}+ ${SUIT_SYMBOLS[suit]}) e 6–9 punti.`,
@@ -551,6 +565,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PO con il fermo.',
     newSuitAfterOvercall: (suit: number) => `Un buon colore tuo (5+ carte di ${plural(suit)}) e 8+ PO. Non forzante.`,
     passNoFit: 'Niente fit e niente valori in più.',
+    sacrifice: (suit: number) => `Gli avversari hanno dichiarato manche e, in prima contro zona, un sacrificio costa meno della loro manche: con un grande fit a ${plural(suit)}, corto nel loro colore e poca difesa, rilancia subito.`,
+    littleDefence: 'poca difesa (al massimo una presa rapida)',
     // they compete over our 1NT
     redouble1nt: '8+ PO: la forza è nostra, gli avversari sono nei guai.',
     escape: (suit: number) => `Una mano debole con cinque o più carte di ${plural(suit)}: scappa da 1SA contrato verso un contratto più sicuro.`,
@@ -616,6 +632,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Il compagno ha mostrato un buon appoggio (10+): con un intervento solido (13+ punti) dichiara manche.',
     minimumCueBidRaise: 'Un intervento minimo: dichiara il nostro colore al livello più economico. Con valori in più il compagno può ancora dichiarare manche.',
+    gameAfterCueRaise: (suit: number) => `Valori di manche con appoggio a ${plural(suit)} del compagno: dichiara manche anche di fronte a un intervento minimo.`,
+    inviteAfterCueRaise: 'Qualcosa più di un appoggio limite: invita a manche. Il compagno la dichiara con il massimo di un intervento minimo.',
+    passAfterCueRaise: 'Solo un appoggio limite di fronte a un intervento minimo: fermati al parziale.',
   },
 
   // ---------------------------------------------------------------------------

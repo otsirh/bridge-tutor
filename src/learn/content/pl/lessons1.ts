@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>Na pierwszej, drugiej lub trzeciej ręce otwórz rękę z 10 lub 11 PC, jeśli PC plus liczba kart w dwóch najdłuższych kolorach daje co najmniej 20.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Reguła 20: otwórz 1♠"></div>
 <p>10 PC + 5 + 5 = 20, więc otwierasz, a z dwiema piątkami otwierasz wyższy kolor: 1♠. Porównaj ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 PC + 4 + 3 = 18, więc pas. Rozproszone damy i walety oraz płaski układ sprawiają, że to słabe otwarcie.</p>
-<p>Na czwartej ręce, po trzech pasach, stosuj regułę 15: otwórz, jeśli PC plus liczba pików daje co najmniej 15. Jeśli spasujesz, rozdanie jest przepasowane, więc otwierasz tylko wtedy, gdy twoja para ma szansę wygrać walkę o częściówkę – a większość takich walk rozstrzygają piki.</p>
+<p>Na czwartej ręce, po trzech pasach, otwieraj z 13 lub więcej PC; z 10-12 PC stosuj regułę 15: otwórz tylko wtedy, gdy PC plus liczba pików daje co najmniej 15. Jeśli spasujesz, rozdanie jest przepasowane, więc otwierasz tylko wtedy, gdy twoja para ma szansę wygrać walkę o częściówkę – a większość takich walk rozstrzygają piki.</p>
 
 <h3>Liczenie przegrywających</h3>
 <p>Gdy znajdziesz fit co najmniej ośmiokartowy, liczenie przegrywających (LTC) daje drugą opinię, opartą na układzie. Spójrz na trzy pierwsze karty każdego koloru i licz jedną przegrywającą za każdego brakującego wśród nich asa, króla lub damę:</p>

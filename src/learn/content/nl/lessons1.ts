@@ -139,7 +139,7 @@ export const LESSONS_1: Lesson[] = [
 <p>In eerste, tweede of derde hand open je een hand met 10 of 11 punten als je punten plus het aantal kaarten in je twee langste kleuren samen 20 of meer is.</p>
 <div class="hand" data-cards="S:KQ1065 H:AJ874 D:5 C:32" data-label="Regel van 20: open 1♠"></div>
 <p>10 punten + 5 + 5 = 20, dus je opent, en met twee vijfkaarten open je de hoogste: 1♠. Vergelijk ♠QJ5 ♥K92 ♦QJ84 ♣Q73: 11 punten + 4 + 3 = 18, dus pas. De verspreide vrouwen en boeren en de vlakke verdeling maken er een slechte opening van.</p>
-<p>In vierde hand, na drie passen, gebruik je de regel van 15: open als je punten plus het aantal schoppen 15 of meer is. Als je past, wordt het spel rondgepast. Je wilt dus alleen openen als jouw kant waarschijnlijk de strijd om de deelscore wint, en die strijd wordt meestal door de schoppenkleur beslist.</p>
+<p>In vierde hand, na drie passen, open je met 13 of meer punten; met 10-12 punten gebruik je de regel van 15: open alleen als je punten plus het aantal schoppen 15 of meer is. Als je past, wordt het spel rondgepast. Je wilt dus alleen openen als jouw kant waarschijnlijk de strijd om de deelscore wint, en die strijd wordt meestal door de schoppenkleur beslist.</p>
 
 <h3>Verliezerstelling</h3>
 <p>Zodra er een fit van 8+ kaarten is gevonden, geeft de verliezerstelling (LTC, Losing Trick Count) een tweede mening, gebaseerd op de verdeling. Bekijk de eerste drie kaarten van elke kleur en tel daarin een verliezer voor elke ontbrekende aas, heer of vrouw:</p>
