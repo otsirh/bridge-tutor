@@ -137,7 +137,7 @@ test('technique practice: a ready deal starts at the play, the technique named o
   await page.locator('header button', { hasText: 'Training' }).click();
   await page.locator('.modal .tab', { hasText: 'Techniques' }).click();
   // any, and every technique that can be looked for on request (a rare one only when a deal of it is ready)
-  await expect(page.locator('.tfilter .btn')).toHaveCount(7);
+  await expect(page.locator('.tfilter .btn')).toHaveCount(6);
   await page.locator('.tfilter .btn', { hasText: 'Finesse' }).click();
   await expect(page.locator('.tdesc')).toContainText('Finesse');
   // name the technique before the hand (a switch, by keyboard)
