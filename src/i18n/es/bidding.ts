@@ -570,6 +570,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manga en ${the(suit)} de tu compañero: 13+ puntos de apoyo con fit, o una mano débil con cinco triunfos y distribución.`,
     gameRaiseCond: '13+ puntos de apoyo, o cinco triunfos con un semifallo',
+    gameRaiseWeak: (suit: number) => `Cinco o más ${plural(suit)}, distribución y una mano débil: salta a la manga enseguida y deja a los rivales adivinando. Con 10+ puntos y apoyo, haz primero un cue-bid de su palo.`,
     cueBidRaise: (min: number, suit: number) => `Un cue-bid de su palo muestra un buen apoyo: ${min}+ ${plural(suit)} y 10+ puntos. Un apoyo simple sería más débil.`,
     preemptiveRaise: 'Apoyo de cuatro cartas y una mano débil: sube hasta el nivel de tu fit (ley de las bazas totales).',
     raise: (min: number, suit: number) => `Apoyo al palo de tu compañero (${min}+ ${SUIT_SYMBOLS[suit]}) y 6–9 puntos.`,
@@ -644,6 +645,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Tu compañero ha mostrado un buen apoyo (10+): con una intervención sólida (13+ puntos), declara la manga.',
     minimumCueBidRaise: 'Una intervención mínima: declara nuestro palo al nivel más barato. Tu compañero aún puede declarar la manga con valores extra.',
+    gameAfterCueRaise: (suit: number) => `Valores de manga con apoyo para ${the(suit)} de tu compañero: declara la manga incluso frente a una intervención mínima.`,
+    inviteAfterCueRaise: 'Algo más que un apoyo invitativo: invita a manga. Tu compañero la declara con lo mejor de una intervención mínima.',
+    passAfterCueRaise: 'Solo un apoyo invitativo frente a una intervención mínima: quédate en el parcial.',
   },
 
   // ---------------------------------------------------------------------------

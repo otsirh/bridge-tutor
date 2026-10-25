@@ -553,6 +553,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manche in de ${plural(suit)} van partner: 13+ steunpunten met steun, of een zwakke hand met vijf troeven en verdeling.`,
     gameRaiseCond: '13+ steunpunten, of vijf troeven met een singleton',
+    gameRaiseWeak: (suit: number) => `Vijf of meer ${plural(suit)}, verdeling en een zwakke hand: spring meteen naar de manche en laat de tegenstanders raden. Met 10+ punten en steun bied je eerst een cuebid in hun kleur.`,
     cueBidRaise: (min: number, suit: number) => `Een cuebid in hun kleur toont een goede verhoging: ${min}+ ${plural(suit)} en 10+ punten. Een gewone verhoging zou zwakker zijn.`,
     preemptiveRaise: 'Vierkaartsteun en een zwakke hand: verhoog tot het niveau van je fit (wet van het totaal aantal slagen).',
     raise: (min: number, suit: number) => `Steun voor de kleur van partner (${min}+ ${SUIT_SYMBOLS[suit]}) en 6–9 punten.`,
@@ -627,6 +628,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Partner toonde een goede verhoging (10+): met een degelijk volgbod (13+ punten) bied je manche.',
     minimumCueBidRaise: 'Een minimaal volgbod: bied onze kleur op het laagste niveau. Partner kan met extra kracht nog steeds manche bieden.',
+    gameAfterCueRaise: (suit: number) => `Manchekracht met steun voor de ${plural(suit)} van partner: bied manche, ook tegenover een minimaal volgbod.`,
+    inviteAfterCueRaise: 'Iets meer dan een limietverhoging: nodig uit voor de manche. Partner biedt die met de bovenkant van een minimaal volgbod.',
+    passAfterCueRaise: 'Alleen een limietverhoging tegenover een minimaal volgbod: blijf in de deelscore.',
   },
 
   // ---------------------------------------------------------------------------

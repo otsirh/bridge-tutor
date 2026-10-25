@@ -552,6 +552,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Game nas ${plural(suit)} do parceiro: 13+ pontos de apoio, ou mão fraca com cinco trunfos e distribuição.`,
     gameRaiseCond: '13+ pontos de apoio, ou cinco trunfos com singleton',
+    gameRaiseWeak: (suit: number) => `Cinco ou mais ${plural(suit)}, distribuição e mão fraca: salte logo para o game e deixe os adversários adivinhando. Com 10+ pontos e apoio, faça primeiro um cue-bid no naipe deles.`,
     cueBidRaise: (min: number, suit: number) => `Um cue-bid no naipe deles mostra um bom apoio: ${min}+ ${plural(suit)} e 10+ pontos. Um apoio simples seria mais fraco.`,
     preemptiveRaise: 'Apoio de quatro cartas e mão fraca: suba até o nível do seu fit (Lei das Vazas Totais).',
     raise: (min: number, suit: number) => `Apoio para o naipe do parceiro (${min}+ ${SUIT_SYMBOLS[suit]}) e 6–9 pontos.`,
@@ -626,6 +627,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'O parceiro mostrou um bom apoio (10+): com uma intervenção sólida (13+ pontos), marque o game.',
     minimumCueBidRaise: 'Uma intervenção mínima: marque o nosso naipe no nível mais barato. O parceiro ainda pode marcar o game com valores extras.',
+    gameAfterCueRaise: (suit: number) => `Valores de game com apoio para as ${plural(suit)} do parceiro: marque o game mesmo diante de uma intervenção mínima.`,
+    inviteAfterCueRaise: 'Um pouco mais que um apoio limite: convide para game. O parceiro marca o game com o topo de uma intervenção mínima.',
+    passAfterCueRaise: 'Só um apoio limite diante de uma intervenção mínima: fique no parcial.',
   },
 
   // ---------------------------------------------------------------------------

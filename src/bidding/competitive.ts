@@ -333,9 +333,15 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
     // a cue-bid raise needs a suit of theirs to cue (over their 1NT there is none)
     const cue = theirs.length ? x.cheapest(opp) : null;
     const supLen = ps >= HEARTS ? 3 : 4;
-    if (ps >= HEARTS) rules.push(R(bid(4, ps), 'gameRaise', t.gameRaise(ps), [lenC(ps, 3),
-      cond(t.gameRaiseCond, h => dummyPoints(h, ps) >= 13 || (h.len[ps] >= 5 && h.shape[3] <= 1))]));
-    if (cue !== null && cue < bid(4, ps) && levelOf(cue) <= 3) rules.push(R(cue, 'cueBidRaise', t.cueBidRaise(supLen, ps), [lenC(ps, supLen), dpC(ps, 10)], { artificial: true, forcing: 'one', tag: 'cueRaise', data: { suit: ps } }));
+    const cueOk = cue !== null && cue < bid(4, ps) && levelOf(cue) <= 3;
+    if (ps >= HEARTS) {
+      // a good raise starts with the cue bid (the overcall may be a minimum); the direct
+      // jump to game is the weak, shapely hand that wants to shut the opponents out
+      if (cueOk) rules.push(R(bid(4, ps), 'gameRaise', t.gameRaiseWeak(ps), [lenC(ps, 5), hcpC(0, 9), cond(T.bidding.conds.singletonOrVoid, h => h.shape[3] <= 1)]));
+      else rules.push(R(bid(4, ps), 'gameRaise', t.gameRaise(ps), [lenC(ps, 3),
+        cond(t.gameRaiseCond, h => dummyPoints(h, ps) >= 13 || (h.len[ps] >= 5 && h.shape[3] <= 1))]));
+    }
+    if (cueOk) rules.push(R(cue, 'cueBidRaise', t.cueBidRaise(supLen, ps), [lenC(ps, supLen), dpC(ps, 10)], { artificial: true, forcing: 'one', tag: 'cueRaise', data: { suit: ps } }));
     const raise = x.cheapest(ps);
     if (raise !== null && levelOf(raise) <= 3) {
       const j = x.jump(ps);
@@ -655,6 +661,18 @@ export function overcallerAfterCueRaise(x: Ctx, cue: CallRecord): Rule[] {
   const rules: Rule[] = [];
   if (x.isLegal(bid(game, suit))) rules.push(R(bid(game, suit), 'accept', t.acceptCueBidRaise, [tpC(13)]));
   const c = x.cheapest(suit);
-  if (c !== null && c < bid(game, suit)) rules.push(R(c, 'minimum', t.minimumCueBidRaise, [], { shows: s => { s.hcp = [s.hcp[0], Math.min(s.hcp[1], 12)]; } }));
+  if (c !== null && c < bid(game, suit)) rules.push(R(c, 'minimum', t.minimumCueBidRaise, [], { tag: 'cueRaiseMin', data: { suit }, shows: s => { s.hcp = [s.hcp[0], Math.min(s.hcp[1], 12)]; } }));
+  return rules;
+}
+
+/** The advancer after a cue-bid raise and partner's minimum: game with game values, otherwise invite or stop. */
+export function advancerAfterCueRaiseMin(x: Ctx, suit: number): Rule[] {
+  const t = T.bidding.competitive;
+  const game = suit >= HEARTS ? 4 : 5;
+  const rules: Rule[] = [];
+  if (x.isLegal(bid(game, suit))) rules.push(R(bid(game, suit), 'game', t.gameAfterCueRaise(suit), [dpC(suit, game === 4 ? 14 : 16)]));
+  const c = x.cheapest(suit);
+  if (c !== null && c < bid(game, suit) && suit >= HEARTS) rules.push(R(c, 'invitation', t.inviteAfterCueRaise, [dpC(suit, 13)], { tag: 'invite' }));
+  rules.push(R(PASS, 'pass', t.passAfterCueRaise, []));
   return rules;
 }

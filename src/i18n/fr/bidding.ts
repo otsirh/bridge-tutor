@@ -554,6 +554,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manche dans les ${plural(suit)} du partenaire : 13+ points de soutien, ou une main faible avec cinq atouts et de la distribution.`,
     gameRaiseCond: '13+ points de soutien, ou cinq atouts avec un singleton',
+    gameRaiseWeak: (suit: number) => `Cinq ${plural(suit)} ou plus, de la distribution et une main faible : sautez tout de suite à la manche et laissez les adversaires deviner. Avec 10+ points et un soutien, faites d’abord un cue-bid dans leur couleur.`,
     cueBidRaise: (min: number, suit: number) => `Un cue-bid dans leur couleur montre un bon soutien : ${min}+ ${plural(suit)} et 10+ points. Un soutien simple serait plus faible.`,
     preemptiveRaise: 'Soutien de quatre cartes et main faible : montez au palier de votre fit (loi des levées totales).',
     raise: (min: number, suit: number) => `Soutien dans la couleur du partenaire (${min}+ ${SUIT_SYMBOLS[suit]}) et 6–9 points.`,
@@ -628,6 +629,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Votre partenaire a montré un bon soutien (10+) : avec une intervention solide (13+ points), demandez la manche.',
     minimumCueBidRaise: 'Une intervention minimum : nommez notre couleur au palier le plus bas. Votre partenaire peut encore demander la manche avec des valeurs supplémentaires.',
+    gameAfterCueRaise: (suit: number) => `Des valeurs de manche avec un soutien dans les ${plural(suit)} du partenaire : demandez la manche même face à une intervention minimum.`,
+    inviteAfterCueRaise: 'Un peu plus qu’un soutien limite : proposez la manche. Votre partenaire la demande avec le haut d’une intervention minimum.',
+    passAfterCueRaise: 'Seulement un soutien limite face à une intervention minimum : restez en partielle.',
   },
 
   // ---------------------------------------------------------------------------

@@ -562,6 +562,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Dograna w ${loc(suit)} partnera: 13+ punktów w poparciu albo słaba ręka z pięcioma atutami i układem.`,
     gameRaiseCond: '13+ punktów w poparciu albo pięć atutów z singlem',
+    gameRaiseWeak: (suit: number) => `Co najmniej pięć ${gen(suit)}, układ i słaba ręka: od razu skocz do dogranej i zostaw przeciwników w niepewności. Z 10+ punktami i poparciem zacznij od cue bidu w ich kolor.`,
     cueBidRaise: (min: number, suit: number) => `Cue bid w kolor przeciwników pokazuje dobre podniesienie: ${min}+ ${gen(suit)} i 10+ punktów. Zwykłe podniesienie byłoby słabsze.`,
     preemptiveRaise: 'Czterokartowe poparcie i słaba ręka: podnieś do wysokości fitu (prawo totalnej liczby lew).',
     raise: (min: number, suit: number) => `Poparcie w kolorze partnera (${min}+ ${SUIT_SYMBOLS[suit]}) i 6–9 punktów.`,
@@ -636,6 +637,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Partner pokazał dobre podniesienie (10+): z pełnowartościowym wejściem (13+ punktów) licytuj dograną.',
     minimumCueBidRaise: 'Minimalne wejście: licytuj nasz kolor najtaniej. Z nadwyżką partner może jeszcze zalicytować dograną.',
+    gameAfterCueRaise: (suit: number) => `Siła na dograną z poparciem w ${loc(suit)} partnera: licytuj dograną nawet naprzeciw minimalnego wejścia.`,
+    inviteAfterCueRaise: 'Trochę więcej niż podniesienie inwitujące: zaproś do dogranej. Partner ją zalicytuje z górą minimalnego wejścia.',
+    passAfterCueRaise: 'Tylko podniesienie inwitujące naprzeciw minimalnego wejścia: zostań w częściówce.',
   },
 
   // ---------------------------------------------------------------------------

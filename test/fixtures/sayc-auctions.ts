@@ -72,7 +72,9 @@
 // Making the bots bid what the lessons teach then changed these:
 // - when they bid over partner's single raise, three of opener's suit only
 //   competes, by the Law of Total Tricks (no game invitation, no automatic
-//   pass): 10, 124, 165, 169, 201.
+//   pass): 10, 124, 165, 169, 201;
+// - a good raise of partner's overcall starts with the cue bid, and the jump
+//   to game is the weak, shapely raise: 59, 276, 387.
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -134,7 +136,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1D P 1H P 1S P 3NT P P P',
   '1H 2H 2S 3S P P 4H P P P',
   '1H P 1S 2D 2H P P P',
-  '1C 1S P 4S P P P',
+  '1C 1S P 2C 3C 4S P P P',
   'P 1C 1H X P 1S P 3S P 4S P P P',
   'P 1C P P P',
   'P 2S X P 4H P P P',
@@ -351,7 +353,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P P 2S X P 4H P 4NT P 5D P 6H P P P',
   '1H 2H 2S 3S 4H P 4NT P 5H P 6H P P P',
   '1C 1H P 2NT 3C P P X P P P',
-  '1C P P 1S P 4S P P P',
+  '1C P P 1S P 2C 3C 4S P P P',
   '2C P 2D P 2NT P 3H P 3S P 3NT P 4S P 4NT P 5H P 6S P 7S P P P',
   '1S 2C 3C 3S 4S 5C P P P',
   'P 1D P 1S P 2S P P P',
@@ -462,7 +464,7 @@ export const SAYC_AUCTIONS: string[] = [
   '2D X P 3C P 3S P 4S P P P',
   'P 1S P 2H P 3H P 4H P P P',
   'P P P 2C P 2D P 3D P 3H P 5D P P P',
-  'P P 1D 1H 1S 4H P P P',
+  'P P 1D 1H 1S 2D P 4H P P P',
   'P 1D 1H X P 2D P P P',
   '1S 1NT 2S P P P',
   'P 1C P 1H P 2C P 4NT P 5D P 6C P P P',

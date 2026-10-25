@@ -550,6 +550,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `パートナーの${name(suit)}でゲーム: サポートがあってダミーポイント13点以上、またはトランプ5枚で偏った分布の弱いハンド。`,
     gameRaiseCond: 'サポートとして13点以上、またはトランプ5枚でシングルトンがある',
+    gameRaiseWeak: (suit: number) => `${name(suit)}5枚以上、偏った分布、弱いハンド: すぐにゲームへジャンプして相手に推測させます。10点以上でサポートがあれば、まず相手のスートにキュービッドします。`,
     cueBidRaise: (min: number, suit: number) => `相手のスートへのキュービッドは良いレイズを示します: ${name(suit)}${min}枚以上と10点以上。単純なレイズならもっと弱いハンドです。`,
     preemptiveRaise: '4枚のサポートと弱いハンド: フィットの枚数に見合うレベルまでレイズします（トータルトリックの法則）。',
     raise: (min: number, suit: number) => `パートナーのスートへのサポート（${SUIT_SYMBOLS[suit]}${min}枚以上）と6–9点。`,
@@ -624,6 +625,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'パートナーは良いレイズ（10以上）を示しました: しっかりしたオーバーコール（13点以上）ならゲームをビッドします。',
     minimumCueBidRaise: 'ミニマムのオーバーコール: 味方のスートを最も安いレベルでビッドします。余分な強さがあれば、パートナーがゲームをビッドできます。',
+    gameAfterCueRaise: (suit: number) => `パートナーの${name(suit)}へのサポートでゲームに十分な強さ: ミニマムのオーバーコールが相手でもゲームをビッドします。`,
+    inviteAfterCueRaise: 'リミットレイズより少し強い: ゲームに招待します。ミニマムの上の方のオーバーコールなら、パートナーがゲームをビッドします。',
+    passAfterCueRaise: 'ミニマムのオーバーコールに対してリミットレイズだけ: パートスコアで止めます。',
   },
 
   // ---------------------------------------------------------------------------

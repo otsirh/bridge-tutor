@@ -553,6 +553,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `在同伴的${w(suit)}中成局：有支持且13+支持点，或者有5张将牌、牌型好的弱牌。`,
     gameRaiseCond: '13+支持点，或5张将牌且有单张',
+    gameRaiseWeak: (suit: number) => `5张以上${w(suit)}，牌型好但牌力弱：立刻跳叫成局，让对手去猜。有10+点和支持时，先扣叫对方花色。`,
     cueBidRaise: (min: number, suit: number) => `扣叫对方花色表示好的加叫：${min}张以上${w(suit)}，10+点。简单加叫会弱一些。`,
     preemptiveRaise: '4张支持，弱牌：按配合张数加叫到相应阶数（总墩数定律）。',
     raise: (min: number, suit: number) => `支持同伴的花色（${min}+张${SUIT_SYMBOLS[suit]}），6–9点。`,
@@ -627,6 +628,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: '同伴表示了好的加叫（10+）：你的争叫够扎实（13+点）就叫到成局。',
     minimumCueBidRaise: '低限的争叫：在最低阶叫我方花色。同伴有余力仍可叫到成局。',
+    gameAfterCueRaise: (suit: number) => `支持同伴的${w(suit)}且有成局实力：即使同伴是低限争叫也叫到成局。`,
+    inviteAfterCueRaise: '比限制性加叫稍强：邀请成局。同伴的低限争叫偏上限时会叫到成局。',
+    passAfterCueRaise: '只有限制性加叫，而同伴是低限争叫：停在部分定约。',
   },
 
   // ---------------------------------------------------------------------------

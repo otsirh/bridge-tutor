@@ -547,6 +547,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Manche nel colore del compagno (${plural(suit)}): 13+ punti di appoggio, oppure una mano debole con cinque atout e distribuzione.`,
     gameRaiseCond: '13+ punti in appoggio, oppure cinque atout con un singolo',
+    gameRaiseWeak: (suit: number) => `Cinque o più carte di ${plural(suit)}, distribuzione e una mano debole: salta subito a manche e lascia gli avversari nel dubbio. Con 10+ punti e appoggio, surlicita prima il loro colore.`,
     cueBidRaise: (min: number, suit: number) => `La surlicita nel loro colore mostra un buon appoggio: ${min}+ carte di ${plural(suit)} e 10+ punti. Un appoggio semplice sarebbe più debole.`,
     preemptiveRaise: 'Appoggio quarto e una mano debole: appoggia fino al livello del tuo fit (Legge delle prese totali).',
     raise: (min: number, suit: number) => `Appoggio nel colore del compagno (${min}+ ${SUIT_SYMBOLS[suit]}) e 6–9 punti.`,
@@ -621,6 +622,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Il compagno ha mostrato un buon appoggio (10+): con un intervento solido (13+ punti) dichiara manche.',
     minimumCueBidRaise: 'Un intervento minimo: dichiara il nostro colore al livello più economico. Con valori in più il compagno può ancora dichiarare manche.',
+    gameAfterCueRaise: (suit: number) => `Valori di manche con appoggio a ${plural(suit)} del compagno: dichiara manche anche di fronte a un intervento minimo.`,
+    inviteAfterCueRaise: 'Qualcosa più di un appoggio limite: invita a manche. Il compagno la dichiara con il massimo di un intervento minimo.',
+    passAfterCueRaise: 'Solo un appoggio limite di fronte a un intervento minimo: fermati al parziale.',
   },
 
   // ---------------------------------------------------------------------------

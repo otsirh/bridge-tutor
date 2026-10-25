@@ -13,7 +13,7 @@ import {
 } from './rebids';
 import {
   overcallRules, advanceRules, contestedResponse, openerAfterNegDouble, doublerRebid, overcallerAfterCueRaise, openerReopening, afterReopeningDouble, openerAfterRedouble, doublerAfterRedouble,
-  michaelsMinorReply,
+  michaelsMinorReply, advancerAfterCueRaiseMin,
 } from './competitive';
 import { conventionReplies, blackwoodTrump } from './slam';
 import { getSystem } from './config';
@@ -123,6 +123,8 @@ function specificRules(x: Ctx): Rule[] {
   // the opponents opened
   if (myActs.length === 0 && pActs.length === 0) return overcallRules(x);
   if (myActs.length === 0 && pActs.length >= 1) return advanceRules(x, pActs[pActs.length - 1]);
+  // our cue-bid raise of partner's overcall, and partner showed a minimum
+  if (myActs.length === 1 && myActs[0].meaning.tag === 'cueRaise' && pc?.meaning.tag === 'cueRaiseMin' && rhoQuiet) return advancerAfterCueRaiseMin(x, pc.meaning.data!.suit);
   // our Michaels cue bid (the other major and a minor), and partner's 2NT asks for the minor
   if (myActs.length === 1 && myActs[0].meaning.tag === 'michaels' && pc?.meaning.tag === 'askMinor' && pActs.length === 1) return michaelsMinorReply(x);
   if (myActs.length === 1 && myActs[0].meaning.tag === 'takeoutX' && pActs.length === 1 && pActs[0].index > myActs[0].index && x.partnerCall()?.index === pActs[0].index) {

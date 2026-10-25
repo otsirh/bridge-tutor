@@ -562,6 +562,7 @@ export const bidding: Text['bidding'] = {
     // advancing a suit overcall
     gameRaise: (s: number) => `Vollspiel in ${suit(s)}, der Farbe des Partners: 13+ Unterstützungspunkte oder eine schwache Hand mit fünf Trümpfen und Verteilung.`,
     gameRaiseCond: '13+ Unterstützungspunkte oder fünf Trümpfe mit einem Single',
+    gameRaiseWeak: (s: number) => `Fünf oder mehr ${suit(s)}, Verteilung und eine schwache Hand: Springen Sie sofort ins Vollspiel und lassen Sie die Gegner raten. Mit 10+ Punkten und Unterstützung reizen Sie zuerst das Cuebid in der Farbe der Gegner.`,
     cueBidRaise: (min: number, s: number) => `Ein Cuebid in der Farbe der Gegner zeigt eine gute Hebung: ${min}+ ${suit(s)} und 10+ Punkte. Eine einfache Hebung wäre schwächer.`,
     preemptiveRaise: 'Viererunterstützung und eine schwache Hand: Heben Sie auf die Stufe Ihres Fits (Gesetz der totalen Stiche).',
     raise: (min: number, s: number) => `Unterstützung für die Farbe des Partners (${min}+ ${SUIT_SYMBOLS[s]}) und 6–9 Punkte.`,
@@ -636,6 +637,9 @@ export const bidding: Text['bidding'] = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Der Partner hat eine gute Hebung gezeigt (10+): Mit einer soliden Gegenreizung (13+ Punkte) reizen Sie das Vollspiel.',
     minimumCueBidRaise: 'Eine Minimum-Gegenreizung: Reizen Sie unsere Farbe auf der billigsten Stufe. Mit Extrawerten kann der Partner noch das Vollspiel reizen.',
+    gameAfterCueRaise: (s: number) => `Vollspielwerte mit Unterstützung für die ${farbe(s)} des Partners: Reizen Sie das Vollspiel auch gegenüber einer Minimum-Gegenreizung.`,
+    inviteAfterCueRaise: 'Etwas mehr als eine Limit-Hebung: Laden Sie zum Vollspiel ein. Der Partner reizt es mit einer guten Minimum-Gegenreizung.',
+    passAfterCueRaise: 'Nur eine Limit-Hebung gegenüber einer Minimum-Gegenreizung: Bleiben Sie im Teilkontrakt.',
   },
 
   // ---------------------------------------------------------------------------

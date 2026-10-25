@@ -572,6 +572,7 @@ export const bidding = {
     // advancing a suit overcall
     gameRaise: (suit: number) => `Game in partner's ${plural(suit)}: 13+ dummy points with support, or a weak hand with five trumps and shape.`,
     gameRaiseCond: '13+ points in support, or five trumps with a singleton',
+    gameRaiseWeak: (suit: number) => `Five or more ${plural(suit)}, shape and a weak hand: jump to game at once and leave the opponents guessing. With 10+ points and support, cue bid their suit first.`,
     cueBidRaise: (min: number, suit: number) => `A cue bid of their suit shows a good raise: ${min}+ ${plural(suit)} and 10+ points. A simple raise would be weaker.`,
     preemptiveRaise: 'Four-card support and a weak hand: raise to the level of your fit (Law of Total Tricks).',
     raise: (min: number, suit: number) => `Support for partner's suit (${min}+ ${SUIT_SYMBOLS[suit]}) and 6–9 points.`,
@@ -646,6 +647,9 @@ export const bidding = {
     // the overcaller after partner's cue-bid raise
     acceptCueBidRaise: 'Partner showed a good raise (10+): with a sound overcall (13+ points) bid game.',
     minimumCueBidRaise: 'A minimum overcall: bid our suit at the cheapest level. Partner can still bid game with extra values.',
+    gameAfterCueRaise: (suit: number) => `Game values in support of partner's ${plural(suit)}: bid game even opposite a minimum overcall.`,
+    inviteAfterCueRaise: 'A little more than a limit raise: invite game. Partner bids it with the top of a minimum overcall.',
+    passAfterCueRaise: 'Only a limit raise opposite a minimum overcall: stop in the partscore.',
   },
 
   // ---------------------------------------------------------------------------
