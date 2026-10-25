@@ -26,6 +26,7 @@ import { readAuction } from '../bidding/engine';
 import type { CallRecord } from '../bidding/context';
 import { decideCard, type Decision } from '../engine/playEngine';
 import { openingLeadChoices } from '../engine/leads';
+import { topTricks } from '../tutor/planner';
 import { dealForTheme, systemAuction } from './themes';
 import { type ReviewItem, encodeDeal, decodeDeal } from './journal';
 import {
@@ -158,6 +159,8 @@ const holdUp: Recogniser = (v, answer) => {
   const s = v.led;
   if (!answer.every(c => suitOf(c) === s)) return false;
   if (dealtIn(v, v.seat, s) + dealtIn(v, v.partner, s) > 7) return false;
+  // a plain stopper (A x x): with a second honour (A J x) ducking may be a Bath coup, another idea
+  if (![...handIn(v, s), ...partnerIn(v, s)].every(c => isTop(v, c) || rankOf(c) < 10)) return false;
   const led = v.p.current.cards[0];
   if (v.pos === 3) return theyWin(v) && handIn(v, s).some(c => winsNow(v, c)) && answer.every(c => !winsNow(v, c));
   // second hand (dummy before declarer): could take it with a top card, plays below the card led, and partner can't win it either
@@ -181,8 +184,8 @@ const duck: Recogniser = (v, answer) => {
   if (v.pos !== 2) return false; // the defenders' suit is not "your long suit"
   const cur = v.p.current;
   const lead = cur.cards[0];
-  // letting partner's honour run is a finesse, not a duck
-  if (trickWinner(cur.cards, cur.leader, v.p.trump) === v.partner && finesseCard(v, lead)) return false;
+  // letting partner's honour run is a finesse, and playing low under partner's sure winner no duck at all
+  if (trickWinner(cur.cards, cur.leader, v.p.trump) === v.partner && (finesseCard(v, lead) || isTop(v, lead))) return false;
   return handIn(v, s).some(c => winsNow(v, c) && isTop(v, c)) && answer.every(c => !winsNow(v, c) || !isTop(v, c));
 };
 
@@ -295,12 +298,14 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
   const sides = [0, 1, 2, 3].filter(s => s !== trump);
   switch (t) {
     case 'holdUp': {
+      // the leader's long suit against a lone ace, and too few top tricks to make it without losing the lead
       if (trump !== NT) return false;
       const leader = lhoOf(decl);
       const s = suitOf(openingLeadChoices(deal[leader], contract, records, leader)[0].card);
       const ours = [...ranks(decl, s), ...ranks(dummy, s)];
-      if (ours.length > 7 || !ours.includes(14) || ours.includes(13)) return false;
-      return len(ranks(decl, s).includes(14) ? decl : dummy, s) >= 2;
+      if (ours.length > 6 || len(leader, s) < 5 || !ours.includes(14) || ours.some(r => r !== 14 && r >= 10)) return false;
+      const top = [0, 1, 2, 3].reduce((t, x) => t + topTricks(ranks(decl, x), ranks(dummy, x), () => true), 0);
+      return top < contract.level + 6 && len(ranks(decl, s).includes(14) ? decl : dummy, s) >= 2;
     }
     case 'duck':
       return sides.some(s => {
@@ -329,9 +334,11 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
 /**
  * Like a problem, but the alternatives to a technique are usually natural
  * plays (taking the trick, cashing the ace), so a large gap is no reason to
- * reject a position.
+ * reject a position. The margin is the one defence problems use (the same
+ * layouts are compared for every card, so 15 points of success is a clear
+ * difference); the technique must also decide the contract (decisive).
  */
-export const TECHNIQUE_RULES: AcceptRules = { ...DEFAULT_RULES, blunderSuccess: 2, blunderTricks: 99 };
+export const TECHNIQUE_RULES: AcceptRules = { ...DEFAULT_RULES, successGap: 0.15, trickGap: 0.6, blunderSuccess: 2, blunderTricks: 99 };
 /** The technique must give the contract a fair chance: a deal where even the right play usually fails teaches little. */
 export const MIN_SUCCESS = 0.5;
 
