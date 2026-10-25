@@ -324,8 +324,9 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
       }));
     case 'ruffShort': {
       if (trump === NT || len(decl, trump) === len(dummy, trump)) return false;
+      // a void or singleton in the hand with fewer trumps, opposite losers in that suit
       const [long, short] = len(decl, trump) > len(dummy, trump) ? [decl, dummy] : [dummy, decl];
-      return len(short, trump) >= 2 && sides.some(s => len(short, s) <= 2 && len(long, s) > len(short, s));
+      return len(short, trump) >= 2 && sides.some(s => len(short, s) <= 1 && len(long, s) >= 3 && ranks(long, s).filter(r => r < 13).length >= 2);
     }
     case 'drawTrumps': {
       // the top trumps, so that any trump draws theirs
