@@ -151,7 +151,9 @@ export function openerRebidOneSuit(x: Ctx, open: number, resp: CallRecord): Rule
     const y = respSuit;
     if (y >= HEARTS || (y === DIAMONDS && open === CLUBS)) {
       const supLen = 4;
-      rules.push(R(bid(4, y), 'raiseToGame', t.raiseToGame(y), [lenC(y, supLen), supC(y, 19)]));
+      // four of a minor is not game: past 3NT it is a forcing slam try (partner signs off in five)
+      if (y >= HEARTS) rules.push(R(bid(4, y), 'raiseToGame', t.raiseToGame(y), [lenC(y, supLen), supC(y, 19)]));
+      else rules.push(R(bid(4, y), 'minorSlamTry', T.bidding.generic.minorSlamTry(y), [lenC(y, supLen), supC(y, 19)], { forcing: 'one', tag: 'minorTry', data: { suit: y } }));
       rules.push(R(bid(3, y), 'jumpRaise', t.jumpRaise, [lenC(y, supLen), supC(y, 16, 18)], { tag: 'invite' }));
       if (y >= HEARTS) rules.push(R(bid(2, y), 'singleRaise', t.singleRaise, [lenC(y, supLen), supC(y, 12, 15)]));
     }
@@ -165,6 +167,8 @@ export function openerRebidOneSuit(x: Ctx, open: number, resp: CallRecord): Rule
     rules.push(R(bid(2, NT), ['rebid', 2, NT], t.twoNt, [hcpC(18, 19), balancedC()], { tag: 'invite' }));
     pushNewSuits(x, rules, open, false);
     if (open >= HEARTS) rules.push(R(bid(4, open), 'game', t.gameSelfSufficient, [tpC(19), myLenC(6)]));
+    // too strong for the jump rebid with a long minor: game in notrump, the minor running
+    else rules.push(R(bid(3, NT), ['rebid', 3, NT], t.threeNtLongMinor, [tpC(19), myLenC(6), stoppersIn(unbidSuits(x))]));
     rules.push(R(bid(3, open), 'jumpRebid', t.jumpRebid, [MED(), myLenC(6)], { tag: 'invite' }));
     rules.push(R(bid(2, open), 'rebidSuit', t.rebidSixPlus, [MIN(), myLenC(6)]));
     if (y === DIAMONDS && open === CLUBS) rules.push(R(bid(2, DIAMONDS), 'raise', t.raiseDiamonds, [lenC(DIAMONDS, 4), MIN()]));
@@ -189,12 +193,16 @@ export function openerRebidOneSuit(x: Ctx, open: number, resp: CallRecord): Rule
       rules.push(R(c, 'newSuit', t.newSuitTwoOverOne(s), [lenC(s, 4)], { forcing: 'one' }));
     }
     rules.push(R(bid(2, open), 'rebidSuit', t.rebidFallback, [], {}));
-    rules.push(R(bid(2, NT), ['nt', 2], t.twoNtFallback, []));
     return rules;
   }
 
   if (respSuit === NT && respLevel === 2) {
     rules.push(R(bid(3, open), 'longSuit', t.longSuit, [myLenC(6), cond(T.bidding.conds.unbalanced, h => !h.semiBalanced)]));
+    // shortness: notrump may be the wrong game, so show a second suit (the game force continues)
+    for (const s of [DIAMONDS, CLUBS, HEARTS, SPADES]) {
+      if (s === open) continue;
+      rules.push(R(bid(3, s), 'newSuit', t.secondSuitAfter2nt(s), [lenC(s, 4), cond(T.bidding.conds.singletonOrVoid, h => h.shape[3] <= 1)], { forcing: 'game' }));
+    }
     rules.push(R(bid(3, NT), ['nt', 3], t.threeNtAfter2nt, []));
     return rules;
   }
@@ -451,8 +459,11 @@ export function responderAfterInvite(x: Ctx, trump: number): Rule[] {
   const need = 26 - Math.min(x.partnerHcp().max, 21);
   if (trump === NT) {
     const ph = x.partnerHcp();
-    if (x.isLegal(bid(6, NT))) rules.push(R(bid(6, NT), 'smallSlam', t.slamAfterInvite(ph.min, ph.max, 33 - ph.min), [hcpC(33 - ph.min)]));
-    if (x.isLegal(bid(4, NT))) rules.push(R(bid(4, NT), 'quant4nt', t.quantAfterInvite, [hcpC(33 - ph.max, 32 - ph.min)], { tag: 'quant' }));
+    // the slam ranges need partner's range to be a real one (an invitation that may also be a
+    // forced catch-all reads open-ended)
+    const bounded = ph.max - ph.min <= 8;
+    if (bounded && x.isLegal(bid(6, NT))) rules.push(R(bid(6, NT), 'smallSlam', t.slamAfterInvite(ph.min, ph.max, 33 - ph.min), [hcpC(33 - ph.min)]));
+    if (bounded && x.isLegal(bid(4, NT))) rules.push(R(bid(4, NT), 'quant4nt', t.quantAfterInvite, [hcpC(33 - ph.max, 32 - ph.min)], { tag: 'quant' }));
     // a major of mine that partner has not supported: play it with six, offer it with five
     const P = x.shownBy(x.partner);
     const responder = x.opening()?.seat !== x.seat;
