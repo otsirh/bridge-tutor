@@ -21,6 +21,7 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - With think-first on, declarer counts losers or top tricks before the plan is shown.
 - Skill accuracy counts only real decisions; the next lesson follows the course's levels.
 - A first visit is welcomed, with a path for beginners.
+- Ten ready-made problems, so a new player's first problem opens at once.
 - Lesson corrections from a teacher's review, and seven new glossary terms.
 - Four new lessons: defending against notrump, ruffing finesses and loser on loser, dummy reversal
   and the trump coup, and leads against slams and doubled contracts; eight new glossary terms.
