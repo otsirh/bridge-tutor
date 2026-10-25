@@ -10,7 +10,7 @@ import { hasStopper, dummyPoints, declarerPoints } from '../core/eval';
 import { T } from '../i18n';
 import type { Ctx, CallRecord } from './context';
 import { getSystem } from './config';
-import { R, hcpC, lenC, dpC, cond, type Rule, type Cond } from './types';
+import { R, hcpC, lenC, dpC, cond, type Rule, type Cond, type Shown } from './types';
 import { aceAsk, aceAskMade } from './slam';
 
 const SIDE = (trump: number) => [CLUBS, DIAMONDS, HEARTS, SPADES].filter(s => s !== trump);
@@ -46,7 +46,7 @@ export function openerAfterSplinter(x: Ctx, M: number, resp: CallRecord): Rule[]
   const value = (h: HandInfo) => t.workingValue(Math.round(working(h)));
   const others = SIDE(M).filter(s => s !== short);
   const rules: Rule[] = [];
-  rules.push(...cueBids(x, M, resp.call, others, cond(t.slamInterest, h => working(h) >= 16, undefined, value)));
+  rules.push(...cueBids(x, M, resp.call, others, cond(t.slamInterest, h => working(h) >= 16, s => { s.hcp = [Math.max(s.hcp[0], 13), s.hcp[1]]; }, value)));
   rules.push(aceAsk(M, [
     cond(t.strongSlamInterest, h => working(h) >= 18, undefined, value),
     cond(T.bidding.cues.controlsCond(others), h => others.every(s => control(h, s))),
@@ -148,7 +148,11 @@ export function slamTryRules(x: Ctx): Rule[] | null {
     for (const s of SIDE(M)) if (partnerShort(s)) p -= wasted(h, s);
     return p;
   };
-  const combined = (h: HandInfo) => points(h) + x.partnerHcp().est + (SIDE(M).some(partnerShort) ? 2 : 0);
+  const bonus = SIDE(M).some(partnerShort) ? 2 : 0;
+  const combined = (h: HandInfo) => points(h) + x.partnerHcp().est + bonus;
+  // what a slam move tells partner: at least `min` between the hands with partner's
+  // expected strength, less a few points that may be shape
+  const atLeast = (min: number) => (s: Shown) => { s.hcp = [Math.max(s.hcp[0], min - x.partnerHcp().est - bonus - 3), s.hcp[1]]; };
   const value = (h: HandInfo) => t.combinedValue(Math.round(combined(h)));
   const covered = (h: HandInfo) => SIDE(M).every(s => control(h, s) || partnerShort(s) || partnerCued(s));
   const coveredCond = cond(t.allControlled, covered);
@@ -159,7 +163,9 @@ export function slamTryRules(x: Ctx): Rule[] | null {
   if (pc.meaning.tag === 'cue' && pc.call < game) {
     const suits = SIDE(M).filter(s => !partnerShort(s) && !partnerCued(s));
     return [
-      ...cueBids(x, M, pc.call, suits, cond(t.cooperate, h => combined(h) >= 30, undefined, value)),
+      // with slam values of my own and every suit controlled, ask at once
+      aceAsk(M, [cond(t.strongSlamValues, h => combined(h) >= 33, undefined, value), coveredCond], {}, t.aceAsk),
+      ...cueBids(x, M, pc.call, suits, cond(t.cooperate, h => combined(h) >= 30, atLeast(30), value)),
       aceAsk(M, [cond(t.slamValues, h => combined(h) >= 31, undefined, value), coveredCond], {}, t.aceAsk),
       R(game, 'signOff', t.signOff, []),
     ];
@@ -177,7 +183,7 @@ export function slamTryRules(x: Ctx): Rule[] | null {
   if (myTag === 'jacoby2nt' && getSystem().controlBids && x.lastBid()! < game && x.actionsBy(x.seat).length === 1) {
     const suits = SIDE(M).filter(s => !partnerShort(s));
     return [
-      ...cueBids(x, M, x.lastBid()!, suits, cond(t.slamInterest, h => combined(h) >= 30, undefined, value)),
+      ...cueBids(x, M, x.lastBid()!, suits, cond(t.slamInterest, h => combined(h) >= 30, atLeast(30), value)),
       aceAsk(M, [cond(t.strongSlamValues, h => combined(h) >= 33, undefined, value), coveredCond], {}, t.aceAsk),
       R(game, 'signOff', t.signOff, []),
     ];

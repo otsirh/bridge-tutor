@@ -136,5 +136,5 @@ describe('bidding in every language', () => {
     expect(again.names).toEqual(en.names);
     expect(again.descs).toEqual(en.descs);
     expect(again.conds).toEqual(en.conds);
-  });
+  }, 60_000); // the same whole run as above
 });
