@@ -38,6 +38,18 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
   played at the table with the auction made; the review shows the key moment with the simulation
   and the lesson, and a miss comes back in the review queue. Lessons on these techniques link to it.
 
+### Fixes
+- Claim or Play out followed at once by New deal no longer freezes the table or puts a card from the
+  old hand into the new one; a second click on Play out no longer strands the hand.
+- The tutor's card simulation stops when its hint is no longer wanted, so the bots don't wait behind it;
+  a closed archived board stops its analysis.
+- Dialogs keep their scroll position while you work in them (settings, quizzes).
+- Damaged saved data (an edited backup, an old version) is skipped instead of breaking the Training
+  room; a restored backup reloads the app with its settings; a broken shared link says so.
+- After undo and replay, mistakes from the first attempt leave the review queue.
+- An open tab moves to a newly deployed version at its next deal, never in the middle of a hand.
+- Security headers (a content security policy and others) on the site.
+
 ### Everywhere
 - Phones: one-row header, a compact table, and a bidding pad that shows a call's meaning before you make it.
 - Keyboard and screen readers: every bid and card reachable, focus kept, modal dialogs, spoken calls and cards.
