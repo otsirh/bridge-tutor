@@ -251,7 +251,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
     lessonLink: (title: string) => `Lezione: ${title}`,
     preparing: 'Preparazione di una smazzata…',
-    waitNote: 'Si tengono solo le smazzate in cui la tecnica decide nettamente il contratto, quindi trovarne una può richiedere qualche minuto. Vengono preparate in background finché questa scheda è aperta e mentre giochi una smazzata di tecnica; se ne conservano fino a 3 per tecnica per la volta successiva.',
+    waitNote: 'Si tengono solo le smazzate in cui la tecnica decide nettamente il contratto, quindi trovarne una può richiedere qualche minuto. Vengono preparate in background finché questa scheda è aperta e mentre giochi una smazzata di tecnica; se ne conservano fino a 3 per tecnica per la volta successiva. Alcune tecniche capitano di rado (cedere un giro, sblocco, taglio dalla mano corta, giocate di sicurezza): per quelle ci vuole di più.',
 
     // at the table
     noteTitle: 'Allenamento sulle tecniche',

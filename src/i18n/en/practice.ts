@@ -247,7 +247,7 @@ export const practice = {
     techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
     lessonLink: (title: string) => `Lesson: ${title}`,
     preparing: 'Preparing a deal…',
-    waitNote: 'Only deals where the technique clearly decides the contract are kept, so finding one can take a few minutes. They are prepared in the background while this tab is open and while you play a technique deal; up to 3 of each technique are kept for next time.',
+    waitNote: 'Only deals where the technique clearly decides the contract are kept, so finding one can take a few minutes. They are prepared in the background while this tab is open and while you play a technique deal; up to 3 of each technique are kept for next time. Some techniques come up rarely (ducking, unblocking, ruffing in the short hand, safety plays): those take longer.',
 
     // at the table
     noteTitle: 'Technique practice',

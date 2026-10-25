@@ -249,7 +249,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
     lessonLink: (title: string) => `Lição: ${title}`,
     preparing: 'Preparando uma mão…',
-    waitNote: 'Só ficam as mãos em que a técnica decide claramente o contrato, então encontrar uma pode levar alguns minutos. Elas são preparadas em segundo plano enquanto esta aba está aberta e enquanto você joga uma mão de técnica; até 3 de cada técnica ficam guardadas para a próxima vez.',
+    waitNote: 'Só ficam as mãos em que a técnica decide claramente o contrato, então encontrar uma pode levar alguns minutos. Elas são preparadas em segundo plano enquanto esta aba está aberta e enquanto você joga uma mão de técnica; até 3 de cada técnica ficam guardadas para a próxima vez. Algumas técnicas aparecem raramente (ceder uma vaza, desbloqueio, cortar na mão curta, jogadas de segurança): essas demoram mais.',
 
     // at the table
     noteTitle: 'Treino de técnicas',

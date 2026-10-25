@@ -249,7 +249,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
     lessonLink: (title: string) => `Lekcja: ${title}`,
     preparing: 'Przygotowuję rozdanie…',
-    waitNote: 'Zostają tylko rozdania, w których technika wyraźnie rozstrzyga o kontrakcie, więc znalezienie jednego może potrwać kilka minut. Przygotowują się w tle, gdy ta karta jest otwarta i gdy rozgrywasz rozdanie z techniką; do następnego razu zostają do 3 rozdań każdej techniki.',
+    waitNote: 'Zostają tylko rozdania, w których technika wyraźnie rozstrzyga o kontrakcie, więc znalezienie jednego może potrwać kilka minut. Przygotowują się w tle, gdy ta karta jest otwarta i gdy rozgrywasz rozdanie z techniką; do następnego razu zostają do 3 rozdań każdej techniki. Niektóre techniki zdarzają się rzadko (oddanie lewy, odblokowanie, przebitka w krótszej ręce, zagrania bezpieczeństwa): na nie trzeba poczekać dłużej.',
 
     // at the table
     noteTitle: 'Ćwiczenie techniki',

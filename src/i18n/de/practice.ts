@@ -245,7 +245,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
     lessonLink: (title: string) => `Lektion: ${title}`,
     preparing: 'Ein Spiel wird vorbereitet…',
-    waitNote: 'Nur Spiele, in denen die Technik klar über den Kontrakt entscheidet, werden behalten, deshalb kann die Suche ein paar Minuten dauern. Sie werden im Hintergrund vorbereitet, solange dieser Tab offen ist und während Sie ein Technikspiel spielen; bis zu 3 je Technik werden für das nächste Mal aufbewahrt.',
+    waitNote: 'Nur Spiele, in denen die Technik klar über den Kontrakt entscheidet, werden behalten, deshalb kann die Suche ein paar Minuten dauern. Sie werden im Hintergrund vorbereitet, solange dieser Tab offen ist und während Sie ein Technikspiel spielen; bis zu 3 je Technik werden für das nächste Mal aufbewahrt. Manche Techniken kommen selten vor (Ducken, Deblockieren, Schnappen in der kurzen Hand, Sicherheitsspiele): Diese dauern länger.',
 
     // at the table
     noteTitle: 'Techniktraining',

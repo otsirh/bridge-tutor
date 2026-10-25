@@ -242,7 +242,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
     lessonLink: (title: string) => `Les: ${title}`,
     preparing: 'Een spel wordt voorbereid…',
-    waitNote: 'Alleen spellen waarin de techniek het contract duidelijk beslist worden bewaard, dus het vinden ervan kan een paar minuten duren. Ze worden op de achtergrond voorbereid zolang dit tabblad openstaat en terwijl je een techniekspel speelt; van elke techniek worden er tot 3 bewaard voor de volgende keer.',
+    waitNote: 'Alleen spellen waarin de techniek het contract duidelijk beslist worden bewaard, dus het vinden ervan kan een paar minuten duren. Ze worden op de achtergrond voorbereid zolang dit tabblad openstaat en terwijl je een techniekspel speelt; van elke techniek worden er tot 3 bewaard voor de volgende keer. Sommige technieken komen zelden voor (duiken, deblokkeren, introeven in de korte hand, veiligheidsspelen): die duren langer.',
 
     // at the table
     noteTitle: 'Techniektraining',

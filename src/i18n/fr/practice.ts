@@ -254,7 +254,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name} : ${right}/${done}`,
     lessonLink: (title: string) => `Leçon : ${title}`,
     preparing: 'Préparation d’une donne…',
-    waitNote: 'Seules les donnes où la technique décide nettement du contrat sont retenues : en trouver une peut prendre quelques minutes. Elles se préparent en arrière-plan tant que cet onglet est ouvert et pendant que vous jouez une donne de technique ; jusqu’à 3 par technique sont gardées pour la prochaine fois.',
+    waitNote: 'Seules les donnes où la technique décide nettement du contrat sont retenues : en trouver une peut prendre quelques minutes. Elles se préparent en arrière-plan tant que cet onglet est ouvert et pendant que vous jouez une donne de technique ; jusqu’à 3 par technique sont gardées pour la prochaine fois. Certaines techniques sont rares (coup à blanc, déblocage, coupe dans la main courte, maniements de sécurité) : elles prennent plus de temps.',
 
     // at the table
     noteTitle: 'Entraînement aux techniques',

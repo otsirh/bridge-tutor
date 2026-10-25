@@ -237,7 +237,7 @@ export const practice: Text['practice'] = {
     techScore: (name: string, right: number, done: number) => `${name}：${right}/${done}`,
     lessonLink: (title: string) => `课程：${title}`,
     preparing: '正在准备一副牌…',
-    waitNote: '只保留技术明显决定定约成败的牌，所以找到一副可能需要几分钟。只要这个页面开着，或你正在打技术练习的牌，就会在后台准备；每项技术最多保存3副供下次使用。',
+    waitNote: '只保留技术明显决定定约成败的牌，所以找到一副可能需要几分钟。只要这个页面开着，或你正在打技术练习的牌，就会在后台准备；每项技术最多保存3副供下次使用。有些技术很少出现（让牌、解封、短将一手将吃、安全打法），需要等更久。',
 
     // at the table
     noteTitle: '技术练习',
