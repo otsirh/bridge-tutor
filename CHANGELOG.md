@@ -62,6 +62,7 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - Keyboard and screen readers: every bid and card reachable, focus kept, modal dialogs, spoken calls and cards.
 - Better contrast; a tap on the table skips the bots' pause; New deal asks before leaving a hand.
 - Faster start: fonts don't block the first paint, and lessons load after the first screen.
+- Open source: the code is public under the MIT license, with a security policy and a contributing guide.
 
 ## [1.0.0] — 2026-10-25
 
