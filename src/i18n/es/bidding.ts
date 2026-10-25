@@ -180,6 +180,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Competir',
     competeWithSuit: 'Competir con tu palo',
     competitiveDouble: 'Doblo competitivo',
+    sacrifice: 'Sacrificio',
   },
 
   /** The optional conventions, for the system settings (ids as in src/bidding/config.ts). */
@@ -587,6 +588,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PH con parada.',
     newSuitAfterOvercall: (suit: number) => `Un buen palo propio (5+ ${plural(suit)}) y 8+ PH. No forcing.`,
     passNoFit: 'Sin fit y sin valores extra.',
+    sacrifice: (suit: number) => `Los rivales han declarado la manga y, con vulnerabilidad favorable, un sacrificio cuesta menos que su manga: con un gran fit en ${plural(suit)}, corto en su palo y poca defensa, sigue declarando ya.`,
+    littleDefence: 'poca defensa (como mucho una baza rápida)',
     // they compete over our 1NT
     redouble1nt: '8+ PH: tenemos la mayor parte de la fuerza y los rivales están en apuros.',
     escape: (suit: number) => `Una mano débil con cinco o más ${plural(suit)}: escapa de 1SA doblado a un contrato más seguro.`,

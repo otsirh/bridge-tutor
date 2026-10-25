@@ -166,6 +166,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Meebieden',
     competeWithSuit: 'Meebieden met eigen kleur',
     competitiveDouble: 'Competitief doublet',
+    sacrifice: 'Offerbod',
   },
 
   conventions: {
@@ -570,6 +571,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ punten met een stop.',
     newSuitAfterOvercall: (suit: number) => `Een goede eigen kleur (5+ ${plural(suit)}) en 8+ punten. Niet forcing.`,
     passNoFit: 'Geen fit en geen extra kracht.',
+    sacrifice: (suit: number) => `De tegenstanders hebben manche geboden, en bij gunstige kwetsbaarheid kost een offerbod minder dan hun manche: met een grote fit in ${plural(suit)}, kort in hun kleur en weinig verdediging bied je meteen door.`,
+    littleDefence: 'weinig verdediging (hoogstens één snelle slag)',
     // they compete over our 1NT
     redouble1nt: '8+ punten: wij hebben de meeste kracht — de tegenstanders zitten in de problemen.',
     escape: (suit: number) => `Een zwakke hand met vijf of meer ${plural(suit)}: vlucht uit 1SA gedoubleerd naar een veiliger contract.`,

@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – doblo – paso: declara 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – doblo – paso: declara 2♠"></div>
-<p>Con 3 PH, declara 1♠ sin miedo: tu compañero sabe que puedes no tener nada. Con 10 PH, salta a 2♠ para invitar a manga. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH), declara tú mismo 4♠, o haz un cue-bid de 2♥ si no tienes claro cuál es la mejor manga.</p>
+<p>Con 3 PH, declara 1♠ sin miedo: tu compañero sabe que puedes no tener nada. Con 10 PH, salta a 2♠ para invitar a manga. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH) tienes valores de manga, pero solo cuatro picas: haz un cue-bid de 2♥, forcing, y elige la manga después de la respuesta de tu compañero. Con cinco picas y 10-11 PH, declara tú mismo 4♠.</p>
 <p>Si el compañero del abridor declara (1♥ – doblo – 2♥), ya no estás obligado a hablar. Ahora declarar muestra algunos valores, unos 6+, y pasar muestra una mano débil.</p>
 
 <h3>La redeclaración del doblador</h3>

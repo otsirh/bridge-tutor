@@ -175,6 +175,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Mitreizen',
     competeWithSuit: 'Mitreizen mit eigener Farbe',
     competitiveDouble: 'Kompetitives Kontra',
+    sacrifice: 'Opfergebot',
   },
 
   conventions: {
@@ -579,6 +580,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ FP mit Stopper.',
     newSuitAfterOvercall: (s: number) => `Eine gute eigene Farbe (5+ ${suit(s)}) und 8+ FP. Nicht forcierend.`,
     passNoFit: 'Kein Fit und keine Extrawerte.',
+    sacrifice: (s: number) => `Die Gegner haben das Vollspiel gereizt, und bei günstiger Gefahrenlage kostet ein Opfergebot weniger als ihr Vollspiel: Mit einem großen Fit in ${suit(s)}, Kürze in ihrer Farbe und wenig Verteidigung reizen Sie sofort weiter.`,
+    littleDefence: 'wenig Verteidigung (höchstens ein schneller Stich)',
     // they compete over our 1NT
     redouble1nt: '8+ FP: Wir haben die Punktmehrheit – die Gegner stecken in Schwierigkeiten.',
     escape: (s: number) => `Eine schwache Hand mit fünf oder mehr ${suit(s)}: Flüchten Sie aus 1SA kontriert in einen sichereren Kontrakt.`,

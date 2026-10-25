@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – kontra – pas: licytuj 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – kontra – pas: licytuj 2♠"></div>
-<p>Z 3 PC licytuj 1♠ bez obaw: partner wie, że możesz nie mieć nic. Z 10 PC skocz na 2♠, inwitując dograną. Z ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PC) zalicytuj od razu 4♠ albo daj cue bid 2♥, jeśli nie wiesz, która dograna jest najlepsza.</p>
+<p>Z 3 PC licytuj 1♠ bez obaw: partner wie, że możesz nie mieć nic. Z 10 PC skocz na 2♠, inwitując dograną. Z ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PC) masz siłę na dograną, ale tylko cztery piki: daj forsujący cue bid 2♥ i wybierz dograną po odpowiedzi partnera. Z pięcioma pikami i 10-11 PC zalicytuj od razu 4♠.</p>
 <p>Jeśli partner otwierającego zalicytuje (1♥ – kontra – 2♥), nie musisz już licytować. Teraz odzywka pokazuje pewną siłę, około 6+, a pas słabą rękę.</p>
 
 <h3>Rebid kontrującego</h3>

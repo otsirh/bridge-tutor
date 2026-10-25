@@ -338,6 +338,17 @@ export function advanceRules(x: Ctx, pAct: CallRecord): Rule[] {
   }
 
   if (ps >= 0 && ps < 4) {
+    // they bid game over partner's overcall: at favourable vulnerability, a big fit with
+    // shortness in their suit and little defence sacrifices at once
+    const lbr = x.lastBidRecord();
+    const theirGame = !!lbr && !x.ourSide(lbr.seat) && strainOf(lbr.call) < NT && strainOf(lbr.call) !== ps
+      && levelOf(lbr.call) >= (strainOf(lbr.call) >= HEARTS ? 4 : 5) && levelOf(lbr.call) <= 5;
+    const save = x.cheapest(ps);
+    if (rhoBid && theirGame && !x.weVul && x.theyVul && save !== null && levelOf(save) <= 5) {
+      const ts = strainOf(lbr!.call);
+      rules.push(R(save, 'sacrifice', t.sacrifice(ps), [lenC(ps, 4), lenC(ts, 0, 1), hcpC(0, 9),
+        cond(t.littleDefence, h => h.qt <= 1)]));
+    }
     // a cue-bid raise needs a suit of theirs to cue (over their 1NT there is none)
     const cue = theirs.length ? x.cheapest(opp) : null;
     const supLen = ps >= HEARTS ? 3 : 4;

@@ -160,6 +160,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Competere',
     competeWithSuit: 'Competere con il proprio colore',
     competitiveDouble: 'Contro competitivo',
+    sacrifice: 'Sacrificio',
   },
 
   conventions: {
@@ -564,6 +565,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PO con il fermo.',
     newSuitAfterOvercall: (suit: number) => `Un buon colore tuo (5+ carte di ${plural(suit)}) e 8+ PO. Non forzante.`,
     passNoFit: 'Niente fit e niente valori in più.',
+    sacrifice: (suit: number) => `Gli avversari hanno dichiarato manche e, in prima contro zona, un sacrificio costa meno della loro manche: con un grande fit a ${plural(suit)}, corto nel loro colore e poca difesa, rilancia subito.`,
+    littleDefence: 'poca difesa (al massimo una presa rapida)',
     // they compete over our 1NT
     redouble1nt: '8+ PO: la forza è nostra, gli avversari sono nei guai.',
     escape: (suit: number) => `Una mano debole con cinque o più carte di ${plural(suit)}: scappa da 1SA contrato verso un contratto più sicuro.`,

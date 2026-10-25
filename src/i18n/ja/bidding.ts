@@ -163,6 +163,7 @@ export const bidding: Text['bidding'] = {
     compete: '競り合う',
     competeWithSuit: '自分のスートで競る',
     competitiveDouble: 'コンペティティブダブル',
+    sacrifice: 'セーブ',
   },
 
   conventions: {
@@ -567,6 +568,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: 'ストッパーのある15 HCP以上。',
     newSuitAfterOvercall: (suit: number) => `自分の良いスート（${name(suit)}5枚以上）と8 HCP以上。フォーシングではありません。`,
     passNoFit: 'フィットもなく、余分な強さもありません。',
+    sacrifice: (suit: number) => `相手がゲームをビッドしました。有利なバルネラビリティなら、セーブのほうが相手のゲームより安くつきます: ${name(suit)}に大きなフィットがあり、相手のスートがショートで、ディフェンス力が乏しければ、すぐに競り上げます。`,
+    littleDefence: 'ディフェンス力が乏しい（クイックトリック1以下）',
     // they compete over our 1NT
     redouble1nt: '8 HCP以上: 力の大半はこちらにあります — 相手は苦しい状況です。',
     escape: (suit: number) => `${name(suit)}5枚以上の弱いハンド: ダブルされた1NTから、より安全なコントラクトへ逃げます。`,

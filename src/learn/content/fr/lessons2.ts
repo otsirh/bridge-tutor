@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – contre – passe : dites 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – contre – passe : dites 2♠"></div>
-<p>Avec 3 H, dites 1♠ sans crainte : votre partenaire sait que vous pouvez n’avoir rien. Avec 10 H, sautez à 2♠ pour proposer la manche. Avec ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 H), dites vous-même 4♠, ou faites un cue-bid à 2♥ si vous ne savez pas quelle manche est la meilleure.</p>
+<p>Avec 3 H, dites 1♠ sans crainte : votre partenaire sait que vous pouvez n’avoir rien. Avec 10 H, sautez à 2♠ pour proposer la manche. Avec ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 H), vous avez les valeurs de la manche mais seulement quatre piques : faites un cue-bid à 2♥, forcing, et choisissez la manche après la réponse de votre partenaire. Avec cinq piques et 10-11 H, dites vous-même 4♠.</p>
 <p>Si le partenaire de l’ouvreur parle (1♥ – contre – 2♥), vous n’êtes plus obligé de parler. Une enchère montre alors quelques valeurs, environ 6+, et un passe montre une main faible.</p>
 
 <h3>La redemande du contreur</h3>

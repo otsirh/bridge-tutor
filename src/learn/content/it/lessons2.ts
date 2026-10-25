@@ -435,7 +435,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – contro – passo: dichiara 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – contro – passo: dichiara 2♠"></div>
-<p>Con 3 PO dichiara 1♠ senza paura: il compagno sa che puoi non avere niente. Con 10 PO salta a 2♠ per invitare a manche. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PO) dichiara tu 4♠, oppure surlicita 2♥ se non sai quale manche sia la migliore.</p>
+<p>Con 3 PO dichiara 1♠ senza paura: il compagno sa che puoi non avere niente. Con 10 PO salta a 2♠ per invitare a manche. Con ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PO) hai valori di manche ma solo quattro picche: surlicita 2♥, forzante, e scegli la manche dopo la risposta del compagno. Con cinque picche e 10-11 PO dichiara tu 4♠.</p>
 <p>Se il compagno dell’apertore dichiara (1♥ – contro – 2♥), non sei più obbligato a dichiarare. Ora una dichiarazione mostra qualche valore, circa 6+, e il passo mostra una mano debole.</p>
 
 <h3>La ridichiarazione di chi ha contrato</h3>

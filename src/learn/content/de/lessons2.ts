@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – Kontra – Passe: 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – Kontra – Passe: 2♠"></div>
-<p>Mit 3 FP reizen Sie ohne Angst 1♠: Der Partner weiß, dass Sie nichts haben können. Mit 10 FP springen Sie auf 2♠ und laden zum Vollspiel ein. Mit ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 FP) reizen Sie selbst 4♠ oder geben das Cuebid 2♥ ab, wenn Sie nicht sicher sind, welches Vollspiel das beste ist.</p>
+<p>Mit 3 FP reizen Sie ohne Angst 1♠: Der Partner weiß, dass Sie nichts haben können. Mit 10 FP springen Sie auf 2♠ und laden zum Vollspiel ein. Mit ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 FP) haben Sie Vollspielwerte, aber nur vier Pik: Geben Sie das forcierende Cuebid 2♥ ab und wählen Sie das Vollspiel nach der Antwort des Partners. Mit fünf Pik und 10–11 FP reizen Sie selbst 4♠.</p>
 <p>Reizt der Partner des Eröffners (1♥ – Kontra – 2♥), sind Sie nicht mehr zum Reizen gezwungen. Jetzt zeigt ein Gebot gewisse Werte, etwa 6+, und Passe zeigt eine schwache Hand.</p>
 
 <h3>Das Wiedergebot des Kontrierenden</h3>

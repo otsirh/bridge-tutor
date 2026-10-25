@@ -165,6 +165,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Competir',
     competeWithSuit: 'Competir com o seu naipe',
     competitiveDouble: 'Dobre competitivo',
+    sacrifice: 'Sacrifício',
   },
 
   conventions: {
@@ -569,6 +570,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PH com parada.',
     newSuitAfterOvercall: (suit: number) => `Um bom naipe próprio (5+ ${plural(suit)}) e 8+ PH. Não forcing.`,
     passNoFit: 'Sem fit e sem valores extras.',
+    sacrifice: (suit: number) => `Os adversários marcaram game e, com vulnerabilidade favorável, um sacrifício custa menos que o game deles: com um grande fit em ${plural(suit)}, curto no naipe deles e pouca defesa, continue marcando já.`,
+    littleDefence: 'pouca defesa (no máximo uma vaza rápida)',
     // they compete over our 1NT
     redouble1nt: '8+ PH: a força está do nosso lado — os adversários estão em apuros.',
     escape: (suit: number) => `Mão fraca com cinco ou mais ${plural(suit)}: fuja de 1ST dobrado para um contrato mais seguro.`,

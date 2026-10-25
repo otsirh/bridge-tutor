@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – doublet – pas: bied 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – doublet – pas: bied 2♠"></div>
-<p>Met 3 punten bied je zonder angst 1♠: partner weet dat je niets kunt hebben. Met 10 punten spring je naar 2♠ als invite voor de manche. Met ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 punten) bied je zelf 4♠, of geef je een cuebid van 2♥ als je niet zeker weet welke manche het beste is.</p>
+<p>Met 3 punten bied je zonder angst 1♠: partner weet dat je niets kunt hebben. Met 10 punten spring je naar 2♠ als invite voor de manche. Met ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 punten) heb je manchekracht, maar maar vier schoppen: geef een cuebid van 2♥, forcing, en kies de manche na het antwoord van partner. Met vijf schoppen en 10-11 punten bied je zelf 4♠.</p>
 <p>Als de partner van de openaar biedt (1♥ – doublet – 2♥), ben je niet meer verplicht te bieden. Een bod toont dan wat punten, ongeveer 6+, en een pas toont een zwakke hand.</p>
 
 <h3>De herbieding van de doubleerder</h3>

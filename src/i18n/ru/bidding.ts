@@ -174,6 +174,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Борьба за контракт',
     competeWithSuit: 'Борьба своей мастью',
     competitiveDouble: 'Конкурентная контра',
+    sacrifice: 'Жертва',
   },
 
   conventions: {
@@ -578,6 +579,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ очков с держкой.',
     newSuitAfterOvercall: (suit: number) => `Хорошая своя масть (${suitPlus(5, suit)}) и 8+ очков. Не форсинг.`,
     passNoFit: 'Фита нет, лишней силы тоже.',
+    sacrifice: (suit: number) => `Противники заявили гейм, и при благоприятной зональности жертва обойдётся дешевле их гейма: с большим фитом в ${SUIT_PREP[suit]}, короткостью в их масти и слабой защитой сразу торгуйтесь дальше.`,
+    littleDefence: 'слабая защита (не больше одной быстрой взятки)',
     // they compete over our 1NT
     redouble1nt: '8+ очков: перевес сил на нашей стороне — противники в беде.',
     escape: (suit: number) => `Слабая рука с пятью или больше ${SUIT_INS[suit]}: уйдите из 1БК с контрой в более надёжный контракт.`,

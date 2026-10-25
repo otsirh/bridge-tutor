@@ -435,7 +435,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – dobre – passo: marque 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – dobre – passo: marque 2♠"></div>
-<p>Com 3 PH, marque 1♠ sem medo: o parceiro sabe que você pode não ter nada. Com 10 PH, salte para 2♠ para convidar a game. Com ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH), marque você mesmo 4♠, ou faça cue-bid de 2♥ se não tiver certeza de qual game é melhor.</p>
+<p>Com 3 PH, marque 1♠ sem medo: o parceiro sabe que você pode não ter nada. Com 10 PH, salte para 2♠ para convidar a game. Com ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 PH) você tem valores de game, mas só quatro espadas: faça cue-bid de 2♥, forcing, e escolha o game depois da resposta do parceiro. Com cinco espadas e 10-11 PH, marque você mesmo 4♠.</p>
 <p>Se o parceiro do abridor marcar (1♥ – dobre – 2♥), você já não é obrigado a falar. Agora uma voz mostra alguns valores, cerca de 6+, e um passo mostra uma mão fraca.</p>
 
 <h3>A remarcação de quem dobrou</h3>

@@ -182,6 +182,7 @@ export const bidding = {
     compete: 'Compete',
     competeWithSuit: 'Compete with your suit',
     competitiveDouble: 'Competitive double',
+    sacrifice: 'Sacrifice',
   },
 
   /** The optional conventions, for the system settings (ids as in src/bidding/config.ts). */
@@ -589,6 +590,8 @@ export const bidding = {
     threeNtAfterOvercall: '15+ HCP with a stopper.',
     newSuitAfterOvercall: (suit: number) => `A good suit of your own (5+ ${plural(suit)}) and 8+ HCP. Not forcing.`,
     passNoFit: 'No fit and no extra values.',
+    sacrifice: (suit: number) => `They have bid game, and at favourable vulnerability a sacrifice costs less than their game: with a big ${single(suit)} fit, shortness in their suit and little defence, bid on at once.`,
+    littleDefence: 'little defence (at most one quick trick)',
     // they compete over our 1NT
     redouble1nt: '8+ HCP: we have the balance of power — the opponents are in trouble.',
     escape: (suit: number) => `A weak hand with five or more ${plural(suit)}: run from 1NT doubled to a safer contract.`,

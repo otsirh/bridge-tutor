@@ -159,6 +159,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Конкуриране',
     competeWithSuit: 'Конкуриране с вашия цвят',
     competitiveDouble: 'Конкурентна контра',
+    sacrifice: 'Жертва',
   },
 
   conventions: {
@@ -563,6 +564,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ точки със стопер.',
     newSuitAfterOvercall: (suit: number) => `Собствен добър цвят (5+ ${plural(suit)}) и 8+ точки. Не е форсиращо.`,
     passNoFit: 'Няма фит и няма допълнителна сила.',
+    sacrifice: (suit: number) => `Противниците обявиха гейм и при благоприятна зона жертвата струва по-малко от техния гейм: с голям фит в ${plural(suit)}, късота в техния цвят и малко защита продължете веднага.`,
+    littleDefence: 'малко защита (най-много една бърза взятка)',
     // they compete over our 1NT
     redouble1nt: '8+ точки: нашата двойка има превес в силата — противниците са в беда.',
     escape: (suit: number) => `Слаба ръка с пет или повече ${plural(suit)}: бягайте от 1БК с контра към по-сигурен договор.`,

@@ -166,6 +166,7 @@ export const bidding: Text['bidding'] = {
     compete: '竞叫',
     competeWithSuit: '用自己的花色竞叫',
     competitiveDouble: '竞争性加倍',
+    sacrifice: '牺牲叫',
   },
 
   conventions: {
@@ -570,6 +571,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+大牌点，有止张。',
     newSuitAfterOvercall: (suit: number) => `有自己的好套（5张以上${w(suit)}），8+大牌点。不逼叫。`,
     passNoFit: '没有配合，也没有多余的牌力。',
+    sacrifice: (suit: number) => `对方已经叫到成局；在有利局况下，牺牲叫的代价小于对方的成局：${w(suit)}配合很好、对方花色短且防守力弱时，立刻继续竞叫。`,
+    littleDefence: '防守力弱（快速赢墩至多1个）',
     // they compete over our 1NT
     redouble1nt: '8+大牌点：我方有实力优势——对手有麻烦了。',
     escape: (suit: number) => `弱牌，有5张以上${w(suit)}：从被加倍的1NT逃到更安全的定约。`,

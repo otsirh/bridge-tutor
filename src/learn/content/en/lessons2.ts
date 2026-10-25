@@ -436,7 +436,7 @@ export const LESSONS_2: Lesson[] = [
 </table>
 <div class="hand" data-cards="S:Q8642 H:753 D:J4 C:982" data-label="1♥ – double – pass: bid 1♠"></div>
 <div class="hand" data-cards="S:KJ74 H:85 D:A1063 C:Q72" data-label="1♥ – double – pass: bid 2♠"></div>
-<p>With 3 HCP, bid 1♠ without fear: partner knows you may have nothing. With 10 HCP, jump to 2♠ to invite game. With ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 HCP) bid 4♠ yourself, or cue bid 2♥ if you are unsure which game is best.</p>
+<p>With 3 HCP, bid 1♠ without fear: partner knows you may have nothing. With 10 HCP, jump to 2♠ to invite game. With ♠AJ74 ♥85 ♦KQ63 ♣Q72 (12 HCP) you have game values but only four spades: cue bid 2♥, forcing, and choose the game after partner's answer. With five spades and 10-11 HCP, bid 4♠ yourself.</p>
 <p>If the opener's partner bids (1♥ – double – 2♥), you are no longer forced to bid. Now a bid shows some values, about 6+, and a pass shows a weak hand.</p>
 
 <h3>The doubler's rebid</h3>

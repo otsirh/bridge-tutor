@@ -175,6 +175,7 @@ export const bidding: Text['bidding'] = {
     compete: 'Walka o kontrakt',
     competeWithSuit: 'Walka własnym kolorem',
     competitiveDouble: 'Kontra konkurencyjna',
+    sacrifice: 'Obrona',
   },
 
   conventions: {
@@ -579,6 +580,8 @@ export const bidding: Text['bidding'] = {
     threeNtAfterOvercall: '15+ PC z zatrzymaniem.',
     newSuitAfterOvercall: (suit: number) => `Dobry własny kolor (5+ ${gen(suit)}) i 8+ PC. Nieforsujące.`,
     passNoFit: 'Brak fitu i brak nadwyżki.',
+    sacrifice: (suit: number) => `Przeciwnicy zalicytowali dograną, a przy korzystnych założeniach obrona kosztuje mniej niż ich dograna: z dużym fitem w ${loc(suit)}, krótkością w ich kolorze i małą siłą obronną od razu licytuj dalej.`,
+    littleDefence: 'mała siła obronna (najwyżej jedna szybka lewa)',
     // they compete over our 1NT
     redouble1nt: '8+ PC: mamy przewagę siły — przeciwnicy mają kłopot.',
     escape: (suit: number) => `Słaba ręka z co najmniej pięcioma ${ins(suit)}: uciekaj z 1BA z kontrą do bezpieczniejszego kontraktu.`,
