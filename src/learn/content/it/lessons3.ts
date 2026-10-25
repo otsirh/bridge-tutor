@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'La difesa contro i contratti a senza',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Come la difesa vince la corsa contro i contratti a senza: sbloccare, restituire la carta giusta, restare in comunicazione, attaccare i rientri del giocante e scartare bene.',
+    body: `
+<h3>Una corsa alle prese</h3>
+<p>A senza atout niente ferma un colore lungo una volta affrancato. Le due linee fanno una corsa: il giocante per affrancare abbastanza prese, la difesa per affrancare e incassare per prima il suo colore lungo. Quasi tutti i problemi della difesa sono problemi di <strong>comunicazione</strong>: il colore lungo è in una mano e i rientri spesso nell’altra. Una buona difesa fa circolare il colore fra i due difensori e taglia le comunicazioni del giocante.</p>
+
+<h3>Terzo di mano: alto, e fuori dai piedi del compagno</h3>
+<p>Il terzo di mano gioca alto (vedi la lezione «Secondo di mano basso, terzo di mano alto»). A senza c’è un secondo dovere: non <strong>bloccare</strong> il colore del compagno. Con un onore secondo nel colore lungo del compagno, togliti di mezzo presto quell’onore, anche se per farlo devi sormontare la carta del compagno.</p>
+<table>
+<thead><tr><th>Posizione</th><th>Cuori</th></tr></thead>
+<tbody>
+<tr><td>Nord (morto)</td><td>6 5 2</td></tr>
+<tr><td>Ovest (compagno, attacca con il K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Est (tu)</td><td>A 3</td></tr>
+<tr><td>Sud (giocante)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Se giochi il 3, il giocante liscia. Il compagno continua con la donna e il tuo asso deve vincere il secondo giro: non ti resta cuori da restituire, il fante del giocante ferma ancora il colore e il compagno ha bisogno di altri due rientri per affrancare e incassare i cuori. Invece <strong>sormonta</strong> il re con l’asso e restituisci il 3. Il fante del giocante è in trappola e la difesa fa le prime cinque prese a cuori.</p>
+<ul>
+<li>Sblocca quando l’attacco del compagno mostra un colore forte (la testa di una sequenza come K Q 10 o Q J 10) e hai un onore secondo: gioca l’onore presto, così la tua ultima carta è una cartina.</li>
+<li>Con tre carte capeggiate da un onore (A x x, K x x), gioca alto e tieni una cartina da restituire: non blocchi niente.</li>
+</ul>
+
+<h3>Restituire il colore del compagno</h3>
+<p>Quando vinci una presa e torni nel colore del compagno, la carta che scegli gli dice quante te ne restano, e quindi quante ne ha il giocante.</p>
+<table>
+<thead><tr><th>Avevi</th><th>Vinci con</th><th>Restituisci</th><th>La regola</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Ti restano due carte: restituisci la più alta</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Te ne restano tre o più: restituisci la tua quarta migliore originale</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>La tua quarta migliore originale, non la carta più bassa</td></tr>
+</tbody>
+</table>
+<p>Una carta alta dice «me ne resta al massimo una»; una bassa dice «me ne restano almeno due». Il compagno può così capire se il giocante ha ancora un fermo e se deve vincere subito o lisciare. Restituire la più alta di due carte evita anche di bloccare il colore: se tieni il 9, potrebbe vincere il terzo giro quando chi deve essere in presa è il compagno.</p>
+
+<h3>Lisciare per restare in contatto</h3>
+<p>Il difensore con il colore lungo a volte deve cedere presto una presa, finché il compagno ha ancora una carta del colore da restituire.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3SA giocato da Sud dopo 1SA – 3SA. Ovest attacca con il ♠A ed Est gioca il ♠2."></div>
+<p>Il 2 di Est nega un onore a picche, quindi il giocante ha la ♠Q J. Ovest conta: Sud ha 15-17 PO, il morto 13 e Ovest 8, quindi Est ne ha al massimo 4. Il giocante manterrà il contratto scacciando il ♦A, perciò l’unica speranza della difesa è che ce l’abbia Est.</p>
+<p>Se Ovest incassa il ♠K e gioca una terza picche, il giocante vince con l’ultimo onore ed Est, che aveva tre picche, non ne ha più. Est prende il ♦A ma non può raggiungere Ovest, le cui due picche lunghe non faranno mai presa: il giocante fa dieci prese. Ovest gioca invece una <strong>picche piccola</strong> alla seconda presa. Il giocante vince, ma Est conserva una picche. Quando Est prende il ♦A la restituisce, e Ovest incassa il ♠K e le ultime due picche: un down.</p>
+<p>Una picche piccola già all’attacco avrebbe ottenuto lo stesso risultato. Il principio: quando il tuo colore è lungo e non hai rientri esterni, cedi la presa che devi perdere <em>finché il compagno ha ancora una carta del colore</em>.</p>
+
+<h3>Attaccare i rientri del giocante</h3>
+<p>Anche il giocante ha problemi di comunicazione, e la difesa può peggiorarli.</p>
+<ul>
+<li><strong>Trattieni l’asso</strong> quando il morto ha un colore lungo e nessun rientro esterno, e prendilo quando il giocante gioca dalla mano l’ultima carta del colore. Il segnale di conto del compagno ti dice quando (vedi la lezione «I segnali difensivi»).</li>
+<li><strong>Scaccia il rientro del morto</strong> prima che il colore lungo sia affrancato, anche se costa una presa.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Il morto, contro 3SA"></div>
+<p>Sei Est con ♠K 7 3 e ♦A 6 2, e il giocante ha due quadri. Trattenere il ♦A da solo non basta: il giocante tornerebbe con il ♠A sulle quadri affrancate. Quindi, quando vinci una presa prima che si sia giocato quadri, muovi il <strong>♠K</strong>. Se il giocante prende con l’asso, il morto non ha più rientri: trattieni il ♦A fino al secondo giro e le quadri del morto sono morte. Se il giocante liscia, il tuo re ha fatto presa e puoi giocare un’altra picche. Sacrificare così un onore per eliminare un rientro si chiama <strong>colpo di Merrimac</strong>. È raro, ma la domanda da cui nasce non lo è: quale rientro del giocante conta di più?</p>
+
+<h3>Gli scarti</h3>
+<p>Quando il giocante batte un colore lungo, i difensori devono scartare, e un solo scarto sbagliato può regalargli il contratto.</p>
+<ul>
+<li><strong>Tieni la lunghezza del morto.</strong> Con ♣Q 10 8 3 dietro il ♣K J 7 4 del morto, tieni tutte e quattro le fiori: se ne scarti una, l’ultima fiori del morto può diventare vincente. Le carte del morto sono in vista, quindi questa è la regola più facile da seguire.</li>
+<li><strong>Tieni la lunghezza del giocante.</strong> Conta i suoi colori dalla licita e dal gioco, e tieni una guardia in ogni colore in cui solo tu puoi fermare la sua carta lunga.</li>
+<li><strong>Dividetevi il lavoro.</strong> A un colore basta una guardia. Lascia al compagno il colore che lui può guardare (i segnali di conto aiutano) e tieni tu l’altro.</li>
+<li><strong>Segnala con il primo scarto:</strong> una carta alta chiede il colore, una bassa dice che non lo vuoi. Scarta da un colore di cui puoi fare a meno; non buttare mai una carta che ti serve solo per segnalare.</li>
+<li><strong>Tieni le vincenti del tuo colore affrancato</strong> finché tu o il compagno potete ancora andare in presa per incassarle.</li>
+</ul>
+<div class="tip">Conta le prese del giocante prima di scartare. Se ha otto prese e gliene serve una nona, il colore che potrebbe dargliela è quello che devi tenere.</div>
+<div class="warn">Pianifica gli scarti per tempo. Esitare e poi lasciare secco un onore dice al giocante esattamente dov’è.</div>
+`,
+    keyPoints: [
+      'A senza, la comunicazione decide la corsa: fai circolare il colore lungo fra i due difensori.',
+      'Sblocca: con un onore secondo nel colore forte del compagno, gioca l’onore presto, sormontando se serve.',
+      'Restituisci la più alta di due carte rimaste; con tre o più, la tua quarta migliore originale.',
+      'Il difensore con il colore lungo e senza rientri liscia un giro finché il compagno ha ancora una carta da restituire.',
+      'Attacca i rientri del giocante; negli scarti tieni la lunghezza del morto e guarda le carte lunghe del giocante.',
+    ],
+    quiz: [
+      {
+        q: 'Contro 3SA il compagno attacca con il ♥K (da K Q 10 9 7). Il morto ha ♥6 5 2 e tu ♥A 3. Che cosa giochi?',
+        options: ['Il 3, lasciando vincere il re del compagno', 'L’asso, poi restituisci il 3', 'L’asso, poi cambi colore', 'È indifferente'],
+        answer: 1,
+        explain: 'Sormonta e restituisci il 3. Se giochi piccolo, il giocante liscia e il tuo asso deve vincere il secondo giro senza cuori da restituire, mentre il fante del giocante ferma ancora il colore.',
+      },
+      {
+        q: 'Vinci l’attacco a picche del compagno contro 3SA con l’asso da ♠A 9 3. Quale picche restituisci?',
+        options: ['Il 9', 'Il 3', 'Una qualsiasi', 'Non torno a picche'],
+        answer: 0,
+        explain: 'Con due carte rimaste restituisci la più alta. Il compagno vede il 9 e sa che ti resta al massimo una picche.',
+      },
+      {
+        q: 'Vinci con l’asso da ♦A 8 5 2. Quale quadri restituisci?',
+        options: ['L’8', 'Il 5', 'Il 2', 'Nessuna: cambio colore'],
+        answer: 2,
+        explain: 'Con tre o più carte rimaste restituisci la tua quarta migliore originale, qui il 2. La carta bassa dice al compagno che hai ancora almeno due quadri.',
+      },
+      {
+        q: 'Nella smazzata di 3SA qui sopra, perché Ovest deve giocare una picche piccola alla seconda presa?',
+        options: ['Per scoprire chi ha la ♠Q', 'Perché Est conservi una picche da restituire quando prende il ♦A', 'Perché il ♠K potrebbe essere tagliato', 'Per costringere il giocante a usare i rientri del morto'],
+        answer: 1,
+        explain: 'Est aveva tre picche. Se Ovest incassa il re e gioca una terza picche, Est non ne ha più quando va in presa. Lisciare adesso mantiene il contatto fra le due mani.',
+      },
+      {
+        q: 'Il giocante batte un colore lungo. Il morto ha ♣K J 7 4 e tu ♣Q 10 8 3 dietro. Che cosa tieni?',
+        options: ['Tutte e quattro le fiori', 'Solo la Q e il 10', 'Solo la donna', 'Dipende dal primo scarto del compagno'],
+        answer: 0,
+        explain: 'Tieni la lunghezza del morto. Appena scarti una fiori, la quarta fiori del morto può diventare vincente.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Divisioni dei colori e combinazione delle chance',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Giocare il re', 'Fare l’impasse al 10', 'È esattamente 50 e 50', 'Muovere dall’altra mano'],
         answer: 1,
         explain: 'Scelta ristretta: da Q J Est avrebbe potuto giocare l’uno o l’altro onore, ma con la donna singola non aveva scelta. Il singolo è la distribuzione più probabile, quindi l’impasse riesce circa il 65% delle volte.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'L’impasse di taglio, perdente su perdente e l’affrancamento di taglio',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Tre modi in cui il giocante crea prese con le atout: l’impasse di taglio, lo scarto di una perdente su una perdente e l’affrancamento di un colore laterale tagliando.',
+    body: `
+<h3>L’impasse di taglio</h3>
+<p>Un’impasse normale si gioca <em>verso</em> una forchetta. Un’<strong>impasse di taglio</strong> muove un onore <em>attraverso</em> il difensore che può avere la carta più alta mancante, con una chicane e un’atout pronte dietro. Se quel difensore copre, tagli e i tuoi onori rimasti sono vincenti; se no, scarti una perdente.</p>
+<p>Con ♦K Q J 10 al morto e nessuna quadri in mano, muovi il ♦K. Se Est copre con l’asso, taglialo, e Q J 10 sono affrancate. Se Est gioca piccolo, scarta una perdente: se il re fa presa hai risparmiato una presa, e se Ovest lo prende con l’asso hai solo scambiato una perdente con un’altra. In ogni caso gli onori rimasti ti danno scarti.</p>
+
+<h4>Quale impasse?</h4>
+<p>Con A Q J 10 contro un singolo puoi scegliere. L’impasse normale (giocare verso A Q) riesce quando il re è in <strong>Ovest</strong>; l’impasse di taglio (asso, poi donna) riesce quando è in <strong>Est</strong>. Da sole si equivalgono, quindi lascia decidere il resto della mano: la licita può indicare dov’è il re e spesso un difensore è pericoloso e l’altro no. Scegli l’impasse che, se fallisce, perde a favore del difensore innocuo.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ giocato da Sud. Ovest attacca con il ♣K."></div>
+<p>Est è il difensore pericoloso: una quadri giocata da Est, attraverso il tuo ♦K, potrebbe dare alla difesa tre prese a quadri. Ovest è innocuo: una quadri giocata da Ovest arriva verso il tuo re.</p>
+<ul>
+<li><strong>L’impasse normale</strong>, cuori verso la donna, perde contro il re di Est. Est cambia con il ♦J e vai due down.</li>
+<li><strong>L’impasse di taglio:</strong> cuori verso l’asso, poi la ♥Q. Se Est copre, taglia, e le cuori rimaste del morto sistemano le tue quadri; se Est gioca piccolo, scarta una quadri. Con le carte come sono, fai dodici prese.</li>
+</ul>
+<p>E se Ovest avesse avuto il ♥K? Allora l’impasse di taglio perde, ma a favore di Ovest, che non può giocare quadri attraverso il tuo re, e tu hai già scartato una quadri sulla ♥Q: fai comunque dieci prese. L’impasse di taglio mantiene il contratto chiunque abbia il re.</p>
+
+<h3>Perdente su perdente</h3>
+<p>A volte la risposta migliore a una presa che perderai comunque non è tagliarla, ma scartarci sopra una perdente di un altro colore. Il numero di prese non cambia, perché una perdente ne sostituisce un’altra, ma conservi le atout, il controllo o i rientri.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ giocato da Sud. Ovest incassa ♥A e ♥K, mentre Est gioca alto-basso, e continua con la ♥Q."></div>
+<p>Est taglia la terza cuori con il ♠J. Se surtagli, la ♠Q 6 di Ovest si trova sopra il tuo unico onore alto rimasto e la donna viene promossa: perdi due cuori, un’atout e una fiori, un down. Scarta invece la tua fiori perdente. Il fante di Est vince la presa, ma le tue atout restano intatte: asso e re catturano la donna di Ovest, e la perdente a fiori se n’è già andata. Dieci prese.</p>
+<p>Altri usi comuni:</p>
+<ul>
+<li><strong>Conservare il controllo:</strong> quando la difesa gioca un colore che dovresti tagliare nella mano lunga, scartare una perdente conserva la tua lunghezza in atout (vedi la lezione «La gestione delle atout»).</li>
+<li><strong>Affrancare un colore:</strong> con ♦Q J 10 9 al morto, nessuna quadri in mano e senza asso e re, gioca la donna e poi il fante, scartando ogni volta una perdente. Cedi due prese che avresti perso comunque, e il 10 e il 9 ora sono vincenti.</li>
+<li><strong>Una messa in presa:</strong> il difensore che vince una presa di perdente su perdente può essere costretto a giocare nella tua forchetta o a darti taglio e scarto (vedi la lezione «Introduzione a compressioni e messe in presa»).</li>
+</ul>
+
+<h3>Affrancare un colore tagliando</h3>
+<p>Un colore laterale lungo al morto si può <strong>affrancare di taglio</strong>: tagli le sue cartine in mano finché la difesa non ne ha più, e il resto del colore fornisce scarti. Ogni taglio richiede un rientro al morto, e alla fine te ne serve un altro per incassare le carte lunghe, quindi conta i rientri prima di cominciare.</p>
+<table>
+<thead><tr><th>Morto</th><th>La tua mano</th><th>Divisione</th><th>Tagli necessari</th><th>Carte lunghe</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ giocato da Sud. Ovest attacca con la ♦Q."></div>
+<p>Hai undici prese sicure: sette picche, il ♥A, ♦A K e il ♣A. La dodicesima deve venire dalle cuori del morto, che richiedono tre tagli se sono divise 4-3, quindi ti servono tre rientri al morto dopo il ♥A: l’♠8, il ♠K e il ♦K.</p>
+<ol>
+<li>Vinci la ♦Q con l’<strong>asso</strong>, per conservare il ♦K del morto come rientro.</li>
+<li>Gioca cuori verso l’asso e taglia una cuori con il ♠9.</li>
+<li>Gioca il ♠2 verso l’8 del morto e taglia un’altra cuori con il ♠10.</li>
+<li>Gioca il ♠3 verso il re e taglia una terza cuori con il ♠J. Ora la difesa non ha più né cuori né atout.</li>
+<li>Entra al morto con il ♦K e incassa la quinta cuori, scartando la tua fiori perdente. Perdi solo una quadri.</li>
+</ol>
+<p>Se batti due giri di atout prima di cominciare, ti manca un rientro: lo slam va sotto.</p>
+<div class="tip">Pianifica i rientri prima di toccare il colore: uno per ogni taglio, più uno per incassare le carte lunghe. Le atout del morto sono spesso i rientri: gioca verso di esse le tue atout piccole e taglia con quelle alte.</div>
+<div class="warn">Taglia alto ogni volta che un difensore potrebbe non avere più il colore e surtagliare.</div>
+`,
+    keyPoints: [
+      'L’impasse di taglio muove un onore attraverso il difensore che può avere la carta mancante: se copre, tagli; se no, scarti una perdente.',
+      'Con A Q J 10 contro un singolo, scegli fra impasse normale e impasse di taglio chiedendoti a quale difensore puoi permetterti di cedere la presa.',
+      'Perdente su perdente: scarta una perdente invece di tagliare quando il taglio ti costerebbe una presa in atout, il controllo o un rientro.',
+      'Per affrancare un colore di taglio ti serve un rientro per ogni taglio, più uno per incassare le carte lunghe.',
+      'Usa le atout del morto come rientri; non battere atout prima di averle usate.',
+    ],
+    quiz: [
+      {
+        q: 'Il morto ha ♦K Q J 10 e tu non hai quadri. Muovi il ♦K ed Est gioca piccolo. Che cosa fai?',
+        options: ['Taglio', 'Scarto una perdente', 'Scarto una vincente', 'Meglio giocare un altro colore'],
+        answer: 1,
+        explain: 'È l’impasse di taglio. Se il re fa presa hai risparmiato una presa; se Ovest lo prende con l’asso hai solo scambiato una perdente con un’altra, e Q J 10 sono vincenti.',
+      },
+      {
+        q: 'Hai ♥A Q J 10 al morto contro un singolo. Quando riesce l’impasse di taglio (asso, poi donna)?',
+        options: ['Quando il re è in Ovest', 'Quando il re è in Est', 'Ogni volta che le cuori sono 3-3', 'Sempre'],
+        answer: 1,
+        explain: 'La donna viene mossa attraverso Est: Est copre e tagli, oppure Est liscia e la donna fa presa. L’impasse normale, verso A Q, è quella che riesce quando il re è in Ovest.',
+      },
+      {
+        q: 'Nella smazzata di 4♠ qui sopra, perché l’impasse di taglio è migliore dell’impasse normale?',
+        options: ['Riesce più spesso', 'Se fallisce, perde a favore di Ovest, che non può attaccare il tuo ♦K', 'Risparmia un rientro', 'Batte atout nello stesso tempo'],
+        answer: 1,
+        explain: 'Ogni impasse riesce metà delle volte, ma quella normale perde a favore di Est, che può giocare quadri attraverso il tuo re. Se l’impasse di taglio fallisce, è in presa Ovest e tu hai già scartato una quadri.',
+      },
+      {
+        q: 'Nella smazzata di perdente su perdente, Est taglia la terza cuori con il ♠J. Che cosa fai?',
+        options: ['Surtaglio con l’asso', 'Surtaglio con il re', 'Scarto la fiori perdente', 'Scarto una quadri'],
+        answer: 2,
+        explain: 'Surtagliare promuove la ♠Q 6 di Ovest a una presa. Scartare la fiori, che era comunque perdente, lascia intatte le tue atout, e asso e re catturano poi la donna.',
+      },
+      {
+        q: 'Il morto ha ♥A 6 5 4 3 e tu un singolo. Le cuori della difesa sono divise 4-3. Quante volte devi tagliare prima che l’ultima cuori del morto sia vincente?',
+        options: ['Una', 'Due', 'Tre', 'Quattro'],
+        answer: 2,
+        explain: 'Dopo l’asso la difesa ha ancora cinque cuori, tre in una mano. Devi tagliare tre giri e ti serve un rientro al morto dopo ogni taglio.',
       },
     ],
   },
@@ -681,6 +885,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'Il morto rovesciato e il colpo d’atout',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Due giocate che tagliano di proposito nella mano lunga in atout: far battere le atout avversarie da quelle del morto, e accorciare le proprie atout per fare l’impasse quando il morto non ha più atout da muovere.',
+    body: `
+<h3>Tagliare nella mano lunga</h3>
+<p>La lezione «La gestione delle atout» spiega che i tagli nella mano corta in atout guadagnano prese e i tagli nella mano lunga di solito no. Due tecniche capovolgono questa regola. Nel <strong>morto rovesciato</strong> tagli così tante volte in mano che sono le atout del morto a occuparsi di battere atout. Nel <strong>colpo d’atout</strong> tagli per accorciare le tue atout, così da catturare un onore d’atout di un difensore senza muovere atout.</p>
+
+<h3>Il morto rovesciato</h3>
+<p>Con cinque atout in mano e tre al morto fai di solito cinque prese in atout. Taglia tre volte in mano e poi batti atout con le tre del morto, e ne fai sei: tre tagli più tre giri d’atout dal morto. Il morto è diventato la mano principale, e i tuoi tagli sono ora tagli nella mano corta.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ giocato da Sud. Ovest attacca con il ♦K."></div>
+<p><strong>Conta:</strong> cinque picche, il ♥A, il ♦A e quattro fiori fanno undici prese. Il morto non può tagliare niente, perché ha tante quadri e fiori quante te, e le tue due perdenti a quadri non hanno dove andare.</p>
+<p><strong>Rovescia il morto:</strong> taglia in mano le tre cuori piccole del morto e lascia che ♠K Q J battano atout. I rientri al morto sono il ♥A, il ♠K, la ♠Q e il ♣K.</p>
+<ol>
+<li>Vinci con il ♦A e gioca cuori verso l’asso.</li>
+<li>Taglia una cuori e gioca una picche piccola verso il re.</li>
+<li>Taglia una cuori e gioca picche verso la donna.</li>
+<li>Taglia l’ultima cuori con il ♠A ed entra al morto con fiori verso il re.</li>
+<li>Batti l’ultima atout con il ♠J, scartando una quadri, e fai il resto delle fiori.</li>
+</ol>
+<p>Sei prese in atout (tre tagli e tre giri dal morto), il ♥A, il ♦A e quattro fiori fanno dodici. Il piano richiede atout divise 3-2, perché le tre atout del morto bastino a batterle, e ha bisogno di ogni rientro. Per questo solo un attacco in atout batte 6♠: toglie un giro d’atout prima che cominci la serie di tagli, e al giocante manca un rientro.</p>
+<div class="tip">La prova del morto rovesciato: somma alla lunghezza in atout del morto i tagli che puoi fare in mano. Se il totale supera la tua lunghezza in atout, e le atout del morto sono abbastanza forti da battere quelle della difesa, rovesciare il morto guadagna una presa.</div>
+
+<h3>Il colpo d’atout</h3>
+<p>A volte un difensore ha un onore d’atout dietro la tua forchetta, come ♠K x dietro il tuo ♠A Q, e il morto non ha più atout da muovere attraverso. Non puoi fare l’impasse giocando atout tu stesso. Ma se alla fine della mano gioca il morto, quando il difensore ha solo atout, il difensore deve giocarne una <em>prima</em> di te, e l’impasse riesce senza atout al morto. È il <strong>colpo d’atout</strong>. Perché funzioni, devi prima accorciare le tue atout tagliando, finché non ne hai più del difensore.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ giocato da Sud. Ovest incassa il ♣A e cambia con il ♥10."></div>
+<p>Non puoi perdere più niente. Vinci con il ♥A e muovi picche: Est gioca piccolo e il tuo 9 fa presa. Entra al morto con il ♦A e ripeti l’impasse: il 10 fa presa e Ovest scarta. Est aveva quattro atout e ha ancora ♠K 8 dietro il tuo ♠A Q J 3, e il morto non ha più picche. Se incassi ora l’asso, il re di Est fa presa: un down.</p>
+<p>Invece accorcia le tue atout. Ne hai quattro contro le due di Est, quindi devi tagliare due volte:</p>
+<ol>
+<li>Entra al morto con il ♦K, incassa il ♥K e taglia una fiori con il ♠3.</li>
+<li>Entra al morto con la ♦Q e taglia una cuori con il ♠J. Ora hai ♠A Q, tante atout quante Est.</li>
+<li>Entra al morto con il ♦J; Est risponde. Alla dodicesima presa gioca il morto.</li>
+</ol>
+<p>Taglia una fiori e una cuori, non due fiori: così Est deve rispondere ogni volta e non ottiene mai uno scarto libero. Se l’ottenesse, scarterebbe una quadri e più tardi taglierebbe una delle vincenti a quadri del morto.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="Le ultime due prese. Atout picche e gioca il morto."></div>
+<p>Est ha solo atout e deve giocarne una prima di te: l’♠8, e vinci con la donna, oppure il ♠K, e vinci con l’asso. Dodici prese.</p>
+<h4>Che cosa serve per un colpo d’atout</h4>
+<ul>
+<li><strong>Non avere più atout del difensore</strong> alla fine: accorcia le tue tagliando, se serve anche tagliando vincenti del morto (si chiama <em>grand coup</em>).</li>
+<li><strong>Rientri al morto</strong> per ogni impasse in atout, ogni taglio e l’ultima uscita.</li>
+<li><strong>Il momento giusto:</strong> quando arriva il colpo, al difensore devono essere rimaste solo atout. Contare la sua mano ti dice quando.</li>
+</ul>
+<div class="warn">Accorcia le tue atout solo quando sai che serve. Se le atout fossero state 3-3, l’asso avrebbe fatto cadere il re, e tagliare in mano avrebbe solo sprecato atout. Qui lo scarto di Ovest al secondo giro ti ha detto che Est ne aveva quattro.</div>
+`,
+    keyPoints: [
+      'Nel morto rovesciato tagli così spesso nella mano lunga in atout che le atout del morto battono quelle della difesa.',
+      'Guadagna quando i tagli in mano più la lunghezza in atout del morto superano la tua lunghezza in atout; servono buone atout al morto e rientri.',
+      'Il colpo d’atout cattura un onore d’atout di un difensore senza muovere atout: gioca il morto e il difensore deve giocare per primo.',
+      'Prima di un colpo d’atout accorcia le tue atout tagliando, finché non ne hai più del difensore.',
+      'Conta prima le atout del difensore; il colpo serve solo quando la divisione è cattiva.',
+    ],
+    quiz: [
+      {
+        q: 'Che cos’è il morto rovesciato?',
+        options: ['Tagliare al morto le perdenti del morto', 'Tagliare nella tua mano lunga in atout abbastanza volte da far battere le atout della difesa da quelle del morto', 'Lasciar giocare la mano al morto', 'Passare al senza atout'],
+        answer: 1,
+        explain: 'I ruoli delle mani si invertono: le tue atout servono per tagliare, e quelle del morto, più corte ma forti, battono le atout della difesa.',
+      },
+      {
+        q: 'Hai cinque atout e il morto tre forti. Quanti tagli in mano ti servono perché il morto rovesciato guadagni una presa?',
+        options: ['Uno', 'Due', 'Tre', 'Cinque'],
+        answer: 2,
+        explain: 'Tre tagli più tre giri d’atout dal morto fanno sei prese in atout, una più delle tue cinque.',
+      },
+      {
+        q: 'Nella smazzata del morto rovesciato qui sopra, quale attacco batte 6♠?',
+        options: ['Il ♦K', 'Una cuori', 'Un’atout', 'Una fiori'],
+        answer: 2,
+        explain: 'Un attacco in atout toglie un giro d’atout prima che il giocante possa cominciare a tagliare, e poi gli manca un rientro per completare il rovesciamento.',
+      },
+      {
+        q: 'Che cosa devi fare prima di un colpo d’atout?',
+        options: ['Battere tutte le atout della difesa', 'Accorciare le tue atout tagliando finché non ne hai più del difensore', 'Tenere un’atout al morto', 'Muovere la tua forchetta in atout'],
+        answer: 1,
+        explain: 'Alla fine il difensore deve avere solo atout e tu non più atout di lui, così che l’uscita dal morto lo costringa a giocare prima di te.',
+      },
+      {
+        q: 'Nel finale del colpo d’atout qui sopra, perché il re di Est non fa presa?',
+        options: ['Est deve giocare un’atout prima di te, e tu giochi sopra', 'Il re era già stato giocato', 'Il re è in Ovest', 'Est è in compressione a cuori'],
+        answer: 0,
+        explain: 'Gioca il morto e a Est restano solo ♠K 8. Qualunque carta giochi, vinci con quella immediatamente superiore.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Contare in difesa',
     topic: 'Defense',
@@ -862,6 +1153,114 @@ export const LESSONS_3: Lesson[] = [
       },
     ],
   },
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Gli attacchi contro gli slam e i contratti contrati',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Come scegliere l’attacco contro uno slam, contro un contratto contrato o un sacrificio, e come il compagno può chiederti un attacco con un contro.',
+    body: `
+<h3>Contro gli slam a senza: non regalare niente</h3>
+<p>Quando gli avversari dichiarano 6SA o 7SA hanno in linea circa 33 PO o più, e la tua linea ha pochissimo. Raramente avrai il tempo di affrancare un colore lungo, quindi il tuo compito è non regalare prese al giocante. Fai l’attacco più sicuro possibile: la testa di una sequenza o un colore senza onori. Non attaccare sotto un re o una donna: contro uno slam, spesso è la dodicesima presa.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="In attacco contro 1SA – 6SA"></div>
+<p>Attacca con l’♦8, la più alta da tre cartine. Una picche o una cuori potrebbero dare una presa al giocante con onori che non vedi; la quadri non regala niente, e il tuo ♠K e la tua ♥Q possono ancora fare presa se il giocante deve trovarli.</p>
+
+<h3>Contro gli slam a colore: attaccare o aspettare?</h3>
+<p>Contro sei a colore ti fai la stessa domanda che contro qualsiasi contratto a colore (vedi la lezione «La difesa contro i contratti a colore»), ma ti servono due prese e hai un solo attacco. L’attacco sicuro è la regola, ed è quella che segue il tutor nei suoi consigli d’attacco; l’attacco aggressivo è l’eccezione, per le licite che mostrano da dove verranno gli scarti del giocante.</p>
+<ul>
+<li><strong>Attacca in modo aggressivo</strong> quando la licita mostra un colore laterale lungo che fornirà scarti. Attacca sotto un re (o una donna) in un colore non dichiarato, sperando che il compagno abbia l’asso o la donna, per affrancare una presa prima che arrivino gli scarti.</li>
+<li><strong>Sii passivo</strong> quando gli avversari sembrano aver dichiarato sulla forza, con mani bilanciate e senza colore laterale lungo. Il giocante deve allora trovare da solo dodici prese, e un attacco sicuro, spesso in atout, non regala niente.</li>
+<li><strong>Un singolo</strong> vale la pena quando il compagno può avere un asso: vince e ti dà un taglio.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="In attacco contro 6♥; il morto ha mostrato un colore di fiori lungo e forte"></div>
+<p>Attacca con il ♠2. Dopo aver battuto atout, il giocante scarterà perdenti sulle fiori del morto, quindi la difesa deve affrancare prima le sue prese. Una picche sotto il re può trovare il compagno con l’asso o la donna e costruire una presa in tempo. Una quadri sarebbe sicura, ma troppo lenta.</p>
+<h4>Attaccare con un asso</h4>
+<p>Attacca con un asso senza il re contro uno slam a colore quando il morto ha mostrato un colore laterale lungo, così che il colore del tuo asso potrebbe sparire negli scarti, o quando hai buone possibilità di una seconda presa, come una presa in atout o un re piazzato dietro il colore del giocante. Altrimenti tienilo: l’asso farà la sua presa anche dopo, mentre attaccarci può affrancare il re e la donna del giocante. Contro 6SA un asso è una presa sicura, quindi non c’è fretta di giocarlo.</p>
+<p>Contro un grande slam fai l’attacco più sicuro che hai, spesso in atout: il giocante ha bisogno di tutte le prese, e qualsiasi presa regali è fatale.</p>
+
+<h3>I contri d’attacco</h3>
+<p>Quando un avversario fa una dichiarazione artificiale, il contro del giocatore successivo di solito non ha niente di punitivo: chiede al compagno di attaccare in quel colore.</p>
+<table>
+<thead><tr><th>Il compagno contra</th><th>Significato</th></tr></thead>
+<tbody>
+<tr><td>La Stayman: 1SA – 2♣</td><td>Attacca a fiori: il compagno ha un buon colore di fiori</td></tr>
+<tr><td>Un transfer: 1SA – 2♦</td><td>Attacca a quadri</td></tr>
+<tr><td>Una surlicita o dichiarazione di controllo, come 4♣ verso uno slam a cuori</td><td>Attacca a fiori</td></tr>
+<tr><td>Una risposta alla Blackwood, come 5♦</td><td>Attacca a quadri</td></tr>
+</tbody>
+</table>
+<p>Anche l’assenza del contro informa: se il compagno poteva contrare una surlicita di 4♦ e non l’ha fatto, probabilmente non vuole l’attacco a quadri.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="Ovest: in attacco contro 4♥"></div>
+<p>Senza il contro forse attaccheresti a picche o a quadri, in entrambi i casi sotto un onore. Il contro di Est sulla Stayman ha chiesto fiori, quindi attacca con l’♣8, la più alta da tre cartine. Est ha un buon colore di fiori e tu non devi aprire gli altri colori.</p>
+
+<h3>Gli attacchi contro i contratti contrati</h3>
+<table>
+<thead><tr><th>Situazione</th><th>Attacco</th></tr></thead>
+<tbody>
+<tr><td>Il compagno contra 3SA dopo aver dichiarato un colore</td><td>Il colore del compagno</td></tr>
+<tr><td>Il compagno contra 3SA; tu hai dichiarato un colore e lui no</td><td>Il tuo colore</td></tr>
+<tr><td>Il compagno contra 3SA; nessuno di voi due ha dichiarato</td><td>Il primo colore dichiarato dal morto</td></tr>
+<tr><td>Il compagno contra uno slam</td><td>Un attacco insolito (vedi sotto)</td></tr>
+<tr><td>La tua linea ha contrato il loro sacrificio</td><td>Di solito atout</td></tr>
+<tr><td>Il compagno passa il tuo contro informativo per punire</td><td>Atout</td></tr>
+</tbody>
+</table>
+<p>Perché atout contro un sacrificio? La linea che si sacrifica ha poche carte alte e spera di fare le sue prese tagliando; la tua linea ha le carte alte, che faranno comunque le loro prese. Ogni giro d’atout toglie dei tagli. Questi significati sono accordi diffusi: assicurati che il compagno li condivida.</p>
+
+<h3>Il contro Lightner</h3>
+<p>Contrare per punizione uno slam dichiarato liberamente rende poco. 6♠ un down vale 50 o 100 in più contrato che non contrato, ma se viene mantenuto il contro costa 230, molto di più se surcontrano, e avverte il giocante di una cattiva divisione. Perciò, secondo una convenzione che prende il nome da Theodore Lightner, il contro di uno slam da parte del giocatore che <em>non</em> è in attacco chiede un <strong>attacco insolito</strong>:</p>
+<ul>
+<li>non in atout, e non in un colore non dichiarato, perché è quello che attaccheresti comunque;</li>
+<li>di solito il primo colore laterale dichiarato dal morto, spesso perché il compagno vi ha chicane;</li>
+<li>se il compagno ha dichiarato un colore, il contro dice anche: non attaccare nel mio colore.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="Ovest: in attacco dopo il contro di Est"></div>
+<p>Il tuo attacco normale sarebbe la ♦Q. Il contro di Est chiede qualcosa di insolito: il primo colore dichiarato dal morto, cuori. Attacca con l’♥8. Est ha probabilmente chicane a cuori e taglierà, e poi alla difesa basterà un’altra presa.</p>
+<div class="warn">Non fare un contro d’attacco solo perché hai carte alte nel colore. Contra quando vuoi davvero quell’attacco, e ricorda che anche gli avversari possono sfruttare il contro: possono surcontrare, o semplicemente evitare il contratto.</div>
+`,
+    keyPoints: [
+      'Contro 6SA e 7SA attacca sicuro: non attaccare sotto un onore.',
+      'Contro uno slam a colore attacca in modo aggressivo (spesso sotto un re) quando il morto ha un colore lungo per gli scarti; altrimenti sii passivo.',
+      'Attacca con un asso contro uno slam quando potrebbe sparire negli scarti o speri in una seconda presa; altrimenti tienilo.',
+      'Il contro di una dichiarazione artificiale come la Stayman, un transfer o una surlicita chiede l’attacco in quel colore.',
+      'Il contro Lightner di uno slam chiede un attacco insolito, di solito il primo colore laterale del morto; contro un sacrificio contrato, attacca in atout.',
+    ],
+    quiz: [
+      {
+        q: 'Sei in attacco contro 1SA – 6SA con ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. Che cosa attacchi?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Contro uno slam a senza attacca sicuro. L’♦8 non regala niente; attaccare sotto il re, la donna o il fante può dare al giocante la dodicesima presa.',
+      },
+      {
+        q: 'Gli avversari dichiarano 6♥ dopo che il morto ha mostrato un colore di fiori lungo e forte. Che tipo di attacco è di solito giusto?',
+        options: ['Passivo: in atout', 'Aggressivo: sotto un re in un colore non dichiarato, per affrancare una presa prima che il giocante possa scartare', 'Una fiori, per tagliare fuori il morto', 'Sempre un asso'],
+        answer: 1,
+        explain: 'Dopo aver battuto atout, le perdenti del giocante se ne andranno sulle fiori del morto. La difesa deve costruire prima le sue prese.',
+      },
+      {
+        q: 'Gli avversari dichiarano 1SA – 2♣ (Stayman) e il compagno contra. Che cosa chiede il contro?',
+        options: ['Di punire 2♣', 'L’attacco a fiori', 'Di dichiarare un nobile', 'Mostra una mano bilanciata forte'],
+        answer: 1,
+        explain: 'Il 2♣ è artificiale, quindi il contro è d’attacco: il compagno ha un buon colore di fiori e vuole che lo attacchi.',
+      },
+      {
+        q: 'Il compagno fa un contro Lightner su 6♠. Il morto ha dichiarato cuori e tu hai due cuori e ♦Q J 10 9. Che cosa attacchi?',
+        options: ['La ♦Q', 'Una cuori', 'Un’atout', 'Una fiori'],
+        answer: 1,
+        explain: 'Il contro chiede un attacco insolito, di solito il primo colore laterale del morto. Il compagno ha probabilmente chicane a cuori.',
+      },
+      {
+        q: 'Hai contrato il sacrificio a 5♦ degli avversari. Qual è di solito l’attacco migliore?',
+        options: ['Atout', 'Il tuo colore più lungo', 'Un asso, per vedere il morto', 'Un singolo'],
+        answer: 0,
+        explain: 'La linea che si sacrifica ha poche carte alte e fa le sue prese tagliando. Gli attacchi in atout tolgono quei tagli, e le tue carte alte faranno comunque le loro prese.',
+      },
+    ],
+  },
+
   {
     id: 'slam-controls-and-cue-bids',
     title: 'Controlli e cue bid: quando non usare il Blackwood',

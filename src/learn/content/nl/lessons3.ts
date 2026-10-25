@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'Tegenspel tegen sans atout',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Hoe de tegenspelers de race tegen sans atout winnen: deblokkeren, de juiste kaart terugspelen, contact houden, de entrees van de leider aanvallen en goed afgooien.',
+    body: `
+<h3>Een race om slagen</h3>
+<p>Tegen sans atout houdt niets een lange kleur tegen zodra die vrij is. Beide partijen racen: de leider om genoeg slagen vrij te spelen, de tegenspelers om als eersten hun lange kleur vrij te spelen en te incasseren. De meeste problemen van de tegenspelers zijn problemen van <strong>verbinding</strong>: de lange kleur zit in de ene hand en de entrees vaak in de andere. Goed tegenspel houdt de kleur tussen de twee tegenspelers in beweging en verbreekt de verbindingen van de leider.</p>
+
+<h3>Derde hand: hoog, en uit de weg van partner</h3>
+<p>De derde hand speelt hoog (zie de les "Tweede hand laag, derde hand hoog"). Tegen sans atout komt er een tweede plicht bij: de kleur van partner niet <strong>blokkeren</strong>. Met een honneur tweede in de lange kleur van partner ruim je die honneur vroeg op, ook als je daarvoor de kaart van partner moet overnemen.</p>
+<table>
+<thead><tr><th>Hand</th><th>Harten</th></tr></thead>
+<tbody>
+<tr><td>Noord (dummy)</td><td>6 5 2</td></tr>
+<tr><td>West (partner, komt uit met de K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Oost (jij)</td><td>A 3</td></tr>
+<tr><td>Zuid (leider)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Speel je de 3, dan duikt de leider. Partner speelt door met de vrouw en jouw aas moet de tweede ronde nemen: je hebt geen harten meer om terug te spelen, de boer van de leider stopt de kleur nog steeds, en partner heeft nog twee entrees nodig om de harten vrij te spelen en te incasseren. <strong>Neem</strong> de heer daarom <strong>over</strong> met de aas en speel de 3 terug. De boer van de leider zit in de val en de tegenspelers maken de eerste vijf hartenslagen.</p>
+<ul>
+<li>Deblokkeer als de uitkomst van partner een sterke kleur toont (de top van een reeks als K Q 10 of Q J 10) en je een honneur tweede hebt: speel de honneur vroeg, zodat je laatste kaart een kleintje is.</li>
+<li>Met drie kaarten met een honneur (A x x, K x x) speel je hoog en houd je een kleintje om terug te spelen: je blokkeert niets.</li>
+</ul>
+
+<h3>De kleur van partner terugspelen</h3>
+<p>Als je een slag maakt en de kleur van partner terugspeelt, vertelt de gekozen kaart hoeveel kaarten je nog hebt, en dus hoeveel de leider er heeft.</p>
+<table>
+<thead><tr><th>Je had</th><th>Je neemt met</th><th>Terug</th><th>De regel</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Nog twee kaarten: speel de hoogste terug</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Nog drie of meer: speel je oorspronkelijke vierde van boven terug</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>Je oorspronkelijke vierde van boven, niet je laagste kaart</td></tr>
+</tbody>
+</table>
+<p>Een hoge kaart zegt "ik heb er hooguit nog één"; een lage zegt "ik heb er nog minstens twee". Partner kan dan uitrekenen of de leider nog een stop heeft en of hij nu moet nemen of duiken. De hoogste van twee kaarten terugspelen voorkomt ook dat je de kleur blokkeert: houd je de 9, dan wint die misschien de derde ronde terwijl juist partner aan slag moet zijn.</p>
+
+<h3>Duiken om contact te houden</h3>
+<p>De tegenspeler met de lange kleur moet soms vroeg een slag afgeven, zolang partner nog een kaart van de kleur heeft om terug te spelen.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3SA door Zuid na 1SA – 3SA. West komt uit met ♠A en Oost speelt ♠2 bij."></div>
+<p>De 2 van Oost ontkent een schoppenhonneur, dus de leider heeft ♠Q J. West telt: Zuid heeft 15-17 punten, de dummy 13 en West 8, dus Oost heeft er hooguit 4. De leider maakt zijn contract door de ♦A eruit te spelen, dus de enige hoop van de tegenspelers is dat Oost die heeft.</p>
+<p>Incasseert West de ♠K en speelt hij een derde schoppen, dan neemt de leider met zijn laatste honneur en heeft Oost, die met drie schoppen begon, er geen meer. Oost neemt de ♦A maar kan West niet bereiken, wiens twee lange schoppen nooit een slag maken: de leider maakt tien slagen. West speelt in plaats daarvan in de tweede slag een <strong>kleine schoppen</strong>. De leider neemt, maar Oost houdt een schoppen over. Als Oost de ♦A neemt, speelt hij die terug, en West incasseert de ♠K en de laatste twee schoppens: één down.</p>
+<p>Een kleine schoppen bij de uitkomst had hetzelfde bereikt. Het principe: is je kleur lang en heb je geen entree ernaast, geef dan de slag die je moet afgeven af <em>zolang partner nog een kaart van de kleur heeft</em>.</p>
+
+<h3>De entrees van de leider aanvallen</h3>
+<p>Ook de leider heeft verbindingsproblemen, en de tegenspelers kunnen die groter maken.</p>
+<ul>
+<li><strong>Houd je aas op</strong> als de dummy een lange kleur heeft en geen entree ernaast, en neem pas als de leider de laatste kaart van de kleur uit zijn hand speelt. Het lengtesignaal van partner vertelt je wanneer (zie de les "Signalen in het tegenspel").</li>
+<li><strong>Speel de entree van de dummy eruit</strong> voordat de lange kleur vrij is, ook als dat een slag kost.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Dummy, tegen 3SA"></div>
+<p>Je zit Oost met ♠K 7 3 en ♦A 6 2, en de leider heeft twee ruitens. Alleen de ♦A ophouden is niet genoeg: de leider zou met de ♠A naar de vrije ruitens teruggaan. Dus als je een slag maakt voordat er ruiten is gespeeld, speel je de <strong>♠K</strong>. Neemt de leider met de aas, dan heeft de dummy geen entree meer: je houdt de ♦A op tot de tweede ronde en de ruitens van de dummy zijn dood. Duikt de leider, dan heeft je heer een slag gemaakt en kun je nog een schoppen spelen. Zo een honneur opofferen om een entree weg te halen heet de <strong>Merrimac-coup</strong>. Hij is zeldzaam, maar de vraag erachter niet: welke entree van de leider is het belangrijkst?</p>
+
+<h3>Afgooien</h3>
+<p>Als de leider een lange kleur afdraait, moeten de tegenspelers afgooien, en één verkeerde afgooier kan hem het contract geven.</p>
+<ul>
+<li><strong>Houd de lengte van de dummy.</strong> Met ♣Q 10 8 3 achter ♣K J 7 4 van de dummy houd je alle vier klaveren: gooi je er een af, dan kan de laatste klaver van de dummy een vaste slag worden. De kaarten van de dummy liggen open, dus deze regel is het makkelijkst te volgen.</li>
+<li><strong>Houd de lengte van de leider.</strong> Tel zijn kleuren uit het bieden en het spel, en bewaar een stop in elke kleur waarin alleen jij zijn lange kaart kunt tegenhouden.</li>
+<li><strong>Verdeel het werk.</strong> Een kleur heeft maar één bewaker nodig. Laat partner de kleur bewaken die hij kan bewaken (lengtesignalen helpen daarbij) en houd zelf de andere.</li>
+<li><strong>Geef een signaal met je eerste afgooier:</strong> een hoge kaart vraagt om de kleur, een lage zegt dat je hem niet wilt. Gooi af uit een kleur die je kunt missen; gooi nooit een kaart weg die je nodig hebt, alleen om te signaleren.</li>
+<li><strong>Bewaar de vaste slagen van je vrijgespeelde kleur</strong> zolang jij of partner nog aan slag kan komen om ze te incasseren.</li>
+</ul>
+<div class="tip">Tel de slagen van de leider voordat je afgooit. Heeft hij acht slagen en heeft hij een negende nodig, dan moet je juist de kleur bewaren die hem die zou kunnen geven.</div>
+<div class="warn">Plan je afgooiers vroeg. Aarzelen en dan een honneur blank zetten vertelt de leider precies waar die zit.</div>
+`,
+    keyPoints: [
+      'Tegen sans atout beslist de verbinding de race: houd de lange kleur tussen de twee tegenspelers in beweging.',
+      'Deblokkeren: met een honneur tweede in de sterke kleur van partner speel je de honneur vroeg, desnoods door over te nemen.',
+      'Speel van twee overgebleven kaarten de hoogste terug; met drie of meer je oorspronkelijke vierde van boven.',
+      'De tegenspeler met de lange kleur en zonder entree duikt een ronde zolang partner nog een kaart heeft om terug te spelen.',
+      'Val de entrees van de leider aan; houd bij het afgooien de lengte van de dummy en bewaak de lange kaarten van de leider.',
+    ],
+    quiz: [
+      {
+        q: 'Tegen 3SA komt partner uit met ♥K (van K Q 10 9 7). De dummy heeft ♥6 5 2 en jij hebt ♥A 3. Wat speel je?',
+        options: ['De 3, zodat de heer van partner de slag maakt', 'De aas, en dan de 3 terug', 'De aas, en dan een andere kleur', 'Het maakt niet uit'],
+        answer: 1,
+        explain: 'Neem over en speel de 3 terug. Speel je klein, dan duikt de leider en moet je aas de tweede ronde nemen zonder dat je nog een harten kunt terugspelen, terwijl de boer van de leider de kleur blijft stoppen.',
+      },
+      {
+        q: 'Je neemt de schoppenuitkomst van partner tegen 3SA met de aas van ♠A 9 3. Welke schoppen speel je terug?',
+        options: ['De 9', 'De 3', 'Maakt niet uit', 'Ik speel geen schoppen terug'],
+        answer: 0,
+        explain: 'Met nog twee kaarten speel je de hoogste terug. Partner ziet de 9 en weet dat je hooguit nog één schoppen hebt.',
+      },
+      {
+        q: 'Je neemt met de aas van ♦A 8 5 2. Welke ruiten speel je terug?',
+        options: ['De 8', 'De 5', 'De 2', 'Geen: ik stap over'],
+        answer: 2,
+        explain: 'Met nog drie of meer kaarten speel je je oorspronkelijke vierde van boven terug, hier de 2. De lage kaart vertelt partner dat je nog minstens twee ruitens hebt.',
+      },
+      {
+        q: 'Waarom moet West in het 3SA-spel hierboven in de tweede slag een kleine schoppen spelen?',
+        options: ['Om te weten te komen wie de ♠Q heeft', 'Zodat Oost een schoppen overhoudt om terug te spelen als hij de ♦A neemt', 'Omdat de ♠K getroefd zou kunnen worden', 'Om de leider de entrees van de dummy te laten opmaken'],
+        answer: 1,
+        explain: 'Oost had drie schoppens. Incasseert West de heer en speelt hij een derde schoppen, dan heeft Oost er geen meer als hij aan slag komt. Nu duiken houdt het contact tussen de twee handen.',
+      },
+      {
+        q: 'De leider draait een lange kleur af. De dummy heeft ♣K J 7 4 en jij hebt ♣Q 10 8 3 erachter. Wat houd je?',
+        options: ['Alle vier klaveren', 'Alleen de Q en de 10', 'Alleen de vrouw', 'Dat hangt af van de eerste afgooier van partner'],
+        answer: 0,
+        explain: 'Houd de lengte van de dummy. Zodra je een klaver afgooit, kan de vierde klaver van de dummy een vaste slag worden.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Kleurverdelingen en kansen combineren',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['De heer leggen', 'Snijden met de 10', 'Het is precies 50-50', 'Vanuit de andere hand spelen'],
         answer: 1,
         explain: 'Beperkte keuze: met Q J had Oost beide honneurs kunnen spelen, maar met een singleton vrouw had hij geen keus. De singleton is de waarschijnlijkere situatie, dus de snit slaagt in ongeveer 65% van de gevallen.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'De troefsnit, verliezer op verliezer en een kleur vrijtroeven',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Drie manieren waarop de leider met troeven slagen maakt: de troefsnit, een verliezer op een verliezer afgooien en een bijkleur vrijtroeven.',
+    body: `
+<h3>De troefsnit</h3>
+<p>Een gewone snit speel je <em>naar</em> een vork toe. Een <strong>troefsnit</strong> speelt een honneur <em>door</em> de tegenspeler heen die de ontbrekende hogere kaart kan hebben, met een renonce en een troef erachter klaar. Legt die tegenspeler op, dan troef je in en zijn je overige honneurs vaste slagen; legt hij niet op, dan gooi je een verliezer af.</p>
+<p>Met ♦K Q J 10 in de dummy en geen ruiten in je hand speel je de ♦K. Legt Oost de aas op, dan troef je in en zijn Q J 10 vrij. Speelt Oost klein, dan gooi je een verliezer af: houdt de heer, dan heb je een slag gewonnen, en neemt West met de aas, dan heb je alleen een verliezer tegen een andere geruild. Hoe dan ook leveren de overige honneurs afgooiers op.</p>
+
+<h4>Welke snit?</h4>
+<p>Met A Q J 10 tegenover een singleton heb je de keus. De gewone snit (spelen naar A Q) lukt als <strong>West</strong> de heer heeft; de troefsnit (eerst de aas, dan de vrouw) lukt als <strong>Oost</strong> hem heeft. Op zichzelf zijn ze even goed, dus laat de rest van het spel beslissen: het bieden kan de heer plaatsen, en vaak is de ene tegenspeler gevaarlijk en de andere niet. Kies de snit die, als hij mislukt, verliest aan de ongevaarlijke tegenspeler.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ door Zuid. West komt uit met ♣K."></div>
+<p>Oost is de gevaarlijke tegenspeler: een ruiten van Oost, door je ♦K heen, kan de tegenspelers drie ruitenslagen opleveren. West is ongevaarlijk: een ruiten van West komt naar je heer toe.</p>
+<ul>
+<li><strong>De gewone snit</strong>, harten naar de vrouw, verliest aan de heer van Oost. Oost stapt over op ♦J en je gaat twee down.</li>
+<li><strong>De troefsnit:</strong> harten naar de aas, dan de ♥Q. Legt Oost op, troef dan in, en de overige harten van de dummy nemen je ruitens voor hun rekening; speelt Oost klein, gooi dan een ruiten af. Zoals de kaarten zitten maak je twaalf slagen.</li>
+</ul>
+<p>En als West de ♥K had gehad? Dan mislukt de troefsnit, maar aan West, die geen ruiten door je heer kan spelen, en je hebt al een ruiten op de ♥Q afgegooid: je maakt toch tien slagen. De troefsnit maakt het contract, wie de heer ook heeft.</p>
+
+<h3>Verliezer op verliezer</h3>
+<p>Soms is het beste antwoord op een slag die je toch verliest niet introeven, maar er een verliezer uit een andere kleur op afgooien. Het aantal slagen blijft gelijk, want de ene verliezer vervangt de andere, maar je houdt je troeven, je controle of je entrees.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ door Zuid. West incasseert ♥A en ♥K, Oost speelt hoog-laag, en West speelt door met ♥Q."></div>
+<p>Oost troeft de derde harten in met ♠J. Troef je over, dan zit ♠Q 6 van West boven je enige overgebleven tophonneur en wordt de vrouw gepromoveerd: je verliest twee harten, een troef en een klaver, één down. Gooi in plaats daarvan je verliezende klaver af. De boer van Oost maakt de slag, maar je troeven blijven heel: aas en heer vangen de vrouw van West, en de klaververliezer is al weg. Tien slagen.</p>
+<p>Andere veelvoorkomende toepassingen:</p>
+<ul>
+<li><strong>Controle houden:</strong> als de tegenspelers een kleur spelen die je in je lange hand zou moeten introeven, houd je met het afgooien van een verliezer je troeflengte (zie de les "Troefbehandeling").</li>
+<li><strong>Een kleur vrijspelen:</strong> met ♦Q J 10 9 in de dummy, geen ruiten in je hand en zonder aas en heer speel je de vrouw en daarna de boer, en gooi je elke keer een verliezer af. Je geeft twee slagen af die je toch al kwijt was, en de 10 en de 9 zijn nu vaste slagen.</li>
+<li><strong>Een ingooi:</strong> de tegenspeler die een verliezer-op-verliezer-slag wint, moet misschien in je vork spelen of je introeven en afgooien geven (zie de les "Kennismaking met squeeze en ingooi").</li>
+</ul>
+
+<h3>Een kleur vrijtroeven</h3>
+<p>Een lange bijkleur in de dummy kun je <strong>vrijtroeven</strong>: troef de kleintjes ervan in je hand in tot de tegenspelers er geen meer hebben, en de rest van de kleur levert afgooiers op. Elke introever vraagt een entree terug naar de dummy, en aan het eind heb je er nog een nodig om de lange kaarten te incasseren, dus tel de entrees voordat je begint.</p>
+<table>
+<thead><tr><th>Dummy</th><th>Jouw hand</th><th>Verdeling</th><th>Nodige introevers</th><th>Lange kaarten</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ door Zuid. West komt uit met ♦Q."></div>
+<p>Je hebt elf vaste slagen: zeven schoppens, de ♥A, ♦A K en de ♣A. De twaalfde moet uit de harten van de dummy komen, die bij een 4-3-verdeling drie introevers nodig hebben, dus je hebt na de ♥A drie entrees naar de dummy nodig: de ♠8, de ♠K en de ♦K.</p>
+<ol>
+<li>Neem de ♦Q met de <strong>aas</strong>, zodat de ♦K van de dummy als entree blijft.</li>
+<li>Speel harten naar de aas en troef een harten in met ♠9.</li>
+<li>Speel ♠2 naar de 8 van de dummy en troef nog een harten in met ♠10.</li>
+<li>Speel ♠3 naar de heer en troef een derde harten in met ♠J. Nu hebben de tegenspelers geen harten en geen troef meer.</li>
+<li>Ga met de ♦K naar de dummy en incasseer de vijfde harten, waarop je je verliezende klaver afgooit. Je verliest alleen een ruiten.</li>
+</ol>
+<p>Trek je eerst twee rondes troef, dan kom je een entree tekort: het slem gaat down.</p>
+<div class="tip">Plan de entrees voordat je de kleur aanraakt: één voor elke introever, plus één om de lange kaarten te incasseren. De troeven van de dummy zijn vaak de entrees, dus speel je kleine troeven daarheen en troef in met je hoge.</div>
+<div class="warn">Troef hoog in zodra een tegenspeler door de kleur heen kan zijn en kan overtroeven.</div>
+`,
+    keyPoints: [
+      'Een troefsnit speelt een honneur door de tegenspeler heen die de ontbrekende kaart kan hebben: legt hij op, dan troef je in; zo niet, dan gooi je een verliezer af.',
+      'Met A Q J 10 tegenover een singleton kies je tussen de gewone snit en de troefsnit door je af te vragen aan welke tegenspeler je de slag mag afgeven.',
+      'Verliezer op verliezer: gooi een verliezer af in plaats van in te troeven als introeven een troefslag, de controle of een entree zou kosten.',
+      'Om een kleur vrij te troeven heb je een entree nodig voor elke introever, plus één om de lange kaarten te incasseren.',
+      'Gebruik de troeven van de dummy als entrees; trek geen troef voordat je ze hebt gebruikt.',
+    ],
+    quiz: [
+      {
+        q: 'De dummy heeft ♦K Q J 10 en jij hebt geen ruiten. Je speelt de ♦K en Oost speelt klein. Wat doe je?',
+        options: ['Introeven', 'Een verliezer afgooien', 'Een vaste slag afgooien', 'Liever een andere kleur spelen'],
+        answer: 1,
+        explain: 'Dat is de troefsnit. Houdt de heer, dan heb je een slag gewonnen; neemt West met de aas, dan heb je alleen een verliezer tegen een andere geruild, en Q J 10 zijn vaste slagen.',
+      },
+      {
+        q: 'Je hebt ♥A Q J 10 in de dummy tegenover een singleton. Wanneer lukt de troefsnit (eerst de aas, dan de vrouw)?',
+        options: ['Als West de heer heeft', 'Als Oost de heer heeft', 'Altijd als harten 3-3 zit', 'Altijd'],
+        answer: 1,
+        explain: 'De vrouw wordt door Oost heen gespeeld: Oost legt op en jij troeft in, of Oost duikt en de vrouw houdt. De gewone snit, naar A Q toe, is de snit die lukt als West de heer heeft.',
+      },
+      {
+        q: 'Waarom is in het 4♠-spel hierboven de troefsnit beter dan de gewone snit?',
+        options: ['Hij lukt vaker', 'Als hij mislukt, verliest hij aan West, die je ♦K niet kan aanvallen', 'Hij spaart een entree', 'Hij trekt tegelijk troef'],
+        answer: 1,
+        explain: 'Elke snit lukt de helft van de keren, maar de gewone verliest aan Oost, die een ruiten door je heer kan spelen. Mislukt de troefsnit, dan zit West aan slag en heb je al een ruiten afgegooid.',
+      },
+      {
+        q: 'In het verliezer-op-verliezer-spel troeft Oost de derde harten in met ♠J. Wat doe je?',
+        options: ['Overtroeven met de aas', 'Overtroeven met de heer', 'Je verliezende klaver afgooien', 'Een ruiten afgooien'],
+        answer: 2,
+        explain: 'Overtroeven promoveert ♠Q 6 van West tot een slag. De klaver afgooien, die toch een verliezer was, laat je troeven heel, en aas en heer vangen daarna de vrouw.',
+      },
+      {
+        q: 'De dummy heeft ♥A 6 5 4 3 en jij een singleton. De harten van de tegenspelers zitten 4-3. Hoe vaak moet je introeven voordat de laatste harten van de dummy een vaste slag is?',
+        options: ['Eén keer', 'Twee keer', 'Drie keer', 'Vier keer'],
+        answer: 2,
+        explain: 'Na de aas hebben de tegenspelers nog vijf harten, waarvan drie in één hand. Je moet drie rondes introeven en hebt na elke introever een entree naar de dummy nodig.',
       },
     ],
   },
@@ -683,6 +887,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'De omgekeerde dummy en de troefcoup',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Twee speeltechnieken die met opzet in de lange troefhand introeven: de troeven van de dummy laten de troeven van de tegenspelers trekken, en je eigen troeven inkorten om te snijden als de dummy geen troef meer heeft om te spelen.',
+    body: `
+<h3>Introeven in de lange hand</h3>
+<p>De les "Troefbehandeling" legt uit dat introevers in de korte troefhand slagen opleveren en introevers in de lange hand meestal niet. Twee technieken draaien die regel om. Bij de <strong>omgekeerde dummy</strong> troef je zo vaak in je hand in dat de troeven van de dummy het troeftrekken overnemen. Bij de <strong>troefcoup</strong> troef je in om je troeven in te korten, zodat je een troefhonneur van een tegenspeler kunt vangen zonder troef te spelen.</p>
+
+<h3>De omgekeerde dummy</h3>
+<p>Met vijf troeven in je hand en drie in de dummy maak je normaal vijf troefslagen. Troef drie keer in je hand in en trek daarna troef met de drie van de dummy, en je maakt er zes: drie introevers plus drie troefrondes vanuit de dummy. De dummy is de hoofdhand geworden, en je introevers zijn nu introevers in de korte hand.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ door Zuid. West komt uit met ♦K."></div>
+<p><strong>Tellen:</strong> vijf schoppens, de ♥A, de ♦A en vier klaveren maken elf slagen. De dummy kan niets introeven, want hij heeft evenveel ruitens en klaveren als jij, en je twee ruitenverliezers kunnen nergens heen.</p>
+<p><strong>Keer de dummy om:</strong> troef de drie kleine harten van de dummy in je hand in en laat ♠K Q J troef trekken. De entrees naar de dummy zijn de ♥A, de ♠K, de ♠Q en de ♣K.</p>
+<ol>
+<li>Neem met de ♦A en speel harten naar de aas.</li>
+<li>Troef een harten in en speel een kleine schoppen naar de heer.</li>
+<li>Troef een harten in en speel schoppen naar de vrouw.</li>
+<li>Troef de laatste harten in met de ♠A en ga met klaveren naar de heer naar de dummy.</li>
+<li>Trek de laatste troef met de ♠J, gooi daarbij een ruiten af, en maak de rest van de klaveren.</li>
+</ol>
+<p>Zes troefslagen (drie introevers en drie rondes vanuit de dummy), de ♥A, de ♦A en vier klaveren maken twaalf. Het plan vraagt een 3-2-verdeling van de troeven, zodat de drie troeven van de dummy ze kunnen trekken, en het heeft elke entree nodig. Daarom verslaat alleen een troefuitkomst 6♠: die haalt een troefronde weg voordat het introeven is begonnen, en de leider komt een entree tekort.</p>
+<div class="tip">De test voor de omgekeerde dummy: tel de introevers die je in je hand kunt maken op bij de troeflengte van de dummy. Is het totaal groter dan je eigen troeflengte, en zijn de troeven van de dummy sterk genoeg om die van de tegenspelers te trekken, dan levert het omkeren een slag op.</div>
+
+<h3>De troefcoup</h3>
+<p>Soms heeft een tegenspeler een troefhonneur achter je vork, zoals ♠K x achter je ♠A Q, en heeft de dummy geen troef meer om erdoorheen te spelen. Je kunt niet snijden door zelf troef te spelen. Maar als de dummy aan het eind van het spel uitkomt, wanneer de tegenspeler alleen nog troeven heeft, moet die er een <em>vóór</em> jou spelen, en de snit lukt zonder troef in de dummy. Dat is een <strong>troefcoup</strong>. Om hem te laten werken moet je eerst je troeven inkorten door in te troeven, tot je er niet meer hebt dan de tegenspeler.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ door Zuid. West incasseert ♣A en stapt over op ♥10."></div>
+<p>Je mag niets meer verliezen. Neem met de ♥A en speel schoppen: Oost speelt klein en je 9 houdt. Ga met de ♦A naar de dummy en herhaal de snit: de 10 houdt en West gooit af. Oost had vier troeven en heeft nog ♠K 8 achter je ♠A Q J 3, en de dummy heeft geen schoppen meer. Incasseer je nu de aas, dan maakt de heer van Oost een slag: één down.</p>
+<p>Kort in plaats daarvan je troeven in. Je hebt er vier tegen twee van Oost, dus je moet twee keer introeven:</p>
+<ol>
+<li>Ga met de ♦K naar de dummy, incasseer de ♥K en troef een klaver in met ♠3.</li>
+<li>Ga met de ♦Q naar de dummy en troef een harten in met ♠J. Nu heb je ♠A Q, evenveel troeven als Oost.</li>
+<li>Ga met de ♦J naar de dummy; Oost bekent. In de twaalfde slag komt de dummy uit.</li>
+</ol>
+<p>Troef één klaver en één harten in, niet twee klaveren: zo moet Oost elke keer bekennen en krijgt hij nooit een vrije afgooier. Kreeg hij er een, dan zou hij een ruiten afgooien en later een vaste ruitenslag van de dummy introeven.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="De laatste twee slagen. Schoppen is troef en de dummy komt uit."></div>
+<p>Oost heeft alleen troeven en moet er een vóór jou spelen: de ♠8, en je neemt met de vrouw, of de ♠K, en je neemt met de aas. Twaalf slagen.</p>
+<h4>Wat een troefcoup nodig heeft</h4>
+<ul>
+<li><strong>Niet meer troeven dan de tegenspeler</strong> aan het eind: kort de jouwe in door in te troeven, desnoods door vaste slagen van de dummy in te troeven (dat heet een <em>grand coup</em>).</li>
+<li><strong>Entrees naar de dummy</strong> voor elke troefsnit, elke introever en de laatste uitkomst.</li>
+<li><strong>De juiste timing:</strong> op het moment van de coup mag de tegenspeler alleen nog troeven hebben. Door zijn hand te tellen weet je wanneer het zover is.</li>
+</ul>
+<div class="warn">Kort je troeven alleen in als je weet dat het moet. Hadden de troeven 3-3 gezeten, dan was de heer onder de aas gevallen en zou introeven in je hand alleen troeven verspillen. Hier vertelde het afgooien van West in de tweede ronde je dat Oost er vier had.</div>
+`,
+    keyPoints: [
+      'Bij de omgekeerde dummy troef je zo vaak in de lange troefhand in dat de troeven van de dummy die van de tegenspelers trekken.',
+      'Het levert op als de introevers in je hand plus de troeflengte van de dummy je eigen troeflengte overtreffen; je hebt goede troeven in de dummy en entrees nodig.',
+      'Een troefcoup vangt een troefhonneur van een tegenspeler zonder troef te spelen: de dummy komt uit en de tegenspeler moet eerst spelen.',
+      'Kort vóór een troefcoup je troeven in door in te troeven, tot je er niet meer hebt dan de tegenspeler.',
+      'Tel eerst de troeven van de tegenspeler; een coup is alleen nodig bij een slechte verdeling.',
+    ],
+    quiz: [
+      {
+        q: 'Wat is een omgekeerde dummy?',
+        options: ['De verliezers van de dummy in de dummy introeven', 'In je eigen lange troefhand zo vaak introeven dat de troeven van de dummy die van de tegenspelers trekken', 'De dummy het spel laten spelen', 'Overstappen op sans atout'],
+        answer: 1,
+        explain: 'De rollen van de handen worden omgedraaid: jouw troeven dienen om in te troeven, en de kortere maar sterke troeven van de dummy trekken die van de tegenspelers.',
+      },
+      {
+        q: 'Je hebt vijf troeven en de dummy drie sterke. Hoeveel introevers in je hand heb je nodig om met een omgekeerde dummy een slag te winnen?',
+        options: ['Eén', 'Twee', 'Drie', 'Vijf'],
+        answer: 2,
+        explain: 'Drie introevers plus drie troefrondes vanuit de dummy maken zes troefslagen, één meer dan je eigen vijf.',
+      },
+      {
+        q: 'Welke uitkomst verslaat 6♠ in het spel met de omgekeerde dummy hierboven?',
+        options: ['De ♦K', 'Een harten', 'Een troef', 'Een klaver'],
+        answer: 2,
+        explain: 'Een troefuitkomst haalt een troefronde weg voordat de leider kan beginnen met introeven, en daarna komt hij een entree tekort om het omkeren af te maken.',
+      },
+      {
+        q: 'Wat moet je doen vóór een troefcoup?',
+        options: ['Alle troeven van de tegenspelers trekken', 'Je troeven inkorten door in te troeven, tot je er niet meer hebt dan de tegenspeler', 'Een troef in de dummy bewaren', 'Je troefvork spelen'],
+        answer: 1,
+        explain: 'Aan het eind moet de tegenspeler alleen nog troeven hebben en mag jij er niet meer hebben dan hij, zodat de uitkomst vanuit de dummy hem dwingt vóór jou te spelen.',
+      },
+      {
+        q: 'Waarom maakt de heer van Oost in de eindpositie van de troefcoup hierboven geen slag?',
+        options: ['Oost moet vóór jou een troef spelen, en jij speelt erboven', 'De heer was al gespeeld', 'West heeft de heer', 'Oost wordt in harten gesqueezed'],
+        answer: 0,
+        explain: 'De dummy komt uit en Oost heeft alleen nog ♠K 8. Wat Oost ook speelt, jij neemt met de kaart er direct boven.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Tellen in het tegenspel',
     topic: 'Defense',
@@ -861,6 +1152,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['Dat is het nooit', 'Omdat de gedoubleerde slagwaarde de manche kan halen als het gemaakt wordt: 2♥ gedoubleerd levert 470 of 670 op', 'Omdat de tegenstanders een premie krijgen als ze gedoubleerd worden', 'Omdat je met troef moet uitkomen'],
         answer: 1,
         explain: 'Gedoubleerd heeft 2♥ een slagwaarde van 120, en dat telt als een manche. Verwacht een deelscore down te spelen voordat je die doubleert.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Uitkomsten tegen slemmen en gedoubleerde contracten',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Hoe je de uitkomst kiest tegen slemmen, tegen gedoubleerde contracten en offerbiedingen, en hoe partner met een doublet om een uitkomst kan vragen.',
+    body: `
+<h3>Tegen sans-atoutslemmen: niets weggeven</h3>
+<p>Als de tegenstanders 6SA of 7SA bieden, hebben ze samen ongeveer 33 punten of meer, en jullie hebben heel weinig. Je hebt zelden tijd om een lange kleur vrij te spelen, dus je taak is de leider geen slag te geven. Kies de veiligste uitkomst die je kunt vinden: de top van een reeks, of een kleur zonder honneur. Kom niet uit onder een heer of een vrouw: tegen een slem is dat vaak de twaalfde slag.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="Aan uitkomst tegen 1SA – 6SA"></div>
+<p>Kom uit met ♦8, de hoogste van drie kleintjes. Een schoppen of een harten kan de leider een slag geven met honneurs die je niet ziet; de ruiten geeft niets weg, en je ♠K en je ♥Q kunnen nog een slag maken als de leider ze moet vinden.</p>
+
+<h3>Tegen kleurslemmen: aanvallen of afwachten?</h3>
+<p>Tegen zes in een kleur stel je dezelfde vraag als tegen elk troefcontract (zie de les "Tegenspel tegen troefcontracten"), maar je hebt twee slagen nodig en maar één uitkomst. Een veilige uitkomst is de standaard, en de uitkomstadviezen van de tutor volgen die; een aanvallende uitkomst is de uitzondering, voor biedingen die laten zien waar de afgooiers van de leider vandaan komen.</p>
+<ul>
+<li><strong>Val aan</strong> als het bieden een lange bijkleur laat zien waarop de leider kan afgooien. Kom uit onder een heer (of een vrouw) in een ongeboden kleur, in de hoop dat partner de aas of de vrouw heeft, om een slag vrij te spelen voordat de afgooiers komen.</li>
+<li><strong>Speel passief</strong> als de tegenstanders op kracht lijken te hebben geboden, met evenwichtige handen en zonder lange bijkleur. De leider moet dan zelf twaalf slagen vinden, en een veilige uitkomst, vaak een troef, geeft niets weg.</li>
+<li><strong>Een singleton</strong> is de moeite waard als partner een aas kan hebben: hij neemt en geeft je een introever.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="Aan uitkomst tegen 6♥; de dummy heeft een lange, sterke klaverkleur laten zien"></div>
+<p>Kom uit met ♠2. Zodra er troef getrokken is, gooit de leider verliezers af op de klaveren van de dummy, dus de tegenspelers moeten hun slagen eerder vrijspelen. Een schoppen onder de heer vindt partner misschien met de aas of de vrouw en maakt op tijd een slag vrij. Een ruiten zou veilig zijn, maar te traag.</p>
+<h4>Uitkomen met een aas</h4>
+<p>Kom tegen een kleurslem uit met een aas zonder heer als de dummy een lange bijkleur heeft laten zien, zodat de kleur van je aas in afgooiers kan verdwijnen, of als je een goede kans hebt op een tweede slag, zoals een troefslag of een heer achter de kleur van de leider. Houd hem anders: de aas maakt later ook zijn slag, terwijl ermee uitkomen de heer en de vrouw van de leider kan vrijspelen. Tegen 6SA is een aas een vaste slag, dus er is geen haast om hem te spelen.</p>
+<p>Tegen een groot slem kies je de veiligste uitkomst die je hebt, vaak een troef: de leider heeft elke slag nodig, dus elke slag die je weggeeft is fataal.</p>
+
+<h3>Uitkomstdoubletten</h3>
+<p>Als een tegenstander een kunstmatig bod doet, heeft een doublet van de volgende speler meestal niets met straf te maken: het vraagt partner om die kleur uit te komen.</p>
+<table>
+<thead><tr><th>Partner doubleert</th><th>Betekenis</th></tr></thead>
+<tbody>
+<tr><td>Stayman: 1SA – 2♣</td><td>Kom klaveren uit: partner heeft een goede klaverkleur</td></tr>
+<tr><td>Een transfer: 1SA – 2♦</td><td>Kom ruiten uit</td></tr>
+<tr><td>Een cuebid of controlebod, zoals 4♣ op weg naar een hartenslem</td><td>Kom klaveren uit</td></tr>
+<tr><td>Een antwoord op Blackwood, zoals 5♦</td><td>Kom ruiten uit</td></tr>
+</tbody>
+</table>
+<p>Ook het ontbreken van een doublet zegt iets: had partner een cuebid van 4♦ kunnen doubleren en deed hij dat niet, dan wil hij waarschijnlijk geen ruitenuitkomst.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="West: aan uitkomst tegen 4♥"></div>
+<p>Zonder het doublet kwam je misschien uit met schoppen of ruiten, allebei onder een honneur. Het doublet van Oost op Stayman vroeg om klaveren, dus kom uit met ♣8, de hoogste van drie kleintjes. Oost heeft een goede klaverkleur, en jij hoeft je andere kleuren niet aan te snijden.</p>
+
+<h3>Uitkomsten tegen gedoubleerde contracten</h3>
+<table>
+<thead><tr><th>Situatie</th><th>Uitkomst</th></tr></thead>
+<tbody>
+<tr><td>Partner doubleert 3SA nadat hij een kleur heeft geboden</td><td>De kleur van partner</td></tr>
+<tr><td>Partner doubleert 3SA; jij hebt een kleur geboden en partner niet</td><td>Jouw kleur</td></tr>
+<tr><td>Partner doubleert 3SA; geen van jullie heeft geboden</td><td>De eerstgeboden kleur van de dummy</td></tr>
+<tr><td>Partner doubleert een slem</td><td>Een ongewone uitkomst (zie hieronder)</td></tr>
+<tr><td>Jullie hebben hun offerbod gedoubleerd</td><td>Meestal een troef</td></tr>
+<tr><td>Partner past je informatiedoublet voor straf</td><td>Een troef</td></tr>
+</tbody>
+</table>
+<p>Waarom een troef tegen een offerbod? De offerende partij heeft weinig hoge kaarten en hoopt haar slagen met introeven te maken; jullie hebben de hoge kaarten, en die maken hun slagen toch wel. Elke troefronde haalt introevers weg. Deze betekenissen zijn gangbare afspraken: zorg dat je partner ze ook speelt.</p>
+
+<h3>Het Lightner-doublet</h3>
+<p>Een vrijwillig geboden slem voor straf doubleren levert weinig op. 6♠ één down levert gedoubleerd 50 of 100 meer op dan ongedoubleerd, maar als het slem gemaakt wordt kost het doublet 230, veel meer als ze redoubleren, en het waarschuwt de leider voor een slechte verdeling. Daarom vraagt, volgens een conventie die naar Theodore Lightner is genoemd, een doublet van een slem door de speler die <em>niet</em> aan uitkomst is om een <strong>ongewone uitkomst</strong>:</p>
+<ul>
+<li>geen troef, en geen ongeboden kleur, want die zou je toch al uitkomen;</li>
+<li>meestal de eerste bijkleur die de dummy heeft geboden, vaak omdat partner daarin renonce is;</li>
+<li>heeft partner een kleur geboden, dan zegt het doublet bovendien: kom niet in mijn kleur uit.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="West: aan uitkomst na het doublet van Oost"></div>
+<p>Je normale uitkomst zou ♦Q zijn. Het doublet van Oost vraagt om iets ongewoons: de eerstgeboden kleur van de dummy, harten. Kom uit met ♥8. Oost is waarschijnlijk renonce in harten en troeft in, en dan hebben de tegenspelers nog maar één slag nodig.</p>
+<div class="warn">Geef geen uitkomstdoublet alleen omdat je hoge kaarten in de kleur hebt. Doubleer als je die uitkomst echt wilt, en bedenk dat de tegenstanders het doublet ook kunnen gebruiken: ze kunnen redoubleren, of het contract gewoon vermijden.</div>
+`,
+    keyPoints: [
+      'Kom tegen 6SA en 7SA veilig uit: niet onder honneurs.',
+      'Val tegen een kleurslem aan (vaak onder een heer) als de dummy een lange kleur voor afgooiers heeft; speel anders passief.',
+      'Kom tegen een slem uit met een aas als die in afgooiers kan verdwijnen of als je op een tweede slag hoopt; houd hem anders.',
+      'Een doublet van een kunstmatig bod zoals Stayman, een transfer of een cuebid vraagt om een uitkomst in die kleur.',
+      'Een Lightner-doublet van een slem vraagt om een ongewone uitkomst, meestal de eerste bijkleur van de dummy; kom tegen een gedoubleerd offerbod troef uit.',
+    ],
+    quiz: [
+      {
+        q: 'Je zit aan uitkomst tegen 1SA – 6SA met ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. Waarmee kom je uit?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Kom tegen een sans-atoutslem veilig uit. De ♦8 geeft niets weg; uitkomen onder de heer, de vrouw of de boer kan de leider de twaalfde slag geven.',
+      },
+      {
+        q: 'De tegenstanders bieden 6♥ nadat de dummy een lange, sterke klaverkleur heeft laten zien. Welk soort uitkomst is meestal goed?',
+        options: ['Passief: een troef', 'Aanvallend: onder een heer in een ongeboden kleur, om een slag vrij te spelen voordat de leider kan afgooien', 'Een klaver, om de dummy af te snijden', 'Altijd een aas'],
+        answer: 1,
+        explain: 'Zodra er troef getrokken is, verdwijnen de verliezers van de leider op de klaveren van de dummy. De tegenspelers moeten hun slagen eerder opbouwen.',
+      },
+      {
+        q: 'De tegenstanders bieden 1SA – 2♣ (Stayman) en partner doubleert. Waar vraagt het doublet om?',
+        options: ['Om straf in 2♣', 'Om een klaveruitkomst', 'Om een hoge kleur te bieden', 'Het toont een sterke evenwichtige hand'],
+        answer: 1,
+        explain: '2♣ is kunstmatig, dus het doublet is een uitkomstdoublet: partner heeft een goede klaverkleur en wil dat je die uitkomt.',
+      },
+      {
+        q: 'Partner geeft een Lightner-doublet op 6♠. De dummy heeft harten geboden, en jij hebt twee harten en ♦Q J 10 9. Waarmee kom je uit?',
+        options: ['Met ♦Q', 'Met een harten', 'Met een troef', 'Met een klaver'],
+        answer: 1,
+        explain: 'Het doublet vraagt om een ongewone uitkomst, meestal de eerste bijkleur van de dummy. Partner is waarschijnlijk renonce in harten.',
+      },
+      {
+        q: 'Je hebt het 5♦-offerbod van de tegenstanders gedoubleerd. Wat is meestal de beste uitkomst?',
+        options: ['Een troef', 'Je langste kleur', 'Een aas, om de dummy te zien', 'Een singleton'],
+        answer: 0,
+        explain: 'De offerende partij heeft weinig hoge kaarten en maakt haar slagen met introeven. Troefuitkomsten halen die introevers weg, en jullie hoge kaarten maken hun slagen toch wel.',
       },
     ],
   },

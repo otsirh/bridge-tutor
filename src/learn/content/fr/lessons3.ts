@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'Le flanc contre sans-atout',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Comment la défense gagne la course contre sans-atout : débloquer, rendre la bonne carte, garder le contact, attaquer les remontées du déclarant et bien défausser.',
+    body: `
+<h3>Une course aux levées</h3>
+<p>À sans-atout, rien n’arrête une longue couleur une fois affranchie. Les deux camps font la course : le déclarant pour affranchir assez de levées, la défense pour affranchir et encaisser sa longue la première. La plupart des problèmes de la défense sont des problèmes de <strong>communications</strong> : la longue couleur est dans une main, et les reprises de main souvent dans l’autre. Un bon flanc fait circuler la couleur entre les deux défenseurs et coupe les communications du déclarant.</p>
+
+<h3>En troisième : jouer haut, et s’effacer devant le partenaire</h3>
+<p>Le troisième joueur fournit une grosse carte (voir la leçon « Petite en deuxième, grosse en troisième »). À sans-atout, il a un second devoir : ne pas <strong>bloquer</strong> la couleur du partenaire. Avec un honneur second dans la longue du partenaire, débarrassez-vous tôt de cet honneur, même s’il faut pour cela surprendre la carte du partenaire.</p>
+<table>
+<thead><tr><th>Position</th><th>Cœurs</th></tr></thead>
+<tbody>
+<tr><td>Nord (mort)</td><td>6 5 2</td></tr>
+<tr><td>Ouest (partenaire, entame du K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Est (vous)</td><td>A 3</td></tr>
+<tr><td>Sud (déclarant)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Si vous fournissez le 3, le déclarant laisse passer. Votre partenaire continue de la Dame et votre As doit prendre le deuxième tour : vous n’avez plus de cœur à rendre, le Valet du déclarant arrête toujours la couleur, et votre partenaire a besoin de deux reprises de main de plus pour affranchir et encaisser ses cœurs. <strong>Surprenez</strong> plutôt le Roi de l’As et rendez le 3. Le Valet du déclarant est pris au piège et la défense fait les cinq premières levées à cœur.</p>
+<ul>
+<li>Débloquez quand l’entame du partenaire montre une couleur solide (la tête d’une séquence comme K Q 10 ou Q J 10) et que vous détenez un honneur second : jouez l’honneur tôt, pour que votre dernière carte soit une petite.</li>
+<li>Avec trois cartes par un honneur (A x x, K x x), jouez haut et gardez une petite carte à rendre : vous ne bloquez rien.</li>
+</ul>
+
+<h3>Rejouer la couleur du partenaire</h3>
+<p>Quand vous prenez la main et rejouez la couleur du partenaire, la carte choisie lui dit combien il vous en reste, donc combien en a le déclarant.</p>
+<table>
+<thead><tr><th>Vous aviez</th><th>Vous prenez de</th><th>Vous rendez</th><th>La règle</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Deux cartes restantes : rendez la plus haute</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Trois ou plus : rendez votre 4e meilleure d’origine</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>Votre 4e meilleure d’origine, pas votre plus petite carte</td></tr>
+</tbody>
+</table>
+<p>Une carte haute dit « il m’en reste au plus une » ; une petite dit « il m’en reste au moins deux ». Le partenaire peut alors savoir si le déclarant a encore un arrêt, et s’il doit prendre maintenant ou laisser passer. Rendre la plus haute de deux cartes évite aussi de bloquer la couleur : si vous gardez le 9, il risque de faire le troisième tour alors que c’est le partenaire qui doit avoir la main.</p>
+
+<h3>Laisser passer pour garder le contact</h3>
+<p>Le défenseur qui a la longue doit parfois céder une levée tôt, tant que son partenaire a encore une carte de la couleur à rendre.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3SA joué par Sud après 1SA – 3SA. Ouest entame de l’♠A et Est fournit le ♠2."></div>
+<p>Le 2 d’Est nie un honneur à pique, donc le déclarant détient ♠Q J. Ouest compte : Sud a 15-17 H, le mort 13 et Ouest 8, donc Est a au plus 4 H. Le déclarant gagnera son contrat en chassant l’♦A ; le seul espoir de la défense est qu’Est le détienne.</p>
+<p>Si Ouest encaisse le ♠K et joue un troisième pique, le déclarant prend avec son dernier honneur et Est, qui avait trois piques, n’en a plus. Est prend l’♦A mais ne peut pas rejoindre Ouest, dont les deux piques maîtres ne feront jamais de levée : le déclarant fait dix levées. Ouest joue plutôt un <strong>petit pique</strong> à la deuxième levée. Le déclarant prend, mais Est garde un pique. Quand Est prend l’♦A, il le rend, et Ouest encaisse le ♠K et ses deux derniers piques : une de chute.</p>
+<p>Un petit pique dès l’entame aurait eu le même effet. Le principe : quand votre couleur est longue et que vous n’avez pas de reprise à côté, cédez la levée que vous devez perdre <em>tant que le partenaire a encore une carte de la couleur</em>.</p>
+
+<h3>Attaquer les remontées du déclarant</h3>
+<p>Le déclarant a lui aussi des problèmes de communications, et la défense peut les aggraver.</p>
+<ul>
+<li><strong>Retenez votre As</strong> quand le mort a une longue couleur et aucune remontée à côté, et prenez-le quand le déclarant joue de sa main la dernière carte de la couleur. Le signal de parité du partenaire vous dit quand (voir la leçon « La signalisation en flanc »).</li>
+<li><strong>Chassez la remontée du mort</strong> avant que la longue soit affranchie, même si cela coûte une levée.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Le mort, contre 3SA"></div>
+<p>Vous êtes Est avec ♠K 7 3 et ♦A 6 2, et le déclarant a deux carreaux. Retenir l’♦A ne suffit pas à lui seul : le déclarant reviendrait par l’♠A sur ses carreaux affranchis. Donc, quand vous prenez une levée avant que les carreaux aient été joués, attaquez du <strong>♠K</strong>. Si le déclarant prend de l’As, le mort n’a plus de remontée : vous retenez l’♦A jusqu’au deuxième tour et les carreaux du mort sont morts. Si le déclarant laisse passer, votre Roi a fait une levée et vous pouvez rejouer pique. Sacrifier ainsi un honneur pour supprimer une remontée s’appelle le <strong>coup de Merrimac</strong>. Il est rare, mais la question qu’il pose ne l’est pas : quelle remontée du déclarant compte le plus ?</p>
+
+<h3>Les défausses</h3>
+<p>Quand le déclarant déroule une longue couleur, les défenseurs doivent défausser, et une seule mauvaise défausse peut lui offrir le contrat.</p>
+<ul>
+<li><strong>Gardez la longueur du mort.</strong> Avec ♣Q 10 8 3 derrière ♣K J 7 4 au mort, gardez vos quatre trèfles : si vous en jetez un, le dernier trèfle du mort peut devenir maître. Les cartes du mort sont visibles : c’est la règle la plus facile à suivre.</li>
+<li><strong>Gardez la longueur du déclarant.</strong> Comptez ses couleurs d’après les enchères et le jeu, et gardez une garde dans toute couleur où vous seul pouvez arrêter sa longue.</li>
+<li><strong>Partagez le travail.</strong> Une couleur n’a besoin que d’une garde. Laissez au partenaire la couleur qu’il peut garder (les signaux de parité y aident) et gardez l’autre.</li>
+<li><strong>Signalez avec votre première défausse :</strong> une carte haute demande la couleur, une petite dit que vous n’en voulez pas. Défaussez dans une couleur dont vous pouvez vous passer ; ne jetez jamais une carte utile juste pour signaler.</li>
+<li><strong>Gardez les cartes maîtresses de votre couleur affranchie</strong> tant que vous ou votre partenaire pouvez encore reprendre la main pour les encaisser.</li>
+</ul>
+<div class="tip">Comptez les levées du déclarant avant de défausser. S’il a huit levées et lui en faut une neuvième, la couleur qui pourrait la lui donner est celle que vous devez garder.</div>
+<div class="warn">Préparez vos défausses tôt. Hésiter puis dégarnir un honneur indique au déclarant exactement où il se trouve.</div>
+`,
+    keyPoints: [
+      'À sans-atout, les communications décident de la course : faites circuler la longue entre les deux défenseurs.',
+      'Débloquez : avec un honneur second dans la couleur solide du partenaire, jouez l’honneur tôt, en surprenant si nécessaire.',
+      'Rendez la plus haute de deux cartes restantes ; avec trois ou plus, votre 4e meilleure d’origine.',
+      'Le défenseur qui a la longue sans reprise laisse passer un tour tant que son partenaire a encore une carte à rendre.',
+      'Attaquez les remontées du déclarant ; en défaussant, gardez la longueur du mort et surveillez les longues du déclarant.',
+    ],
+    quiz: [
+      {
+        q: 'Contre 3SA, votre partenaire entame du ♥K (de K Q 10 9 7). Le mort a ♥6 5 2 et vous ♥A 3. Que jouez-vous ?',
+        options: ['Le 3, pour laisser le Roi du partenaire faire la levée', 'L’As, puis vous rendez le 3', 'L’As, puis vous changez de couleur', 'Peu importe'],
+        answer: 1,
+        explain: 'Surprenez et rendez le 3. Si vous fournissez petit, le déclarant laisse passer, et votre As doit prendre le deuxième tour sans cœur à rendre, pendant que le Valet du déclarant arrête toujours la couleur.',
+      },
+      {
+        q: 'Vous prenez l’entame à pique de votre partenaire contre 3SA avec l’As de ♠A 9 3. Quel pique rendez-vous ?',
+        options: ['Le 9', 'Le 3', 'N’importe lequel', 'Je ne rejoue pas pique'],
+        answer: 0,
+        explain: 'Avec deux cartes restantes, rendez la plus haute. Le partenaire voit le 9 et sait qu’il vous reste au plus un pique.',
+      },
+      {
+        q: 'Vous prenez de l’As avec ♦A 8 5 2. Quel carreau rendez-vous ?',
+        options: ['Le 8', 'Le 5', 'Le 2', 'Aucun : je change de couleur'],
+        answer: 2,
+        explain: 'Avec trois cartes restantes ou plus, rendez votre 4e meilleure d’origine, ici le 2. La petite carte dit au partenaire qu’il vous reste au moins deux carreaux.',
+      },
+      {
+        q: 'Dans la donne de 3SA ci-dessus, pourquoi Ouest doit-il jouer un petit pique à la deuxième levée ?',
+        options: ['Pour savoir qui a la ♠Q', 'Pour qu’Est garde un pique à rendre quand il prendra l’♦A', 'Parce que le ♠K pourrait être coupé', 'Pour obliger le déclarant à user les remontées du mort'],
+        answer: 1,
+        explain: 'Est avait trois piques. Si Ouest encaisse le Roi et joue un troisième pique, Est n’en a plus quand il prend la main. Laisser passer maintenant garde le contact entre les deux mains.',
+      },
+      {
+        q: 'Le déclarant déroule une longue couleur. Le mort a ♣K J 7 4 et vous ♣Q 10 8 3 derrière. Que gardez-vous ?',
+        options: ['Les quatre trèfles', 'Seulement la Q et le 10', 'Seulement la Dame', 'Cela dépend de la première défausse du partenaire'],
+        answer: 0,
+        explain: 'Gardez la longueur du mort. Dès que vous jetez un trèfle, le quatrième trèfle du mort peut devenir maître.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Répartitions et combinaison des chances',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Jouer le Roi', 'Faire l’impasse au 10', 'C’est exactement 50-50', 'Jouer de l’autre main'],
         answer: 1,
         explain: 'Choix restreint : avec Q J, Est pouvait fournir l’un ou l’autre honneur, mais avec la Dame sèche il n’avait pas le choix. Le singleton est la teneur la plus probable : l’impasse réussit environ 65 % du temps.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'L’impasse en coupe, perdante sur perdante et l’affranchissement par la coupe',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Trois façons pour le déclarant de créer des levées avec ses atouts : l’impasse en coupe, la défausse d’une perdante sur une perdante et l’affranchissement d’une couleur par la coupe.',
+    body: `
+<h3>L’impasse en coupe</h3>
+<p>Une impasse ordinaire se joue <em>vers</em> une fourchette. Une <strong>impasse en coupe</strong> joue un honneur <em>à travers</em> le défenseur qui peut détenir la carte supérieure manquante, avec une chicane et un atout prêts derrière. Si ce défenseur couvre, vous coupez et vos honneurs restants sont maîtres ; sinon, vous défaussez une perdante.</p>
+<p>Avec ♦K Q J 10 au mort et aucun carreau en main, jouez le ♦K. Si Est couvre de l’As, coupez-le, et Q J 10 sont affranchis. Si Est fournit petit, défaussez une perdante : si le Roi tient, vous avez gagné une levée, et si Ouest le prend de l’As, vous avez seulement échangé une perdante contre une autre. Dans les deux cas, les honneurs restants vous donnent des défausses.</p>
+
+<h4>Quelle impasse ?</h4>
+<p>Avec A Q J 10 face à un singleton, vous avez le choix. L’impasse ordinaire (jouer vers A Q) réussit quand <strong>Ouest</strong> a le Roi ; l’impasse en coupe (l’As, puis la Dame) réussit quand c’est <strong>Est</strong> qui l’a. En elles-mêmes elles se valent : laissez donc le reste de la donne décider. Les enchères peuvent situer le Roi, et souvent un défenseur est dangereux et l’autre non. Choisissez l’impasse qui, si elle échoue, perd au profit du défenseur inoffensif.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ joué par Sud. Ouest entame du ♣K."></div>
+<p>Est est le défenseur dangereux : un carreau joué par Est, à travers votre ♦K, pourrait donner trois levées de carreau à la défense. Ouest est inoffensif : un carreau joué par Ouest vient dans votre Roi.</p>
+<ul>
+<li><strong>L’impasse ordinaire</strong>, cœur vers la Dame, perd contre le Roi d’Est. Est contre-attaque du ♦J et vous chutez de deux levées.</li>
+<li><strong>L’impasse en coupe :</strong> cœur vers l’As, puis la ♥Q. Si Est couvre, coupez, et les cœurs restants du mort s’occupent de vos carreaux ; si Est fournit petit, défaussez un carreau. Avec la donne réelle, vous faites douze levées.</li>
+</ul>
+<p>Et si Ouest avait détenu le ♥K ? L’impasse en coupe échoue alors, mais au profit d’Ouest, qui ne peut pas jouer carreau à travers votre Roi, et vous avez déjà défaussé un carreau sur la ♥Q : vous faites quand même dix levées. L’impasse en coupe gagne le contrat quel que soit le défenseur qui a le Roi.</p>
+
+<h3>Perdante sur perdante</h3>
+<p>Parfois, la meilleure réponse à une levée que vous allez perdre de toute façon n’est pas de la couper, mais de défausser dessus une perdante d’une autre couleur. Le nombre de levées ne change pas, puisqu’une perdante en remplace une autre, mais vous gardez vos atouts, votre contrôle ou vos remontées.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ joué par Sud. Ouest encaisse l’♥A et le ♥K, Est jouant grande-petite, et continue de la ♥Q."></div>
+<p>Est coupe le troisième cœur du ♠J. Si vous surcoupez, ♠Q 6 d’Ouest se trouve au-dessus de votre dernier gros honneur et la Dame est promue : vous perdez deux cœurs, un atout et un trèfle, une de chute. Défaussez plutôt votre trèfle perdant. Le Valet d’Est fait la levée, mais vos atouts restent intacts : l’As et le Roi font tomber la Dame d’Ouest, et la perdante à trèfle a déjà disparu. Dix levées.</p>
+<p>Autres emplois courants :</p>
+<ul>
+<li><strong>Garder le contrôle :</strong> quand la défense joue une couleur que vous devriez couper de votre main longue, défausser une perdante préserve votre longueur d’atout (voir la leçon « Le maniement des atouts »).</li>
+<li><strong>Affranchir une couleur :</strong> avec ♦Q J 10 9 au mort, aucun carreau en main et l’As et le Roi qui manquent, jouez la Dame puis le Valet en défaussant une perdante chaque fois. Vous cédez deux levées que vous auriez perdues de toute façon, et le 10 et le 9 sont maintenant maîtres.</li>
+<li><strong>Une mise en main :</strong> le défenseur qui prend une levée de perdante sur perdante peut être obligé de jouer dans votre fourchette ou de vous donner une coupe et défausse (voir la leçon « Initiation aux squeezes et aux mises en main »).</li>
+</ul>
+
+<h3>Affranchir une couleur par la coupe</h3>
+<p>Une longue couleur annexe au mort peut être <strong>affranchie par la coupe</strong> : coupez ses petites cartes dans votre main jusqu’à ce que la défense n’en ait plus, et le reste de la couleur fournit des défausses. Chaque coupe demande une remontée au mort, et il en faut une de plus à la fin pour encaisser les cartes longues : comptez donc les remontées avant de commencer.</p>
+<table>
+<thead><tr><th>Mort</th><th>Votre main</th><th>Répartition</th><th>Coupes nécessaires</th><th>Cartes longues</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ joué par Sud. Ouest entame de la ♦Q."></div>
+<p>Vous avez onze levées sûres : sept piques, l’♥A, l’♦A K et l’♣A. La douzième doit venir des cœurs du mort, qui demandent trois coupes s’ils sont 4-3 ; il vous faut donc trois remontées au mort après l’♥A : le ♠8, le ♠K et le ♦K.</p>
+<ol>
+<li>Prenez la ♦Q de l’<strong>As</strong>, pour garder le ♦K du mort comme remontée.</li>
+<li>Jouez cœur vers l’As et coupez un cœur du ♠9.</li>
+<li>Jouez le ♠2 vers le 8 du mort et coupez un autre cœur du ♠10.</li>
+<li>Jouez le ♠3 vers le Roi et coupez un troisième cœur du ♠J. La défense n’a plus ni cœur ni atout.</li>
+<li>Remontez au mort par le ♦K et encaissez le cinquième cœur en défaussant votre trèfle perdant. Vous ne perdez qu’un carreau.</li>
+</ol>
+<p>Tirez deux tours d’atout avant de commencer, et il vous manque une remontée : le chelem chute.</p>
+<div class="tip">Prévoyez les remontées avant de toucher la couleur : une par coupe, plus une pour encaisser les cartes longues. Les atouts du mort servent souvent de remontées : jouez vos petits atouts vers eux et coupez avec les gros.</div>
+<div class="warn">Coupez haut chaque fois qu’un défenseur peut ne plus avoir la couleur et surcouper.</div>
+`,
+    keyPoints: [
+      'Une impasse en coupe joue un honneur à travers le défenseur qui peut détenir la carte manquante : s’il couvre, vous coupez ; sinon, vous défaussez une perdante.',
+      'Avec A Q J 10 face à un singleton, choisissez entre l’impasse ordinaire et l’impasse en coupe en vous demandant à quel défenseur vous pouvez céder la main.',
+      'Perdante sur perdante : défaussez une perdante au lieu de couper quand la coupe vous coûterait une levée d’atout, le contrôle ou une remontée.',
+      'Pour affranchir une couleur par la coupe, il faut une remontée par coupe, plus une pour encaisser les cartes longues.',
+      'Utilisez les atouts du mort comme remontées ; ne tirez pas les atouts avant de vous en être servi.',
+    ],
+    quiz: [
+      {
+        q: 'Le mort a ♦K Q J 10 et vous n’avez aucun carreau. Vous jouez le ♦K et Est fournit petit. Que faites-vous ?',
+        options: ['Je coupe', 'Je défausse une perdante', 'Je défausse une gagnante', 'Je préfère jouer une autre couleur'],
+        answer: 1,
+        explain: 'C’est l’impasse en coupe. Si le Roi tient, vous avez gagné une levée ; si Ouest le prend de l’As, vous avez seulement échangé une perdante contre une autre, et Q J 10 sont maîtres.',
+      },
+      {
+        q: 'Vous avez ♥A Q J 10 au mort face à un singleton. Quand l’impasse en coupe (l’As, puis la Dame) réussit-elle ?',
+        options: ['Quand Ouest a le Roi', 'Quand Est a le Roi', 'Chaque fois que les cœurs sont 3-3', 'Toujours'],
+        answer: 1,
+        explain: 'La Dame est jouée à travers Est : Est couvre et vous coupez, ou Est laisse passer et la Dame tient. L’impasse ordinaire, vers A Q, est celle qui réussit quand Ouest a le Roi.',
+      },
+      {
+        q: 'Dans la donne de 4♠ ci-dessus, pourquoi l’impasse en coupe vaut-elle mieux que l’impasse ordinaire ?',
+        options: ['Elle réussit plus souvent', 'Si elle échoue, elle perd au profit d’Ouest, qui ne peut pas attaquer votre ♦K', 'Elle économise une remontée', 'Elle tire les atouts en même temps'],
+        answer: 1,
+        explain: 'Chaque impasse réussit une fois sur deux, mais l’ordinaire perd au profit d’Est, qui peut jouer carreau à travers votre Roi. Si l’impasse en coupe échoue, Ouest a la main et vous avez déjà défaussé un carreau.',
+      },
+      {
+        q: 'Dans la donne de perdante sur perdante, Est coupe le troisième cœur du ♠J. Que faites-vous ?',
+        options: ['Je surcoupe de l’As', 'Je surcoupe du Roi', 'Je défausse mon trèfle perdant', 'Je défausse un carreau'],
+        answer: 2,
+        explain: 'Surcouper promeut ♠Q 6 d’Ouest en une levée. Défausser le trèfle, perdant de toute façon, laisse vos atouts intacts, et l’As et le Roi font ensuite tomber la Dame.',
+      },
+      {
+        q: 'Le mort a ♥A 6 5 4 3 et vous un singleton. Les cœurs de la défense sont 4-3. Combien de fois devez-vous couper avant que le dernier cœur du mort soit maître ?',
+        options: ['Une fois', 'Deux fois', 'Trois fois', 'Quatre fois'],
+        answer: 2,
+        explain: 'Après l’As, la défense a encore cinq cœurs, dont trois dans une main. Vous devez couper trois tours, avec une remontée au mort après chaque coupe.',
       },
     ],
   },
@@ -683,6 +887,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'Le mort inversé et le coup d’atout',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Deux techniques qui coupent volontairement dans la main longue à l’atout : faire tirer les atouts adverses par ceux du mort, et raccourcir vos propres atouts pour faire l’impasse quand le mort n’a plus d’atout à jouer.',
+    body: `
+<h3>Couper dans la main longue</h3>
+<p>La leçon « Le maniement des atouts » explique que les coupes dans la main courte à l’atout rapportent des levées et que les coupes dans la main longue n’en rapportent généralement pas. Deux techniques renversent cette règle. Dans le <strong>mort inversé</strong>, vous coupez si souvent dans votre main que ce sont les atouts du mort qui se chargent de tirer les atouts. Dans le <strong>coup d’atout</strong>, vous coupez pour raccourcir vos atouts, afin de capturer un honneur d’atout adverse sans jouer atout.</p>
+
+<h3>Le mort inversé</h3>
+<p>Avec cinq atouts en main et trois au mort, vous faites normalement cinq levées d’atout. Coupez trois fois dans votre main, puis tirez les atouts avec les trois du mort, et vous en faites six : trois coupes plus trois tours d’atout joués du mort. Le mort est devenu la main maîtresse, et vos coupes sont maintenant des coupes dans la main courte.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ joué par Sud. Ouest entame du ♦K."></div>
+<p><strong>Comptez :</strong> cinq piques, l’♥A, l’♦A et quatre trèfles font onze levées. Le mort ne peut rien couper, puisqu’il a autant de carreaux et de trèfles que vous, et vos deux perdantes à carreau n’ont aucun débouché.</p>
+<p><strong>Inversez le mort :</strong> coupez dans votre main les trois petits cœurs du mort et laissez ♠K Q J tirer les atouts. Les remontées au mort sont l’♥A, le ♠K, la ♠Q et le ♣K.</p>
+<ol>
+<li>Prenez de l’♦A et jouez cœur vers l’As.</li>
+<li>Coupez un cœur et jouez un petit pique vers le Roi.</li>
+<li>Coupez un cœur et jouez pique vers la Dame.</li>
+<li>Coupez le dernier cœur de l’♠A et remontez au mort par trèfle vers le Roi.</li>
+<li>Tirez le dernier atout avec le ♠J en défaussant un carreau, et faites le reste des trèfles.</li>
+</ol>
+<p>Six levées d’atout (trois coupes et trois tours joués du mort), l’♥A, l’♦A et quatre trèfles font douze. Le plan demande des atouts 3-2, pour que les trois atouts du mort suffisent à les tirer, et il a besoin de toutes les remontées. C’est pourquoi seule une entame atout fait chuter 6♠ : elle enlève un tour d’atout avant que les coupes aient commencé, et il manque alors une remontée au déclarant.</p>
+<div class="tip">Le test du mort inversé : ajoutez à la longueur d’atout du mort les coupes que vous pouvez faire dans votre main. Si le total dépasse votre propre longueur d’atout, et si les atouts du mort sont assez solides pour tirer ceux de la défense, l’inversion rapporte une levée.</div>
+
+<h3>Le coup d’atout</h3>
+<p>Il arrive qu’un défenseur détienne un honneur d’atout derrière votre fourchette, comme ♠K x derrière votre ♠A Q, alors que le mort n’a plus d’atout pour jouer à travers. Vous ne pouvez pas faire l’impasse en jouant atout vous-même. Mais si c’est le mort qui joue à la fin de la donne, quand le défenseur n’a plus que des atouts, celui-ci doit en fournir un <em>avant</em> vous, et l’impasse réussit sans atout au mort. C’est le <strong>coup d’atout</strong>. Pour qu’il marche, vous devez d’abord raccourcir vos atouts en coupant, jusqu’à ne pas en avoir plus que le défenseur.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ joué par Sud. Ouest encaisse l’♣A et contre-attaque du ♥10."></div>
+<p>Vous ne pouvez plus rien perdre. Prenez de l’♥A et jouez pique : Est fournit petit et votre 9 fait la levée. Remontez au mort par l’♦A et répétez l’impasse : le 10 tient et Ouest défausse. Est avait quatre atouts et détient encore ♠K 8 derrière votre ♠A Q J 3, et le mort n’a plus de pique. Si vous tirez l’As maintenant, le Roi d’Est fait une levée : une de chute.</p>
+<p>Raccourcissez plutôt vos atouts. Vous en avez quatre contre deux à Est, vous devez donc couper deux fois :</p>
+<ol>
+<li>Remontez au mort par le ♦K, encaissez le ♥K et coupez un trèfle du ♠3.</li>
+<li>Remontez au mort par la ♦Q et coupez un cœur du ♠J. Vous avez maintenant ♠A Q, autant d’atouts qu’Est.</li>
+<li>Remontez au mort par le ♦J ; Est fournit. À la douzième levée, c’est le mort qui joue.</li>
+</ol>
+<p>Coupez un trèfle et un cœur, pas deux trèfles : ainsi Est doit fournir chaque fois et n’obtient jamais de défausse libre. S’il en obtenait une, il jetterait un carreau et couperait plus tard une des levées maîtresses à carreau du mort.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="Les deux dernières levées. Pique est atout et le mort joue."></div>
+<p>Est n’a que des atouts et doit en fournir un avant vous : le ♠8, et vous prenez de la Dame, ou le ♠K, et vous prenez de l’As. Douze levées.</p>
+<h4>Ce qu’il faut pour un coup d’atout</h4>
+<ul>
+<li><strong>Pas plus d’atouts que le défenseur</strong> à la fin : raccourcissez les vôtres en coupant, au besoin même des levées maîtresses du mort (c’est ce qu’on appelle un <em>grand coup</em>).</li>
+<li><strong>Des remontées au mort</strong> pour chaque impasse à l’atout, chaque coupe et le dernier retour de main.</li>
+<li><strong>Le bon moment :</strong> au moment du coup, le défenseur ne doit plus avoir que des atouts. Compter sa main vous dit quand.</li>
+</ul>
+<div class="warn">Ne raccourcissez vos atouts que lorsque vous savez que c’est nécessaire. Si les atouts avaient été 3-3, l’As aurait fait tomber le Roi, et couper dans votre main n’aurait fait que gaspiller des atouts. Ici, la défausse d’Ouest au deuxième tour vous a appris qu’Est en avait quatre.</div>
+`,
+    keyPoints: [
+      'Dans le mort inversé, vous coupez si souvent dans la main longue à l’atout que les atouts du mort tirent ceux de la défense.',
+      'Il rapporte quand les coupes dans votre main plus la longueur d’atout du mort dépassent votre propre longueur d’atout ; il faut de bons atouts au mort et des remontées.',
+      'Un coup d’atout capture un honneur d’atout adverse sans jouer atout : le mort joue et le défenseur doit fournir le premier.',
+      'Avant un coup d’atout, raccourcissez vos atouts en coupant jusqu’à ne pas en avoir plus que le défenseur.',
+      'Comptez d’abord les atouts du défenseur ; un coup d’atout n’est nécessaire que si la répartition est mauvaise.',
+    ],
+    quiz: [
+      {
+        q: 'Qu’est-ce que le mort inversé ?',
+        options: ['Couper au mort les perdantes du mort', 'Couper dans votre main longue à l’atout assez souvent pour que les atouts du mort tirent ceux de la défense', 'Laisser le mort jouer la donne', 'Passer à sans-atout'],
+        answer: 1,
+        explain: 'Les rôles des mains s’inversent : vos atouts servent à couper, et les atouts du mort, plus courts mais solides, tirent ceux de la défense.',
+      },
+      {
+        q: 'Vous avez cinq atouts et le mort trois solides. Combien de coupes dans votre main faut-il pour que le mort inversé rapporte une levée ?',
+        options: ['Une', 'Deux', 'Trois', 'Cinq'],
+        answer: 2,
+        explain: 'Trois coupes plus trois tours d’atout joués du mort font six levées d’atout, une de plus que vos cinq.',
+      },
+      {
+        q: 'Dans la donne de mort inversé ci-dessus, quelle entame fait chuter 6♠ ?',
+        options: ['Le ♦K', 'Un cœur', 'Un atout', 'Un trèfle'],
+        answer: 2,
+        explain: 'Une entame atout enlève un tour d’atout avant que le déclarant puisse commencer à couper, et il lui manque ensuite une remontée pour achever l’inversion.',
+      },
+      {
+        q: 'Que devez-vous faire avant un coup d’atout ?',
+        options: ['Tirer tous les atouts de la défense', 'Raccourcir vos atouts en coupant jusqu’à ne pas en avoir plus que le défenseur', 'Garder un atout au mort', 'Jouer votre fourchette d’atout'],
+        answer: 1,
+        explain: 'À la fin, le défenseur ne doit plus avoir que des atouts et vous pas plus d’atouts que lui, pour que la carte jouée du mort l’oblige à fournir avant vous.',
+      },
+      {
+        q: 'Dans la fin de coup d’atout ci-dessus, pourquoi le Roi d’Est ne fait-il pas de levée ?',
+        options: ['Est doit fournir un atout avant vous, et vous mettez plus haut', 'Le Roi avait déjà été joué', 'C’est Ouest qui a le Roi', 'Est est squeezé à cœur'],
+        answer: 0,
+        explain: 'Le mort joue et il ne reste à Est que ♠K 8. Quoi qu’il fournisse, vous prenez avec la carte juste au-dessus.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Compter en flanc',
     topic: 'Defense',
@@ -861,6 +1152,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['Ça ne coûte jamais cher', 'Parce que si elle gagne, la valeur des levées contrées peut atteindre la manche : 2♥ contré marque 470 ou 670', 'Parce que les adversaires reçoivent une prime quand ils sont contrés', 'Parce qu’il faut entamer atout'],
         answer: 1,
         explain: 'Contré, 2♥ a une valeur des levées de 120, ce qui compte comme une manche. Soyez sûr de faire chuter une partielle avant de la contrer.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Les entames contre les chelems et les contrats contrés',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Comment choisir l’entame contre un chelem, contre un contrat contré ou un sacrifice, et comment le partenaire peut demander une entame par un contre.',
+    body: `
+<h3>Contre un chelem à sans-atout : ne rien donner</h3>
+<p>Quand les adversaires demandent 6SA ou 7SA, ils ont environ 33 H ou plus à eux deux, et votre camp a très peu. Vous aurez rarement le temps d’affranchir une longue : votre travail est de ne pas offrir de levée au déclarant. Choisissez l’entame la plus sûre possible : la tête d’une séquence, ou une couleur sans honneur. N’entamez pas sous un Roi ou une Dame : contre un chelem, c’est souvent la douzième levée.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="À l’entame contre 1SA – 6SA"></div>
+<p>Entamez du ♦8, la plus haute de trois petites. Un pique ou un cœur pourrait donner une levée au déclarant avec des honneurs que vous ne voyez pas ; le carreau ne donne rien, et votre ♠K et votre ♥Q peuvent encore faire une levée si le déclarant doit les trouver.</p>
+
+<h3>Contre un chelem à la couleur : attaquer ou attendre ?</h3>
+<p>Contre six dans une couleur, posez-vous la même question que contre tout contrat à la couleur (voir la leçon « Le flanc contre un contrat à la couleur »), mais il vous faut deux levées et vous n’avez qu’une entame. L’entame sûre est la règle, et c’est celle que suit le moniteur dans ses conseils d’entame ; l’entame offensive est l’exception, pour les enchères qui montrent d’où viendront les défausses du déclarant.</p>
+<ul>
+<li><strong>Attaquez</strong> quand les enchères montrent une longue couleur annexe qui fournira des défausses. Entamez sous un Roi (ou une Dame) dans une couleur non nommée, en espérant que le partenaire ait l’As ou la Dame, pour affranchir une levée avant l’arrivée des défausses.</li>
+<li><strong>Soyez passif</strong> quand les adversaires semblent avoir enchéri sur la force, avec des mains régulières et sans longue annexe. Le déclarant doit alors trouver seul ses douze levées, et une entame sûre, souvent atout, ne donne rien.</li>
+<li><strong>Un singleton</strong> vaut la peine quand le partenaire peut détenir un As : il prend la main et vous donne une coupe.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="À l’entame contre 6♥ ; le mort a montré une longue et belle couleur à trèfle"></div>
+<p>Entamez du ♠2. Une fois les atouts tirés, le déclarant défaussera ses perdantes sur les trèfles du mort : la défense doit donc affranchir ses levées avant. Un pique sous le Roi peut trouver le partenaire avec l’As ou la Dame et monter une levée à temps. Un carreau serait sûr, mais trop lent.</p>
+<h4>Entamer un As</h4>
+<p>Entamez un As non soutenu contre un chelem à la couleur quand le mort a montré une longue couleur annexe, si bien que la couleur de votre As pourrait disparaître dans les défausses, ou quand vous avez de bonnes chances d’une deuxième levée, comme une levée d’atout ou un Roi placé derrière la couleur du déclarant. Sinon, gardez-le : l’As fera sa levée plus tard, alors que l’entamer peut affranchir le Roi et la Dame du déclarant. Contre 6SA, un As est une levée sûre : rien ne presse pour le jouer.</p>
+<p>Contre un grand chelem, faites l’entame la plus sûre possible, souvent atout : le déclarant a besoin de toutes les levées, et toute levée que vous offrez est fatale.</p>
+
+<h3>Les contres d’entame</h3>
+<p>Quand un adversaire fait une enchère artificielle, le contre du joueur suivant n’a en général rien de punitif : il demande au partenaire d’entamer dans cette couleur.</p>
+<table>
+<thead><tr><th>Le partenaire contre</th><th>Signification</th></tr></thead>
+<tbody>
+<tr><td>Un Stayman : 1SA – 2♣</td><td>Entamez trèfle : le partenaire a une belle couleur à trèfle</td></tr>
+<tr><td>Un Texas : 1SA – 2♦</td><td>Entamez carreau</td></tr>
+<tr><td>Un cue-bid ou une enchère de contrôle, comme 4♣ en route vers un chelem à cœur</td><td>Entamez trèfle</td></tr>
+<tr><td>Une réponse au Blackwood, comme 5♦</td><td>Entamez carreau</td></tr>
+</tbody>
+</table>
+<p>L’absence de contre renseigne aussi : si le partenaire pouvait contrer un cue-bid à 4♦ et ne l’a pas fait, il ne veut probablement pas d’entame à carreau.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="Ouest : à l’entame contre 4♥"></div>
+<p>Sans le contre, vous entameriez peut-être pique ou carreau, chaque fois sous un honneur. Le contre d’Est sur le Stayman a demandé trèfle : entamez du ♣8, la plus haute de trois petites. Est a une belle couleur à trèfle, et vous n’avez pas à ouvrir vos autres couleurs.</p>
+
+<h3>Les entames contre un contrat contré</h3>
+<table>
+<thead><tr><th>Situation</th><th>Entame</th></tr></thead>
+<tbody>
+<tr><td>Le partenaire contre 3SA après avoir nommé une couleur</td><td>La couleur du partenaire</td></tr>
+<tr><td>Le partenaire contre 3SA ; vous avez nommé une couleur, lui non</td><td>Votre couleur</td></tr>
+<tr><td>Le partenaire contre 3SA ; aucun de vous deux n’a parlé</td><td>La première couleur nommée par le mort</td></tr>
+<tr><td>Le partenaire contre un chelem</td><td>Une entame inhabituelle (voir plus bas)</td></tr>
+<tr><td>Votre camp a contré leur sacrifice</td><td>En général atout</td></tr>
+<tr><td>Le partenaire transforme votre contre d’appel en punitif</td><td>Atout</td></tr>
+</tbody>
+</table>
+<p>Pourquoi atout contre un sacrifice ? Le camp qui se sacrifie a peu d’honneurs et espère faire ses levées en coupant ; votre camp a les honneurs, qui feront leurs levées de toute façon. Chaque tour d’atout supprime des coupes. Ces sens sont des conventions courantes : assurez-vous que votre partenaire les partage.</p>
+
+<h3>Le contre Lightner</h3>
+<p>Contrer pour la pénalité un chelem demandé librement rapporte peu. 6♠ chutant d’une levée rapporte 50 ou 100 de plus contré que non contré, mais s’il gagne, le contre coûte 230, bien plus en cas de surcontre, et il avertit le déclarant d’une mauvaise répartition. C’est pourquoi, selon une convention qui porte le nom de Theodore Lightner, le contre d’un chelem par le joueur qui n’est <em>pas</em> à l’entame demande une <strong>entame inhabituelle</strong> :</p>
+<ul>
+<li>pas atout, et pas une couleur non nommée, puisque c’est ce que vous entameriez de toute façon ;</li>
+<li>en général la première couleur annexe nommée par le mort, souvent parce que le partenaire y a une chicane ;</li>
+<li>si le partenaire a nommé une couleur, le contre dit en plus : n’entamez pas ma couleur.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="Ouest : à l’entame après le contre d’Est"></div>
+<p>Votre entame normale serait la ♦Q. Le contre d’Est demande quelque chose d’inhabituel : la première couleur nommée par le mort, cœur. Entamez du ♥8. Est a probablement une chicane à cœur et coupera, et la défense n’aura plus besoin que d’une levée.</p>
+<div class="warn">Ne faites pas un contre d’entame simplement parce que vous avez des honneurs dans la couleur. Contrez quand vous voulez vraiment cette entame, et n’oubliez pas que les adversaires peuvent eux aussi exploiter le contre : ils peuvent surcontrer, ou tout simplement éviter le contrat.</div>
+`,
+    keyPoints: [
+      'Contre 6SA et 7SA, entamez sans risque : n’entamez pas sous un honneur.',
+      'Contre un chelem à la couleur, attaquez (souvent sous un Roi) quand le mort a une longue pour les défausses ; sinon, soyez passif.',
+      'Entamez un As contre un chelem quand il pourrait disparaître dans les défausses ou que vous espérez une deuxième levée ; sinon, gardez-le.',
+      'Le contre d’une enchère artificielle comme le Stayman, un Texas ou un cue-bid demande l’entame dans cette couleur.',
+      'Le contre Lightner d’un chelem demande une entame inhabituelle, en général la première couleur annexe du mort ; contre un sacrifice contré, entamez atout.',
+    ],
+    quiz: [
+      {
+        q: 'Vous êtes à l’entame contre 1SA – 6SA avec ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. Qu’entamez-vous ?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Contre un chelem à sans-atout, entamez sans risque. Le ♦8 ne donne rien ; entamer sous le Roi, la Dame ou le Valet peut offrir la douzième levée au déclarant.',
+      },
+      {
+        q: 'Les adversaires demandent 6♥ après que le mort a montré une longue et belle couleur à trèfle. Quel type d’entame est en général le bon ?',
+        options: ['Passive : atout', 'Offensive : sous un Roi dans une couleur non nommée, pour affranchir une levée avant que le déclarant puisse défausser', 'Un trèfle, pour couper le mort', 'Toujours un As'],
+        answer: 1,
+        explain: 'Une fois les atouts tirés, les perdantes du déclarant partiront sur les trèfles du mort. La défense doit monter ses levées avant.',
+      },
+      {
+        q: 'Les adversaires enchérissent 1SA – 2♣ (Stayman) et votre partenaire contre. Que demande ce contre ?',
+        options: ['Une pénalité à 2♣', 'Une entame à trèfle', 'Que vous nommiez une majeure', 'Il montre une main régulière forte'],
+        answer: 1,
+        explain: 'Le 2♣ est artificiel, donc le contre est un contre d’entame : le partenaire a une belle couleur à trèfle et veut qu’on l’entame.',
+      },
+      {
+        q: 'Votre partenaire fait un contre Lightner sur 6♠. Le mort a nommé les cœurs, et vous avez deux cœurs et ♦Q J 10 9. Qu’entamez-vous ?',
+        options: ['La ♦Q', 'Un cœur', 'Un atout', 'Un trèfle'],
+        answer: 1,
+        explain: 'Le contre demande une entame inhabituelle, en général la première couleur annexe du mort. Le partenaire a probablement une chicane à cœur.',
+      },
+      {
+        q: 'Vous avez contré le sacrifice à 5♦ des adversaires. Quelle est en général la meilleure entame ?',
+        options: ['Atout', 'Votre plus longue couleur', 'Un As, pour voir le mort', 'Un singleton'],
+        answer: 0,
+        explain: 'Le camp qui se sacrifie a peu d’honneurs et fait ses levées en coupant. Les entames atout suppriment ces coupes, et vos honneurs feront leurs levées de toute façon.',
       },
     ],
   },

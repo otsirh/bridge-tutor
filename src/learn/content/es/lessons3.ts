@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'La defensa contra sin triunfo',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Cómo gana la defensa la carrera contra sin triunfo: desbloquear, devolver la carta correcta, mantener la comunicación, atacar las entradas del declarante y descartar bien.',
+    body: `
+<h3>Una carrera por las bazas</h3>
+<p>Contra sin triunfo nada detiene un palo largo una vez afirmado. Los dos bandos corren: el declarante para afirmar bazas suficientes, la defensa para afirmar y cobrar antes su palo largo. Casi todos los problemas de la defensa son problemas de <strong>comunicación</strong>: el palo largo está en una mano y las entradas, a menudo, en la otra. Una buena defensa mantiene el palo circulando entre los dos defensores y corta las comunicaciones del declarante.</p>
+
+<h3>Tercera mano: alta, y apartada del camino de tu compañero</h3>
+<p>La tercera mano juega alto (consulta la lección “Segunda mano baja, tercera mano alta”). Contra sin triunfo hay una segunda obligación: no <strong>bloquear</strong> el palo de tu compañero. Con un honor segundo en el palo largo de tu compañero, quítalo de en medio pronto, aunque para ello tengas que superar la carta de tu compañero.</p>
+<table>
+<thead><tr><th>Posición</th><th>Corazones</th></tr></thead>
+<tbody>
+<tr><td>Norte (muerto)</td><td>6 5 2</td></tr>
+<tr><td>Oeste (compañero, sale con el K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Este (tú)</td><td>A 3</td></tr>
+<tr><td>Sur (declarante)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Si juegas el 3, el declarante se agacha. Tu compañero continúa con la Dama y tu As tiene que ganar la segunda vuelta: no te queda corazón para devolver, el Valet del declarante sigue parando el palo y tu compañero necesita dos entradas más para afirmar y cobrar los corazones. En cambio, <strong>supera</strong> el Rey con el As y devuelve el 3. El Valet del declarante queda atrapado y la defensa hace las cinco primeras bazas de corazón.</p>
+<ul>
+<li>Desbloquea cuando la salida de tu compañero muestra un palo fuerte (la cabeza de una secuencia como K Q 10 o Q J 10) y tienes un honor segundo: juega el honor pronto, para que tu última carta sea pequeña.</li>
+<li>Con tres cartas encabezadas por un honor (A x x, K x x), juega alto y guarda una carta pequeña para devolver: no bloqueas nada.</li>
+</ul>
+
+<h3>Devolver el palo de tu compañero</h3>
+<p>Cuando ganas una baza y devuelves el palo de tu compañero, la carta que eliges le dice cuántas te quedan y, por tanto, cuántas tiene el declarante.</p>
+<table>
+<thead><tr><th>Tenías</th><th>Ganas con</th><th>Devuelves</th><th>La regla</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Te quedan dos cartas: devuelve la más alta</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Te quedan tres o más: devuelve tu cuarta mejor original</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>Tu cuarta mejor original, no tu carta más baja</td></tr>
+</tbody>
+</table>
+<p>Una carta alta dice «me queda como mucho una»; una baja dice «me quedan al menos dos». Tu compañero puede deducir entonces si el declarante conserva una parada y si debe ganar ahora o agacharse. Devolver la más alta de dos cartas también evita bloquear el palo: si te quedas el 9, puede ganar la tercera vuelta cuando quien necesita estar en mano es tu compañero.</p>
+
+<h3>Agacharse para mantener el contacto</h3>
+<p>El defensor con el palo largo a veces tiene que ceder una baza pronto, mientras su compañero todavía tiene una carta del palo para devolver.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3SA por Sur tras 1SA – 3SA. Oeste sale con el ♠A y Este juega el ♠2."></div>
+<p>El 2 de Este niega un honor de pica, así que el declarante tiene la ♠Q J. Oeste cuenta: Sur tiene 15-17 PH, el muerto 13 y Oeste 8, así que Este tiene como mucho 4. El declarante cumplirá expulsando el ♦A, de modo que la única esperanza de la defensa es que lo tenga Este.</p>
+<p>Si Oeste cobra el ♠K y juega una tercera pica, el declarante gana con el último honor y Este, que empezó con tres picas, se queda sin ninguna. Este gana el ♦A pero no puede llegar a Oeste, cuyas dos picas largas nunca hacen baza: el declarante hace diez bazas. En cambio, Oeste juega una <strong>pica pequeña</strong> en la segunda baza. El declarante gana, pero Este conserva una pica. Cuando Este gana el ♦A, la devuelve, y Oeste cobra el ♠K y las dos últimas picas: una multa.</p>
+<p>Una pica pequeña en la primera baza habría servido igual. El principio: cuando tu palo es largo y no tienes entrada fuera de él, cede la baza que tienes que perder <em>mientras tu compañero todavía tiene una carta del palo</em>.</p>
+
+<h3>Atacar las entradas del declarante</h3>
+<p>El declarante también tiene problemas de comunicación, y la defensa puede agravarlos.</p>
+<ul>
+<li><strong>Retén tu As</strong> cuando el muerto tiene un palo largo y ninguna entrada fuera de él, y gánalo cuando el declarante juegue desde su mano la última carta del palo. La señal de cuenta de tu compañero te dice cuándo (consulta la lección “Las señales en defensa”).</li>
+<li><strong>Expulsa la entrada del muerto</strong> antes de que se afirme el palo largo, aunque te cueste una baza.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Muerto, contra 3SA"></div>
+<p>Eres Este con ♠K 7 3 y ♦A 6 2, y el declarante tiene dos diamantes. Retener el ♦A no basta por sí solo: el declarante volvería con el ♠A a los diamantes afirmados. Así que, cuando ganes una baza antes de que se hayan jugado los diamantes, sal con el <strong>♠K</strong>. Si el declarante gana con el As, el muerto se queda sin entrada: retienes el ♦A hasta la segunda vuelta y los diamantes del muerto están muertos. Si el declarante se agacha, tu Rey ha hecho baza y puedes jugar otra pica. Sacrificar un honor para eliminar así una entrada se llama <strong>golpe de Merrimac</strong>. Es raro, pero la pregunta que lo inspira no lo es: ¿cuál de las entradas del declarante importa más?</p>
+
+<h3>Descartar</h3>
+<p>Cuando el declarante corre un palo largo, los defensores tienen que descartarse, y un solo descarte equivocado puede regalarle el contrato.</p>
+<ul>
+<li><strong>Guarda la longitud del muerto.</strong> Con ♣Q 10 8 3 detrás del ♣K J 7 4 del muerto, guarda los cuatro tréboles: si tiras uno, el último trébol del muerto puede convertirse en ganador. Las cartas del muerto están a la vista, así que esta es la regla más fácil de seguir.</li>
+<li><strong>Guarda la longitud del declarante.</strong> Cuenta sus palos por la subasta y el carteo, y conserva una guarda en cualquier palo en el que solo tú puedas parar su carta larga.</li>
+<li><strong>Repartid el trabajo.</strong> Un palo necesita una sola guarda. Deja a tu compañero el palo que él puede guardar (las señales de cuenta ayudan) y guarda tú el otro.</li>
+<li><strong>Señaliza con tu primer descarte:</strong> una carta alta pide el palo; una baja dice que no lo quieres. Descarta de un palo que te sobre; nunca tires una carta que necesitas solo para señalizar.</li>
+<li><strong>Guarda las ganadoras de tu palo afirmado</strong> mientras tú o tu compañero todavía podáis entrar en mano para cobrarlas.</li>
+</ul>
+<div class="tip">Cuenta las bazas del declarante antes de descartarte. Si tiene ocho bazas y necesita una novena, el palo que podría dársela es el que debes guardar.</div>
+<div class="warn">Planifica tus descartes pronto. Dudar y luego dejar un honor seco le dice al declarante exactamente dónde está.</div>
+`,
+    keyPoints: [
+      'Contra sin triunfo, la comunicación decide la carrera: mantén el palo largo circulando entre los dos defensores.',
+      'Desbloquea: con un honor segundo en el palo fuerte de tu compañero, juega el honor pronto, superando su carta si hace falta.',
+      'Devuelve la más alta de dos cartas restantes; con tres o más, tu cuarta mejor original.',
+      'El defensor con el palo largo y sin entradas se agacha una vuelta mientras su compañero aún tiene una carta para devolver.',
+      'Ataca las entradas del declarante; al descartarte, guarda la longitud del muerto y protege las cartas largas del declarante.',
+    ],
+    quiz: [
+      {
+        q: 'Contra 3SA tu compañero sale con el ♥K (de K Q 10 9 7). El muerto tiene ♥6 5 2 y tú ♥A 3. ¿Qué juegas?',
+        options: ['El 3, para que gane el Rey de tu compañero', 'El As, y devuelves el 3', 'El As, y cambias a otro palo', 'Da igual'],
+        answer: 1,
+        explain: 'Supera el Rey y devuelve el 3. Si juegas pequeño, el declarante se agacha y tu As tiene que ganar la segunda vuelta sin que te quede corazón para devolver, mientras el Valet del declarante sigue parando el palo.',
+      },
+      {
+        q: 'Ganas la salida a pica de tu compañero contra 3SA con el As de ♠A 9 3. ¿Qué pica devuelves?',
+        options: ['El 9', 'El 3', 'Cualquiera', 'No devuelvo pica'],
+        answer: 0,
+        explain: 'Con dos cartas restantes, devuelve la más alta. Tu compañero ve el 9 y sabe que te queda como mucho una pica.',
+      },
+      {
+        q: 'Ganas con el As de ♦A 8 5 2. ¿Qué diamante devuelves?',
+        options: ['El 8', 'El 5', 'El 2', 'Ninguno: cambio de palo'],
+        answer: 2,
+        explain: 'Con tres o más cartas restantes, devuelve tu cuarta mejor original, aquí el 2. La carta baja le dice a tu compañero que aún tienes al menos dos diamantes.',
+      },
+      {
+        q: 'En la mano de 3SA de arriba, ¿por qué debe Oeste jugar una pica pequeña en la segunda baza?',
+        options: ['Para averiguar quién tiene la ♠Q', 'Para que Este conserve una pica que devolver cuando gane el ♦A', 'Porque el ♠K podría ser fallado', 'Para que el declarante gaste las entradas del muerto'],
+        answer: 1,
+        explain: 'Este empezó con tres picas. Si Oeste cobra el Rey y juega una tercera pica, a Este no le queda ninguna cuando entra en mano. Agacharse ahora mantiene la comunicación entre las dos manos.',
+      },
+      {
+        q: 'El declarante corre un palo largo. El muerto tiene ♣K J 7 4 y tú ♣Q 10 8 3 detrás. ¿Qué guardas?',
+        options: ['Los cuatro tréboles', 'Solo la Q y el 10', 'Solo la Dama', 'Depende del primer descarte de tu compañero'],
+        answer: 0,
+        explain: 'Guarda la longitud del muerto. En cuanto tires un trébol, el cuarto trébol del muerto puede convertirse en ganador.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Repartos de los palos y combinación de posibilidades',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Jugar el Rey', 'Hacer el impasse al 10', 'Es exactamente un 50-50', 'Jugar desde la otra mano'],
         answer: 1,
         explain: 'Elección restringida: con Q J, Este podía haber jugado cualquiera de los dos honores, pero con la Dama semifallo no tenía elección. El semifallo es la tenencia más probable, así que el impasse gana alrededor del 65% de las veces.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'El impasse de fallo, perdedora sobre perdedora y afirmar un palo fallando',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Tres maneras de crear bazas con los triunfos: el impasse de fallo, descartar una perdedora sobre otra perdedora y afirmar un palo lateral fallando.',
+    body: `
+<h3>El impasse de fallo</h3>
+<p>Un impasse normal se juega <em>hacia</em> una horquilla. Un <strong>impasse de fallo</strong> juega un honor <em>a través</em> del defensor que puede tener la carta más alta que falta, con un fallo y un triunfo preparados detrás. Si ese defensor cubre, fallas y tus honores restantes son ganadores; si no, descartas una perdedora.</p>
+<p>Con ♦K Q J 10 en el muerto y ningún diamante en tu mano, juega el ♦K. Si Este cubre con el As, fállalo, y la Q J 10 están afirmadas. Si Este juega pequeño, tira una perdedora: si el Rey gana, has ahorrado una baza, y si Oeste lo gana con el As, solo has cambiado una perdedora por otra. En cualquier caso, los honores restantes te dan descartes.</p>
+
+<h4>¿Qué impasse?</h4>
+<p>Con A Q J 10 frente a un semifallo puedes elegir. El impasse normal (jugar hacia el A Q) gana cuando <strong>Oeste</strong> tiene el Rey; el impasse de fallo (cobrar el As y luego jugar la Dama) gana cuando lo tiene <strong>Este</strong>. Por sí solos valen lo mismo, así que deja que decida el resto de la mano: la subasta puede situar el Rey y, a menudo, un defensor es peligroso y el otro no. Elige el impasse que, si falla, pierda contra el defensor inofensivo.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ por Sur. Oeste sale con el ♣K."></div>
+<p>Este es el peligroso: un diamante de Este, a través de tu ♦K, podría dar a la defensa tres bazas de diamante. Oeste es inofensivo: un diamante de Oeste llega hasta tu Rey.</p>
+<ul>
+<li><strong>El impasse normal</strong>, corazón a la Dama, pierde contra el Rey de Este. Este cambia al ♦J y te multan dos bazas.</li>
+<li><strong>El impasse de fallo:</strong> corazón al As y luego la ♥Q. Si Este cubre, falla, y los corazones restantes del muerto se ocupan de tus diamantes; si Este juega pequeño, tira un diamante. Tal como están las cartas, haces doce bazas.</li>
+</ul>
+<p>¿Y si Oeste hubiera tenido el ♥K? Entonces el impasse de fallo pierde, pero contra Oeste, que no puede jugar diamante a través de tu Rey, y ya has tirado un diamante sobre la ♥Q: sigues haciendo diez bazas. El impasse de fallo cumple el contrato tenga quien tenga el Rey.</p>
+
+<h3>Perdedora sobre perdedora</h3>
+<p>A veces la mejor respuesta a una baza que vas a perder de todos modos no es fallarla, sino tirar sobre ella una perdedora de otro palo. El número de bazas es el mismo, porque una perdedora sustituye a otra, pero conservas tus triunfos, tu control o tus entradas.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ por Sur. Oeste cobra el ♥A y el ♥K, Este juega alta-baja, y Oeste continúa con la ♥Q."></div>
+<p>Este falla el tercer corazón con el ♠J. Si sobrefallas, la ♠Q 6 de Oeste queda por encima de tu único honor mayor restante y la Dama se promociona: pierdes dos corazones, un triunfo y un trébol, una multa. En cambio, tira tu trébol perdedor. El Valet de Este gana la baza, pero tus triunfos siguen intactos: el As y el Rey capturan la Dama de Oeste, y la perdedora de trébol ya se ha ido. Diez bazas.</p>
+<p>Otros usos habituales:</p>
+<ul>
+<li><strong>Conservar el control:</strong> cuando la defensa juega un palo que tendrías que fallar en tu mano larga, descartar una perdedora conserva tu longitud de triunfo (consulta la lección “El manejo de los triunfos”).</li>
+<li><strong>Afirmar un palo:</strong> con ♦Q J 10 9 en el muerto, ningún diamante en tu mano y sin el As ni el Rey, juega la Dama y luego el Valet, tirando una perdedora cada vez. Cedes dos bazas que ibas a perder de todos modos, y el 10 y el 9 quedan ganadores.</li>
+<li><strong>Una puesta en mano:</strong> el defensor que gana una baza de perdedora sobre perdedora puede verse obligado a jugar hacia tu horquilla o a darte fallo y descarte (consulta la lección “Introducción a los squeezes y las puestas en mano”).</li>
+</ul>
+
+<h3>Afirmar un palo fallando</h3>
+<p>Un palo lateral largo en el muerto se puede <strong>afirmar fallando</strong>: falla sus cartas pequeñas en tu mano hasta que a la defensa no le quede ninguna, y el resto del palo te da descartes. Cada fallo necesita una entrada para volver al muerto, y al final necesitas una más para cobrar las cartas largas, así que cuenta las entradas antes de empezar.</p>
+<table>
+<thead><tr><th>Muerto</th><th>Tu mano</th><th>Reparto</th><th>Fallos necesarios</th><th>Cartas largas</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ por Sur. Oeste sale con la ♦Q."></div>
+<p>Tienes once bazas seguras: siete picas, el ♥A, el ♦A K y el ♣A. La duodécima tiene que salir de los corazones del muerto, que necesitan tres fallos si están 4-3, así que necesitas tres entradas al muerto después del ♥A: el ♠8, el ♠K y el ♦K.</p>
+<ol>
+<li>Gana la ♦Q con el <strong>As</strong>, para conservar el ♦K del muerto como entrada.</li>
+<li>Juega corazón al As y falla un corazón con el ♠9.</li>
+<li>Juega el ♠2 al 8 del muerto y falla otro corazón con el ♠10.</li>
+<li>Juega el ♠3 al Rey y falla un tercer corazón con el ♠J. Ahora a la defensa no le quedan corazones ni triunfos.</li>
+<li>Pasa al muerto con el ♦K y cobra el quinto corazón, tirando tu trébol perdedor. Solo pierdes un diamante.</li>
+</ol>
+<p>Si destriunfas dos vueltas antes de empezar, te falta una entrada: el slam se multa.</p>
+<div class="tip">Planifica las entradas antes de tocar el palo: una por cada fallo y otra para cobrar las cartas largas. Los triunfos del muerto suelen ser las entradas, así que juega hacia ellos tus triunfos pequeños y falla con los altos.</div>
+<div class="warn">Falla alto siempre que un defensor pueda haberse quedado sin el palo y sobrefallar.</div>
+`,
+    keyPoints: [
+      'Un impasse de fallo juega un honor a través del defensor que puede tener la carta que falta: si cubre, fallas; si no, descartas una perdedora.',
+      'Con A Q J 10 frente a un semifallo, elige entre el impasse normal y el de fallo preguntándote contra qué defensor puedes permitirte perder.',
+      'Perdedora sobre perdedora: descarta una perdedora en vez de fallar cuando fallar te costaría una baza de triunfo, el control o una entrada.',
+      'Para afirmar un palo fallando necesitas una entrada por cada fallo y otra para cobrar las cartas largas.',
+      'Usa los triunfos del muerto como entradas; no destriunfes hasta haberlos usado.',
+    ],
+    quiz: [
+      {
+        q: 'El muerto tiene ♦K Q J 10 y tú no tienes diamantes. Juegas el ♦K y Este juega pequeño. ¿Qué haces?',
+        options: ['Fallarlo', 'Descartar una perdedora', 'Descartar una ganadora', 'Mejor jugar otro palo'],
+        answer: 1,
+        explain: 'Es el impasse de fallo. Si el Rey gana, has ahorrado una baza; si Oeste lo gana con el As, solo has cambiado una perdedora por otra, y la Q J 10 son ganadoras.',
+      },
+      {
+        q: 'Tienes ♥A Q J 10 en el muerto frente a un semifallo. ¿Cuándo funciona el impasse de fallo (el As y luego la Dama)?',
+        options: ['Cuando Oeste tiene el Rey', 'Cuando Este tiene el Rey', 'Siempre que los corazones estén 3-3', 'Siempre'],
+        answer: 1,
+        explain: 'La Dama se juega a través de Este: Este cubre y fallas, o Este se agacha y la Dama gana. El impasse normal, hacia el A Q, es el que gana cuando Oeste tiene el Rey.',
+      },
+      {
+        q: 'En la mano de 4♠ de arriba, ¿por qué es mejor el impasse de fallo que el impasse normal?',
+        options: ['Funciona más a menudo', 'Si falla, pierde contra Oeste, que no puede atacar tu ♦K', 'Ahorra una entrada', 'Destriunfa a la vez'],
+        answer: 1,
+        explain: 'Cada impasse funciona la mitad de las veces, pero el normal pierde contra Este, que puede jugar diamante a través de tu Rey. Si el impasse de fallo pierde, Oeste queda en mano y tú ya has tirado un diamante.',
+      },
+      {
+        q: 'En la mano de perdedora sobre perdedora, Este falla el tercer corazón con el ♠J. ¿Qué haces?',
+        options: ['Sobrefallar con el As', 'Sobrefallar con el Rey', 'Tirar tu trébol perdedor', 'Tirar un diamante'],
+        answer: 2,
+        explain: 'Sobrefallar promociona la ♠Q 6 de Oeste a una baza. Tirar el trébol, que era perdedor de todos modos, deja intactos tus triunfos, y el As y el Rey capturan luego la Dama.',
+      },
+      {
+        q: 'El muerto tiene ♥A 6 5 4 3 y tú un semifallo. Los corazones de la defensa están 4-3. ¿Cuántas veces tienes que fallar antes de que el último corazón del muerto sea ganador?',
+        options: ['Una', 'Dos', 'Tres', 'Cuatro'],
+        answer: 2,
+        explain: 'Tras el As, la defensa aún tiene cinco corazones, tres en una mano. Tienes que fallar tres vueltas y necesitas una entrada al muerto después de cada fallo.',
       },
     ],
   },
@@ -683,6 +887,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'El muerto invertido y el golpe de triunfo',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Dos jugadas que fallan a propósito en la mano larga de triunfo: hacer que los triunfos del muerto saquen los de la defensa, y acortar tus propios triunfos para hacer el impasse cuando al muerto no le queda triunfo que jugar.',
+    body: `
+<h3>Fallar en la mano larga</h3>
+<p>La lección “El manejo de los triunfos” explica que los fallos en la mano corta de triunfo ganan bazas y los fallos en la mano larga normalmente no. Dos técnicas le dan la vuelta a esa regla. En el <strong>muerto invertido</strong> fallas tantas veces en tu mano que los triunfos del muerto se encargan de destriunfar. En el <strong>golpe de triunfo</strong> fallas para acortar tus triunfos, de modo que puedes capturar un honor de triunfo de un defensor sin jugar triunfo.</p>
+
+<h3>El muerto invertido</h3>
+<p>Con cinco triunfos en tu mano y tres en el muerto, normalmente haces cinco bazas de triunfo. Falla tres veces en tu mano y luego destriunfa con los tres del muerto, y haces seis: tres fallos más tres vueltas de triunfo desde el muerto. El muerto se ha convertido en la mano principal, y tus fallos son ahora fallos en la mano corta.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ por Sur. Oeste sale con el ♦K."></div>
+<p><strong>Cuenta:</strong> cinco picas, el ♥A, el ♦A y cuatro tréboles suman once bazas. El muerto no puede fallar nada, porque tiene tantos diamantes y tréboles como tú, y tus dos perdedoras de diamante no tienen adónde ir.</p>
+<p><strong>Invierte el muerto:</strong> falla en tu mano los tres corazones pequeños del muerto y deja que el ♠K Q J destriunfe. Las entradas al muerto son el ♥A, el ♠K, la ♠Q y el ♣K.</p>
+<ol>
+<li>Gana con el ♦A y juega corazón al As.</li>
+<li>Falla un corazón y juega una pica pequeña al Rey.</li>
+<li>Falla un corazón y juega pica a la Dama.</li>
+<li>Falla el último corazón con el ♠A y pasa al muerto con un trébol al Rey.</li>
+<li>Saca el último triunfo con el ♠J, tirando un diamante, y haz el resto de los tréboles.</li>
+</ol>
+<p>Seis bazas de triunfo (tres fallos y tres vueltas desde el muerto), el ♥A, el ♦A y cuatro tréboles suman doce. El plan necesita que los triunfos estén 3-2, para que los tres triunfos del muerto puedan sacarlos, y necesita todas las entradas. Por eso solo una salida de triunfo multa el 6♠: quita una vuelta de triunfo antes de que empiecen los fallos, y al declarante le falta una entrada.</p>
+<div class="tip">Prueba del muerto invertido: suma los fallos que puedes dar en tu mano a la longitud de triunfo del muerto. Si el total supera tu propia longitud de triunfo y los triunfos del muerto son lo bastante fuertes para sacar los de la defensa, invertir el muerto gana una baza.</div>
+
+<h3>El golpe de triunfo</h3>
+<p>A veces un defensor tiene un honor de triunfo detrás de tu horquilla, como ♠K x detrás de tu ♠A Q, y al muerto no le queda triunfo para jugar a través. No puedes hacer el impasse jugando triunfo tú mismo. Pero si el muerto sale al final de la mano, cuando el defensor solo tiene triunfos, el defensor tiene que jugar uno <em>antes</em> que tú, y el impasse funciona sin triunfo en el muerto. Eso es un <strong>golpe de triunfo</strong>. Para que funcione, antes tienes que acortar tus triunfos fallando, hasta no tener más que el defensor.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ por Sur. Oeste cobra el ♣A y cambia al ♥10."></div>
+<p>No puedes perder nada más. Gana con el ♥A y juega pica: Este juega pequeño y tu 9 gana. Pasa al muerto con el ♦A y repite el impasse: el 10 gana y Oeste no sirve. Este empezó con cuatro triunfos y aún tiene ♠K 8 detrás de tu ♠A Q J 3, y al muerto no le quedan picas. Si cobras ahora el As, el Rey de Este hace baza: una multa.</p>
+<p>En cambio, acorta tus triunfos. Tienes cuatro contra dos de Este, así que tienes que fallar dos veces:</p>
+<ol>
+<li>Pasa al muerto con el ♦K, cobra el ♥K y falla un trébol con el ♠3.</li>
+<li>Pasa al muerto con la ♦Q y falla un corazón con el ♠J. Ahora tienes ♠A Q, tantos triunfos como Este.</li>
+<li>Pasa al muerto con el ♦J; Este sirve. En la baza doce sale el muerto.</li>
+</ol>
+<p>Falla un trébol y un corazón, no dos tréboles: así Este tiene que servir cada vez y nunca consigue un descarte libre. Si lo consiguiera, tiraría un diamante y más tarde fallaría una de las ganadoras de diamante del muerto.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="Las dos últimas bazas. Las picas son triunfo y sale el muerto."></div>
+<p>Este solo tiene triunfos y tiene que jugar uno antes que tú: el ♠8, y ganas con la Dama, o el ♠K, y ganas con el As. Doce bazas.</p>
+<h4>Lo que necesita un golpe de triunfo</h4>
+<ul>
+<li><strong>No tener más triunfos que el defensor</strong> al final: acorta los tuyos fallando, incluso fallando ganadoras del muerto si hace falta (eso se llama <em>gran golpe</em>).</li>
+<li><strong>Entradas al muerto</strong> para cada impasse de triunfo, cada fallo y la salida final.</li>
+<li><strong>El momento justo:</strong> cuando llega el golpe, al defensor solo le deben quedar triunfos. Contar su mano te dice cuándo.</li>
+</ul>
+<div class="warn">Acorta tus triunfos solo cuando sepas que lo necesitas. Si los triunfos hubieran estado 3-3, el As habría hecho caer el Rey, y fallar en tu mano solo desperdiciaría triunfos. Aquí, Oeste al no servir en la segunda vuelta te dijo que Este empezó con cuatro.</div>
+`,
+    keyPoints: [
+      'En el muerto invertido fallas tantas veces en la mano larga de triunfo que los triunfos del muerto sacan los de la defensa.',
+      'Gana cuando los fallos en tu mano más la longitud de triunfo del muerto superan tu propia longitud de triunfo; necesita buenos triunfos en el muerto y entradas.',
+      'Un golpe de triunfo captura un honor de triunfo de un defensor sin jugar triunfo: sale el muerto y el defensor tiene que jugar primero.',
+      'Antes de un golpe de triunfo, acorta tus triunfos fallando hasta no tener más que el defensor.',
+      'Cuenta primero los triunfos del defensor; el golpe solo hace falta cuando el reparto es malo.',
+    ],
+    quiz: [
+      {
+        q: '¿Qué es el muerto invertido?',
+        options: ['Fallar en el muerto las perdedoras del muerto', 'Fallar en tu propia mano larga de triunfo tantas veces que los triunfos del muerto sacan los de la defensa', 'Dejar que el muerto juegue la mano', 'Cambiar a sin triunfo'],
+        answer: 1,
+        explain: 'Los papeles de las manos se invierten: tus triunfos sirven para fallar, y los triunfos del muerto, más cortos pero fuertes, sacan los de la defensa.',
+      },
+      {
+        q: 'Tienes cinco triunfos y el muerto tres fuertes. ¿Cuántos fallos en tu mano necesitas para que el muerto invertido gane una baza?',
+        options: ['Uno', 'Dos', 'Tres', 'Cinco'],
+        answer: 2,
+        explain: 'Tres fallos más tres vueltas de triunfo desde el muerto suman seis bazas de triunfo, una más que tus cinco.',
+      },
+      {
+        q: 'En la mano de muerto invertido de arriba, ¿qué salida multa el 6♠?',
+        options: ['El ♦K', 'Un corazón', 'Un triunfo', 'Un trébol'],
+        answer: 2,
+        explain: 'Una salida de triunfo quita una vuelta de triunfo antes de que el declarante pueda empezar a fallar, y entonces le falta una entrada para completar la inversión.',
+      },
+      {
+        q: '¿Qué tienes que hacer antes de un golpe de triunfo?',
+        options: ['Sacar todos los triunfos de la defensa', 'Acortar tus triunfos fallando hasta no tener más que el defensor', 'Conservar un triunfo en el muerto', 'Jugar tu horquilla de triunfo'],
+        answer: 1,
+        explain: 'Al final, al defensor solo le deben quedar triunfos y tú no debes tener más triunfos que él, para que la salida del muerto le obligue a jugar antes que tú.',
+      },
+      {
+        q: 'En el final del golpe de triunfo de arriba, ¿por qué no hace baza el Rey de Este?',
+        options: ['Este tiene que jugar un triunfo antes que tú, y tú juegas por encima', 'El Rey ya se había jugado', 'Oeste tiene el Rey', 'Este está en squeeze en corazones'],
+        answer: 0,
+        explain: 'Sale el muerto y a Este solo le quedan ♠K 8. Juegue lo que juegue, ganas con la carta inmediatamente superior.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Contar en defensa',
     topic: 'Defense',
@@ -861,6 +1152,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['Nunca sale caro', 'Porque, si se cumple, el valor de bazas doblado puede llegar a manga: 2♥ doblado vale 470 o 670', 'Porque los rivales reciben una prima por ser doblados', 'Porque tienes que salir de triunfo'],
         answer: 1,
         explain: 'Doblado, 2♥ tiene un valor de bazas de 120, que cuenta como manga. Espera multar un parcial antes de doblarlo.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Salidas contra slams y contratos doblados',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Cómo elegir la salida contra slams, contra contratos doblados y sacrificios, y cómo puede tu compañero pedirte una salida con un doblo.',
+    body: `
+<h3>Contra slams a sin triunfo: no regales nada</h3>
+<p>Cuando los rivales declaran 6SA o 7SA tienen entre los dos unos 33 PH o más, y tu bando tiene muy poco. Rara vez tendrás tiempo de afirmar un palo largo, así que tu trabajo es no regalarle una baza al declarante. Haz la salida más segura que puedas: la cabeza de una secuencia o un palo sin honores. No salgas desde un Rey o una Dama: contra un slam, eso suele ser la duodécima baza.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="En salida contra 1SA – 6SA"></div>
+<p>Sal con el ♦8, la más alta de tres pequeñas. Una pica o un corazón podrían darle una baza al declarante con honores que no ves; el diamante no regala nada, y tu ♠K y tu ♥Q aún pueden hacer baza si el declarante tiene que encontrarlos.</p>
+
+<h3>Contra slams a palo: ¿atacar o esperar?</h3>
+<p>Contra seis de un palo te haces la misma pregunta que contra cualquier contrato a palo (consulta la lección “La defensa contra contratos a palo”), pero necesitas dos bazas y solo tienes una salida. La salida segura es lo normal, y es lo que sigue el tutor en sus consejos de salida; la salida de ataque es la excepción, para las subastas que muestran de dónde saldrán los descartes del declarante.</p>
+<ul>
+<li><strong>Ataca</strong> cuando la subasta muestra un palo lateral largo que dará descartes. Sal desde un Rey (o una Dama) en un palo no declarado, con la esperanza de que tu compañero tenga el As o la Dama, para afirmar una baza antes de que lleguen los descartes.</li>
+<li><strong>Sé pasivo</strong> cuando los rivales parecen haber declarado por fuerza, con manos equilibradas y sin palo lateral largo. Entonces el declarante tiene que encontrar doce bazas solo, y una salida segura, a menudo un triunfo, no regala nada.</li>
+<li><strong>Un semifallo</strong> vale la pena cuando tu compañero puede tener un As: gana con él y te da un fallo.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="En salida contra 6♥; el muerto ha mostrado un palo de trébol largo y fuerte"></div>
+<p>Sal con el ♠2. En cuanto destriunfe, el declarante tirará perdedoras sobre los tréboles del muerto, así que la defensa tiene que afirmar antes sus bazas. Una pica desde el Rey puede encontrar a tu compañero con el As o la Dama y montar una baza a tiempo. Un diamante sería seguro, pero demasiado lento.</p>
+<h4>Salir de As</h4>
+<p>Sal con un As sin apoyo contra un slam a palo cuando el muerto ha mostrado un palo lateral largo, de modo que el palo de tu As podría desaparecer bajo los descartes, o cuando tienes buenas opciones de una segunda baza, como una baza de triunfo o un Rey situado detrás del palo del declarante. Si no, guárdalo: el As seguirá haciendo su baza más tarde, mientras que salir con él puede afirmar el Rey y la Dama del declarante. Contra 6SA un As es una baza segura, así que no hay prisa por jugarlo.</p>
+<p>Contra un gran slam, haz la salida más segura que tengas, a menudo un triunfo: el declarante necesita todas las bazas, así que cualquier baza que regales es fatal.</p>
+
+<h3>Doblos de salida</h3>
+<p>Cuando un rival hace una voz artificial, el doblo del siguiente jugador normalmente no tiene nada que ver con el castigo: pide a su compañero que salga en ese palo.</p>
+<table>
+<thead><tr><th>Tu compañero dobla</th><th>Significado</th></tr></thead>
+<tbody>
+<tr><td>Stayman: 1SA – 2♣</td><td>Sal a trébol: tu compañero tiene un buen palo de trébol</td></tr>
+<tr><td>Un transfer: 1SA – 2♦</td><td>Sal a diamante</td></tr>
+<tr><td>Un cue-bid o una voz de control, como 4♣ camino de un slam a corazón</td><td>Sal a trébol</td></tr>
+<tr><td>Una respuesta al Blackwood, como 5♦</td><td>Sal a diamante</td></tr>
+</tbody>
+</table>
+<p>La ausencia de doblo también informa: si tu compañero podía haber doblado un cue-bid de 4♦ y no lo hizo, probablemente no quiere salida a diamante.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="Oeste: en salida contra 4♥"></div>
+<p>Sin el doblo quizá saldrías a pica o a diamante, ambas desde un honor. El doblo de Este al Stayman pidió trébol, así que sal con el ♣8, la más alta de tres pequeñas. Este tiene un buen palo de trébol y tú no tienes que abrir tus otros palos.</p>
+
+<h3>Salidas contra contratos doblados</h3>
+<table>
+<thead><tr><th>Situación</th><th>Salida</th></tr></thead>
+<tbody>
+<tr><td>Tu compañero dobla 3SA después de haber declarado un palo</td><td>El palo de tu compañero</td></tr>
+<tr><td>Tu compañero dobla 3SA; tú declaraste un palo y él no</td><td>Tu palo</td></tr>
+<tr><td>Tu compañero dobla 3SA; ninguno de los dos ha declarado</td><td>El primer palo declarado por el muerto</td></tr>
+<tr><td>Tu compañero dobla un slam</td><td>Una salida inusual (ver más abajo)</td></tr>
+<tr><td>Tu bando ha doblado su sacrificio</td><td>Normalmente un triunfo</td></tr>
+<tr><td>Tu compañero pasa tu doblo informativo para castigar</td><td>Un triunfo</td></tr>
+</tbody>
+</table>
+<p>¿Por qué un triunfo contra un sacrificio? El bando que se sacrifica tiene pocas cartas altas y espera hacer sus bazas fallando; tu bando tiene las cartas altas, que harán sus bazas de todos modos. Cada vuelta de triunfo reduce sus fallos. Estos significados son acuerdos habituales: asegúrate de que tu compañero los comparte.</p>
+
+<h3>El doblo Lightner</h3>
+<p>Doblar para castigo un slam declarado libremente gana poco. El 6♠ con una multa da 50 o 100 más doblado que sin doblar, pero si se cumple, el doblo cuesta 230, mucho más si redoblan, y avisa al declarante de un mal reparto. Por eso, según una convención que lleva el nombre de Theodore Lightner, el doblo de un slam por el jugador que <em>no</em> está en salida pide una <strong>salida inusual</strong>:</p>
+<ul>
+<li>no un triunfo, ni un palo no declarado, porque eso es lo que saldrías de todos modos;</li>
+<li>normalmente el primer palo lateral declarado por el muerto, a menudo porque tu compañero tiene fallo en él;</li>
+<li>si tu compañero ha declarado un palo, el doblo dice además: no salgas en mi palo.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="Oeste: en salida tras el doblo de Este"></div>
+<p>Tu salida normal sería la ♦Q. El doblo de Este pide algo inusual: el primer palo declarado por el muerto, corazones. Sal con el ♥8. Este probablemente tiene fallo a corazón y lo fallará, y entonces la defensa solo necesita una baza más.</p>
+<div class="warn">No hagas un doblo de salida solo porque tienes cartas altas en el palo. Dobla cuando de verdad quieras esa salida, y recuerda que los rivales también pueden aprovechar el doblo: pueden redoblar o simplemente evitar el contrato.</div>
+`,
+    keyPoints: [
+      'Contra 6SA y 7SA, sal seguro: no salgas desde honores.',
+      'Contra un slam a palo, ataca (a menudo desde un Rey) cuando el muerto tiene un palo largo para descartes; si no, sé pasivo.',
+      'Sal de As contra un slam cuando podría desaparecer bajo los descartes o esperas una segunda baza; si no, guárdalo.',
+      'El doblo de una voz artificial como el Stayman, un transfer o un cue-bid pide la salida en ese palo.',
+      'El doblo Lightner de un slam pide una salida inusual, normalmente el primer palo lateral del muerto; contra un sacrificio doblado, sal de triunfo.',
+    ],
+    quiz: [
+      {
+        q: 'Estás en salida contra 1SA – 6SA con ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. ¿Con qué sales?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Contra un slam a sin triunfo, sal seguro. El ♦8 no regala nada; salir desde el Rey, la Dama o el Valet puede darle al declarante la duodécima baza.',
+      },
+      {
+        q: 'Los rivales declaran 6♥ después de que el muerto mostrara un palo de trébol largo y fuerte. ¿Qué tipo de salida suele ser la correcta?',
+        options: ['Pasiva: un triunfo', 'De ataque: desde un Rey en un palo no declarado, para afirmar una baza antes de que el declarante pueda descartarse', 'Un trébol, para cortar el muerto', 'Siempre un As'],
+        answer: 1,
+        explain: 'En cuanto destriunfe, las perdedoras del declarante se irán sobre los tréboles del muerto. La defensa tiene que montar antes sus bazas.',
+      },
+      {
+        q: 'Los rivales declaran 1SA – 2♣ (Stayman) y tu compañero dobla. ¿Qué pide el doblo?',
+        options: ['Castigo en 2♣', 'Salida a trébol', 'Que declares un mayor', 'Muestra una mano equilibrada fuerte'],
+        answer: 1,
+        explain: 'El 2♣ es artificial, así que el doblo es de salida: tu compañero tiene un buen palo de trébol y quiere que salgas en él.',
+      },
+      {
+        q: 'Tu compañero hace un doblo Lightner de 6♠. El muerto declaró corazones y tú tienes dos corazones y ♦Q J 10 9. ¿Con qué sales?',
+        options: ['La ♦Q', 'Un corazón', 'Un triunfo', 'Un trébol'],
+        answer: 1,
+        explain: 'El doblo pide una salida inusual, normalmente el primer palo lateral del muerto. Tu compañero probablemente tiene fallo a corazón.',
+      },
+      {
+        q: 'Has doblado el sacrificio de 5♦ de los rivales. ¿Cuál suele ser la mejor salida?',
+        options: ['Un triunfo', 'Tu palo más largo', 'Un As, para ver el muerto', 'Un semifallo'],
+        answer: 0,
+        explain: 'El bando que se sacrifica tiene pocas cartas altas y hace sus bazas fallando. Las salidas de triunfo reducen esos fallos, y tus cartas altas harán sus bazas de todos modos.',
       },
     ],
   },

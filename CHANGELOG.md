@@ -22,6 +22,8 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - Skill accuracy counts only real decisions; the next lesson follows the course's levels.
 - A first visit is welcomed, with a path for beginners.
 - Lesson corrections from a teacher's review, and seven new glossary terms.
+- Four new lessons: defending against notrump, ruffing finesses and loser on loser, dummy reversal
+  and the trump coup, and leads against slams and doubled contracts; eight new glossary terms.
 
 ### Everywhere
 - Phones: one-row header, a compact table, and a bidding pad that shows a call's meaning before you make it.

@@ -33,9 +33,9 @@ export const SKILLS: SkillInfo[] = [
   { id: 'bid.notrump', lessons: ['notrump-bidding', 'strong-openings', 'texas-transfers'], theme: 'notrump' },
   { id: 'bid.competitive', lessons: ['overcalls', 'takeout-doubles', 'negative-doubles', 'michaels-and-unusual-2nt', 'balancing', 'law-of-total-tricks', 'penalty-doubles-and-sacrifices'], theme: 'competitive' },
   { id: 'bid.slam', lessons: ['slam-bidding-and-blackwood', 'roman-key-card-blackwood', 'gerber-and-quantitative', 'slam-controls-and-cue-bids'], theme: 'slam' },
-  { id: 'play.lead', lessons: ['opening-leads', 'rule-of-eleven'], theme: 'leads' },
-  { id: 'play.declarer', lessons: ['planning-the-play', 'establishing-long-suits', 'finesses', 'hold-up-and-entries', 'trump-management', 'suit-combinations-and-odds', 'safety-plays', 'avoidance-play', 'squeezes-and-endplays'], theme: 'declarer' },
-  { id: 'play.defense', lessons: ['second-and-third-hand', 'defensive-signals', 'defending-suit-contracts', 'counting-on-defense'], theme: 'defense' },
+  { id: 'play.lead', lessons: ['opening-leads', 'rule-of-eleven', 'leads-against-slams-and-doubles'], theme: 'leads' },
+  { id: 'play.declarer', lessons: ['planning-the-play', 'establishing-long-suits', 'finesses', 'hold-up-and-entries', 'trump-management', 'suit-combinations-and-odds', 'ruffing-finesse-and-loser-on-loser', 'safety-plays', 'avoidance-play', 'dummy-reversal-and-trump-coup', 'squeezes-and-endplays'], theme: 'declarer' },
+  { id: 'play.defense', lessons: ['second-and-third-hand', 'defensive-signals', 'defending-suit-contracts', 'defending-against-notrump', 'counting-on-defense'], theme: 'defense' },
 ];
 
 export function skillInfo(id: SkillId): SkillInfo {

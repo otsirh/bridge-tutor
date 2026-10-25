@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'Obrona przeciw bez atu',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Jak obrona wygrywa wyścig przeciw bez atu: odblokowanie, zwrot właściwej karty, utrzymanie kontaktu, atak na dojścia rozgrywającego i dobre zrzutki.',
+    body: `
+<h3>Wyścig po lewy</h3>
+<p>W bez atu nic nie zatrzyma długiego koloru, gdy już zostanie wyrobiony. Obie strony się ścigają: rozgrywający, żeby wyrobić dość lew, obrona, żeby pierwsza wyrobić i ściągnąć swój długi kolor. Większość kłopotów obrony to kłopoty z <strong>komunikacją</strong>: długi kolor jest w jednej ręce, a dojścia często w drugiej. Dobra obrona utrzymuje kolor w ruchu między obrońcami i przecina komunikację rozgrywającego.</p>
+
+<h3>Trzecia ręka: wysoko i nie na drodze partnera</h3>
+<p>Trzecia ręka gra wysoko (zob. lekcję „Druga ręka nisko, trzecia wysoko”). W bez atu ma drugi obowiązek: nie <strong>blokować</strong> koloru partnera. Z honorem w dublu w długim kolorze partnera pozbądź się tego honoru wcześnie, nawet jeśli musisz w tym celu przejąć kartę partnera.</p>
+<table>
+<thead><tr><th>Pozycja</th><th>Kiery</th></tr></thead>
+<tbody>
+<tr><td>Północ (dziadek)</td><td>6 5 2</td></tr>
+<tr><td>Zachód (partner, wistuje K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Wschód (ty)</td><td>A 3</td></tr>
+<tr><td>Południe (rozgrywający)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Jeśli dołożysz 3, rozgrywający przepuści. Partner kontynuuje damą i twój as musi wziąć drugą rundę: nie masz już kiera do zwrotu, walet rozgrywającego nadal zatrzymuje kolor, a partner potrzebuje jeszcze dwóch dojść, żeby wyrobić i ściągnąć kiery. Zamiast tego <strong>przejmij</strong> króla asem i zwróć 3. Walet rozgrywającego jest w pułapce, a obrona bierze pięć pierwszych lew kierowych.</p>
+<ul>
+<li>Odblokuj, gdy wist partnera pokazuje mocny kolor (najwyższą kartę sekwensu, np. K Q 10 albo Q J 10), a ty masz honor w dublu: zagraj honor wcześnie, żeby twoja ostatnia karta była blotką.</li>
+<li>Z trzema kartami z honorem (A x x, K x x) graj wysoko i zachowaj blotkę do zwrotu: niczego nie blokujesz.</li>
+</ul>
+
+<h3>Zwrot w kolor partnera</h3>
+<p>Gdy weźmiesz lewę i wracasz w kolor partnera, wybrana karta mówi mu, ile kart ci zostało, a więc ile ma rozgrywający.</p>
+<table>
+<thead><tr><th>Miałeś</th><th>Bierzesz</th><th>Zwracasz</th><th>Zasada</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Zostały dwie karty: zwróć wyższą</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Zostały trzy lub więcej: zwróć swoją pierwotną czwartą od góry</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>Pierwotna czwarta od góry, nie najniższa karta</td></tr>
+</tbody>
+</table>
+<p>Wysoka karta mówi „została mi najwyżej jedna”; niska mówi „zostały mi jeszcze co najmniej dwie”. Partner może wtedy ustalić, czy rozgrywający ma jeszcze zatrzymanie i czy brać teraz, czy przepuścić. Zwrot wyższej z dwóch kart chroni też przed zablokowaniem koloru: jeśli zatrzymasz 9, może ona wziąć trzecią rundę, choć to partner powinien być na wiście.</p>
+
+<h3>Przepuszczenie dla zachowania kontaktu</h3>
+<p>Obrońca z długim kolorem musi czasem wcześnie oddać lewę, póki partner ma jeszcze kartę w tym kolorze do zwrotu.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3BA gra Południe po 1BA – 3BA. Zachód wistuje ♠A, a Wschód dokłada ♠2."></div>
+<p>Dwójka Wschodu zaprzecza honorowi pikowemu, więc rozgrywający ma ♠Q J. Zachód liczy: Południe ma 15-17 PC, dziadek 13, a Zachód 8, więc Wschód ma najwyżej 4. Rozgrywający wygra kontrakt, wybijając ♦A, więc jedyną nadzieją obrony jest to, że ma go Wschód.</p>
+<p>Jeśli Zachód ściągnie ♠K i zagra trzeciego pika, rozgrywający bierze ostatnim honorem, a Wschód, który miał trzy piki, nie ma już żadnego. Wschód bierze ♦A, ale nie może dojść do Zachodu, którego dwa długie piki nigdy nie wezmą lewy: rozgrywający robi dziesięć lew. Zamiast tego Zachód gra w drugiej lewie <strong>małego pika</strong>. Rozgrywający bierze, ale Wschód zachowuje pika. Gdy Wschód weźmie ♦A, zwraca go, a Zachód ściąga ♠K i dwa ostatnie piki: bez jednej.</p>
+<p>Mały pik już w pierwszym wiście dałby to samo. Zasada: gdy twój kolor jest długi, a nie masz bocznego dojścia, oddaj lewę, którą i tak musisz oddać, <em>póki partner ma jeszcze kartę w tym kolorze</em>.</p>
+
+<h3>Atak na dojścia rozgrywającego</h3>
+<p>Rozgrywający też ma kłopoty z komunikacją, a obrona może je pogłębić.</p>
+<ul>
+<li><strong>Przetrzymaj asa</strong>, gdy dziadek ma długi kolor i żadnego bocznego dojścia, i weź go wtedy, gdy rozgrywający zagra z ręki ostatnią kartę w tym kolorze. Sygnał ilościowy partnera mówi ci, kiedy (zob. lekcję „Sygnały w obronie”).</li>
+<li><strong>Wybij dojście dziadka</strong>, zanim długi kolor zostanie wyrobiony, nawet kosztem lewy.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Dziadek, przeciw 3BA"></div>
+<p>Jesteś Wschodem z ♠K 7 3 i ♦A 6 2, a rozgrywający ma dwa kara. Samo przetrzymanie ♦A nie wystarczy: rozgrywający wróciłby asem pik do wyrobionych kar. Dlatego gdy weźmiesz lewę, zanim zagrano karo, wyjdź <strong>♠K</strong>. Jeśli rozgrywający weźmie asem, dziadek nie ma już dojścia: przetrzymujesz ♦A do drugiej rundy i kara dziadka są martwe. Jeśli rozgrywający przepuści, twój król wziął lewę i możesz zagrać kolejnego pika. Poświęcenie honoru, żeby tak usunąć dojście, nazywa się <strong>zagraniem Merrimac</strong>. Jest rzadkie, ale pytanie, które za nim stoi, już nie: które dojście rozgrywającego jest najważniejsze?</p>
+
+<h3>Zrzutki</h3>
+<p>Gdy rozgrywający gra długi kolor, obrońcy muszą zrzucać, a jedna zła zrzutka może mu oddać kontrakt.</p>
+<ul>
+<li><strong>Trzymaj długość dziadka.</strong> Z ♣Q 10 8 3 za ♣K J 7 4 dziadka zachowaj wszystkie cztery trefle: zrzucisz jednego, a ostatni trefl dziadka może stać się lewą. Karty dziadka widać, więc to najłatwiejsza zasada.</li>
+<li><strong>Trzymaj długość rozgrywającego.</strong> Policz jego kolory z licytacji i rozgrywki i zachowaj zatrzymanie w każdym kolorze, w którym tylko ty możesz zatrzymać jego długą kartę.</li>
+<li><strong>Podzielcie się pracą.</strong> Kolor potrzebuje tylko jednego strażnika. Zostaw partnerowi kolor, który on może trzymać (pomagają w tym sygnały ilościowe), a sam trzymaj drugi.</li>
+<li><strong>Daj sygnał pierwszą zrzutką:</strong> wysoka karta prosi o kolor, niska mówi, że go nie chcesz. Zrzucaj z koloru, który możesz oddać; nigdy nie wyrzucaj potrzebnej karty tylko po to, żeby dać sygnał.</li>
+<li><strong>Zachowaj lewy wyrobionego koloru</strong>, póki ty albo partner możecie jeszcze dojść do ręki, żeby je ściągnąć.</li>
+</ul>
+<div class="tip">Policz lewy rozgrywającego, zanim zaczniesz zrzucać. Jeśli ma osiem lew i potrzebuje dziewiątej, kolor, który mógłby mu ją dać, jest kolorem, który musisz trzymać.</div>
+<div class="warn">Planuj zrzutki wcześnie. Wahanie, a potem obnażenie honoru mówi rozgrywającemu dokładnie, gdzie on jest.</div>
+`,
+    keyPoints: [
+      'W bez atu o wyścigu decyduje komunikacja: utrzymuj długi kolor w ruchu między obrońcami.',
+      'Odblokowanie: z honorem w dublu w mocnym kolorze partnera zagraj honor wcześnie, w razie potrzeby przejmując jego kartę.',
+      'Z dwóch pozostałych kart zwróć wyższą; z trzech lub więcej swoją pierwotną czwartą od góry.',
+      'Obrońca z długim kolorem i bez dojścia przepuszcza rundę, póki partner ma jeszcze kartę do zwrotu.',
+      'Atakuj dojścia rozgrywającego; przy zrzutkach trzymaj długość dziadka i pilnuj długich kart rozgrywającego.',
+    ],
+    quiz: [
+      {
+        q: 'Przeciw 3BA partner wistuje ♥K (z K Q 10 9 7). Dziadek ma ♥6 5 2, a ty ♥A 3. Co grasz?',
+        options: ['Trójkę, żeby król partnera wziął lewę', 'Asa, a potem zwracasz 3', 'Asa, a potem zmieniasz kolor', 'To bez znaczenia'],
+        answer: 1,
+        explain: 'Przejmij i zwróć 3. Jeśli dołożysz małego, rozgrywający przepuści, a twój as musi wziąć drugą rundę bez kiera do zwrotu, podczas gdy walet rozgrywającego wciąż zatrzymuje kolor.',
+      },
+      {
+        q: 'Bierzesz pikowy wist partnera przeciw 3BA asem z ♠A 9 3. Którego pika zwracasz?',
+        options: ['Dziewiątkę', 'Trójkę', 'Obojętnie', 'Nie wracam w piki'],
+        answer: 0,
+        explain: 'Z dwiema pozostałymi kartami zwróć wyższą. Partner widzi 9 i wie, że został ci najwyżej jeden pik.',
+      },
+      {
+        q: 'Bierzesz asem z ♦A 8 5 2. Które karo zwracasz?',
+        options: ['Ósemkę', 'Piątkę', 'Dwójkę', 'Żadne: zmieniam kolor'],
+        answer: 2,
+        explain: 'Z trzema lub więcej pozostałymi kartami zwróć swoją pierwotną czwartą od góry, tu 2. Niska karta mówi partnerowi, że masz jeszcze co najmniej dwa kara.',
+      },
+      {
+        q: 'Dlaczego w rozdaniu 3BA powyżej Zachód powinien w drugiej lewie zagrać małego pika?',
+        options: ['Żeby sprawdzić, kto ma ♠Q', 'Żeby Wschód zachował pika do zwrotu, gdy weźmie ♦A', 'Bo ♠K mógłby zostać przebity', 'Żeby rozgrywający zużył dojścia dziadka'],
+        answer: 1,
+        explain: 'Wschód miał trzy piki. Jeśli Zachód ściągnie króla i zagra trzeciego pika, Wschód nie będzie miał już żadnego, gdy dojdzie do ręki. Przepuszczenie teraz utrzymuje kontakt między rękami.',
+      },
+      {
+        q: 'Rozgrywający gra długi kolor. Dziadek ma ♣K J 7 4, a ty ♣Q 10 8 3 za nim. Co trzymasz?',
+        options: ['Wszystkie cztery trefle', 'Tylko Q i 10', 'Tylko damę', 'To zależy od pierwszej zrzutki partnera'],
+        answer: 0,
+        explain: 'Trzymaj długość dziadka. Gdy tylko zrzucisz trefla, czwarty trefl dziadka może stać się lewą.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Podziały kolorów i łączenie szans',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Zagrać króla', 'Zaimpasować dziesiątką', 'To dokładnie 50 na 50', 'Zagrać z drugiej ręki'],
         answer: 1,
         explain: 'Zasada ograniczonego wyboru: z Q J Wschód mógł zagrać którykolwiek honor, a z damą singlową nie miał wyboru. Singiel jest bardziej prawdopodobny, więc impas wychodzi w około 65% przypadków.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'Impas przebitkowy, przegrywająca na przegrywającą i wyrobienie koloru przebitkami',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Trzy sposoby, w jakie rozgrywający tworzy lewy atutami: impas przebitkowy, zrzucenie przegrywającej na przegrywającą i wyrobienie bocznego koloru przebitkami.',
+    body: `
+<h3>Impas przebitkowy</h3>
+<p>Zwykły impas gra się <em>w stronę</em> widełek. <strong>Impas przebitkowy</strong> gra honor <em>przez</em> obrońcę, który może mieć brakującą wyższą kartę, mając za nim renons i gotowy atut. Jeśli obrońca przykryje, przebijasz i pozostałe honory są lewami; jeśli nie, zrzucasz przegrywającą.</p>
+<p>Z ♦K Q J 10 u dziadka i bez kara w ręce zagraj ♦K. Jeśli Wschód przykryje asem, przebij, a Q J 10 są wyrobione. Jeśli Wschód dołoży małe, zrzuć przegrywającą: gdy król weźmie, zyskałeś lewę, a gdy Zachód weźmie asem, tylko zamieniłeś jedną przegrywającą na drugą. Tak czy inaczej pozostałe honory dadzą zrzutki.</p>
+
+<h4>Który impas?</h4>
+<p>Z A Q J 10 naprzeciw singla masz wybór. Zwykły impas (gra w stronę A Q) udaje się, gdy króla ma <strong>Zachód</strong>; impas przebitkowy (najpierw as, potem dama) udaje się, gdy ma go <strong>Wschód</strong>. Same w sobie są równie dobre, więc niech zdecyduje reszta rozdania: licytacja może wskazać, gdzie jest król, a często jeden obrońca jest groźny, a drugi nie. Wybierz impas, który jeśli się nie uda, odda lewę nieszkodliwemu obrońcy.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ gra Południe. Zachód wistuje ♣K."></div>
+<p>Groźny jest Wschód: karo zagrane przez Wschód, przez twojego ♦K, mogłoby dać obronie trzy lewy karowe. Zachód jest nieszkodliwy: karo zagrane przez Zachód idzie do twojego króla.</p>
+<ul>
+<li><strong>Zwykły impas</strong>, kier do damy, przegrywa z królem Wschodu. Wschód zmienia na ♦J i jesteś bez dwóch.</li>
+<li><strong>Impas przebitkowy:</strong> kier do asa, potem ♥Q. Jeśli Wschód przykryje, przebij, a pozostałe kiery dziadka zajmą się twoimi karami; jeśli Wschód dołoży małego, zrzuć karo. Przy tym układzie robisz dwanaście lew.</li>
+</ul>
+<p>A gdyby ♥K miał Zachód? Wtedy impas przebitkowy się nie udaje, ale lewę dostaje Zachód, który nie może zagrać kara przez twojego króla, a ty już zrzuciłeś karo na ♥Q: i tak robisz dziesięć lew. Impas przebitkowy wygrywa kontrakt bez względu na to, kto ma króla.</p>
+
+<h3>Przegrywająca na przegrywającą</h3>
+<p>Czasem najlepszą odpowiedzią na lewę, którą i tak oddasz, nie jest przebicie, lecz zrzucenie na nią przegrywającej z innego koloru. Liczba lew się nie zmienia, bo jedna przegrywająca zastępuje drugą, ale zachowujesz atuty, kontrolę albo dojścia.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ gra Południe. Zachód ściąga ♥A i ♥K, Wschód gra górą-dołem, a Zachód kontynuuje ♥Q."></div>
+<p>Wschód przebija trzeciego kiera ♠J. Jeśli nadbijesz, ♠Q 6 Zachodu znajdzie się nad twoim jedynym pozostałym wysokim honorem i dama zostanie promowana: oddasz dwa kiery, atu i trefla, bez jednej. Zamiast tego zrzuć przegrywającego trefla. Walet Wschodu bierze lewę, ale twoje atuty pozostają nietknięte: as i król wyłapią damę Zachodu, a przegrywającego trefla już nie ma. Dziesięć lew.</p>
+<p>Inne częste zastosowania:</p>
+<ul>
+<li><strong>Zachowanie kontroli:</strong> gdy obrona gra kolor, który musiałbyś przebić w długiej ręce, zrzutka przegrywającej zachowuje długość atutów (zob. lekcję „Gospodarka atutami”).</li>
+<li><strong>Wyrobienie koloru:</strong> z ♦Q J 10 9 u dziadka, bez kara w ręce i bez asa i króla zagraj damę, a potem waleta, za każdym razem zrzucając przegrywającą. Oddajesz dwie lewy, które i tak byś oddał, a 10 i 9 są teraz lewami.</li>
+<li><strong>Wpustka:</strong> obrońca, który weźmie lewę „przegrywająca na przegrywającą”, może być zmuszony zagrać w twoje widełki albo dać ci przebitkę ze zrzutką (zob. lekcję „Wprowadzenie do przymusów i wpustek”).</li>
+</ul>
+
+<h3>Wyrobienie koloru przebitkami</h3>
+<p>Długi boczny kolor dziadka można <strong>wyrobić przebitkami</strong>: przebijaj jego blotki w ręce, aż obrońcy nie będą mieli już kart w tym kolorze, a reszta koloru da zrzutki. Każda przebitka wymaga dojścia z powrotem do dziadka, a na końcu potrzebujesz jeszcze jednego, żeby ściągnąć długie karty, więc policz dojścia, zanim zaczniesz.</p>
+<table>
+<thead><tr><th>Dziadek</th><th>Twoja ręka</th><th>Podział</th><th>Potrzebne przebitki</th><th>Długie karty</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ gra Południe. Zachód wistuje ♦Q."></div>
+<p>Masz jedenaście pewnych lew: siedem pików, ♥A, ♦A K i ♣A. Dwunasta musi przyjść z kierów dziadka, które przy podziale 4-3 wymagają trzech przebitek, więc po ♥A potrzebujesz trzech dojść do dziadka: ♠8, ♠K i ♦K.</p>
+<ol>
+<li>Weź ♦Q <strong>asem</strong>, żeby zachować ♦K dziadka jako dojście.</li>
+<li>Zagraj kiera do asa i przebij kiera ♠9.</li>
+<li>Zagraj ♠2 do ósemki dziadka i przebij kolejnego kiera ♠10.</li>
+<li>Zagraj ♠3 do króla i przebij trzeciego kiera ♠J. Teraz obrona nie ma już ani kierów, ani atutów.</li>
+<li>Przejdź do dziadka ♦K i ściągnij piątego kiera, zrzucając przegrywającego trefla. Oddajesz tylko karo.</li>
+</ol>
+<p>Jeśli najpierw ściągniesz dwie rundy atutów, zabraknie ci dojścia: szlemik będzie bez jednej.</p>
+<div class="tip">Zaplanuj dojścia, zanim dotkniesz koloru: po jednym na każdą przebitkę i jedno, żeby ściągnąć długie karty. Atuty dziadka są często dojściami, więc graj do nich małymi atutami, a przebijaj wysokimi.</div>
+<div class="warn">Przebijaj wysoko zawsze, gdy obrońca mógł już wyjść z koloru i mógłby nadbić.</div>
+`,
+    keyPoints: [
+      'Impas przebitkowy gra honor przez obrońcę, który może mieć brakującą kartę: jeśli przykryje, przebijasz; jeśli nie, zrzucasz przegrywającą.',
+      'Z A Q J 10 naprzeciw singla wybierz między zwykłym impasem a przebitkowym, pytając, któremu obrońcy możesz oddać lewę.',
+      'Przegrywająca na przegrywającą: zrzuć przegrywającą zamiast przebijać, gdy przebitka kosztowałaby lewę atutową, kontrolę albo dojście.',
+      'Żeby wyrobić kolor przebitkami, potrzebujesz dojścia na każdą przebitkę i jeszcze jednego do ściągnięcia długich kart.',
+      'Używaj atutów dziadka jako dojść; nie ściągaj atutów, zanim ich nie wykorzystasz.',
+    ],
+    quiz: [
+      {
+        q: 'Dziadek ma ♦K Q J 10, a ty nie masz kar. Grasz ♦K, a Wschód dokłada małe. Co robisz?',
+        options: ['Przebijam', 'Zrzucam przegrywającą', 'Zrzucam wygrywającą', 'Lepiej zagram inny kolor'],
+        answer: 1,
+        explain: 'To impas przebitkowy. Jeśli król weźmie, zyskałeś lewę; jeśli Zachód weźmie asem, tylko zamieniłeś jedną przegrywającą na drugą, a Q J 10 są lewami.',
+      },
+      {
+        q: 'Masz ♥A Q J 10 u dziadka naprzeciw singla. Kiedy udaje się impas przebitkowy (as, potem dama)?',
+        options: ['Gdy króla ma Zachód', 'Gdy króla ma Wschód', 'Zawsze, gdy kiery dzielą się 3-3', 'Zawsze'],
+        answer: 1,
+        explain: 'Damę gra się przez Wschód: Wschód przykrywa i przebijasz albo Wschód przepuszcza i dama bierze. Zwykły impas, w stronę A Q, to ten, który udaje się, gdy króla ma Zachód.',
+      },
+      {
+        q: 'Dlaczego w rozdaniu 4♠ powyżej impas przebitkowy jest lepszy od zwykłego?',
+        options: ['Częściej się udaje', 'Jeśli się nie uda, lewę dostaje Zachód, który nie może zaatakować twojego ♦K', 'Oszczędza dojście', 'Jednocześnie ściąga atuty'],
+        answer: 1,
+        explain: 'Każdy impas udaje się w połowie przypadków, ale zwykły oddaje lewę Wschodowi, który może zagrać karo przez twojego króla. Jeśli impas przebitkowy się nie uda, na wiście jest Zachód, a ty już zrzuciłeś karo.',
+      },
+      {
+        q: 'W rozdaniu „przegrywająca na przegrywającą” Wschód przebija trzeciego kiera ♠J. Co robisz?',
+        options: ['Nadbijam asem', 'Nadbijam królem', 'Zrzucam przegrywającego trefla', 'Zrzucam karo'],
+        answer: 2,
+        explain: 'Nadbicie promuje ♠Q 6 Zachodu do lewy. Zrzutka trefla, który i tak był przegrywający, zostawia twoje atuty nietknięte, a as i król wyłapią potem damę.',
+      },
+      {
+        q: 'Dziadek ma ♥A 6 5 4 3, a ty singla. Kiery obrońców dzielą się 4-3. Ile razy musisz przebić, zanim ostatni kier dziadka stanie się lewą?',
+        options: ['Raz', 'Dwa razy', 'Trzy razy', 'Cztery razy'],
+        answer: 2,
+        explain: 'Po asie obrońcy mają jeszcze pięć kierów, trzy w jednej ręce. Musisz przebić trzy rundy i po każdej przebitce potrzebujesz dojścia do dziadka.',
       },
     ],
   },
@@ -683,6 +887,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'Odwrócony dziadek i coup atutowy',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Dwa zagrania, w których celowo przebija się w długiej ręce atutowej: atuty dziadka ściągają atuty obrońców albo skracasz własne atuty, żeby zaimpasować, gdy dziadek nie ma już atutu do zagrania.',
+    body: `
+<h3>Przebitki w długiej ręce</h3>
+<p>Lekcja „Gospodarka atutami” wyjaśnia, że przebitki w krótkiej ręce atutowej dają lewy, a przebitki w długiej ręce zwykle nie. Dwie techniki odwracają tę zasadę. W grze na <strong>odwróconego dziadka</strong> przebijasz w ręce tyle razy, że ściąganie atutów przejmują atuty dziadka. W <strong>coupie atutowym</strong> przebijasz, żeby skrócić swoje atuty i móc wyłapać honor atutowy obrońcy bez grania w atu.</p>
+
+<h3>Odwrócony dziadek</h3>
+<p>Z pięcioma atutami w ręce i trzema u dziadka zwykle robisz pięć lew atutowych. Przebij trzy razy w ręce, a potem ściągnij atuty trzema atutami dziadka, a zrobisz sześć: trzy przebitki i trzy rundy atutów z dziadka. Dziadek stał się ręką główną, a twoje przebitki są teraz przebitkami w krótkiej ręce.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ gra Południe. Zachód wistuje ♦K."></div>
+<p><strong>Policz:</strong> pięć pików, ♥A, ♦A i cztery trefle to jedenaście lew. Dziadek nie może niczego przebić, bo ma tyle kar i trefli co ty, a twoje dwa przegrywające kara nie mają dokąd odejść.</p>
+<p><strong>Odwróć dziadka:</strong> przebij w ręce trzy małe kiery dziadka i pozwól, żeby ♠K Q J ściągnęły atuty. Dojścia do dziadka to ♥A, ♠K, ♠Q i ♣K.</p>
+<ol>
+<li>Weź ♦A i zagraj kiera do asa.</li>
+<li>Przebij kiera i zagraj małego pika do króla.</li>
+<li>Przebij kiera i zagraj pika do damy.</li>
+<li>Przebij ostatniego kiera ♠A i przejdź do dziadka treflem do króla.</li>
+<li>Ściągnij ostatni atut ♠J, zrzucając karo, i weź resztę trefli.</li>
+</ol>
+<p>Sześć lew atutowych (trzy przebitki i trzy rundy z dziadka), ♥A, ♦A i cztery trefle to dwanaście. Plan wymaga podziału atutów 3-2, żeby trzy atuty dziadka mogły je ściągnąć, i potrzebuje każdego dojścia. Dlatego 6♠ pokonuje tylko wist w atu: zabiera rundę atutów, zanim zaczną się przebitki, i rozgrywającemu brakuje dojścia.</p>
+<div class="tip">Test odwróconego dziadka: dodaj przebitki, które możesz zrobić w ręce, do długości atutów dziadka. Jeśli suma przekracza twoją własną długość atutów, a atuty dziadka są dość mocne, żeby ściągnąć atuty obrońców, odwrócenie dziadka daje lewę.</div>
+
+<h3>Coup atutowy</h3>
+<p>Czasem obrońca ma honor atutowy za twoimi widełkami, np. ♠K x za twoimi ♠A Q, a dziadek nie ma już atutu, żeby zagrać przez niego. Nie możesz zaimpasować, grając atu sam. Ale jeśli pod koniec rozdania gra dziadek, a obrońca ma już tylko atuty, musi zagrać jeden z nich <em>przed</em> tobą i impas udaje się bez atutu u dziadka. To jest <strong>coup atutowy</strong>. Żeby zadziałał, musisz najpierw skrócić swoje atuty przebitkami, aż nie będziesz ich miał więcej niż obrońca.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ gra Południe. Zachód ściąga ♣A i zmienia na ♥10."></div>
+<p>Nie możesz już nic oddać. Weź ♥A i zagraj pika: Wschód dokłada małego, a twoja 9 bierze. Przejdź do dziadka ♦A i powtórz impas: 10 bierze, a Zachód zrzuca. Wschód miał cztery atuty i wciąż ma ♠K 8 za twoimi ♠A Q J 3, a dziadek nie ma już pików. Jeśli teraz ściągniesz asa, król Wschodu weźmie lewę: bez jednej.</p>
+<p>Zamiast tego skróć atuty. Masz cztery wobec dwóch Wschodu, więc musisz przebić dwa razy:</p>
+<ol>
+<li>Przejdź do dziadka ♦K, ściągnij ♥K i przebij trefla ♠3.</li>
+<li>Przejdź do dziadka ♦Q i przebij kiera ♠J. Teraz masz ♠A Q, tyle atutów co Wschód.</li>
+<li>Przejdź do dziadka ♦J; Wschód dokłada do koloru. W dwunastej lewie gra dziadek.</li>
+</ol>
+<p>Przebij jednego trefla i jednego kiera, a nie dwa trefle: wtedy Wschód za każdym razem musi dokładać do koloru i nigdy nie dostaje wolnej zrzutki. Gdyby ją dostał, zrzuciłby karo i później przebił jedną z wygrywających kar dziadka.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="Dwie ostatnie lewy. Atu pik, gra dziadek."></div>
+<p>Wschód ma same atuty i musi zagrać jeden przed tobą: ♠8, a ty bierzesz damą, albo ♠K, a ty bierzesz asem. Dwanaście lew.</p>
+<h4>Czego potrzebuje coup atutowy</h4>
+<ul>
+<li><strong>Nie więcej atutów niż obrońca</strong> na końcu: skróć swoje przebitkami, w razie potrzeby nawet przebijając wygrywające karty dziadka (to tak zwany <em>wielki coup</em>).</li>
+<li><strong>Dojścia do dziadka</strong> na każdy impas atutowy, każdą przebitkę i ostatnie wyjście.</li>
+<li><strong>Właściwy moment:</strong> w chwili coupu obrońca może mieć już tylko atuty. Policzenie jego ręki mówi ci, kiedy to nastąpi.</li>
+</ul>
+<div class="warn">Skracaj atuty tylko wtedy, gdy wiesz, że musisz. Gdyby atuty dzieliły się 3-3, król spadłby pod asa, a przebijanie w ręce tylko zmarnowałoby atuty. Tutaj zrzutka Zachodu w drugiej rundzie powiedziała ci, że Wschód miał cztery.</div>
+`,
+    keyPoints: [
+      'W grze na odwróconego dziadka przebijasz w długiej ręce atutowej tak często, że atuty dziadka ściągają atuty obrońców.',
+      'Daje lewę, gdy przebitki w ręce plus długość atutów dziadka przewyższają twoją długość atutów; wymaga dobrych atutów u dziadka i dojść.',
+      'Coup atutowy wyłapuje honor atutowy obrońcy bez grania w atu: gra dziadek, a obrońca musi zagrać pierwszy.',
+      'Przed coupem atutowym skróć swoje atuty przebitkami, aż nie będziesz miał ich więcej niż obrońca.',
+      'Najpierw policz atuty obrońcy; coup jest potrzebny tylko przy złym podziale.',
+    ],
+    quiz: [
+      {
+        q: 'Na czym polega gra na odwróconego dziadka?',
+        options: ['Na przebijaniu u dziadka przegrywających dziadka', 'Na przebijaniu we własnej długiej ręce atutowej tak często, że atuty dziadka ściągają atuty obrońców', 'Na tym, że dziadek rozgrywa', 'Na przejściu do bez atu'],
+        answer: 1,
+        explain: 'Role rąk się odwracają: twoje atuty służą do przebijania, a krótsze, ale mocne atuty dziadka ściągają atuty obrońców.',
+      },
+      {
+        q: 'Masz pięć atutów, a dziadek trzy mocne. Ile przebitek w ręce potrzebujesz, żeby odwrócony dziadek dał lewę?',
+        options: ['Jednej', 'Dwóch', 'Trzech', 'Pięciu'],
+        answer: 2,
+        explain: 'Trzy przebitki i trzy rundy atutów z dziadka to sześć lew atutowych, o jedną więcej niż twoje pięć.',
+      },
+      {
+        q: 'Który wist pokonuje 6♠ w rozdaniu z odwróconym dziadkiem powyżej?',
+        options: ['♦K', 'Kier', 'Atu', 'Trefl'],
+        answer: 2,
+        explain: 'Wist w atu zabiera rundę atutów, zanim rozgrywający może zacząć przebijać, a potem brakuje mu dojścia, żeby dokończyć odwrócenie.',
+      },
+      {
+        q: 'Co musisz zrobić przed coupem atutowym?',
+        options: ['Ściągnąć wszystkie atuty obrońców', 'Skrócić swoje atuty przebitkami, aż nie będziesz miał ich więcej niż obrońca', 'Zachować atut u dziadka', 'Zagrać swoje widełki atutowe'],
+        answer: 1,
+        explain: 'Na końcu obrońca może mieć tylko atuty, a ty nie więcej atutów niż on, żeby wyjście z dziadka zmusiło go do zagrania przed tobą.',
+      },
+      {
+        q: 'Dlaczego w końcówce coupu atutowego powyżej król Wschodu nie bierze lewy?',
+        options: ['Wschód musi zagrać atut przed tobą, a ty grasz wyżej', 'Król został już zagrany', 'Króla ma Zachód', 'Wschód jest w przymusie w kierach'],
+        answer: 0,
+        explain: 'Gra dziadek, a Wschodowi zostały tylko ♠K 8. Cokolwiek zagra, bierzesz kartą tuż nad nią.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Liczenie w obronie',
     topic: 'Defense',
@@ -861,6 +1152,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['Nigdy nie jest', 'Bo jeśli kontrakt wyjdzie, zapis za lewy z kontrą może dać dograną: 2♥ z kontrą to 470 lub 670', 'Bo przeciwnicy dostają premię za kontrę', 'Bo musisz wistować w atu'],
         answer: 1,
         explain: 'Z kontrą 2♥ daje 120 za lewy, co liczy się jak dograna. Kontruj częściówkę tylko wtedy, gdy spodziewasz się ją obłożyć.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Wisty przeciw szlemom i kontraktom z kontrą',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Jak wybrać wist przeciw szlemowi, przeciw kontraktowi z kontrą lub obronie licytacyjnej i jak partner może poprosić kontrą o wist.',
+    body: `
+<h3>Przeciw szlemom w bez atu: nic nie oddawaj</h3>
+<p>Gdy przeciwnicy licytują 6BA albo 7BA, mają razem około 33 PC lub więcej, a twoja strona ma bardzo mało. Rzadko zdążysz wyrobić długi kolor, więc twoim zadaniem jest nie oddać rozgrywającemu lewy. Wybierz najbezpieczniejszy wist: najwyższą kartę sekwensu albo kolor bez honoru. Nie wistuj spod króla ani spod damy: przeciw szlemowi to często dwunasta lewa.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="Na wiście przeciw 1BA – 6BA"></div>
+<p>Wyjdź ♦8, najwyższą z trzech blotek. Pik albo kier mogłyby dać rozgrywającemu lewę z honorami, których nie widzisz; karo niczego nie oddaje, a twój ♠K i twoja ♥Q mogą jeszcze wziąć lewę, jeśli rozgrywający będzie musiał je odnaleźć.</p>
+
+<h3>Przeciw szlemom w kolor: atakować czy czekać?</h3>
+<p>Przeciw sześciu w kolorze zadajesz to samo pytanie co przeciw każdemu kontraktowi kolorowemu (zob. lekcję „Obrona przeciw kontraktom kolorowym”), ale potrzebujesz dwóch lew i masz tylko jeden wist. Bezpieczny wist to reguła i za nią idą podpowiedzi trenera przy wiście; wist atakujący to wyjątek, na licytacje, które pokazują, skąd rozgrywający weźmie zrzutki.</p>
+<ul>
+<li><strong>Atakuj</strong>, gdy licytacja pokazuje długi kolor boczny, który da zrzutki. Wistuj spod króla (albo damy) w kolor nielicytowany, licząc, że partner ma asa albo damę, żeby wyrobić lewę, zanim przyjdą zrzutki.</li>
+<li><strong>Graj pasywnie</strong>, gdy przeciwnicy najwyraźniej licytowali na siłę, z rękami zrównoważonymi i bez długiego koloru bocznego. Rozgrywający musi wtedy sam znaleźć dwanaście lew, a bezpieczny wist, często w atu, niczego nie oddaje.</li>
+<li><strong>Singiel</strong> warto wyjść, gdy partner może mieć asa: weźmie nim i da ci przebitkę.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="Na wiście przeciw 6♥; dziadek pokazał długie, mocne trefle"></div>
+<p>Wyjdź ♠2. Po ściągnięciu atutów rozgrywający zrzuci przegrywające na trefle dziadka, więc obrona musi wyrobić swoje lewy wcześniej. Pik spod króla może znaleźć u partnera asa albo damę i zbudować lewę na czas. Karo byłoby bezpieczne, ale zbyt wolne.</p>
+<h4>Wist asem</h4>
+<p>Wyjdź asem bez króla przeciw szlemikowi w kolor, gdy dziadek pokazał długi kolor boczny, więc kolor twojego asa mógłby zniknąć w zrzutkach, albo gdy masz dobre szanse na drugą lewę, np. lewę atutową lub króla siedzącego za kolorem rozgrywającego. W przeciwnym razie zachowaj go: as weźmie swoją lewę także później, a wist nim może wyrobić rozgrywającemu króla i damę. Przeciw 6BA as jest pewną lewą, więc nie ma pośpiechu, żeby go zagrać.</p>
+<p>Przeciw szlemowi wyjdź najbezpieczniej, jak możesz, często w atu: rozgrywający potrzebuje wszystkich lew, więc każda oddana lewa jest zabójcza.</p>
+
+<h3>Kontry wistowe</h3>
+<p>Gdy przeciwnik robi sztuczną odzywkę, kontra następnego gracza zwykle nie ma nic wspólnego z karą: prosi partnera o wist w ten kolor.</p>
+<table>
+<thead><tr><th>Partner kontruje</th><th>Znaczenie</th></tr></thead>
+<tbody>
+<tr><td>Staymana: 1BA – 2♣</td><td>Wyjdź w trefla: partner ma dobry kolor treflowy</td></tr>
+<tr><td>Transfer: 1BA – 2♦</td><td>Wyjdź w karo</td></tr>
+<tr><td>Cue bid lub odzywkę kontrolną, np. 4♣ w drodze do szlemika w kiery</td><td>Wyjdź w trefla</td></tr>
+<tr><td>Odpowiedź na Blackwooda, np. 5♦</td><td>Wyjdź w karo</td></tr>
+</tbody>
+</table>
+<p>Brak kontry też coś mówi: jeśli partner mógł skontrować cue bid 4♦ i tego nie zrobił, prawdopodobnie nie chce wistu w karo.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="Zachód: na wiście przeciw 4♥"></div>
+<p>Bez kontry wyszedłbyś może w pika albo w karo, w obu przypadkach spod honoru. Kontra Wschodu na Staymana poprosiła o trefla, więc wyjdź ♣8, najwyższą z trzech blotek. Wschód ma dobry kolor treflowy, a ty nie musisz otwierać pozostałych kolorów.</p>
+
+<h3>Wisty przeciw kontraktom z kontrą</h3>
+<table>
+<thead><tr><th>Sytuacja</th><th>Wist</th></tr></thead>
+<tbody>
+<tr><td>Partner kontruje 3BA po tym, jak licytował kolor</td><td>Kolor partnera</td></tr>
+<tr><td>Partner kontruje 3BA; ty licytowałeś kolor, a on nie</td><td>Twój kolor</td></tr>
+<tr><td>Partner kontruje 3BA; żaden z was nie licytował</td><td>Pierwszy kolor licytowany przez dziadka</td></tr>
+<tr><td>Partner kontruje szlemika</td><td>Nietypowy wist (zob. niżej)</td></tr>
+<tr><td>Twoja strona skontrowała ich obronę licytacyjną</td><td>Zwykle atu</td></tr>
+<tr><td>Partner pasuje na twoją kontrę wywołującą dla kary</td><td>Atu</td></tr>
+</tbody>
+</table>
+<p>Dlaczego atu przeciw obronie licytacyjnej? Broniąca się strona ma mało wysokich kart i liczy na lewy z przebitek; twoja strona ma wysokie karty, które i tak wezmą swoje lewy. Każda runda atutów zabiera przebitki. To popularne uzgodnienia: upewnij się, że twój partner gra tak samo.</p>
+
+<h3>Kontra Lightnera</h3>
+<p>Kontra karna na swobodnie wylicytowanego szlemika niewiele daje. 6♠ bez jednej daje z kontrą 50 lub 100 więcej niż bez kontry, ale jeśli zostanie ugrany, kontra kosztuje 230, dużo więcej po rekontrze, i ostrzega rozgrywającego przed złym podziałem. Dlatego według konwencji nazwanej od Theodore’a Lightnera kontra na szlemika dana przez gracza, który <em>nie</em> wistuje, prosi o <strong>nietypowy wist</strong>:</p>
+<ul>
+<li>nie w atu i nie w kolor nielicytowany, bo w niego wyszedłbyś i tak;</li>
+<li>zwykle w pierwszy kolor boczny licytowany przez dziadka, często dlatego, że partner ma w nim renons;</li>
+<li>jeśli partner licytował kolor, kontra mówi też: nie wychodź w mój kolor.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="Zachód: na wiście po kontrze Wschodu"></div>
+<p>Twój normalny wist to ♦Q. Kontra Wschodu prosi o coś nietypowego: pierwszy kolor licytowany przez dziadka, kiery. Wyjdź ♥8. Wschód ma prawdopodobnie renons kier i przebije, a potem obronie wystarczy jeszcze jedna lewa.</p>
+<div class="warn">Nie dawaj kontry wistowej tylko dlatego, że masz w kolorze wysokie karty. Kontruj, gdy naprawdę chcesz tego wistu, i pamiętaj, że przeciwnicy też mogą wykorzystać kontrę: mogą zrekontrować albo po prostu ominąć ten kontrakt.</div>
+`,
+    keyPoints: [
+      'Przeciw 6BA i 7BA wistuj bezpiecznie: nie spod honorów.',
+      'Przeciw szlemikowi w kolor atakuj (często spod króla), gdy dziadek ma długi kolor na zrzutki; w przeciwnym razie graj pasywnie.',
+      'Wyjdź asem przeciw szlemikowi, gdy mógłby zniknąć w zrzutkach albo liczysz na drugą lewę; w przeciwnym razie go zachowaj.',
+      'Kontra sztucznej odzywki, np. Staymana, transferu lub cue bidu, prosi o wist w ten kolor.',
+      'Kontra Lightnera na szlemika prosi o nietypowy wist, zwykle w pierwszy kolor boczny dziadka; przeciw skontrowanej obronie licytacyjnej wyjdź w atu.',
+    ],
+    quiz: [
+      {
+        q: 'Jesteś na wiście przeciw 1BA – 6BA z ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. Co wistujesz?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Przeciw szlemikowi w bez atu wistuj bezpiecznie. ♦8 niczego nie oddaje; wist spod króla, damy albo waleta może dać rozgrywającemu dwunastą lewę.',
+      },
+      {
+        q: 'Przeciwnicy licytują 6♥ po tym, jak dziadek pokazał długie, mocne trefle. Jaki wist jest zwykle właściwy?',
+        options: ['Pasywny: atu', 'Atakujący: spod króla w kolor nielicytowany, żeby wyrobić lewę, zanim rozgrywający zdąży zrzucić', 'Trefl, żeby odciąć dziadka', 'Zawsze as'],
+        answer: 1,
+        explain: 'Po ściągnięciu atutów przegrywające rozgrywającego odejdą na trefle dziadka. Obrona musi zbudować swoje lewy wcześniej.',
+      },
+      {
+        q: 'Przeciwnicy licytują 1BA – 2♣ (Stayman), a partner kontruje. O co prosi ta kontra?',
+        options: ['O karę w 2♣', 'O wist w trefla', 'O odzywkę w kolor starszy', 'Pokazuje silną rękę zrównoważoną'],
+        answer: 1,
+        explain: '2♣ jest sztuczne, więc kontra jest wistowa: partner ma dobry kolor treflowy i chce, żebyś w niego wyszedł.',
+      },
+      {
+        q: 'Partner daje kontrę Lightnera na 6♠. Dziadek licytował kiery, a ty masz dwa kiery i ♦Q J 10 9. Co wistujesz?',
+        options: ['♦Q', 'Kiera', 'Atu', 'Trefla'],
+        answer: 1,
+        explain: 'Kontra prosi o nietypowy wist, zwykle w pierwszy kolor boczny dziadka. Partner ma prawdopodobnie renons kier.',
+      },
+      {
+        q: 'Skontrowałeś obronę licytacyjną przeciwników 5♦. Jaki wist jest zwykle najlepszy?',
+        options: ['Atu', 'Twój najdłuższy kolor', 'As, żeby zobaczyć dziadka', 'Singiel'],
+        answer: 0,
+        explain: 'Broniąca się strona ma mało wysokich kart i bierze lewy przebitkami. Wisty w atu zabierają te przebitki, a twoje wysokie karty i tak wezmą swoje lewy.',
       },
     ],
   },
