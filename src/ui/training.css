@@ -182,7 +182,7 @@ a.btn { color: inherit; text-decoration: none; display: inline-flex; align-items
 .tscore { margin-top: 4px; }
 
 /* the technique of a technique deal, in the hand review */
-.techbox { margin: 12px 0 4px; }
+.techbox { margin: 0 0 12px; }
 .techbox .tline { margin: 6px 0; }
 .techbox .pbtns { margin-top: 10px; }
 

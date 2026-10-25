@@ -233,7 +233,7 @@ export const practice: Text['practice'] = {
       safety: 'Renuncia a una posible baza de más para asegurar el contrato.',
     },
     why: {
-      finesse: 'Un impasse gana siempre que la carta más alta que te falta esté en el defensor que ya ha jugado a la baza: entonces tu honor (o el de tu compañero, que dejas correr) se la lleva. Si juegas tu carta más alta, solo ganas si esa carta cae; si juegas baja, regalas la baza.',
+      finesse: 'Un impasse gana siempre que las cartas más altas que te faltan estén en el defensor que ya ha jugado a la baza: entonces tu honor (o el de tu compañero, que dejas correr) se lleva la baza. Aquí era claramente la mejor opción: cobrar una carta más alta solo sirve si el honor que falta cae, y jugar bajo regala la baza.',
       holdUp: 'El hold-up: al no ganar enseguida el palo de los defensores, dejas sin cartas del palo al defensor que tiene menos. Si ese defensor toma la mano más tarde, no le queda carta del palo para devolver, y las cartas largas nunca llegan a cobrarse. Si ganas la primera vuelta, los defensores pueden cobrar su palo en cuanto cualquiera de ellos entre en mano.',
       duck: 'Agacharte en una vuelta de tu palo largo cede pronto una baza —normalmente una que perderías de todos modos— mientras la mano larga conserva sus cartas altas. Cuando recuperes la mano todavía podrás llegar a las cartas largas; si ganas las primeras vueltas, las últimas pueden quedar aisladas, sin forma de alcanzarlas.',
       unblock: 'Desbloqueo: juega primero las cartas altas de la mano más corta. Así las últimas cartas del palo quedan en la mano larga y aún tienes una carta baja para llegar a ellas; si juegas primero los honores de la mano larga, el palo se bloquea y las cartas largas quedan aisladas.',

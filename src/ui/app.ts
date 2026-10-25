@@ -293,6 +293,8 @@ export function mountApp(root: HTMLElement) {
     viewer = null;
     ui.modal = null;
     ui.selectedCall = null;
+    // the review opens when the hand ends, even for a deal (or board number) played before
+    ui.autoOpenedReview = '';
     game.playTechnique(td, { hints: game.settings.techniqueHints, fromKey });
     startTechniqueFactory(training);
     render(true);

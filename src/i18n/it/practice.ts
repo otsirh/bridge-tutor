@@ -235,7 +235,7 @@ export const practice: Text['practice'] = {
       safety: 'Rinuncia a una possibile presa in più per mantenere il contratto.',
     },
     why: {
-      finesse: 'Un’impasse riesce ogni volta che la carta più alta che ti manca è in mano al difensore che ha già giocato alla presa: allora il tuo onore (o quello del compagno, che lasci correre) fa la presa. Giocando invece la tua carta più alta vinci solo se quella carta cade; giocando piccolo regali la presa.',
+      finesse: 'Un’impasse riesce ogni volta che le carte più alte che ti mancano sono in mano al difensore che ha già giocato alla presa: allora il tuo onore (o quello del compagno, che lasci correre) fa la presa. Qui era nettamente la possibilità migliore: incassare una carta più alta rende solo se l’onore mancante cade, e giocare piccolo regala la presa.',
       holdUp: 'Il colpo in bianco: rifiutando di vincere subito il colore dei difensori, esaurisci il difensore che ne ha meno carte. Se quel difensore va in presa più tardi, non ha più carte del colore da rigiocare, e le lunghe non vengono mai incassate. Se vinci il primo giro, i difensori possono incassare il loro colore appena uno dei due va in presa.',
       duck: 'Cedere un giro del colore lungo regala presto una presa — di solito una che perderesti comunque — mentre la mano lunga conserva le sue carte alte. Quando riprendi la mano puoi ancora raggiungere le lunghe; se vinci i primi giri, le ultime possono restare isolate, senza modo di arrivarci.',
       unblock: 'Lo sblocco: gioca prima le carte alte della mano più corta. Così le ultime carte del colore restano nella mano lunga e hai ancora una carta piccola per raggiungerle; se giochi prima gli onori della mano lunga, il colore si blocca e le lunghe restano irraggiungibili.',

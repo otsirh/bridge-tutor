@@ -233,7 +233,7 @@ export const practice: Text['practice'] = {
       safety: 'Abra mão de uma possível vaza a mais para garantir o contrato.',
     },
     why: {
-      finesse: 'Uma finesse ganha sempre que a carta mais alta que lhe falta está com o defensor que já jogou na vaza: então a sua honra (ou a do parceiro, que você deixa correr) faz a vaza. Jogando a sua carta mais alta, você só ganha se aquela carta cair; jogando baixo, entrega a vaza.',
+      finesse: 'Uma finesse ganha sempre que as cartas mais altas que lhe faltam estão com o defensor que já jogou na vaza: então a sua honra (ou a do parceiro, que você deixa correr) faz a vaza. Aqui essa era claramente a melhor chance: bater uma carta mais alta só rende se a honra que falta cair, e jogar baixo entrega a vaza.',
       holdUp: 'Deixar passar: ao não ganhar logo o naipe dos defensores, você esgota o defensor que tem menos cartas dele. Se esse defensor ganhar a mão mais tarde, não terá carta do naipe para devolver, e as cartas longas nunca chegam a ser batidas. Ganhe a primeira rodada, e os defensores poderão bater o naipe assim que qualquer um deles entrar na mão.',
       duck: 'Ceder uma rodada do seu naipe longo entrega cedo uma vaza — normalmente uma que você perderia de qualquer jeito — enquanto a mão longa ainda tem as cartas altas. Quando você recuperar a mão, ainda chega às cartas longas; ganhe as primeiras rodadas, e as últimas podem ficar isoladas, sem como alcançá-las.',
       unblock: 'Desbloqueio: jogue primeiro as cartas altas da mão mais curta. Assim as últimas cartas do naipe ficam na mão longa e você ainda tem uma carta baixa para chegar a elas; jogue primeiro as honras da mão longa, e o naipe fica bloqueado, com as cartas longas fora de alcance.',

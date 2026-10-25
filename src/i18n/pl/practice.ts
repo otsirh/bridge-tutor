@@ -233,7 +233,7 @@ export const practice: Text['practice'] = {
       safety: 'Zrezygnuj z możliwej nadróbki, żeby zapewnić sobie kontrakt.',
     },
     why: {
-      finesse: 'Impas udaje się zawsze, gdy brakująca ci wyższa karta jest u obrońcy, który już zagrał do lewy: wtedy lewę bierze twój honor (albo honor partnera, który puszczasz dalej). Jeśli zamiast tego zagrasz najwyższą kartę, wygrasz tylko wtedy, gdy tamta karta spadnie; mała karta oddaje lewę.',
+      finesse: 'Impas udaje się zawsze, gdy brakujące ci wyższe karty są u obrońcy, który już zagrał do lewy: wtedy twój honor (albo honor partnera, który puszczasz dalej) bierze lewę. Tu była to wyraźnie najlepsza szansa: ściągnięcie wyższej karty coś daje tylko wtedy, gdy brakujący honor spadnie, a mała karta oddaje lewę.',
       holdUp: 'Przepuszczenie: nie biorąc od razu lewy w kolorze obrońców, pozbawiasz kart tego koloru obrońcę, który ma ich mniej. Jeśli później dojdzie do ręki, nie ma już czym wrócić w ten kolor, a długie karty nigdy nie dochodzą do głosu. Weź pierwszą rundę, a obrońcy odegrają swój kolor, gdy tylko któryś z nich dojdzie do ręki.',
       duck: 'Oddając rundę w swoim długim kolorze, oddajesz wcześnie lewę — zwykle taką, którą i tak byś stracił — póki długa ręka ma jeszcze wysokie karty. Gdy odzyskasz wist, wciąż dojdziesz do długich kart; weź pierwsze rundy, a ostatnie karty mogą zostać odcięte, bez dojścia.',
       unblock: 'Odblokowanie: najpierw zagraj wysokie karty z krótszej ręki. Wtedy ostatnie karty koloru zostają w długiej ręce, a ty masz jeszcze małą kartę, żeby do nich dojść; zagraj najpierw honory długiej ręki, a kolor się zablokuje i długie karty będą nieosiągalne.',

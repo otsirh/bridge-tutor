@@ -375,7 +375,7 @@ export function renderReview(g: Game, ui: UIState, act: ReviewActions): HTMLElem
   const tabs = h('div', { class: 'tabs', role: 'tablist' }, (['summary', 'bidding', 'play'] as const).map(k => h('button', { class: `tab ${tab === k ? 'on' : ''}`, type: 'button', role: 'tab', onclick: () => { ui.reviewTab = k; act.rerender(); } }, t.tabs[k])));
   let body: HTMLElement;
   if (tab === 'summary') {
-    body = h('div', null, hero(g), techniqueBox(g, act),
+    body = h('div', null, techniqueBox(g, act), hero(g),
       h('div', { class: 'grid2' },
         h('div', null, h('h3', null, t.takeaways), lessons(g), keyMoments(g, act), shareBox(g, act)),
         h('div', null, h('h3', null, t.theDeal), dealDiagram(g), h('h3', null, t.ddMakes), ddTableEl(g))));

@@ -231,7 +231,7 @@ export const practice = {
       safety: 'Give up a possible overtrick to make sure of the contract.',
     },
     why: {
-      finesse: 'A finesse wins whenever the missing higher card is with the defender who has already played to the trick: then your honour (or partner’s, left to run) takes it. Playing your top card instead wins only if that card drops; playing low gives the trick away.',
+      finesse: 'A finesse wins whenever the higher cards you are missing are with the defender who has already played to the trick: then your honour (or partner’s, left to run) holds the trick. Here that was clearly the best chance: cashing a higher card instead gains only if the missing honour drops, and playing low gives the trick away.',
       holdUp: 'The hold-up: by refusing to win the defenders’ suit at once, you exhaust the defender who has fewer cards in it. If that defender gains the lead later, there is no card of the suit left to return, and the long cards never run. Win the first round and the defenders can cash their suit as soon as either of them gets in.',
       duck: 'Ducking a round of your long suit gives up a trick early — usually one you would lose anyway — while the long hand still has its high cards. When you regain the lead you can still reach the long cards; win the early rounds and the last ones may be stranded with no way to reach them.',
       unblock: 'Unblocking: play the high cards from the shorter hand first. Then the last cards of the suit are in the long hand and you still hold a low card to reach them; play the long hand’s honours first and the suit blocks, with the long cards stranded.',
