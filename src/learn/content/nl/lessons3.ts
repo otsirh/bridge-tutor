@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Speel ♠3 naar de heer en troef een derde harten in met ♠J. Nu hebben de tegenspelers geen harten en geen troef meer.</li>
 <li>Ga met de ♦K naar de dummy en incasseer de vijfde harten, waarop je je verliezende klaver afgooit. Je verliest alleen een ruiten.</li>
 </ol>
-<p>Neem je de eerste slag met de heer van de dummy, of trek je eerst twee rondes troef, dan kom je een entree tekort: het slem gaat down.</p>
+<p>Trek je eerst twee rondes troef, dan kom je een entree tekort: het slem gaat down.</p>
 <div class="tip">Plan de entrees voordat je de kleur aanraakt: één voor elke introever, plus één om de lange kaarten te incasseren. De troeven van de dummy zijn vaak de entrees, dus speel je kleine troeven daarheen en troef in met je hoge.</div>
 <div class="warn">Troef hoog in zodra een tegenspeler door de kleur heen kan zijn en kan overtroeven.</div>
 `,
@@ -1169,7 +1169,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Kom uit met ♦8, de hoogste van drie kleintjes. Een schoppen of een harten kan de leider een slag geven met honneurs die je niet ziet; de ruiten geeft niets weg, en je ♠K en je ♥Q kunnen nog een slag maken als de leider ze moet vinden.</p>
 
 <h3>Tegen kleurslemmen: aanvallen of afwachten?</h3>
-<p>Tegen zes in een kleur stel je dezelfde vraag als tegen elk troefcontract (zie de les "Tegenspel tegen troefcontracten"), maar je hebt twee slagen nodig en maar één uitkomst.</p>
+<p>Tegen zes in een kleur stel je dezelfde vraag als tegen elk troefcontract (zie de les "Tegenspel tegen troefcontracten"), maar je hebt twee slagen nodig en maar één uitkomst. Een veilige uitkomst is de standaard, en de uitkomstadviezen van de tutor volgen die; een aanvallende uitkomst is de uitzondering, voor biedingen die laten zien waar de afgooiers van de leider vandaan komen.</p>
 <ul>
 <li><strong>Val aan</strong> als het bieden een lange bijkleur laat zien waarop de leider kan afgooien. Kom uit onder een heer (of een vrouw) in een ongeboden kleur, in de hoop dat partner de aas of de vrouw heeft, om een slag vrij te spelen voordat de afgooiers komen.</li>
 <li><strong>Speel passief</strong> als de tegenstanders op kracht lijken te hebben geboden, met evenwichtige handen en zonder lange bijkleur. De leider moet dan zelf twaalf slagen vinden, en een veilige uitkomst, vaak een troef, geeft niets weg.</li>

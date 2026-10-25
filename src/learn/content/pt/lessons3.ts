@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Jogue o ♠3 para o rei e corte uma terceira copas com o ♠J. Agora a defesa não tem mais copas nem trunfos.</li>
 <li>Entre no morto com o ♦K e bata a quinta copas, descartando o seu paus perdedor. Você perde só um ouro.</li>
 </ol>
-<p>Se você ganhar a primeira vaza com o rei do morto, ou tirar duas rodadas de trunfo antes de começar, fica faltando uma entrada: o slam cai.</p>
+<p>Se você tirar duas rodadas de trunfo antes de começar, fica faltando uma entrada: o slam cai.</p>
 <div class="tip">Planeje as entradas antes de tocar no naipe: uma para cada corte, mais uma para bater as cartas longas. Os trunfos do morto costumam ser as entradas, então jogue os seus trunfos pequenos para eles e corte com os altos.</div>
 <div class="warn">Corte alto sempre que um defensor possa ter ficado sem o naipe e possa sobrecortar.</div>
 `,
@@ -1167,7 +1167,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Saia com o ♦8, a mais alta de três pequenas. Uma espada ou uma copas poderiam dar uma vaza ao declarante com honras que você não vê; o ouro não entrega nada, e o seu ♠K e a sua ♥Q ainda podem fazer vaza se o declarante precisar encontrá-los.</p>
 
 <h3>Contra slams em naipe: atacar ou esperar?</h3>
-<p>Contra seis num naipe você faz a mesma pergunta que contra qualquer contrato em naipe (veja a lição “A defesa contra contratos em naipe”), mas precisa de duas vazas e só tem uma saída.</p>
+<p>Contra seis num naipe você faz a mesma pergunta que contra qualquer contrato em naipe (veja a lição “A defesa contra contratos em naipe”), mas precisa de duas vazas e só tem uma saída. A saída segura é a regra, e é ela que o tutor segue nos conselhos de saída; a saída de ataque é a exceção, para leilões que mostram de onde virão os descartes do declarante.</p>
 <ul>
 <li><strong>Ataque</strong> quando o leilão mostrar um naipe lateral longo que vai fornecer descartes. Saia debaixo de um rei (ou de uma dama) num naipe não marcado, na esperança de que o parceiro tenha o ás ou a dama, para firmar uma vaza antes que cheguem os descartes.</li>
 <li><strong>Seja passivo</strong> quando os adversários parecerem ter marcado pela força, com mãos balanceadas e sem naipe lateral longo. O declarante tem então de encontrar doze vazas sozinho, e uma saída segura, muitas vezes de trunfo, não entrega nada.</li>

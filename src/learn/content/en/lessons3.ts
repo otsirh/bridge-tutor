@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Lead the ♠3 to the king and ruff a third heart with the ♠J. The defenders now have no hearts and no trumps left.</li>
 <li>Cross to the ♦K and cash the fifth heart, throwing your losing club. You lose only a diamond.</li>
 </ol>
-<p>Win the first trick with dummy's king, or draw two rounds of trumps before you start, and you are an entry short: the slam goes down.</p>
+<p>Draw two rounds of trumps before you start, and you are an entry short: the slam goes down.</p>
 <div class="tip">Plan the entries before you touch the suit: one for each ruff, plus one to cash the long cards. Dummy's trumps are often the entries, so lead your low trumps to them and ruff with your high ones.</div>
 <div class="warn">Ruff high whenever a defender may have run out of the suit and could overruff.</div>
 `,
@@ -1169,7 +1169,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Lead the ♦8, top of three small. A spade or a heart could give declarer a trick with honours you cannot see; the diamond gives nothing away, and your ♠K and ♥Q may still score if declarer has to find them.</p>
 
 <h3>Against suit slams: attack or wait?</h3>
-<p>Against six of a suit you ask the same question as against any suit contract (see the lesson “Defending against suit contracts”), but you need two tricks and you have one lead.</p>
+<p>Against six of a suit you ask the same question as against any suit contract (see the lesson “Defending against suit contracts”), but you need two tricks and you have one lead. A safe lead is the default, and the tutor's lead advice follows it; an attacking lead is the exception, for auctions that show where declarer's discards will come from.</p>
 <ul>
 <li><strong>Attack</strong> when the auction shows a long side suit that will provide discards. Lead from a king (or a queen) in an unbid suit, hoping partner holds the ace or the queen, to set up a trick before the discards come.</li>
 <li><strong>Be passive</strong> when the opponents seem to have bid on power, with balanced hands and no long side suit. Declarer then has to find twelve tricks unaided, and a safe lead, often a trump, gives nothing away.</li>

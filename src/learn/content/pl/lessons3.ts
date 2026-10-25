@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Zagraj ♠3 do króla i przebij trzeciego kiera ♠J. Teraz obrona nie ma już ani kierów, ani atutów.</li>
 <li>Przejdź do dziadka ♦K i ściągnij piątego kiera, zrzucając przegrywającego trefla. Oddajesz tylko karo.</li>
 </ol>
-<p>Jeśli weźmiesz pierwszą lewę królem dziadka albo najpierw ściągniesz dwie rundy atutów, zabraknie ci dojścia: szlemik będzie bez jednej.</p>
+<p>Jeśli najpierw ściągniesz dwie rundy atutów, zabraknie ci dojścia: szlemik będzie bez jednej.</p>
 <div class="tip">Zaplanuj dojścia, zanim dotkniesz koloru: po jednym na każdą przebitkę i jedno, żeby ściągnąć długie karty. Atuty dziadka są często dojściami, więc graj do nich małymi atutami, a przebijaj wysokimi.</div>
 <div class="warn">Przebijaj wysoko zawsze, gdy obrońca mógł już wyjść z koloru i mógłby nadbić.</div>
 `,
@@ -1169,7 +1169,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Wyjdź ♦8, najwyższą z trzech blotek. Pik albo kier mogłyby dać rozgrywającemu lewę z honorami, których nie widzisz; karo niczego nie oddaje, a twój ♠K i twoja ♥Q mogą jeszcze wziąć lewę, jeśli rozgrywający będzie musiał je odnaleźć.</p>
 
 <h3>Przeciw szlemom w kolor: atakować czy czekać?</h3>
-<p>Przeciw sześciu w kolorze zadajesz to samo pytanie co przeciw każdemu kontraktowi kolorowemu (zob. lekcję „Obrona przeciw kontraktom kolorowym”), ale potrzebujesz dwóch lew i masz tylko jeden wist.</p>
+<p>Przeciw sześciu w kolorze zadajesz to samo pytanie co przeciw każdemu kontraktowi kolorowemu (zob. lekcję „Obrona przeciw kontraktom kolorowym”), ale potrzebujesz dwóch lew i masz tylko jeden wist. Bezpieczny wist to reguła i za nią idą podpowiedzi trenera przy wiście; wist atakujący to wyjątek, na licytacje, które pokazują, skąd rozgrywający weźmie zrzutki.</p>
 <ul>
 <li><strong>Atakuj</strong>, gdy licytacja pokazuje długi kolor boczny, który da zrzutki. Wistuj spod króla (albo damy) w kolor nielicytowany, licząc, że partner ma asa albo damę, żeby wyrobić lewę, zanim przyjdą zrzutki.</li>
 <li><strong>Graj pasywnie</strong>, gdy przeciwnicy najwyraźniej licytowali na siłę, z rękami zrównoważonymi i bez długiego koloru bocznego. Rozgrywający musi wtedy sam znaleźć dwanaście lew, a bezpieczny wist, często w atu, niczego nie oddaje.</li>

@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Jouez le ♠3 vers le Roi et coupez un troisième cœur du ♠J. La défense n’a plus ni cœur ni atout.</li>
 <li>Remontez au mort par le ♦K et encaissez le cinquième cœur en défaussant votre trèfle perdant. Vous ne perdez qu’un carreau.</li>
 </ol>
-<p>Prenez la première levée du Roi du mort, ou tirez deux tours d’atout avant de commencer, et il vous manque une remontée : le chelem chute.</p>
+<p>Tirez deux tours d’atout avant de commencer, et il vous manque une remontée : le chelem chute.</p>
 <div class="tip">Prévoyez les remontées avant de toucher la couleur : une par coupe, plus une pour encaisser les cartes longues. Les atouts du mort servent souvent de remontées : jouez vos petits atouts vers eux et coupez avec les gros.</div>
 <div class="warn">Coupez haut chaque fois qu’un défenseur peut ne plus avoir la couleur et surcouper.</div>
 `,
@@ -1169,7 +1169,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Entamez du ♦8, la plus haute de trois petites. Un pique ou un cœur pourrait donner une levée au déclarant avec des honneurs que vous ne voyez pas ; le carreau ne donne rien, et votre ♠K et votre ♥Q peuvent encore faire une levée si le déclarant doit les trouver.</p>
 
 <h3>Contre un chelem à la couleur : attaquer ou attendre ?</h3>
-<p>Contre six dans une couleur, posez-vous la même question que contre tout contrat à la couleur (voir la leçon « Le flanc contre un contrat à la couleur »), mais il vous faut deux levées et vous n’avez qu’une entame.</p>
+<p>Contre six dans une couleur, posez-vous la même question que contre tout contrat à la couleur (voir la leçon « Le flanc contre un contrat à la couleur »), mais il vous faut deux levées et vous n’avez qu’une entame. L’entame sûre est la règle, et c’est celle que suit le moniteur dans ses conseils d’entame ; l’entame offensive est l’exception, pour les enchères qui montrent d’où viendront les défausses du déclarant.</p>
 <ul>
 <li><strong>Attaquez</strong> quand les enchères montrent une longue couleur annexe qui fournira des défausses. Entamez sous un Roi (ou une Dame) dans une couleur non nommée, en espérant que le partenaire ait l’As ou la Dame, pour affranchir une levée avant l’arrivée des défausses.</li>
 <li><strong>Soyez passif</strong> quand les adversaires semblent avoir enchéri sur la force, avec des mains régulières et sans longue annexe. Le déclarant doit alors trouver seul ses douze levées, et une entame sûre, souvent atout, ne donne rien.</li>

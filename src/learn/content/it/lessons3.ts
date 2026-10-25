@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Gioca il ♠3 verso il re e taglia una terza cuori con il ♠J. Ora la difesa non ha più né cuori né atout.</li>
 <li>Entra al morto con il ♦K e incassa la quinta cuori, scartando la tua fiori perdente. Perdi solo una quadri.</li>
 </ol>
-<p>Se vinci la prima presa con il re del morto, o se batti due giri di atout prima di cominciare, ti manca un rientro: lo slam va sotto.</p>
+<p>Se batti due giri di atout prima di cominciare, ti manca un rientro: lo slam va sotto.</p>
 <div class="tip">Pianifica i rientri prima di toccare il colore: uno per ogni taglio, più uno per incassare le carte lunghe. Le atout del morto sono spesso i rientri: gioca verso di esse le tue atout piccole e taglia con quelle alte.</div>
 <div class="warn">Taglia alto ogni volta che un difensore potrebbe non avere più il colore e surtagliare.</div>
 `,
@@ -1166,7 +1166,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Attacca con l’♦8, la più alta da tre cartine. Una picche o una cuori potrebbero dare una presa al giocante con onori che non vedi; la quadri non regala niente, e il tuo ♠K e la tua ♥Q possono ancora fare presa se il giocante deve trovarli.</p>
 
 <h3>Contro gli slam a colore: attaccare o aspettare?</h3>
-<p>Contro sei a colore ti fai la stessa domanda che contro qualsiasi contratto a colore (vedi la lezione «La difesa contro i contratti a colore»), ma ti servono due prese e hai un solo attacco.</p>
+<p>Contro sei a colore ti fai la stessa domanda che contro qualsiasi contratto a colore (vedi la lezione «La difesa contro i contratti a colore»), ma ti servono due prese e hai un solo attacco. L’attacco sicuro è la regola, ed è quella che segue il tutor nei suoi consigli d’attacco; l’attacco aggressivo è l’eccezione, per le licite che mostrano da dove verranno gli scarti del giocante.</p>
 <ul>
 <li><strong>Attacca in modo aggressivo</strong> quando la licita mostra un colore laterale lungo che fornirà scarti. Attacca sotto un re (o una donna) in un colore non dichiarato, sperando che il compagno abbia l’asso o la donna, per affrancare una presa prima che arrivino gli scarti.</li>
 <li><strong>Sii passivo</strong> quando gli avversari sembrano aver dichiarato sulla forza, con mani bilanciate e senza colore laterale lungo. Il giocante deve allora trovare da solo dodici prese, e un attacco sicuro, spesso in atout, non regala niente.</li>

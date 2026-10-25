@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Juega el ♠3 al Rey y falla un tercer corazón con el ♠J. Ahora a la defensa no le quedan corazones ni triunfos.</li>
 <li>Pasa al muerto con el ♦K y cobra el quinto corazón, tirando tu trébol perdedor. Solo pierdes un diamante.</li>
 </ol>
-<p>Si ganas la primera baza con el Rey del muerto, o destriunfas dos vueltas antes de empezar, te falta una entrada: el slam se multa.</p>
+<p>Si destriunfas dos vueltas antes de empezar, te falta una entrada: el slam se multa.</p>
 <div class="tip">Planifica las entradas antes de tocar el palo: una por cada fallo y otra para cobrar las cartas largas. Los triunfos del muerto suelen ser las entradas, así que juega hacia ellos tus triunfos pequeños y falla con los altos.</div>
 <div class="warn">Falla alto siempre que un defensor pueda haberse quedado sin el palo y sobrefallar.</div>
 `,
@@ -1169,7 +1169,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Sal con el ♦8, la más alta de tres pequeñas. Una pica o un corazón podrían darle una baza al declarante con honores que no ves; el diamante no regala nada, y tu ♠K y tu ♥Q aún pueden hacer baza si el declarante tiene que encontrarlos.</p>
 
 <h3>Contra slams a palo: ¿atacar o esperar?</h3>
-<p>Contra seis de un palo te haces la misma pregunta que contra cualquier contrato a palo (consulta la lección “La defensa contra contratos a palo”), pero necesitas dos bazas y solo tienes una salida.</p>
+<p>Contra seis de un palo te haces la misma pregunta que contra cualquier contrato a palo (consulta la lección “La defensa contra contratos a palo”), pero necesitas dos bazas y solo tienes una salida. La salida segura es lo normal, y es lo que sigue el tutor en sus consejos de salida; la salida de ataque es la excepción, para las subastas que muestran de dónde saldrán los descartes del declarante.</p>
 <ul>
 <li><strong>Ataca</strong> cuando la subasta muestra un palo lateral largo que dará descartes. Sal desde un Rey (o una Dama) en un palo no declarado, con la esperanza de que tu compañero tenga el As o la Dama, para afirmar una baza antes de que lleguen los descartes.</li>
 <li><strong>Sé pasivo</strong> cuando los rivales parecen haber declarado por fuerza, con manos equilibradas y sin palo lateral largo. Entonces el declarante tiene que encontrar doce bazas solo, y una salida segura, a menudo un triunfo, no regala nada.</li>

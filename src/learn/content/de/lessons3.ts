@@ -419,7 +419,7 @@ export const LESSONS_3: Lesson[] = [
 <li>Spielen Sie die ♠3 zum König und schnappen Sie ein drittes Coeur mit dem ♠J. Jetzt haben die Gegenspieler weder Coeur noch Trumpf.</li>
 <li>Gehen Sie mit dem ♦K zum Dummy und ziehen Sie das fünfte Coeur ab, auf das Sie Ihr verlorenes Treff abwerfen. Sie verlieren nur ein Karo.</li>
 </ol>
-<p>Gewinnen Sie den ersten Stich mit dem König des Dummys oder ziehen Sie vorher zwei Runden Trumpf, fehlt Ihnen ein Übergang: Der Schlemm geht down.</p>
+<p>Ziehen Sie vorher zwei Runden Trumpf, fehlt Ihnen ein Übergang: Der Schlemm geht down.</p>
 <div class="tip">Planen Sie die Übergänge, bevor Sie die Farbe anfassen: einen für jeden Schnapper und einen, um die langen Karten abzuziehen. Oft sind die Trümpfe des Dummys die Übergänge – spielen Sie also Ihre kleinen Trümpfe zu ihnen und schnappen Sie mit den hohen.</div>
 <div class="warn">Schnappen Sie hoch, wann immer ein Gegenspieler die Farbe nicht mehr haben und überschnappen könnte.</div>
 `,
@@ -1169,7 +1169,7 @@ export const LESSONS_3: Lesson[] = [
 <p>Spielen Sie die ♦8 aus, die höchste von drei kleinen. Ein Pik oder ein Coeur könnte dem Alleinspieler mit Figuren, die Sie nicht sehen, einen Stich geben; das Karo verschenkt nichts, und Ihr ♠K und Ihre ♥Q machen vielleicht noch einen Stich, wenn der Alleinspieler sie finden muss.</p>
 
 <h3>Gegen Farbschlemms: angreifen oder abwarten?</h3>
-<p>Gegen sechs in einer Farbe stellen Sie dieselbe Frage wie gegen jeden Farbkontrakt (siehe die Lektion „Gegenspiel gegen Farbkontrakte“), aber Sie brauchen zwei Stiche und haben nur ein Ausspiel.</p>
+<p>Gegen sechs in einer Farbe stellen Sie dieselbe Frage wie gegen jeden Farbkontrakt (siehe die Lektion „Gegenspiel gegen Farbkontrakte“), aber Sie brauchen zwei Stiche und haben nur ein Ausspiel. Ein sicheres Ausspiel ist der Normalfall, und ihm folgen auch die Ausspielempfehlungen des Tutors; ein angreifendes Ausspiel ist die Ausnahme für Reizungen, die zeigen, woher die Abwürfe des Alleinspielers kommen werden.</p>
 <ul>
 <li><strong>Greifen Sie an</strong>, wenn die Reizung eine lange Nebenfarbe zeigt, die Abwürfe liefern wird. Spielen Sie von einem König (oder einer Dame) in einer ungereizten Farbe aus, in der Hoffnung, dass der Partner das Ass oder die Dame hält, um einen Stich hochzuspielen, bevor die Abwürfe kommen.</li>
 <li><strong>Spielen Sie passiv</strong>, wenn die Gegner offenbar auf Stärke gereizt haben, mit ausgeglichenen Händen und ohne lange Nebenfarbe. Dann muss der Alleinspieler zwölf Stiche allein finden, und ein sicheres Ausspiel, oft ein Trumpf, verschenkt nichts.</li>
