@@ -46,6 +46,11 @@ export interface TechniqueInfo {
   lesson: string;
   /** Looked for in the first this many tricks (a hold-up comes at once, a safety play may come later). */
   tricks: number;
+  /**
+   * Too rare to look for on request (a sample of 125 deals had none): offered
+   * only when a deal of it is ready, found while looking for any technique.
+   */
+  rare?: boolean;
 }
 
 export const TECHNIQUE_INFO: Record<TechniqueId, TechniqueInfo> = {
@@ -55,7 +60,7 @@ export const TECHNIQUE_INFO: Record<TechniqueId, TechniqueInfo> = {
   unblock: { themes: ['nt-games', 'declarer'], lesson: 'establishing-long-suits', tricks: 5 },
   drawTrumps: { themes: ['suit-games'], lesson: 'trump-management', tricks: 4 },
   ruffShort: { themes: ['suit-games'], lesson: 'trump-management', tricks: 5 },
-  safety: { themes: ['declarer', 'suit-games', 'nt-games'], lesson: 'safety-plays', tricks: 6 },
+  safety: { themes: ['declarer', 'suit-games', 'nt-games'], lesson: 'safety-plays', tricks: 6, rare: true },
 };
 
 /** Themes for "any technique". */
@@ -70,11 +75,15 @@ export const LESSON_TECHNIQUES: Record<string, TechniqueId> = {
   'hold-up-and-entries': 'holdUp',
   'establishing-long-suits': 'duck',
   'trump-management': 'ruffShort',
-  'safety-plays': 'safety',
   'suit-combinations-and-odds': 'finesse',
 };
 
 export const isTechnique = (x: unknown): x is TechniqueId => TECHNIQUES.includes(x as TechniqueId);
+
+/** The techniques to offer in the picker: those that can be looked for on request, and rare ones with a deal ready. */
+export function offeredTechniques(counts: Record<TechniqueId, number>): TechniqueId[] {
+  return TECHNIQUES.filter(t => !TECHNIQUE_INFO[t].rare || counts[t] > 0);
+}
 
 /** A deal for technique practice: a declarer problem plus the technique its answer is. */
 export interface TechniqueDeal extends Problem {
@@ -735,7 +744,7 @@ export class TechniqueFactory {
 
   /** What to look for next: a technique, null for any, or undefined when enough are ready. */
   nextWant(prefer: TechniqueId | 'any', counts = techCounts()): TechniqueId | null | undefined {
-    if (prefer !== 'any') return counts[prefer] < TECH_BANK_SIZE ? prefer : undefined;
+    if (prefer !== 'any' && !TECHNIQUE_INFO[prefer].rare) return counts[prefer] < TECH_BANK_SIZE ? prefer : undefined;
     const total = TECHNIQUES.reduce((t, k) => t + counts[k], 0);
     return total < ANY_TARGET ? null : undefined;
   }

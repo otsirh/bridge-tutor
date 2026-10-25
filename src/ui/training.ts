@@ -22,7 +22,7 @@ import {
   recordScore, loadScore, bankCounts, problemReviewItem, bookLead,
 } from '../game/problems';
 import {
-  type TechniqueDeal, type TechniqueId, TECHNIQUES, TECHNIQUE_INFO, techniqueFactory, techCounts, pickTechnique, removeTechnique, loadTechScore,
+  type TechniqueDeal, type TechniqueId, TECHNIQUES, TECHNIQUE_INFO, techniqueFactory, techCounts, pickTechnique, removeTechnique, loadTechScore, offeredTechniques,
 } from '../game/techniques';
 import { SKILLS, type SkillId, skillStats, weakestSkill, skillInfo, clearCardMistake } from '../game/skills';
 import { THEMES } from '../game/themes';
@@ -719,6 +719,9 @@ function techniquesTab(act: TrainingActions): HTMLElement {
   techAct = act;
   const counts = techCounts();
   const total = TECHNIQUES.reduce((t, k) => t + counts[k], 0);
+  const offered = offeredTechniques(counts);
+  // a rare technique is offered only while a deal of it is ready
+  if (ts.filter !== 'any' && !offered.includes(ts.filter)) ts.filter = 'any';
   const sel = ts.filter;
   const next = pickTechnique(sel, ts.last);
   const lessonId = sel === 'any' ? null : TECHNIQUE_INFO[sel].lesson;
@@ -727,7 +730,7 @@ function techniquesTab(act: TrainingActions): HTMLElement {
   const score = loadTechScore();
   const done = TECHNIQUES.reduce((t, k) => t + score[k].done, 0);
   const right = TECHNIQUES.reduce((t, k) => t + score[k].right, 0);
-  const filters: (TechniqueId | 'any')[] = ['any', ...TECHNIQUES];
+  const filters: (TechniqueId | 'any')[] = ['any', ...offered];
   const el = h('div', null,
     h('p', { class: 'small muted', style: 'margin-top:0' }, X.intro),
     h('div', { class: 'pfilter tfilter', role: 'group', 'aria-label': X.filterLabel }, filters.map(f => {

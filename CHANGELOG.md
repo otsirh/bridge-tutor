@@ -29,7 +29,7 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
 - Four new lessons: defending against notrump, ruffing finesses and loser on loser, dummy reversal
   and the trump coup, and leads against slams and doubled contracts; eight new glossary terms.
 - Technique practice: whole deals where one declarer technique decides the contract — a finesse,
-  the hold-up, ducking, unblocking, drawing trumps, ruffing in the short hand, a safety play —
+  the hold-up, ducking, unblocking, drawing trumps, ruffing in the short hand, the rare safety play —
   played at the table with the auction made; the review shows the key moment with the simulation
   and the lesson, and a miss comes back in the review queue. Lessons on these techniques link to it.
 

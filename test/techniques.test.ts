@@ -7,7 +7,7 @@ import { problemPosition, type ProblemStat } from '../src/game/problems';
 import {
   type TechniqueDeal, type TechniqueId, TECHNIQUES, TECHNIQUE_INFO, LESSON_TECHNIQUES, TECH_BANK_SIZE, ANY_TARGET, recogniseTechnique, mayArise,
   interchangeable, followScript, scriptedCard, techniqueOutcome, keyDecision, techniqueReviewItem, validTechnique, generateTechnique,
-  addTechnique, loadTechBank, removeTechnique, pickTechnique, techCounts, recordTechScore, loadTechScore, TechniqueFactory,
+  addTechnique, loadTechBank, removeTechnique, pickTechnique, techCounts, recordTechScore, loadTechScore, TechniqueFactory, offeredTechniques,
 } from '../src/game/techniques';
 import { STARTER_TECHNIQUES } from '../src/game/starterTechniques';
 import { LESSON_THEMES, themeById } from '../src/game/themes';
@@ -274,6 +274,11 @@ describe('the bank of ready deals', () => {
     expect(f.nextWant('holdUp', { ...none, holdUp: TECH_BANK_SIZE })).toBeUndefined();
     expect(f.nextWant('any', none)).toBeNull();
     expect(f.nextWant('any', { ...none, finesse: ANY_TARGET })).toBeUndefined();
+    // a rare technique is not looked for on request: any technique is
+    expect(TECHNIQUE_INFO.safety.rare).toBe(true);
+    expect(f.nextWant('safety', none)).toBeNull();
+    expect(offeredTechniques(none)).not.toContain('safety');
+    expect(offeredTechniques({ ...none, safety: 1 })).toContain('safety');
   });
 });
 

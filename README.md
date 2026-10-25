@@ -48,8 +48,8 @@ deal, or share it as a link, a code, PBN or a BBO hand.
 - **Skills**: accuracy in nine areas — opening, responding, rebids, notrump, competitive, slam,
   opening leads, declarer play, defence — with the weakest one suggested next.
 - **Techniques**: whole deals where one declarer technique decides the contract — a finesse, the
-  hold-up, ducking, unblocking, drawing trumps, ruffing in the short hand, a safety play — chosen by
-  simulation with only declarer's information, played at the table and explained afterwards.
+  hold-up, ducking, unblocking, drawing trumps, ruffing in the short hand (and the rare safety play) —
+  chosen by simulation with only declarer's information, played at the table and explained afterwards.
 - **Topics**: boards dealt so a topic really comes up (Stayman, splinters, negative doubles, balancing,
   3NT hold-ups, opening leads, …): each deal is tested against the system's own auction.
 - **History**: every board kept in full, to review or play again. Back up and restore your progress.
