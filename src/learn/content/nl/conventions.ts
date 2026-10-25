@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Zuid heeft 14 punten en vijf schoppen. 2♣ vraagt; 2♠ van Noord toont driekaartsteun, en Zuid biedt de schoppenmanche, waarin de troefslagen elf slagen opleveren.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Met 11 punten en vijf harten (♠5 ♥AQJ62 ♦A32 ♣9743) vraagt Zuid met 2♣ en inviteert hij tegenover een minimum met drie harten met 3♥. Noord heeft een minimum en past.</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Welke hand moet na 1♦ – 1♠ – 1SA nieuwe minor forcing gebruiken?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Vijf schoppen en 12 punten: vraag naar driekaartsteun. De eerste hand is te zwak, de derde herbiedt 2♠, en de laatste, met vier schoppen en 12 punten, biedt 3SA.',
+        explain: 'Vijf schoppen en 12 punten: vraag naar driekaartsteun. De eerste hand is te zwak; de derde ook, die past (2♠ zou zes schoppen tonen); en de laatste, met vier schoppen en 12 punten, nodigt uit met 2SA.',
       },
     ],
   },

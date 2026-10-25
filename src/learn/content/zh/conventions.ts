@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>南家有14个大牌点和5张黑桃。2♣询问；北家答2♠表示3张支持，南家叫到黑桃成局，将吃的价值使这个定约能拿11墩。</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>南家有11个大牌点和5张红心（♠5 ♥AQJ62 ♦A32 ♣9743），用2♣询问；对面是有3张红心的低限，南家用3♥邀请。北家是低限，不叫。</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: '在1♦ – 1♠ – 1NT之后，哪手牌应该使用新低花逼叫？',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: '5张黑桃、12个大牌点：询问3张支持。第一手牌太弱，第三手应该再叫2♠，最后一手只有4张黑桃和12个大牌点，叫3NT。',
+        explain: '5张黑桃、12个大牌点：询问3张支持。第一手牌太弱；第三手也太弱，应该不叫（再叫2♠表示6张黑桃）；最后一手有4张黑桃和12个大牌点，叫2NT邀请。',
       },
     ],
   },

@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Süd hat 14 FP und fünf Pik. 2♣ fragt; Nords 2♠ zeigt Dreierunterstützung, und Süd reizt das Pik-Vollspiel, in dem der Schnappwert elf Stiche bringt.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Mit 11 FP und fünf Coeur (♠5 ♥AQJ62 ♦A32 ♣9743) fragt Süd mit 2♣ und lädt gegenüber einem Minimum mit drei Coeur mit 3♥ ein. Nord hat ein Minimum und passt.</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Mit welcher Hand sollten Sie nach 1♦ – 1♠ – 1SA Neue Unterfarbe forcierend verwenden?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Fünf Pik und 12 FP: Fragen Sie nach Dreierunterstützung. Die erste Hand ist zu schwach, mit der dritten reizen Sie 2♠, und mit der letzten, vier Pik und 12 FP, reizen Sie 3SA.',
+        explain: 'Fünf Pik und 12 FP: Fragen Sie nach Dreierunterstützung. Die erste Hand ist zu schwach; die dritte auch, mit ihr passen Sie (2♠ würde sechs Pik zeigen); und mit der letzten, vier Pik und 12 FP, laden Sie mit 2SA ein.',
       },
     ],
   },

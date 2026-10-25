@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Sur tiene 14 PH y cinco picas. 2♣ pregunta; el 2♠ de Norte muestra apoyo de tres cartas, y Sur declara la manga en picas, donde el valor de fallo permite hacer once bazas.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Con 11 PH y cinco corazones (♠5 ♥AQJ62 ♦A32 ♣9743), Sur pregunta con 2♣ y, frente a un mínimo con tres corazones, invita con 3♥. Norte tiene un mínimo y pasa.</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Tras 1♦ – 1♠ – 1SA, ¿qué mano debe usar el nuevo menor forcing?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Cinco picas y 12 PH: pregunta por el apoyo de tres cartas. La primera mano es demasiado débil, la tercera debe redeclarar 2♠, y la última, con cuatro picas y 12 PH, declara 3SA.',
+        explain: 'Cinco picas y 12 PH: pregunta por el apoyo de tres cartas. La primera mano es demasiado débil; la tercera también, y pasa (2♠ mostraría seis picas); y la última, con cuatro picas y 12 PH, invita con 2SA.',
       },
     ],
   },

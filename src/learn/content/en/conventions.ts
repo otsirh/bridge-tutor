@@ -205,6 +205,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>South has 14 HCP and five spades. 2♣ asks; North's 2♠ shows three-card support, and South bids the spade game, where the ruffing value makes eleven tricks.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>With 11 HCP and five hearts (♠5 ♥AQJ62 ♦A32 ♣9743), South asks with 2♣ and, opposite a minimum with three hearts, invites with 3♥. North has a minimum and passes.</p>
 
@@ -258,7 +259,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'After 1♦ – 1♠ – 1NT, which hand should use new minor forcing?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Five spades and 12 HCP: ask for three-card support. The first hand is too weak, the third should rebid 2♠, and the last, with four spades and 12 HCP, bids 3NT.',
+        explain: 'Five spades and 12 HCP: ask for three-card support. The first hand is too weak; so is the third, which passes (2♠ would show six spades); and the last, with four spades and 12 HCP, invites with 2NT.',
       },
     ],
   },

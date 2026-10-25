@@ -204,6 +204,7 @@ export const LESSONS_4: Lesson[] = [
 <div class="deal" data-n="S:A108 H:J5 D:A854 C:K1063" data-s="S:QJ964 H:K6 D:Q1092 C:AQ"></div>
 <div class="auction" data-calls="1D P 1S P 1NT P 2C P 2S P 4S P P P" data-dealer="N"></div>
 <p>Sud ha 14 PO e cinque picche. 2♣ chiede; il 2♠ di Nord mostra appoggio terzo, e Sud dichiara la manche a picche, dove il valore di taglio porta a undici prese.</p>
+<div class="deal" data-n="S:K84 H:K73 D:KJ64 C:Q85" data-s="S:5 H:AQJ62 D:A32 C:9743"></div>
 <div class="auction" data-calls="1D P 1H P 1NT P 2C P 2H P 3H P P P" data-dealer="N"></div>
 <p>Con 11 PO e cinque cuori (♠5 ♥AQJ62 ♦A32 ♣9743), Sud chiede con 2♣ e, di fronte a un minimo con tre cuori, invita con 3♥. Nord ha un minimo e passa.</p>
 
@@ -257,7 +258,7 @@ export const LESSONS_4: Lesson[] = [
         q: 'Dopo 1♦ – 1♠ – 1SA, quale mano deve usare il nuovo minore forzante?',
         options: ['♠KJ84 ♥Q73 ♦K5 ♣J1063', '♠AQ984 ♥K6 ♦J3 ♣Q1052', '♠J9852 ♥43 ♦K82 ♣1074', '♠K1063 ♥Q2 ♦A54 ♣K973'],
         answer: 1,
-        explain: 'Cinque picche e 12 PO: chiedi l’appoggio terzo. La prima mano è troppo debole, la terza deve ripetere 2♠, e l’ultima, con quattro picche e 12 PO, dichiara 3SA.',
+        explain: 'Cinque picche e 12 PO: chiedi l’appoggio terzo. La prima mano è troppo debole; anche la terza, che passa (2♠ mostrerebbe sei picche); e l’ultima, con quattro picche e 12 PO, invita con 2SA.',
       },
     ],
   },
