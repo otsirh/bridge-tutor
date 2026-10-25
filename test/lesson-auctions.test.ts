@@ -94,6 +94,11 @@ const CALLS: { lesson: string; hand: number | string; dealer: string; before: st
   { lesson: 'competing-over-preempts', hand: 'S:AJ74 H:5 D:KQ83 C:K1062', dealer: 'W', before: '2H X P 2S P', call: '3S' },
   { lesson: 'competing-over-preempts', hand: 'S:KJ5 H:AQ4 D:KQ83 C:J106', dealer: 'W', before: '2S', call: '2NT' },
   { lesson: 'competing-over-preempts', hand: 'S:96 H:KQJ104 D:Q105 C:J84', dealer: 'W', before: '2H X P', call: 'P' },
+  { lesson: 'competing-over-preempts', hand: 'S:K9632 H:874 D:A52 C:K4', dealer: 'W', before: '2H X P', call: '4S' },
+  { lesson: 'competing-over-preempts', hand: 'S:K96 H:Q874 D:A52 C:Q84', dealer: 'W', before: '2S X P', call: '4H' },
+  { lesson: 'competing-over-preempts', hand: 'S:K963 H:874 D:A52 C:Q84', dealer: 'W', before: '3H X P', call: '4S' },
+  { lesson: 'competing-over-preempts', hand: 'S:KJ9643 H:87 D:Q52 C:84', dealer: 'W', before: '2H 2NT P', call: '3S' },
+  { lesson: 'competing-over-preempts', hand: 'S:K96 H:874 D:KQ52 C:K84', dealer: 'W', before: '3H 3NT P', call: 'P' },
   // when-they-double-us
   { lesson: 'when-they-double-us', hand: 0, dealer: 'N', before: '1H X', call: '2NT' },
   { lesson: 'when-they-double-us', hand: 1, dealer: 'N', before: '1H X', call: 'XX' },
@@ -106,6 +111,9 @@ const CALLS: { lesson: string; hand: number | string; dealer: string; before: st
   { lesson: 'when-they-double-us', hand: 8, dealer: 'N', before: '1NT X', call: '2D' },
   { lesson: 'when-they-double-us', hand: 9, dealer: 'N', before: '1NT X', call: 'XX' },
   { lesson: 'when-they-double-us', hand: 10, dealer: 'N', before: '1NT X', call: 'P' },
+  { lesson: 'when-they-double-us', hand: 'S:A5 H:QJ10842 D:K72 C:84', dealer: 'N', before: '1H X XX P', call: '2H' },
+  { lesson: 'when-they-double-us', hand: 'S:A5 H:AQJ84 D:K1072 C:84', dealer: 'N', before: '1H X XX P', call: 'P' },
+  { lesson: 'when-they-double-us', hand: 'S:8742 H:109732 D:86 C:53', dealer: 'N', before: '1H X XX', call: 'P' },
 ];
 
 /** Diagram data attributes of one kind, in order. */

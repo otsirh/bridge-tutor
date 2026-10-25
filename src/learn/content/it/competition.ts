@@ -180,26 +180,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>La tua mano</th><th>Dichiarazione</th></tr></thead>
 <tbody>
 <tr><td>0-8 PO</td><td>Il tuo colore migliore al livello più economico, prima una nobile di quattro</td></tr>
-<tr><td>9-11 PO</td><td>Un salto nel tuo colore migliore se il salto resta a livello di tre (qui 3♠); altrimenti 2SA con 11 PO e il fermo a cuori, o il tuo colore migliore al livello più economico</td></tr>
+<tr><td>9-11 PO</td><td>Un salto nel tuo colore migliore se il salto resta a livello di tre (qui 3♠). Con quattro carte in una nobile non dichiarata che potresti dichiarare solo a livello di tre, invece la manche in quella nobile (su 2♠, 4♥). Altrimenti 2SA con 11 PO e il fermo nel loro colore, o il tuo colore migliore al livello più economico</td></tr>
 <tr><td>10-11 PO e cinque o più picche</td><td>4♠</td></tr>
 <tr><td>12+ PO</td><td>3♥, la surlicita: forzante a manche. Con 13-16, una mano bilanciata o semibilanciata e il fermo a cuori, invece 3SA</td></tr>
 <tr><td>Cinque cuori solide (tre onori) e 8+ PO</td><td>Passo: il contro diventa punitivo</td></tr>
 </tbody>
 </table>
-<p>Su un barrage a livello di tre non c’è spazio per saltare: dichiara il tuo colore migliore al livello più economico, la manche con 10-11 PO e cinque carte in una nobile non dichiarata, 3SA con 13-16, una mano bilanciata o semibilanciata e il fermo, o la surlicita con 12+. Chi ha contrato passa una risposta al livello più economico con un minimo, e la appoggia solo con valori in più.</p>
+<p>Su un barrage a livello di tre non c’è spazio per saltare: con 9-11 PO e quattro o più carte in una nobile non dichiarata, dichiara la manche in quella nobile; altrimenti il tuo colore migliore al livello più economico, 3SA con 13-16, una mano bilanciata o semibilanciata e il fermo, o la surlicita con 12+. Chi ha contrato passa una risposta al livello più economico con un minimo, e la appoggia solo con valori in più.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="Ovest apre 2♥; Nord contra."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>Sud ha 9 PO e quattro picche: vale un salto a 3♠, perché una risposta di 2♠ potrebbe essere fatta con niente. Nord, con 13 PO, quattro atout e un singolo a cuori (16 punti di appoggio a picche), accetta l’invito. Su una risposta di 2♠ Nord avrebbe solo invitato con 3♠.</p>
 
 <h3>Rispondere a un intervento a senza atout</h3>
-<p>Dopo il 2SA del compagno su un due debole (15-18): dichiara 3SA con 10+ PO; con una nobile di sei, la manche con 9+ PO o tre in quel colore con 6-8 per invitare; con una mano più debole e un colore di cinque, dichiaralo a livello di tre per giocarlo; altrimenti passa. Stayman e transfer non si usano qui. Dopo il 3SA del compagno su un barrage a livello di tre (16-21), i bot passano con quasi tutte le mani. Dichiarano quattro in una nobile di sei con 9+ PO, o un colore di cinque debole a livello di quattro, e con 12+ PO cercano lo slam: 4SA è un invito quantitativo con 12-14 PO, e 6SA si dichiara con 15+.</p>
+<p>Dopo il 2SA del compagno su un due debole (15-18): dichiara 3SA con 10+ PO; con una nobile di sei, la manche con 9+ PO o tre in quel colore con 6-8 per invitare; con una mano più debole e un colore di cinque, dichiaralo a livello di tre per giocarlo; altrimenti passa. Stayman e transfer non si usano qui. Dopo il 3SA del compagno su un barrage a livello di tre (16-21), i bot passano con quasi tutte le mani: dichiarano quattro in una nobile di sei con 9+ PO, e con 12+ PO cercano lo slam. 4SA è un invito quantitativo con 12-14 PO, e 6SA si dichiara con 15+.</p>
 <div class="warn">Non contrare un barrage per punire perché hai qualche carta alta nel loro colore: il contro dei bot è informativo. Con lunghezza nel loro colore, passa e aspetta il contro del compagno; con atout lunghe e solide potrai poi lasciare quel contro per punire.</div>
 `,
     keyPoints: [
       'Su un due debole il contro (13+, corto nel loro colore) e l’intervento (13-17, buon colore) richiedono valori veri; 2SA mostra 15-18 bilanciata con il fermo.',
       'Su un barrage a livello di tre il contro richiede 14+; 3SA mostra 16-21 con il fermo, per giocarlo.',
       'Con un buon colore di sei intervieni; con 17+ PO di qualsiasi distribuzione, contra prima.',
-      'Il compagno deve dichiarare: livello più economico con 0-8, un salto con 9-11 se resta a livello di tre, la surlicita con 12+; passa solo con atout solide.',
+      'Il compagno deve dichiarare: livello più economico con 0-8, un salto con 9-11 se resta a livello di tre (manche in una nobile di quattro che trova posto solo a livello di tre), la surlicita con 12+; passa solo con atout solide.',
       'Chi fa barrage si aspetta di andare sotto da due a quattro prese contrato: se hai la manche, dichiarala invece di sperare in una grossa penalità.',
     ],
     quiz: [
@@ -277,10 +277,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Dopo il surcontro</h3>
-<p>Il surcontro dice che la mano è della vostra linea. L’apertore di solito passa e lascia il problema agli avversari: devono trovare dove giocare, e il compagno di chi ha contrato, che può non avere niente, dichiara solo con un colore di cinque. L’apertore dichiara subito solo con un minimo e un colore di sei, che difende male. Quando gli avversari finiscono in un colore, chi ha surcontrato può contrarli per punire con quattro buone carte in quel colore.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="Nord apre 1♥ ed Est contra."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>Sud ha 10 PO e solo due cuori: surcontro. Ovest non ha niente né un colore di cinque, quindi passa; passa anche Nord, ed Est deve scegliere un colore a livello di due. L’♣A-Q-9-7 di Sud sta dietro alle fiori di Est: contro. Nord-Sud hanno 24 PO e Ovest non può aiutare: con il gioco migliore, 2♣ contrato va sotto di tre prese, 500 punti anche quando Est-Ovest sono in prima.</p>
+<p>Il surcontro dice che la mano è della vostra linea. L’apertore di solito passa e lascia il problema agli avversari: devono trovare dove giocare, e il compagno di chi ha contrato, che può non avere niente, dichiara solo con un colore di cinque. L’apertore dichiara subito solo con un minimo (al massimo 13 PO) e un colore di sei, che difende male. Quando gli avversari finiscono in un colore, chi ha surcontrato dichiara la manche se ne ha i valori, circa 12+ PO di fronte all’apertura.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Nord apre 1♥ ed Est contra."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>Sud ha 12 PO e solo due cuori: surcontro. Ovest non ha niente né un colore di cinque, quindi passa; passa anche Nord, ed Est deve scegliere un colore a livello di due. Sud, con 12 PO di fronte a un’apertura e due fermi a fiori, dichiara 3SA, che con il gioco migliore realizza nove prese.</p>
 
 <h3>Il 2SA Jordan in azione</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="Nord apre 1♥ ed Est contra."></div>
@@ -309,7 +309,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Dopo un contro informativo su 1♥ o 1♠, 2SA (Jordan) mostra quattro atout e 10+ punti di appoggio; il surcontro mostra 10+ PO, di solito senza fit.',
       'L’appoggio a salto è un barrage (quattro atout per una nobile, cinque per un minore, meno di 10 PO); l’appoggio semplice mostra 6-10 con appoggio.',
       'Una nobile a livello di uno mostra quattro o più carte e 6+ PO ed è forzante; 1SA mostra 6-9 senza un’altra dichiarazione adatta.',
-      'Dopo il surcontro l’apertore di solito passa; chi ha surcontrato può contrare la fuga degli avversari con quattro buone atout.',
+      'Dopo il surcontro l’apertore di solito passa e lascia che gli avversari cerchino un contratto; con valori di manche, chi ha surcontrato dichiara poi la manche.',
       'Quando l’1SA del compagno viene contrato, surcontra con 8+; con una mano debole e un colore di cinque, dichiaralo a livello di due (naturale, senza Stayman né transfer).',
     ],
     quiz: [
@@ -329,7 +329,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Il compagno apre 1♥ e l’avversario di destra contra. Hai ♠AQ74 ♥62 ♦KJ53 ♣984 (10 PO). Che cosa dichiari?',
         options: ['1♠', 'Surcontro', '2♦', '1SA'],
         answer: 1,
-        explain: '10+ PO senza fit: surcontro. Dice al compagno che la mano è della vostra linea, e sarai pronto a contrare gli avversari quando scappano.',
+        explain: '10+ PO senza fit: surcontro. Dice al compagno che la mano è della vostra linea; l’apertore di solito passerà e lascerà agli avversari il compito di trovare un contratto.',
       },
       {
         q: 'Il compagno apre 1♦ e l’avversario di destra contra. Hai ♠KJ74 ♥Q962 ♦53 ♣J43 (7 PO). Che cosa dichiari?',

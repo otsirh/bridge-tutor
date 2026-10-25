@@ -180,26 +180,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>Ihre Hand</th><th>Gebot</th></tr></thead>
 <tbody>
 <tr><td>0–8 FP</td><td>Ihre beste Farbe auf der niedrigsten Stufe, eine Vierer-Oberfarbe zuerst</td></tr>
-<tr><td>9–11 FP</td><td>Ein Sprung in Ihrer besten Farbe, wenn der Sprung noch auf der Dreierstufe liegt (hier 3♠); sonst 2SA mit 11 FP und Coeur-Stopper oder Ihre beste Farbe auf der niedrigsten Stufe</td></tr>
+<tr><td>9–11 FP</td><td>Ein Sprung in Ihrer besten Farbe, wenn der Sprung noch auf der Dreierstufe liegt (hier 3♠). Mit vier Karten in einer ungereizten Oberfarbe, die Sie erst auf der Dreierstufe reizen könnten, stattdessen das Vollspiel darin (über 2♠: 4♥). Sonst 2SA mit 11 FP und Stopper in der gegnerischen Farbe oder Ihre beste Farbe auf der niedrigsten Stufe</td></tr>
 <tr><td>10–11 FP und fünf oder mehr Pik</td><td>4♠</td></tr>
 <tr><td>12+ FP</td><td>3♥, das Cuebid: forcierend bis zum Vollspiel. Mit 13–16, einer ausgeglichenen oder halb ausgeglichenen Hand und Coeur-Stopper stattdessen 3SA</td></tr>
 <tr><td>Fünf starke Coeur (drei Figuren) und 8+ FP</td><td>Passe: Das Kontra wird zum Strafkontra</td></tr>
 </tbody>
 </table>
-<p>Gegen eine Sperre auf der Dreierstufe ist kein Platz für einen Sprung: Reizen Sie Ihre beste Farbe auf der niedrigsten Stufe, das Vollspiel mit 10–11 FP und fünf Karten in einer ungereizten Oberfarbe, 3SA mit 13–16, einer ausgeglichenen oder halb ausgeglichenen Hand und Stopper, oder das Cuebid mit 12+. Der Kontrierende passt eine Antwort auf der niedrigsten Stufe mit Minimum und hebt nur mit Extrawerten.</p>
+<p>Gegen eine Sperre auf der Dreierstufe ist kein Platz für einen Sprung: Mit 9–11 FP und vier oder mehr Karten in einer ungereizten Oberfarbe reizen Sie darin das Vollspiel; sonst Ihre beste Farbe auf der niedrigsten Stufe, 3SA mit 13–16, einer ausgeglichenen oder halb ausgeglichenen Hand und Stopper, oder das Cuebid mit 12+. Der Kontrierende passt eine Antwort auf der niedrigsten Stufe mit Minimum und hebt nur mit Extrawerten.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="West eröffnet 2♥; Nord kontriert."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>Süd hat 9 FP und vier Pik: genug für einen Sprung auf 3♠, denn eine Antwort von 2♠ könnte auch mit gar nichts kommen. Nord nimmt mit 13 FP, vier Trümpfen und einem Coeur-Single (16 Unterstützungspunkte für Pik) die Einladung an. Auf eine Antwort von 2♠ hätte Nord nur mit 3♠ eingeladen.</p>
 
 <h3>Die Antwort auf eine SA-Gegenreizung</h3>
-<p>Nach 2SA des Partners gegen eine schwache Zwei (15–18): Reizen Sie 3SA mit 10+ FP; mit einer Sechser-Oberfarbe das Vollspiel mit 9+ FP oder die Farbe auf der Dreierstufe mit 6–8 als Einladung; mit einer schwächeren Hand und einer Fünferlänge reizen Sie diese auf der Dreierstufe zum Spielen; sonst passen Sie. Stayman und Transfers werden hier nicht verwendet. Nach 3SA des Partners gegen eine Sperre auf der Dreierstufe (16–21) passen die Bots mit den meisten Händen. Sie reizen vier in einer Sechser-Oberfarbe mit 9+ FP oder eine schwache Fünferlänge auf der Viererstufe, und mit 12+ FP suchen sie den Schlemm: 4SA ist eine quantitative Einladung mit 12–14 FP, und 6SA wird mit 15+ gereizt.</p>
+<p>Nach 2SA des Partners gegen eine schwache Zwei (15–18): Reizen Sie 3SA mit 10+ FP; mit einer Sechser-Oberfarbe das Vollspiel mit 9+ FP oder die Farbe auf der Dreierstufe mit 6–8 als Einladung; mit einer schwächeren Hand und einer Fünferlänge reizen Sie diese auf der Dreierstufe zum Spielen; sonst passen Sie. Stayman und Transfers werden hier nicht verwendet. Nach 3SA des Partners gegen eine Sperre auf der Dreierstufe (16–21) passen die Bots mit den meisten Händen: Sie reizen vier in einer Sechser-Oberfarbe mit 9+ FP, und mit 12+ FP suchen sie den Schlemm. 4SA ist eine quantitative Einladung mit 12–14 FP, und 6SA wird mit 15+ gereizt.</p>
 <div class="warn">Kontrieren Sie eine Sperre nicht zur Strafe, nur weil Sie ein paar hohe Karten in der gegnerischen Farbe haben: Das Kontra der Bots ist ein Informationskontra. Mit Länge in der gegnerischen Farbe passen Sie und warten auf das Kontra des Partners; mit langen, starken Trümpfen können Sie dieses Kontra dann zur Strafe stehen lassen.</div>
 `,
     keyPoints: [
       'Gegen eine schwache Zwei brauchen ein Kontra (13+, kurz in der gegnerischen Farbe) und eine Gegenreizung (13–17, gute Farbe) echte Werte; 2SA zeigt 15–18 ausgeglichen mit Stopper.',
       'Gegen eine Sperre auf der Dreierstufe braucht das Kontra 14+; 3SA zeigt 16–21 mit Stopper, zum Spielen.',
       'Mit einer guten Sechserlänge reizen Sie gegen; mit 17+ FP und beliebiger Verteilung kontrieren Sie zuerst.',
-      'Der Partner muss reizen: niedrigste Stufe mit 0–8, Sprung mit 9–11, wenn er noch auf der Dreierstufe liegt, Cuebid mit 12+; Passe nur mit starken Trümpfen.',
+      'Der Partner muss reizen: niedrigste Stufe mit 0–8, Sprung mit 9–11, wenn er noch auf der Dreierstufe liegt (Vollspiel in einer Vierer-Oberfarbe, die erst auf der Dreierstufe Platz hat), Cuebid mit 12+; Passe nur mit starken Trümpfen.',
       'Der Sperrende rechnet kontriert mit zwei bis vier Fallern: Haben Sie ein Vollspiel, reizen Sie es, statt auf eine hohe Strafe zu hoffen.',
     ],
     quiz: [
@@ -277,10 +277,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Nach dem Rekontra</h3>
-<p>Das Rekontra sagt, dass das Spiel Ihrer Seite gehört. Der Eröffner passt normalerweise und überlässt das Problem den Gegnern: Sie müssen einen Platz zum Spielen finden, und der Partner des Kontrierenden, der vielleicht nichts hat, reizt nur mit einer Fünferlänge. Der Eröffner reizt sofort nur mit Minimum und einer Sechserlänge, also mit schwacher Verteidigung. Landen die Gegner in einer Farbe, kann der Rekontrierende sie mit vier guten Karten in dieser Farbe zur Strafe kontrieren.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="Nord eröffnet 1♥, und Ost kontriert."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>Süd hat 10 FP und nur zwei Coeur: Rekontra. West hat nichts und keine Fünferlänge, also passt er; auch Nord passt, und Ost muss auf der Zweierstufe eine Farbe wählen. Süds ♣A-Q-9-7 sitzen hinter Osts Treff: Kontra. Nord-Süd haben 24 FP, und West kann nicht helfen: Bei bestem Spiel fällt 2♣ kontriert dreimal, das sind 500 Punkte, selbst wenn Ost-West nicht in Gefahr sind.</p>
+<p>Das Rekontra sagt, dass das Spiel Ihrer Seite gehört. Der Eröffner passt normalerweise und überlässt das Problem den Gegnern: Sie müssen einen Platz zum Spielen finden, und der Partner des Kontrierenden, der vielleicht nichts hat, reizt nur mit einer Fünferlänge. Der Eröffner reizt sofort nur mit Minimum (höchstens 13 FP) und einer Sechserlänge, also mit schwacher Verteidigung. Landen die Gegner in einer Farbe, reizt der Rekontrierende mit den Werten dafür das Vollspiel, etwa ab 12 FP gegenüber der Eröffnung.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Nord eröffnet 1♥, und Ost kontriert."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>Süd hat 12 FP und nur zwei Coeur: Rekontra. West hat nichts und keine Fünferlänge, also passt er; auch Nord passt, und Ost muss auf der Zweierstufe eine Farbe wählen. Süd hat 12 FP gegenüber einer Eröffnung und Treff doppelt gestoppt und reizt 3SA, das bei bestem Spiel neun Stiche macht.</p>
 
 <h3>Jordan 2SA in Aktion</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="Nord eröffnet 1♥, und Ost kontriert."></div>
@@ -309,7 +309,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Nach einem Informationskontra auf 1♥ oder 1♠ zeigt 2SA (Jordan) vier Trümpfe und 10+ Unterstützungspunkte; Rekontra zeigt 10+ FP, meist ohne Fit.',
       'Die Sprunghebung ist sperrend (vier Trümpfe für eine Oberfarbe, fünf für eine Unterfarbe, unter 10 FP); die einfache Hebung zeigt 6–10 mit Unterstützung.',
       'Eine Oberfarbe auf der Einerstufe zeigt vier oder mehr Karten und 6+ FP und ist forcierend; 1SA zeigt 6–9 ohne anderes passendes Gebot.',
-      'Nach dem Rekontra passt der Eröffner meist; der Rekontrierende kann die Flucht der Gegner mit vier guten Trümpfen kontrieren.',
+      'Nach dem Rekontra passt der Eröffner meist und lässt die Gegner einen Kontrakt suchen; mit Vollspielwerten reizt der Rekontrierende dann das Vollspiel.',
       'Wird 1SA des Partners kontriert, geben Sie mit 8+ Rekontra; mit einer schwachen Hand und einer Fünferlänge reizen Sie diese auf der Zweierstufe (natürlich, ohne Stayman und Transfers).',
     ],
     quiz: [
@@ -329,7 +329,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Der Partner eröffnet 1♥, und Ihr rechter Gegner kontriert. Sie halten ♠AQ74 ♥62 ♦KJ53 ♣984 (10 FP). Was reizen Sie?',
         options: ['1♠', 'Rekontra', '2♦', '1SA'],
         answer: 1,
-        explain: '10+ FP ohne Fit: Rekontra. Es sagt dem Partner, dass das Spiel Ihrer Seite gehört, und Sie sind bereit, die Gegner zu kontrieren, wenn sie flüchten.',
+        explain: '10+ FP ohne Fit: Rekontra. Es sagt dem Partner, dass das Spiel Ihrer Seite gehört; der Eröffner passt meist und überlässt es den Gegnern, einen Kontrakt zu finden.',
       },
       {
         q: 'Der Partner eröffnet 1♦, und Ihr rechter Gegner kontriert. Sie halten ♠KJ74 ♥Q962 ♦53 ♣J43 (7 FP). Was reizen Sie?',

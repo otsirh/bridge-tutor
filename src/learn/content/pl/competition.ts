@@ -180,26 +180,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>Twoja ręka</th><th>Odzywka</th></tr></thead>
 <tbody>
 <tr><td>0-8 PC</td><td>Najlepszy kolor najtaniej, jak się da, najpierw czterokartowy starszy</td></tr>
-<tr><td>9-11 PC</td><td>Skok w najlepszy kolor, jeśli skok jest jeszcze na wysokości trzech (tu 3♠); w przeciwnym razie 2BA z 11 PC i zatrzymaniem kierowym albo najlepszy kolor najtaniej</td></tr>
+<tr><td>9-11 PC</td><td>Skok w najlepszy kolor, jeśli skok jest jeszcze na wysokości trzech (tu 3♠). Z czterema kartami w niezalicytowanym starszym, który mógłbyś zalicytować dopiero na wysokości trzech, zamiast tego dograna w tym kolorze (po 2♠: 4♥). W przeciwnym razie 2BA z 11 PC i zatrzymaniem w ich kolorze albo najlepszy kolor najtaniej</td></tr>
 <tr><td>10-11 PC i pięć lub więcej pików</td><td>4♠</td></tr>
 <tr><td>12+ PC</td><td>3♥, cue bid: forsujący do dograny. Z 13-16, ręką zrównoważoną lub półzrównoważoną i zatrzymaniem kierowym zamiast tego 3BA</td></tr>
 <tr><td>Pięć mocnych kierów (trzy honory) i 8+ PC</td><td>Pas: kontra staje się karna</td></tr>
 </tbody>
 </table>
-<p>Po bloku na wysokości trzech nie ma miejsca na skok: licytuj najlepszy kolor najtaniej, dograną z 10-11 PC i pięcioma kartami w niezalicytowanym starszym, 3BA z 13-16, ręką zrównoważoną lub półzrównoważoną i zatrzymaniem albo cue bid z 12+. Kontrujący pasuje na odpowiedź na najniższej wysokości z minimum i podnosi ją tylko z dodatkowymi wartościami.</p>
+<p>Po bloku na wysokości trzech nie ma miejsca na skok: z 9-11 PC i czterema lub więcej kartami w niezalicytowanym starszym licytuj w nim dograną; w przeciwnym razie najlepszy kolor najtaniej, 3BA z 13-16, ręką zrównoważoną lub półzrównoważoną i zatrzymaniem albo cue bid z 12+. Kontrujący pasuje na odpowiedź na najniższej wysokości z minimum i podnosi ją tylko z dodatkowymi wartościami.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="Zachód otwiera 2♥; Północ kontruje."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>Południe ma 9 PC i cztery piki: wystarczy na skok do 3♠, bo odpowiedź 2♠ mogłaby paść bez niczego. Północ z 13 PC, czterema atutami i singlem kier (16 punktów w poparciu pików) przyjmuje inwit. Po odpowiedzi 2♠ Północ tylko zainwitowałaby 3♠.</p>
 
 <h3>Odpowiedź na wejście bez atu</h3>
-<p>Po 2BA partnera nad słabym dwa (15-18): licytuj 3BA z 10+ PC; z sześciokartowym starszym dograną z 9+ PC albo trzy w tym kolorze z 6-8 jako inwit; ze słabszą ręką i kolorem pięciokartowym zalicytuj go na wysokości trzech do gry; w przeciwnym razie pasuj. Stayman i transfery nie są tu używane. Po 3BA partnera nad blokiem na wysokości trzech (16-21) boty pasują z większością rąk. Licytują cztery w sześciokartowym starszym z 9+ PC albo słaby pięciokartowy kolor na wysokości czterech, a z 12+ PC szukają szlemika: 4BA to ilościowy inwit z 12-14 PC, a 6BA licytują z 15+.</p>
+<p>Po 2BA partnera nad słabym dwa (15-18): licytuj 3BA z 10+ PC; z sześciokartowym starszym dograną z 9+ PC albo trzy w tym kolorze z 6-8 jako inwit; ze słabszą ręką i kolorem pięciokartowym zalicytuj go na wysokości trzech do gry; w przeciwnym razie pasuj. Stayman i transfery nie są tu używane. Po 3BA partnera nad blokiem na wysokości trzech (16-21) boty pasują z większością rąk: licytują cztery w sześciokartowym starszym z 9+ PC, a z 12+ PC szukają szlemika. 4BA to ilościowy inwit z 12-14 PC, a 6BA licytują z 15+.</p>
 <div class="warn">Nie kontruj bloku karnie tylko dlatego, że masz kilka wysokich kart w ich kolorze: kontra botów jest wywołująca. Z długością w ich kolorze pasuj i czekaj na kontrę partnera; z długimi, mocnymi atutami możesz potem tę kontrę zostawić jako karną.</div>
 `,
     keyPoints: [
       'Po słabym dwa kontra (13+, krótkość w ich kolorze) i wejście (13-17, dobry kolor) wymagają prawdziwych wartości; 2BA pokazuje 15-18 w ręce zrównoważonej z zatrzymaniem.',
       'Po bloku na wysokości trzech kontra wymaga 14+; 3BA pokazuje 16-21 z zatrzymaniem, do gry.',
       'Z dobrym kolorem sześciokartowym wchodź; z 17+ PC przy dowolnym układzie najpierw kontruj.',
-      'Partner musi licytować: najtaniej z 0-8, skokiem z 9-11, jeśli skok jest jeszcze na wysokości trzech, cue bid z 12+; pas tylko z mocnymi atutami.',
+      'Partner musi licytować: najtaniej z 0-8, skokiem z 9-11, jeśli skok jest jeszcze na wysokości trzech (dograna w czterokartowym starszym, który mieści się dopiero na wysokości trzech), cue bid z 12+; pas tylko z mocnymi atutami.',
       'Blokujący liczy się z dwiema do czterech wpadek z kontrą: jeśli macie dograną, licytuj ją, zamiast liczyć na wysoką karę.',
     ],
     quiz: [
@@ -277,10 +277,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Po rekontrze</h3>
-<p>Rekontra mówi, że rozdanie należy do waszej strony. Otwierający zwykle pasuje i zostawia problem przeciwnikom: muszą znaleźć miejsce do gry, a partner kontrującego, który może nie mieć nic, licytuje tylko z kolorem pięciokartowym. Otwierający licytuje od razu tylko z minimum i kolorem sześciokartowym, który słabo się broni. Gdy przeciwnicy wylądują w jakimś kolorze, rekontrujący może ich skontrować karnie z czterema dobrymi kartami w tym kolorze.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="Północ otwiera 1♥, a Wschód kontruje."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>Południe ma 10 PC i tylko dwa kiery: rekontra. Zachód nie ma nic ani koloru pięciokartowego, więc pasuje; Północ też pasuje, a Wschód musi wybrać kolor na wysokości dwóch. ♣A-Q-9-7 Południa siedzą za treflami Wschodu: kontra. Północ-Południe mają 24 PC, a Zachód nie może pomóc: przy najlepszej grze 2♣ z kontrą jest bez trzech, czyli 500 punktów, nawet gdy Wschód-Zachód są przed partią.</p>
+<p>Rekontra mówi, że rozdanie należy do waszej strony. Otwierający zwykle pasuje i zostawia problem przeciwnikom: muszą znaleźć miejsce do gry, a partner kontrującego, który może nie mieć nic, licytuje tylko z kolorem pięciokartowym. Otwierający licytuje od razu tylko z minimum (najwyżej 13 PC) i kolorem sześciokartowym, który słabo się broni. Gdy przeciwnicy wylądują w jakimś kolorze, rekontrujący licytuje dograną, jeśli ma na nią wartości, mniej więcej 12+ PC przy otwarciu partnera.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Północ otwiera 1♥, a Wschód kontruje."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>Południe ma 12 PC i tylko dwa kiery: rekontra. Zachód nie ma nic ani koloru pięciokartowego, więc pasuje; Północ też pasuje, a Wschód musi wybrać kolor na wysokości dwóch. Południe z 12 PC przy otwarciu partnera i podwójnym zatrzymaniem treflowym licytuje 3BA, które przy najlepszej grze bierze dziewięć lew.</p>
 
 <h3>2BA Jordana w akcji</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="Północ otwiera 1♥, a Wschód kontruje."></div>
@@ -309,7 +309,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Po kontrze wywołującej 1♥ lub 1♠ 2BA (Jordan) pokazuje cztery atuty i 10+ punktów w poparciu; rekontra pokazuje 10+ PC, zwykle bez fitu.',
       'Podniesienie skokiem jest blokujące (cztery atuty w starszym, pięć w młodszym, mniej niż 10 PC); zwykłe podniesienie pokazuje 6-10 z poparciem.',
       'Kolor starszy na wysokości jednego pokazuje cztery lub więcej kart i 6+ PC i jest forsujący; 1BA pokazuje 6-9 bez innej odpowiedniej odzywki.',
-      'Po rekontrze otwierający zwykle pasuje; rekontrujący może skontrować ucieczkę przeciwników z czterema dobrymi atutami.',
+      'Po rekontrze otwierający zwykle pasuje i pozwala przeciwnikom szukać kontraktu; z wartościami na dograną rekontrujący licytuje potem dograną.',
       'Gdy 1BA partnera zostaje skontrowane, daj rekontrę z 8+; ze słabą ręką i kolorem pięciokartowym zalicytuj go na wysokości dwóch (naturalnie, bez Staymana i transferów).',
     ],
     quiz: [
@@ -329,7 +329,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Partner otwiera 1♥, a prawy przeciwnik kontruje. Masz ♠AQ74 ♥62 ♦KJ53 ♣984 (10 PC). Co licytujesz?',
         options: ['1♠', 'Rekontra', '2♦', '1BA'],
         answer: 1,
-        explain: '10+ PC bez fitu: rekontra. Mówi partnerowi, że rozdanie należy do waszej strony, a ty będziesz gotów skontrować przeciwników, gdy zaczną uciekać.',
+        explain: '10+ PC bez fitu: rekontra. Mówi partnerowi, że rozdanie należy do waszej strony; otwierający zwykle spasuje i zostawi przeciwnikom szukanie kontraktu.',
       },
       {
         q: 'Partner otwiera 1♦, a prawy przeciwnik kontruje. Masz ♠KJ74 ♥Q962 ♦53 ♣J43 (7 PC). Co licytujesz?',

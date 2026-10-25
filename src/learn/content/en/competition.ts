@@ -181,26 +181,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>Advancer's hand</th><th>Bid</th></tr></thead>
 <tbody>
 <tr><td>0-8 HCP</td><td>Your best suit at the cheapest level, a four-card major first</td></tr>
-<tr><td>9-11 HCP</td><td>A jump in your best suit when the jump is still at the three level (3♠ here); otherwise 2NT with 11 HCP and a heart stopper, or your best suit at the cheapest level</td></tr>
+<tr><td>9-11 HCP</td><td>A jump in your best suit when the jump is still at the three level (3♠ here). With four cards in an unbid major that you could bid only at the three level, game in it instead (over 2♠, 4♥). Otherwise 2NT with 11 HCP and a stopper in their suit, or your best suit at the cheapest level</td></tr>
 <tr><td>10-11 HCP and five or more spades</td><td>4♠</td></tr>
 <tr><td>12+ HCP</td><td>3♥, the cue bid: forcing to game. With 13-16, a balanced or semi-balanced hand and a heart stopper, 3NT instead</td></tr>
 <tr><td>Five strong hearts (three honours) and 8+ HCP</td><td>Pass: the double becomes a penalty double</td></tr>
 </tbody>
 </table>
-<p>Over a three-level preempt there is no room to jump: bid your best suit at the cheapest level, game with 10-11 HCP and five cards in an unbid major, 3NT with 13-16, a balanced or semi-balanced hand and a stopper, or the cue bid with 12+. The doubler passes a cheapest-level answer with a minimum, and raises it only with extra values.</p>
+<p>Over a three-level preempt there is no room to jump: with 9-11 HCP and four or more cards in an unbid major, bid game in it; otherwise bid your best suit at the cheapest level, 3NT with 13-16, a balanced or semi-balanced hand and a stopper, or the cue bid with 12+. The doubler passes a cheapest-level answer with a minimum, and raises it only with extra values.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="West opens 2♥; North doubles."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>South has 9 HCP and four spades: worth a jump to 3♠, since a 2♠ answer could be made with nothing. North, with 13 HCP, four trumps and a singleton heart (16 points in support of spades), accepts the invitation. Opposite a 2♠ answer North would only have invited with 3♠.</p>
 
 <h3>Advancing a notrump overcall</h3>
-<p>After partner's 2NT over a weak two (15-18): bid 3NT with 10+ HCP; with a six-card major bid game with 9+ HCP, or three of it with 6-8 to invite; with a weaker hand and a five-card suit, bid it at the three level to play; otherwise pass. Stayman and transfers are not used here. After partner's 3NT over a three-level preempt (16-21), the bots pass with most hands. They bid four of a six-card major with 9+ HCP, or a weak five-card suit at the four level, and with 12+ HCP they look for slam: 4NT is a quantitative invitation with 12-14 HCP, and 6NT is bid with 15+.</p>
+<p>After partner's 2NT over a weak two (15-18): bid 3NT with 10+ HCP; with a six-card major bid game with 9+ HCP, or three of it with 6-8 to invite; with a weaker hand and a five-card suit, bid it at the three level to play; otherwise pass. Stayman and transfers are not used here. After partner's 3NT over a three-level preempt (16-21), the bots pass with most hands: they bid four of a six-card major with 9+ HCP, and with 12+ HCP they look for slam. 4NT is a quantitative invitation with 12-14 HCP, and 6NT is bid with 15+.</p>
 <div class="warn">Don't double a preempt for penalty because you have a few high cards in their suit: the bots' double is for takeout. With length in their suit, pass, and wait for partner to double; with long, strong trumps you can then pass that double for penalties.</div>
 `,
     keyPoints: [
       'Over a weak two, a double (13+, short in their suit) and an overcall (13-17, good suit) need real values; 2NT is 15-18 balanced with a stopper.',
       'Over a three-level preempt the double needs 14+; 3NT shows 16-21 with a stopper, to play.',
       'With a good six-card suit overcall; with 17+ HCP of any shape, double first.',
-      'Advancer must bid: cheapest with 0-8, a jump with 9-11 when it is still at the three level, the cue bid with 12+; pass only with strong trumps.',
+      'Advancer must bid: cheapest with 0-8, a jump with 9-11 when it is still at the three level (game in a four-card major that only fits at the three level), the cue bid with 12+; pass only with strong trumps.',
       'The preempter expects to lose two to four tricks doubled: if you have a game, bid it rather than hope for a big penalty.',
     ],
     quiz: [
@@ -278,10 +278,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>After the redouble</h3>
-<p>The redouble says that the hand belongs to your side. Opener normally passes and leaves the problem to the opponents: they must find somewhere to play, and the doubler's partner, who may hold nothing, bids only with a five-card suit. Opener bids at once only with a minimum and a six-card suit, which is poor defence. When the opponents land in a suit, the redoubler can double them for penalties with four good cards in it.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="North opens 1♥ and East doubles."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>South has 10 HCP and only two hearts: redouble. West has nothing and no five-card suit, so passes; North passes too, and East must choose a suit at the two level. South's ♣A-Q-9-7 sit over East's clubs: double. North-South hold 24 HCP and West has nothing to help: with best play 2♣ doubled goes three down, worth 500 even when East-West are not vulnerable.</p>
+<p>The redouble says that the hand belongs to your side. Opener normally passes and leaves the problem to the opponents: they must find somewhere to play, and the doubler's partner, who may hold nothing, bids only with a five-card suit. Opener bids at once only with a minimum (13 HCP or less) and a six-card suit, which is poor defence. When the opponents land in a suit, the redoubler bids game with the values for it, about 12+ HCP opposite the opening.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="North opens 1♥ and East doubles."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>South has 12 HCP and only two hearts: redouble. West has nothing and no five-card suit, so passes; North passes too, and East must choose a suit at the two level. South, with 12 HCP opposite an opening bid and the clubs stopped twice over, bids 3NT, which makes nine tricks with best play.</p>
 
 <h3>Jordan 2NT in action</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="North opens 1♥ and East doubles."></div>
@@ -310,7 +310,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'After a takeout double of 1♥ or 1♠, 2NT (Jordan) shows four trumps and 10+ dummy points; redouble shows 10+ HCP, usually without a fit.',
       'The jump raise is preemptive (four trumps for a major, five for a minor, under 10 HCP); the simple raise shows 6-10 with support.',
       'A major at the one level shows four+ cards and 6+ HCP and is forcing; 1NT shows 6-9 with nothing else to bid.',
-      'After the redouble opener usually passes; the redoubler can double the opponents\' escape with four good trumps.',
+      'After the redouble opener usually passes and lets the opponents find a contract; with game values the redoubler then bids game.',
       'When partner\'s 1NT is doubled, redouble with 8+; with a weak hand and a five-card suit, bid it at the two level (natural, no Stayman or transfers).',
     ],
     quiz: [
@@ -330,7 +330,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Partner opens 1♥ and RHO doubles. You hold ♠AQ74 ♥62 ♦KJ53 ♣984 (10 HCP). What do you bid?',
         options: ['1♠', 'Redouble', '2♦', '1NT'],
         answer: 1,
-        explain: '10+ HCP without a fit: redouble. It tells partner the hand belongs to your side, and you will be ready to double the opponents when they run.',
+        explain: '10+ HCP without a fit: redouble. It tells partner the hand belongs to your side; opener will usually pass and leave the opponents to find a contract.',
       },
       {
         q: 'Partner opens 1♦ and RHO doubles. You hold ♠KJ74 ♥Q962 ♦53 ♣J43 (7 HCP). What do you bid?',

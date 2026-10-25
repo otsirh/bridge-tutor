@@ -180,26 +180,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>Votre main</th><th>Enchère</th></tr></thead>
 <tbody>
 <tr><td>0-8 H</td><td>Votre meilleure couleur au palier le plus bas, une majeure quatrième d’abord</td></tr>
-<tr><td>9-11 H</td><td>Un saut dans votre meilleure couleur si le saut reste au palier de 3 (ici 3♠) ; sinon 2SA avec 11 H et un arrêt à cœur, ou votre meilleure couleur au palier le plus bas</td></tr>
+<tr><td>9-11 H</td><td>Un saut dans votre meilleure couleur si le saut reste au palier de 3 (ici 3♠). Avec quatre cartes dans une majeure non nommée que vous ne pourriez nommer qu’au palier de 3, la manche dans cette majeure (sur 2♠, 4♥). Sinon 2SA avec 11 H et un arrêt dans leur couleur, ou votre meilleure couleur au palier le plus bas</td></tr>
 <tr><td>10-11 H et cinq piques ou plus</td><td>4♠</td></tr>
 <tr><td>12+ H</td><td>3♥, le cue-bid : forcing de manche. Avec 13-16, une main régulière ou semi-régulière et un arrêt à cœur, 3SA à la place</td></tr>
 <tr><td>Cinq cœurs solides (trois honneurs) et 8+ H</td><td>Passe : le contre devient punitif</td></tr>
 </tbody>
 </table>
-<p>Sur un barrage au palier de 3, il n’y a pas de place pour sauter : nommez votre meilleure couleur au palier le plus bas, la manche avec 10-11 H et cinq cartes dans une majeure non nommée, 3SA avec 13-16, une main régulière ou semi-régulière et un arrêt, ou le cue-bid avec 12+. Le contreur passe une réponse au palier le plus bas avec un minimum, et ne la soutient qu’avec des valeurs en plus.</p>
+<p>Sur un barrage au palier de 3, il n’y a pas de place pour sauter : avec 9-11 H et quatre cartes ou plus dans une majeure non nommée, dites la manche dans cette majeure ; sinon nommez votre meilleure couleur au palier le plus bas, 3SA avec 13-16, une main régulière ou semi-régulière et un arrêt, ou le cue-bid avec 12+. Le contreur passe une réponse au palier le plus bas avec un minimum, et ne la soutient qu’avec des valeurs en plus.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="Ouest ouvre de 2♥ ; Nord contre."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>Sud a 9 H et quatre piques : il vaut un saut à 3♠, car une réponse de 2♠ pourrait être faite avec rien. Nord, avec 13 H, quatre atouts et un singleton cœur (16 points de soutien à pique), accepte la proposition. Sur une réponse de 2♠, Nord se serait contenté de proposer la manche par 3♠.</p>
 
 <h3>Répondre à une intervention à Sans-Atout</h3>
-<p>Après le 2SA du partenaire sur un deux faible (15-18) : dites 3SA avec 10+ H ; avec une majeure sixième, la manche avec 9+ H ou trois dans cette couleur avec 6-8 pour proposer ; avec une main plus faible et une cinquième, nommez-la au palier de 3 pour la jouer ; sinon passez. Le Stayman et les Texas ne sont pas utilisés ici. Après le 3SA du partenaire sur un barrage au palier de 3 (16-21), les bots passent avec la plupart des mains. Ils disent quatre dans une majeure sixième avec 9+ H, ou une cinquième faible au palier de 4, et avec 12+ H ils cherchent le chelem : 4SA est une proposition quantitative avec 12-14 H, et 6SA se dit avec 15+.</p>
+<p>Après le 2SA du partenaire sur un deux faible (15-18) : dites 3SA avec 10+ H ; avec une majeure sixième, la manche avec 9+ H ou trois dans cette couleur avec 6-8 pour proposer ; avec une main plus faible et une cinquième, nommez-la au palier de 3 pour la jouer ; sinon passez. Le Stayman et les Texas ne sont pas utilisés ici. Après le 3SA du partenaire sur un barrage au palier de 3 (16-21), les bots passent avec la plupart des mains : ils disent quatre dans une majeure sixième avec 9+ H, et avec 12+ H ils cherchent le chelem. 4SA est une proposition quantitative avec 12-14 H, et 6SA se dit avec 15+.</p>
 <div class="warn">Ne contrez pas un barrage pour punir parce que vous avez quelques gros honneurs dans leur couleur : le contre des bots est d’appel. Avec de la longueur dans leur couleur, passez et attendez le contre du partenaire ; avec des atouts longs et solides, vous pourrez alors laisser ce contre pour punir.</div>
 `,
     keyPoints: [
       'Sur un deux faible, le contre (13+, court dans leur couleur) et l’intervention (13-17, bonne couleur) demandent de vraies valeurs ; 2SA montre 15-18 régulier avec un arrêt.',
       'Sur un barrage au palier de 3, le contre demande 14+ ; 3SA montre 16-21 avec un arrêt, pour le jouer.',
       'Avec une bonne sixième, intervenez ; avec 17+ H de n’importe quelle distribution, contrez d’abord.',
-      'Le partenaire doit parler : palier le plus bas avec 0-8, un saut avec 9-11 s’il reste au palier de 3, le cue-bid avec 12+ ; passe seulement avec des atouts solides.',
+      'Le partenaire doit parler : palier le plus bas avec 0-8, un saut avec 9-11 s’il reste au palier de 3 (la manche avec une majeure quatrième qui ne trouve place qu’au palier de 3), le cue-bid avec 12+ ; passe seulement avec des atouts solides.',
       'Le barrageur s’attend à chuter de deux à quatre levées contré : si vous avez la manche, demandez-la plutôt que d’espérer une grosse pénalité.',
     ],
     quiz: [
@@ -277,10 +277,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ? : 3♦"></div>
 
 <h3>Après le surcontre</h3>
-<p>Le surcontre dit que la donne appartient à votre camp. L’ouvreur passe normalement et laisse le problème aux adversaires : ils doivent trouver où jouer, et le partenaire du contreur, qui n’a peut-être rien, ne parle qu’avec une cinquième. L’ouvreur reparle tout de suite seulement avec un minimum et une sixième, qui défend mal. Quand les adversaires aboutissent dans une couleur, le surcontreur peut les contrer pour punir avec quatre bonnes cartes dans cette couleur.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="Nord ouvre de 1♥ et Est contre."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>Sud a 10 H et seulement deux cœurs : surcontre. Ouest n’a rien ni cinquième, donc il passe ; Nord passe aussi, et Est doit choisir une couleur au palier de 2. Le ♣A-Q-9-7 de Sud est placé derrière les trèfles d’Est : contre. Nord-Sud ont 24 H et Ouest ne peut pas aider : avec le meilleur jeu, 2♣ contré chute de trois levées, soit 500 points même quand Est-Ouest sont non vulnérables.</p>
+<p>Le surcontre dit que la donne appartient à votre camp. L’ouvreur passe normalement et laisse le problème aux adversaires : ils doivent trouver où jouer, et le partenaire du contreur, qui n’a peut-être rien, ne parle qu’avec une cinquième. L’ouvreur reparle tout de suite seulement avec un minimum (13 H au plus) et une sixième, qui défend mal. Quand les adversaires aboutissent dans une couleur, le surcontreur dit la manche s’il en a les valeurs, environ 12+ H face à l’ouverture.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Nord ouvre de 1♥ et Est contre."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>Sud a 12 H et seulement deux cœurs : surcontre. Ouest n’a rien ni cinquième, donc il passe ; Nord passe aussi, et Est doit choisir une couleur au palier de 2. Sud, avec 12 H face à une ouverture et deux arrêts à trèfle, dit 3SA, qui fait neuf levées avec le meilleur jeu.</p>
 
 <h3>Le 2SA Jordan en action</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="Nord ouvre de 1♥ et Est contre."></div>
@@ -309,7 +309,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Après un contre d’appel de 1♥ ou 1♠, 2SA (Jordan) montre quatre atouts et 10+ points de soutien ; le surcontre montre 10+ H, en général sans fit.',
       'Le soutien à saut est un barrage (quatre atouts pour une majeure, cinq pour une mineure, moins de 10 H) ; le soutien simple montre 6-10 avec du soutien.',
       'Une majeure au palier de 1 montre quatre cartes ou plus et 6+ H et est forcing ; 1SA montre 6-9 sans autre enchère adaptée.',
-      'Après le surcontre, l’ouvreur passe en général ; le surcontreur peut contrer la fuite adverse avec quatre bons atouts.',
+      'Après le surcontre, l’ouvreur passe en général et laisse les adversaires chercher un contrat ; avec des valeurs de manche, le surcontreur dit alors la manche.',
       'Quand le 1SA du partenaire est contré, surcontrez avec 8+ ; avec une main faible et une cinquième, nommez-la au palier de 2 (naturel, sans Stayman ni Texas).',
     ],
     quiz: [
@@ -329,7 +329,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Votre partenaire ouvre de 1♥ et votre adversaire de droite contre. Vous avez ♠AQ74 ♥62 ♦KJ53 ♣984 (10 H). Que dites-vous ?',
         options: ['1♠', 'Surcontre', '2♦', '1SA'],
         answer: 1,
-        explain: '10+ H sans fit : surcontre. Il dit au partenaire que la donne appartient à votre camp, et vous serez prêt à contrer les adversaires quand ils fuiront.',
+        explain: '10+ H sans fit : surcontre. Il dit au partenaire que la donne appartient à votre camp ; l’ouvreur passera en général et laissera les adversaires trouver un contrat.',
       },
       {
         q: 'Votre partenaire ouvre de 1♦ et votre adversaire de droite contre. Vous avez ♠KJ74 ♥Q962 ♦53 ♣J43 (7 H). Que dites-vous ?',

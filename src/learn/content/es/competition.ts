@@ -180,26 +180,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>Tu mano</th><th>Voz</th></tr></thead>
 <tbody>
 <tr><td>0-8 PH</td><td>Tu mejor palo al nivel más barato, primero un mayor de cuatro</td></tr>
-<tr><td>9-11 PH</td><td>Un salto en tu mejor palo si el salto sigue siendo a nivel de tres (aquí 3♠); si no, 2SA con 11 PH y parada en corazones, o tu mejor palo al nivel más barato</td></tr>
+<tr><td>9-11 PH</td><td>Un salto en tu mejor palo si el salto sigue siendo a nivel de tres (aquí 3♠). Con cuatro cartas en un mayor no declarado que solo podrías declarar a nivel de tres, la manga en ese mayor (sobre 2♠, 4♥). Si no, 2SA con 11 PH y parada en su palo, o tu mejor palo al nivel más barato</td></tr>
 <tr><td>10-11 PH y cinco o más picas</td><td>4♠</td></tr>
 <tr><td>12+ PH</td><td>3♥, el cue-bid: forcing a manga. Con 13-16, una mano equilibrada o semiequilibrada y parada en corazones, 3SA en su lugar</td></tr>
 <tr><td>Cinco corazones fuertes (tres honores) y 8+ PH</td><td>Paso: el doblo se convierte en doblo de castigo</td></tr>
 </tbody>
 </table>
-<p>Sobre un barrage a nivel de tres no hay sitio para saltar: declara tu mejor palo al nivel más barato, la manga con 10-11 PH y cinco cartas en un mayor no declarado, 3SA con 13-16, una mano equilibrada o semiequilibrada y parada, o el cue-bid con 12+. El doblador pasa una respuesta al nivel más barato con un mínimo, y solo la apoya con valores extra.</p>
+<p>Sobre un barrage a nivel de tres no hay sitio para saltar: con 9-11 PH y cuatro o más cartas en un mayor no declarado, declara la manga en él; si no, tu mejor palo al nivel más barato, 3SA con 13-16, una mano equilibrada o semiequilibrada y parada, o el cue-bid con 12+. El doblador pasa una respuesta al nivel más barato con un mínimo, y solo la apoya con valores extra.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="Oeste abre de 2♥; Norte dobla."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>Sur tiene 9 PH y cuatro picas: vale un salto a 3♠, porque una respuesta de 2♠ podría hacerse sin nada. Norte, con 13 PH, cuatro triunfos y semifallo de corazón (16 puntos de apoyo para picas), acepta la invitación. Sobre una respuesta de 2♠, Norte solo habría invitado con 3♠.</p>
 
 <h3>Responder a una intervención a sin triunfo</h3>
-<p>Tras el 2SA de tu compañero sobre un dos débil (15-18): declara 3SA con 10+ PH; con un mayor de seis, la manga con 9+ PH o tres de ese palo con 6-8 para invitar; con una mano más débil y un palo de cinco, decláralo a nivel de tres para jugar; si no, pasa. El Stayman y las transferencias no se usan aquí. Tras el 3SA de tu compañero sobre un barrage a nivel de tres (16-21), los bots pasan con la mayoría de las manos. Declaran cuatro de un mayor de seis con 9+ PH, o un palo de cinco débil a nivel de cuatro, y con 12+ PH buscan el slam: 4SA es una invitación cuantitativa con 12-14 PH, y 6SA se declara con 15+.</p>
+<p>Tras el 2SA de tu compañero sobre un dos débil (15-18): declara 3SA con 10+ PH; con un mayor de seis, la manga con 9+ PH o tres de ese palo con 6-8 para invitar; con una mano más débil y un palo de cinco, decláralo a nivel de tres para jugar; si no, pasa. El Stayman y las transferencias no se usan aquí. Tras el 3SA de tu compañero sobre un barrage a nivel de tres (16-21), los bots pasan con la mayoría de las manos: declaran cuatro de un mayor de seis con 9+ PH, y con 12+ PH buscan el slam. 4SA es una invitación cuantitativa con 12-14 PH, y 6SA se declara con 15+.</p>
 <div class="warn">No dobles un barrage de castigo porque tienes unas cuantas cartas altas en su palo: el doblo de los bots es informativo. Con longitud en su palo, pasa y espera al doblo de tu compañero; con triunfos largos y fuertes podrás dejar entonces ese doblo de castigo.</div>
 `,
     keyPoints: [
       'Sobre un dos débil, el doblo (13+, corto en su palo) y la intervención (13-17, buen palo) necesitan valores de verdad; 2SA muestra 15-18 equilibrada con parada.',
       'Sobre un barrage a nivel de tres el doblo necesita 14+; 3SA muestra 16-21 con parada, para jugar.',
       'Con un buen palo de seis, interviene; con 17+ PH de cualquier distribución, dobla primero.',
-      'El compañero debe declarar: al nivel más barato con 0-8, un salto con 9-11 si sigue siendo a nivel de tres, el cue-bid con 12+; pasa solo con triunfos fuertes.',
+      'El compañero debe declarar: al nivel más barato con 0-8, un salto con 9-11 si sigue siendo a nivel de tres (manga en un mayor de cuatro que solo cabe a nivel de tres), el cue-bid con 12+; pasa solo con triunfos fuertes.',
       'El barragista cuenta con multarse de dos a cuatro bazas doblado: si tienes manga, declárala en vez de esperar una gran multa.',
     ],
     quiz: [
@@ -277,10 +277,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Después del redoblo</h3>
-<p>El redoblo dice que la mano es de tu bando. El abridor normalmente pasa y deja el problema a los rivales: tienen que encontrar dónde jugar, y el compañero del doblador, que puede no tener nada, solo declara con un palo de cinco. El abridor declara enseguida solo con un mínimo y un palo de seis, que defiende mal. Cuando los rivales acaban en un palo, el redoblador puede doblarlos de castigo con cuatro buenas cartas en ese palo.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="Norte abre de 1♥ y Este dobla."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>Sur tiene 10 PH y solo dos corazones: redoblo. Oeste no tiene nada ni un palo de cinco, así que pasa; Norte también pasa, y Este tiene que elegir un palo a nivel de dos. El ♣A-Q-9-7 de Sur está detrás de los tréboles de Este: doblo. Norte-Sur tienen 24 PH y Oeste no puede ayudar: con el mejor juego, 2♣ doblado se multa en tres, 500 puntos aunque Este-Oeste no sean vulnerables.</p>
+<p>El redoblo dice que la mano es de tu bando. El abridor normalmente pasa y deja el problema a los rivales: tienen que encontrar dónde jugar, y el compañero del doblador, que puede no tener nada, solo declara con un palo de cinco. El abridor declara enseguida solo con un mínimo (13 PH o menos) y un palo de seis, que defiende mal. Cuando los rivales acaban en un palo, el redoblador declara la manga si tiene valores para ello, unos 12+ PH frente a la apertura.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Norte abre de 1♥ y Este dobla."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>Sur tiene 12 PH y solo dos corazones: redoblo. Oeste no tiene nada ni un palo de cinco, así que pasa; Norte también pasa, y Este tiene que elegir un palo a nivel de dos. Sur, con 12 PH frente a una apertura y los tréboles parados dos veces, declara 3SA, que con el mejor juego cumple nueve bazas.</p>
 
 <h3>El 2SA Jordan en acción</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="Norte abre de 1♥ y Este dobla."></div>
@@ -309,7 +309,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Tras un doblo informativo de 1♥ o 1♠, 2SA (Jordan) muestra cuatro triunfos y 10+ puntos de apoyo; el redoblo muestra 10+ PH, normalmente sin fit.',
       'El apoyo a salto es de barrage (cuatro triunfos para un mayor, cinco para un menor, menos de 10 PH); el apoyo simple muestra 6-10 con apoyo.',
       'Un mayor a nivel de uno muestra cuatro o más cartas y 6+ PH y es forcing; 1SA muestra 6-9 sin otra voz que hacer.',
-      'Tras el redoblo el abridor suele pasar; el redoblador puede doblar el escape de los rivales con cuatro buenos triunfos.',
+      'Tras el redoblo el abridor suele pasar y deja que los rivales busquen contrato; con valores de manga, el redoblador declara entonces la manga.',
       'Cuando doblan el 1SA de tu compañero, redobla con 8+; con una mano débil y un palo de cinco, decláralo a nivel de dos (natural, sin Stayman ni transferencias).',
     ],
     quiz: [
@@ -329,7 +329,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Tu compañero abre de 1♥ y el rival de la derecha dobla. Tienes ♠AQ74 ♥62 ♦KJ53 ♣984 (10 PH). ¿Qué declaras?',
         options: ['1♠', 'Redoblo', '2♦', '1SA'],
         answer: 1,
-        explain: '10+ PH sin fit: redoblo. Le dice a tu compañero que la mano es de vuestro bando, y estarás preparado para doblar a los rivales cuando escapen.',
+        explain: '10+ PH sin fit: redoblo. Le dice a tu compañero que la mano es de vuestro bando; el abridor normalmente pasará y dejará que los rivales encuentren un contrato.',
       },
       {
         q: 'Tu compañero abre de 1♦ y el rival de la derecha dobla. Tienes ♠KJ74 ♥Q962 ♦53 ♣J43 (7 PH). ¿Qué declaras?',

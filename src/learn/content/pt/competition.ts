@@ -180,26 +180,26 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <thead><tr><th>A sua mão</th><th>Voz</th></tr></thead>
 <tbody>
 <tr><td>0-8 PH</td><td>O seu melhor naipe no nível mais barato, primeiro um rico de quatro</td></tr>
-<tr><td>9-11 PH</td><td>Um salto no seu melhor naipe se o salto ainda for no nível 3 (aqui 3♠); senão 2ST com 11 PH e parada em copas, ou o seu melhor naipe no nível mais barato</td></tr>
+<tr><td>9-11 PH</td><td>Um salto no seu melhor naipe se o salto ainda for no nível 3 (aqui 3♠). Com quatro cartas num rico não marcado que você só poderia marcar no nível 3, em vez disso o game nesse rico (sobre 2♠, 4♥). Senão 2ST com 11 PH e parada no naipe deles, ou o seu melhor naipe no nível mais barato</td></tr>
 <tr><td>10-11 PH e cinco ou mais espadas</td><td>4♠</td></tr>
 <tr><td>12+ PH</td><td>3♥, o cue-bid: forcing para game. Com 13-16, uma mão balanceada ou semibalanceada e parada em copas, 3ST em vez disso</td></tr>
 <tr><td>Cinco copas sólidas (três honras) e 8+ PH</td><td>Passo: o dobre vira punitivo</td></tr>
 </tbody>
 </table>
-<p>Sobre uma barragem no nível 3 não há espaço para saltar: marque o seu melhor naipe no nível mais barato, o game com 10-11 PH e cinco cartas num rico não marcado, 3ST com 13-16, uma mão balanceada ou semibalanceada e parada, ou o cue-bid com 12+. Quem dobrou passa uma resposta no nível mais barato com um mínimo, e só a apoia com valores extras.</p>
+<p>Sobre uma barragem no nível 3 não há espaço para saltar: com 9-11 PH e quatro ou mais cartas num rico não marcado, marque o game nele; senão, o seu melhor naipe no nível mais barato, 3ST com 13-16, uma mão balanceada ou semibalanceada e parada, ou o cue-bid com 12+. Quem dobrou passa uma resposta no nível mais barato com um mínimo, e só a apoia com valores extras.</p>
 <div class="deal" data-n="S:AJ74 H:5 D:KQ83 C:K1062" data-s="S:K963 H:874 D:A52 C:Q84" data-caption="Oeste abre 2♥; Norte dobra."></div>
 <div class="auction" data-calls="2H X P 3S P 4S P P P" data-dealer="W"></div>
 <p>Sul tem 9 PH e quatro espadas: vale um salto para 3♠, porque uma resposta de 2♠ poderia ser feita sem nada. Norte, com 13 PH, quatro trunfos e singleton de copas (16 pontos de apoio em espadas), aceita o convite. Sobre uma resposta de 2♠, Norte só teria convidado com 3♠.</p>
 
 <h3>Respondendo a uma intervenção em sem trunfo</h3>
-<p>Depois do 2ST do parceiro sobre um dois fraco (15-18): marque 3ST com 10+ PH; com um rico de seis, o game com 9+ PH ou três nesse naipe com 6-8 para convidar; com uma mão mais fraca e um naipe de cinco, marque-o no nível 3 para jogar; senão, passe. Stayman e transfers não são usados aqui. Depois do 3ST do parceiro sobre uma barragem no nível 3 (16-21), os bots passam com a maioria das mãos. Marcam quatro num rico de seis com 9+ PH, ou um naipe de cinco fraco no nível 4, e com 12+ PH procuram o slam: 4ST é um convite quantitativo com 12-14 PH, e 6ST se marca com 15+.</p>
+<p>Depois do 2ST do parceiro sobre um dois fraco (15-18): marque 3ST com 10+ PH; com um rico de seis, o game com 9+ PH ou três nesse naipe com 6-8 para convidar; com uma mão mais fraca e um naipe de cinco, marque-o no nível 3 para jogar; senão, passe. Stayman e transfers não são usados aqui. Depois do 3ST do parceiro sobre uma barragem no nível 3 (16-21), os bots passam com a maioria das mãos: marcam quatro num rico de seis com 9+ PH, e com 12+ PH procuram o slam. 4ST é um convite quantitativo com 12-14 PH, e 6ST se marca com 15+.</p>
 <div class="warn">Não dobre uma barragem para punir porque você tem algumas cartas altas no naipe deles: o dobre dos bots é informativo. Com comprimento no naipe deles, passe e espere o dobre do parceiro; com trunfos longos e fortes, você poderá então deixar esse dobre para punir.</div>
 `,
     keyPoints: [
       'Sobre um dois fraco, o dobre (13+, curto no naipe deles) e a intervenção (13-17, bom naipe) exigem valores de verdade; 2ST mostra 15-18 balanceada com parada.',
       'Sobre uma barragem no nível 3 o dobre exige 14+; 3ST mostra 16-21 com parada, para jogar.',
       'Com um bom naipe de seis, intervenha; com 17+ PH de qualquer distribuição, dobre primeiro.',
-      'O parceiro tem de marcar: nível mais barato com 0-8, um salto com 9-11 se ainda for no nível 3, o cue-bid com 12+; passe só com trunfos sólidos.',
+      'O parceiro tem de marcar: nível mais barato com 0-8, um salto com 9-11 se ainda for no nível 3 (game num rico de quatro que só cabe no nível 3), o cue-bid com 12+; passe só com trunfos sólidos.',
       'Quem faz barragem conta cair de duas a quatro vazas dobrado: se vocês têm game, marque-o em vez de esperar uma grande multa.',
     ],
     quiz: [
@@ -277,10 +277,10 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:J74 H:62 D:KJ853 C:943" data-label="1♦ – X – ?: 3♦"></div>
 
 <h3>Depois do redobre</h3>
-<p>O redobre diz que a mão é do seu lado. O abridor em geral passa e deixa o problema para os adversários: eles têm de achar onde jogar, e o parceiro de quem dobrou, que pode não ter nada, só marca com um naipe de cinco. O abridor marca logo só com um mínimo e um naipe de seis, que defende mal. Quando os adversários param num naipe, quem redobrou pode dobrá-los para punir com quatro boas cartas nesse naipe.</p>
-<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AQ94 C:KJ1062" data-s="S:J1093 H:K6 D:853 C:AQ97" data-w="S:8742 H:109732 D:J6 C:53" data-caption="Norte abre 1♥ e Leste dobra."></div>
-<div class="auction" data-calls="1H X XX P P 2C X P P P" data-dealer="N"></div>
-<p>Sul tem 10 PH e só duas copas: redobre. Oeste não tem nada nem um naipe de cinco, então passa; Norte também passa, e Leste tem de escolher um naipe no nível 2. O ♣A-Q-9-7 de Sul está atrás dos paus de Leste: dobre. Norte-Sul têm 24 PH e Oeste não pode ajudar: com o melhor jogo, 2♣ dobrado cai três vazas, 500 pontos mesmo quando Leste-Oeste não estão vulneráveis.</p>
+<p>O redobre diz que a mão é do seu lado. O abridor em geral passa e deixa o problema para os adversários: eles têm de achar onde jogar, e o parceiro de quem dobrou, que pode não ter nada, só marca com um naipe de cinco. O abridor marca logo só com um mínimo (no máximo 13 PH) e um naipe de seis, que defende mal. Quando os adversários param num naipe, quem redobrou marca o game se tiver valores para isso, cerca de 12+ PH diante da abertura.</p>
+<div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-e="S:KQ6 H:5 D:AJ94 C:KJ1062" data-s="S:J1093 H:K6 D:Q53 C:AQ97" data-w="S:8742 H:109732 D:86 C:53" data-caption="Norte abre 1♥ e Leste dobra."></div>
+<div class="auction" data-calls="1H X XX P P 2C 3NT P P P" data-dealer="N"></div>
+<p>Sul tem 12 PH e só duas copas: redobre. Oeste não tem nada nem um naipe de cinco, então passa; Norte também passa, e Leste tem de escolher um naipe no nível 2. Sul, com 12 PH diante de uma abertura e duas paradas em paus, marca 3ST, que com o melhor jogo faz nove vazas.</p>
 
 <h3>O 2ST Jordan em ação</h3>
 <div class="deal" data-n="S:A5 H:AQJ84 D:K1072 C:84" data-s="S:K74 H:K962 D:A953 C:J3" data-caption="Norte abre 1♥ e Leste dobra."></div>
@@ -309,7 +309,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
       'Depois de um dobre informativo de 1♥ ou 1♠, 2ST (Jordan) mostra quatro trunfos e 10+ pontos de apoio; o redobre mostra 10+ PH, em geral sem fit.',
       'O apoio em salto é de barragem (quatro trunfos para um rico, cinco para um pobre, menos de 10 PH); o apoio simples mostra 6-10 com apoio.',
       'Um rico no nível 1 mostra quatro ou mais cartas e 6+ PH e é forcing; 1ST mostra 6-9 sem outra voz adequada.',
-      'Depois do redobre o abridor em geral passa; quem redobrou pode dobrar a fuga dos adversários com quatro bons trunfos.',
+      'Depois do redobre o abridor em geral passa e deixa os adversários procurarem um contrato; com valores de game, quem redobrou marca então o game.',
       'Quando o 1ST do parceiro é dobrado, redobre com 8+; com uma mão fraca e um naipe de cinco, marque-o no nível 2 (natural, sem Stayman nem transfers).',
     ],
     quiz: [
@@ -329,7 +329,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'O parceiro abre 1♥ e o adversário à direita dobra. Você tem ♠AQ74 ♥62 ♦KJ53 ♣984 (10 PH). O que você marca?',
         options: ['1♠', 'Redobre', '2♦', '1ST'],
         answer: 1,
-        explain: '10+ PH sem fit: redobre. Diz ao parceiro que a mão é do seu lado, e você estará pronto para dobrar os adversários quando fugirem.',
+        explain: '10+ PH sem fit: redobre. Diz ao parceiro que a mão é do seu lado; o abridor em geral vai passar e deixar os adversários acharem um contrato.',
       },
       {
         q: 'O parceiro abre 1♦ e o adversário à direita dobra. Você tem ♠KJ74 ♥Q962 ♦53 ♣J43 (7 PH). O que você marca?',
