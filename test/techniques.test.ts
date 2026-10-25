@@ -130,11 +130,17 @@ describe('techniques and lessons', () => {
   });
 
   it('the quick look before a walk keeps only deals where the technique can come up', () => {
-    const hands = dealCards(mulberry32(5));
+    const hands = dealCards(mulberry32(5)).map(h => [...h]);
     const suit = { level: 4, strain: SPADES, declarer: S, doubled: 0 } as const;
     expect(mayArise('holdUp', hands, suit, [])).toBe(false); // no hold-up in a suit contract
-    expect(mayArise('drawTrumps', hands, suit, [])).toBe(true);
     expect(mayArise('ruffShort', hands, { ...suit, strain: NT }, [])).toBe(false);
+    expect(mayArise('finesse', hands, suit, [])).toBe(true); // a finesse can come up anywhere
+    // drawing trumps: the top trumps and eight of them between the hands
+    for (const c of ['SA', 'SK', 'SQ', 'S9', 'S8']) give(hands, S, C(c));
+    for (const c of ['S7', 'S6', 'S5']) give(hands, N, C(c));
+    expect(mayArise('drawTrumps', hands, suit, [])).toBe(true);
+    give(hands, W, C('SQ'));
+    expect(mayArise('drawTrumps', hands, suit, [])).toBe(false);
   });
 });
 
