@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'O adversário à esquerda abre 1ST, o parceiro intervém com 2♥ e o adversário à direita passa. Você tem ♠Q852 ♥Q73 ♦K84 ♣962 (7 PH). O que você marca?',
         options: ['Passo', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Apoio de três cartas e 6-9 pontos: apoie para 3♥. Com nove trunfos o nível 3 é bastante seguro. 3♣ mostraria um naipe de paus, e 4♥ exige 13+.',
+        explain: 'Apoio de três cartas e 6-12 pontos: apoie para 3♥. Com nove trunfos o nível 3 é bastante seguro. 3♣ mostraria um naipe de paus, e 4♥ exige 13+.',
       },
       {
         q: '1ST à sua esquerda, depois passo, passo. Você tem ♠KQ1095 ♥83 ♦952 ♣J84 (6 PH). O que você marca?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: dobre"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: marque 3ST"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: marque 3♠"></div>
-<p>A primeira mão tem 14 PH e a distribuição certa: dobre. Com o ♦K no lugar do ♦A (13 PH), os bots passariam. A segunda marca 3ST: os ouros vão correr, e o ♥K deve parar as copas, porque a saída vem de Leste e Oeste, que tem as copas longas, joga antes de você. A terceira marca o seu bom naipe de seis.</p>
+<p>A primeira mão tem 14 PH e a distribuição certa: dobre. Com o ♦K no lugar do ♦A (13 PH), os bots passariam. A segunda marca 3ST: os ouros vão correr, e o ♥K deve parar as copas, porque a saída vem de Oeste e Leste, que tem as copas longas, joga antes de você. A terceira marca o seu bom naipe de seis.</p>
 
 <h3>Respondendo ao dobre do parceiro</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

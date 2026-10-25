@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Je linkertegenstander opent 1SA, partner volgt met 2♥ en je rechtertegenstander past. Je hebt ♠Q852 ♥Q73 ♦K84 ♣962 (7 punten). Wat bied je?',
         options: ['Pas', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Driekaartsteun en 6-9 punten: verhoog naar 3♥. Met negen troeven is het 3-niveau veilig genoeg. 3♣ zou een klaverenkleur tonen, en 4♥ vraagt 13+.',
+        explain: 'Driekaartsteun en 6-12 punten: verhoog naar 3♥. Met negen troeven is het 3-niveau veilig genoeg. 3♣ zou een klaverenkleur tonen, en 4♥ vraagt 13+.',
       },
       {
         q: '1SA links van je, dan pas, pas. Je hebt ♠KQ1095 ♥83 ♦952 ♣J84 (6 punten). Wat bied je?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: doublet"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: bied 3SA"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: bied 3♠"></div>
-<p>De eerste hand heeft 14 punten en de juiste verdeling: doublet. Met de ♦K in plaats van de ♦A (13 punten) zouden de bots passen. De tweede biedt 3SA: de ruiten lopen, en de ♥K zou de harten moeten stoppen, want de uitkomst komt van Oost en West, die de lange harten heeft, speelt vóór jou. De derde biedt zijn goede zeskaart.</p>
+<p>De eerste hand heeft 14 punten en de juiste verdeling: doublet. Met de ♦K in plaats van de ♦A (13 punten) zouden de bots passen. De tweede biedt 3SA: de ruiten lopen, en de ♥K zou de harten moeten stoppen, want de uitkomst komt van West en Oost, die de lange harten heeft, speelt vóór jou. De derde biedt zijn goede zeskaart.</p>
 
 <h3>Antwoorden op het doublet van partner</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

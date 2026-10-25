@@ -8,7 +8,7 @@ import { PASS, bid } from '../src/core/auction';
 import { PlayState } from '../src/core/play';
 import { dealCards, mulberry32, N, type Card } from '../src/core/cards';
 import { DDSolver, masksOf } from '../src/engine/dds';
-import { loadBoards, loadItems, encodeDeal } from '../src/game/journal';
+import { loadBoards, loadItems, encodeDeal, saveBoard, exportAll, importAll, MAX_BOARDS } from '../src/game/journal';
 import { loadSettings, DEFAULT_SETTINGS } from '../src/game/storage';
 import { decisions } from '../src/game/skills';
 
@@ -104,6 +104,41 @@ describe('damaged stored data', () => {
     const calls = [bid(1, 4), PASS, PASS, PASS].map(c => ({ c }));
     const broken = { ...good, calls, cards: [{ c: deal[0][0], h: 1 as const, sim: { n: 10, best: [1], bt: 1, bs: 1, mt: 0, ms: 0 } }] };
     expect(() => decisions([broken as never])).not.toThrow();
+  });
+
+  it('corrupt JSON reads as empty', () => {
+    mem.set('bridge-tutor.archive.v1', '{not json');
+    expect(loadBoards()).toEqual([]);
+  });
+
+  it('the archive keeps the latest boards', () => {
+    for (let id = 1; id <= MAX_BOARDS + 5; id++) saveBoard({ ...good, id } as never);
+    const ids = loadBoards().map(b => b.id);
+    expect(ids.length).toBe(MAX_BOARDS);
+    expect(ids[0]).toBe(6);
+  });
+
+  it('a backup is restored whole or not at all', () => {
+    saveBoard(good as never);
+    const backup = exportAll();
+    expect(importAll('{"app":"something else","version":1,"data":{}}')).toBe(false);
+    expect(importAll(backup.replace('"version": 1', '"version": 2'))).toBe(false);
+    // storage fills up half way (the archive written, the next key not): what was there before comes back
+    saveBoard({ ...good, id: 2 } as never);
+    mem.set('bridge-tutor.settings.v1', '{"speed":"slow"}');
+    const real = globalThis.localStorage;
+    let writes = 0;
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: { ...real, setItem: (k: string, v: string) => { if (++writes === 2) throw new Error('quota'); real.setItem(k, v); } },
+    });
+    const restored = JSON.parse(backup);
+    restored.data['bridge-tutor.settings.v1'] = '{"speed":"fast"}';
+    expect(importAll(JSON.stringify(restored))).toBe(false);
+    Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: real });
+    expect(writes).toBeGreaterThan(2); // the failed write, then the old values put back
+    expect(mem.get('bridge-tutor.settings.v1')).toBe('{"speed":"slow"}');
+    expect(loadBoards().map(b => b.id)).toEqual([1, 2]);
   });
 
   it('unknown settings values fall back to the defaults', () => {

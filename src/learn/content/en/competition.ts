@@ -112,7 +112,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'LHO opens 1NT, partner overcalls 2♥ and RHO passes. You hold ♠Q852 ♥Q73 ♦K84 ♣962 (7 HCP). What do you bid?',
         options: ['Pass', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Three-card support and 6-9 points: raise to 3♥. With nine trumps the three level is safe enough. 3♣ would show a club suit, and 4♥ needs 13+.',
+        explain: 'Three-card support and 6-12 points: raise to 3♥. With nine trumps the three level is safe enough. 3♣ would show a club suit, and 4♥ needs 13+.',
       },
       {
         q: '1NT on your left, then pass, pass. You hold ♠KQ1095 ♥83 ♦952 ♣J84 (6 HCP). What do you bid?',
@@ -171,7 +171,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: double"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: bid 3NT"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: bid 3♠"></div>
-<p>The first hand has 14 HCP and the right shape: double. With the ♦K instead of the ♦A (13 HCP), the bots would pass. The second bids 3NT: the diamonds will run, and the ♥K should stop the hearts, because the lead comes from East and West, who has the long hearts, plays before you. The third bids its good six-card suit.</p>
+<p>The first hand has 14 HCP and the right shape: double. With the ♦K instead of the ♦A (13 HCP), the bots would pass. The second bids 3NT: the diamonds will run, and the ♥K should stop the hearts, because the lead comes from West and East, who has the long hearts, plays before you. The third bids its good six-card suit.</p>
 
 <h3>Advancing partner's double</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

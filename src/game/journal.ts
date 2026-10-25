@@ -299,21 +299,32 @@ export function exportAll(): string {
 
 /** Restore a backup made by exportAll. Returns false if the file is not one. */
 export function importAll(text: string): boolean {
-  let parsed: { app?: string; data?: Record<string, unknown> };
+  let parsed: { app?: string; version?: number; data?: Record<string, unknown> };
   try {
     parsed = JSON.parse(text);
   } catch {
     return false;
   }
-  if (parsed?.app !== 'bridge-tutor' || !parsed.data || typeof parsed.data !== 'object') return false;
-  for (const k of BACKUP_KEYS) {
-    if (!(k in parsed.data)) continue;
-    const v = parsed.data[k];
-    try {
+  if (parsed?.app !== 'bridge-tutor' || parsed.version !== 1 || !parsed.data || typeof parsed.data !== 'object') return false;
+  // all or nothing: if storage fills up half way, what was there before is put back
+  const before = new Map<string, string | null>();
+  try {
+    for (const k of BACKUP_KEYS) {
+      if (!(k in parsed.data)) continue;
+      const v = parsed.data[k];
+      before.set(k, localStorage.getItem(k));
       localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v));
-    } catch {
-      return false;
     }
+  } catch {
+    for (const [k, v] of before) {
+      try {
+        if (v === null) localStorage.removeItem(k);
+        else localStorage.setItem(k, v);
+      } catch {
+        /* nothing more can be done */
+      }
+    }
+    return false;
   }
   return true;
 }

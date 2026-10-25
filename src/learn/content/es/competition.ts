@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'El rival de la izquierda abre de 1SA, tu compañero interviene con 2♥ y el rival de la derecha pasa. Tienes ♠Q852 ♥Q73 ♦K84 ♣962 (7 PH). ¿Qué declaras?',
         options: ['Paso', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Apoyo de tres cartas y 6-9 puntos: apoya a 3♥. Con nueve triunfos el nivel de tres es bastante seguro. 3♣ mostraría un palo de tréboles, y 4♥ necesita 13+.',
+        explain: 'Apoyo de tres cartas y 6-12 puntos: apoya a 3♥. Con nueve triunfos el nivel de tres es bastante seguro. 3♣ mostraría un palo de tréboles, y 4♥ necesita 13+.',
       },
       {
         q: '1SA a tu izquierda, paso, paso. Tienes ♠KQ1095 ♥83 ♦952 ♣J84 (6 PH). ¿Qué declaras?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: doblo"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: declara 3SA"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: declara 3♠"></div>
-<p>La primera mano tiene 14 PH y la distribución adecuada: doblo. Con el ♦K en lugar del ♦A (13 PH), los bots pasarían. La segunda declara 3SA: los diamantes correrán, y el ♥K debería parar los corazones, porque la salida viene de Este y Oeste, que tiene los corazones largos, juega antes que tú. La tercera declara su buen palo de seis.</p>
+<p>La primera mano tiene 14 PH y la distribución adecuada: doblo. Con el ♦K en lugar del ♦A (13 PH), los bots pasarían. La segunda declara 3SA: los diamantes correrán, y el ♥K debería parar los corazones, porque la salida viene de Oeste y Este, que tiene los corazones largos, juega antes que tú. La tercera declara su buen palo de seis.</p>
 
 <h3>Responder al doblo del compañero</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

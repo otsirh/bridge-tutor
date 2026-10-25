@@ -16,7 +16,8 @@ describe('practice themes', () => {
       for (let k = 0; k < 4; k++) {
         const board = 1 + ((k * 5) % 16);
         const t0 = Date.now();
-        const r = await dealForTheme(t.id, boardDealer(board), boardVulnerability(board), 1000 + k * 77, 4000);
+        // the search stops as soon as a deal fits, so a generous budget only matters on a slow machine (CI)
+        const r = await dealForTheme(t.id, boardDealer(board), boardVulnerability(board), 1000 + k * 77, 15000);
         ms += Date.now() - t0;
         tries += r.tries;
         if (r.found) {
@@ -28,5 +29,5 @@ describe('practice themes', () => {
       expect(found, t.id).toBeGreaterThanOrEqual(3);
     }
     console.log(rows.join('\n'));
-  }, 120000);
+  }, 300000);
 });

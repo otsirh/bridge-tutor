@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Lewy przeciwnik otwiera 1BA, partner wchodzi 2♥, a prawy przeciwnik pasuje. Masz ♠Q852 ♥Q73 ♦K84 ♣962 (7 PC). Co licytujesz?',
         options: ['Pas', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Trzykartowe poparcie i 6-9 punktów: podnieś do 3♥. Z dziewięcioma atutami wysokość trzech jest dość bezpieczna. 3♣ pokazywałoby trefle, a 4♥ wymaga 13+.',
+        explain: 'Trzykartowe poparcie i 6-12 punktów: podnieś do 3♥. Z dziewięcioma atutami wysokość trzech jest dość bezpieczna. 3♣ pokazywałoby trefle, a 4♥ wymaga 13+.',
       },
       {
         q: '1BA po twojej lewej, potem pas, pas. Masz ♠KQ1095 ♥83 ♦952 ♣J84 (6 PC). Co licytujesz?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: kontra"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: licytuj 3BA"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: licytuj 3♠"></div>
-<p>Pierwsza ręka ma 14 PC i właściwy układ: kontra. Z ♦K zamiast ♦A (13 PC) boty by spasowały. Druga licytuje 3BA: kara przebiegną, a ♥K powinien zatrzymać kiery, bo wist wychodzi od Wschodu, a Zachód, który ma długie kiery, gra przed tobą. Trzecia licytuje swój dobry sześciokartowy kolor.</p>
+<p>Pierwsza ręka ma 14 PC i właściwy układ: kontra. Z ♦K zamiast ♦A (13 PC) boty by spasowały. Druga licytuje 3BA: kara przebiegną, a ♥K powinien zatrzymać kiery, bo wist wychodzi od Zachodu, a Wschód, który ma długie kiery, gra przed tobą. Trzecia licytuje swój dobry sześciokartowy kolor.</p>
 
 <h3>Odpowiedź na kontrę partnera</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

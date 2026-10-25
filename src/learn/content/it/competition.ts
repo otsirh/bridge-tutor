@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'L’avversario di sinistra apre 1SA, il compagno interviene 2♥ e l’avversario di destra passa. Hai ♠Q852 ♥Q73 ♦K84 ♣962 (7 PO). Che cosa dichiari?',
         options: ['Passo', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Appoggio di tre carte e 6-9 punti: appoggia a 3♥. Con nove atout il livello di tre è abbastanza sicuro. 3♣ mostrerebbe un colore di fiori, e 4♥ richiede 13+.',
+        explain: 'Appoggio di tre carte e 6-12 punti: appoggia a 3♥. Con nove atout il livello di tre è abbastanza sicuro. 3♣ mostrerebbe un colore di fiori, e 4♥ richiede 13+.',
       },
       {
         q: '1SA alla tua sinistra, poi passo, passo. Hai ♠KQ1095 ♥83 ♦952 ♣J84 (6 PO). Che cosa dichiari?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: contro"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: dichiara 3SA"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: dichiara 3♠"></div>
-<p>La prima mano ha 14 PO e la distribuzione giusta: contro. Con il ♦K al posto del ♦A (13 PO), i bot passerebbero. La seconda dichiara 3SA: le quadri sono affrancate, e il ♥K dovrebbe fermare le cuori, perché l’attacco parte da Est e Ovest, che ha le cuori lunghe, gioca prima di te. La terza dichiara il suo buon colore di sei.</p>
+<p>La prima mano ha 14 PO e la distribuzione giusta: contro. Con il ♦K al posto del ♦A (13 PO), i bot passerebbero. La seconda dichiara 3SA: le quadri sono affrancate, e il ♥K dovrebbe fermare le cuori, perché l’attacco parte da Ovest ed Est, che ha le cuori lunghe, gioca prima di te. La terza dichiara il suo buon colore di sei.</p>
 
 <h3>Rispondere al contro del compagno</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

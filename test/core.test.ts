@@ -27,12 +27,26 @@ describe('scoring', () => {
     expect(scoreContract(c(1, NT, 1), 3, false)).toBe(-800);
     expect(scoreContract(c(3, NT, 1), 7, true)).toBe(-500);
     expect(scoreContract(c(3, NT, 2), 8, true)).toBe(-400);
+    expect(scoreContract(c(4, SPADES, 2), 6, false)).toBe(-1600); // 4 down redoubled, not vulnerable
+    expect(scoreContract(c(4, SPADES, 1), 6, true)).toBe(-1100);
+  });
+  it('scores doubled and redoubled overtricks, partscores and slams', () => {
+    expect(scoreContract(c(2, HEARTS, 1), 9, false)).toBe(570); // into game, one overtrick at 100
+    expect(scoreContract(c(2, HEARTS, 1), 9, true)).toBe(870); // vulnerable overtrick at 200
+    expect(scoreContract(c(2, HEARTS, 2), 9, false)).toBe(840); // redoubled overtrick at 200
+    expect(scoreContract(c(1, CLUBS, 2), 7, false)).toBe(230); // 80 below the line stays a partscore
+    expect(scoreContract(c(6, SPADES, 1), 12, true)).toBe(1660);
   });
   it('converts to IMPs', () => {
     expect(imps(10)).toBe(0);
     expect(imps(20)).toBe(1);
+    expect(imps(40)).toBe(1);
+    expect(imps(50)).toBe(2);
     expect(imps(420 - 170)).toBe(6);
     expect(imps(-1430)).toBe(-16);
+    expect(imps(3990)).toBe(23);
+    expect(imps(4000)).toBe(24);
+    expect(imps(-5000)).toBe(-24);
   });
 });
 

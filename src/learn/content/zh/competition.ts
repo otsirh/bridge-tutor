@@ -110,7 +110,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: '下家开叫1NT，同伴争叫2♥，上家不叫。你持♠Q852 ♥Q73 ♦K84 ♣962（7个大牌点）。你叫什么？',
         options: ['不叫', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: '3张支持和6-9点：加叫到3♥。有9张将牌时三阶足够安全。3♣表示草花套，4♥需要13点以上。',
+        explain: '3张支持和6-12点：加叫到3♥。有9张将牌时三阶足够安全。3♣表示草花套，4♥需要13点以上。',
       },
       {
         q: '下家开叫1NT，之后不叫、不叫。你持♠KQ1095 ♥83 ♦952 ♣J84（6个大牌点）。你叫什么？',
@@ -169,7 +169,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ？：加倍"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ？：叫3NT"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ？：叫3♠"></div>
-<p>第一手有14个大牌点，牌型也合适：加倍。如果是♦K而不是♦A（13个大牌点），机器人会不叫。第二手叫3NT：方块能连续赢墩，♥K应该能挡住红心，因为首攻来自东家，而红心长的西家在你之前出牌。第三手叫出它好的6张套。</p>
+<p>第一手有14个大牌点，牌型也合适：加倍。如果是♦K而不是♦A（13个大牌点），机器人会不叫。第二手叫3NT：方块能连续赢墩，♥K应该能挡住红心，因为首攻来自西家，而红心长的东家在你之前出牌。第三手叫出它好的6张套。</p>
 
 <h3>回应同伴的加倍</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

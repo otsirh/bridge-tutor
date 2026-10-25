@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Ihr linker Gegner eröffnet 1SA, der Partner reizt 2♥ gegen, und Ihr rechter Gegner passt. Sie halten ♠Q852 ♥Q73 ♦K84 ♣962 (7 FP). Was reizen Sie?',
         options: ['Passe', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Dreierunterstützung und 6–9 Punkte: Heben Sie auf 3♥. Mit neun Trümpfen ist die Dreierstufe sicher genug. 3♣ würde eine Treff-Farbe zeigen, und 4♥ braucht 13+.',
+        explain: 'Dreierunterstützung und 6–12 Punkte: Heben Sie auf 3♥. Mit neun Trümpfen ist die Dreierstufe sicher genug. 3♣ würde eine Treff-Farbe zeigen, und 4♥ braucht 13+.',
       },
       {
         q: 'Links von Ihnen 1SA, dann Passe, Passe. Sie halten ♠KQ1095 ♥83 ♦952 ♣J84 (6 FP). Was reizen Sie?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ?: Kontra"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ?: 3SA"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ?: 3♠"></div>
-<p>Die erste Hand hat 14 FP und die richtige Verteilung: Kontra. Mit dem ♦K statt dem ♦A (13 FP) würden die Bots passen. Die zweite reizt 3SA: Die Karos laufen, und der ♥K sollte Coeur stoppen, denn das Ausspiel kommt von Ost, und West, der die langen Coeurs hat, spielt vor Ihnen. Die dritte reizt ihre gute Sechserlänge.</p>
+<p>Die erste Hand hat 14 FP und die richtige Verteilung: Kontra. Mit dem ♦K statt dem ♦A (13 FP) würden die Bots passen. Die zweite reizt 3SA: Die Karos laufen, und der ♥K sollte Coeur stoppen, denn das Ausspiel kommt von West, und Ost, der die langen Coeurs hat, spielt vor Ihnen. Die dritte reizt ihre gute Sechserlänge.</p>
 
 <h3>Die Antwort auf das Kontra des Partners</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>

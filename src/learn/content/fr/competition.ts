@@ -111,7 +111,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
         q: 'Votre adversaire de gauche ouvre de 1SA, votre partenaire intervient à 2♥ et votre adversaire de droite passe. Vous avez ♠Q852 ♥Q73 ♦K84 ♣962 (7 H). Que dites-vous ?',
         options: ['Passe', '3♥', '3♣', '4♥'],
         answer: 1,
-        explain: 'Soutien de trois cartes et 6-9 points : soutenez à 3♥. Avec neuf atouts, le palier de 3 est assez sûr. 3♣ montrerait des trèfles, et 4♥ demande 13+.',
+        explain: 'Soutien de trois cartes et 6-12 points : soutenez à 3♥. Avec neuf atouts, le palier de 3 est assez sûr. 3♣ montrerait des trèfles, et 4♥ demande 13+.',
       },
       {
         q: '1SA à votre gauche, puis passe, passe. Vous avez ♠KQ1095 ♥83 ♦952 ♣J84 (6 H). Que dites-vous ?',
@@ -170,7 +170,7 @@ export const LESSONS_COMPETITION: Lesson[] = [
 <div class="hand" data-cards="S:AJ74 H:5 D:AQ83 C:K1062" data-label="3♥ – ? : contrez"></div>
 <div class="hand" data-cards="S:AQ4 H:K5 D:AKQJ83 C:106" data-label="3♥ – ? : dites 3SA"></div>
 <div class="hand" data-cards="S:AQJ1074 H:5 D:K83 C:K106" data-label="3♥ – ? : dites 3♠"></div>
-<p>La première main a 14 H et la bonne distribution : contrez. Avec le ♦K au lieu du ♦A (13 H), les bots passeraient. La deuxième dit 3SA : les carreaux sont maîtres, et le ♥K devrait arrêter les cœurs, car l’entame vient d’Est et Ouest, qui a les cœurs longs, joue avant vous. La troisième nomme sa bonne sixième.</p>
+<p>La première main a 14 H et la bonne distribution : contrez. Avec le ♦K au lieu du ♦A (13 H), les bots passeraient. La deuxième dit 3SA : les carreaux sont maîtres, et le ♥K devrait arrêter les cœurs, car l’entame vient d’Ouest et Est, qui a les cœurs longs, joue avant vous. La troisième nomme sa bonne sixième.</p>
 
 <h3>Répondre au contre du partenaire</h3>
 <div class="auction" data-calls="2H X P" data-dealer="W"></div>
