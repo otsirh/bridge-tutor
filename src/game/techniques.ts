@@ -47,8 +47,10 @@ export interface TechniqueInfo {
   /** Looked for in the first this many tricks (a hold-up comes at once, a safety play may come later). */
   tricks: number;
   /**
-   * Too rare to look for on request (a sample of 125 deals had none): offered
-   * only when a deal of it is ready, found while looking for any technique.
+   * Too rare to look for on request (samples of over a hundred deals each had
+   * none for safety plays and none for ducking that decided the contract):
+   * offered only when a deal of it is ready, found while looking for any
+   * technique or shipped ready-made.
    */
   rare?: boolean;
 }
@@ -56,7 +58,7 @@ export interface TechniqueInfo {
 export const TECHNIQUE_INFO: Record<TechniqueId, TechniqueInfo> = {
   finesse: { themes: ['declarer', 'nt-games', 'suit-games'], lesson: 'finesses', tricks: 6 },
   holdUp: { themes: ['nt-games'], lesson: 'hold-up-and-entries', tricks: 2 },
-  duck: { themes: ['nt-games', 'declarer', 'suit-games'], lesson: 'establishing-long-suits', tricks: 5 },
+  duck: { themes: ['nt-games', 'declarer', 'suit-games'], lesson: 'establishing-long-suits', tricks: 5, rare: true },
   unblock: { themes: ['nt-games', 'declarer'], lesson: 'establishing-long-suits', tricks: 5 },
   drawTrumps: { themes: ['suit-games'], lesson: 'trump-management', tricks: 4 },
   ruffShort: { themes: ['suit-games'], lesson: 'trump-management', tricks: 5 },
@@ -73,7 +75,7 @@ export const ANY_THEMES = ['nt-games', 'suit-games', 'declarer'];
 export const LESSON_TECHNIQUES: Record<string, TechniqueId> = {
   'finesses': 'finesse',
   'hold-up-and-entries': 'holdUp',
-  'establishing-long-suits': 'duck',
+  'establishing-long-suits': 'unblock',
   'trump-management': 'ruffShort',
   'suit-combinations-and-odds': 'finesse',
 };
