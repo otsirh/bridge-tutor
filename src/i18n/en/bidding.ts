@@ -506,6 +506,7 @@ export const bidding = {
     pass1nt: 'Nothing worth showing over their strong notrump.',
     passNt: 'Their notrump bid: no sensible action.',
     balancing1nt: 'In the balancing seat 1NT shows 11–14 balanced with a stopper (you are "borrowing" partner’s values).',
+    notLongInTheirs: (suits: number[]) => `at most four ${syms(suits, ' ')} (with five, partner is short and did not double: pass)`,
     overcall1nt: 'Like a 1NT opening — 15–18 balanced — plus a stopper in their suit.',
     overcall2nt: 'Over a weak two: 15–18 balanced with a stopper.',
     overcall3nt: 'Over a preempt: a strong balanced hand (16–21) with a stopper — to play.',

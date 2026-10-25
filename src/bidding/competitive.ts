@@ -90,8 +90,10 @@ export function overcallRules(x: Ctx): Rule[] {
   const preempt = lb.meaning.tag === 'weak2' || lb.meaning.tag === 'preempt';
 
   if (ntCall === bid(1, NT)) {
+    // in the balancing seat, length in their suit says partner is short and weak: let them play
+    const notLong = cond(t.notLongInTheirs(theirs), h => theirs.every(s => h.len[s] <= 4), sh => { theirs.forEach(s => (sh.len[s] = [sh.len[s][0], Math.min(4, sh.len[s][1])])); }, h => T.bidding.conds.lengths(h.len, theirs));
     rules.push(R(ntCall, bal ? 'balancing1nt' : ['ntOvercall', 1], bal ? t.balancing1nt : t.overcall1nt, [
-      hcpC(bal ? 11 : 15, bal ? 14 : 18), balancedC(), stopC(theirs)]));
+      hcpC(bal ? 11 : 15, bal ? 14 : 18), balancedC(), stopC(theirs), ...(bal ? [notLong] : [])]));
   }
   if (ntCall === bid(2, NT) && preempt) {
     rules.push(R(ntCall, ['ntOvercall', 2], t.overcall2nt, [hcpC(15, 18), balancedC(), stopC(theirs)]));

@@ -488,6 +488,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Rien qui vaille d’être montré sur leur sans-atout fort.',
     passNt: 'Ils ont dit sans-atout : aucune action raisonnable.',
     balancing1nt: 'En réveil, 1SA montre 11–14, main régulière avec un arrêt (vous « empruntez » les points de votre partenaire).',
+    notLongInTheirs: (suits: number[]) => `au plus quatre cartes à ${syms(suits, ' ')} (avec cinq, le partenaire est court et n’a pas contré : passez)`,
     overcall1nt: 'Comme une ouverture de 1SA — 15–18, main régulière — avec en plus un arrêt dans leur couleur.',
     overcall2nt: 'Sur un deux faible : 15–18, main régulière avec un arrêt.',
     overcall3nt: 'Sur un barrage : une main régulière forte (16–21) avec un arrêt — pour jouer.',

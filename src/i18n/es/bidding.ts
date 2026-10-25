@@ -504,6 +504,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Nada que merezca la pena mostrar sobre su sin triunfo fuerte.',
     passNt: 'Han declarado sin triunfo: ninguna acción sensata.',
     balancing1nt: 'En posición de reapertura, 1SA muestra 11–14 equilibrada con parada (estás “tomando prestados” los puntos de tu compañero).',
+    notLongInTheirs: (suits: number[]) => `como mucho cuatro ${syms(suits, ' ')} (con cinco, tu compañero está corto y no ha doblado: pasa)`,
     overcall1nt: 'Como una apertura de 1SA (15–18 equilibrada), más una parada en su palo.',
     overcall2nt: 'Sobre un dos débil: 15–18 equilibrada con parada.',
     overcall3nt: 'Sobre un barrage: una mano equilibrada fuerte (16–21) con parada; para jugar.',

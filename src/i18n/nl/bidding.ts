@@ -487,6 +487,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Niets dat het tonen waard is na hun sterke sans atout.',
     passNt: 'Hun SA-bod: geen zinnige actie.',
     balancing1nt: 'In de balanspositie toont 1SA 11–14 evenwichtig met een stop (je "leent" de punten van partner).',
+    notLongInTheirs: (suits: number[]) => `hoogstens vier ${syms(suits, ' ')} (met vijf is partner kort en heeft niet gedoubleerd: pas)`,
     overcall1nt: 'Zoals een 1SA-opening — 15–18 evenwichtig — plus een stop in hun kleur.',
     overcall2nt: 'Na een zwakke twee: 15–18 evenwichtig met een stop.',
     overcall3nt: 'Na een preëmpt: een sterke evenwichtige hand (16–21) met een stop — om te spelen.',

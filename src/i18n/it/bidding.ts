@@ -481,6 +481,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Niente che valga la pena mostrare sul loro senza atout forte.',
     passNt: 'Hanno dichiarato senza atout: nessuna azione sensata.',
     balancing1nt: 'In posizione di riapertura 1SA mostra 11–14 bilanciata con il fermo (stai «prendendo in prestito» i punti del compagno).',
+    notLongInTheirs: (suits: number[]) => `al massimo quattro carte di ${syms(suits, ' ')} (con cinque il compagno è corto e non ha contrato: passa)`,
     overcall1nt: 'Come un’apertura di 1SA, 15–18 bilanciata, più il fermo nel loro colore.',
     overcall2nt: 'Su un due debole: 15–18 bilanciata con il fermo.',
     overcall3nt: 'Su un barrage: una mano bilanciata forte (16–21) con il fermo, per giocare.',

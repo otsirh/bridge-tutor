@@ -496,6 +496,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Über das starke SA der Gegner nichts, was sich zu zeigen lohnt.',
     passNt: 'Die Gegner haben Sans Atout gereizt: keine sinnvolle Aktion.',
     balancing1nt: 'In der Wiederbelebungsposition zeigt 1SA 11–14 ausgeglichen mit Stopper (Sie „leihen“ sich Werte des Partners).',
+    notLongInTheirs: (suits: number[]) => `höchstens vier ${syms(suits, ' ')} (mit fünf ist der Partner kurz und hat nicht kontriert: passen)`,
     overcall1nt: 'Wie eine 1SA-Eröffnung – 15–18 ausgeglichen – plus Stopper in der Farbe der Gegner.',
     overcall2nt: 'Über eine schwache Zwei: 15–18 ausgeglichen mit Stopper.',
     overcall3nt: 'Über eine Sperre: eine starke ausgeglichene Hand (16–21) mit Stopper – zum Spielen.',

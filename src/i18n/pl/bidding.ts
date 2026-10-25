@@ -496,6 +496,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Nic wartego pokazania po ich silnym 1BA.',
     passNt: 'Ich odzywka w bez atu: brak sensownej akcji.',
     balancing1nt: 'Na pozycji wznawiającej 1BA pokazuje 11–14 w ręce zrównoważonej z zatrzymaniem („pożyczasz” punkty partnera).',
+    notLongInTheirs: (suits: number[]) => `najwyżej cztery karty w ${syms(suits, ' ')} (z pięcioma partner jest krótki i nie kontrował: pasuj)`,
     overcall1nt: 'Jak otwarcie 1BA — 15–18, ręka zrównoważona — plus zatrzymanie w kolorze przeciwników.',
     overcall2nt: 'Po słabym dwa: 15–18, ręka zrównoważona z zatrzymaniem.',
     overcall3nt: 'Po otwarciu blokującym: silna ręka zrównoważona (16–21) z zatrzymaniem — do gry.',

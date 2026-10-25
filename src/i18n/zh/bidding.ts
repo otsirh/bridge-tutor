@@ -487,6 +487,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: '对方开叫强无将，没有值得表示的东西。',
     passNt: '对方叫了无将：没有合理的行动。',
     balancing1nt: '在平衡位置，1NT表示11–14点平均牌型，对方花色有止张（你在“借用”同伴的牌力）。',
+    notLongInTheirs: (suits: number[]) => `${syms(suits, ' ')}至多4张（有5张时同伴是短套且没有加倍：不叫）`,
     overcall1nt: '与1NT开叫相同——15–18点平均牌型——且对方花色有止张。',
     overcall2nt: '对方弱二开叫后：15–18点平均牌型，有止张。',
     overcall3nt: '对方阻击叫后：平均牌型强牌（16–21），有止张——止叫。',

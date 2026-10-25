@@ -486,6 +486,7 @@ export const bidding: Text['bidding'] = {
     pass1nt: 'Nada que valha a pena mostrar sobre o sem trunfo forte deles.',
     passNt: 'Eles marcaram sem trunfo: nenhuma ação sensata.',
     balancing1nt: 'Em posição de reabertura, 1ST mostra 11–14 balanceada com parada (você está “pegando emprestados” os valores do parceiro).',
+    notLongInTheirs: (suits: number[]) => `no máximo quatro cartas em ${syms(suits, ' ')} (com cinco, o parceiro está curto e não dobrou: passe)`,
     overcall1nt: 'Como uma abertura de 1ST — 15–18 balanceada — mais uma parada no naipe deles.',
     overcall2nt: 'Sobre um dois fraco: 15–18 balanceada com parada.',
     overcall3nt: 'Sobre uma barragem: mão forte e balanceada (16–21) com parada — para jogar.',

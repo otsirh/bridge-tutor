@@ -80,7 +80,8 @@
 //   honours in the two suits, or 16+: 83, 199, 221, 240, 245;
 // - after opener's 1NT rebid (12–14) a balanced responder invites with 2NT
 //   on 11–12 and bids 3NT on 13+ (the general invitation wanted a range
-//   three points wide): 293.
+//   three points wide): 293;
+// - no balancing 1NT with five cards in their suit: pass instead (113).
 
 export const SAYC_AUCTIONS: string[] = [
   'P P 1D 1H 2H P 5D P P P',
@@ -196,7 +197,7 @@ export const SAYC_AUCTIONS: string[] = [
   'P 1H 1S 2S 3S 4H P P P',
   '3H P P P',
   'P P 1S 3C P P 4S P P P',
-  '1C P P 1NT P 2NT P P P',
+  '1C P P P',
   '1C 1S 2S 3S 5C P P P',
   'P P 1H 1S 2S P 4H P P P',
   'P 1C P 1H P 2H P 3H P 4H P P P',
