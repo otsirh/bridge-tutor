@@ -116,7 +116,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Problemi tratti da smazzate reali in cui una carta è nettamente la migliore: gioco col morto, difesa e attacchi.',
   openProblems: 'Risolvi i problemi',
   stepTechniquesTitle: 'Esercitati in una tecnica del giocante',
-  stepTechniquesText: 'Smazzate intere in cui una tecnica decide il contratto — impasse, colpo in bianco, cedere un giro, sblocco, gioco in atout, giocata di sicurezza — spiegate dopo la mano.',
+  stepTechniquesText: 'Smazzate intere in cui una tecnica decide il contratto — impasse, colpo in bianco, sblocco, gioco in atout — spiegate dopo la mano.',
   openTechniques: 'Esercitati nelle tecniche',
   howItWorks: 'Ogni board che concludi viene salvato con la sua analisi. Le dichiarazioni diverse dal sistema e le carte nettamente peggiori con le informazioni che avevi (non solo col senno di poi) finiscono nella tua lista di ripasso.',
 

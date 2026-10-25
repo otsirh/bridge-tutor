@@ -114,7 +114,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Problemas sacados de manos reales en los que una carta es claramente la mejor: carteo del declarante, defensa y salidas.',
   openProblems: 'Resolver problemas',
   stepTechniquesTitle: 'Practica una técnica del declarante',
-  stepTechniquesText: 'Manos completas en las que una técnica decide el contrato (impasse, hold-up, agacharse, desbloqueo, manejo de los triunfos, jugada de seguridad), explicadas después de la mano.',
+  stepTechniquesText: 'Manos completas en las que una técnica decide el contrato (impasse, hold-up, desbloqueo, manejo de los triunfos), explicadas después de la mano.',
   openTechniques: 'Practicar técnicas',
   howItWorks: 'Cada mano que terminas se guarda con su análisis. Las voces que se apartan del sistema y las cartas que eran claramente peores con la información que tenías (no solo a toro pasado) van a tu cola de repaso.',
 

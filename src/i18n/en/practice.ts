@@ -112,7 +112,7 @@ export const practice = {
   stepProblemsText: 'Problems from real deals where one card is clearly best: declarer play, defence and opening leads.',
   openProblems: 'Solve problems',
   stepTechniquesTitle: 'Practise a declarer technique',
-  stepTechniquesText: 'Whole deals where one technique decides the contract — a finesse, the hold-up, ducking, unblocking, trump play, a safety play — explained after the hand.',
+  stepTechniquesText: 'Whole deals where one technique decides the contract — a finesse, the hold-up, unblocking, trump play — explained after the hand.',
   openTechniques: 'Practise techniques',
   howItWorks: 'Every board you finish is saved with its analysis. Calls that differ from the system and cards that were clearly worse with the information you had (not just in hindsight) go into your review queue.',
 

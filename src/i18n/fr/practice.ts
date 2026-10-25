@@ -115,7 +115,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Des problèmes tirés de vraies donnes où une carte est nettement la meilleure : jeu du déclarant, flanc et entame.',
   openProblems: 'Résoudre des problèmes',
   stepTechniquesTitle: 'S’entraîner à une technique du déclarant',
-  stepTechniquesText: 'Des donnes entières où une technique décide du contrat — impasse, laisser-passer, coup à blanc, déblocage, jeu d’atout, maniement de sécurité —, expliquées après la donne.',
+  stepTechniquesText: 'Des donnes entières où une technique décide du contrat — impasse, laisser-passer, déblocage, jeu d’atout —, expliquées après la donne.',
   openTechniques: 'S’entraîner aux techniques',
   howItWorks: 'Chaque donne terminée est enregistrée avec son analyse. Les enchères qui diffèrent du système et les cartes nettement moins bonnes avec les informations dont vous disposiez (pas seulement après coup) rejoignent vos révisions.',
 

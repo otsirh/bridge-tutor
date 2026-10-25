@@ -107,7 +107,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: '来自真实牌局的习题，其中有一张牌明显最好：坐庄、防守和首攻。',
   openProblems: '做习题',
   stepTechniquesTitle: '练习一项坐庄技术',
-  stepTechniquesText: '整副牌由一项技术决定定约成败——飞牌、忍让、让牌、解封、将牌处理、安全打法——打完后讲解。',
+  stepTechniquesText: '整副牌由一项技术决定定约成败——飞牌、忍让、解封、将牌处理——打完后讲解。',
   openTechniques: '练习技术',
   howItWorks: '你打完的每一副牌都会连同分析一起保存。与体系不同的叫品，以及根据你当时掌握的信息（而不是事后诸葛亮）明显较差的出牌，都会进入你的复习队列。',
 

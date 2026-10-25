@@ -113,7 +113,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Aufgaben aus echten Spielen, in denen eine Karte klar am besten ist: Alleinspiel, Gegenspiel und Ausspiel.',
   openProblems: 'Aufgaben lösen',
   stepTechniquesTitle: 'Eine Alleinspieltechnik üben',
-  stepTechniquesText: 'Ganze Spiele, in denen eine Technik über den Kontrakt entscheidet – Schnitt, Hold-up, Ducken, Deblockieren, Trumpfspiel, Sicherheitsspiel –, nach dem Spiel erklärt.',
+  stepTechniquesText: 'Ganze Spiele, in denen eine Technik über den Kontrakt entscheidet – Schnitt, Hold-up, Deblockieren, Trumpfspiel –, nach dem Spiel erklärt.',
   openTechniques: 'Techniken üben',
   howItWorks: 'Jedes beendete Board wird mit seiner Analyse gespeichert. Ansagen, die vom System abweichen, und Karten, die mit Ihrem damaligen Wissen klar schlechter waren (nicht nur im Nachhinein), kommen in Ihre Wiederholung.',
 

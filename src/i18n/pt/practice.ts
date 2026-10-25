@@ -114,7 +114,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Problemas de mãos reais em que uma carta é claramente a melhor: carteio, defesa e saídas.',
   openProblems: 'Resolver problemas',
   stepTechniquesTitle: 'Treine uma técnica de carteio',
-  stepTechniquesText: 'Mãos inteiras em que uma técnica decide o contrato — finesse, deixar passar, ceder uma vaza, desbloqueio, manejo dos trunfos, jogada de segurança — explicadas depois da mão.',
+  stepTechniquesText: 'Mãos inteiras em que uma técnica decide o contrato — finesse, deixar passar, desbloqueio, manejo dos trunfos — explicadas depois da mão.',
   openTechniques: 'Treinar técnicas',
   howItWorks: 'Cada mão que você termina é guardada com a análise. As vozes que diferem do sistema e as cartas que foram claramente piores com a informação que você tinha (não só em retrospecto) vão para a sua fila de revisão.',
 

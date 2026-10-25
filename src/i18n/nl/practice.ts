@@ -110,7 +110,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Opgaven uit echte spellen waarin één kaart duidelijk de beste is: afspel, tegenspel en uitkomsten.',
   openProblems: 'Opgaven oplossen',
   stepTechniquesTitle: 'Oefen een afspeeltechniek',
-  stepTechniquesText: 'Hele spellen waarin één techniek het contract beslist — snit, ophouden, duiken, deblokkeren, troefspel, veiligheidsspel — na het spel uitgelegd.',
+  stepTechniquesText: 'Hele spellen waarin één techniek het contract beslist — snit, ophouden, deblokkeren, troefspel — na het spel uitgelegd.',
   openTechniques: 'Technieken oefenen',
   howItWorks: 'Elk spel dat je uitspeelt, wordt bewaard met de analyse. Biedingen die van het systeem afwijken en kaarten die duidelijk slechter waren met de informatie die je had (niet alleen achteraf), komen in je herhaallijst.',
 

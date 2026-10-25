@@ -113,7 +113,7 @@ export const practice: Text['practice'] = {
   stepProblemsText: 'Zadania z prawdziwych rozdań, w których jedna karta jest wyraźnie najlepsza: rozgrywka, obrona i pierwszy wist.',
   openProblems: 'Rozwiązuj zadania',
   stepTechniquesTitle: 'Przećwicz technikę rozgrywki',
-  stepTechniquesText: 'Całe rozdania, w których jedna technika rozstrzyga o kontrakcie — impas, przepuszczenie, oddanie lewy, odblokowanie, gra atutami, zagranie bezpieczeństwa — objaśniane po rozdaniu.',
+  stepTechniquesText: 'Całe rozdania, w których jedna technika rozstrzyga o kontrakcie — impas, przepuszczenie, odblokowanie, gra atutami — objaśniane po rozdaniu.',
   openTechniques: 'Ćwicz techniki',
   howItWorks: 'Każde ukończone rozdanie zapisuje się razem z analizą. Odzywki niezgodne z systemem i karty wyraźnie gorsze przy informacjach dostępnych w danej chwili (nie tylko z perspektywy czasu) trafiają do kolejki powtórek.',
 
