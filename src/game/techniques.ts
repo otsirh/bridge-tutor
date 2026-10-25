@@ -297,6 +297,8 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
   const len = (seat: Seat, s: number) => ranks(seat, s).length;
   const sides = [0, 1, 2, 3].filter(s => s !== trump);
   /** Aces and kings a hand holds outside a suit (in notrump; in a suit contract trumps are entries too). */
+  /** Too few top tricks to make the contract without developing tricks: the play matters. */
+  const tight = () => [0, 1, 2, 3].reduce((n, x) => n + topTricks(ranks(decl, x), ranks(dummy, x), () => true), 0) < contract.level + 6;
   const sideEntries = (seat: Seat, s: number) => [0, 1, 2, 3].filter(x => x !== s).reduce((n, x) => n + ranks(seat, x).filter(r => r >= 13).length + (x === trump && len(seat, x) ? 1 : 0), 0);
   switch (t) {
     case 'holdUp': {
@@ -306,19 +308,18 @@ export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], con
       const s = suitOf(openingLeadChoices(deal[leader], contract, records, leader)[0].card);
       const ours = [...ranks(decl, s), ...ranks(dummy, s)];
       if (ours.length > 6 || len(leader, s) < 5 || !ours.includes(14) || ours.some(r => r !== 14 && r >= 10)) return false;
-      const top = [0, 1, 2, 3].reduce((t, x) => t + topTricks(ranks(decl, x), ranks(dummy, x), () => true), 0);
-      return top < contract.level + 6 && len(ranks(decl, s).includes(14) ? decl : dummy, s) >= 2;
+      return tight() && len(ranks(decl, s).includes(14) ? decl : dummy, s) >= 2;
     }
     case 'duck':
       // a long suit with the ace in a hand that has hardly any way back to it, a round to lose, a short holding opposite
-      return sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([long, short]) => {
+      return tight() && sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([long, short]) => {
         const ours = [...ranks(long, s), ...ranks(short, s)];
         return len(long, s) >= 5 && len(short, s) >= 1 && len(short, s) <= 3 && ranks(long, s).includes(14)
           && !(ours.includes(13) && ours.includes(12) && ours.includes(11)) && sideEntries(long, s) <= 1;
       }));
     case 'unblock':
       // an honour in a short holding opposite a long, strong one, the long hand short of other entries
-      return sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([short, long]) => {
+      return tight() && sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([short, long]) => {
         const a = len(short, s);
         return a >= 1 && a <= 3 && len(long, s) >= 4 && ranks(short, s).some(r => r >= 11) && ranks(long, s).filter(r => r >= 10).length >= 2 && sideEntries(long, s) <= 1;
       }));
