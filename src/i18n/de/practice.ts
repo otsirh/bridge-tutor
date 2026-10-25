@@ -11,7 +11,7 @@ const decisions = (n: number) => count(n, 'Entscheidung', 'Entscheidungen');
 export const practice: Text['practice'] = {
   title: 'Training',
   close: 'Schließen',
-  tabs: { today: 'Heute', review: 'Wiederholen', problems: 'Aufgaben', skills: 'Fähigkeiten', topics: 'Themen', history: 'Verlauf' },
+  tabs: { today: 'Heute', review: 'Wiederholen', problems: 'Aufgaben', techniques: 'Techniken', skills: 'Fähigkeiten', topics: 'Themen', history: 'Verlauf' },
 
   skills: {
     'bid.opening': { name: 'Eröffnen', desc: 'Ob Sie eröffnen und welche Eröffnung Ihre Hand beschreibt: 1 in Farbe, 1SA, 2♣, schwache Zweier und Sperreröffnungen.' },
@@ -79,6 +79,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Erster Versuch: ${right} von ${total} richtig`,
   quizRetry: 'Quiz wiederholen',
   practicedCount: (n: number) => (n === 1 ? '1 Board geübt' : `${n} Boards geübt`),
+  practiseTechnique: (name: string) => `Die Technik üben: ${name}`,
+  practiseTechniqueText: 'Ganze Spiele, in denen sie über den Kontrakt entscheidet – am Tisch gespielt und danach erklärt.',
+  practiseTechniqueBtn: 'Technik üben',
 
   // Today
   tileStreak: 'Tage in Folge',
@@ -106,6 +109,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Die richtige Karte finden',
   stepProblemsText: 'Aufgaben aus echten Spielen, in denen eine Karte klar am besten ist: Alleinspiel, Gegenspiel und Ausspiel.',
   openProblems: 'Aufgaben lösen',
+  stepTechniquesTitle: 'Eine Alleinspieltechnik üben',
+  stepTechniquesText: 'Ganze Spiele, in denen eine Technik über den Kontrakt entscheidet – Schnitt, Hold-up, Ducken, Deblockieren, Trumpfspiel, Sicherheitsspiel –, nach dem Spiel erklärt.',
+  openTechniques: 'Techniken üben',
   howItWorks: 'Jedes beendete Board wird mit seiner Analyse gespeichert. Ansagen, die vom System abweichen, und Karten, die mit Ihrem damaligen Wissen klar schlechter waren (nicht nur im Nachhinein), kommen in Ihre Wiederholung.',
 
   // Review
@@ -118,6 +124,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Neues Blatt, gleiche Idee',
   itemFromDrill: (date: string) => `aus der Reizübung, ${date}`,
   itemFromProblem: (date: string) => `aus einer Aufgabe, ${date}`,
+  itemFromTechnique: (date: string) => `aus dem Techniktraining, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'neu' : `Stufe ${box} von ${last}`),
   dueLeft: (n: number) => `${n} fällig`,
   next: 'Weiter',
@@ -196,6 +203,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Dieses Spiel von Anfang an spielen',
     declarerTag: 'Alleinspieler',
     dummyTag: 'Dummy',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Ganze Spiele, in denen eine Alleinspieltechnik über den Kontrakt entscheidet. Spielen Sie das Spiel am Tisch; die Analyse zeigt danach den Schlüsselmoment – ob Sie die Technik gefunden haben, mit der Simulation dahinter – und die Lektion, die sie erklärt. Jedes Spiel wird vom System gereizt und per Simulation nur mit dem geprüft, was der Alleinspieler sehen konnte.',
+    filterLabel: 'Technik',
+    any: 'Alle',
+    names: {
+      finesse: 'Schnitt',
+      holdUp: 'Hold-up',
+      duck: 'Ducken',
+      unblock: 'Deblockieren',
+      drawTrumps: 'Trumpf ziehen',
+      ruffShort: 'Schnappen in der kurzen Hand',
+      safety: 'Sicherheitsspiel',
+    },
+    descs: {
+      finesse: 'Spielen Sie die Karte, die gewinnt, wenn die fehlende Figur beim Gegenspieler sitzt, der schon gespielt hat – die Dame aus A-Q oder den König, zu dem Sie gespielt haben.',
+      holdUp: 'In SA-Kontrakten lassen Sie die Gegenspieler ihre Farbe ein- oder zweimal gewinnen, bevor Sie Ihren Stopper nehmen.',
+      duck: 'Geben Sie früh eine Runde Ihrer langen Farbe ab, solange die lange Hand ihre hohen Karten als Übergänge behält.',
+      unblock: 'Spielen Sie zuerst die hohen Karten der kürzeren Hand, damit Sie die lange Hand noch erreichen.',
+      drawTrumps: 'Ziehen Sie den Gegenspielern die Trümpfe, bevor sie Ihre Gewinner schnappen können.',
+      ruffShort: 'Schnappen Sie Verlierer in der Hand mit weniger Trümpfen: Jeder Schnapper dort ist ein zusätzlicher Stich.',
+      safety: 'Geben Sie einen möglichen Überstich auf, um den Kontrakt sicher zu erfüllen.',
+    },
+    why: {
+      finesse: 'Ein Schnitt gewinnt immer dann, wenn die fehlende höhere Karte beim Gegenspieler sitzt, der schon zum Stich gespielt hat: Dann macht Ihre Figur (oder die des Partners, die Sie durchlaufen lassen) den Stich. Spielen Sie stattdessen Ihre höchste Karte, gewinnen Sie nur, wenn jene Karte fällt; eine kleine Karte gibt den Stich ab.',
+      holdUp: 'Der Hold-up: Wenn Sie die Farbe der Gegenspieler nicht sofort gewinnen, spielt sich der Gegenspieler mit weniger Karten darin blank. Kommt er später ans Spiel, hat er keine Karte der Farbe mehr zum Zurückspielen, und die langen Karten kommen nie zum Zug. Gewinnen Sie die erste Runde, können die Gegenspieler ihre Farbe abziehen, sobald einer von ihnen ans Spiel kommt.',
+      duck: 'Wenn Sie eine Runde Ihrer langen Farbe ducken, geben Sie früh einen Stich ab – meist einen, den Sie ohnehin verlieren würden –, solange die lange Hand noch ihre hohen Karten hat. Kommen Sie wieder ans Spiel, erreichen Sie die langen Karten noch; gewinnen Sie die ersten Runden, können die letzten ohne Übergang stranden.',
+      unblock: 'Deblockieren: Spielen Sie die hohen Karten zuerst aus der kürzeren Hand. Dann liegen die letzten Karten der Farbe in der langen Hand, und Sie haben noch eine kleine Karte, um sie zu erreichen; spielen Sie zuerst die Figuren der langen Hand, blockiert die Farbe, und die langen Karten sind nicht mehr zu erreichen.',
+      drawTrumps: 'Trumpf ziehen: Solange die Gegenspieler noch Trümpfe haben, können sie Ihre Gewinner in den Nebenfarben schnappen. Jede Trumpfrunde nimmt jedem Gegenspieler einen Trumpf; hier war es klar am besten, die Trümpfe jetzt zu ziehen.',
+      ruffShort: 'Schnappen in der kurzen Hand: Ein Schnapper in der Hand mit weniger Trümpfen ist ein zusätzlicher Stich, denn diese Trümpfe würden sonst keine eigenen Stiche machen; ein Schnapper in der langen Hand bringt nichts extra. Tun Sie es, solange die kurze Hand noch Trümpfe hat – zuerst Trumpf zu ziehen könnte sie ihr nehmen.',
+      safety: 'Ein Sicherheitsspiel: Eine andere Karte brachte im Durchschnitt mehr Stiche, aber diese erfüllte den Kontrakt öfter. Sie gibt einen möglichen Überstich auf, um sich gegen die Verteilungen abzusichern, in denen das gierigere Spiel scheitert – wenn der Kontrakt auf dem Spiel steht, spielen Sie auf den Kontrakt.',
+    },
+    hints: 'Die Technik vor dem Spiel nennen',
+    hintsNote: 'Aus: Die Analyse sagt Ihnen, welche Technik das Spiel verlangte – wie am Tisch.',
+    play: 'Ein Spiel spielen',
+    ready: (n: number) => (n === 1 ? '1 Spiel bereit' : `${n} Spiele bereit`),
+    score: (right: number, done: number) => `Gefunden: ${right} von ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Lektion: ${title}`,
+    preparing: 'Ein Spiel wird vorbereitet…',
+    waitNote: 'Nur Spiele, in denen die Technik klar über den Kontrakt entscheidet, werden behalten, deshalb kann die Suche ein paar Minuten dauern. Sie werden im Hintergrund vorbereitet, solange dieser Tab offen ist und während Sie ein Technikspiel spielen; bis zu 3 je Technik werden für das nächste Mal aufbewahrt.',
+
+    // at the table
+    noteTitle: 'Techniktraining',
+    noteHidden: 'Eine Entscheidung in diesem Spiel verlangt eine Alleinspieltechnik. Finden Sie sie: Der Tutor behält seinen Kartenrat für sich, bis dieser Moment vorbei ist, und die Analyse erklärt ihn.',
+    noteLookFor: (name: string, desc: string) => `Achten Sie auf: ${name}. ${desc} Der Tutor behält seinen Kartenrat für sich, bis dieser Moment vorbei ist.`,
+    withheld: 'Techniktraining: Diese Entscheidung liegt bei Ihnen. Der Kartenrat des Tutors kommt zurück, sobald der Schlüsselmoment vorbei ist.',
+
+    // the review
+    reviewTitle: (name: string) => `Die Technik: ${name}`,
+    found: (trick: number, card: string) => `Gefunden: ${card} in Stich ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `In Stich ${trick} haben Sie ${card} gespielt; die Technik war ${best}.`,
+    offScript: (trick: number) => `Das Spiel nahm vor dem Schlüsselmoment (Stich ${trick}) einen anderen Weg, deshalb kam er nicht vor. Spielen Sie das Spiel ab dem Schlüsselmoment, um ihn zu versuchen.`,
+    auto: (trick: number) => `Der Schlüsselmoment (Stich ${trick}) wurde für Sie gespielt – durch einen Claim oder das Ausspielen der Hand.`,
+    simBest: (n: number, best: string, t: string, s: string) => `In ${n} Verteilungen, die zur Reizung und zum bisherigen Spiel passen, brachte ${best} durchschnittlich ${t} Stiche und erfüllte den Kontrakt in ${s} der Fälle.`,
+    simYours: (card: string, t: string, s: string) => `Ihre Karte ${card}: ${t} Stiche, erfüllt in ${s} der Fälle.`,
+    simOther: (card: string, t: string, s: string) => `Beste andere Karte, ${card}: ${t} Stiche, erfüllt in ${s} der Fälle.`,
+    tryAgain: 'Den Schlüsselmoment noch einmal versuchen',
+    playFromKey: 'Ab dem Schlüsselmoment spielen',
+    next: 'Nächstes Technikspiel',
+    addedToReview: 'Zu Ihrer Wiederholung hinzugefügt: Der Schlüsselmoment kommt wieder, bis Sie ihn richtig lösen.',
   },
 
   // Skills

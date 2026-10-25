@@ -7,7 +7,7 @@ import type { Seat, Vulnerability } from '../../core/cards';
 export const practice: Text['practice'] = {
   title: '训练',
   close: '关闭',
-  tabs: { today: '今日', review: '复习', problems: '习题', skills: '技能', topics: '专题', history: '记录' },
+  tabs: { today: '今日', review: '复习', problems: '习题', techniques: '技术', skills: '技能', topics: '专题', history: '记录' },
 
   skills: {
     'bid.opening': { name: '开叫', desc: '该不该开叫，以及哪种开叫能描述你的牌：一阶花色、1NT、2♣、弱二开叫和阻击叫。' },
@@ -75,6 +75,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `首次作答：${total}题答对${right}题`,
   quizRetry: '重做测验',
   practicedCount: (n: number) => `已练习${n}副`,
+  practiseTechnique: (name: string) => `练习这项技术：${name}`,
+  practiseTechniqueText: '整副牌都由这项技术决定定约成败，在牌桌上打完，之后再讲解。',
+  practiseTechniqueBtn: '练习这项技术',
 
   tileStreak: '连续天数',
   tileStreakNote: (n: number) => (n ? '继续保持' : '今天打一副牌即可开始'),
@@ -100,6 +103,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: '找出正确的打法',
   stepProblemsText: '来自真实牌局的习题，其中有一张牌明显最好：坐庄、防守和首攻。',
   openProblems: '做习题',
+  stepTechniquesTitle: '练习一项坐庄技术',
+  stepTechniquesText: '整副牌由一项技术决定定约成败——飞牌、忍让、让牌、解封、将牌处理、安全打法——打完后讲解。',
+  openTechniques: '练习技术',
   howItWorks: '你打完的每一副牌都会连同分析一起保存。与体系不同的叫品，以及根据你当时掌握的信息（而不是事后诸葛亮）明显较差的出牌，都会进入你的复习队列。',
 
   reviewEmptyTitle: '还没有需要复习的错误',
@@ -111,6 +117,7 @@ export const practice: Text['practice'] = {
   freshDeal: '新牌，同样的思路',
   itemFromDrill: (date: string) => `来自叫牌练习，${date}`,
   itemFromProblem: (date: string) => `来自习题，${date}`,
+  itemFromTechnique: (date: string) => `来自技术练习，${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? '新' : `第${box}步，共${last}步`),
   dueLeft: (n: number) => `待复习${n}个`,
   next: '下一个',
@@ -188,6 +195,69 @@ export const practice: Text['practice'] = {
     playFromStart: '从头打这副牌',
     declarerTag: '庄家',
     dummyTag: '明手',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: '整副牌中由一项坐庄技术决定定约成败。在牌桌上打完这副牌，之后复盘会指出关键时刻——你是否找到了这项技术、背后的模拟数据——以及讲解它的课程。每副牌都由体系叫牌，并且只用庄家当时能看到的信息通过模拟来检验。',
+    filterLabel: '技术',
+    any: '全部',
+    names: {
+      finesse: '飞牌',
+      holdUp: '忍让',
+      duck: '让牌',
+      unblock: '解封',
+      drawTrumps: '清将',
+      ruffShort: '短将一手将吃',
+      safety: '安全打法',
+    },
+    descs: {
+      finesse: '打出这样一张牌：缺少的大牌在已经出过牌的防守者手里时它就能赢——AQ中的Q，或你向其出牌的K。',
+      holdUp: '在无将定约中，先让防守方用他们的花色赢一两轮，再用你的止张。',
+      duck: '趁长套一手还保留大牌作为进手，及早在长套中让出一轮。',
+      unblock: '先打短套一手的大牌，这样你还能进入长套一手。',
+      drawTrumps: '在防守方将吃你的赢张之前，清掉他们的将牌。',
+      ruffShort: '在将牌较少的一手将吃输张：在那里每次将吃都多赢一墩。',
+      safety: '放弃可能的超墩，确保完成定约。',
+    },
+    why: {
+      finesse: '只要你缺少的那张更大的牌在这一墩已经出过牌的防守者手里，飞牌就会成功：那时你的大牌（或你让其通过的同伴的大牌）赢得这一墩。如果改打你最大的牌，只有那张牌掉下来时才能赢；打小牌则把这一墩送给对方。',
+      holdUp: '忍让：不立即赢下防守方的花色，就能把这门花色较短的防守者手中的这门牌打光。等他以后获得出牌权时，已经没有这门花色可以回出，长套永远兑现不了。如果第一轮就赢，任何一个防守者一获得出牌权，防守方就能兑现他们的花色。',
+      duck: '在长套中让一轮，就是及早送出一墩——通常是你迟早要输的一墩——同时长套一手还保留着大牌。重新获得出牌权后，你仍能进入长套；如果先赢下前几轮，最后几张牌可能会因为没有进手而被困住。',
+      unblock: '解封：先打短套一手的大牌。这样这门花色的最后几张牌留在长套一手，而你还有一张小牌可以进入那里；如果先打长套一手的大牌，这门花色就会堵塞，长套无法兑现。',
+      drawTrumps: '清将：只要防守方还有将牌，就可能将吃你旁门花色的赢张。每清一轮将，就从每个防守者手中拿走一张将牌；这里立即清将明显最好。',
+      ruffShort: '短将一手将吃：在将牌较少的一手将吃能多赢一墩，因为这些将牌本身赢不到墩；在长将一手将吃则不会多赢。要趁短将一手还有将牌时去做——先清将可能会把它们用光。',
+      safety: '安全打法：另一张牌平均赢墩更多，但这张牌完成定约的比例更高。它放弃可能的超墩，以防备那些更贪的打法会失败的分布——定约有风险时，要为定约而打。',
+    },
+    hints: '开打前说出要用的技术',
+    hintsNote: '关闭时：复盘会告诉你这副牌需要哪项技术，就像真实牌桌上一样。',
+    play: '打一副牌',
+    ready: (n: number) => `已准备${n}副`,
+    score: (right: number, done: number) => `找到：${done}次中${right}次`,
+    techScore: (name: string, right: number, done: number) => `${name}：${right}/${done}`,
+    lessonLink: (title: string) => `课程：${title}`,
+    preparing: '正在准备一副牌…',
+    waitNote: '只保留技术明显决定定约成败的牌，所以找到一副可能需要几分钟。只要这个页面开着，或你正在打技术练习的牌，就会在后台准备；每项技术最多保存3副供下次使用。',
+
+    // at the table
+    noteTitle: '技术练习',
+    noteHidden: '这副牌中有一个决定需要用到坐庄技术。找出它：在那个时刻过去之前，导师不会给出牌建议，复盘时会讲解。',
+    noteLookFor: (name: string, desc: string) => `要找的是：${name}。${desc}在那个时刻过去之前，导师不会给出牌建议。`,
+    withheld: '技术练习：这个决定由你来做。关键时刻过去后，导师的出牌建议就会回来。',
+
+    // the review
+    reviewTitle: (name: string) => `这项技术：${name}`,
+    found: (trick: number, card: string) => `找到了：第${trick}墩的${card}。`,
+    missed: (trick: number, card: string, best: string) => `第${trick}墩你出了${card}；正确的技术是${best}。`,
+    offScript: (trick: number) => `在关键时刻（第${trick}墩）之前，打牌走向了另一条路，所以它没有出现。从关键时刻开始打这副牌来试一试。`,
+    auto: (trick: number) => `关键时刻（第${trick}墩）是通过摊牌或自动打完替你打出的。`,
+    simBest: (n: number, best: string, t: string, s: string) => `在${n}种符合叫牌和此前打牌过程的分布中，${best}平均赢得${t}墩，完成定约的比例为${s}。`,
+    simYours: (card: string, t: string, s: string) => `你的${card}：${t}墩，完成${s}。`,
+    simOther: (card: string, t: string, s: string) => `其余最好的${card}：${t}墩，完成${s}。`,
+    tryAgain: '再试一次关键时刻',
+    playFromKey: '从关键时刻开始打',
+    next: '下一副技术练习',
+    addedToReview: '已加入你的复习队列：关键时刻会再次出现，直到你做对为止。',
   },
 
   skillsIntro: '每个方面最近若干次决定的准确率。叫牌统计符合体系的叫品；打牌统计根据当时信息并不明显劣于最佳牌张的出牌。',

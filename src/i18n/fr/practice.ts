@@ -10,7 +10,7 @@ const decisions = (n: number) => nPl(n, 'décision', 'décisions');
 export const practice: Text['practice'] = {
   title: 'Entraînement',
   close: 'Fermer',
-  tabs: { today: 'Aujourd’hui', review: 'Révisions', problems: 'Problèmes', skills: 'Compétences', topics: 'Thèmes', history: 'Historique' },
+  tabs: { today: 'Aujourd’hui', review: 'Révisions', problems: 'Problèmes', techniques: 'Techniques', skills: 'Compétences', topics: 'Thèmes', history: 'Historique' },
 
   skills: {
     'bid.opening': { name: 'L’ouverture', desc: 'Faut-il ouvrir, et quelle ouverture décrit votre main : un à la couleur, 1SA, 2♣, deux faibles et barrages.' },
@@ -81,6 +81,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Du premier coup : ${right} sur ${total}`,
   quizRetry: 'Refaire le quiz',
   practicedCount: (n: number) => nPl(n, 'donne jouée', 'donnes jouées'),
+  practiseTechnique: (name: string) => `S’entraîner à la technique : ${name}`,
+  practiseTechniqueText: 'Des donnes entières où elle décide du contrat, jouées à la table et expliquées ensuite.',
+  practiseTechniqueBtn: 'S’entraîner à la technique',
 
   // Today
   tileStreak: 'Jours d’affilée',
@@ -108,6 +111,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Trouvez le bon coup',
   stepProblemsText: 'Des problèmes tirés de vraies donnes où une carte est nettement la meilleure : jeu du déclarant, flanc et entame.',
   openProblems: 'Résoudre des problèmes',
+  stepTechniquesTitle: 'S’entraîner à une technique du déclarant',
+  stepTechniquesText: 'Des donnes entières où une technique décide du contrat — impasse, laisser-passer, coup à blanc, déblocage, jeu d’atout, maniement de sécurité —, expliquées après la donne.',
+  openTechniques: 'S’entraîner aux techniques',
   howItWorks: 'Chaque donne terminée est enregistrée avec son analyse. Les enchères qui diffèrent du système et les cartes nettement moins bonnes avec les informations dont vous disposiez (pas seulement après coup) rejoignent vos révisions.',
 
   // Review
@@ -121,6 +127,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Nouvelle donne, même idée',
   itemFromDrill: (date: string) => `exercice d’enchères, ${date}`,
   itemFromProblem: (date: string) => `problème, ${date}`,
+  itemFromTechnique: (date: string) => `de l’entraînement aux techniques, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nouvelle' : `étape ${box} sur ${last}`),
   dueLeft: (n: number) => `${n} à faire`,
   next: 'Suivant',
@@ -205,6 +212,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Jouer cette donne depuis le début',
     declarerTag: 'déclarant',
     dummyTag: 'mort',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Des donnes entières où une technique du déclarant décide du contrat. Jouez la donne à la table ; l’analyse montre ensuite le moment clé — si vous avez trouvé la technique, avec la simulation qui le justifie — et la leçon qui l’enseigne. Chaque donne est enchérie par le système et vérifiée par simulation avec seulement ce que le déclarant pouvait voir.',
+    filterLabel: 'Technique',
+    any: 'Toutes',
+    names: {
+      finesse: 'Impasse',
+      holdUp: 'Laisser-passer',
+      duck: 'Coup à blanc',
+      unblock: 'Déblocage',
+      drawTrumps: 'Tirer les atouts',
+      ruffShort: 'Couper dans la main courte',
+      safety: 'Maniement de sécurité',
+    },
+    descs: {
+      finesse: 'Jouez la carte qui fait la levée quand l’honneur manquant est chez le défenseur qui a déjà joué : la Dame de A-Q, ou le Roi vers lequel vous avez joué.',
+      holdUp: 'À sans-atout, laissez les défenseurs gagner leur couleur une ou deux fois avant de prendre votre arrêt.',
+      duck: 'Concédez tôt un tour de votre longue pendant que la main longue garde ses grosses cartes comme remontées.',
+      unblock: 'Jouez d’abord les grosses cartes de la main la plus courte, pour pouvoir encore rejoindre la main longue.',
+      drawTrumps: 'Enlevez leurs atouts aux défenseurs avant qu’ils ne puissent couper vos levées maîtresses.',
+      ruffShort: 'Coupez des perdantes dans la main qui a le moins d’atouts : chaque coupe y est une levée de plus.',
+      safety: 'Renoncez à une levée de mieux possible pour assurer le contrat.',
+    },
+    why: {
+      finesse: 'Une impasse réussit chaque fois que la carte plus haute qui vous manque est chez le défenseur qui a déjà joué dans la levée : votre honneur (ou celui du partenaire, que vous laissez courir) fait alors la levée. En jouant plutôt votre plus grosse carte, vous ne gagnez que si cette carte tombe ; en jouant petit, vous donnez la levée.',
+      holdUp: 'Le laisser-passer : en refusant de prendre tout de suite la couleur des défenseurs, vous épuisez le défenseur qui en a le moins. S’il prend la main plus tard, il n’a plus de carte de la couleur à rejouer, et les longues ne passent jamais. Prenez au premier tour, et les défenseurs pourront encaisser leur couleur dès que l’un d’eux prendra la main.',
+      duck: 'Le coup à blanc dans votre longue concède tôt une levée — en général une que vous perdriez de toute façon — pendant que la main longue garde ses grosses cartes. Quand vous reprenez la main, vous pouvez encore rejoindre les longues ; prenez les premiers tours, et les dernières risquent de rester bloquées, sans moyen de les atteindre.',
+      unblock: 'Le déblocage : jouez d’abord les grosses cartes de la main la plus courte. Les dernières cartes de la couleur sont alors dans la main longue, et il vous reste une petite carte pour la rejoindre ; jouez d’abord les honneurs de la main longue, et la couleur se bloque, les longues restant hors d’atteinte.',
+      drawTrumps: 'Tirer les atouts : tant que les défenseurs ont des atouts, ils peuvent couper vos levées maîtresses dans les couleurs latérales. Chaque tour d’atout en enlève un à chaque défenseur ; ici, les tirer tout de suite était nettement le meilleur choix.',
+      ruffShort: 'Couper dans la main courte : une coupe dans la main qui a le moins d’atouts est une levée de plus, car ces atouts ne feraient pas de levée par eux-mêmes ; couper dans la main longue ne rapporte rien de plus. Faites-le tant que la main courte a encore des atouts — tirer les atouts d’abord pourrait les lui enlever.',
+      safety: 'Un maniement de sécurité : une autre carte a fait plus de levées en moyenne, mais celle-ci a gagné le contrat plus souvent. Elle renonce à une levée de mieux possible pour se protéger des répartitions où le jeu plus gourmand échoue — quand le contrat est en jeu, jouez pour le contrat.',
+    },
+    hints: 'Nommer la technique avant la donne',
+    hintsNote: 'Désactivé : l’analyse vous dit quelle technique la donne demandait, comme à la table.',
+    play: 'Jouer une donne',
+    ready: (n: number) => nPl(n, 'donne prête', 'donnes prêtes'),
+    score: (right: number, done: number) => `Trouvées : ${right} sur ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name} : ${right}/${done}`,
+    lessonLink: (title: string) => `Leçon : ${title}`,
+    preparing: 'Préparation d’une donne…',
+    waitNote: 'Seules les donnes où la technique décide nettement du contrat sont retenues : en trouver une peut prendre quelques minutes. Elles se préparent en arrière-plan tant que cet onglet est ouvert et pendant que vous jouez une donne de technique ; jusqu’à 3 par technique sont gardées pour la prochaine fois.',
+
+    // at the table
+    noteTitle: 'Entraînement aux techniques',
+    noteHidden: 'Une décision de cette donne demande une technique du déclarant. Trouvez-la : le moniteur garde ses conseils de carte pour lui jusqu’à ce que ce moment soit passé, et l’analyse l’explique.',
+    noteLookFor: (name: string, desc: string) => `À chercher : ${name}. ${desc} Le moniteur garde ses conseils de carte pour lui jusqu’à ce que ce moment soit passé.`,
+    withheld: 'Entraînement aux techniques : cette décision vous revient. Les conseils de carte du moniteur reviennent une fois le moment clé passé.',
+
+    // the review
+    reviewTitle: (name: string) => `La technique : ${name}`,
+    found: (trick: number, card: string) => `Trouvé : ${le(card)} à la levée ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `À la levée ${trick}, vous avez joué ${le(card)} ; la technique était ${best}.`,
+    offScript: (trick: number) => `Le jeu a pris un autre chemin avant le moment clé (levée ${trick}), qui ne s’est donc pas présenté. Jouez la donne à partir du moment clé pour l’essayer.`,
+    auto: (trick: number) => `Le moment clé (levée ${trick}) a été joué pour vous, par une réclamation ou en jouant la donne jusqu’au bout.`,
+    simBest: (n: number, best: string, t: string, s: string) => `Sur ${n} donnes compatibles avec les enchères et le jeu jusque-là, ${le(best)} a rapporté en moyenne ${t} levées et a gagné le contrat dans ${s} des cas.`,
+    simYours: (card: string, t: string, s: string) => `Votre carte, ${card} : ${t} levées, contrat gagné dans ${s} des cas.`,
+    simOther: (card: string, t: string, s: string) => `La meilleure des autres, ${card} : ${t} levées, contrat gagné dans ${s} des cas.`,
+    tryAgain: 'Réessayer le moment clé',
+    playFromKey: 'Jouer à partir du moment clé',
+    next: 'Donne de technique suivante',
+    addedToReview: 'Ajouté à vos révisions : le moment clé reviendra jusqu’à ce que vous trouviez la bonne réponse.',
   },
 
   // Skills

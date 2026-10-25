@@ -23,6 +23,7 @@ import { type Card, type Seat, NT, suitOf, rankOf, partnerOf, lhoOf, mulberry32,
 import { Auction, type Contract } from '../core/auction';
 import { PlayState, trickWinner } from '../core/play';
 import { readAuction } from '../bidding/engine';
+import type { CallRecord } from '../bidding/context';
 import { decideCard, type Decision } from '../engine/playEngine';
 import { openingLeadChoices } from '../engine/leads';
 import { dealForTheme, systemAuction } from './themes';
@@ -42,16 +43,18 @@ export interface TechniqueInfo {
   themes: string[];
   /** The lesson that teaches it. */
   lesson: string;
+  /** Looked for in the first this many tricks (a hold-up comes at once, a safety play may come later). */
+  tricks: number;
 }
 
 export const TECHNIQUE_INFO: Record<TechniqueId, TechniqueInfo> = {
-  finesse: { themes: ['declarer', 'nt-games', 'suit-games'], lesson: 'finesses' },
-  holdUp: { themes: ['nt-games'], lesson: 'hold-up-and-entries' },
-  duck: { themes: ['nt-games', 'declarer', 'suit-games'], lesson: 'establishing-long-suits' },
-  unblock: { themes: ['nt-games', 'declarer'], lesson: 'establishing-long-suits' },
-  drawTrumps: { themes: ['suit-games'], lesson: 'trump-management' },
-  ruffShort: { themes: ['suit-games'], lesson: 'trump-management' },
-  safety: { themes: ['declarer', 'suit-games', 'nt-games'], lesson: 'safety-plays' },
+  finesse: { themes: ['declarer', 'nt-games', 'suit-games'], lesson: 'finesses', tricks: 6 },
+  holdUp: { themes: ['nt-games'], lesson: 'hold-up-and-entries', tricks: 2 },
+  duck: { themes: ['nt-games', 'declarer', 'suit-games'], lesson: 'establishing-long-suits', tricks: 5 },
+  unblock: { themes: ['nt-games', 'declarer'], lesson: 'establishing-long-suits', tricks: 5 },
+  drawTrumps: { themes: ['suit-games'], lesson: 'trump-management', tricks: 4 },
+  ruffShort: { themes: ['suit-games'], lesson: 'trump-management', tricks: 5 },
+  safety: { themes: ['declarer', 'suit-games', 'nt-games'], lesson: 'safety-plays', tricks: 6 },
 };
 
 /** Themes for "any technique". */
@@ -203,18 +206,28 @@ const finesse: Recogniser = (v, answer) => {
 };
 
 /**
- * Unblocking: play the high card of the shorter hand first (cash it, or
- * overtake), keeping a low card to reach the long hand.
+ * Unblocking: a low card would keep the trick for your side too, but the
+ * high card of the shorter hand goes first (cashed, or played under or over
+ * partner's), keeping a low card to reach the long hand.
  */
 const unblock: Recogniser = (v, answer) => {
   if (!sameSuit(answer)) return false;
   const s = suitOf(answer[0]);
   if (s === v.trump || !answer.every(c => isTop(v, c))) return false;
-  const legal = v.p.legal();
-  if (!legal.some(c => suitOf(c) === s && !answer.includes(c) && answer.every(a => c < a))) return false;
-  const partnerCard = v.p.current.cards.find((c, i) => ((v.p.current.leader + i) & 3) === v.partner);
+  const cur = v.p.current;
+  const partnerCard = cur.cards.find((c, i) => ((cur.leader + i) & 3) === v.partner);
   const partnerLen = partnerIn(v, s).length + (partnerCard !== undefined && suitOf(partnerCard) === s ? 1 : 0);
-  return handIn(v, s).length < partnerLen && partnerLen >= 3;
+  if (handIn(v, s).length >= partnerLen || partnerLen < 3) return false;
+  const partnerWinning = v.pos > 0 && trickWinner(cur.cards, cur.leader, v.p.trump) === v.partner;
+  // partner still to play holds a card that takes the trick for sure
+  const partnerTop = partnerIn(v, s).some(c => isTop(v, c) && (v.pos === 0 || c > cur.cards[0]));
+  // a lower card of the suit that would keep the trick for your side as well
+  const keeps = (d: Card) => {
+    if (v.pos === 0 || v.pos === 1) return partnerTop;
+    if (v.pos === 2) return (partnerWinning && isTop(v, cur.cards[0])) || (winsNow(v, d) && isTop(v, d));
+    return partnerWinning || winsNow(v, d);
+  };
+  return v.p.legal().some(d => suitOf(d) === s && !answer.includes(d) && answer.every(a => d < a) && keeps(d));
 };
 
 /** Ruffing in the short hand: lead a loser of a suit the hand with fewer trumps is void in. */
@@ -267,6 +280,53 @@ export function recogniseTechnique(p: PlayState, answer: readonly Card[], stats:
 // Finding deals
 
 /**
+ * A quick look at a board before any simulation: could this technique come
+ * up at all? Skips the deals where it plainly can't (a hold-up needs a lone
+ * stopper in the suit led, unblocking an honour in a short holding opposite
+ * a long one…). It only chooses which deals to try; every verdict on a
+ * position is made later from declarer's view.
+ */
+export function mayArise(t: TechniqueId, deal: readonly (readonly Card[])[], contract: Contract, records: CallRecord[]): boolean {
+  const decl = contract.declarer;
+  const dummy = partnerOf(decl);
+  const trump = contract.strain;
+  const ranks = (seat: Seat, s: number) => suitCards(deal[seat], s).map(rankOf);
+  const len = (seat: Seat, s: number) => ranks(seat, s).length;
+  const sides = [0, 1, 2, 3].filter(s => s !== trump);
+  switch (t) {
+    case 'holdUp': {
+      if (trump !== NT) return false;
+      const leader = lhoOf(decl);
+      const s = suitOf(openingLeadChoices(deal[leader], contract, records, leader)[0].card);
+      const ours = [...ranks(decl, s), ...ranks(dummy, s)];
+      if (ours.length > 7 || !ours.includes(14) || ours.includes(13)) return false;
+      return len(ranks(decl, s).includes(14) ? decl : dummy, s) >= 2;
+    }
+    case 'duck':
+      return sides.some(s => {
+        const a = len(decl, s);
+        const b = len(dummy, s);
+        const ours = [...ranks(decl, s), ...ranks(dummy, s)];
+        return a + b >= 7 && Math.max(a, b) >= 5 && Math.min(a, b) <= 3 && ours.includes(14) && !(ours.includes(13) && ours.includes(12) && ours.includes(11));
+      });
+    case 'unblock':
+      return sides.some(s => ([[decl, dummy], [dummy, decl]] as [Seat, Seat][]).some(([short, long]) => {
+        const a = len(short, s);
+        return a >= 1 && a <= 3 && len(long, s) >= 4 && ranks(short, s).some(r => r >= 11) && ranks(long, s).filter(r => r >= 10).length >= 2;
+      }));
+    case 'ruffShort': {
+      if (trump === NT || len(decl, trump) === len(dummy, trump)) return false;
+      const [long, short] = len(decl, trump) > len(dummy, trump) ? [decl, dummy] : [dummy, decl];
+      return len(short, trump) >= 2 && sides.some(s => len(short, s) <= 2 && len(long, s) > len(short, s));
+    }
+    case 'drawTrumps':
+      return trump !== NT;
+    default:
+      return true;
+  }
+}
+
+/**
  * Like a problem, but the alternatives to a technique are usually natural
  * plays (taking the trick, cashing the ace), so a large gap is no reason to
  * reject a position.
@@ -280,6 +340,8 @@ export interface TechniqueGenOptions extends Omit<GenOptions, 'onVerdict'> {
   want?: TechniqueId | null;
   /** Every position simulated in depth (for tuning and tests). */
   onTested?: (info: { trick: number; play: Card[]; decision: Decision; ok: boolean; reason?: string; technique: TechniqueId | null }) => void;
+  /** Every decision of declarer's screened (for tuning). */
+  onScreen?: (info: { trick: number; play: Card[]; decision: Decision; promising: boolean; technique: TechniqueId | null; bestTechnique: TechniqueId | null }) => void;
 }
 
 const r3 = (x: number) => Math.round(x * 1000) / 1000;
@@ -293,7 +355,7 @@ export async function generateTechnique(seed: number, o: TechniqueGenOptions = {
   const cfg = {
     screenSamples: o.screenSamples ?? 16,
     extraSamples: o.extraSamples ?? 32,
-    maxTricks: o.maxTricks ?? 6,
+    maxTricks: o.maxTricks ?? (o.want ? TECHNIQUE_INFO[o.want].tricks : 6),
     priority: o.priority ?? 1,
     screenMs: o.screenMs ?? 4000,
     extraMs: o.extraMs ?? 8000,
@@ -312,12 +374,22 @@ export async function generateTechnique(seed: number, o: TechniqueGenOptions = {
   const stop = () => !!o.shouldStop?.();
 
   progress('dealing', 0);
-  const dealt = await dealForTheme(theme, dealer, vul, (rnd() * 2 ** 31) | 0, cfg.dealBudgetMs);
-  if (!dealt.found || stop()) return null;
-  const deal = dealt.deal;
-  const { auction, records } = systemAuction(deal, dealer, vul);
-  const contract = auction.contract();
-  if (!contract || !humanSeat(contract, contract.declarer)) return null;
+  // deal for the theme until the technique wanted could come up (a cheap look before the slow walk)
+  let deal: Card[][] = [];
+  let auction: Auction | null = null;
+  let records: CallRecord[] = [];
+  let contract: Contract | null = null;
+  const until = Date.now() + cfg.dealBudgetMs;
+  for (let tries = 0; ; tries++) {
+    const dealt = await dealForTheme(theme, dealer, vul, (rnd() * 2 ** 31) | 0, cfg.dealBudgetMs);
+    if (!dealt.found || stop()) return null;
+    deal = dealt.deal;
+    ({ auction, records } = systemAuction(deal, dealer, vul));
+    contract = auction.contract();
+    if (contract && humanSeat(contract, contract.declarer) && (!want || mayArise(want, deal, contract, records))) break;
+    if (tries >= 200 || Date.now() > until) return null;
+  }
+  if (!auction || !contract) return null;
   const shown = readAuction(auction, vul).shown;
   const p = new PlayState(contract, deal);
   const played: Card[] = [];
@@ -349,7 +421,9 @@ export async function generateTechnique(seed: number, o: TechniqueGenOptions = {
       if (!screen) return null;
       card = screen.card;
       const loose = screen.samples >= 8 ? acceptProblem(screen, screenRules(cfg.rules)) : null;
-      if (loose?.ok && fits(recogniseTechnique(p, loose.answer, statsOf(screen)))) {
+      const prelim = loose?.ok ? recogniseTechnique(p, loose.answer, statsOf(screen)) : null;
+      if (o.onScreen) o.onScreen({ trick: p.tricks.length, play: [...played], decision: screen, promising: !!loose?.ok, technique: prelim, bestTechnique: recogniseTechnique(p, screen.equal, statsOf(screen)) });
+      if (loose?.ok && fits(prelim)) {
         const extra = await simulate(cfg.extraSamples, cfg.extraMs, Math.min(cfg.extraSamples, 8));
         if (!extra) return null;
         const d = mergeDecisions(screen, extra);

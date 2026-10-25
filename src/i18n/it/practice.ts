@@ -11,7 +11,7 @@ const decisions = (n: number) => plural(n, 'decisione', 'decisioni');
 export const practice: Text['practice'] = {
   title: 'Allenamento',
   close: 'Chiudi',
-  tabs: { today: 'Oggi', review: 'Ripasso', problems: 'Problemi', skills: 'Abilità', topics: 'Temi', history: 'Storico' },
+  tabs: { today: 'Oggi', review: 'Ripasso', problems: 'Problemi', techniques: 'Tecniche', skills: 'Abilità', topics: 'Temi', history: 'Storico' },
 
   skills: {
     'bid.opening': { name: 'Aprire la licita', desc: 'Se aprire e quale apertura descrive la tua mano: uno a colore, 1SA, 2♣, due deboli e barrage.' },
@@ -82,6 +82,9 @@ export const practice: Text['practice'] = {
   quizScore: (right: number, total: number) => `Al primo tentativo: ${right} giuste su ${total}`,
   quizRetry: 'Rifai il quiz',
   practicedCount: (n: number) => (n === 1 ? '1 board giocato' : `${n} board giocati`),
+  practiseTechnique: (name: string) => `Esercitati nella tecnica: ${name}`,
+  practiseTechniqueText: 'Smazzate intere in cui decide il contratto, giocate al tavolo e spiegate dopo.',
+  practiseTechniqueBtn: 'Esercitati nella tecnica',
 
   // Today
   tileStreak: 'Giorni di fila',
@@ -109,6 +112,9 @@ export const practice: Text['practice'] = {
   stepProblemsTitle: 'Trova la giocata giusta',
   stepProblemsText: 'Problemi tratti da smazzate reali in cui una carta è nettamente la migliore: gioco col morto, difesa e attacchi.',
   openProblems: 'Risolvi i problemi',
+  stepTechniquesTitle: 'Esercitati in una tecnica del giocante',
+  stepTechniquesText: 'Smazzate intere in cui una tecnica decide il contratto — impasse, colpo in bianco, cedere un giro, sblocco, gioco in atout, giocata di sicurezza — spiegate dopo la mano.',
+  openTechniques: 'Esercitati nelle tecniche',
   howItWorks: 'Ogni board che concludi viene salvato con la sua analisi. Le dichiarazioni diverse dal sistema e le carte nettamente peggiori con le informazioni che avevi (non solo col senno di poi) finiscono nella tua lista di ripasso.',
 
   // Review
@@ -121,6 +127,7 @@ export const practice: Text['practice'] = {
   freshDeal: 'Nuova smazzata, stessa idea',
   itemFromDrill: (date: string) => `dall’esercizio di licita, ${date}`,
   itemFromProblem: (date: string) => `da un problema, ${date}`,
+  itemFromTechnique: (date: string) => `dall’allenamento sulle tecniche, ${date}`,
   itemBox: (box: number, last: number) => (box === 0 ? 'nuova' : `livello ${box} di ${last}`),
   dueLeft: (n: number) => `${n} da fare`,
   next: 'Avanti',
@@ -202,6 +209,69 @@ export const practice: Text['practice'] = {
     playFromStart: 'Gioca questa smazzata dall’inizio',
     declarerTag: 'giocante',
     dummyTag: 'morto',
+  },
+
+  // Techniques: whole deals where one declarer technique decides the contract
+  techniques: {
+    intro: 'Smazzate intere in cui una tecnica del giocante decide il contratto. Gioca la mano al tavolo; poi l’analisi mostra il momento chiave — se hai trovato la tecnica, con la simulazione che lo dimostra — e la lezione che la insegna. Ogni smazzata è dichiarata dal sistema e verificata con la simulazione usando solo ciò che il giocante poteva vedere.',
+    filterLabel: 'Tecnica',
+    any: 'Tutte',
+    names: {
+      finesse: 'Impasse',
+      holdUp: 'Colpo in bianco',
+      duck: 'Cedere un giro',
+      unblock: 'Sblocco',
+      drawTrumps: 'Battere atout',
+      ruffShort: 'Tagliare dalla mano corta',
+      safety: 'Giocata di sicurezza',
+    },
+    descs: {
+      finesse: 'Gioca la carta che vince quando l’onore mancante è in mano al difensore che ha già giocato: la donna da A-Q, o il re verso cui hai giocato.',
+      holdUp: 'A senza atout, lascia che i difensori vincano il loro colore una o due volte prima di usare il tuo fermo.',
+      duck: 'Cedi presto un giro del tuo colore lungo, finché la mano lunga conserva le carte alte come rientri.',
+      unblock: 'Gioca prima le carte alte della mano più corta, così puoi ancora raggiungere la mano lunga.',
+      drawTrumps: 'Togli le atout ai difensori prima che possano tagliare le tue vincenti.',
+      ruffShort: 'Taglia le perdenti nella mano con meno atout: ogni taglio lì è una presa in più.',
+      safety: 'Rinuncia a una possibile presa in più per mantenere il contratto.',
+    },
+    why: {
+      finesse: 'Un’impasse riesce ogni volta che la carta più alta che ti manca è in mano al difensore che ha già giocato alla presa: allora il tuo onore (o quello del compagno, che lasci correre) fa la presa. Giocando invece la tua carta più alta vinci solo se quella carta cade; giocando piccolo regali la presa.',
+      holdUp: 'Il colpo in bianco: rifiutando di vincere subito il colore dei difensori, esaurisci il difensore che ne ha meno carte. Se quel difensore va in presa più tardi, non ha più carte del colore da rigiocare, e le lunghe non vengono mai incassate. Se vinci il primo giro, i difensori possono incassare il loro colore appena uno dei due va in presa.',
+      duck: 'Cedere un giro del colore lungo regala presto una presa — di solito una che perderesti comunque — mentre la mano lunga conserva le sue carte alte. Quando riprendi la mano puoi ancora raggiungere le lunghe; se vinci i primi giri, le ultime possono restare isolate, senza modo di arrivarci.',
+      unblock: 'Lo sblocco: gioca prima le carte alte della mano più corta. Così le ultime carte del colore restano nella mano lunga e hai ancora una carta piccola per raggiungerle; se giochi prima gli onori della mano lunga, il colore si blocca e le lunghe restano irraggiungibili.',
+      drawTrumps: 'Battere atout: finché i difensori hanno atout, possono tagliare le tue vincenti nei colori laterali. Ogni giro di atout ne toglie una a ciascun difensore; qui batterle subito era nettamente la scelta migliore.',
+      ruffShort: 'Tagliare dalla mano corta: un taglio nella mano con meno atout è una presa in più, perché quelle atout non farebbero prese da sole; tagliare nella mano lunga non rende nulla in più. Fallo finché la mano corta ha ancora atout: battere atout prima potrebbe togliergliele.',
+      safety: 'Una giocata di sicurezza: un’altra carta ha fatto in media più prese, ma questa ha mantenuto il contratto più spesso. Rinuncia a una possibile presa in più per proteggersi dalle distribuzioni in cui il gioco più ambizioso fallisce: quando il contratto è in gioco, gioca per il contratto.',
+    },
+    hints: 'Indica la tecnica prima della mano',
+    hintsNote: 'Disattivato: l’analisi ti dice quale tecnica serviva nella smazzata, come succederebbe al tavolo.',
+    play: 'Gioca una smazzata',
+    ready: (n: number) => (n === 1 ? '1 smazzata pronta' : `${n} smazzate pronte`),
+    score: (right: number, done: number) => `Trovate: ${right} su ${done}`,
+    techScore: (name: string, right: number, done: number) => `${name}: ${right}/${done}`,
+    lessonLink: (title: string) => `Lezione: ${title}`,
+    preparing: 'Preparazione di una smazzata…',
+    waitNote: 'Si tengono solo le smazzate in cui la tecnica decide nettamente il contratto, quindi trovarne una può richiedere qualche minuto. Vengono preparate in background finché questa scheda è aperta e mentre giochi una smazzata di tecnica; se ne conservano fino a 3 per tecnica per la volta successiva.',
+
+    // at the table
+    noteTitle: 'Allenamento sulle tecniche',
+    noteHidden: 'Una decisione di questa mano richiede una tecnica del giocante. Trovala: il tutor tiene per sé i consigli sulle carte finché quel momento non è passato, e l’analisi lo spiega.',
+    noteLookFor: (name: string, desc: string) => `Cerca: ${name}. ${desc} Il tutor tiene per sé i consigli sulle carte finché quel momento non è passato.`,
+    withheld: 'Allenamento sulle tecniche: questa decisione spetta a te. I consigli del tutor sulle carte tornano quando il momento chiave è passato.',
+
+    // the review
+    reviewTitle: (name: string) => `La tecnica: ${name}`,
+    found: (trick: number, card: string) => `Trovata: ${card} alla presa ${trick}.`,
+    missed: (trick: number, card: string, best: string) => `Alla presa ${trick} hai giocato ${card}; la tecnica era ${best}.`,
+    offScript: (trick: number) => `Il gioco ha preso un’altra strada prima del momento chiave (presa ${trick}), che quindi non si è presentato. Gioca la smazzata dal momento chiave per provarlo.`,
+    auto: (trick: number) => `Il momento chiave (presa ${trick}) è stato giocato per te, con un reclamo o giocando la mano fino in fondo.`,
+    simBest: (n: number, best: string, t: string, s: string) => `Su ${n} distribuzioni compatibili con la licita e il gioco fin lì, ${best} ha fatto in media ${t} prese e ha mantenuto il contratto nel ${s} dei casi.`,
+    simYours: (card: string, t: string, s: string) => `La tua carta, ${card}: ${t} prese, contratto mantenuto nel ${s} dei casi.`,
+    simOther: (card: string, t: string, s: string) => `La migliore delle altre, ${card}: ${t} prese, contratto mantenuto nel ${s} dei casi.`,
+    tryAgain: 'Riprova il momento chiave',
+    playFromKey: 'Gioca dal momento chiave',
+    next: 'Prossima smazzata di tecnica',
+    addedToReview: 'Aggiunto al ripasso: il momento chiave tornerà finché non lo risolvi.',
   },
 
   // Skills
