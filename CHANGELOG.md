@@ -13,7 +13,14 @@ All notable changes to Bridge Tutor. Dates are when a version went live.
   after a two-over-one reads 12–14). After our redouble, doubles are for penalties again; opener
   passes partner's redouble of a doubled 1NT; over their 1NT the advancer raises partner's overcall
   naturally instead of with an artificial 3♣. Average loss against double-dummy par fell from 4.86
-  to 4.49 IMPs a board over 750 deals.
+  to 4.47 IMPs a board over 750 deals.
+- The bots now bid what the lessons teach: opener competes by the Law of Total Tricks when they bid
+  over partner's raise, 2NT asks for the minor after a major-suit Michaels, a good raise of an
+  overcall starts with the cue bid, the Unusual 2NT is bid, a balanced responder invites over
+  opener's 1NT rebid with 11–12, no balancing 1NT with five of their suit, and a sacrifice at
+  favourable vulnerability. Lesson examples the bots bid differently were corrected (negative
+  doubles, Gerber, new minor forcing, takeout-double advances, the Rule of 15), and every lesson hand
+  whose call is given is now checked against the bots.
 - Card play: each card's principle now matches it (overruff and underruff, returning partner's
   suit, declarer's ruffs, trumps already drawn…); the bots sample more layouts in the first tricks;
   passive opening leads against slams.
