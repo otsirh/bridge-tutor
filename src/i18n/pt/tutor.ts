@@ -44,6 +44,10 @@ export const tutor: Text['tutor'] = {
       title: 'Tirar os trunfos',
       text: 'Jogar trunfo tira os trunfos dos defensores, para que eles não cortem as suas vencedoras. Tire-os cedo, a menos que precise dos trunfos do morto para cortes.',
     },
+    trumpsDrawn: {
+      title: 'Trunfos já tirados',
+      text: 'Os defensores não têm mais trunfos, então jogar trunfo já não tira nada: o trunfo ganha a vaza numa das suas mãos — útil como entrada — e cada trunfo que você bate obriga os dois defensores a descartar.',
+    },
     unblock: {
       title: 'Desbloqueio',
       text: 'Bata primeiro a carta alta da mão curta, para que a mão longa continue ganhando as vazas e possa correr o resto do naipe.',
@@ -76,6 +80,14 @@ export const tutor: Text['tutor'] = {
       title: 'Procurar um corte',
       text: 'Jogar um naipe curto é esperar que o parceiro ganhe a mão e lhe dê um corte.',
     },
+    returnPartner: {
+      title: 'Voltar no naipe do parceiro',
+      text: 'O parceiro escolheu este naipe: voltar nele continua o plano do parceiro — firmar as cartas longas dele ou lhe dar um corte — em vez de abrir um naipe novo para o declarante.',
+    },
+    continueSuit: {
+      title: 'Continuar no seu naipe',
+      text: 'Você já jogou este naipe antes: jogá-lo de novo continua o trabalho nas vazas que o seu lado está firmando ali, em vez de abrir um naipe novo para o declarante.',
+    },
     switchSuits: {
       title: 'Trocar de naipe',
       text: 'Jogue através da força do declarante, ou em direção à fraqueza do morto: o defensor que joga antes da mão forte é quem deve jogar esse naipe.',
@@ -86,14 +98,23 @@ export const tutor: Text['tutor'] = {
       title: 'Sobrecortar',
       text: 'Cortar mais alto que o trunfo já jogado ganha a vaza.',
     },
+    underruff: {
+      title: 'Subcortar',
+      text: (forced: boolean) =>
+        forced
+          ? 'Já há um trunfo mais alto na vaza, então o seu não pode ganhar — mas só lhe restam trunfos, e você precisa jogar um.'
+          : 'Já há um trunfo mais alto na vaza, então o seu não pode ganhar: subcortar gasta um trunfo à toa. Descarte uma perdedora de um naipe lateral, a menos que precise guardar todas as cartas laterais.',
+    },
     ruffPartnersWinner: {
       title: 'Cortar a vencedora do parceiro',
       text: 'Em geral é desperdício: o parceiro já estava ganhando esta vaza.',
     },
     ruff: {
       title: 'Cortar',
-      declarer: 'Cortar na mão com menos trunfos ganha uma vaza; cortar na mão longa em trunfos só gasta um trunfo que você faria de qualquer jeito.',
       defender: 'Você não tem mais o naipe jogado, então um corte ganha a vaza.',
+      short: 'Esta mão não tem mais trunfos que a outra, então o corte é uma vaza extra: os trunfos da outra mão continuam fazendo as próprias vazas.',
+      forced: 'Você não tem mais o naipe que os defensores jogaram, então corte para ganhar a vaza. Um corte na mão longa em trunfos não dá vaza extra e encurta os seus trunfos: se os defensores puderem continuar forçando você a cortar, você pode perder o controle.',
+      long: 'Cortar na mão com mais trunfos gasta um trunfo que faria uma vaza de qualquer jeito, então sozinho não ganha nada — ajuda quando firma o resto do naipe ou deixa você nesta mão.',
     },
     discard: {
       title: 'Descarte',
@@ -151,6 +172,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Cobrir honra com honra',
       text: 'Cobrir obriga o declarante a gastar duas cartas altas para ganhar uma vaza, o que pode promover uma carta menor na sua mão ou na do parceiro.',
+      declarer: 'Cobrir obriga os defensores a gastar duas cartas altas para ganhar uma vaza, o que pode promover uma carta menor do seu lado.',
     },
     secondHandLow: {
       title: 'Segunda mão baixa',
@@ -159,6 +181,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Fazer uma vaza garantida',
       text: (card: Card) => `${cardName(card)} é a carta mais alta que resta no naipe.`,
+      safe: (card: Card) => `${cardName(card)} ganha a vaza, a menos que alguém corte: o defensor que ainda vai jogar não pode ter carta mais alta no naipe.`,
+    },
+    finesse: {
+      title: 'Fazer a finesse',
+      text: (card: Card) => `${cardName(card)} só ganha se as cartas mais altas do naipe que lhe faltam estiverem com o defensor que já jogou — é a finesse. Se o defensor que ainda vai jogar tiver uma, ela supera a sua carta.`,
     },
     splitHonours: {
       title: 'Dividir as honras',
@@ -170,10 +197,16 @@ export const tutor: Text['tutor'] = {
       title: 'O parceiro está ganhando',
       third: 'A carta do parceiro já está ganhando, então jogue baixo (ou sinalize).',
       fourth: 'Não passe por cima: jogue a sua menor carta.',
+      declarer: 'A carta do seu lado está ganhando por enquanto: jogue baixo e guarde as suas cartas altas.',
+    },
+    overtake: {
+      title: 'Passar por cima',
+      text: 'A carta do seu lado já estava ganhando: passar por cima gasta uma segunda carta alta na mesma vaza, então faça isso só para desbloquear o naipe ou para ganhar a vaza nesta mão.',
     },
     thirdHandHighEquals: {
       title: 'Terceira mão alta — a menor das equivalentes',
       text: 'Jogue a mais barata de cartas em sequência: assim o parceiro consegue deduzir onde está a mais alta.',
+      wrong: (card: Card, cheapest: Card) => `${cardName(cheapest)} faz o mesmo trabalho que ${cardName(card)}: jogue a mais barata de cartas em sequência, assim o parceiro consegue deduzir onde está a mais alta.`,
     },
     thirdHandHigh: {
       title: 'Terceira mão alta',
@@ -183,6 +216,10 @@ export const tutor: Text['tutor'] = {
       title: 'Não dá para ganhar a vaza',
       third: 'Jogue a sua menor carta (ou dê atitude, se o parceiro jogou o naipe).',
       fourth: 'Jogue a sua menor carta do naipe.',
+    },
+    duck: {
+      title: 'Deixar passar',
+      text: 'Você poderia ganhar esta vaza, mas a deixa passar: assim guarda a sua carta alta para uma rodada posterior — para segurar um controle, manter uma entrada ou preservar as comunicações no naipe.',
     },
     winCheaply: {
       title: 'Ganhar barato',
@@ -248,7 +285,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (suit: number) => `O parceiro marcou ${core.suits[suit]}: sair no naipe do parceiro raramente é errado e em geral é o melhor.`,
+      supported: (suit: number) => `Você mostrou ${core.suits[suit]} e o parceiro apoiou: o naipe do seu lado é uma saída natural.`,
       theyBid: (suit: number) => `Os adversários marcaram ${core.suits[suit]} — sair no naipe deles em geral ajuda o declarante.`,
+      slamRisky: 'Contra um slam, sair debaixo de uma honra sem cartas em sequência costuma dar ao declarante uma vaza que ele não faria de outro jeito.',
+      slamSafe: 'Contra um slam, faça uma saída segura: de cartas baixas você não entrega nada, e uma vaza entregue costuma ser o contrato.',
       // against notrump
       ntLong: (suit: number, n: number) =>
         `Contra sem trunfo, saia do seu naipe mais longo e mais forte (${n} ${core.suits[suit]}): você espera firmar vencedoras com as cartas longas.`,

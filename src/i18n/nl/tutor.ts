@@ -47,6 +47,10 @@ export const tutor: Text['tutor'] = {
       title: 'Troef trekken',
       text: 'Door troef te spelen haal je de troeven van de tegenspelers weg, zodat ze je vaste slagen niet kunnen introeven. Trek ze vroeg, tenzij je de troeven van de dummy nodig hebt om in te troeven.',
     },
+    trumpsDrawn: {
+      title: 'Troeven al getrokken',
+      text: 'De tegenspelers hebben geen troeven meer, dus deze troef trekt niets: hij wint de slag in een van je handen — handig als entree — en elke troef die je incasseert dwingt beide tegenspelers af te gooien.',
+    },
     unblock: {
       title: 'Deblokkeren',
       text: 'Speel eerst de hoge kaart uit de korte hand, zodat de lange hand aan slag blijft en de rest van de kleur kan afspelen.',
@@ -79,6 +83,14 @@ export const tutor: Text['tutor'] = {
       title: 'Op zoek naar een troefslag',
       text: 'Met een korte kleur hoop je dat partner aan slag komt en jou laat introeven.',
     },
+    returnPartner: {
+      title: 'De kleur van partner terugspelen',
+      text: 'Partner koos deze kleur: door hem terug te spelen zet je het plan van partner voort — de lange kaarten van partner vrijspelen of partner laten introeven — in plaats van een nieuwe kleur voor de leider te openen.',
+    },
+    continueSuit: {
+      title: 'Je eigen kleur doorspelen',
+      text: 'Je speelde deze kleur al eerder: door hem opnieuw te spelen werk je verder aan de slagen die jullie daar vrijspelen, in plaats van een nieuwe kleur voor de leider te openen.',
+    },
     switchSuits: {
       title: 'Van kleur wisselen',
       text: 'Speel door de kracht van de leider heen of naar de zwakte van de dummy toe: de tegenspeler vóór de sterke hand hoort die kleur te spelen.',
@@ -89,14 +101,23 @@ export const tutor: Text['tutor'] = {
       title: 'Overtroeven',
       text: 'Met een hogere troef dan die al gespeeld is, win je de slag.',
     },
+    underruff: {
+      title: 'Ondertroeven',
+      text: (forced: boolean) =>
+        forced
+          ? 'Er ligt al een hogere troef in de slag, dus de jouwe kan niet winnen — maar je hebt alleen nog troeven en moet er een bijspelen.'
+          : 'Er ligt al een hogere troef in de slag, dus de jouwe kan niet winnen: ondertroeven verspilt een troef. Gooi liever een verliezer uit een bijkleur af, tenzij je elke kaart in de bijkleuren moet houden.',
+    },
     ruffPartnersWinner: {
       title: 'De slag van partner introeven',
       text: 'Meestal verspilling: partner had deze slag al.',
     },
     ruff: {
       title: 'Introeven',
-      declarer: 'Introeven in de hand met de minste troeven levert een extra slag op; introeven in de lange troefhand kost alleen een troef die toch al een slag zou maken.',
       defender: 'Je hebt niets meer in de gespeelde kleur, dus met introeven win je de slag.',
+      short: 'Deze hand heeft niet meer troeven dan de andere, dus introeven levert een extra slag op: de troeven van de andere hand maken nog steeds hun eigen slagen.',
+      forced: 'Je hebt niets meer in de kleur die de tegenspelers voorspeelden, dus troef in om de slag te winnen. Introeven in de lange troefhand levert geen extra slag op en maakt je troeven korter: als de tegenspelers je steeds weer kunnen laten introeven, kun je de controle verliezen.',
+      long: 'Introeven in de hand met de meeste troeven kost een troef die toch een slag zou maken, dus op zich levert het niets op — het helpt als je er de rest van de kleur mee vrijspeelt of zo in deze hand aan slag komt.',
     },
     discard: {
       title: 'Afgooien',
@@ -154,6 +175,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Honneur op honneur',
       text: 'Door af te dekken moet de leider twee hoge kaarten gebruiken om één slag te winnen, waardoor een lagere kaart bij jou of je partner hoog kan worden.',
+      declarer: 'Door af te dekken moeten de tegenspelers twee hoge kaarten gebruiken om één slag te winnen, waardoor een lagere kaart aan jouw kant hoog kan worden.',
     },
     secondHandLow: {
       title: 'Tweede hand laag',
@@ -162,6 +184,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Een vaste slag winnen',
       text: (card: Card) => `${cardName(card)} is de hoogste kaart die in deze kleur nog over is.`,
+      safe: (card: Card) => `${cardName(card)} wint de slag, tenzij iemand introeft: de tegenspeler die nog moet spelen kan geen hogere kaart in de kleur hebben.`,
+    },
+    finesse: {
+      title: 'Snijden',
+      text: (card: Card) => `${cardName(card)} wint alleen als de hogere kaarten in de kleur die je mist bij de tegenspeler zitten die al heeft gespeeld — de snit. Heeft de tegenspeler die nog moet spelen er een, dan wint die van je kaart.`,
     },
     splitHonours: {
       title: 'Honneurs splitsen',
@@ -173,10 +200,16 @@ export const tutor: Text['tutor'] = {
       title: 'Partner wint de slag',
       third: 'De kaart van partner wint al, dus speel laag (of geef een signaal).',
       fourth: 'Neem niet over: speel je laagste kaart.',
+      declarer: 'De kaart van jouw kant wint tot nu toe: speel laag en bewaar je hoge kaarten.',
+    },
+    overtake: {
+      title: 'Overnemen',
+      text: 'De kaart van jouw kant won al: overnemen kost een tweede hoge kaart in dezelfde slag, dus doe het alleen om de kleur te deblokkeren of om in deze hand aan slag te komen.',
     },
     thirdHandHighEquals: {
       title: 'Derde hand hoog — de laagste van gelijke kaarten',
       text: 'Speel de laagste van je aaneengesloten kaarten: dan kan partner afleiden waar de hogere zit.',
+      wrong: (card: Card, cheapest: Card) => `${cardName(cheapest)} doet hetzelfde werk als ${cardName(card)}: speel de laagste van je aaneengesloten kaarten, dan kan partner afleiden waar de hogere zit.`,
     },
     thirdHandHigh: {
       title: 'Derde hand hoog',
@@ -186,6 +219,10 @@ export const tutor: Text['tutor'] = {
       title: 'Je kunt de slag niet winnen',
       third: 'Speel je laagste kaart (of geef attitude als partner de kleur voorspeelde).',
       fourth: 'Speel je laagste kaart in de kleur.',
+    },
+    duck: {
+      title: 'Duiken',
+      text: 'Je kunt deze slag winnen maar laat hem lopen: door te duiken bewaar je je hoge kaart voor een latere ronde — om een stopper achter te houden, een entree te bewaren of de verbinding in de kleur te houden.',
     },
     winCheaply: {
       title: 'Goedkoop winnen',
@@ -251,7 +288,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (suit: number) => `Partner heeft ${core.suits[suit]} geboden: uitkomen in de kleur van partner is zelden fout en meestal het best.`,
+      supported: (suit: number) => `Je liet ${core.suits[suit]} zien en partner steunde ze: de kleur van jullie kant is een natuurlijke uitkomst.`,
       theyBid: (suit: number) => `De tegenstanders hebben ${core.suits[suit]} geboden — uitkomen in hun kleur helpt meestal de leider.`,
+      slamRisky: 'Tegen een slem geeft uitkomen onder een honneur zonder aansluitende kaarten de leider vaak een slag die hij anders niet zou maken.',
+      slamSafe: 'Tegen een slem kom je veilig uit: vanuit kleine kaarten geef je niets weg, en één weggegeven slag is meestal het contract.',
       // against notrump
       ntLong: (suit: number, n: number) =>
         `Kom tegen sans atout uit in je langste en sterkste kleur (${n} ${core.suits[suit]}): je hoopt lengteslagen vrij te spelen.`,

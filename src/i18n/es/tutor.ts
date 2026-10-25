@@ -51,6 +51,10 @@ export const tutor: Text['tutor'] = {
       title: 'Destriunfar',
       text: 'Jugar triunfo quita los triunfos a los defensores para que no puedan fallar tus ganadoras. Destriunfa pronto, salvo que necesites los triunfos del muerto para fallar.',
     },
+    trumpsDrawn: {
+      title: 'Destriunfo ya hecho',
+      text: 'A los defensores no les quedan triunfos, así que jugar triunfo ya no les quita nada: el triunfo gana la baza en una de tus manos (útil como entrada) y cada triunfo que cobras obliga a los dos defensores a descartarse.',
+    },
     unblock: {
       title: 'Desbloqueo',
       text: 'Cobra primero la carta alta de la mano corta: así terminas en la mano larga y puedes cobrar el resto del palo.',
@@ -84,6 +88,14 @@ export const tutor: Text['tutor'] = {
       title: 'Buscar un fallo',
       text: 'Al salir de un palo corto esperas que tu compañero tome la mano y te dé un fallo.',
     },
+    returnPartner: {
+      title: 'Devolver el palo del compañero',
+      text: 'Tu compañero eligió este palo: devolverlo sigue su plan (afirmar sus cartas largas o darle un fallo) en lugar de abrir un palo nuevo para el declarante.',
+    },
+    continueSuit: {
+      title: 'Seguir con tu palo',
+      text: 'Ya jugaste este palo antes: volver a jugarlo sigue trabajando las bazas que tu bando está afirmando ahí, en lugar de abrir un palo nuevo para el declarante.',
+    },
     switchSuits: {
       title: 'Cambiar de palo',
       text: 'Juega a través de la fuerza del declarante o hacia la debilidad del muerto: ese palo lo debe jugar el defensor que está delante de la mano fuerte.',
@@ -94,14 +106,23 @@ export const tutor: Text['tutor'] = {
       title: 'Sobrefallo',
       text: 'Fallar con un triunfo más alto que el ya jugado gana la baza.',
     },
+    underruff: {
+      title: 'Infrafallar',
+      text: (forced: boolean) =>
+        forced
+          ? 'Ya hay un triunfo más alto en la baza, así que el tuyo no puede ganar; pero solo te quedan triunfos y tienes que jugar uno.'
+          : 'Ya hay un triunfo más alto en la baza, así que el tuyo no puede ganar: infrafallar gasta un triunfo para nada. Mejor descarta una perdedora de un palo lateral, salvo que debas guardar todas tus cartas laterales.',
+    },
     ruffPartnersWinner: {
       title: 'Fallar la ganadora del compañero',
       text: 'Normalmente es un desperdicio: tu compañero ya estaba ganando esta baza.',
     },
     ruff: {
       title: 'Fallo',
-      declarer: 'Fallar en la mano con menos triunfos gana una baza; fallar en la mano larga en triunfos solo gasta un triunfo que harías de todos modos.',
       defender: 'No te quedan cartas del palo jugado, así que un fallo gana la baza.',
+      short: 'Esta mano no tiene más triunfos que la otra, así que el fallo es una baza extra: los triunfos de la otra mano siguen ganando sus propias bazas.',
+      forced: 'No te quedan cartas del palo que jugaron los defensores, así que falla para ganar la baza. Un fallo en la mano larga en triunfos no da ninguna baza extra y acorta tus triunfos: si los defensores pueden seguir obligándote a fallar, puedes perder el control.',
+      long: 'Un fallo en la mano con más triunfos gasta un triunfo que ganaría una baza de todos modos, así que por sí solo no gana nada; sirve cuando afirma el resto del palo o te deja en esta mano.',
     },
     discard: {
       title: 'Descarte',
@@ -163,6 +184,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Cubrir honor con honor',
       text: 'Cubrir obliga al declarante a gastar dos cartas altas para ganar una sola baza, y puede promocionar una carta más baja tuya o de tu compañero.',
+      declarer: 'Cubrir obliga a los defensores a gastar dos cartas altas para ganar una sola baza, y puede promocionar una carta más baja de tu bando.',
     },
     secondHandLow: {
       title: 'Segunda mano baja',
@@ -171,6 +193,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Ganar una baza segura',
       text: (card: Card) => `${cardName(card)} es la carta más alta que queda en el palo.`,
+      safe: (card: Card) => `${cardName(card)} gana la baza salvo que alguien falle: el defensor que falta por jugar no puede tener una carta más alta del palo.`,
+    },
+    finesse: {
+      title: 'Hacer el impasse',
+      text: (card: Card) => `${cardName(card)} solo gana si las cartas más altas del palo que te faltan están en el defensor que ya ha jugado: es el impasse. Si el defensor que falta por jugar tiene una, supera tu carta.`,
     },
     splitHonours: {
       title: 'Partir los honores',
@@ -182,10 +209,16 @@ export const tutor: Text['tutor'] = {
       title: 'Tu compañero va ganando',
       third: 'La carta de tu compañero ya gana la baza, así que juega bajo (o haz una señal).',
       fourth: 'No le superes: juega tu carta más baja.',
+      declarer: 'La carta de tu bando va ganando: juega bajo y guarda tus cartas altas.',
+    },
+    overtake: {
+      title: 'Sobrepasar',
+      text: 'La carta de tu bando ya ganaba: sobrepasarla gasta una segunda carta alta en la misma baza, así que hazlo solo para desbloquear el palo o para ganar la baza en esta mano.',
     },
     thirdHandHighEquals: {
       title: 'Tercera mano alta: la más baja de las equivalentes',
       text: 'Juega la más barata de tus cartas seguidas: así tu compañero puede deducir dónde está la más alta.',
+      wrong: (card: Card, cheapest: Card) => `${cardName(cheapest)} hace el mismo trabajo que ${cardName(card)}: juega la más barata de tus cartas seguidas, para que tu compañero pueda deducir dónde está la más alta.`,
     },
     thirdHandHigh: {
       title: 'Tercera mano alta',
@@ -195,6 +228,10 @@ export const tutor: Text['tutor'] = {
       title: 'No puedes ganar la baza',
       third: 'Juega tu carta más baja (o da tu actitud si tu compañero ha salido en este palo).',
       fourth: 'Juega tu carta más baja del palo.',
+    },
+    duck: {
+      title: 'Agacharse',
+      text: 'Podrías ganar esta baza pero la cedes: agacharte guarda tu carta alta para una vuelta posterior, para retener un control, conservar una entrada o mantener las comunicaciones en el palo.',
     },
     winCheaply: {
       title: 'Gana barato',
@@ -266,7 +303,10 @@ export const tutor: Text['tutor'] = {
     /** Why this suit. */
     suit: {
       partnerBid: (suit: number) => `Tu compañero ha declarado ${core.suits[suit]}: salir en el palo del compañero rara vez es un error y suele ser lo mejor.`,
+      supported: (suit: number) => `Mostraste ${core.suits[suit]} y tu compañero te apoyó: el palo de tu bando es una salida natural.`,
       theyBid: (suit: number) => `Los rivales han declarado ${core.suits[suit]}: salir en su palo suele ayudar al declarante.`,
+      slamRisky: 'Contra un slam, salir por debajo de un honor sin cartas seguidas suele regalar al declarante una baza que no podría hacer de otro modo.',
+      slamSafe: 'Contra un slam, haz una salida segura: con cartas pequeñas no regalas nada, y una baza regalada suele ser el contrato.',
       // against notrump
       ntLong: (suit: number, n: number) =>
         `Contra sin triunfo, sal en tu palo más largo y más fuerte (${nSuit(n, suit)}): esperas afirmar cartas largas ganadoras.`,

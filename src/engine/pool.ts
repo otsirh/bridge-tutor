@@ -1,7 +1,8 @@
 // A small pool of double-dummy workers with a priority queue.
 // Falls back to solving on the main thread when workers are unavailable.
-// A few positions take the solver minutes; a job that runs past its time
-// limit is abandoned (its worker is replaced) so it cannot hold up the rest.
+// A job that runs past its time limit (a safety net: the hardest positions
+// take the solver seconds) is abandoned and its worker replaced, so it cannot
+// hold up the rest.
 
 import DDWorker from './ddWorkerEntry?worker&inline';
 import { DDSolver } from './dds';

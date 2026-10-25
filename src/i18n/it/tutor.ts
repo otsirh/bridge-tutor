@@ -56,6 +56,10 @@ export const tutor: Text['tutor'] = {
       title: 'Battere atout',
       text: 'Giocando atout togli le atout ai difensori, così non possono tagliare le tue vincenti. Battile presto, a meno che le atout del morto non servano per tagliare.',
     },
+    trumpsDrawn: {
+      title: 'Atout già battute',
+      text: 'I difensori non hanno più atout, quindi giocare atout non toglie più niente: l’atout fa la presa in una delle tue mani — utile come rientro — e ogni atout che incassi costringe entrambi i difensori a scartare.',
+    },
     unblock: {
       title: 'Sblocco',
       text: 'Incassa prima la carta alta della mano corta, così la mano lunga resta in presa e può incassare il resto del colore.',
@@ -88,6 +92,14 @@ export const tutor: Text['tutor'] = {
       title: 'Cercare un taglio',
       text: 'Con un colore corto speri che il compagno vada in presa e ti dia un taglio.',
     },
+    returnPartner: {
+      title: 'Ritornare nel colore del compagno',
+      text: 'Il compagno ha scelto questo colore: ritornarci prosegue il suo piano — affrancare le sue carte lunghe o dargli un taglio — invece di aprire un colore nuovo al giocante.',
+    },
+    continueSuit: {
+      title: 'Continuare nel tuo colore',
+      text: 'Hai già giocato questo colore: rigiocarlo continua il lavoro sulle prese che la tua linea sta affrancando lì, invece di aprire un colore nuovo al giocante.',
+    },
     switchSuits: {
       title: 'Cambio di colore',
       text: 'Gioca attraverso la forza del giocante o verso la debolezza del morto: il colore va mosso dal difensore che gioca prima della mano forte.',
@@ -98,14 +110,23 @@ export const tutor: Text['tutor'] = {
       title: 'Surtaglio',
       text: 'Tagliando più alto dell’atout già giocata vinci la presa.',
     },
+    underruff: {
+      title: 'Sottotagliare',
+      text: (forced: boolean) =>
+        forced
+          ? 'In presa c’è già un’atout più alta, quindi la tua non può vincere — ma ti restano solo atout e devi giocarne una.'
+          : 'In presa c’è già un’atout più alta, quindi la tua non può vincere: sottotagliare spreca un’atout. Scarta piuttosto una perdente di un colore laterale, a meno che tu non debba tenere tutte le carte laterali.',
+    },
     ruffPartnersWinner: {
       title: 'Tagliare la vincente del compagno',
       text: 'Di solito è uno spreco: la presa era già del compagno.',
     },
     ruff: {
       title: 'Taglio',
-      declarer: 'Tagliare nella mano con meno atout fa guadagnare una presa; tagliare nella mano lunga in atout consuma solo un’atout che faresti comunque.',
       defender: 'Non hai più carte del colore giocato, quindi tagliando fai la presa.',
+      short: 'Questa mano non ha più atout dell’altra, quindi il taglio è una presa in più: le atout dell’altra mano fanno comunque le loro prese.',
+      forced: 'Non hai più carte del colore giocato dai difensori, quindi taglia per fare la presa. Un taglio nella mano lunga in atout non porta prese in più e accorcia le tue atout: se i difensori possono continuare a farti tagliare, rischi di perdere il controllo.',
+      long: 'Tagliare nella mano con più atout consuma un’atout che farebbe comunque una presa, quindi da solo non guadagna nulla: serve quando affranca il resto del colore o ti porta in presa in questa mano.',
     },
     discard: {
       title: 'Scarto',
@@ -163,6 +184,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Coprire onore con onore',
       text: 'Coprendo costringi il giocante a spendere due carte alte per una sola presa, e questo può promuovere una carta più bassa in mano tua o del compagno.',
+      declarer: 'Coprendo costringi i difensori a spendere due carte alte per una sola presa, e questo può promuovere una carta più bassa della tua linea.',
     },
     secondHandLow: {
       title: 'Secondo di mano basso',
@@ -171,6 +193,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Fare una presa sicura',
       text: (card: Card) => `${The(card)} è la carta più alta rimasta nel colore.`,
+      safe: (card: Card) => `${The(card)} fa la presa, a meno che qualcuno non tagli: il difensore che deve ancora giocare non può avere una carta più alta nel colore.`,
+    },
+    finesse: {
+      title: 'Fare l’impasse',
+      text: (card: Card) => `${The(card)} vince solo se le carte più alte che ti mancano nel colore sono in mano al difensore che ha già giocato: è l’impasse. Se il difensore che deve ancora giocare ne ha una, batte la tua carta.`,
     },
     splitHonours: {
       title: 'Dividere gli onori',
@@ -182,10 +209,16 @@ export const tutor: Text['tutor'] = {
       title: 'La presa è del compagno',
       third: 'La carta del compagno sta già vincendo, quindi gioca basso (o segnala).',
       fourth: 'Non superare il compagno: gioca la carta più bassa.',
+      declarer: 'La carta della tua linea sta vincendo: gioca basso e conserva le carte alte.',
+    },
+    overtake: {
+      title: 'Superare il compagno',
+      text: 'La carta della tua linea stava già vincendo: superarla spende una seconda carta alta nella stessa presa, quindi fallo solo per sbloccare il colore o per andare in presa in questa mano.',
     },
     thirdHandHighEquals: {
       title: 'Terzo di mano alto, la più bassa delle equivalenti',
       text: 'Tra carte in sequenza gioca la più bassa: così il compagno può dedurre dove si trova quella più alta.',
+      wrong: (card: Card, cheapest: Card) => `${The(cheapest)} vale quanto ${the(card)}: tra carte in sequenza gioca la più bassa, così il compagno può dedurre dove si trova quella più alta.`,
     },
     thirdHandHigh: {
       title: 'Terzo di mano alto',
@@ -195,6 +228,10 @@ export const tutor: Text['tutor'] = {
       title: 'La presa non si può vincere',
       third: 'Gioca la carta più bassa (o dai il gradimento, se il colore l’ha mosso il compagno).',
       fourth: 'Gioca la carta più bassa del colore.',
+    },
+    duck: {
+      title: 'Lisciare',
+      text: 'Potresti vincere questa presa ma la lasci passare: lisciando conservi la carta alta per un giro successivo — per tenere un fermo, conservare un rientro o mantenere le comunicazioni nel colore.',
     },
     winCheaply: {
       title: 'Vincere al minor costo',
@@ -256,7 +293,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (suit: number) => `Il compagno ha dichiarato ${suits(suit)}: attaccare nel suo colore raramente è sbagliato e di solito è la scelta migliore.`,
+      supported: (suit: number) => `Hai mostrato ${suits(suit)} e il compagno ti ha appoggiato: il colore della tua linea è un attacco naturale.`,
       theyBid: (suit: number) => `Gli avversari hanno dichiarato ${suits(suit)}: attaccare nel loro colore di solito aiuta il giocante.`,
+      slamRisky: 'Contro uno slam, attaccare sotto un onore senza carte in sequenza regala spesso al giocante una presa che altrimenti non farebbe.',
+      slamSafe: 'Contro uno slam, scegli un attacco sicuro: da cartine non regali nulla, e una presa regalata di solito è il contratto.',
       ntLong: (suit: number, n: number) =>
         `Contro i senza atout attacca nel colore più lungo e più forte (${n} carte di ${suits(suit)}): speri di affrancare le carte lunghe.`,
       ntSequence: 'Una sequenza solida è sicura e costruisce prese.',

@@ -355,7 +355,11 @@ export class Game {
     const legal = p.legal();
     if (legal.length === 1) return { card: legal[0] };
     const e = EFFORT[this.settings.strength];
-    const d = await decideCard(this.knowledge(seat), { samples: e.samples, timeMs: e.time, minSamples: 6, priority: 3 });
+    // The first three tricks shape the hand and their layouts take the longest to solve: on a slow
+    // device the time budget can pass with only a handful done, so there wait for at least 12. Fast
+    // devices finish all the layouts well within the budget; later tricks solve in milliseconds.
+    const early = p.tricks.length <= 3;
+    const d = await decideCard(this.knowledge(seat), { samples: e.samples, timeMs: e.time, minSamples: early ? 12 : 8, priority: 3 });
     return { card: d.card, signal: d.signal };
   }
 

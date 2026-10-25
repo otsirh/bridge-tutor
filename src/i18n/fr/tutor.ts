@@ -55,6 +55,10 @@ export const tutor: Text['tutor'] = {
       title: 'Tirer les atouts',
       text: 'Jouer atout enlève leurs atouts aux défenseurs, qui ne pourront plus couper vos levées maîtresses. Tirez-les tôt, sauf si vous avez besoin des atouts du mort pour couper.',
     },
+    trumpsDrawn: {
+      title: 'Atouts déjà tirés',
+      text: 'Les défenseurs n’ont plus d’atout : jouer atout ne leur enlève plus rien. L’atout fait la levée dans l’une de vos mains — utile comme remontée — et chaque atout encaissé oblige les deux défenseurs à défausser.',
+    },
     unblock: {
       title: 'Déblocage',
       text: 'Encaissez d’abord l’honneur de la main courte : vous finirez ainsi dans la main longue et pourrez dérouler le reste de la couleur.',
@@ -87,6 +91,14 @@ export const tutor: Text['tutor'] = {
       title: 'Chercher une coupe',
       text: 'Vous jouez une couleur courte en espérant que votre partenaire prenne la main et vous donne une coupe.',
     },
+    returnPartner: {
+      title: 'Rejouer la couleur du partenaire',
+      text: 'Votre partenaire a choisi cette couleur : la rejouer poursuit son plan — affranchir ses longues ou lui donner une coupe — au lieu d’ouvrir une nouvelle couleur au déclarant.',
+    },
+    continueSuit: {
+      title: 'Continuer votre couleur',
+      text: 'Vous avez déjà joué cette couleur : la rejouer poursuit le travail sur les levées que votre camp affranchit, au lieu d’ouvrir une nouvelle couleur au déclarant.',
+    },
     switchSuits: {
       title: 'Contre-attaque',
       text: 'Jouez à travers la force du déclarant, ou vers la faiblesse du mort : c’est le défenseur placé devant la main forte qui doit attaquer cette couleur.',
@@ -97,14 +109,23 @@ export const tutor: Text['tutor'] = {
       title: 'Surcoupe',
       text: 'Couper plus haut que l’atout déjà joué fait la levée.',
     },
+    underruff: {
+      title: 'Sous-couper',
+      text: (forced: boolean) =>
+        forced
+          ? 'Un atout plus haut est déjà sur la table : le vôtre ne peut pas faire la levée — mais il ne vous reste que des atouts, vous devez en fournir un.'
+          : 'Un atout plus haut est déjà sur la table : le vôtre ne peut pas faire la levée, et sous-couper gaspille un atout. Défaussez plutôt une perdante d’une couleur annexe, sauf si vous devez garder toutes vos cartes annexes.',
+    },
     ruffPartnersWinner: {
       title: 'Couper la levée du partenaire',
       text: 'En général du gaspillage : votre partenaire faisait déjà cette levée.',
     },
     ruff: {
       title: 'Coupe',
-      declarer: 'Couper dans la main courte à l’atout rapporte une levée ; couper dans la main longue ne fait que consommer un atout qui aurait fait sa levée de toute façon.',
       defender: 'Vous n’avez plus de cartes dans la couleur jouée : votre coupe prend la levée.',
+      short: 'Cette main n’a pas plus d’atouts que l’autre : la coupe rapporte une levée de plus, car les atouts de l’autre main font toujours leurs propres levées.',
+      forced: 'Vous n’avez plus de cartes dans la couleur jouée par les défenseurs : coupez pour faire la levée. Une coupe dans la main longue à l’atout ne rapporte pas de levée de plus et raccourcit vos atouts : si les défenseurs peuvent continuer à vous faire couper, vous risquez de perdre le contrôle.',
+      long: 'Couper dans la main qui a le plus d’atouts consomme un atout qui aurait fait sa levée de toute façon : cela ne rapporte rien en soi, mais sert à affranchir le reste de la couleur ou à prendre la main de ce côté.',
     },
     discard: {
       title: 'Défausse',
@@ -162,6 +183,7 @@ export const tutor: Text['tutor'] = {
     coverHonour: {
       title: 'Couvrir un honneur par un honneur',
       text: 'En couvrant, vous obligez le déclarant à dépenser deux gros honneurs pour une seule levée, ce qui peut promouvoir une carte plus petite chez vous ou chez votre partenaire.',
+      declarer: 'En couvrant, vous obligez les défenseurs à dépenser deux gros honneurs pour une seule levée, ce qui peut promouvoir une carte plus petite dans votre camp.',
     },
     secondHandLow: {
       title: 'Petite carte en deuxième position',
@@ -170,6 +192,11 @@ export const tutor: Text['tutor'] = {
     sureTrick: {
       title: 'Prendre une levée sûre',
       text: (card: Card) => `${Cn(card)} est la plus haute carte restante dans la couleur.`,
+      safe: (card: Card) => `${Cn(card)} fait la levée, sauf coupe : le défenseur qui doit encore jouer ne peut pas détenir de carte plus haute dans la couleur.`,
+    },
+    finesse: {
+      title: 'Faire l’impasse',
+      text: (card: Card) => `${Cn(card)} ne fait la levée que si les cartes plus hautes qui vous manquent dans la couleur sont chez le défenseur qui a déjà joué — c’est l’impasse. Si le défenseur qui doit encore jouer en détient une, il prend votre carte.`,
     },
     splitHonours: {
       title: 'Fournir un honneur',
@@ -181,10 +208,16 @@ export const tutor: Text['tutor'] = {
       title: 'Votre partenaire tient la levée',
       third: 'La carte de votre partenaire fait déjà la levée : fournissez petit (ou donnez un signal).',
       fourth: 'Ne surprenez pas sa carte : fournissez votre plus petite carte.',
+      declarer: 'La carte de votre camp tient la levée pour l’instant : fournissez petit et gardez vos grosses cartes.',
+    },
+    overtake: {
+      title: 'Surprendre',
+      text: 'La carte de votre camp tenait déjà la levée : la surprendre dépense une deuxième grosse carte dans la même levée ; ne le faites que pour débloquer la couleur ou pour prendre la main de ce côté.',
     },
     thirdHandHighEquals: {
       title: 'Grosse carte en troisième — la plus petite des équivalentes',
       text: 'Jouez la plus petite de vos cartes touchantes : votre partenaire pourra ainsi deviner où se trouve la plus haute.',
+      wrong: (card: Card, cheapest: Card) => `${Cn(cheapest)} fait le même travail que ${cn(card)} : jouez la plus petite de vos cartes touchantes, pour que votre partenaire puisse deviner où se trouve la plus haute.`,
     },
     thirdHandHigh: {
       title: 'Grosse carte en troisième',
@@ -194,6 +227,10 @@ export const tutor: Text['tutor'] = {
       title: 'Impossible de prendre la levée',
       third: 'Fournissez votre plus petite carte (ou donnez un signal d’appel ou de refus si votre partenaire a joué la couleur).',
       fourth: 'Fournissez votre plus petite carte dans la couleur.',
+    },
+    duck: {
+      title: 'Laisser passer',
+      text: 'Vous pourriez prendre cette levée mais vous la laissez passer : vous gardez votre grosse carte pour un tour suivant — pour retenir un arrêt, garder une remontée ou préserver les communications dans la couleur.',
     },
     winCheaply: {
       title: 'Prendre au plus juste',
@@ -260,7 +297,10 @@ export const tutor: Text['tutor'] = {
     },
     suit: {
       partnerBid: (suit: number) => `Votre partenaire a annoncé les ${core.suits[suit]}. Entamer dans sa couleur est rarement une erreur, et c’est souvent le meilleur choix.`,
+      supported: (suit: number) => `Vous avez montré les ${core.suits[suit]} et votre partenaire les a soutenus. Entamer dans la couleur de votre camp est naturel.`,
       theyBid: (suit: number) => `Les adversaires ont annoncé les ${core.suits[suit]}. Entamer dans leur couleur aide en général le déclarant.`,
+      slamRisky: 'Contre un chelem, entamer sous un honneur que ne soutient aucune carte touchante donne souvent au déclarant une levée qu’il n’aurait pas faite autrement.',
+      slamSafe: 'Contre un chelem, faites une entame sûre : avec des petites cartes, vous ne donnez rien, et une levée offerte, c’est souvent le contrat.',
       // against notrump
       ntLong: (suit: number, n: number) =>
         `Contre un sans-atout, entamez dans votre couleur la plus longue et la plus solide (${n} ${core.suits[suit]}). Vous espérez affranchir des longues.`,
