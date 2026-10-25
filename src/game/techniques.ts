@@ -138,13 +138,6 @@ const dealtIn = (v: View, seat: Seat, s: number) => suitCards(v.p.hands[seat], s
 function shownOut(v: View, seat: Seat, s: number): boolean {
   return v.p.tricks.some(t => t.cards.length > 1 && suitOf(t.cards[0]) === s && t.cards.some((c, i) => i > 0 && ((t.leader + i) & 3) === seat && suitOf(c) !== s));
 }
-/** The card is the hand's lowest of its suit, or equal to it (every card between is in the hand or played). */
-function lowest(v: View, c: Card): boolean {
-  const mine = handIn(v, suitOf(c));
-  const low = Math.min(...mine);
-  for (let x = low + 1; x < c; x++) if (!mine.includes(x) && !v.done.has(x)) return false;
-  return true;
-}
 const sameSuit = (cards: readonly Card[]) => cards.length > 0 && cards.every(c => suitOf(c) === suitOf(cards[0]));
 
 type Recogniser = (v: View, answer: readonly Card[], stats: readonly ProblemStat[]) => boolean;
@@ -176,7 +169,8 @@ const duck: Recogniser = (v, answer) => {
   if (!sameSuit(answer)) return false;
   const s = suitOf(answer[0]);
   if (s === v.trump || dealtIn(v, v.seat, s) + dealtIn(v, v.partner, s) < 7) return false;
-  if (!answer.every(c => lowest(v, c) && !finesseCard(v, c))) return false;
+  // low cards (the spot cards that do equally well), no honour and no finesse
+  if (!answer.every(c => rankOf(c) < 10 && !finesseCard(v, c))) return false;
   if (v.pos === 0) {
     // leading low from the hand with the top cards, partner unable to win the trick
     return handIn(v, s).some(c => isTop(v, c)) && answer.every(c => !isTop(v, c)) && partnerIn(v, s).every(c => !isTop(v, c));

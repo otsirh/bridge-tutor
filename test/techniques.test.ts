@@ -66,6 +66,9 @@ describe('recognising the technique (declarer’s view only)', () => {
     const p = position(NT, { n: 'DA DK D7 D6 D5', e: 'DQ DJ D9 D8 H2', s: 'D4 D2 H5 H4 H3', w: 'D10 D3 HA HK HQ' }, ['D2', 'D3']);
     expect(recogniseTechnique(p, Cs('D5 D6 D7'), stats(['D5', 'D6', 'D7', 'DA', 'DK']))).toBe('duck');
     expect(recogniseTechnique(p, Cs('DA DK'), stats(['DA', 'DK', 'D5']))).not.toBe('duck');
+    // any spot card that does as well: the 7 with the 6 in partner's hand
+    const q = position(NT, { n: 'DA DK D7 D5 D4', e: 'DQ DJ D9 D8 H2', s: 'D6 D2 H5 H4 H3', w: 'D10 D3 HA HK HQ' }, ['D2', 'D3']);
+    expect(recogniseTechnique(q, Cs('D4 D5 D7'), stats(['D4', 'D5', 'D7', 'DA', 'DK']))).toBe('duck');
   });
 
   it('finesse: the queen from A Q after a low card from the other hand; or partner’s honour left to run', () => {
