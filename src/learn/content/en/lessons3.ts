@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'Defending against notrump',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'How the defenders win the race against notrump: unblocking, returning the right card, keeping in touch, attacking declarer\'s entries and discarding well.',
+    body: `
+<h3>A race for tricks</h3>
+<p>Against notrump nothing stops a long suit once it is established. Both sides race: declarer to set up enough tricks, the defenders to set up and cash their long suit first. Most of the defenders' problems are problems of <strong>communication</strong>: the long suit is in one hand and the entries are often in the other. Good defence keeps the suit flowing between the two defenders and cuts declarer's links.</p>
+
+<h3>Third hand: high, and out of partner's way</h3>
+<p>Third hand plays high (see the lesson “Second hand low, third hand high”). Against notrump there is a second duty: don't <strong>block</strong> partner's suit. With a doubleton honour in partner's long suit, get the honour out of the way early, even if that means overtaking partner's card.</p>
+<table>
+<thead><tr><th>Seat</th><th>Hearts</th></tr></thead>
+<tbody>
+<tr><td>North (dummy)</td><td>6 5 2</td></tr>
+<tr><td>West (partner, leads the K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>East (you)</td><td>A 3</td></tr>
+<tr><td>South (declarer)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>If you play the 3, declarer ducks. Partner continues with the Q and your ace has to win the second round: you have no heart left to return, declarer's J still stops the suit, and partner needs two more entries to set up and cash the hearts. Instead, <strong>overtake</strong> the K with the A and return the 3. Declarer's J is trapped, and the defence takes the first five heart tricks.</p>
+<ul>
+<li>Unblock when partner's lead shows a strong suit (the top of a sequence such as K Q 10 or Q J 10) and you hold a doubleton honour: play the honour early, so that your last card is a small one.</li>
+<li>With three cards headed by an honour (A x x, K x x), play high and keep a small card to return: you block nothing.</li>
+</ul>
+
+<h3>Returning partner's suit</h3>
+<p>When you win a trick and return partner's suit, the card you choose tells partner how many you have left, and so how many declarer has.</p>
+<table>
+<thead><tr><th>You held</th><th>You win with</th><th>Return</th><th>The rule</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Two cards left: return the higher</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Three or more left: return your original fourth best</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>Your original fourth best, not your lowest card</td></tr>
+</tbody>
+</table>
+<p>A high card back says "I have at most one more"; a low card says "I have at least two more". Partner can then work out whether declarer still has a stopper, and whether to win now or duck. Returning the higher of two cards also keeps you from blocking the suit: if you keep the 9, it may win the third round when partner is the one who needs to be on lead.</p>
+
+<h3>Ducking to keep in touch</h3>
+<p>The defender with the long suit sometimes has to give up a trick early, while partner still has a card of the suit to lead back.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3NT by South after 1NT – 3NT. West leads the ♠A and East plays the ♠2."></div>
+<p>East's 2 denies a spade honour, so declarer holds the ♠Q J. West counts: South has 15-17 HCP, dummy 13 and West 8, so East has at most 4. Declarer will make the contract by driving out the ♦A, so the defence's only hope is that East holds it.</p>
+<p>If West cashes the ♠K and plays a third spade, declarer wins with the last honour and East, who started with three spades, has none left. East takes the ♦A but cannot reach West, whose two long spades never score: declarer makes ten tricks. Instead, West plays a <strong>low spade</strong> at trick two. Declarer wins it, but East keeps one spade. When East takes the ♦A he returns it, and West cashes the ♠K and the last two spades: one down.</p>
+<p>A low spade at trick one would have done the same job. The principle: when your suit is long and you have no outside entry, give up the trick you must lose <em>while partner still has a card of the suit</em>.</p>
+
+<h3>Attacking declarer's entries</h3>
+<p>Declarer has communication problems too, and the defenders can make them worse.</p>
+<ul>
+<li><strong>Hold up your ace</strong> when dummy has a long suit and no outside entry, and take it when declarer plays the last card of the suit from hand. Partner's count signal tells you when (see the lesson “Defensive signals”).</li>
+<li><strong>Knock out dummy's entry</strong> before the long suit is set up, even if it costs a trick.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Dummy, against 3NT"></div>
+<p>You are East with ♠K 7 3 and ♦A 6 2, and declarer has two diamonds. Holding up the ♦A is not enough on its own: declarer would use the ♠A to get back to the established diamonds. So when you win a trick before diamonds have been played, lead the <strong>♠K</strong>. If declarer takes the ace, dummy has no entry left: you hold up the ♦A until the second round and dummy's diamonds are dead. If declarer ducks, your king has won a trick and you can lead another spade. Giving up an honour to remove an entry like this is called the <strong>Merrimac coup</strong>. It is rare, but the question behind it is not: which of declarer's entries matters most?</p>
+
+<h3>Discarding</h3>
+<p>When declarer runs a long suit, the defenders have to find discards, and one wrong discard can give declarer the contract.</p>
+<ul>
+<li><strong>Keep length with dummy.</strong> With ♣Q 10 8 3 sitting behind dummy's ♣K J 7 4, keep all four clubs: throw one and dummy's last club may become a winner. Dummy's cards are in plain view, so this is the easiest rule to follow.</li>
+<li><strong>Keep length with declarer.</strong> Count declarer's suits from the bidding and the play, and keep a guard in any suit where you alone can stop declarer's long card.</li>
+<li><strong>Share the work.</strong> A suit needs only one guard. Let partner keep the suit partner can guard (count signals help here) and keep the other one yourself.</li>
+<li><strong>Signal with your first discard:</strong> a high card asks for the suit, a low card says you do not want it. Discard from a suit you can spare; never throw away a card you need just to signal.</li>
+<li><strong>Keep the winners of your established suit</strong> while you or partner might still get the lead to cash them.</li>
+</ul>
+<div class="tip">Count declarer's tricks before you discard. If declarer has eight tricks and needs a ninth, the suit that could provide it is the suit you must keep.</div>
+<div class="warn">Plan your discards early. Hesitating and then baring an honour tells declarer exactly where it is.</div>
+`,
+    keyPoints: [
+      'Against notrump, communication decides the race: keep the long suit flowing between the two defenders.',
+      'Unblock: with a doubleton honour in partner\'s strong suit, play the honour early, overtaking if necessary.',
+      'Return the higher of two remaining cards; with three or more left, return your original fourth best.',
+      'The defender with the long suit and no entry ducks a round while partner still has a card to return.',
+      'Attack declarer\'s entries; when discarding, keep length with dummy and guard declarer\'s long cards.',
+    ],
+    quiz: [
+      {
+        q: 'Against 3NT partner leads the ♥K (from K Q 10 9 7). Dummy has ♥6 5 2 and you hold ♥A 3. What do you play?',
+        options: ['The 3, letting partner\'s king win', 'The ace, then return the 3', 'The ace, then switch to another suit', 'It does not matter'],
+        answer: 1,
+        explain: 'Overtake and return the 3. If you play low, declarer ducks, and your ace has to win the second round with no heart left to return, while declarer\'s J still stops the suit.',
+      },
+      {
+        q: 'You win partner\'s spade lead against 3NT with the ace from ♠A 9 3. Which spade do you return?',
+        options: ['The 9', 'The 3', 'Either', 'Don\'t return a spade'],
+        answer: 0,
+        explain: 'With two cards left, return the higher. Partner sees the 9 and knows you have at most one spade left.',
+      },
+      {
+        q: 'You win with the ace from ♦A 8 5 2. Which diamond do you return?',
+        options: ['The 8', 'The 5', 'The 2', 'None: switch to another suit'],
+        answer: 2,
+        explain: 'With three or more left, return your original fourth best, here the 2. The low card tells partner you still have at least two diamonds.',
+      },
+      {
+        q: 'In the 3NT deal above, why should West play a low spade at trick two?',
+        options: ['To find out who holds the ♠Q', 'So that East keeps a spade to return after winning the ♦A', 'Because the ♠K could be ruffed', 'To make declarer use dummy\'s entries'],
+        answer: 1,
+        explain: 'East started with three spades. If West cashes the king and plays a third spade, East has none left when he gets in. Ducking now keeps the link between the two hands.',
+      },
+      {
+        q: 'Declarer is running a long suit. Dummy holds ♣K J 7 4 and you hold ♣Q 10 8 3 behind it. What should you keep?',
+        options: ['All four clubs', 'The Q and 10 only', 'The queen only', 'It depends on partner\'s first discard'],
+        answer: 0,
+        explain: 'Keep length with dummy. As soon as you throw a club, dummy\'s fourth club can become a winner.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Suit splits and combining chances',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Play the king', 'Finesse the 10', 'It is exactly 50-50', 'Lead from the other hand'],
         answer: 1,
         explain: 'Restricted choice: from Q J East could have played either honour, but with a singleton queen there was no choice. The singleton is the more likely holding, so the finesse wins about 65% of the time.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'Ruffing finesses, loser on loser and ruffing a suit good',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Three ways for declarer to use trumps to create tricks: the ruffing finesse, discarding a loser on a loser, and setting up a side suit by ruffing.',
+    body: `
+<h3>The ruffing finesse</h3>
+<p>An ordinary finesse leads <em>towards</em> a tenace. A <strong>ruffing finesse</strong> leads an honour <em>through</em> the defender who may hold the missing higher card, with a void and a trump ready behind it. If that defender covers, you ruff and your remaining honours are winners; if not, you discard a loser.</p>
+<p>With ♦K Q J 10 in dummy and no diamond in your hand, lead the ♦K. If East covers with the ace, ruff it, and the Q J 10 are good. If East plays low, throw a loser: when the king wins, you have saved a trick, and when West takes it with the ace, you have only exchanged one loser for another. Either way, the remaining honours give you discards.</p>
+
+<h4>Which finesse?</h4>
+<p>With A Q J 10 opposite a singleton you have a choice. The ordinary finesse (lead towards the A Q) wins when <strong>West</strong> holds the king; the ruffing finesse (cash the ace, then lead the queen) wins when <strong>East</strong> holds it. On their own they are equal, so let the rest of the hand decide: the bidding may place the king, and often one defender is dangerous and the other is not. Choose the finesse that, if it loses, loses to the safe defender.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ by South. West leads the ♣K."></div>
+<p>East is the danger: a diamond from East, through your ♦K, could give the defence three diamond tricks. West is safe: a diamond from West comes round to your king.</p>
+<ul>
+<li><strong>The ordinary finesse</strong>, a heart to the queen, loses to East's king. East switches to the ♦J and you go two down.</li>
+<li><strong>The ruffing finesse</strong>: a heart to the ace, then the ♥Q. If East covers, ruff, and dummy's remaining hearts take care of your diamonds; if East plays low, throw a diamond. As the cards lie you make twelve tricks.</li>
+</ul>
+<p>And if West had held the ♥K? Then the ruffing finesse loses, but to West, who cannot lead a diamond through your king, and you have already thrown a diamond on the ♥Q: you still make ten tricks. The ruffing finesse makes the contract whoever holds the king.</p>
+
+<h3>Loser on loser</h3>
+<p>Sometimes the best answer to a trick you are going to lose is not to ruff it but to throw a loser from another suit on it. The trick count is the same, since one loser replaces another, but you keep your trumps, your control or your entries.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ by South. West cashes the ♥A and ♥K, East playing high-low, and continues with the ♥Q."></div>
+<p>East ruffs the third heart with the ♠J. If you overruff, West's ♠Q 6 sits over your one remaining top honour and the queen is promoted: you lose two hearts, a trump and a club, one down. Instead, throw your losing club. East's jack wins the trick, but your trumps are intact: the ace and king drop West's queen, and the club loser has already gone. Ten tricks.</p>
+<p>Other common uses:</p>
+<ul>
+<li><strong>Keeping control:</strong> when the defenders lead a suit you would have to ruff in your long hand, discarding a loser keeps your trump length (see the lesson “Trump management”).</li>
+<li><strong>Setting up a suit:</strong> with ♦Q J 10 9 in dummy, no diamond in your hand and the ace and king missing, lead the queen and then the jack, throwing a loser each time. You give up two tricks you were going to lose anyway, and the 10 and 9 are now winners.</li>
+<li><strong>An endplay:</strong> the defender who wins a loser-on-loser trick may have to lead into your tenace or give you a ruff and discard (see the lesson “An introduction to squeezes and endplays”).</li>
+</ul>
+
+<h3>Setting up a suit by ruffing</h3>
+<p>A long side suit in dummy can be <strong>ruffed good</strong>: ruff its low cards in your hand until the defenders have none left, and the rest of the suit provides discards. Each ruff needs an entry back to dummy, and you need one more at the end to cash the long cards, so count entries before you start.</p>
+<table>
+<thead><tr><th>Dummy</th><th>Your hand</th><th>Split</th><th>Ruffs needed</th><th>Long cards</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ by South. West leads the ♦Q."></div>
+<p>You have eleven top tricks: seven spades, the ♥A, the ♦A K and the ♣A. The twelfth must come from dummy's hearts, which need three ruffs if they split 4-3, so you need three entries to dummy after the ♥A: the ♠8, the ♠K and the ♦K.</p>
+<ol>
+<li>Win the ♦Q with the <strong>ace</strong>, keeping dummy's ♦K as an entry.</li>
+<li>Play a heart to the ace and ruff a heart with the ♠9.</li>
+<li>Lead the ♠2 to dummy's 8 and ruff another heart with the ♠10.</li>
+<li>Lead the ♠3 to the king and ruff a third heart with the ♠J. The defenders now have no hearts and no trumps left.</li>
+<li>Cross to the ♦K and cash the fifth heart, throwing your losing club. You lose only a diamond.</li>
+</ol>
+<p>Win the first trick with dummy's king, or draw two rounds of trumps before you start, and you are an entry short: the slam goes down.</p>
+<div class="tip">Plan the entries before you touch the suit: one for each ruff, plus one to cash the long cards. Dummy's trumps are often the entries, so lead your low trumps to them and ruff with your high ones.</div>
+<div class="warn">Ruff high whenever a defender may have run out of the suit and could overruff.</div>
+`,
+    keyPoints: [
+      'A ruffing finesse leads an honour through the defender who may hold the missing card: if covered, ruff; if not, discard a loser.',
+      'With A Q J 10 opposite a singleton, choose between the ordinary and the ruffing finesse by asking which defender you can afford to lose to.',
+      'Loser on loser: discard a loser instead of ruffing when ruffing would cost a trump trick, control or an entry.',
+      'To ruff a suit good you need an entry for each ruff, plus one to cash the long cards.',
+      'Use dummy\'s trumps as entries; don\'t draw trumps until you have used them.',
+    ],
+    quiz: [
+      {
+        q: 'Dummy has ♦K Q J 10 and you have no diamonds. You lead the ♦K and East plays low. What do you do?',
+        options: ['Ruff it', 'Discard a loser', 'Discard a winner', 'Lead another suit instead'],
+        answer: 1,
+        explain: 'That is the ruffing finesse. If the king wins, you have saved a trick; if West takes it with the ace, you have only exchanged one loser for another, and the Q J 10 are winners.',
+      },
+      {
+        q: 'You hold ♥A Q J 10 in dummy opposite a singleton. When does the ruffing finesse (the ace, then the queen) succeed?',
+        options: ['When West has the king', 'When East has the king', 'Whenever hearts split 3-3', 'Always'],
+        answer: 1,
+        explain: 'The queen is led through East: East covers and you ruff, or East ducks and the queen wins. The ordinary finesse, towards the A Q, is the one that wins when West has the king.',
+      },
+      {
+        q: 'In the 4♠ deal above, why is the ruffing finesse better than the ordinary finesse?',
+        options: ['It wins more often', 'If it loses, it loses to West, who cannot attack your ♦K', 'It saves an entry', 'It draws trumps at the same time'],
+        answer: 1,
+        explain: 'Each finesse wins half the time, but the ordinary one loses to East, who can lead a diamond through your king. If the ruffing finesse loses, West is on lead and you have already thrown a diamond.',
+      },
+      {
+        q: 'In the loser-on-loser deal, East ruffs the third heart with the ♠J. What should you do?',
+        options: ['Overruff with the ace', 'Overruff with the king', 'Discard your losing club', 'Discard a diamond'],
+        answer: 2,
+        explain: 'Overruffing promotes West\'s ♠Q 6 to a trick. Throwing the club, which was a loser anyway, keeps your trumps intact, and the ace and king then drop the queen.',
+      },
+      {
+        q: 'Dummy has ♥A 6 5 4 3 and you have a singleton. The defenders\' hearts split 4-3. How many times must you ruff before dummy\'s last heart is a winner?',
+        options: ['Once', 'Twice', 'Three times', 'Four times'],
+        answer: 2,
+        explain: 'After the ace the defenders still have five hearts, three in one hand. You must ruff three rounds, and you need an entry to dummy after each ruff.',
       },
     ],
   },
@@ -683,6 +887,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'Dummy reversal and the trump coup',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Two plays that ruff in the long trump hand on purpose: letting dummy\'s trumps draw the defenders\', and shortening your own trumps to finesse when dummy has none left to lead.',
+    body: `
+<h3>Ruffing in the long hand</h3>
+<p>The lesson “Trump management” explains that ruffs in the short trump hand gain tricks and ruffs in the long hand usually do not. Two techniques turn that rule around. In a <strong>dummy reversal</strong> you ruff in your hand so often that dummy's trumps take over the job of drawing trumps. In a <strong>trump coup</strong> you ruff to shorten your trumps, so that you can capture a defender's trump honour without leading trumps.</p>
+
+<h3>Dummy reversal</h3>
+<p>With five trumps in your hand and three in dummy you normally make five trump tricks. Ruff three times in your hand and then draw trumps with dummy's three, and you make six: three ruffs plus three rounds of trumps from dummy. Dummy has become the master hand, and your ruffs are now ruffs in the short hand.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ by South. West leads the ♦K."></div>
+<p><strong>Count:</strong> five spades, the ♥A, the ♦A and four clubs make eleven tricks. Dummy cannot ruff anything, since it has as many diamonds and clubs as you, and your two diamond losers have nowhere to go.</p>
+<p><strong>Reverse the dummy:</strong> ruff dummy's three small hearts in your hand and let the ♠K Q J draw trumps. The entries to dummy are the ♥A, the ♠K, the ♠Q and the ♣K.</p>
+<ol>
+<li>Win the ♦A and play a heart to the ace.</li>
+<li>Ruff a heart, and lead a low spade to the king.</li>
+<li>Ruff a heart, and lead a spade to the queen.</li>
+<li>Ruff the last heart with the ♠A, and cross to dummy with a club to the king.</li>
+<li>Draw the last trump with the ♠J, throwing a diamond, and take the rest of the clubs.</li>
+</ol>
+<p>Six trump tricks (three ruffs and three rounds from dummy), the ♥A, the ♦A and four clubs make twelve. The plan needs trumps to split 3-2, so that dummy's three trumps can draw them, and it needs every entry. That is why only a trump lead beats 6♠: it takes out a round of trumps before the ruffing has started, and declarer is an entry short.</p>
+<div class="tip">Test for a dummy reversal: add the ruffs you can take in your hand to dummy's trump length. If the total beats your own trump length, and dummy's trumps are strong enough to draw the defenders', a reversal gains a trick.</div>
+
+<h3>The trump coup</h3>
+<p>Sometimes a defender holds a trump honour behind your tenace, such as ♠K x over your ♠A Q, and dummy has no trump left to lead through it. You cannot finesse by leading trumps yourself. But if dummy leads at the end of the hand, when the defender has nothing but trumps left, the defender has to play one <em>before</em> you, and the finesse works without a trump in dummy. That is a <strong>trump coup</strong>. For it to work, you must first shorten your trumps by ruffing until you have no more than the defender.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ by South. West cashes the ♣A and switches to the ♥10."></div>
+<p>You can lose nothing more. Win the ♥A and lead a spade: East plays low and your 9 wins. Cross to the ♦A and repeat the finesse: the 10 wins and West shows out. East started with four trumps and still holds ♠K 8 over your ♠A Q J 3, and dummy has no spade left. Cash the ace now and East's king takes a trick: one down.</p>
+<p>Instead, shorten your trumps. You hold four to East's two, so you must ruff twice:</p>
+<ol>
+<li>Cross to the ♦K, cash the ♥K and ruff a club with the ♠3.</li>
+<li>Cross to the ♦Q and ruff a heart with the ♠J. Now you have ♠A Q, as many trumps as East.</li>
+<li>Cross to the ♦J; East follows suit. At trick twelve dummy leads.</li>
+</ol>
+<p>Ruff one club and one heart, not two clubs: East has to follow suit each time and never gets a free discard. Given one, he would throw a diamond and later ruff one of dummy's diamond winners.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="The last two tricks. Spades are trumps and dummy leads."></div>
+<p>East has only trumps and must play one before you: the ♠8, and you win with the queen, or the ♠K, and you win with the ace. Twelve tricks.</p>
+<h4>What a trump coup needs</h4>
+<ul>
+<li><strong>No more trumps than the defender</strong> at the end: shorten yours by ruffing, even by ruffing dummy's winners if you must (that is called a <em>grand coup</em>).</li>
+<li><strong>Entries to dummy</strong> for every trump finesse, every ruff and the final lead.</li>
+<li><strong>The right timing:</strong> when the coup comes, the defender must have nothing but trumps left. Counting the defender's hand tells you when.</li>
+</ul>
+<div class="warn">Shorten your trumps only when you know you need to. If trumps had split 3-3, the ace would drop the king and ruffing in your hand would only waste trumps. Here West showing out on the second round told you that East started with four.</div>
+`,
+    keyPoints: [
+      'A dummy reversal ruffs in the long trump hand so often that dummy\'s trumps draw the defenders\'.',
+      'It gains when ruffs in your hand plus dummy\'s trump length beat your own trump length; it needs good trumps in dummy and entries.',
+      'A trump coup captures a defender\'s trump honour without leading trumps: the lead comes from dummy and the defender must play first.',
+      'Before a trump coup, shorten your trumps by ruffing until you have no more than the defender.',
+      'Count the defender\'s trumps first; a coup is needed only when the split is bad.',
+    ],
+    quiz: [
+      {
+        q: 'What is a dummy reversal?',
+        options: ['Ruffing dummy\'s losers in dummy', 'Ruffing in your own long trump hand often enough that dummy\'s trumps draw the defenders\'', 'Letting dummy play the hand', 'Switching to notrump'],
+        answer: 1,
+        explain: 'The roles of the hands are reversed: your trumps are used for ruffing, and dummy\'s shorter but strong trumps draw the defenders\' trumps.',
+      },
+      {
+        q: 'You have five trumps and dummy has three strong ones. How many ruffs in your hand do you need for a dummy reversal to gain a trick?',
+        options: ['One', 'Two', 'Three', 'Five'],
+        answer: 2,
+        explain: 'Three ruffs plus dummy\'s three rounds of trumps make six trump tricks, one more than your own five.',
+      },
+      {
+        q: 'In the dummy reversal deal above, which opening lead beats 6♠?',
+        options: ['The ♦K', 'A heart', 'A trump', 'A club'],
+        answer: 2,
+        explain: 'A trump lead takes out a round of trumps before declarer can start ruffing, and declarer then has one entry too few to complete the reversal.',
+      },
+      {
+        q: 'What must you do before a trump coup?',
+        options: ['Draw all the defenders\' trumps', 'Shorten your trumps by ruffing until you have no more than the defender', 'Keep a trump in dummy', 'Lead your trump tenace'],
+        answer: 1,
+        explain: 'At the end, the defender must have only trumps left and you must not have more trumps than they do, so that the lead from dummy forces them to play before you.',
+      },
+      {
+        q: 'In the trump coup ending above, why does East\'s king not score?',
+        options: ['East has to play a trump before you, and you play over it', 'The king was already played', 'West has the king', 'East is squeezed in hearts'],
+        answer: 0,
+        explain: 'Dummy leads a heart and East has only the ♠K 8. Whichever East plays, you win with the card just above it.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Counting on defence',
     topic: 'Defense',
@@ -861,6 +1152,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['It never is', 'Because if it makes, the doubled trick score may reach game: 2♥ doubled scores 470 or 670', 'Because the opponents get a bonus for being doubled', 'Because you must lead a trump'],
         answer: 1,
         explain: 'Doubled, 2♥ has a trick score of 120, which counts as a game. Expect to beat a partscore before you double it.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Leads against slams and doubled contracts',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'How to choose the opening lead against slams, against doubled contracts and sacrifices, and how partner can ask for a lead with a double.',
+    body: `
+<h3>Against notrump slams: give nothing away</h3>
+<p>When the opponents bid 6NT or 7NT they have about 33 HCP or more between them, and your side has very little. You will rarely have time to set up a long suit, so your job is not to hand declarer a trick. Make the safest lead you can: the top of a sequence, or a suit with no honour in it. Don't lead away from a king or a queen: against a slam that is often the twelfth trick.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="On lead against 1NT – 6NT"></div>
+<p>Lead the ♦8, top of three small. A spade or a heart could give declarer a trick with honours you cannot see; the diamond gives nothing away, and your ♠K and ♥Q may still score if declarer has to find them.</p>
+
+<h3>Against suit slams: attack or wait?</h3>
+<p>Against six of a suit you ask the same question as against any suit contract (see the lesson “Defending against suit contracts”), but you need two tricks and you have one lead.</p>
+<ul>
+<li><strong>Attack</strong> when the auction shows a long side suit that will provide discards. Lead from a king (or a queen) in an unbid suit, hoping partner holds the ace or the queen, to set up a trick before the discards come.</li>
+<li><strong>Be passive</strong> when the opponents seem to have bid on power, with balanced hands and no long side suit. Declarer then has to find twelve tricks unaided, and a safe lead, often a trump, gives nothing away.</li>
+<li><strong>A singleton</strong> is worth leading when partner may hold an ace: partner wins it and gives you a ruff.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="On lead against 6♥; dummy has shown a long, strong club suit"></div>
+<p>Lead the ♠2. Once trumps are drawn, declarer will throw losers on dummy's clubs, so the defence must set up its tricks first. A spade from the king may find partner with the ace or the queen and build a trick in time. A diamond would be safe, but too slow.</p>
+<h4>Leading an ace</h4>
+<p>Lead an unsupported ace against a suit slam when dummy has shown a long side suit, so that your ace's suit could disappear under discards, or when you have a good chance of a second trick, such as a trump trick or a king sitting over declarer's suit. Otherwise keep it: the ace will still take its trick later, while leading it may set up declarer's king and queen. Against 6NT an ace is a sure trick, so there is no hurry to lead it.</p>
+<p>Against a grand slam, make the safest lead you have, often a trump: declarer needs every trick, so any trick you give away is fatal.</p>
+
+<h3>Lead-directing doubles</h3>
+<p>When the opponents make an artificial bid, a double by the next player usually has nothing to do with penalties: it asks partner to lead that suit.</p>
+<table>
+<thead><tr><th>Partner doubles</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>Stayman: 1NT – 2♣</td><td>Lead a club: partner has a good club suit</td></tr>
+<tr><td>A transfer: 1NT – 2♦</td><td>Lead a diamond</td></tr>
+<tr><td>A cue bid or control bid, such as 4♣ on the way to a heart slam</td><td>Lead a club</td></tr>
+<tr><td>A Blackwood reply, such as 5♦</td><td>Lead a diamond</td></tr>
+</tbody>
+</table>
+<p>The absence of a double tells you something too: if partner could have doubled a cue bid of 4♦ and did not, partner probably does not want a diamond lead.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="West: on lead against 4♥"></div>
+<p>Without the double you might lead a spade or a diamond, both from an honour. East's double of Stayman asked for a club, so lead the ♣8, top of three small. East has a good club suit, and you do not have to break your other suits.</p>
+
+<h3>Leads against doubled contracts</h3>
+<table>
+<thead><tr><th>Situation</th><th>Lead</th></tr></thead>
+<tbody>
+<tr><td>Partner doubles 3NT after bidding a suit</td><td>Partner's suit</td></tr>
+<tr><td>Partner doubles 3NT; you bid a suit and partner did not</td><td>Your suit</td></tr>
+<tr><td>Partner doubles 3NT; neither of you has bid</td><td>Dummy's first-bid suit</td></tr>
+<tr><td>Partner doubles a slam</td><td>An unusual lead (see below)</td></tr>
+<tr><td>Your side has doubled their sacrifice</td><td>Usually a trump</td></tr>
+<tr><td>Partner passes your takeout double for penalty</td><td>A trump</td></tr>
+</tbody>
+</table>
+<p>Why a trump against a sacrifice? The sacrificing side has few high cards and hopes to take its tricks by ruffing; your side has the high cards, which will take their tricks anyway. Each round of trumps cuts down the ruffs. These meanings are common agreements: make sure your partner shares them.</p>
+
+<h3>The Lightner double</h3>
+<p>Doubling a freely bid slam for penalty gains little. 6♠ one down scores 50 or 100 more doubled than undoubled, but if it makes, the double costs 230, much more if they redouble, and it warns declarer of a bad break. So, by a convention named after Theodore Lightner, a double of a slam by the player <em>not</em> on lead asks for an <strong>unusual lead</strong>:</p>
+<ul>
+<li>not a trump, and not an unbid suit, since that is what you would lead anyway;</li>
+<li>usually the first side suit bid by dummy, often because partner is void in it;</li>
+<li>if partner has bid a suit, the double also says: don't lead my suit.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="West: on lead after East's double"></div>
+<p>Your normal lead would be the ♦Q. East's double asks for something unusual: dummy's first-bid suit, hearts. Lead the ♥8. East is probably void in hearts and will ruff it, and the defence then needs only one more trick.</p>
+<div class="warn">Don't make a lead-directing double just because you hold high cards in the suit. Double when you really want that lead, and remember that the opponents can use the double too: they may redouble, or simply avoid the contract.</div>
+`,
+    keyPoints: [
+      'Against 6NT and 7NT, lead safely: don\'t lead away from honours.',
+      'Against a suit slam, attack (often from a king) when dummy has a long suit for discards; otherwise be passive.',
+      'Lead an ace against a slam when it could vanish under discards or you hope for a second trick; otherwise keep it.',
+      'A double of an artificial bid such as Stayman, a transfer or a cue bid asks for a lead of that suit.',
+      'A Lightner double of a slam asks for an unusual lead, usually dummy\'s first-bid side suit; against a doubled sacrifice, lead a trump.',
+    ],
+    quiz: [
+      {
+        q: 'You are on lead against 1NT – 6NT with ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. What do you lead?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Against a notrump slam, lead safely. The ♦8 gives nothing away; leading from the king, the queen or the jack may hand declarer the twelfth trick.',
+      },
+      {
+        q: 'The opponents bid 6♥ after dummy showed a long, strong club suit. What kind of lead is usually right?',
+        options: ['Passive: a trump', 'Attacking: from a king in an unbid suit, to set up a trick before declarer can discard', 'A club, to cut dummy off', 'Always an ace'],
+        answer: 1,
+        explain: 'Once trumps are drawn, declarer\'s losers will go on dummy\'s clubs. The defence has to build its tricks first.',
+      },
+      {
+        q: 'The opponents bid 1NT – 2♣ (Stayman) and partner doubles. What does the double ask for?',
+        options: ['A penalty in 2♣', 'A club lead', 'A takeout for the majors', 'A strong balanced hand'],
+        answer: 1,
+        explain: '2♣ is artificial, so the double is lead-directing: partner has a good club suit and wants it led.',
+      },
+      {
+        q: 'Partner makes a Lightner double of 6♠. Dummy bid hearts, and you hold two hearts and ♦Q J 10 9. What do you lead?',
+        options: ['The ♦Q', 'A heart', 'A trump', 'A club'],
+        answer: 1,
+        explain: 'The double asks for an unusual lead, usually dummy\'s first-bid side suit. Partner is probably void in hearts.',
+      },
+      {
+        q: 'You have doubled the opponents\' 5♦ sacrifice. What is usually the best lead?',
+        options: ['A trump', 'Your longest suit', 'An ace, to look at dummy', 'A singleton'],
+        answer: 0,
+        explain: 'The sacrificing side has few high cards and takes its tricks by ruffing. Trump leads cut those ruffs, and your high cards will take their tricks anyway.',
       },
     ],
   },
