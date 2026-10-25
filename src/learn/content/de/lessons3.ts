@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'Gegenspiel gegen Sans Atout',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Wie die Gegenspieler den Wettlauf gegen SA gewinnen: deblockieren, die richtige Karte zurückspielen, die Verbindung halten, die Übergänge des Alleinspielers angreifen und richtig abwerfen.',
+    body: `
+<h3>Ein Wettlauf um Stiche</h3>
+<p>Gegen Sans Atout hält nichts eine lange Farbe auf, sobald sie hochgespielt ist. Beide Seiten liefern sich einen Wettlauf: der Alleinspieler, um genug Stiche hochzuspielen, die Gegenspieler, um ihre lange Farbe zuerst hochzuspielen und abzuziehen. Die meisten Probleme der Gegenspieler sind Probleme der <strong>Verbindung</strong>: Die lange Farbe sitzt in einer Hand, die Übergänge oft in der anderen. Gutes Gegenspiel hält die Farbe zwischen beiden Gegenspielern im Fluss und kappt die Verbindungen des Alleinspielers.</p>
+
+<h3>Dritte Hand: hoch – und dem Partner aus dem Weg</h3>
+<p>Die dritte Hand spielt hoch (siehe die Lektion „Zweite Hand tief, dritte Hand hoch“). Gegen SA kommt eine zweite Pflicht hinzu: die Farbe des Partners nicht zu <strong>blockieren</strong>. Mit einer Figur zu zweit in der langen Farbe des Partners bringen Sie die Figur früh aus dem Weg, auch wenn Sie dazu die Karte des Partners übernehmen müssen.</p>
+<table>
+<thead><tr><th>Platz</th><th>Coeur</th></tr></thead>
+<tbody>
+<tr><td>Nord (Dummy)</td><td>6 5 2</td></tr>
+<tr><td>West (Partner, spielt den K aus)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Ost (Sie)</td><td>A 3</td></tr>
+<tr><td>Süd (Alleinspieler)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Geben Sie die 3 zu, duckt der Alleinspieler. Der Partner setzt mit der Dame fort, und Ihr Ass muss die zweite Runde gewinnen: Sie haben kein Coeur mehr zum Zurückspielen, der Bube des Alleinspielers stoppt die Farbe weiterhin, und der Partner braucht noch zwei Übergänge, um die Coeurs hochzuspielen und abzuziehen. <strong>Übernehmen</strong> Sie stattdessen den König mit dem Ass und spielen Sie die 3 zurück. Der Bube des Alleinspielers ist gefangen, und das Gegenspiel macht die ersten fünf Coeurstiche.</p>
+<ul>
+<li>Deblockieren Sie, wenn das Ausspiel des Partners eine starke Farbe zeigt (die Spitze einer Sequenz wie K Q 10 oder Q J 10) und Sie eine Figur zu zweit halten: Spielen Sie die Figur früh, damit Ihre letzte Karte eine kleine ist.</li>
+<li>Mit drei Karten unter einer Figur (A x x, K x x) spielen Sie hoch und behalten eine kleine Karte zum Zurückspielen: Sie blockieren nichts.</li>
+</ul>
+
+<h3>Die Farbe des Partners zurückspielen</h3>
+<p>Wenn Sie einen Stich gewinnen und die Farbe des Partners zurückspielen, verrät die gewählte Karte, wie viele Karten Sie noch haben – und damit, wie viele der Alleinspieler hat.</p>
+<table>
+<thead><tr><th>Sie hielten</th><th>Sie gewinnen mit</th><th>Rückspiel</th><th>Die Regel</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Zwei Karten übrig: die höhere zurück</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Drei oder mehr übrig: die ursprünglich vierthöchste zurück</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>Die ursprünglich vierthöchste, nicht die niedrigste Karte</td></tr>
+</tbody>
+</table>
+<p>Eine hohe Karte sagt „Ich habe höchstens noch eine“, eine niedrige „Ich habe noch mindestens zwei“. Der Partner kann dann ausrechnen, ob der Alleinspieler noch einen Stopper hat und ob er jetzt gewinnen oder ducken soll. Die höhere von zwei Karten zurückzuspielen verhindert außerdem eine Blockade: Behalten Sie die 9, gewinnt sie vielleicht die dritte Runde, obwohl der Partner am Spiel sein müsste.</p>
+
+<h3>Ducken, um in Verbindung zu bleiben</h3>
+<p>Der Gegenspieler mit der langen Farbe muss manchmal früh einen Stich abgeben, solange der Partner noch eine Karte der Farbe zum Zurückspielen hat.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3SA von Süd nach 1SA – 3SA. West spielt das ♠A aus, Ost gibt die ♠2 zu."></div>
+<p>Die 2 von Ost verneint eine Pikfigur, also hält der Alleinspieler ♠Q J. West zählt: Süd hat 15–17 FP, der Dummy 13 und West 8, also hat Ost höchstens 4. Der Alleinspieler wird den Kontrakt erfüllen, indem er das ♦A heraustreibt; die einzige Hoffnung des Gegenspiels ist, dass Ost es hält.</p>
+<p>Zieht West den ♠K ab und spielt ein drittes Pik, gewinnt der Alleinspieler mit der letzten Figur, und Ost, der mit drei Pik begonnen hat, hat keins mehr. Ost nimmt das ♦A, kann West aber nicht erreichen, dessen zwei lange Pik nie zum Zug kommen: Der Alleinspieler macht zehn Stiche. West spielt stattdessen im zweiten Stich ein <strong>kleines Pik</strong>. Der Alleinspieler gewinnt, aber Ost behält ein Pik. Wenn Ost das ♦A nimmt, spielt er es zurück, und West zieht den ♠K und die letzten beiden Pik ab: ein Faller.</p>
+<p>Ein kleines Pik im ersten Stich hätte denselben Zweck erfüllt. Das Prinzip: Ist Ihre Farbe lang und haben Sie keinen Übergang außerhalb, geben Sie den Stich, den Sie abgeben müssen, ab, <em>solange der Partner noch eine Karte der Farbe hat</em>.</p>
+
+<h3>Die Übergänge des Alleinspielers angreifen</h3>
+<p>Auch der Alleinspieler hat Verbindungsprobleme, und die Gegenspieler können sie verschärfen.</p>
+<ul>
+<li><strong>Halten Sie Ihr Ass zurück</strong>, wenn der Dummy eine lange Farbe und keinen Übergang außerhalb hat, und nehmen Sie es, wenn der Alleinspieler die letzte Karte der Farbe aus der Hand spielt. Die Längenmarkierung des Partners sagt Ihnen, wann (siehe die Lektion „Markierungen im Gegenspiel“).</li>
+<li><strong>Schlagen Sie den Übergang des Dummys heraus</strong>, bevor die lange Farbe hochgespielt ist, auch wenn es einen Stich kostet.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Dummy gegen 3SA"></div>
+<p>Sie sind Ost mit ♠K 7 3 und ♦A 6 2, und der Alleinspieler hat zwei Karo. Das ♦A zurückzuhalten reicht allein nicht: Der Alleinspieler käme mit dem ♠A zu den hochgespielten Karos zurück. Wenn Sie also einen Stich gewinnen, bevor Karo gespielt wurde, spielen Sie den <strong>♠K</strong> aus. Nimmt der Alleinspieler das Ass, hat der Dummy keinen Übergang mehr: Sie halten das ♦A bis zur zweiten Runde zurück, und die Karos des Dummys sind tot. Duckt der Alleinspieler, hat Ihr König einen Stich gemacht, und Sie können noch ein Pik spielen. Eine Figur zu opfern, um so einen Übergang zu beseitigen, nennt man <strong>Merrimac-Coup</strong>. Er ist selten, aber die Frage dahinter nicht: Welcher Übergang des Alleinspielers ist der wichtigste?</p>
+
+<h3>Abwerfen</h3>
+<p>Wenn der Alleinspieler eine lange Farbe abzieht, müssen die Gegenspieler abwerfen, und ein einziger falscher Abwurf kann ihm den Kontrakt schenken.</p>
+<ul>
+<li><strong>Halten Sie die Länge des Dummys.</strong> Mit ♣Q 10 8 3 hinter ♣K J 7 4 des Dummys behalten Sie alle vier Treff: Werfen Sie eins ab, kann das letzte Treff des Dummys zum Gewinner werden. Die Karten des Dummys liegen offen, daher ist diese Regel am leichtesten zu befolgen.</li>
+<li><strong>Halten Sie die Länge des Alleinspielers.</strong> Zählen Sie seine Farben aus Reizung und Spiel, und behalten Sie einen Schutz in jeder Farbe, in der nur Sie seine lange Karte stoppen können.</li>
+<li><strong>Teilen Sie die Arbeit.</strong> Eine Farbe braucht nur einen Schutz. Überlassen Sie dem Partner die Farbe, die er schützen kann (Längenmarkierungen helfen dabei), und behalten Sie die andere selbst.</li>
+<li><strong>Markieren Sie mit Ihrem ersten Abwurf:</strong> Eine hohe Karte bittet um die Farbe, eine niedrige sagt, dass Sie sie nicht wollen. Werfen Sie aus einer Farbe ab, die Sie entbehren können; werfen Sie nie eine Karte weg, die Sie brauchen, nur um zu markieren.</li>
+<li><strong>Behalten Sie die Gewinner Ihrer hochgespielten Farbe</strong>, solange Sie oder der Partner noch ans Spiel kommen könnten, um sie abzuziehen.</li>
+</ul>
+<div class="tip">Zählen Sie die Stiche des Alleinspielers, bevor Sie abwerfen. Hat er acht Stiche und braucht einen neunten, müssen Sie die Farbe behalten, die ihn liefern könnte.</div>
+<div class="warn">Planen Sie Ihre Abwürfe früh. Wer zögert und dann eine Figur blank macht, verrät dem Alleinspieler genau, wo sie sitzt.</div>
+`,
+    keyPoints: [
+      'Gegen SA entscheidet die Verbindung den Wettlauf: Halten Sie die lange Farbe zwischen beiden Gegenspielern im Fluss.',
+      'Deblockieren: Mit einer Figur zu zweit in der starken Farbe des Partners spielen Sie die Figur früh, notfalls durch Übernehmen.',
+      'Spielen Sie von zwei übrigen Karten die höhere zurück, von drei oder mehr die ursprünglich vierthöchste.',
+      'Der Gegenspieler mit der langen Farbe und ohne Übergang duckt eine Runde, solange der Partner noch eine Karte zum Zurückspielen hat.',
+      'Greifen Sie die Übergänge des Alleinspielers an; halten Sie beim Abwerfen die Länge des Dummys und schützen Sie die langen Karten des Alleinspielers.',
+    ],
+    quiz: [
+      {
+        q: 'Gegen 3SA spielt der Partner den ♥K aus (von K Q 10 9 7). Der Dummy hat ♥6 5 2, Sie halten ♥A 3. Was spielen Sie?',
+        options: ['Die 3, damit der König des Partners den Stich gewinnt', 'Das Ass, dann die 3 zurück', 'Das Ass, dann ein Wechsel in eine andere Farbe', 'Das ist egal'],
+        answer: 1,
+        explain: 'Übernehmen Sie und spielen Sie die 3 zurück. Geben Sie klein zu, duckt der Alleinspieler, und Ihr Ass muss die zweite Runde gewinnen, ohne dass Sie noch ein Coeur zum Zurückspielen haben – während der Bube des Alleinspielers die Farbe weiter stoppt.',
+      },
+      {
+        q: 'Sie gewinnen das Pikausspiel des Partners gegen 3SA mit dem Ass von ♠A 9 3. Welches Pik spielen Sie zurück?',
+        options: ['Die 9', 'Die 3', 'Egal welches', 'Gar kein Pik'],
+        answer: 0,
+        explain: 'Mit zwei übrigen Karten spielen Sie die höhere zurück. Der Partner sieht die 9 und weiß, dass Sie höchstens noch ein Pik haben.',
+      },
+      {
+        q: 'Sie gewinnen mit dem Ass von ♦A 8 5 2. Welches Karo spielen Sie zurück?',
+        options: ['Die 8', 'Die 5', 'Die 2', 'Keins: Wechseln Sie die Farbe'],
+        answer: 2,
+        explain: 'Mit drei oder mehr übrigen Karten spielen Sie die ursprünglich vierthöchste zurück, hier die 2. Die niedrige Karte sagt dem Partner, dass Sie noch mindestens zwei Karo haben.',
+      },
+      {
+        q: 'Warum sollte West im 3SA-Spiel oben im zweiten Stich ein kleines Pik spielen?',
+        options: ['Um herauszufinden, wer die ♠Q hat', 'Damit Ost ein Pik behält, das er nach dem ♦A zurückspielen kann', 'Weil der ♠K geschnappt werden könnte', 'Damit der Alleinspieler die Übergänge des Dummys verbraucht'],
+        answer: 1,
+        explain: 'Ost hatte drei Pik. Zieht West den König ab und spielt ein drittes Pik, hat Ost keins mehr, wenn er ans Spiel kommt. Jetzt zu ducken erhält die Verbindung zwischen beiden Händen.',
+      },
+      {
+        q: 'Der Alleinspieler zieht eine lange Farbe ab. Der Dummy hält ♣K J 7 4, Sie halten ♣Q 10 8 3 dahinter. Was behalten Sie?',
+        options: ['Alle vier Treff', 'Nur Q und 10', 'Nur die Dame', 'Das hängt vom ersten Abwurf des Partners ab'],
+        answer: 0,
+        explain: 'Halten Sie die Länge des Dummys. Sobald Sie ein Treff abwerfen, kann das vierte Treff des Dummys zum Gewinner werden.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Farbverteilungen und kombinierte Chancen',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Den König spielen', 'Mit der 10 schneiden', 'Es ist genau 50:50', 'Von der anderen Hand ausspielen'],
         answer: 1,
         explain: 'Eingeschränkte Wahl: Mit Q J hätte Ost jede der beiden Figuren spielen können, mit der Dame single gab es keine Wahl. Das Single ist die wahrscheinlichere Haltung, daher gelingt der Schnitt in etwa 65% der Fälle.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'Schnappschnitt, Verlierer auf Verlierer und Hochschnappen einer Farbe',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Drei Wege, wie der Alleinspieler mit Trümpfen Stiche schafft: der Schnappschnitt, das Abwerfen eines Verlierers auf einen Verlierer und das Hochspielen einer Nebenfarbe durch Schnappen.',
+    body: `
+<h3>Der Schnappschnitt</h3>
+<p>Ein gewöhnlicher Schnitt spielt <em>in Richtung</em> einer Gabel. Ein <strong>Schnappschnitt</strong> spielt eine Figur <em>durch</em> den Gegenspieler, der die fehlende höhere Karte halten könnte, mit einer Chicane und einem Trumpf dahinter. Deckt dieser Gegenspieler, schnappen Sie, und Ihre restlichen Figuren sind Gewinner; deckt er nicht, werfen Sie einen Verlierer ab.</p>
+<p>Mit ♦K Q J 10 im Dummy und keinem Karo in Ihrer Hand spielen Sie den ♦K. Deckt Ost mit dem Ass, schnappen Sie, und Q J 10 sind hoch. Gibt Ost klein zu, werfen Sie einen Verlierer ab: Gewinnt der König, haben Sie einen Stich gespart; nimmt West mit dem Ass, haben Sie nur einen Verlierer gegen einen anderen getauscht. So oder so liefern die restlichen Figuren Abwürfe.</p>
+
+<h4>Welcher Schnitt?</h4>
+<p>Mit A Q J 10 gegenüber einem Single haben Sie die Wahl. Der gewöhnliche Schnitt (Ausspiel in Richtung A Q) gewinnt, wenn <strong>West</strong> den König hält; der Schnappschnitt (erst das Ass, dann die Dame) gewinnt, wenn <strong>Ost</strong> ihn hält. Für sich genommen sind beide gleich gut, also entscheidet der Rest der Hand: Die Reizung verrät vielleicht, wo der König sitzt, und oft ist ein Gegenspieler gefährlich und der andere nicht. Wählen Sie den Schnitt, der, wenn er verliert, an den ungefährlichen Gegenspieler verliert.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ von Süd. West spielt den ♣K aus."></div>
+<p>Ost ist der gefährliche Gegenspieler: Ein Karo von Ost, durch Ihren ♦K, könnte dem Gegenspiel drei Karostiche bringen. West ist ungefährlich: Ein Karo von West läuft auf Ihren König zu.</p>
+<ul>
+<li><strong>Der gewöhnliche Schnitt</strong>, Coeur zur Dame, verliert gegen den König von Ost. Ost wechselt zum ♦J, und Sie haben zwei Faller.</li>
+<li><strong>Der Schnappschnitt:</strong> Coeur zum Ass, dann die ♥Q. Deckt Ost, schnappen Sie, und die restlichen Coeurs des Dummys versorgen Ihre Karos; gibt Ost klein zu, werfen Sie ein Karo ab. Wie die Karten liegen, machen Sie zwölf Stiche.</li>
+</ul>
+<p>Und wenn West den ♥K gehabt hätte? Dann verliert der Schnappschnitt – aber an West, der kein Karo durch Ihren König spielen kann, und Sie haben schon ein Karo auf die ♥Q abgeworfen: Sie machen trotzdem zehn Stiche. Der Schnappschnitt erfüllt den Kontrakt, egal wer den König hält.</p>
+
+<h3>Verlierer auf Verlierer</h3>
+<p>Manchmal ist die beste Antwort auf einen Stich, den Sie ohnehin abgeben, nicht zu schnappen, sondern einen Verlierer aus einer anderen Farbe darauf abzuwerfen. Die Stichzahl bleibt gleich, denn ein Verlierer ersetzt einen anderen, aber Sie behalten Ihre Trümpfe, Ihre Kontrolle oder Ihre Übergänge.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ von Süd. West zieht ♥A und ♥K ab, Ost markiert hoch-tief, und West setzt mit der ♥Q fort."></div>
+<p>Ost schnappt das dritte Coeur mit dem ♠J. Schnappen Sie über, sitzt ♠Q 6 von West über Ihrer einzigen verbliebenen hohen Figur, und die Dame wird aufgewertet: Sie verlieren zwei Coeur, einen Trumpf und ein Treff, ein Faller. Werfen Sie stattdessen Ihr verlorenes Treff ab. Der Bube von Ost gewinnt den Stich, aber Ihre Trümpfe bleiben intakt: Ass und König fangen die Dame von West, und der Treffverlierer ist schon weg. Zehn Stiche.</p>
+<p>Weitere häufige Anwendungen:</p>
+<ul>
+<li><strong>Die Kontrolle behalten:</strong> Spielen die Gegenspieler eine Farbe, die Sie in der langen Hand schnappen müssten, behalten Sie mit dem Abwurf eines Verlierers Ihre Trumpflänge (siehe die Lektion „Die Trumpfbehandlung“).</li>
+<li><strong>Eine Farbe hochspielen:</strong> Mit ♦Q J 10 9 im Dummy, keinem Karo in Ihrer Hand und fehlendem Ass und König spielen Sie erst die Dame und dann den Buben und werfen jedes Mal einen Verlierer ab. Sie geben zwei Stiche ab, die Sie ohnehin verloren hätten, und 10 und 9 sind jetzt Gewinner.</li>
+<li><strong>Ein Endspiel:</strong> Der Gegenspieler, der einen Verlierer-auf-Verlierer-Stich gewinnt, muss vielleicht in Ihre Gabel spielen oder Ihnen einen Schnapper mit Abwurf geben (siehe die Lektion „Squeeze und Endspiel: eine Einführung“).</li>
+</ul>
+
+<h3>Eine Farbe durch Schnappen hochspielen</h3>
+<p>Eine lange Nebenfarbe im Dummy lässt sich <strong>hochschnappen</strong>: Schnappen Sie ihre kleinen Karten in Ihrer Hand, bis die Gegenspieler keine mehr haben, und der Rest der Farbe liefert Abwürfe. Jeder Schnapper braucht einen Übergang zurück zum Dummy, und am Ende brauchen Sie noch einen, um die langen Karten abzuziehen – zählen Sie also die Übergänge, bevor Sie anfangen.</p>
+<table>
+<thead><tr><th>Dummy</th><th>Ihre Hand</th><th>Verteilung</th><th>Nötige Schnapper</th><th>Lange Karten</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ von Süd. West spielt die ♦Q aus."></div>
+<p>Sie haben elf sichere Stiche: sieben Pik, das ♥A, ♦A K und das ♣A. Der zwölfte muss aus den Coeurs des Dummys kommen, die bei einer 4-3-Verteilung drei Schnapper brauchen; Sie brauchen also nach dem ♥A drei Übergänge zum Dummy: die ♠8, den ♠K und den ♦K.</p>
+<ol>
+<li>Gewinnen Sie die ♦Q mit dem <strong>Ass</strong>, damit der ♦K des Dummys als Übergang bleibt.</li>
+<li>Spielen Sie Coeur zum Ass und schnappen Sie ein Coeur mit der ♠9.</li>
+<li>Spielen Sie die ♠2 zur 8 des Dummys und schnappen Sie noch ein Coeur mit der ♠10.</li>
+<li>Spielen Sie die ♠3 zum König und schnappen Sie ein drittes Coeur mit dem ♠J. Jetzt haben die Gegenspieler weder Coeur noch Trumpf.</li>
+<li>Gehen Sie mit dem ♦K zum Dummy und ziehen Sie das fünfte Coeur ab, auf das Sie Ihr verlorenes Treff abwerfen. Sie verlieren nur ein Karo.</li>
+</ol>
+<p>Gewinnen Sie den ersten Stich mit dem König des Dummys oder ziehen Sie vorher zwei Runden Trumpf, fehlt Ihnen ein Übergang: Der Schlemm geht down.</p>
+<div class="tip">Planen Sie die Übergänge, bevor Sie die Farbe anfassen: einen für jeden Schnapper und einen, um die langen Karten abzuziehen. Oft sind die Trümpfe des Dummys die Übergänge – spielen Sie also Ihre kleinen Trümpfe zu ihnen und schnappen Sie mit den hohen.</div>
+<div class="warn">Schnappen Sie hoch, wann immer ein Gegenspieler die Farbe nicht mehr haben und überschnappen könnte.</div>
+`,
+    keyPoints: [
+      'Ein Schnappschnitt spielt eine Figur durch den Gegenspieler, der die fehlende Karte halten könnte: Deckt er, schnappen Sie; deckt er nicht, werfen Sie einen Verlierer ab.',
+      'Mit A Q J 10 gegenüber einem Single wählen Sie zwischen gewöhnlichem Schnitt und Schnappschnitt danach, an welchen Gegenspieler Sie verlieren dürfen.',
+      'Verlierer auf Verlierer: Werfen Sie einen Verlierer ab, statt zu schnappen, wenn das Schnappen einen Trumpfstich, die Kontrolle oder einen Übergang kosten würde.',
+      'Um eine Farbe hochzuschnappen, brauchen Sie einen Übergang für jeden Schnapper und einen, um die langen Karten abzuziehen.',
+      'Nutzen Sie die Trümpfe des Dummys als Übergänge; ziehen Sie Trumpf erst, wenn Sie sie verwendet haben.',
+    ],
+    quiz: [
+      {
+        q: 'Der Dummy hat ♦K Q J 10, Sie haben kein Karo. Sie spielen den ♦K, und Ost gibt klein zu. Was tun Sie?',
+        options: ['Schnappen', 'Einen Verlierer abwerfen', 'Einen Gewinner abwerfen', 'Lieber eine andere Farbe spielen'],
+        answer: 1,
+        explain: 'Das ist der Schnappschnitt. Gewinnt der König, haben Sie einen Stich gespart; nimmt West mit dem Ass, haben Sie nur einen Verlierer gegen einen anderen getauscht, und Q J 10 sind Gewinner.',
+      },
+      {
+        q: 'Sie halten ♥A Q J 10 im Dummy gegenüber einem Single. Wann gelingt der Schnappschnitt (erst das Ass, dann die Dame)?',
+        options: ['Wenn West den König hat', 'Wenn Ost den König hat', 'Immer, wenn Coeur 3-3 steht', 'Immer'],
+        answer: 1,
+        explain: 'Die Dame wird durch Ost gespielt: Ost deckt und Sie schnappen, oder Ost duckt und die Dame gewinnt. Der gewöhnliche Schnitt, in Richtung A Q, ist der, der gewinnt, wenn West den König hat.',
+      },
+      {
+        q: 'Warum ist im 4♠-Spiel oben der Schnappschnitt besser als der gewöhnliche Schnitt?',
+        options: ['Er gelingt öfter', 'Wenn er verliert, verliert er an West, der Ihren ♦K nicht angreifen kann', 'Er spart einen Übergang', 'Er zieht gleichzeitig Trumpf'],
+        answer: 1,
+        explain: 'Jeder Schnitt gelingt in der Hälfte der Fälle, aber der gewöhnliche verliert an Ost, der ein Karo durch Ihren König spielen kann. Verliert der Schnappschnitt, ist West am Spiel, und Sie haben schon ein Karo abgeworfen.',
+      },
+      {
+        q: 'Im Verlierer-auf-Verlierer-Spiel schnappt Ost das dritte Coeur mit dem ♠J. Was tun Sie?',
+        options: ['Mit dem Ass überschnappen', 'Mit dem König überschnappen', 'Ihr verlorenes Treff abwerfen', 'Ein Karo abwerfen'],
+        answer: 2,
+        explain: 'Überschnappen wertet ♠Q 6 von West zu einem Stich auf. Das Treff abzuwerfen, das ohnehin verloren war, lässt Ihre Trümpfe intakt, und Ass und König fangen dann die Dame.',
+      },
+      {
+        q: 'Der Dummy hat ♥A 6 5 4 3, Sie haben ein Single. Coeur steht bei den Gegenspielern 4-3. Wie oft müssen Sie schnappen, bis das letzte Coeur des Dummys ein Gewinner ist?',
+        options: ['Einmal', 'Zweimal', 'Dreimal', 'Viermal'],
+        answer: 2,
+        explain: 'Nach dem Ass haben die Gegenspieler noch fünf Coeurs, drei davon in einer Hand. Sie müssen drei Runden schnappen und brauchen nach jedem Schnapper einen Übergang zum Dummy.',
       },
     ],
   },
@@ -683,6 +887,93 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'Umgekehrter Dummy und Trumpfcoup',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Zwei Spielweisen, die absichtlich in der langen Trumpfhand schnappen: Die Trümpfe des Dummys ziehen die der Gegenspieler, oder die eigenen Trümpfe werden verkürzt, um zu schneiden, wenn der Dummy keinen Trumpf mehr zum Ausspielen hat.',
+    body: `
+<h3>Schnappen in der langen Hand</h3>
+<p>Die Lektion „Die Trumpfbehandlung“ erklärt, dass Schnapper in der Hand mit den kürzeren Trümpfen Stiche bringen und Schnapper in der langen Hand meist nicht. Zwei Techniken kehren diese Regel um. Beim <strong>umgekehrten Dummy</strong> schnappen Sie so oft in Ihrer Hand, dass die Trümpfe des Dummys das Trumpfziehen übernehmen. Beim <strong>Trumpfcoup</strong> schnappen Sie, um Ihre Trümpfe zu verkürzen, damit Sie eine Trumpffigur eines Gegenspielers fangen können, ohne Trumpf auszuspielen.</p>
+
+<h3>Der umgekehrte Dummy</h3>
+<p>Mit fünf Trümpfen in Ihrer Hand und drei im Dummy machen Sie normalerweise fünf Trumpfstiche. Schnappen Sie dreimal in Ihrer Hand und ziehen Sie dann mit den drei Trümpfen des Dummys Trumpf, machen Sie sechs: drei Schnapper und drei Trumpfrunden vom Dummy. Der Dummy ist zur Haupthand geworden, und Ihre Schnapper sind nun Schnapper in der kurzen Hand.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ von Süd. West spielt den ♦K aus."></div>
+<p><strong>Zählen:</strong> Fünf Pik, das ♥A, das ♦A und vier Treff ergeben elf Stiche. Der Dummy kann nichts schnappen, denn er hat so viele Karo und Treff wie Sie, und Ihre beiden Karoverlierer können nirgendwohin.</p>
+<p><strong>Kehren Sie den Dummy um:</strong> Schnappen Sie die drei kleinen Coeurs des Dummys in Ihrer Hand und lassen Sie ♠K Q J Trumpf ziehen. Die Übergänge zum Dummy sind das ♥A, der ♠K, die ♠Q und der ♣K.</p>
+<ol>
+<li>Gewinnen Sie mit dem ♦A und spielen Sie Coeur zum Ass.</li>
+<li>Schnappen Sie ein Coeur und spielen Sie ein kleines Pik zum König.</li>
+<li>Schnappen Sie ein Coeur und spielen Sie Pik zur Dame.</li>
+<li>Schnappen Sie das letzte Coeur mit dem ♠A und gehen Sie mit Treff zum König zum Dummy.</li>
+<li>Ziehen Sie den letzten Trumpf mit dem ♠J, werfen Sie dabei ein Karo ab, und nehmen Sie die restlichen Treffstiche.</li>
+</ol>
+<p>Sechs Trumpfstiche (drei Schnapper und drei Runden vom Dummy), das ♥A, das ♦A und vier Treff ergeben zwölf. Der Plan braucht eine 3-2-Verteilung der Trümpfe, damit die drei Trümpfe des Dummys sie ziehen können, und er braucht jeden Übergang. Deshalb schlägt nur ein Trumpfausspiel 6♠: Es entfernt eine Trumpfrunde, bevor das Schnappen begonnen hat, und dem Alleinspieler fehlt ein Übergang.</p>
+<div class="tip">Test für den umgekehrten Dummy: Zählen Sie die Schnapper, die Sie in Ihrer Hand nehmen können, zur Trumpflänge des Dummys hinzu. Ist die Summe größer als Ihre eigene Trumpflänge und sind die Trümpfe des Dummys stark genug, um die der Gegenspieler zu ziehen, gewinnt die Umkehr einen Stich.</div>
+
+<h3>Der Trumpfcoup</h3>
+<p>Manchmal hält ein Gegenspieler eine Trumpffigur hinter Ihrer Gabel, etwa ♠K x hinter Ihrem ♠A Q, und der Dummy hat keinen Trumpf mehr, um durchzuspielen. Sie können nicht schneiden, indem Sie selbst Trumpf spielen. Spielt aber der Dummy am Ende des Spiels aus, wenn der Gegenspieler nur noch Trümpfe hat, muss dieser einen <em>vor</em> Ihnen spielen, und der Schnitt gelingt ohne Trumpf im Dummy. Das ist ein <strong>Trumpfcoup</strong>. Damit er funktioniert, müssen Sie Ihre Trümpfe zuerst durch Schnappen verkürzen, bis Sie nicht mehr haben als der Gegenspieler.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ von Süd. West zieht das ♣A ab und wechselt zur ♥10."></div>
+<p>Sie dürfen nichts mehr abgeben. Gewinnen Sie mit dem ♥A und spielen Sie Pik: Ost gibt klein zu, und Ihre 9 gewinnt. Gehen Sie mit dem ♦A zum Dummy und wiederholen Sie den Schnitt: Die 10 gewinnt, und West wirft ab. Ost hatte vier Trümpfe und hält noch ♠K 8 hinter Ihrem ♠A Q J 3, und der Dummy hat kein Pik mehr. Ziehen Sie jetzt das Ass ab, macht der König von Ost einen Stich: ein Faller.</p>
+<p>Verkürzen Sie stattdessen Ihre Trümpfe. Sie halten vier gegen zwei von Ost, also müssen Sie zweimal schnappen:</p>
+<ol>
+<li>Gehen Sie mit dem ♦K zum Dummy, ziehen Sie den ♥K ab und schnappen Sie ein Treff mit der ♠3.</li>
+<li>Gehen Sie mit der ♦Q zum Dummy und schnappen Sie ein Coeur mit dem ♠J. Jetzt haben Sie ♠A Q, so viele Trümpfe wie Ost.</li>
+<li>Gehen Sie mit dem ♦J zum Dummy; Ost bedient. Im zwölften Stich spielt der Dummy aus.</li>
+</ol>
+<p>Schnappen Sie ein Treff und ein Coeur, nicht zwei Treff: So muss Ost jedes Mal bedienen und bekommt nie einen freien Abwurf. Bekäme er einen, würde er ein Karo abwerfen und später einen Karogewinner des Dummys schnappen.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="Die letzten beiden Stiche. Pik ist Trumpf, und der Dummy spielt aus."></div>
+<p>Ost hat nur Trümpfe und muss einen vor Ihnen spielen: die ♠8, und Sie gewinnen mit der Dame, oder den ♠K, und Sie gewinnen mit dem Ass. Zwölf Stiche.</p>
+<h4>Was ein Trumpfcoup braucht</h4>
+<ul>
+<li><strong>Nicht mehr Trümpfe als der Gegenspieler</strong> am Ende: Verkürzen Sie Ihre durch Schnappen, notfalls sogar durch Schnappen von Gewinnern des Dummys (das nennt man <em>Grand Coup</em>).</li>
+<li><strong>Übergänge zum Dummy</strong> für jeden Trumpfschnitt, jeden Schnapper und das letzte Ausspiel.</li>
+<li><strong>Das richtige Timing:</strong> Im Moment des Coups darf der Gegenspieler nur noch Trümpfe haben. Wenn Sie seine Hand zählen, wissen Sie, wann es so weit ist.</li>
+</ul>
+<div class="warn">Verkürzen Sie Ihre Trümpfe nur, wenn Sie wissen, dass Sie es müssen. Stünden die Trümpfe 3-3, fiele der König unter das Ass, und Schnappen in Ihrer Hand würde nur Trümpfe verschwenden. Hier hat Ihnen West, als er in der zweiten Runde abwarf, verraten, dass Ost mit vier begonnen hat.</div>
+`,
+    keyPoints: [
+      'Beim umgekehrten Dummy schnappen Sie so oft in der langen Trumpfhand, dass die Trümpfe des Dummys die der Gegenspieler ziehen.',
+      'Er gewinnt, wenn die Schnapper in Ihrer Hand plus die Trumpflänge des Dummys Ihre eigene Trumpflänge übertreffen; er braucht gute Trümpfe im Dummy und Übergänge.',
+      'Ein Trumpfcoup fängt eine Trumpffigur eines Gegenspielers, ohne Trumpf zu spielen: Der Dummy spielt aus, und der Gegenspieler muss zuerst spielen.',
+      'Verkürzen Sie vor einem Trumpfcoup Ihre Trümpfe durch Schnappen, bis Sie nicht mehr haben als der Gegenspieler.',
+      'Zählen Sie zuerst die Trümpfe des Gegenspielers; ein Coup ist nur bei schlechter Verteilung nötig.',
+    ],
+    quiz: [
+      {
+        q: 'Was ist ein umgekehrter Dummy?',
+        options: ['Die Verlierer des Dummys im Dummy schnappen', 'In der eigenen langen Trumpfhand so oft schnappen, dass die Trümpfe des Dummys die der Gegenspieler ziehen', 'Den Dummy das Spiel spielen lassen', 'Zu Sans Atout wechseln'],
+        answer: 1,
+        explain: 'Die Rollen der Hände werden vertauscht: Ihre Trümpfe dienen zum Schnappen, und die kürzeren, aber starken Trümpfe des Dummys ziehen die Trümpfe der Gegenspieler.',
+      },
+      {
+        q: 'Sie haben fünf Trümpfe, der Dummy drei starke. Wie viele Schnapper in Ihrer Hand brauchen Sie, damit der umgekehrte Dummy einen Stich gewinnt?',
+        options: ['Einen', 'Zwei', 'Drei', 'Fünf'],
+        answer: 2,
+        explain: 'Drei Schnapper plus drei Trumpfrunden vom Dummy ergeben sechs Trumpfstiche, einen mehr als Ihre eigenen fünf.',
+      },
+      {
+        q: 'Welches Ausspiel schlägt 6♠ im Spiel mit umgekehrtem Dummy oben?',
+        options: ['Der ♦K', 'Ein Coeur', 'Ein Trumpf', 'Ein Treff'],
+        answer: 2,
+        explain: 'Ein Trumpfausspiel entfernt eine Trumpfrunde, bevor der Alleinspieler mit dem Schnappen beginnen kann, und danach fehlt ihm ein Übergang, um die Umkehr zu vollenden.',
+      },
+      {
+        q: 'Was müssen Sie vor einem Trumpfcoup tun?',
+        options: ['Alle Trümpfe der Gegenspieler ziehen', 'Ihre Trümpfe durch Schnappen verkürzen, bis Sie nicht mehr haben als der Gegenspieler', 'Einen Trumpf im Dummy behalten', 'Ihre Trumpfgabel ausspielen'],
+        answer: 1,
+        explain: 'Am Ende darf der Gegenspieler nur noch Trümpfe haben und Sie nicht mehr Trümpfe als er, damit ihn das Ausspiel vom Dummy zwingt, vor Ihnen zu spielen.',
+      },
+      {
+        q: 'Warum macht der König von Ost in der Endposition des Trumpfcoups oben keinen Stich?',
+        options: ['Ost muss vor Ihnen einen Trumpf spielen, und Sie spielen darüber', 'Der König wurde schon gespielt', 'West hat den König', 'Ost ist in Coeur gesqueezt'],
+        answer: 0,
+        explain: 'Der Dummy spielt aus, und Ost hat nur noch ♠K 8. Was Ost auch spielt, Sie gewinnen mit der Karte direkt darüber.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Zählen im Gegenspiel',
     topic: 'Defense',
@@ -861,6 +1152,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['Das wird es nie', 'Weil der kontrierte Stichwert bei Erfüllung das Vollspiel erreichen kann: 2♥ kontriert bringt 470 oder 670', 'Weil die Gegner eine Prämie dafür bekommen, kontriert zu werden', 'Weil Sie Trumpf ausspielen müssen'],
         answer: 1,
         explain: 'Kontriert hat 2♥ einen Stichwert von 120, und das zählt als Vollspiel. Rechnen Sie fest damit, einen Teilkontrakt zu schlagen, bevor Sie ihn kontrieren.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Ausspiele gegen Schlemms und kontrierte Kontrakte',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Wie Sie das Ausspiel gegen Schlemms, gegen kontrierte Kontrakte und Opfergebote wählen und wie der Partner mit einem Kontra ein Ausspiel verlangen kann.',
+    body: `
+<h3>Gegen SA-Schlemms: nichts verschenken</h3>
+<p>Wenn die Gegner 6SA oder 7SA reizen, haben sie zusammen etwa 33 FP oder mehr, und Ihre Seite hat sehr wenig. Für das Hochspielen einer langen Farbe fehlt fast immer die Zeit; Ihre Aufgabe ist, dem Alleinspieler keinen Stich zu schenken. Wählen Sie das sicherste Ausspiel: die Spitze einer Sequenz oder eine Farbe ohne Figur. Spielen Sie nicht von einem König oder einer Dame weg aus: Gegen einen Schlemm ist das oft der zwölfte Stich.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="Am Ausspiel gegen 1SA – 6SA"></div>
+<p>Spielen Sie die ♦8 aus, die höchste von drei kleinen. Ein Pik oder ein Coeur könnte dem Alleinspieler mit Figuren, die Sie nicht sehen, einen Stich geben; das Karo verschenkt nichts, und Ihr ♠K und Ihre ♥Q machen vielleicht noch einen Stich, wenn der Alleinspieler sie finden muss.</p>
+
+<h3>Gegen Farbschlemms: angreifen oder abwarten?</h3>
+<p>Gegen sechs in einer Farbe stellen Sie dieselbe Frage wie gegen jeden Farbkontrakt (siehe die Lektion „Gegenspiel gegen Farbkontrakte“), aber Sie brauchen zwei Stiche und haben nur ein Ausspiel.</p>
+<ul>
+<li><strong>Greifen Sie an</strong>, wenn die Reizung eine lange Nebenfarbe zeigt, die Abwürfe liefern wird. Spielen Sie von einem König (oder einer Dame) in einer ungereizten Farbe aus, in der Hoffnung, dass der Partner das Ass oder die Dame hält, um einen Stich hochzuspielen, bevor die Abwürfe kommen.</li>
+<li><strong>Spielen Sie passiv</strong>, wenn die Gegner offenbar auf Stärke gereizt haben, mit ausgeglichenen Händen und ohne lange Nebenfarbe. Dann muss der Alleinspieler zwölf Stiche allein finden, und ein sicheres Ausspiel, oft ein Trumpf, verschenkt nichts.</li>
+<li><strong>Ein Single</strong> lohnt sich, wenn der Partner ein Ass halten könnte: Er gewinnt damit und gibt Ihnen einen Schnapper.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="Am Ausspiel gegen 6♥; der Dummy hat eine lange, starke Treffarbe gezeigt"></div>
+<p>Spielen Sie die ♠2 aus. Sobald Trumpf gezogen ist, wirft der Alleinspieler Verlierer auf die Treffs des Dummys ab, also muss das Gegenspiel seine Stiche vorher hochspielen. Ein Pik vom König findet beim Partner vielleicht das Ass oder die Dame und baut rechtzeitig einen Stich auf. Ein Karo wäre sicher, aber zu langsam.</p>
+<h4>Ein Ass ausspielen</h4>
+<p>Spielen Sie gegen einen Farbschlemm ein ungestütztes Ass aus, wenn der Dummy eine lange Nebenfarbe gezeigt hat, sodass die Farbe Ihres Asses in Abwürfen verschwinden könnte, oder wenn Sie gute Chancen auf einen zweiten Stich haben, etwa einen Trumpfstich oder einen König hinter der Farbe des Alleinspielers. Sonst behalten Sie es: Das Ass macht seinen Stich auch später, während das Ausspiel König und Dame des Alleinspielers hochspielen kann. Gegen 6SA ist ein Ass ein sicherer Stich, also gibt es keine Eile, es auszuspielen.</p>
+<p>Gegen einen Großschlemm wählen Sie das sicherste Ausspiel, oft einen Trumpf: Der Alleinspieler braucht jeden Stich, also ist jeder Stich, den Sie verschenken, tödlich.</p>
+
+<h3>Ausspielweisende Kontras</h3>
+<p>Macht ein Gegner ein künstliches Gebot, hat ein Kontra des nächsten Spielers meist nichts mit Strafe zu tun: Es bittet den Partner, diese Farbe auszuspielen.</p>
+<table>
+<thead><tr><th>Der Partner kontriert</th><th>Bedeutung</th></tr></thead>
+<tbody>
+<tr><td>Stayman: 1SA – 2♣</td><td>Treff ausspielen: Der Partner hat eine gute Treffarbe</td></tr>
+<tr><td>Einen Transfer: 1SA – 2♦</td><td>Karo ausspielen</td></tr>
+<tr><td>Ein Cuebid oder Kontrollgebot, etwa 4♣ auf dem Weg zu einem Coeur-Schlemm</td><td>Treff ausspielen</td></tr>
+<tr><td>Eine Blackwood-Antwort, etwa 5♦</td><td>Karo ausspielen</td></tr>
+</tbody>
+</table>
+<p>Auch ein fehlendes Kontra sagt etwas: Hätte der Partner ein Cuebid von 4♦ kontrieren können und hat es nicht getan, will er wahrscheinlich kein Karoausspiel.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="West: am Ausspiel gegen 4♥"></div>
+<p>Ohne das Kontra spielten Sie vielleicht Pik oder Karo aus, beides von einer Figur. Das Kontra von Ost auf Stayman hat um ein Treff gebeten, also spielen Sie die ♣8 aus, die höchste von drei kleinen. Ost hat eine gute Treffarbe, und Sie müssen Ihre anderen Farben nicht anbrechen.</p>
+
+<h3>Ausspiele gegen kontrierte Kontrakte</h3>
+<table>
+<thead><tr><th>Situation</th><th>Ausspiel</th></tr></thead>
+<tbody>
+<tr><td>Der Partner kontriert 3SA, nachdem er eine Farbe gereizt hat</td><td>Die Farbe des Partners</td></tr>
+<tr><td>Der Partner kontriert 3SA; Sie haben eine Farbe gereizt, der Partner nicht</td><td>Ihre Farbe</td></tr>
+<tr><td>Der Partner kontriert 3SA; keiner von Ihnen hat gereizt</td><td>Die zuerst gereizte Farbe des Dummys</td></tr>
+<tr><td>Der Partner kontriert einen Schlemm</td><td>Ein ungewöhnliches Ausspiel (siehe unten)</td></tr>
+<tr><td>Ihre Seite hat das Opfergebot der Gegner kontriert</td><td>Meist ein Trumpf</td></tr>
+<tr><td>Der Partner lässt Ihr Informationskontra zur Strafe stehen</td><td>Ein Trumpf</td></tr>
+</tbody>
+</table>
+<p>Warum ein Trumpf gegen ein Opfergebot? Die opfernde Seite hat wenig hohe Karten und hofft, ihre Stiche durch Schnappen zu machen; Ihre Seite hat die hohen Karten, die ihre Stiche ohnehin machen. Jede Trumpfrunde nimmt Schnapper weg. Diese Bedeutungen sind verbreitete Absprachen: Vergewissern Sie sich, dass Ihr Partner sie teilt.</p>
+
+<h3>Das Lightner-Kontra</h3>
+<p>Einen freiwillig gereizten Schlemm zur Strafe zu kontrieren bringt wenig. 6♠ mit einem Faller bringt kontriert 50 oder 100 mehr als unkontriert, aber wird der Schlemm erfüllt, kostet das Kontra 230, mit Rekontra noch viel mehr, und es warnt den Alleinspieler vor einer schlechten Verteilung. Deshalb verlangt nach einer Konvention, die nach Theodore Lightner benannt ist, ein Kontra eines Schlemms durch den Spieler, der <em>nicht</em> am Ausspiel ist, ein <strong>ungewöhnliches Ausspiel</strong>:</p>
+<ul>
+<li>keinen Trumpf und keine ungereizte Farbe, denn die würden Sie ohnehin ausspielen;</li>
+<li>meist die erste vom Dummy gereizte Nebenfarbe, oft weil der Partner darin Chicane hat;</li>
+<li>hat der Partner eine Farbe gereizt, sagt das Kontra außerdem: Spiel nicht meine Farbe aus.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="West: am Ausspiel nach dem Kontra von Ost"></div>
+<p>Normalerweise würden Sie die ♦Q ausspielen. Das Kontra von Ost verlangt etwas Ungewöhnliches: die zuerst gereizte Farbe des Dummys, Coeur. Spielen Sie die ♥8 aus. Ost hat wahrscheinlich Chicane in Coeur und schnappt, und dann braucht das Gegenspiel nur noch einen Stich.</p>
+<div class="warn">Kontrieren Sie nicht ausspielweisend, nur weil Sie hohe Karten in der Farbe halten. Kontrieren Sie, wenn Sie dieses Ausspiel wirklich wollen, und denken Sie daran, dass auch die Gegner das Kontra nutzen können: Sie können rekontrieren oder den Kontrakt einfach meiden.</div>
+`,
+    keyPoints: [
+      'Gegen 6SA und 7SA spielen Sie sicher aus: nicht von Figuren weg.',
+      'Gegen einen Farbschlemm greifen Sie an (oft von einem König), wenn der Dummy eine lange Farbe für Abwürfe hat; sonst spielen Sie passiv.',
+      'Spielen Sie gegen einen Schlemm ein Ass aus, wenn es in Abwürfen verschwinden könnte oder Sie auf einen zweiten Stich hoffen; sonst behalten Sie es.',
+      'Ein Kontra eines künstlichen Gebots wie Stayman, eines Transfers oder eines Cuebids verlangt das Ausspiel dieser Farbe.',
+      'Ein Lightner-Kontra eines Schlemms verlangt ein ungewöhnliches Ausspiel, meist die erste Nebenfarbe des Dummys; gegen ein kontriertes Opfergebot spielen Sie Trumpf aus.',
+    ],
+    quiz: [
+      {
+        q: 'Sie sind gegen 1SA – 6SA am Ausspiel mit ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. Was spielen Sie aus?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Gegen einen SA-Schlemm spielen Sie sicher aus. Die ♦8 verschenkt nichts; ein Ausspiel vom König, von der Dame oder vom Buben kann dem Alleinspieler den zwölften Stich schenken.',
+      },
+      {
+        q: 'Die Gegner reizen 6♥, nachdem der Dummy eine lange, starke Treffarbe gezeigt hat. Welches Ausspiel ist meist richtig?',
+        options: ['Passiv: ein Trumpf', 'Angreifend: von einem König in einer ungereizten Farbe, um einen Stich hochzuspielen, bevor der Alleinspieler abwerfen kann', 'Ein Treff, um den Dummy abzuschneiden', 'Immer ein Ass'],
+        answer: 1,
+        explain: 'Sobald Trumpf gezogen ist, landen die Verlierer des Alleinspielers auf den Treffs des Dummys. Das Gegenspiel muss seine Stiche vorher aufbauen.',
+      },
+      {
+        q: 'Die Gegner reizen 1SA – 2♣ (Stayman), und der Partner kontriert. Worum bittet das Kontra?',
+        options: ['Um Strafe in 2♣', 'Um ein Treffausspiel', 'Um eine Antwort in Oberfarbe', 'Es zeigt eine starke ausgeglichene Hand'],
+        answer: 1,
+        explain: '2♣ ist künstlich, also ist das Kontra ausspielweisend: Der Partner hat eine gute Treffarbe und will sie ausgespielt haben.',
+      },
+      {
+        q: 'Der Partner gibt ein Lightner-Kontra gegen 6♠. Der Dummy hat Coeur gereizt, und Sie halten zwei Coeurs und ♦Q J 10 9. Was spielen Sie aus?',
+        options: ['Die ♦Q', 'Ein Coeur', 'Einen Trumpf', 'Ein Treff'],
+        answer: 1,
+        explain: 'Das Kontra verlangt ein ungewöhnliches Ausspiel, meist die erste Nebenfarbe des Dummys. Der Partner hat wahrscheinlich Chicane in Coeur.',
+      },
+      {
+        q: 'Sie haben das 5♦-Opfergebot der Gegner kontriert. Was ist meist das beste Ausspiel?',
+        options: ['Ein Trumpf', 'Ihre längste Farbe', 'Ein Ass, um den Dummy zu sehen', 'Ein Single'],
+        answer: 0,
+        explain: 'Die opfernde Seite hat wenig hohe Karten und macht ihre Stiche durch Schnappen. Trumpfausspiele nehmen diese Schnapper weg, und Ihre hohen Karten machen ihre Stiche ohnehin.',
       },
     ],
   },
