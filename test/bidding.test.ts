@@ -71,6 +71,24 @@ function reading(calls: string, dealer: 0 | 1 | 2 | 3 = 0) {
   return readAuction(a, 'None').records.at(-1)!.meaning;
 }
 
+describe('responses and rebids', () => {
+  it('over a minor, game values with no major and no fitting notrump or raise bid a forcing new minor', () => {
+    expect(advice('SK S7 HA HK H5 DA D8 D7 CA C7 C6 C4 C3', '1C P')).toMatchObject({ call: '1D', key: 'response' });
+    expect(advice('S10 S4 HK H10 DA DK DQ D7 D4 D3 CK CQ CJ', '1D P')).toMatchObject({ call: '2C', key: 'twoOverOne' });
+  });
+  it('four-card support and a shapely hand under 13 HCP make a limit raise, not a pass', () => {
+    expect(next(hand('SK S8 S5 S2 HA HQ H8 H2 DK D7 D2 C7 C5'), '1S P')).toBe('3S');
+  });
+  it('opener’s 2NT after a two-over-one shows 12–14, not any hand', () => {
+    expect(reading('1S P 2D P 2NT').shown.hcp).toEqual([12, 14]);
+  });
+  it('opener jumps to 3NT with a long minor too strong for the jump rebid', () => {
+    const r = advice('SK SQ S4 H5 DA DQ D2 CA CK CJ C9 C8 C7', '1C P 1H P');
+    expect(r).toMatchObject({ call: '3NT', key: 'rebid' });
+    expect(r.shown.hcp[0]).toBeGreaterThanOrEqual(17);
+  });
+});
+
 describe('invitations', () => {
   it('a general invitation shows a bounded range, so opener does not leap to slam', () => {
     const m = reading('1C P 1H P 1S P 2NT');
@@ -113,11 +131,11 @@ describe('strain', () => {
 
 describe('slam tries', () => {
   it('a control bid at the four level agrees partner’s major when slam is on with a little extra', () => {
-    const r = advice('SK S8 S4 HJ H6 H2 DA DK D9 CA CQ C6 C5', '1S P 2C P 2S P');
+    const r = advice('SK S8 S4 H6 H3 H2 DA DK D9 CA CQ C6 C5', '1S P 2C P 2S P');
     expect(r).toMatchObject({ call: '4D', tag: 'cue' });
     expect(reading('1S P 2C P 2S P 4D').data).toEqual({ suit: 3, control: 1 });
     // a point more and it asks for key cards at once
-    expect(advice('SK S8 S4 HQ H6 H2 DA DK D9 CA CQ C6 C5', '1S P 2C P 2S P')).toMatchObject({ call: '4NT', tag: 'rkcb' });
+    expect(advice('SK S8 S4 HJ H6 H2 DA DK D9 CA CQ C6 C5', '1S P 2C P 2S P')).toMatchObject({ call: '4NT', tag: 'rkcb' });
     // partner, with extras, shows a control in turn
     expect(advice('SA S10 S9 S7 S5 S3 HA H9 H7 D8 CK CJ C4', '1S P 2C P 2S P 4D P')).toMatchObject({ call: '4H', tag: 'cue' });
   });
@@ -129,7 +147,7 @@ describe('slam tries', () => {
     expect(advice('SA S3 HA H2 DA DK DJ D7 D3 C10 C8 C6 C3', '1D P 2C P 4C P')).toMatchObject({ call: '4NT', tag: 'rkcb' });
   });
   it('slam values are not wasted on a sign-off after partner’s invitation', () => {
-    expect(advice('SA SQ SJ S8 S4 H4 DA DK D10 D8 D7 CK C9', '1C P 1S P 3C P')).toMatchObject({ call: '4C', tag: 'minorTry' });
+    expect(advice('SA SQ S9 S8 S4 H4 DA DK D10 D8 D7 CK C9', '1C P 1S P 3C P')).toMatchObject({ call: '4C', tag: 'minorTry' });
     expect(advice('S6 HA HQ DJ D6 D5 D3 CA CQ CJ C7 C4 C3', '1C P 1S P 3C P 4C P')).toMatchObject({ call: '4NT', tag: 'rkcb' });
   });
   it('partner’s 3NT over a preempt: 6NT with 15+, a quantitative 4NT with 12–14', () => {
@@ -153,6 +171,16 @@ describe('competitive judgement', () => {
   });
   it('after their double, four-card support for a major is shown with Jordan 2NT, not a redouble', () => {
     expect(next(hand('S8 S7 S6 S4 DK DQ D10 D6 D2 CA CQ C4 C3'), '1S X')).toBe('2NT');
+  });
+  it('a competitive double after our opening is for takeout: partner bids rather than sit in it', () => {
+    expect(advice('SQ HQ H6 H5 DA D10 D7 D3 CA CK CQ C10 C4', '1C 2H P 2S')).toMatchObject({ call: 'X', tag: 'takeoutX' });
+    expect(next(hand('S8 S7 S4 S2 HA H10 H3 DQ D9 D8 D5 C8 C3'), '1C 2H P 2S X P')).not.toBe('P');
+  });
+  it('with no room for a cue-bid raise, game values raise partner’s major to game', () => {
+    expect(next(hand('SJ S9 S4 H10 DA D9 CA CK CQ C9 C8 C7 C4'), 'P 1S 3D', 1)).toBe('4S');
+  });
+  it('over a doubled weak two, four cards in a major and 9–11 HCP bid game at once', () => {
+    expect(next(hand('S8 S3 HK HJ H8 H3 DA DQ D6 C10 C8 C7 C4'), '2S X P', 2)).toBe('4H');
   });
   it('opener passes partner’s redouble; the doubler does not sit in it', () => {
     expect(next(hand('SK SQ SJ S10 S3 HA H5 H4 DA D7 D4 C9 C5'), '1S X XX P')).toBe('P');
