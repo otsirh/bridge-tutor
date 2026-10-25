@@ -173,6 +173,114 @@ export const LESSONS_3: Lesson[] = [
   },
 
   {
+    id: 'defending-against-notrump',
+    title: 'A defesa contra sem trunfo',
+    topic: 'Defense',
+    level: 'Intermediate',
+    summary: 'Como a defesa vence a corrida contra sem trunfo: desbloquear, devolver a carta certa, manter a comunicação, atacar as entradas do declarante e descartar bem.',
+    body: `
+<h3>Uma corrida por vazas</h3>
+<p>Em sem trunfo, nada detém um naipe longo depois de firmado. Os dois lados correm: o declarante para firmar vazas suficientes, a defesa para firmar e bater primeiro o seu naipe longo. Quase todos os problemas da defesa são problemas de <strong>comunicação</strong>: o naipe longo está numa mão e as entradas, muitas vezes, na outra. A boa defesa faz o naipe circular entre os dois defensores e corta as comunicações do declarante.</p>
+
+<h3>Terceira mão: alta, e fora do caminho do parceiro</h3>
+<p>A terceira mão joga alto (veja a lição “Segunda mão baixa, terceira mão alta”). Em sem trunfo existe um segundo dever: não <strong>bloquear</strong> o naipe do parceiro. Com uma honra segunda no naipe longo do parceiro, livre-se cedo dessa honra, mesmo que para isso precise superar a carta do parceiro.</p>
+<table>
+<thead><tr><th>Posição</th><th>Copas</th></tr></thead>
+<tbody>
+<tr><td>Norte (morto)</td><td>6 5 2</td></tr>
+<tr><td>Oeste (parceiro, sai com o K)</td><td>K Q 10 9 7</td></tr>
+<tr><td>Leste (você)</td><td>A 3</td></tr>
+<tr><td>Sul (declarante)</td><td>J 8 4</td></tr>
+</tbody>
+</table>
+<p>Se você jogar o 3, o declarante cede. O parceiro continua com a dama e o seu ás tem de ganhar a segunda rodada: você não tem mais copas para devolver, o valete do declarante continua parando o naipe e o parceiro precisa de mais duas entradas para firmar e bater as copas. Em vez disso, <strong>supere</strong> o rei com o ás e devolva o 3. O valete do declarante fica preso e a defesa faz as cinco primeiras vazas de copas.</p>
+<ul>
+<li>Desbloqueie quando a saída do parceiro mostrar um naipe forte (o topo de uma sequência como K Q 10 ou Q J 10) e você tiver uma honra segunda: jogue a honra cedo, para que a sua última carta seja pequena.</li>
+<li>Com três cartas encabeçadas por uma honra (A x x, K x x), jogue alto e guarde uma carta pequena para devolver: você não bloqueia nada.</li>
+</ul>
+
+<h3>Devolver o naipe do parceiro</h3>
+<p>Quando você ganha uma vaza e volta no naipe do parceiro, a carta escolhida diz quantas lhe restam e, portanto, quantas o declarante tem.</p>
+<table>
+<thead><tr><th>Você tinha</th><th>Ganha com</th><th>Devolve</th><th>A regra</th></tr></thead>
+<tbody>
+<tr><td>A 9 3</td><td>A</td><td>9</td><td>Restam duas cartas: devolva a mais alta</td></tr>
+<tr><td>A 8 5 2</td><td>A</td><td>2</td><td>Restam três ou mais: devolva a sua quarta melhor original</td></tr>
+<tr><td>K 10 6 4 2</td><td>K</td><td>4</td><td>A sua quarta melhor original, não a carta mais baixa</td></tr>
+</tbody>
+</table>
+<p>Uma carta alta diz “me resta no máximo uma”; uma baixa diz “me restam pelo menos duas”. O parceiro pode então deduzir se o declarante ainda tem uma parada e se deve ganhar agora ou ceder. Devolver a mais alta de duas cartas também evita bloquear o naipe: se você guardar o 9, ele pode ganhar a terceira rodada quando é o parceiro quem precisa estar na mão.</p>
+
+<h3>Ceder para manter o contato</h3>
+<p>O defensor com o naipe longo às vezes tem de entregar uma vaza cedo, enquanto o parceiro ainda tem uma carta do naipe para devolver.</p>
+<div class="deal" data-n="S:109 H:A64 D:KQJ105 C:K83" data-e="S:752 H:1072 D:A83 C:10964" data-s="S:QJ4 H:KQ5 D:742 C:AQJ2" data-w="S:AK863 H:J983 D:96 C:75" data-caption="3ST por Sul depois de 1ST – 3ST. Oeste sai com o ♠A e Leste joga o ♠2."></div>
+<p>O 2 de Leste nega uma honra de espadas, então o declarante tem a ♠Q J. Oeste conta: Sul tem 15-17 PH, o morto 13 e Oeste 8, então Leste tem no máximo 4. O declarante vai cumprir expulsando o ♦A, de modo que a única esperança da defesa é que Leste o tenha.</p>
+<p>Se Oeste bater o ♠K e jogar uma terceira espada, o declarante ganha com a última honra e Leste, que começou com três espadas, fica sem nenhuma. Leste toma o ♦A, mas não consegue chegar a Oeste, cujas duas espadas longas nunca fazem vaza: o declarante faz dez vazas. Em vez disso, Oeste joga uma <strong>espada pequena</strong> na segunda vaza. O declarante ganha, mas Leste conserva uma espada. Quando Leste toma o ♦A, devolve-a, e Oeste bate o ♠K e as duas últimas espadas: uma abaixo.</p>
+<p>Uma espada pequena já na saída teria o mesmo efeito. O princípio: quando o seu naipe é longo e você não tem entrada fora dele, entregue a vaza que precisa perder <em>enquanto o parceiro ainda tem uma carta do naipe</em>.</p>
+
+<h3>Atacar as entradas do declarante</h3>
+<p>O declarante também tem problemas de comunicação, e a defesa pode agravá-los.</p>
+<ul>
+<li><strong>Segure o seu ás</strong> quando o morto tiver um naipe longo e nenhuma entrada fora dele, e tome-o quando o declarante jogar da mão a última carta do naipe. O sinal de contagem do parceiro diz quando (veja a lição “Sinais na defesa”).</li>
+<li><strong>Expulse a entrada do morto</strong> antes que o naipe longo seja firmado, mesmo que custe uma vaza.</li>
+</ul>
+<div class="hand" data-cards="S:A42 H:765 D:KQJ109 C:83" data-label="Morto, contra 3ST"></div>
+<p>Você é Leste com ♠K 7 3 e ♦A 6 2, e o declarante tem dois ouros. Segurar o ♦A não basta por si só: o declarante voltaria com o ♠A aos ouros firmados. Por isso, quando ganhar uma vaza antes que se jogue ouros, saia com o <strong>♠K</strong>. Se o declarante ganhar com o ás, o morto fica sem entrada: você segura o ♦A até a segunda rodada e os ouros do morto estão mortos. Se o declarante ceder, o seu rei fez vaza e você pode jogar outra espada. Sacrificar uma honra para eliminar assim uma entrada chama-se <strong>golpe de Merrimac</strong>. É raro, mas a pergunta por trás dele não é: qual entrada do declarante importa mais?</p>
+
+<h3>Descartes</h3>
+<p>Quando o declarante corre um naipe longo, os defensores têm de descartar, e um único descarte errado pode lhe dar o contrato.</p>
+<ul>
+<li><strong>Guarde o comprimento do morto.</strong> Com ♣Q 10 8 3 atrás do ♣K J 7 4 do morto, guarde os quatro paus: se descartar um, o último paus do morto pode virar vencedor. As cartas do morto estão à vista, por isso esta é a regra mais fácil de seguir.</li>
+<li><strong>Guarde o comprimento do declarante.</strong> Conte os naipes dele pelo leilão e pelo carteio, e mantenha uma guarda em qualquer naipe em que só você possa parar a carta longa dele.</li>
+<li><strong>Dividam o trabalho.</strong> Um naipe precisa de uma só guarda. Deixe para o parceiro o naipe que ele pode guardar (os sinais de contagem ajudam) e guarde você o outro.</li>
+<li><strong>Sinalize com o primeiro descarte:</strong> uma carta alta pede o naipe; uma baixa diz que você não o quer. Descarte de um naipe que você pode dispensar; nunca jogue fora uma carta de que precisa só para sinalizar.</li>
+<li><strong>Guarde as vencedoras do seu naipe firmado</strong> enquanto você ou o parceiro ainda puderem entrar na mão para batê-las.</li>
+</ul>
+<div class="tip">Conte as vazas do declarante antes de descartar. Se ele tem oito vazas e precisa de uma nona, o naipe que poderia dá-la é o que você precisa guardar.</div>
+<div class="warn">Planeje os descartes cedo. Hesitar e depois deixar uma honra seca diz ao declarante exatamente onde ela está.</div>
+`,
+    keyPoints: [
+      'Em sem trunfo, a comunicação decide a corrida: faça o naipe longo circular entre os dois defensores.',
+      'Desbloqueie: com uma honra segunda no naipe forte do parceiro, jogue a honra cedo, superando a carta dele se for preciso.',
+      'Devolva a mais alta de duas cartas restantes; com três ou mais, a sua quarta melhor original.',
+      'O defensor com o naipe longo e sem entradas cede uma rodada enquanto o parceiro ainda tem uma carta para devolver.',
+      'Ataque as entradas do declarante; ao descartar, guarde o comprimento do morto e vigie as cartas longas do declarante.',
+    ],
+    quiz: [
+      {
+        q: 'Contra 3ST, o parceiro sai com o ♥K (de K Q 10 9 7). O morto tem ♥6 5 2 e você ♥A 3. O que você joga?',
+        options: ['O 3, deixando o rei do parceiro ganhar', 'O ás, e devolve o 3', 'O ás, e muda de naipe', 'Tanto faz'],
+        answer: 1,
+        explain: 'Supere e devolva o 3. Se você jogar pequeno, o declarante cede e o seu ás tem de ganhar a segunda rodada sem copas para devolver, enquanto o valete do declarante continua parando o naipe.',
+      },
+      {
+        q: 'Você ganha a saída de espadas do parceiro contra 3ST com o ás de ♠A 9 3. Qual espada devolve?',
+        options: ['O 9', 'O 3', 'Qualquer uma', 'Não volto em espadas'],
+        answer: 0,
+        explain: 'Com duas cartas restantes, devolva a mais alta. O parceiro vê o 9 e sabe que lhe resta no máximo uma espada.',
+      },
+      {
+        q: 'Você ganha com o ás de ♦A 8 5 2. Qual ouro devolve?',
+        options: ['O 8', 'O 5', 'O 2', 'Nenhum: mudo de naipe'],
+        answer: 2,
+        explain: 'Com três ou mais cartas restantes, devolva a sua quarta melhor original, aqui o 2. A carta baixa diz ao parceiro que você ainda tem pelo menos dois ouros.',
+      },
+      {
+        q: 'Na mão de 3ST acima, por que Oeste deve jogar uma espada pequena na segunda vaza?',
+        options: ['Para descobrir quem tem a ♠Q', 'Para que Leste guarde uma espada para devolver quando tomar o ♦A', 'Porque o ♠K poderia ser cortado', 'Para obrigar o declarante a gastar as entradas do morto'],
+        answer: 1,
+        explain: 'Leste começou com três espadas. Se Oeste bater o rei e jogar uma terceira espada, Leste não terá nenhuma quando entrar na mão. Ceder agora mantém o contato entre as duas mãos.',
+      },
+      {
+        q: 'O declarante corre um naipe longo. O morto tem ♣K J 7 4 e você ♣Q 10 8 3 atrás. O que você guarda?',
+        options: ['Os quatro paus', 'Só a Q e o 10', 'Só a dama', 'Depende do primeiro descarte do parceiro'],
+        answer: 0,
+        explain: 'Guarde o comprimento do morto. Assim que você descartar um paus, o quarto paus do morto pode virar vencedor.',
+      },
+    ],
+  },
+
+  {
     id: 'suit-combinations-and-odds',
     title: 'Divisões de naipes e combinação de chances',
     topic: 'Declarer play',
@@ -256,6 +364,102 @@ export const LESSONS_3: Lesson[] = [
         options: ['Jogar o rei', 'Fazer a finesse do 10', 'É exatamente 50-50', 'Jogar da outra mão'],
         answer: 1,
         explain: 'Escolha restrita: de Q J, Leste poderia ter jogado qualquer das honras, mas com a dama seca não havia escolha. A dama seca é a mais provável, então a finesse ganha cerca de 65% das vezes.',
+      },
+    ],
+  },
+
+  {
+    id: 'ruffing-finesse-and-loser-on-loser',
+    title: 'A finesse de corte, perdedora sobre perdedora e firmar um naipe cortando',
+    topic: 'Declarer play',
+    level: 'Intermediate',
+    summary: 'Três maneiras de o declarante criar vazas com os trunfos: a finesse de corte, o descarte de uma perdedora sobre outra perdedora e firmar um naipe lateral cortando.',
+    body: `
+<h3>A finesse de corte</h3>
+<p>Uma finesse comum é jogada <em>em direção</em> a uma forquilha. Uma <strong>finesse de corte</strong> joga uma honra <em>através</em> do defensor que pode ter a carta mais alta que falta, com um vazio e um trunfo prontos atrás. Se esse defensor cobrir, você corta e as suas honras restantes ficam vencedoras; se não, você descarta uma perdedora.</p>
+<p>Com ♦K Q J 10 no morto e nenhum ouro na mão, jogue o ♦K. Se Leste cobrir com o ás, corte-o, e Q J 10 estão firmadas. Se Leste jogar pequeno, descarte uma perdedora: se o rei ganhar, você economizou uma vaza, e se Oeste o tomar com o ás, você apenas trocou uma perdedora por outra. De qualquer modo, as honras restantes lhe dão descartes.</p>
+
+<h4>Qual finesse?</h4>
+<p>Com A Q J 10 contra um singleton você pode escolher. A finesse comum (jogar em direção ao A Q) funciona quando <strong>Oeste</strong> tem o rei; a finesse de corte (bater o ás e depois jogar a dama) funciona quando quem o tem é <strong>Leste</strong>. Sozinhas elas se equivalem, então deixe o resto da mão decidir: o leilão pode situar o rei e, muitas vezes, um defensor é perigoso e o outro não. Escolha a finesse que, se falhar, perca para o defensor inofensivo.</p>
+<div class="deal" data-n="S:J103 H:AQJ102 D:762 C:84" data-e="S:62 H:K743 D:J84 C:9653" data-s="S:AKQ984 H:6 D:K53 C:A72" data-w="S:75 H:985 D:AQ109 C:KQJ10" data-caption="4♠ por Sul. Oeste sai com o ♣K."></div>
+<p>Leste é o perigoso: um ouro jogado por Leste, através do seu ♦K, poderia dar à defesa três vazas de ouros. Oeste é inofensivo: um ouro jogado por Oeste chega até o seu rei.</p>
+<ul>
+<li><strong>A finesse comum</strong>, copas para a dama, perde para o rei de Leste. Leste muda para o ♦J e você fica duas abaixo.</li>
+<li><strong>A finesse de corte:</strong> copas para o ás e depois a ♥Q. Se Leste cobrir, corte, e as copas restantes do morto cuidam dos seus ouros; se Leste jogar pequeno, descarte um ouro. Com as cartas como estão, você faz doze vazas.</li>
+</ul>
+<p>E se Oeste tivesse o ♥K? Então a finesse de corte perde, mas para Oeste, que não pode jogar ouros através do seu rei, e você já descartou um ouro sobre a ♥Q: ainda faz dez vazas. A finesse de corte cumpre o contrato não importa quem tenha o rei.</p>
+
+<h3>Perdedora sobre perdedora</h3>
+<p>Às vezes a melhor resposta a uma vaza que você vai perder de qualquer jeito não é cortá-la, mas descartar sobre ela uma perdedora de outro naipe. O número de vazas é o mesmo, porque uma perdedora substitui outra, mas você conserva os trunfos, o controle ou as entradas.</p>
+<div class="deal" data-n="S:542 H:9862 D:764 C:A83" data-e="S:J3 H:107 D:J532 C:K9642" data-s="S:AK10987 H:43 D:AKQ C:75" data-w="S:Q6 H:AKQJ5 D:1098 C:QJ10" data-caption="4♠ por Sul. Oeste bate o ♥A e o ♥K, Leste joga alto-baixo, e Oeste continua com a ♥Q."></div>
+<p>Leste corta a terceira copas com o ♠J. Se você sobrecortar, a ♠Q 6 de Oeste fica acima da sua única honra alta restante e a dama é promovida: você perde duas copas, um trunfo e um paus, uma abaixo. Em vez disso, descarte o seu paus perdedor. O valete de Leste ganha a vaza, mas os seus trunfos continuam intactos: o ás e o rei capturam a dama de Oeste, e a perdedora de paus já foi embora. Dez vazas.</p>
+<p>Outros usos comuns:</p>
+<ul>
+<li><strong>Manter o controle:</strong> quando a defesa joga um naipe que você teria de cortar na mão longa, descartar uma perdedora preserva o seu comprimento de trunfo (veja a lição “O manejo dos trunfos”).</li>
+<li><strong>Firmar um naipe:</strong> com ♦Q J 10 9 no morto, nenhum ouro na mão e sem o ás e o rei, jogue a dama e depois o valete, descartando uma perdedora a cada vez. Você entrega duas vazas que perderia de qualquer jeito, e o 10 e o 9 agora são vencedores.</li>
+<li><strong>Uma jogada de entrega:</strong> o defensor que ganha uma vaza de perdedora sobre perdedora pode ser obrigado a jogar na sua forquilha ou a lhe dar corte e descarte (veja a lição “Introdução aos squeezes e às jogadas de entrega”).</li>
+</ul>
+
+<h3>Firmar um naipe cortando</h3>
+<p>Um naipe lateral longo no morto pode ser <strong>firmado com cortes</strong>: corte as cartas pequenas dele na sua mão até que a defesa não tenha mais nenhuma, e o resto do naipe fornece descartes. Cada corte precisa de uma entrada para voltar ao morto, e no fim você precisa de mais uma para bater as cartas longas, então conte as entradas antes de começar.</p>
+<table>
+<thead><tr><th>Morto</th><th>Sua mão</th><th>Divisão</th><th>Cortes necessários</th><th>Cartas longas</th></tr></thead>
+<tbody>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>3-3</td><td>1</td><td>3</td></tr>
+<tr><td>A K 6 5 4 2</td><td>3</td><td>4-2</td><td>2</td><td>2</td></tr>
+<tr><td>A 6 5 4 3</td><td>7</td><td>4-3</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+<div class="deal" data-n="S:K85 H:A6543 D:K52 C:64" data-e="S:6 H:K98 D:876 C:QJ10987" data-s="S:AQJ10932 H:7 D:A43 C:A5" data-w="S:74 H:QJ102 D:QJ109 C:K32" data-caption="6♠ por Sul. Oeste sai com a ♦Q."></div>
+<p>Você tem onze vazas garantidas: sete espadas, o ♥A, o ♦A K e o ♣A. A décima segunda tem de vir das copas do morto, que precisam de três cortes se estiverem 4-3; então você precisa de três entradas no morto depois do ♥A: o ♠8, o ♠K e o ♦K.</p>
+<ol>
+<li>Ganhe a ♦Q com o <strong>ás</strong>, para conservar o ♦K do morto como entrada.</li>
+<li>Jogue copas para o ás e corte uma copas com o ♠9.</li>
+<li>Jogue o ♠2 para o 8 do morto e corte outra copas com o ♠10.</li>
+<li>Jogue o ♠3 para o rei e corte uma terceira copas com o ♠J. Agora a defesa não tem mais copas nem trunfos.</li>
+<li>Entre no morto com o ♦K e bata a quinta copas, descartando o seu paus perdedor. Você perde só um ouro.</li>
+</ol>
+<p>Se você ganhar a primeira vaza com o rei do morto, ou tirar duas rodadas de trunfo antes de começar, fica faltando uma entrada: o slam cai.</p>
+<div class="tip">Planeje as entradas antes de tocar no naipe: uma para cada corte, mais uma para bater as cartas longas. Os trunfos do morto costumam ser as entradas, então jogue os seus trunfos pequenos para eles e corte com os altos.</div>
+<div class="warn">Corte alto sempre que um defensor possa ter ficado sem o naipe e possa sobrecortar.</div>
+`,
+    keyPoints: [
+      'A finesse de corte joga uma honra através do defensor que pode ter a carta que falta: se ele cobrir, você corta; se não, descarta uma perdedora.',
+      'Com A Q J 10 contra um singleton, escolha entre a finesse comum e a de corte perguntando para qual defensor você pode perder.',
+      'Perdedora sobre perdedora: descarte uma perdedora em vez de cortar quando o corte lhe custaria uma vaza de trunfo, o controle ou uma entrada.',
+      'Para firmar um naipe cortando, você precisa de uma entrada para cada corte e mais uma para bater as cartas longas.',
+      'Use os trunfos do morto como entradas; não tire os trunfos antes de usá-los.',
+    ],
+    quiz: [
+      {
+        q: 'O morto tem ♦K Q J 10 e você não tem ouros. Você joga o ♦K e Leste joga pequeno. O que faz?',
+        options: ['Corto', 'Descarto uma perdedora', 'Descarto uma vencedora', 'Prefiro jogar outro naipe'],
+        answer: 1,
+        explain: 'É a finesse de corte. Se o rei ganhar, você economizou uma vaza; se Oeste o tomar com o ás, você apenas trocou uma perdedora por outra, e Q J 10 são vencedoras.',
+      },
+      {
+        q: 'Você tem ♥A Q J 10 no morto contra um singleton. Quando a finesse de corte (o ás e depois a dama) funciona?',
+        options: ['Quando Oeste tem o rei', 'Quando Leste tem o rei', 'Sempre que as copas estiverem 3-3', 'Sempre'],
+        answer: 1,
+        explain: 'A dama é jogada através de Leste: Leste cobre e você corta, ou Leste cede e a dama ganha. A finesse comum, em direção ao A Q, é a que funciona quando Oeste tem o rei.',
+      },
+      {
+        q: 'Na mão de 4♠ acima, por que a finesse de corte é melhor que a finesse comum?',
+        options: ['Funciona mais vezes', 'Se falhar, perde para Oeste, que não pode atacar o seu ♦K', 'Economiza uma entrada', 'Tira os trunfos ao mesmo tempo'],
+        answer: 1,
+        explain: 'Cada finesse funciona metade das vezes, mas a comum perde para Leste, que pode jogar ouros através do seu rei. Se a finesse de corte falhar, Oeste fica na mão e você já descartou um ouro.',
+      },
+      {
+        q: 'Na mão de perdedora sobre perdedora, Leste corta a terceira copas com o ♠J. O que você faz?',
+        options: ['Sobrecorto com o ás', 'Sobrecorto com o rei', 'Descarto o paus perdedor', 'Descarto um ouro'],
+        answer: 2,
+        explain: 'Sobrecortar promove a ♠Q 6 de Oeste a uma vaza. Descartar o paus, que era perdedor de qualquer jeito, deixa os seus trunfos intactos, e o ás e o rei depois capturam a dama.',
+      },
+      {
+        q: 'O morto tem ♥A 6 5 4 3 e você um singleton. As copas da defesa estão 4-3. Quantas vezes você precisa cortar antes que a última copas do morto seja vencedora?',
+        options: ['Uma', 'Duas', 'Três', 'Quatro'],
+        answer: 2,
+        explain: 'Depois do ás, a defesa ainda tem cinco copas, três numa mão. Você precisa cortar três rodadas e de uma entrada no morto depois de cada corte.',
       },
     ],
   },
@@ -681,6 +885,93 @@ export const LESSONS_3: Lesson[] = [
     ],
   },
   {
+    id: 'dummy-reversal-and-trump-coup',
+    title: 'O morto invertido e o golpe de trunfo',
+    topic: 'Declarer play',
+    level: 'Advanced',
+    summary: 'Duas jogadas que cortam de propósito na mão longa de trunfo: fazer os trunfos do morto tirarem os da defesa, e encurtar os próprios trunfos para fazer a finesse quando o morto não tem mais trunfo para jogar.',
+    body: `
+<h3>Cortar na mão longa</h3>
+<p>A lição “O manejo dos trunfos” explica que os cortes na mão curta de trunfo ganham vazas e os cortes na mão longa normalmente não. Duas técnicas invertem essa regra. No <strong>morto invertido</strong> você corta tantas vezes na mão que os trunfos do morto assumem a tarefa de tirar os trunfos. No <strong>golpe de trunfo</strong> você corta para encurtar os seus trunfos, de modo a capturar uma honra de trunfo de um defensor sem jogar trunfo.</p>
+
+<h3>O morto invertido</h3>
+<p>Com cinco trunfos na mão e três no morto, você normalmente faz cinco vazas de trunfo. Corte três vezes na mão e depois tire os trunfos com os três do morto, e você faz seis: três cortes mais três rodadas de trunfo a partir do morto. O morto virou a mão principal, e os seus cortes agora são cortes na mão curta.</p>
+<div class="deal" data-n="S:KQJ H:A654 D:853 C:K42" data-e="S:532 H:10872 D:964 C:973" data-s="S:A10987 H:3 D:A72 C:AQJ10" data-w="S:64 H:KQJ9 D:KQJ10 C:865" data-caption="6♠ por Sul. Oeste sai com o ♦K."></div>
+<p><strong>Conte:</strong> cinco espadas, o ♥A, o ♦A e quatro paus somam onze vazas. O morto não pode cortar nada, porque tem tantos ouros e paus quanto você, e as suas duas perdedoras de ouros não têm para onde ir.</p>
+<p><strong>Inverta o morto:</strong> corte na mão as três copas pequenas do morto e deixe que ♠K Q J tirem os trunfos. As entradas no morto são o ♥A, o ♠K, a ♠Q e o ♣K.</p>
+<ol>
+<li>Ganhe com o ♦A e jogue copas para o ás.</li>
+<li>Corte uma copas e jogue uma espada pequena para o rei.</li>
+<li>Corte uma copas e jogue espadas para a dama.</li>
+<li>Corte a última copas com o ♠A e entre no morto com paus para o rei.</li>
+<li>Tire o último trunfo com o ♠J, descartando um ouro, e faça o resto dos paus.</li>
+</ol>
+<p>Seis vazas de trunfo (três cortes e três rodadas a partir do morto), o ♥A, o ♦A e quatro paus somam doze. O plano precisa de trunfos 3-2, para que os três trunfos do morto consigam tirá-los, e precisa de todas as entradas. Por isso só uma saída de trunfo derrota o 6♠: ela tira uma rodada de trunfo antes que os cortes comecem, e falta uma entrada ao declarante.</p>
+<div class="tip">O teste do morto invertido: some os cortes que você pode dar na mão ao comprimento de trunfo do morto. Se o total passar do seu próprio comprimento de trunfo, e os trunfos do morto forem fortes o bastante para tirar os da defesa, inverter o morto ganha uma vaza.</div>
+
+<h3>O golpe de trunfo</h3>
+<p>Às vezes um defensor tem uma honra de trunfo atrás da sua forquilha, como ♠K x atrás do seu ♠A Q, e o morto não tem mais trunfo para jogar através dela. Você não pode fazer a finesse jogando trunfo você mesmo. Mas, se o morto jogar no fim da mão, quando o defensor só tem trunfos, o defensor tem de jogar um <em>antes</em> de você, e a finesse funciona sem trunfo no morto. Isso é um <strong>golpe de trunfo</strong>. Para que funcione, você precisa antes encurtar os seus trunfos cortando, até não ter mais do que o defensor.</p>
+<div class="deal" data-n="S:54 H:AK76 D:AKQJ C:765" data-e="S:K876 H:QJ9 D:10985 C:32" data-s="S:AQJ1093 H:54 D:7632 C:4" data-w="S:2 H:10832 D:4 C:AKQJ1098" data-caption="6♠ por Sul. Oeste bate o ♣A e muda para o ♥10."></div>
+<p>Você não pode perder mais nada. Ganhe com o ♥A e jogue espadas: Leste joga pequeno e o seu 9 ganha. Entre no morto com o ♦A e repita a finesse: o 10 ganha e Oeste descarta. Leste começou com quatro trunfos e ainda tem ♠K 8 atrás do seu ♠A Q J 3, e o morto não tem mais espadas. Se você bater o ás agora, o rei de Leste faz vaza: uma abaixo.</p>
+<p>Em vez disso, encurte os seus trunfos. Você tem quatro contra dois de Leste, então precisa cortar duas vezes:</p>
+<ol>
+<li>Entre no morto com o ♦K, bata o ♥K e corte um paus com o ♠3.</li>
+<li>Entre no morto com a ♦Q e corte uma copas com o ♠J. Agora você tem ♠A Q, tantos trunfos quanto Leste.</li>
+<li>Entre no morto com o ♦J; Leste serve. Na décima segunda vaza, o morto joga.</li>
+</ol>
+<p>Corte um paus e uma copas, não dois paus: assim Leste tem de servir toda vez e nunca consegue um descarte livre. Se conseguisse, descartaria um ouro e mais tarde cortaria uma das vencedoras de ouros do morto.</p>
+<div class="deal" data-n="S:- H:6 D:- C:6" data-e="S:K8 H:- D:- C:-" data-s="S:AQ H:- D:- C:-" data-w="S:- H:- D:- C:KQ" data-caption="As duas últimas vazas. Espadas é trunfo e o morto joga."></div>
+<p>Leste só tem trunfos e tem de jogar um antes de você: o ♠8, e você ganha com a dama, ou o ♠K, e você ganha com o ás. Doze vazas.</p>
+<h4>O que um golpe de trunfo exige</h4>
+<ul>
+<li><strong>Não ter mais trunfos que o defensor</strong> no fim: encurte os seus cortando, se preciso até cortando vencedoras do morto (isso se chama <em>grand coup</em>).</li>
+<li><strong>Entradas no morto</strong> para cada finesse de trunfo, cada corte e a última saída.</li>
+<li><strong>O momento certo:</strong> quando chega o golpe, o defensor só pode ter trunfos. Contar a mão dele diz quando.</li>
+</ul>
+<div class="warn">Encurte os seus trunfos só quando souber que precisa. Se os trunfos estivessem 3-3, o ás derrubaria o rei, e cortar na mão só desperdiçaria trunfos. Aqui, o descarte de Oeste na segunda rodada lhe disse que Leste tinha quatro.</div>
+`,
+    keyPoints: [
+      'No morto invertido você corta tantas vezes na mão longa de trunfo que os trunfos do morto tiram os da defesa.',
+      'Ganha quando os cortes na mão mais o comprimento de trunfo do morto superam o seu próprio comprimento de trunfo; exige bons trunfos no morto e entradas.',
+      'O golpe de trunfo captura uma honra de trunfo de um defensor sem jogar trunfo: o morto joga e o defensor tem de jogar primeiro.',
+      'Antes de um golpe de trunfo, encurte os seus trunfos cortando até não ter mais que o defensor.',
+      'Conte primeiro os trunfos do defensor; o golpe só é necessário quando a divisão é ruim.',
+    ],
+    quiz: [
+      {
+        q: 'O que é o morto invertido?',
+        options: ['Cortar no morto as perdedoras do morto', 'Cortar na sua própria mão longa de trunfo vezes suficientes para que os trunfos do morto tirem os da defesa', 'Deixar o morto jogar a mão', 'Mudar para sem trunfo'],
+        answer: 1,
+        explain: 'Os papéis das mãos se invertem: os seus trunfos servem para cortar, e os trunfos do morto, mais curtos mas fortes, tiram os da defesa.',
+      },
+      {
+        q: 'Você tem cinco trunfos e o morto três fortes. Quantos cortes na mão você precisa para que o morto invertido ganhe uma vaza?',
+        options: ['Um', 'Dois', 'Três', 'Cinco'],
+        answer: 2,
+        explain: 'Três cortes mais três rodadas de trunfo a partir do morto somam seis vazas de trunfo, uma a mais que os seus cinco.',
+      },
+      {
+        q: 'Na mão de morto invertido acima, qual saída derrota o 6♠?',
+        options: ['O ♦K', 'Uma copas', 'Um trunfo', 'Um paus'],
+        answer: 2,
+        explain: 'Uma saída de trunfo tira uma rodada de trunfo antes que o declarante possa começar a cortar, e depois falta-lhe uma entrada para completar a inversão.',
+      },
+      {
+        q: 'O que você precisa fazer antes de um golpe de trunfo?',
+        options: ['Tirar todos os trunfos da defesa', 'Encurtar os seus trunfos cortando até não ter mais que o defensor', 'Guardar um trunfo no morto', 'Jogar a sua forquilha de trunfo'],
+        answer: 1,
+        explain: 'No fim, o defensor só pode ter trunfos e você não pode ter mais trunfos que ele, para que a saída do morto o obrigue a jogar antes de você.',
+      },
+      {
+        q: 'No final do golpe de trunfo acima, por que o rei de Leste não faz vaza?',
+        options: ['Leste tem de jogar um trunfo antes de você, e você joga por cima', 'O rei já tinha sido jogado', 'Oeste tem o rei', 'Leste está em squeeze em copas'],
+        answer: 0,
+        explain: 'O morto joga e a Leste só restam ♠K 8. Jogue o que jogar, você ganha com a carta imediatamente superior.',
+      },
+    ],
+  },
+
+  {
     id: 'counting-on-defense',
     title: 'Contando na defesa',
     topic: 'Defense',
@@ -859,6 +1150,114 @@ export const LESSONS_3: Lesson[] = [
         options: ['Nunca sai', 'Porque, se cumprir, os pontos de vaza dobrados podem chegar ao game: 2♥ dobrado vale 470 ou 670', 'Porque os adversários ganham um bônus por serem dobrados', 'Porque você tem de sair de trunfo'],
         answer: 1,
         explain: 'Dobrado, 2♥ tem 120 pontos de vaza, o que conta como game. Espere derrubar um parcial antes de dobrá-lo.',
+      },
+    ],
+  },
+
+  {
+    id: 'leads-against-slams-and-doubles',
+    title: 'Saídas contra slams e contratos dobrados',
+    topic: 'Defense',
+    level: 'Advanced',
+    summary: 'Como escolher a saída contra slams, contra contratos dobrados e sacrifícios, e como o parceiro pode pedir uma saída com um dobre.',
+    body: `
+<h3>Contra slams em sem trunfo: não entregue nada</h3>
+<p>Quando os adversários marcam 6ST ou 7ST, têm juntos uns 33 PH ou mais, e o seu lado tem muito pouco. Raramente haverá tempo para firmar um naipe longo, então o seu trabalho é não entregar uma vaza ao declarante. Faça a saída mais segura possível: o topo de uma sequência ou um naipe sem honras. Não saia debaixo de um rei ou de uma dama: contra um slam, isso costuma ser a décima segunda vaza.</p>
+<div class="hand" data-cards="S:K1074 H:Q963 D:872 C:J3" data-label="Na saída contra 1ST – 6ST"></div>
+<p>Saia com o ♦8, a mais alta de três pequenas. Uma espada ou uma copas poderiam dar uma vaza ao declarante com honras que você não vê; o ouro não entrega nada, e o seu ♠K e a sua ♥Q ainda podem fazer vaza se o declarante precisar encontrá-los.</p>
+
+<h3>Contra slams em naipe: atacar ou esperar?</h3>
+<p>Contra seis num naipe você faz a mesma pergunta que contra qualquer contrato em naipe (veja a lição “A defesa contra contratos em naipe”), mas precisa de duas vazas e só tem uma saída.</p>
+<ul>
+<li><strong>Ataque</strong> quando o leilão mostrar um naipe lateral longo que vai fornecer descartes. Saia debaixo de um rei (ou de uma dama) num naipe não marcado, na esperança de que o parceiro tenha o ás ou a dama, para firmar uma vaza antes que cheguem os descartes.</li>
+<li><strong>Seja passivo</strong> quando os adversários parecerem ter marcado pela força, com mãos balanceadas e sem naipe lateral longo. O declarante tem então de encontrar doze vazas sozinho, e uma saída segura, muitas vezes de trunfo, não entrega nada.</li>
+<li><strong>Um singleton</strong> vale a pena quando o parceiro pode ter um ás: ele ganha e lhe dá um corte.</li>
+</ul>
+<div class="hand" data-cards="S:K852 H:74 D:9643 C:Q93" data-label="Na saída contra 6♥; o morto mostrou um naipe de paus longo e forte"></div>
+<p>Saia com o ♠2. Depois de tirar os trunfos, o declarante vai descartar perdedoras nos paus do morto, então a defesa precisa firmar as suas vazas antes. Uma espada debaixo do rei pode encontrar o parceiro com o ás ou a dama e construir uma vaza a tempo. Um ouro seria seguro, mas lento demais.</p>
+<h4>Sair de ás</h4>
+<p>Saia com um ás sem o rei contra um slam em naipe quando o morto tiver mostrado um naipe lateral longo, de modo que o naipe do seu ás possa desaparecer nos descartes, ou quando você tiver boas chances de uma segunda vaza, como uma vaza de trunfo ou um rei situado atrás do naipe do declarante. Caso contrário, guarde-o: o ás fará a sua vaza mais tarde, enquanto sair com ele pode firmar o rei e a dama do declarante. Contra 6ST um ás é uma vaza garantida, então não há pressa em jogá-lo.</p>
+<p>Contra um grand slam, faça a saída mais segura que tiver, muitas vezes de trunfo: o declarante precisa de todas as vazas, então qualquer vaza que você entregar é fatal.</p>
+
+<h3>Dobres de saída</h3>
+<p>Quando um adversário faz uma voz artificial, o dobre do jogador seguinte geralmente não tem nada de punitivo: pede ao parceiro que saia naquele naipe.</p>
+<table>
+<thead><tr><th>O parceiro dobra</th><th>Significado</th></tr></thead>
+<tbody>
+<tr><td>Stayman: 1ST – 2♣</td><td>Saia de paus: o parceiro tem um bom naipe de paus</td></tr>
+<tr><td>Um transfer: 1ST – 2♦</td><td>Saia de ouros</td></tr>
+<tr><td>Um cue-bid ou voz de controle, como 4♣ a caminho de um slam em copas</td><td>Saia de paus</td></tr>
+<tr><td>Uma resposta ao Blackwood, como 5♦</td><td>Saia de ouros</td></tr>
+</tbody>
+</table>
+<p>A ausência de dobre também informa: se o parceiro podia ter dobrado um cue-bid de 4♦ e não dobrou, provavelmente não quer saída de ouros.</p>
+<div class="auction" data-calls="1NT P 2C X 2H P 4H P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:Q1084 H:75 D:K963 C:842" data-label="Oeste: na saída contra 4♥"></div>
+<p>Sem o dobre, você talvez saísse de espadas ou de ouros, ambas debaixo de uma honra. O dobre de Leste no Stayman pediu paus, então saia com o ♣8, a mais alta de três pequenas. Leste tem um bom naipe de paus, e você não precisa abrir os seus outros naipes.</p>
+
+<h3>Saídas contra contratos dobrados</h3>
+<table>
+<thead><tr><th>Situação</th><th>Saída</th></tr></thead>
+<tbody>
+<tr><td>O parceiro dobra 3ST depois de ter marcado um naipe</td><td>O naipe do parceiro</td></tr>
+<tr><td>O parceiro dobra 3ST; você marcou um naipe e ele não</td><td>O seu naipe</td></tr>
+<tr><td>O parceiro dobra 3ST; nenhum de vocês marcou</td><td>O primeiro naipe marcado pelo morto</td></tr>
+<tr><td>O parceiro dobra um slam</td><td>Uma saída incomum (veja abaixo)</td></tr>
+<tr><td>O seu lado dobrou o sacrifício deles</td><td>Geralmente trunfo</td></tr>
+<tr><td>O parceiro passa o seu dobre informativo para punir</td><td>Trunfo</td></tr>
+</tbody>
+</table>
+<p>Por que trunfo contra um sacrifício? O lado que se sacrifica tem poucas cartas altas e espera fazer as suas vazas cortando; o seu lado tem as cartas altas, que farão as suas vazas de qualquer jeito. Cada rodada de trunfo elimina cortes. Esses significados são acordos comuns: confirme que o seu parceiro também os usa.</p>
+
+<h3>O dobre Lightner</h3>
+<p>Dobrar para punir um slam marcado livremente rende pouco. O 6♠ uma abaixo vale 50 ou 100 a mais dobrado do que sem dobre, mas, se for cumprido, o dobre custa 230, muito mais se redobrarem, e avisa o declarante de uma divisão ruim. Por isso, por uma convenção que leva o nome de Theodore Lightner, o dobre de um slam feito pelo jogador que <em>não</em> está na saída pede uma <strong>saída incomum</strong>:</p>
+<ul>
+<li>não de trunfo, nem de um naipe não marcado, pois é isso que você sairia de qualquer jeito;</li>
+<li>geralmente o primeiro naipe lateral marcado pelo morto, muitas vezes porque o parceiro tem vazio nele;</li>
+<li>se o parceiro marcou um naipe, o dobre também diz: não saia no meu naipe.</li>
+</ul>
+<div class="auction" data-calls="1S P 2H P 3S P 4NT P 5H P 6S X P P P" data-dealer="S"></div>
+<div class="hand" data-cards="S:73 H:84 D:QJ109 C:K8652" data-label="Oeste: na saída depois do dobre de Leste"></div>
+<p>A sua saída normal seria a ♦Q. O dobre de Leste pede algo incomum: o primeiro naipe marcado pelo morto, copas. Saia com o ♥8. Leste provavelmente tem vazio em copas e vai cortar, e então a defesa só precisa de mais uma vaza.</p>
+<div class="warn">Não faça um dobre de saída só porque tem cartas altas no naipe. Dobre quando quiser mesmo aquela saída, e lembre-se de que os adversários também podem aproveitar o dobre: podem redobrar ou simplesmente evitar o contrato.</div>
+`,
+    keyPoints: [
+      'Contra 6ST e 7ST, saia com segurança: não saia debaixo de honras.',
+      'Contra um slam em naipe, ataque (muitas vezes debaixo de um rei) quando o morto tiver um naipe longo para descartes; caso contrário, seja passivo.',
+      'Saia de ás contra um slam quando ele puder desaparecer nos descartes ou você esperar uma segunda vaza; caso contrário, guarde-o.',
+      'O dobre de uma voz artificial como o Stayman, um transfer ou um cue-bid pede a saída naquele naipe.',
+      'O dobre Lightner de um slam pede uma saída incomum, geralmente o primeiro naipe lateral do morto; contra um sacrifício dobrado, saia de trunfo.',
+    ],
+    quiz: [
+      {
+        q: 'Você está na saída contra 1ST – 6ST com ♠K 10 7 4 ♥Q 9 6 3 ♦8 7 2 ♣J 3. Com que carta sai?',
+        options: ['♠4', '♥3', '♦8', '♣J'],
+        answer: 2,
+        explain: 'Contra um slam em sem trunfo, saia com segurança. O ♦8 não entrega nada; sair debaixo do rei, da dama ou do valete pode dar ao declarante a décima segunda vaza.',
+      },
+      {
+        q: 'Os adversários marcam 6♥ depois que o morto mostrou um naipe de paus longo e forte. Que tipo de saída costuma ser o certo?',
+        options: ['Passiva: um trunfo', 'De ataque: debaixo de um rei num naipe não marcado, para firmar uma vaza antes que o declarante possa descartar', 'Um paus, para cortar a comunicação com o morto', 'Sempre um ás'],
+        answer: 1,
+        explain: 'Depois de tirar os trunfos, as perdedoras do declarante irão embora nos paus do morto. A defesa precisa construir as suas vazas antes.',
+      },
+      {
+        q: 'Os adversários marcam 1ST – 2♣ (Stayman) e o parceiro dobra. O que o dobre pede?',
+        options: ['Punição em 2♣', 'Saída de paus', 'Que você marque um naipe rico', 'Mostra uma mão balanceada forte'],
+        answer: 1,
+        explain: 'O 2♣ é artificial, então o dobre é de saída: o parceiro tem um bom naipe de paus e quer que você saia nele.',
+      },
+      {
+        q: 'O parceiro faz um dobre Lightner de 6♠. O morto marcou copas e você tem duas copas e ♦Q J 10 9. Com que carta sai?',
+        options: ['A ♦Q', 'Uma copas', 'Um trunfo', 'Um paus'],
+        answer: 1,
+        explain: 'O dobre pede uma saída incomum, geralmente o primeiro naipe lateral do morto. O parceiro provavelmente tem vazio em copas.',
+      },
+      {
+        q: 'Você dobrou o sacrifício de 5♦ dos adversários. Qual costuma ser a melhor saída?',
+        options: ['Trunfo', 'O seu naipe mais longo', 'Um ás, para ver o morto', 'Um singleton'],
+        answer: 0,
+        explain: 'O lado que se sacrifica tem poucas cartas altas e faz as suas vazas cortando. As saídas de trunfo eliminam esses cortes, e as suas cartas altas farão as suas vazas de qualquer jeito.',
       },
     ],
   },
