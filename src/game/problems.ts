@@ -26,6 +26,7 @@ import { openingLeadChoices } from '../engine/leads';
 import { dealForTheme, systemAuction } from './themes';
 import { type ReviewItem, type SimVerdict, encodeDeal, decodeDeal } from './journal';
 import { type SkillId, cardSkill } from './skills';
+import { STARTER_PROBLEMS } from './starterProblems';
 
 export type ProblemKind = 'declarer' | 'defense' | 'lead';
 export const PROBLEM_KINDS: ProblemKind[] = ['declarer', 'defense', 'lead'];
@@ -555,7 +556,9 @@ const emptyScore = (): Record<ProblemKind, KindScore> => ({ declarer: { done: 0,
 function readStore(): ProblemStore {
   try {
     const raw = localStorage.getItem(KEY);
-    const s = raw ? (JSON.parse(raw) as ProblemStore) : null;
+    // a new player starts with the ready-made problems
+    if (raw === null) return { v: 1, bank: STARTER_PROBLEMS.map(p => ({ ...p, created: Date.now() })), score: emptyScore() };
+    const s = JSON.parse(raw) as ProblemStore;
     if (s && s.v === 1 && Array.isArray(s.bank)) return { v: 1, bank: s.bank.filter(validProblem), score: { ...emptyScore(), ...(s.score ?? {}) } };
   } catch {
     /* fall through */

@@ -135,7 +135,7 @@ test('problems: solve a ready problem, a miss goes to review, then the next one 
 test('lesson quiz progress is saved', async ({ page }) => {
   const errors = await open(page);
   await page.locator('header button', { hasText: 'Learn' }).click();
-  await page.locator('.lessons-list button', { hasText: 'Finesses' }).click();
+  await page.locator('.lessons-list button', { hasText: /^(✓ )?Finesses/ }).click();
   const questions = page.locator('.quiz .q');
   const n = await questions.count();
   expect(n).toBeGreaterThan(2);
@@ -143,7 +143,7 @@ test('lesson quiz progress is saved', async ({ page }) => {
   await expect(page.locator('.quizscore')).toBeVisible();
   await page.reload();
   await page.locator('header button', { hasText: 'Learn' }).click();
-  await page.locator('.lessons-list button', { hasText: 'Finesses' }).click();
+  await page.locator('.lessons-list button', { hasText: /^(✓ )?Finesses/ }).click();
   await expect(page.locator('.quizscore')).toBeVisible();
   expect(errors).toEqual([]);
 });

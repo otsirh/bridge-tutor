@@ -9,6 +9,7 @@ import {
   decisive, generateProblem, problemPosition, validProblem, problemReviewItem, humanSeat, DEFAULT_RULES, LEAD_RULES, DEFENCE_RULES,
   addToBank, loadBank, removeFromBank, pickProblem, bankCounts, recordScore, loadScore, BANK_SIZE, ProblemFactory, partnerBidASuit,
 } from '../src/game/problems';
+import { STARTER_PROBLEMS } from '../src/game/starterProblems';
 import { readAuction } from '../src/bidding/engine';
 
 const C = (s: string) => parseCard(s);
@@ -202,7 +203,18 @@ describe('stored problems', () => {
     expect(p.legal()).toContain(item.answer[0]);
   });
 
+  it('a new player starts with the ready-made problems, all valid', () => {
+    const bank = loadBank();
+    expect(bank.length).toBe(STARTER_PROBLEMS.length);
+    for (const k of ['declarer', 'defense', 'lead'] as const) expect(bankCounts(bank)[k]).toBeGreaterThan(0);
+    for (const pr of STARTER_PROBLEMS) {
+      expect(validProblem(pr), pr.id).toBe(true);
+      expect(new Set(STARTER_PROBLEMS.map(x => x.id)).size).toBe(STARTER_PROBLEMS.length);
+    }
+  });
+
   it('the bank keeps the newest problems of each kind and serves mixed problems in turn', () => {
+    localStorage.setItem('bridge-tutor.problems.v1', JSON.stringify({ v: 1, bank: [], score: {} })); // a player who has used them up
     for (let i = 0; i < BANK_SIZE + 2; i++) addToBank(leadProblem(10 + i, `lead${i}`));
     expect(bankCounts().lead).toBe(BANK_SIZE);
     expect(loadBank().map(p => p.id)).not.toContain('lead0');
